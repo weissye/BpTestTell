@@ -1,7 +1,7 @@
 //@provengo summon rest
 // === Auto-generated interfaces for trello ===
 var host = (typeof host !== 'undefined') ? host : 'localhost';
-var port = (typeof port !== 'undefined') ? port : 3000;
+var port = (typeof port !== 'undefined') ? port : 8000;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
 const pvg = {
@@ -11,209 +11,282 @@ const pvg = {
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function deleteActionsByIdAction(field, fields, idAction, key, text, token) {
+function deleteActionsByIdAction(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction;
-  var description = "deleteActionsByIdAction()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteActionsByIdAction() " + idAction;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getActionsByIdActionByField(field, fields, idAction, key, text, token) {
+function getActionsByIdActionByField(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/" + field;
-  var description = "getActionsByIdActionByField()";
+  var description = "getActionsByIdActionByField() " + idAction;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateActionsTextByIdAction(field, fields, idAction, key, text, token) {
+function updateActionsTextByIdAction(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/text";
-  var description = "updateActionsTextByIdAction()";
+  var description = "updateActionsTextByIdAction() " + idAction;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "text": String(text),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "fields": fields, "idAction": idAction, "key": key, "text": text, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "fields": fields, "id": id, "idAction": idAction, "key": key, "text": text, "token": token}) });
 }
 
-function getActionsBoardByIdAction(field, fields, idAction, key, text, token) {
+function getActionsBoardByIdAction(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/board";
-  var description = "getActionsBoardByIdAction()";
+  var description = "getActionsBoardByIdAction() " + idAction;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getActionsBoardByIdActionByField(field, fields, idAction, key, text, token) {
+function getActionsBoardByIdActionByField(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/board/" + field;
-  var description = "getActionsBoardByIdActionByField()";
+  var description = "getActionsBoardByIdActionByField() " + idAction;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getActionsCardByIdAction(field, fields, idAction, key, text, token) {
+function getActionsCardByIdAction(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/card";
-  var description = "getActionsCardByIdAction()";
+  var description = "getActionsCardByIdAction() " + idAction;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getActionsCardByIdActionByField(field, fields, idAction, key, text, token) {
+function getActionsCardByIdActionByField(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/card/" + field;
-  var description = "getActionsCardByIdActionByField()";
+  var description = "getActionsCardByIdActionByField() " + idAction;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getActionsListByIdAction(field, fields, idAction, key, text, token) {
+function getActionsListByIdAction(field, fields, id, idAction, key, text, token) {
   var url = "/actions/" + idAction + "/list";
-  var description = "getActionsListByIdAction()";
+  var description = "getActionsListByIdAction() " + idAction;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyActionsExists generated: Primary Key "idAction" is not in POST body (Server-Generated ID).
+function verifyActionsExists(field, fields, id, idAction, key, text, token) {
+  var url = "/actions/" + idAction + "/" + field;
+  var description = "Verify Actions " + idAction + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Actions found");
+}
+
+function verifyActionsDoesNotExist(field, fields, id, idAction, key, text, token) {
+  var url = "/actions/" + idAction + "/" + field;
+  var description = "Verify Actions " + idAction + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Actions not found");
+}
+
+function tryToDeleteANonExistingActions(field, fields, id, idAction, key, text, token) {
+  var url = "/actions/" + idAction;
+  var description = "Verify negative delete for Actions";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedActions(field, fields, id, idAction, key, text, token) {
+  return bp.EventSet("Delete Actions", function(e) {
+      return e.name === "Done: " + "deleteActionsByIdAction()";
+  });
+}
+
 function matchAnyActionsAdded() {
   return bp.EventSet("Any Actions Added", function(e) {
       return e.name.startsWith("Done: Create Actions");
   });
 }
 
-function getActionsMemberCreatorByIdAction(field, fields, idAction, key, token) {
-  var url = "/actions/" + idAction + "/memberCreator";
-  var description = "Retrieve the member creator of an action.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getActionsMemberCreatorByIdActionByField(field, fields, idAction, key, token) {
-  var url = "/actions/" + idAction + "/memberCreator/" + field;
-  var description = "Retrieve a specific field of the member creator of an action.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyActionsMemberCreatorExists generated: Primary Key "idAction" is not in POST body (Server-Generated ID).
-function matchAnyActionsMemberCreatorAdded() {
-  return bp.EventSet("Any ActionsMemberCreator Added", function(e) {
-      return e.name.startsWith("Done: Create ActionsMemberCreator");
-  });
-}
-
-function getActionsOrganizationByIdAction(field, fields, idAction, key, token) {
-  var url = "/actions/" + idAction + "/organization";
-  var description = "Retrieve the organization associated with an action.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getActionsOrganizationByIdActionByField(field, fields, idAction, key, token) {
-  var url = "/actions/" + idAction + "/organization/" + field;
-  var description = "Retrieve a specific field of the organization associated with an action.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyActionsOrganizationExists generated: Primary Key "idAction" is not in POST body (Server-Generated ID).
-function matchAnyActionsOrganizationAdded() {
-  return bp.EventSet("Any ActionsOrganization Added", function(e) {
-      return e.name.startsWith("Done: Create ActionsOrganization");
-  });
-}
-
 function getBatch(id, key, token, urls) {
   var url = "/batch";
-  var description = "getBatch()";
+  var description = "getBatch() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyBatchExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifyBatchExists skipped: No GET /{id} operation detected.
 function matchAnyBatchAdded() {
   return bp.EventSet("Any Batch Added", function(e) {
       return e.name.startsWith("Done: Create Batch");
   });
 }
 
-function addBoardsLabelsByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
-  var url = "/boards/" + idBoard + "/labels";
-  var description = "Add a new label to a specific board.";
+function addBoardsPowerUpsByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/powerUps";
+  var description = "addBoardsPowerUpsByIdBoard() " + idBoard;
   var body = {
-    "name": String(name),
-    "color": String(color),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "boards_subscribed": boards_subscribed, "checkItemStates": checkItemStates, "checklists": checklists, "color": color, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "since": since, "stickers": stickers, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "powerUp": String(powerUp),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idOrganization": idOrganization, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "powerUp": powerUp, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function getBoardsByIdBoardByField(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function getBoardsByIdBoardByField(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/" + field;
-  var description = "getBoardsByIdBoardByField()";
+  var description = "getBoardsByIdBoardByField() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateBoardsSubscribedByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function updateBoardsSubscribedByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/subscribed";
-  var description = "updateBoardsSubscribedByIdBoard()";
+  var description = "updateBoardsSubscribedByIdBoard() " + idBoard;
   var body = {
-    "boards_subscribed": String(boards_subscribed),
-  };
+    "id": id,
+    "key": String(key),
+    "subscribed": subscribed,
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "boards_subscribed": boards_subscribed, "checkItemStates": checkItemStates, "checklists": checklists, "color": color, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "since": since, "stickers": stickers, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idOrganization": idOrganization, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "powerUp": powerUp, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function getBoardsLabelsByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function getBoardsLabelsByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/labels";
-  var description = "Retrieve all labels for a specific board.";
+  var description = "getBoardsLabelsByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getBoardsCardsByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function getBoardsCardsByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/cards";
-  var description = "Retrieve cards for a specific board.";
+  var description = "getBoardsCardsByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getBoardsCardsByIdBoardByFilter(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function getBoardsCardsByIdBoardByFilter(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/cards/" + filter;
-  var description = "Retrieve cards for a specific board with a filter.";
+  var description = "getBoardsCardsByIdBoardByFilter() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateBoardsLabelNamesBlueByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function updateBoardsIdOrganizationByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/idOrganization";
+  var description = "updateBoardsIdOrganizationByIdBoard() " + idBoard;
+  var body = {
+    "id": id,
+    "idOrganization": String(idOrganization),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idOrganization": idOrganization, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "powerUp": powerUp, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
+}
+
+function updateBoardsLabelNamesBlueByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/labelNames/blue";
-  var description = "updateBoardsLabelNamesBlueByIdBoard()";
+  var description = "updateBoardsLabelNamesBlueByIdBoard() " + idBoard;
   var body = {
+    "id": id,
+    "key": String(key),
     "name": String(name),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "boards_subscribed": boards_subscribed, "checkItemStates": checkItemStates, "checklists": checklists, "color": color, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "since": since, "stickers": stickers, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idOrganization": idOrganization, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "powerUp": powerUp, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function updateBoardsLabelNamesGreenByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function updateBoardsLabelNamesGreenByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/labelNames/green";
-  var description = "updateBoardsLabelNamesGreenByIdBoard()";
+  var description = "updateBoardsLabelNamesGreenByIdBoard() " + idBoard;
   var body = {
+    "id": id,
+    "key": String(key),
     "name": String(name),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "boards_subscribed": boards_subscribed, "checkItemStates": checkItemStates, "checklists": checklists, "color": color, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "since": since, "stickers": stickers, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idOrganization": idOrganization, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "powerUp": powerUp, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function updateBoardsLabelNamesOrangeByIdBoard(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
+function updateBoardsLabelNamesOrangeByIdBoard(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
   var url = "/boards/" + idBoard + "/labelNames/orange";
-  var description = "updateBoardsLabelNamesOrangeByIdBoard()";
+  var description = "updateBoardsLabelNamesOrangeByIdBoard() " + idBoard;
   var body = {
+    "id": id,
+    "key": String(key),
     "name": String(name),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "boards_subscribed": boards_subscribed, "checkItemStates": checkItemStates, "checklists": checklists, "color": color, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "since": since, "stickers": stickers, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idOrganization": idOrganization, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "powerUp": powerUp, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-// No verifyBoardsExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
-function waitForBoardsAdded(actions, attachment_fields, attachments, before, boards_subscribed, checkItemStates, checklists, color, field, fields, filter, idBoard, key, limit, member_fields, members, name, since, stickers, token) {
-  waitFor(matchSuccess("Add a new label to a specific board."));
+function deleteBoardsPowerUpsByIdBoardByPowerUp(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/powerUps/" + powerUp;
+  var description = "deleteBoardsPowerUpsByIdBoardByPowerUp() " + idBoard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
+}
+
+function tryToAddExistingBoards(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/powerUps";
+  var description = "Try Add Existing Boards " + idBoard;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "powerUp": String(powerUp),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyBoardsExists(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/" + field;
+  var description = "Verify Boards " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Boards found");
+}
+
+function verifyBoardsDoesNotExist(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/" + field;
+  var description = "Verify Boards " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Boards not found");
+}
+
+function tryToDeleteANonExistingBoards(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  var url = "/boards/" + idBoard + "/powerUps/" + powerUp;
+  var description = "Verify negative delete for Boards";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedBoards(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  return bp.EventSet("Delete Boards", function(e) {
+      return e.name === "Done: " + "deleteBoardsPowerUpsByIdBoardByPowerUp()";
+  });
+}
+
+function waitForBoardsAdded(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idOrganization, key, limit, member_fields, members, name, powerUp, since, stickers, subscribed, token) {
+  waitFor(matchSuccess("addBoardsPowerUpsByIdBoard()"));
 }
 
 function matchAnyBoardsAdded() {
   return bp.EventSet("Any Boards Added", function(e) {
-      return e.name.startsWith("Done: Add a new label to a specific board.");
+      return e.name.startsWith("Done: addBoardsPowerUpsByIdBoard()");
   });
 }
 
-function getBoardsCardsByIdBoardByIdCard(action_fields, action_memberCreator_fields, actions, actions_display, actions_entities, actions_limit, attachment_fields, attachments, checkItemState_fields, checkItemStates, checklist_fields, checklists, fields, idBoard, idCard, key, labels, member_fields, members, token) {
+function getBoardsCardsByIdBoardByIdCard(action_fields, action_memberCreator_fields, actions, actions_display, actions_entities, actions_limit, attachment_fields, attachments, checkItemState_fields, checkItemStates, checklist_fields, checklists, fields, id, idBoard, idCard, key, labels, member_fields, members, token) {
   var url = "/boards/" + idBoard + "/cards/" + idCard;
-  var description = "Retrieve a specific card from a board by board ID and card ID.";
+  var description = "getBoardsCardsByIdBoardByIdCard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyBoardsCardsExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+function verifyBoardsCardsExists(action_fields, action_memberCreator_fields, actions, actions_display, actions_entities, actions_limit, attachment_fields, attachments, checkItemState_fields, checkItemStates, checklist_fields, checklists, fields, id, idBoard, idCard, key, labels, member_fields, members, token) {
+  var url = "/boards/" + idBoard + "/cards/" + idCard;
+  var description = "Verify BoardsCards " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsCards found");
+}
+
+function verifyBoardsCardsDoesNotExist(action_fields, action_memberCreator_fields, actions, actions_display, actions_entities, actions_limit, attachment_fields, attachments, checkItemState_fields, checkItemStates, checklist_fields, checklists, fields, id, idBoard, idCard, key, labels, member_fields, members, token) {
+  var url = "/boards/" + idBoard + "/cards/" + idCard;
+  var description = "Verify BoardsCards " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsCards not found");
+}
+
 function matchAnyBoardsCardsAdded() {
   return bp.EventSet("Any BoardsCards Added", function(e) {
       return e.name.startsWith("Done: Create BoardsCards");
@@ -222,162 +295,244 @@ function matchAnyBoardsCardsAdded() {
 
 function getBoardsChecklistsByIdBoard(card_fields, cards, checkItem_fields, checkItems, fields, filter, id, idBoard, idCard, key, name, pos, token) {
   var url = "/boards/" + idBoard + "/checklists";
-  var description = "List all checklists for a specific board by board ID.";
+  var description = "getBoardsChecklistsByIdBoard() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
 function addBoardsChecklistsByIdBoard(card_fields, cards, checkItem_fields, checkItems, fields, filter, id, idBoard, idCard, key, name, pos, token) {
   var url = "/boards/" + idBoard + "/checklists";
-  var description = "Add a new checklist to a specific board by board ID.";
+  var description = "addBoardsChecklistsByIdBoard() " + id;
   var body = {
+    "id": String(id),
+    "idCard": String(idCard),
+    "key": String(key),
     "name": String(name),
     "pos": String(pos),
-    "idCard": String(idCard),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"card_fields": card_fields, "cards": cards, "checkItem_fields": checkItem_fields, "checkItems": checkItems, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idCard": idCard, "key": key, "name": name, "pos": pos, "token": token}) });
 }
 
-// No verifyBoardsChecklistsExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifyBoardsChecklistsExists skipped: No GET /{id} operation detected.
 function waitForBoardsChecklistsAdded(card_fields, cards, checkItem_fields, checkItems, fields, filter, id, idBoard, idCard, key, name, pos, token) {
-  waitFor(matchSuccess("Add a new checklist to a specific board by board ID."));
+  waitFor(matchSuccess("addBoardsChecklistsByIdBoard()"));
 }
 
 function matchAnyBoardsChecklistsAdded() {
   return bp.EventSet("Any BoardsChecklists Added", function(e) {
-      return e.name.startsWith("Done: Add a new checklist to a specific board by board ID.");
+      return e.name.startsWith("Done: addBoardsChecklistsByIdBoard()");
   });
 }
 
-function updateBoardsClosedByIdBoard(idBoard, key, token, value) {
+function updateBoardsClosedByIdBoard(id, idBoard, key, token, value) {
   var url = "/boards/" + idBoard + "/closed";
-  var description = "Update the closed status of a specific board by board ID.";
+  var description = "updateBoardsClosedByIdBoard() " + idBoard;
   var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
     "value": value,
-  };
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "key": key, "token": token, "value": value}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "key": key, "token": token, "value": value}) });
 }
 
-// No verifyBoardsClosedExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+// verifyBoardsClosedExists skipped: No GET /{id} operation detected.
 function matchAnyBoardsClosedAdded() {
   return bp.EventSet("Any BoardsClosed Added", function(e) {
       return e.name.startsWith("Done: Create BoardsClosed");
   });
 }
 
-function getBoardsDeltasByIdBoard(idBoard, ixLastUpdate, key, tags, token) {
+function getBoardsDeltasByIdBoard(id, idBoard, ixLastUpdate, key, tags, token) {
   var url = "/boards/" + idBoard + "/deltas";
-  var description = "Retrieve deltas for a specific board by board ID.";
+  var description = "getBoardsDeltasByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyBoardsDeltasExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+function verifyBoardsDeltasExists(id, idBoard, ixLastUpdate, key, tags, token) {
+  var url = "/boards/" + idBoard + "/deltas";
+  var description = "Verify BoardsDeltas " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsDeltas found");
+}
+
+function verifyBoardsDeltasDoesNotExist(id, idBoard, ixLastUpdate, key, tags, token) {
+  var url = "/boards/" + idBoard + "/deltas";
+  var description = "Verify BoardsDeltas " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsDeltas not found");
+}
+
 function matchAnyBoardsDeltasAdded() {
   return bp.EventSet("Any BoardsDeltas Added", function(e) {
       return e.name.startsWith("Done: Create BoardsDeltas");
   });
 }
 
-function updateBoardsDescByIdBoard(desc, idBoard, key, token) {
+function updateBoardsDescByIdBoard(desc, id, idBoard, key, token) {
   var url = "/boards/" + idBoard + "/desc";
-  var description = "Update the description of a specific board by board ID.";
+  var description = "updateBoardsDescByIdBoard() " + idBoard;
   var body = {
     "desc": String(desc),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"desc": desc, "idBoard": idBoard, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"desc": desc, "id": id, "idBoard": idBoard, "key": key, "token": token}) });
 }
 
-// No verifyBoardsDescExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+// verifyBoardsDescExists skipped: No GET /{id} operation detected.
 function matchAnyBoardsDescAdded() {
   return bp.EventSet("Any BoardsDesc Added", function(e) {
       return e.name.startsWith("Done: Create BoardsDesc");
   });
 }
 
-function getBoardsListsByIdBoard(card_fields, cards, fields, filter, idBoard, key, name, pos, token) {
+function getBoardsListsByIdBoard(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
   var url = "/boards/" + idBoard + "/lists";
-  var description = "Retrieve lists for a specific board.";
+  var description = "getBoardsListsByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addBoardsListsByIdBoard(card_fields, cards, fields, filter, idBoard, key, name, pos, token) {
+function addBoardsListsByIdBoard(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
   var url = "/boards/" + idBoard + "/lists";
-  var description = "Add a new list to a specific board.";
+  var description = "addBoardsListsByIdBoard() " + idBoard;
   var body = {
+    "attributes": String(attributes),
+    "id": String(id),
+    "key": String(key),
     "name": String(name),
-    "pos": String(pos),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"card_fields": card_fields, "cards": cards, "fields": fields, "filter": filter, "idBoard": idBoard, "key": key, "name": name, "pos": pos, "token": token}) });
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"attributes": attributes, "card_fields": card_fields, "cards": cards, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "key": key, "name": name, "token": token}) });
 }
 
-function getBoardsListsByIdBoardByFilter(card_fields, cards, fields, filter, idBoard, key, name, pos, token) {
+function getBoardsListsByIdBoardByFilter(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
   var url = "/boards/" + idBoard + "/lists/" + filter;
-  var description = "Retrieve lists for a specific board with a filter.";
+  var description = "getBoardsListsByIdBoardByFilter() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyBoardsListsExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
-function waitForBoardsListsAdded(card_fields, cards, fields, filter, idBoard, key, name, pos, token) {
-  waitFor(matchSuccess("Add a new list to a specific board."));
+function tryToAddExistingBoardsLists(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
+  var url = "/boards/" + idBoard + "/lists";
+  var description = "Try Add Existing BoardsLists " + idBoard;
+  var body = {
+    "attributes": String(attributes),
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyBoardsListsExists(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
+  var url = "/boards/" + idBoard + "/lists/" + filter;
+  var description = "Verify BoardsLists " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsLists found");
+}
+
+function verifyBoardsListsDoesNotExist(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
+  var url = "/boards/" + idBoard + "/lists/" + filter;
+  var description = "Verify BoardsLists " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsLists not found");
+}
+
+function waitForBoardsListsAdded(attributes, card_fields, cards, fields, filter, id, idBoard, key, name, token) {
+  waitFor(matchSuccess("addBoardsListsByIdBoard()"));
 }
 
 function matchAnyBoardsListsAdded() {
   return bp.EventSet("Any BoardsLists Added", function(e) {
-      return e.name.startsWith("Done: Add a new list to a specific board.");
+      return e.name.startsWith("Done: addBoardsListsByIdBoard()");
   });
 }
 
 function addBoardsMarkAsViewedByIdBoard(id, idBoard, key, token) {
   var url = "/boards/" + idBoard + "/markAsViewed";
-  var description = "Mark a board as viewed.";
-  var body = undefined;
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  var description = "addBoardsMarkAsViewedByIdBoard() " + id;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "key": key, "token": token}) });
 }
 
-// No verifyBoardsMarkAsViewedExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifyBoardsMarkAsViewedExists skipped: No GET /{id} operation detected.
 function waitForBoardsMarkAsViewedAdded(id, idBoard, key, token) {
-  waitFor(matchSuccess("Mark a board as viewed."));
+  waitFor(matchSuccess("addBoardsMarkAsViewedByIdBoard()"));
 }
 
 function matchAnyBoardsMarkAsViewedAdded() {
   return bp.EventSet("Any BoardsMarkAsViewed Added", function(e) {
-      return e.name.startsWith("Done: Mark a board as viewed.");
+      return e.name.startsWith("Done: addBoardsMarkAsViewedByIdBoard()");
   });
 }
 
-function getBoardsMembersByIdBoard(activity, boards_members, fields, filter, idBoard, idMember, key, token) {
+function getBoardsMembersByIdBoard(activity, fields, filter, id, idBoard, idMember, key, token) {
   var url = "/boards/" + idBoard + "/members";
-  var description = "Retrieve members of a specific board.";
+  var description = "getBoardsMembersByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateBoardsMembersByIdBoardByIdMember(activity, boards_members, fields, filter, idBoard, idMember, key, token) {
+function updateBoardsMembersByIdBoardByIdMember(activity, fields, filter, id, idBoard, idMember, key, token) {
   var url = "/boards/" + idBoard + "/members/" + idMember;
-  var description = "updateBoardsMembersByIdBoardByIdMember()";
+  var description = "updateBoardsMembersByIdBoardByIdMember() " + idBoard;
   var body = {
-    "boards_members": String(boards_members),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"activity": activity, "boards_members": boards_members, "fields": fields, "filter": filter, "idBoard": idBoard, "idMember": idMember, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"activity": activity, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function getBoardsMembersByIdBoardByFilter(activity, boards_members, fields, filter, idBoard, idMember, key, token) {
+function getBoardsMembersByIdBoardByFilter(activity, fields, filter, id, idBoard, idMember, key, token) {
   var url = "/boards/" + idBoard + "/members/" + filter;
-  var description = "Retrieve members of a specific board with a filter.";
+  var description = "getBoardsMembersByIdBoardByFilter() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function deleteBoardsMembersByIdBoardByIdMember(activity, boards_members, fields, filter, idBoard, idMember, key, token) {
+function deleteBoardsMembersByIdBoardByIdMember(activity, fields, filter, id, idBoard, idMember, key, token) {
   var url = "/boards/" + idBoard + "/members/" + idMember;
-  var description = "deleteBoardsMembersByIdBoardByIdMember()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteBoardsMembersByIdBoardByIdMember() " + idBoard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyBoardsMembersExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+function verifyBoardsMembersExists(activity, fields, filter, id, idBoard, idMember, key, token) {
+  var url = "/boards/" + idBoard + "/members/" + filter;
+  var description = "Verify BoardsMembers " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsMembers found");
+}
+
+function verifyBoardsMembersDoesNotExist(activity, fields, filter, id, idBoard, idMember, key, token) {
+  var url = "/boards/" + idBoard + "/members/" + filter;
+  var description = "Verify BoardsMembers " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsMembers not found");
+}
+
+function tryToDeleteANonExistingBoardsMembers(activity, fields, filter, id, idBoard, idMember, key, token) {
+  var url = "/boards/" + idBoard + "/members/" + idMember;
+  var description = "Verify negative delete for BoardsMembers";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedBoardsMembers(activity, fields, filter, id, idBoard, idMember, key, token) {
+  return bp.EventSet("Delete BoardsMembers", function(e) {
+      return e.name === "Done: " + "deleteBoardsMembersByIdBoardByIdMember()";
+  });
+}
+
 function matchAnyBoardsMembersAdded() {
   return bp.EventSet("Any BoardsMembers Added", function(e) {
       return e.name.startsWith("Done: Create BoardsMembers");
@@ -386,215 +541,245 @@ function matchAnyBoardsMembersAdded() {
 
 function getBoardsMembersCardsByIdBoardByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, id, idBoard, idMember, key, list, list_fields, member_fields, members, token) {
   var url = "/boards/" + idBoard + "/members/" + idMember + "/cards";
-  var description = "getBoardsMembersCardsByIdBoardByIdMember()";
+  var description = "getBoardsMembersCardsByIdBoardByIdMember() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyBoardsMembersCardsExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifyBoardsMembersCardsExists skipped: No GET /{id} operation detected.
 function matchAnyBoardsMembersCardsAdded() {
   return bp.EventSet("Any BoardsMembersCards Added", function(e) {
       return e.name.startsWith("Done: Create BoardsMembersCards");
   });
 }
 
-function getBoardsMembersInvitedByIdBoard(field, fields, idBoard, key, token) {
+function getBoardsMembersInvitedByIdBoard(field, fields, id, idBoard, key, token) {
   var url = "/boards/" + idBoard + "/membersInvited";
-  var description = "getBoardsMembersInvitedByIdBoard()";
+  var description = "getBoardsMembersInvitedByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getBoardsMembersInvitedByIdBoardByField(field, fields, idBoard, key, token) {
+function getBoardsMembersInvitedByIdBoardByField(field, fields, id, idBoard, key, token) {
   var url = "/boards/" + idBoard + "/membersInvited/" + field;
-  var description = "getBoardsMembersInvitedByIdBoardByField()";
+  var description = "getBoardsMembersInvitedByIdBoardByField() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyBoardsMembersInvitedExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+function verifyBoardsMembersInvitedExists(field, fields, id, idBoard, key, token) {
+  var url = "/boards/" + idBoard + "/membersInvited/" + field;
+  var description = "Verify BoardsMembersInvited " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsMembersInvited found");
+}
+
+function verifyBoardsMembersInvitedDoesNotExist(field, fields, id, idBoard, key, token) {
+  var url = "/boards/" + idBoard + "/membersInvited/" + field;
+  var description = "Verify BoardsMembersInvited " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsMembersInvited not found");
+}
+
 function matchAnyBoardsMembersInvitedAdded() {
   return bp.EventSet("Any BoardsMembersInvited Added", function(e) {
       return e.name.startsWith("Done: Create BoardsMembersInvited");
   });
 }
 
-function getBoardsMembershipsByIdBoard(boards_memberships, filter, idBoard, idMembership, key, member, member_fields, token) {
+function getBoardsMembershipsByIdBoard(boards_memberships, filter, id, idBoard, idMembership, key, member, member_fields, token) {
   var url = "/boards/" + idBoard + "/memberships";
-  var description = "getBoardsMembershipsByIdBoard()";
+  var description = "getBoardsMembershipsByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getBoardsMembershipsByIdBoardByIdMembership(boards_memberships, filter, idBoard, idMembership, key, member, member_fields, token) {
+function getBoardsMembershipsByIdBoardByIdMembership(boards_memberships, filter, id, idBoard, idMembership, key, member, member_fields, token) {
   var url = "/boards/" + idBoard + "/memberships/" + idMembership;
-  var description = "Retrieve a specific membership of a board by board ID and membership ID.";
+  var description = "getBoardsMembershipsByIdBoardByIdMembership() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateBoardsMembershipsByIdBoardByIdMembership(boards_memberships, filter, idBoard, idMembership, key, member, member_fields, token) {
+function updateBoardsMembershipsByIdBoardByIdMembership(boards_memberships, filter, id, idBoard, idMembership, key, member, member_fields, token) {
   var url = "/boards/" + idBoard + "/memberships/" + idMembership;
-  var description = "Update a specific membership of a board by board ID and membership ID.";
+  var description = "updateBoardsMembershipsByIdBoardByIdMembership() " + idBoard;
   var body = {
     "boards_memberships": String(boards_memberships),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"boards_memberships": boards_memberships, "filter": filter, "idBoard": idBoard, "idMembership": idMembership, "key": key, "member": member, "member_fields": member_fields, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"boards_memberships": boards_memberships, "filter": filter, "id": id, "idBoard": idBoard, "idMembership": idMembership, "key": key, "member": member, "member_fields": member_fields, "token": token}) });
 }
 
-// No verifyBoardsMembershipsExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+function verifyBoardsMembershipsExists(boards_memberships, filter, id, idBoard, idMembership, key, member, member_fields, token) {
+  var url = "/boards/" + idBoard + "/memberships/" + idMembership;
+  var description = "Verify BoardsMemberships " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsMemberships found");
+}
+
+function verifyBoardsMembershipsDoesNotExist(boards_memberships, filter, id, idBoard, idMembership, key, member, member_fields, token) {
+  var url = "/boards/" + idBoard + "/memberships/" + idMembership;
+  var description = "Verify BoardsMemberships " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsMemberships not found");
+}
+
 function matchAnyBoardsMembershipsAdded() {
   return bp.EventSet("Any BoardsMemberships Added", function(e) {
       return e.name.startsWith("Done: Create BoardsMemberships");
   });
 }
 
-function getBoardsMyPrefsByIdBoard(idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
+function getBoardsMyPrefsByIdBoard(id, idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
   var url = "/boards/" + idBoard + "/myPrefs";
-  var description = "Retrieve preferences of a board by board ID.";
+  var description = "getBoardsMyPrefsByIdBoard() " + idBoard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateBoardsMyPrefsEmailPositionByIdBoard(idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
+function updateBoardsMyPrefsEmailPositionByIdBoard(id, idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
   var url = "/boards/" + idBoard + "/myPrefs/emailPosition";
-  var description = "Update email position preference of a board by board ID.";
+  var description = "updateBoardsMyPrefsEmailPositionByIdBoard() " + idBoard;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "myPrefs_emailPosition": String(myPrefs_emailPosition),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "key": key, "myPrefs_emailPosition": myPrefs_emailPosition, "myPrefs_idEmailList": myPrefs_idEmailList, "myPrefs_showListGuide": myPrefs_showListGuide, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "key": key, "myPrefs_emailPosition": myPrefs_emailPosition, "myPrefs_idEmailList": myPrefs_idEmailList, "myPrefs_showListGuide": myPrefs_showListGuide, "token": token}) });
 }
 
-function updateBoardsMyPrefsIdEmailListByIdBoard(idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
+function updateBoardsMyPrefsIdEmailListByIdBoard(id, idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
   var url = "/boards/" + idBoard + "/myPrefs/idEmailList";
-  var description = "Update ID email list preference of a board by board ID.";
+  var description = "updateBoardsMyPrefsIdEmailListByIdBoard() " + idBoard;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "myPrefs_idEmailList": String(myPrefs_idEmailList),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "key": key, "myPrefs_emailPosition": myPrefs_emailPosition, "myPrefs_idEmailList": myPrefs_idEmailList, "myPrefs_showListGuide": myPrefs_showListGuide, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "key": key, "myPrefs_emailPosition": myPrefs_emailPosition, "myPrefs_idEmailList": myPrefs_idEmailList, "myPrefs_showListGuide": myPrefs_showListGuide, "token": token}) });
 }
 
-function updateBoardsMyPrefsShowListGuideByIdBoard(idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
+function updateBoardsMyPrefsShowListGuideByIdBoard(id, idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
   var url = "/boards/" + idBoard + "/myPrefs/showListGuide";
-  var description = "Update show list guide preference of a board by board ID.";
+  var description = "updateBoardsMyPrefsShowListGuideByIdBoard() " + idBoard;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "myPrefs_showListGuide": String(myPrefs_showListGuide),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "key": key, "myPrefs_emailPosition": myPrefs_emailPosition, "myPrefs_idEmailList": myPrefs_idEmailList, "myPrefs_showListGuide": myPrefs_showListGuide, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "key": key, "myPrefs_emailPosition": myPrefs_emailPosition, "myPrefs_idEmailList": myPrefs_idEmailList, "myPrefs_showListGuide": myPrefs_showListGuide, "token": token}) });
 }
 
-// No verifyBoardsMyPrefsExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
+function verifyBoardsMyPrefsExists(id, idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
+  var url = "/boards/" + idBoard + "/myPrefs";
+  var description = "Verify BoardsMyPrefs " + idBoard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("BoardsMyPrefs found");
+}
+
+function verifyBoardsMyPrefsDoesNotExist(id, idBoard, key, myPrefs_emailPosition, myPrefs_idEmailList, myPrefs_showListGuide, token) {
+  var url = "/boards/" + idBoard + "/myPrefs";
+  var description = "Verify BoardsMyPrefs " + idBoard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("BoardsMyPrefs not found");
+}
+
 function matchAnyBoardsMyPrefsAdded() {
   return bp.EventSet("Any BoardsMyPrefs Added", function(e) {
       return e.name.startsWith("Done: Create BoardsMyPrefs");
   });
 }
 
-function getBoardsOrganizationByIdBoard(field, fields, idBoard, key, token) {
-  var url = "/boards/" + idBoard + "/organization";
-  var description = "Retrieve the organization of a board by its ID.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getBoardsOrganizationByIdBoardByField(field, fields, idBoard, key, token) {
-  var url = "/boards/" + idBoard + "/organization/" + field;
-  var description = "Retrieve a specific field of the organization of a board by its ID.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyBoardsOrganizationExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
-function matchAnyBoardsOrganizationAdded() {
-  return bp.EventSet("Any BoardsOrganization Added", function(e) {
-      return e.name.startsWith("Done: Create BoardsOrganization");
-  });
-}
-
-function addBoardsPowerUpsByIdBoard(idBoard, key, powerUp, powerUpId, token) {
-  var url = "/boards/" + idBoard + "/powerUps";
-  var description = "Add power-ups to a board by its ID.";
-  var body = {
-    "powerUpId": String(powerUpId),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "key": key, "powerUp": powerUp, "powerUpId": powerUpId, "token": token}) });
-}
-
-function deleteBoardsPowerUpsByIdBoardByPowerUp(idBoard, key, powerUp, powerUpId, token) {
-  var url = "/boards/" + idBoard + "/powerUps/" + powerUp;
-  var description = "Delete a specific power-up from a board by its ID.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyBoardsPowerUpsExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
-function waitForBoardsPowerUpsAdded(idBoard, key, powerUp, powerUpId, token) {
-  waitFor(matchSuccess("Add power-ups to a board by its ID."));
-}
-
-function matchAnyBoardsPowerUpsAdded() {
-  return bp.EventSet("Any BoardsPowerUps Added", function(e) {
-      return e.name.startsWith("Done: Add power-ups to a board by its ID.");
-  });
-}
-
-function updateBoardsPrefsBackgroundByIdBoard(background, idBoard, key, token) {
-  var url = "/boards/" + idBoard + "/prefs/background";
-  var description = "Update the background preferences of a board by its ID.";
-  var body = {
-    "background": String(background),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"background": background, "idBoard": idBoard, "key": key, "token": token}) });
-}
-
-// No verifyBoardsPrefsBackgroundExists generated: Primary Key "idBoard" is not in POST body (Server-Generated ID).
-function matchAnyBoardsPrefsBackgroundAdded() {
-  return bp.EventSet("Any BoardsPrefsBackground Added", function(e) {
-      return e.name.startsWith("Done: Create BoardsPrefsBackground");
-  });
-}
-
-function addCardsMarkAssociatedNotificationsReadByIdCard(color, field, fields, idCard, key, labels, token) {
+function addCardsMarkAssociatedNotificationsReadByIdCard(color, field, fields, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/markAssociatedNotificationsRead";
-  var description = "addCardsMarkAssociatedNotificationsReadByIdCard()";
-  var body = undefined;
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "field": field, "fields": fields, "idCard": idCard, "key": key, "labels": labels, "token": token}) });
-}
-
-function deleteCardsLabelsByIdCardByColor(color, field, fields, idCard, key, labels, token) {
-  var url = "/cards/" + idCard + "/labels/" + color;
-  var description = "deleteCardsLabelsByIdCardByColor()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getCardsByIdCardByField(color, field, fields, idCard, key, labels, token) {
-  var url = "/cards/" + idCard + "/" + field;
-  var description = "getCardsByIdCardByField()";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function updateCardsLabelsByIdCard(color, field, fields, idCard, key, labels, token) {
-  var url = "/cards/" + idCard + "/labels";
-  var description = "updateCardsLabelsByIdCard()";
+  var description = "addCardsMarkAssociatedNotificationsReadByIdCard() " + idCard;
   var body = {
-    "labels": String(labels),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "field": field, "fields": fields, "id": id, "idCard": idCard, "key": key, "token": token}) });
+}
+
+function deleteCardsLabelsByIdCardByColor(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/labels/" + color;
+  var description = "deleteCardsLabelsByIdCardByColor() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
+}
+
+function getCardsByIdCardByField(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/" + field;
+  var description = "getCardsByIdCardByField() " + idCard;
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function updateCardsLabelsByIdCard(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/labels";
+  var description = "updateCardsLabelsByIdCard() " + idCard;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "field": field, "fields": fields, "idCard": idCard, "key": key, "labels": labels, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "field": field, "fields": fields, "id": id, "idCard": idCard, "key": key, "token": token}) });
 }
 
-function getCardsListByIdCard(color, field, fields, idCard, key, labels, token) {
+function getCardsListByIdCard(color, field, fields, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/list";
-  var description = "getCardsListByIdCard()";
+  var description = "getCardsListByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getCardsMembersByIdCard(color, field, fields, idCard, key, labels, token) {
+function getCardsMembersByIdCard(color, field, fields, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/members";
-  var description = "getCardsMembersByIdCard()";
+  var description = "getCardsMembersByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyCardsExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsAdded(color, field, fields, idCard, key, labels, token) {
+function tryToAddExistingCards(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/markAssociatedNotificationsRead";
+  var description = "Try Add Existing Cards " + idCard;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyCardsExists(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/" + field;
+  var description = "Verify Cards " + idCard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Cards found");
+}
+
+function verifyCardsDoesNotExist(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/" + field;
+  var description = "Verify Cards " + idCard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Cards not found");
+}
+
+function tryToDeleteANonExistingCards(color, field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/labels/" + color;
+  var description = "Verify negative delete for Cards";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedCards(color, field, fields, id, idCard, key, token) {
+  return bp.EventSet("Delete Cards", function(e) {
+      return e.name === "Done: " + "deleteCardsLabelsByIdCardByColor()";
+  });
+}
+
+function waitForCardsAdded(color, field, fields, id, idCard, key, token) {
   waitFor(matchSuccess("addCardsMarkAssociatedNotificationsReadByIdCard()"));
 }
 
@@ -606,108 +791,186 @@ function matchAnyCardsAdded() {
 
 function getCardsActionsByIdCard(before, display, entities, fields, filter, format, id, idCard, idModels, key, limit, member, memberCreator, memberCreator_fields, member_fields, page, since, token) {
   var url = "/cards/" + idCard + "/actions";
-  var description = "List actions for a card by its ID or shortlink.";
+  var description = "getCardsActionsByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyCardsActionsExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+function verifyCardsActionsExists(before, display, entities, fields, filter, format, id, idCard, idModels, key, limit, member, memberCreator, memberCreator_fields, member_fields, page, since, token) {
+  var url = "/cards/" + idCard + "/actions";
+  var description = "Verify CardsActions " + idCard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("CardsActions found");
+}
+
+function verifyCardsActionsDoesNotExist(before, display, entities, fields, filter, format, id, idCard, idModels, key, limit, member, memberCreator, memberCreator_fields, member_fields, page, since, token) {
+  var url = "/cards/" + idCard + "/actions";
+  var description = "Verify CardsActions " + idCard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("CardsActions not found");
+}
+
 function matchAnyCardsActionsAdded() {
   return bp.EventSet("Any CardsActions Added", function(e) {
       return e.name.startsWith("Done: Create CardsActions");
   });
 }
 
-function addCardsActionsCommentsByIdCard(actions_comments, cards_actions_comments, idAction, idCard, key, token) {
+function addCardsActionsCommentsByIdCard(id, idAction, idCard, key, text, token) {
   var url = "/cards/" + idCard + "/actions/comments";
-  var description = "Attributes of \"Actions Comments\" to be added.";
+  var description = "addCardsActionsCommentsByIdCard() " + idCard;
   var body = {
-    "actions_comments": String(actions_comments),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions_comments": actions_comments, "cards_actions_comments": cards_actions_comments, "idAction": idAction, "idCard": idCard, "key": key, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "text": String(text),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idAction": idAction, "idCard": idCard, "key": key, "text": text, "token": token}) });
 }
 
-function deleteCardsActionsCommentsByIdCardByIdAction(actions_comments, cards_actions_comments, idAction, idCard, key, token) {
+function deleteCardsActionsCommentsByIdCardByIdAction(id, idAction, idCard, key, text, token) {
   var url = "/cards/" + idCard + "/actions/" + idAction + "/comments";
-  var description = "Delete a comment by its ID or shortlink.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteCardsActionsCommentsByIdCardByIdAction() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function updateCardsActionsCommentsByIdCardByIdAction(actions_comments, cards_actions_comments, idAction, idCard, key, token) {
+function updateCardsActionsCommentsByIdCardByIdAction(id, idAction, idCard, key, text, token) {
   var url = "/cards/" + idCard + "/actions/" + idAction + "/comments";
-  var description = "Attributes of \"Cards Actions Comments\" to be updated.";
+  var description = "updateCardsActionsCommentsByIdCardByIdAction() " + idCard;
   var body = {
-    "cards_actions_comments": String(cards_actions_comments),
-  };
+    "id": String(id),
+    "key": String(key),
+    "text": String(text),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions_comments": actions_comments, "cards_actions_comments": cards_actions_comments, "idAction": idAction, "idCard": idCard, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idAction": idAction, "idCard": idCard, "key": key, "text": text, "token": token}) });
 }
 
-// No verifyCardsActionsCommentsExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsActionsCommentsAdded(actions_comments, cards_actions_comments, idAction, idCard, key, token) {
-  waitFor(matchSuccess("Attributes of \"Actions Comments\" to be added."));
+// verifyCardsActionsCommentsExists skipped: No GET /{id} operation detected.
+function waitForCardsActionsCommentsAdded(id, idAction, idCard, key, text, token) {
+  waitFor(matchSuccess("addCardsActionsCommentsByIdCard()"));
 }
 
 function matchAnyCardsActionsCommentsAdded() {
   return bp.EventSet("Any CardsActionsComments Added", function(e) {
-      return e.name.startsWith("Done: Attributes of \"Actions Comments\" to be added.");
+      return e.name.startsWith("Done: addCardsActionsCommentsByIdCard()");
   });
 }
 
-function getCardsAttachmentsByIdCard(fields, file, filter, idAttachment, idCard, key, mimeType, name, token) {
+function getCardsAttachmentsByIdCard(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
   var url = "/cards/" + idCard + "/attachments";
-  var description = "Retrieve attachments for a specific card.";
+  var description = "getCardsAttachmentsByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addCardsAttachmentsByIdCard(fields, file, filter, idAttachment, idCard, key, mimeType, name, token) {
+function addCardsAttachmentsByIdCard(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
   var url = "/cards/" + idCard + "/attachments";
-  var description = "Add an attachment to a specific card.";
+  var description = "addCardsAttachmentsByIdCard() " + idCard;
   var body = {
-    "name": String(name),
     "file": String(file),
+    "id": String(id),
+    "key": String(key),
     "mimeType": String(mimeType),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "file": file, "filter": filter, "idAttachment": idAttachment, "idCard": idCard, "key": key, "mimeType": mimeType, "name": name, "token": token}) });
+    "name": String(name),
+    "setCover": setCover,
+    "token": String(token),
+    "url": String(url),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "file": file, "filter": filter, "id": id, "idAttachment": idAttachment, "idCard": idCard, "key": key, "mimeType": mimeType, "name": name, "setCover": setCover, "token": token, "url": url}) });
 }
 
-function getCardsAttachmentsByIdCardByIdAttachment(fields, file, filter, idAttachment, idCard, key, mimeType, name, token) {
+function deleteCardsAttachmentsByIdCardByIdAttachment(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
   var url = "/cards/" + idCard + "/attachments/" + idAttachment;
-  var description = "Retrieve a specific attachment from a card.";
+  var description = "deleteCardsAttachmentsByIdCardByIdAttachment() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
+}
+
+function getCardsAttachmentsByIdCardByIdAttachment(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  var url = "/cards/" + idCard + "/attachments/" + idAttachment;
+  var description = "getCardsAttachmentsByIdCardByIdAttachment() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function deleteCardsAttachmentsByIdCardByIdAttachment(fields, file, filter, idAttachment, idCard, key, mimeType, name, token) {
-  var url = "/cards/" + idCard + "/attachments/" + idAttachment;
-  var description = "Delete a specific attachment from a card.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+function tryToAddExistingCardsAttachments(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  var url = "/cards/" + idCard + "/attachments";
+  var description = "Try Add Existing CardsAttachments " + idCard;
+  var body = {
+    "file": String(file),
+    "id": String(id),
+    "key": String(key),
+    "mimeType": String(mimeType),
+    "name": String(name),
+    "setCover": setCover,
+    "token": String(token),
+    "url": String(url),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-// No verifyCardsAttachmentsExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsAttachmentsAdded(fields, file, filter, idAttachment, idCard, key, mimeType, name, token) {
-  waitFor(matchSuccess("Add an attachment to a specific card."));
+function verifyCardsAttachmentsExists(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  var url = "/cards/" + idCard + "/attachments/" + idAttachment;
+  var description = "Verify CardsAttachments " + idCard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("CardsAttachments found");
+}
+
+function verifyCardsAttachmentsDoesNotExist(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  var url = "/cards/" + idCard + "/attachments/" + idAttachment;
+  var description = "Verify CardsAttachments " + idCard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("CardsAttachments not found");
+}
+
+function tryToDeleteANonExistingCardsAttachments(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  var url = "/cards/" + idCard + "/attachments/" + idAttachment;
+  var description = "Verify negative delete for CardsAttachments";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedCardsAttachments(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  return bp.EventSet("Delete CardsAttachments", function(e) {
+      return e.name === "Done: " + "deleteCardsAttachmentsByIdCardByIdAttachment()";
+  });
+}
+
+function waitForCardsAttachmentsAdded(fields, file, filter, id, idAttachment, idCard, key, mimeType, name, setCover, token, url) {
+  waitFor(matchSuccess("addCardsAttachmentsByIdCard()"));
 }
 
 function matchAnyCardsAttachmentsAdded() {
   return bp.EventSet("Any CardsAttachments Added", function(e) {
-      return e.name.startsWith("Done: Add an attachment to a specific card.");
+      return e.name.startsWith("Done: addCardsAttachmentsByIdCard()");
   });
 }
 
-function getCardsBoardByIdCard(field, fields, idCard, key, token) {
+function getCardsBoardByIdCard(field, fields, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/board";
-  var description = "Retrieve the board associated with a specific card.";
+  var description = "getCardsBoardByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getCardsBoardByIdCardByField(field, fields, idCard, key, token) {
+function getCardsBoardByIdCardByField(field, fields, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/board/" + field;
-  var description = "Retrieve a specific field of the board associated with a card.";
+  var description = "getCardsBoardByIdCardByField() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyCardsBoardExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+function verifyCardsBoardExists(field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/board";
+  var description = "Verify CardsBoard " + idCard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("CardsBoard found");
+}
+
+function verifyCardsBoardDoesNotExist(field, fields, id, idCard, key, token) {
+  var url = "/cards/" + idCard + "/board";
+  var description = "Verify CardsBoard " + idCard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("CardsBoard not found");
+}
+
 function matchAnyCardsBoardAdded() {
   return bp.EventSet("Any CardsBoard Added", function(e) {
       return e.name.startsWith("Done: Create CardsBoard");
@@ -716,43 +979,49 @@ function matchAnyCardsBoardAdded() {
 
 function getCardsCheckItemStatesByIdCard(fields, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/checkItemStates";
-  var description = "Retrieve check item states for a specific card.";
+  var description = "getCardsCheckItemStatesByIdCard() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyCardsCheckItemStatesExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifyCardsCheckItemStatesExists skipped: No GET /{id} operation detected.
 function matchAnyCardsCheckItemStatesAdded() {
   return bp.EventSet("Any CardsCheckItemStates Added", function(e) {
       return e.name.startsWith("Done: Create CardsCheckItemStates");
   });
 }
 
-function updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, name, token) {
+function updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem(id, idCard, idCheckItem, idChecklist, key, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/name";
-  var description = "updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem()";
+  var description = "updateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem() " + idCard;
   var body = {
-    "name": String(name),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "name": name, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "token": token}) });
 }
 
-function addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, name, token) {
+function addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem(id, idCard, idCheckItem, idChecklist, key, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/convertToCard";
-  var description = "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem()";
-  var body = undefined;
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "name": name, "token": token}) });
+  var description = "addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem() " + idCard;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "token": token}) });
 }
 
-function deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, name, token) {
+function deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem(id, idCard, idCheckItem, idChecklist, key, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem;
-  var description = "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyCardsChecklistCheckItemExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsChecklistCheckItemAdded(idCard, idCheckItem, idChecklist, key, name, token) {
+// verifyCardsChecklistCheckItemExists skipped: No GET /{id} operation detected.
+function waitForCardsChecklistCheckItemAdded(id, idCard, idCheckItem, idChecklist, key, token) {
   waitFor(matchSuccess("addCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem()"));
 }
 
@@ -762,65 +1031,69 @@ function matchAnyCardsChecklistCheckItemAdded() {
   });
 }
 
-function updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, pos, token) {
+function updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem(id, idCard, idCheckItem, idChecklist, key, pos, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/pos";
-  var description = "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem()";
+  var description = "updateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem() " + idCard;
   var body = {
-    "pos": Number(pos),
-  };
+    "id": String(id),
+    "key": String(key),
+    "pos": String(pos),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "pos": pos, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "pos": pos, "token": token}) });
 }
 
-// No verifyCardsChecklistCheckItemPosExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+// verifyCardsChecklistCheckItemPosExists skipped: No GET /{id} operation detected.
 function matchAnyCardsChecklistCheckItemPosAdded() {
   return bp.EventSet("Any CardsChecklistCheckItemPos Added", function(e) {
       return e.name.startsWith("Done: Create CardsChecklistCheckItemPos");
   });
 }
 
-function updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem(idCard, idCheckItem, idChecklist, key, state, token) {
+function updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem(id, idCard, idCheckItem, idChecklist, key, state, token) {
   var url = "/cards/" + idCard + "/checklist/" + idChecklist + "/checkItem/" + idCheckItem + "/state";
-  var description = "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem()";
+  var description = "updateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem() " + idCard;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "state": String(state),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "state": state, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "state": state, "token": token}) });
 }
 
-// No verifyCardsChecklistCheckItemStateExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+// verifyCardsChecklistCheckItemStateExists skipped: No GET /{id} operation detected.
 function matchAnyCardsChecklistCheckItemStateAdded() {
   return bp.EventSet("Any CardsChecklistCheckItemState Added", function(e) {
       return e.name.startsWith("Done: Create CardsChecklistCheckItemState");
   });
 }
 
-function getCardsChecklistsByIdCard(card_fields, cards, checkItem_fields, checkItems, fields, filter, idCard, idChecklist, key, name, pos, token) {
+function getCardsChecklistsByIdCard(card_fields, cards, checkItem_fields, checkItems, fields, filter, id, idCard, idChecklistSource, key, name, pos, token) {
   var url = "/cards/" + idCard + "/checklists";
-  var description = "getCardsChecklistsByIdCard()";
+  var description = "getCardsChecklistsByIdCard() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addCardsChecklistsByIdCard(card_fields, cards, checkItem_fields, checkItems, fields, filter, idCard, idChecklist, key, name, pos, token) {
+function addCardsChecklistsByIdCard(card_fields, cards, checkItem_fields, checkItems, fields, filter, id, idCard, idChecklistSource, key, name, pos, token) {
   var url = "/cards/" + idCard + "/checklists";
-  var description = "addCardsChecklistsByIdCard()";
+  var description = "addCardsChecklistsByIdCard() " + id;
   var body = {
+    "id": String(id),
+    "idChecklistSource": String(idChecklistSource),
+    "key": String(key),
     "name": String(name),
-    "pos": Number(pos),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"card_fields": card_fields, "cards": cards, "checkItem_fields": checkItem_fields, "checkItems": checkItems, "fields": fields, "filter": filter, "idCard": idCard, "idChecklist": idChecklist, "key": key, "name": name, "pos": pos, "token": token}) });
+    "pos": String(pos),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"card_fields": card_fields, "cards": cards, "checkItem_fields": checkItem_fields, "checkItems": checkItems, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idChecklistSource": idChecklistSource, "key": key, "name": name, "pos": pos, "token": token}) });
 }
 
-function deleteCardsChecklistsByIdCardByIdChecklist(card_fields, cards, checkItem_fields, checkItems, fields, filter, idCard, idChecklist, key, name, pos, token) {
-  var url = "/cards/" + idCard + "/checklists/" + idChecklist;
-  var description = "deleteCardsChecklistsByIdCardByIdChecklist()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyCardsChecklistsExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsChecklistsAdded(card_fields, cards, checkItem_fields, checkItems, fields, filter, idCard, idChecklist, key, name, pos, token) {
+// verifyCardsChecklistsExists skipped: No GET /{id} operation detected.
+function waitForCardsChecklistsAdded(card_fields, cards, checkItem_fields, checkItems, fields, filter, id, idCard, idChecklistSource, key, name, pos, token) {
   waitFor(matchSuccess("addCardsChecklistsByIdCard()"));
 }
 
@@ -830,249 +1103,379 @@ function matchAnyCardsChecklistsAdded() {
   });
 }
 
-function updateCardsClosedByIdCard(idCard, key, token, value) {
-  var url = "/cards/" + idCard + "/closed";
-  var description = "updateCardsClosedByIdCard()";
-  var body = {
-    "value": value,
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "key": key, "token": token, "value": value}) });
+function deleteCardsChecklistsByIdCardByIdChecklist(id, idCard, idChecklist, key, token) {
+  var url = "/cards/" + idCard + "/checklists/" + idChecklist;
+  var description = "deleteCardsChecklistsByIdCardByIdChecklist() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyCardsClosedExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+// verifyCardsChecklistsByIdChecklistExists skipped: No GET /{id} operation detected.
+function matchAnyCardsChecklistsByIdChecklistAdded() {
+  return bp.EventSet("Any CardsChecklistsByIdChecklist Added", function(e) {
+      return e.name.startsWith("Done: Create CardsChecklistsByIdChecklist");
+  });
+}
+
+function updateCardsClosedByIdCard(id, idCard, key, token, value) {
+  var url = "/cards/" + idCard + "/closed";
+  var description = "updateCardsClosedByIdCard() " + idCard;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+    "value": value,
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "key": key, "token": token, "value": value}) });
+}
+
+// verifyCardsClosedExists skipped: No GET /{id} operation detected.
 function matchAnyCardsClosedAdded() {
   return bp.EventSet("Any CardsClosed Added", function(e) {
       return e.name.startsWith("Done: Create CardsClosed");
   });
 }
 
-function getCardsMembersVotedByIdCard(fields, idCard, idMember, key, memberId, token) {
+function getCardsMembersVotedByIdCard(fields, id, idCard, idMember, key, token) {
   var url = "/cards/" + idCard + "/membersVoted";
-  var description = "Retrieve members who voted on a card by card ID.";
+  var description = "getCardsMembersVotedByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addCardsMembersVotedByIdCard(fields, idCard, idMember, key, memberId, token) {
+function addCardsMembersVotedByIdCard(fields, id, idCard, idMember, key, token) {
   var url = "/cards/" + idCard + "/membersVoted";
-  var description = "Add a member vote to a card by card ID.";
+  var description = "addCardsMembersVotedByIdCard() " + idCard;
   var body = {
-    "memberId": String(memberId),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "idCard": idCard, "idMember": idMember, "key": key, "memberId": memberId, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "id": id, "idCard": idCard, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function deleteCardsMembersVotedByIdCardByIdMember(fields, idCard, idMember, key, memberId, token) {
+function deleteCardsMembersVotedByIdCardByIdMember(fields, id, idCard, idMember, key, token) {
   var url = "/cards/" + idCard + "/membersVoted/" + idMember;
-  var description = "Remove a member vote from a card by card ID and member ID.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteCardsMembersVotedByIdCardByIdMember() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyCardsMembersVotedExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsMembersVotedAdded(fields, idCard, idMember, key, memberId, token) {
-  waitFor(matchSuccess("Add a member vote to a card by card ID."));
+// verifyCardsMembersVotedExists skipped: No GET /{id} operation detected.
+function waitForCardsMembersVotedAdded(fields, id, idCard, idMember, key, token) {
+  waitFor(matchSuccess("addCardsMembersVotedByIdCard()"));
 }
 
 function matchAnyCardsMembersVotedAdded() {
   return bp.EventSet("Any CardsMembersVoted Added", function(e) {
-      return e.name.startsWith("Done: Add a member vote to a card by card ID.");
+      return e.name.startsWith("Done: addCardsMembersVotedByIdCard()");
   });
 }
 
-function updateCardsNameByIdCard(idCard, key, name, token) {
+function updateCardsNameByIdCard(id, idCard, key, token) {
   var url = "/cards/" + idCard + "/name";
-  var description = "Update the name of a card by card ID.";
+  var description = "updateCardsNameByIdCard() " + idCard;
   var body = {
-    "name": String(name),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "key": key, "name": name, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "key": key, "token": token}) });
 }
 
-// No verifyCardsNameExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+// verifyCardsNameExists skipped: No GET /{id} operation detected.
 function matchAnyCardsNameAdded() {
   return bp.EventSet("Any CardsName Added", function(e) {
       return e.name.startsWith("Done: Create CardsName");
   });
 }
 
-function updateCardsPosByIdCard(idCard, key, pos, token) {
+function updateCardsPosByIdCard(id, idCard, key, token) {
   var url = "/cards/" + idCard + "/pos";
-  var description = "Update the position of a card by card ID.";
+  var description = "updateCardsPosByIdCard() " + idCard;
   var body = {
-    "pos": String(pos),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idCard": idCard, "key": key, "pos": pos, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idCard": idCard, "key": key, "token": token}) });
 }
 
-// No verifyCardsPosExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+// verifyCardsPosExists skipped: No GET /{id} operation detected.
 function matchAnyCardsPosAdded() {
   return bp.EventSet("Any CardsPos Added", function(e) {
       return e.name.startsWith("Done: Create CardsPos");
   });
 }
 
-function getCardsStickersByIdCard(cards_stickers, fields, idCard, idSticker, image, key, left, token, top, zIndex) {
+function getCardsStickersByIdCard(cards_stickers, fields, id, idCard, idSticker, key, token) {
   var url = "/cards/" + idCard + "/stickers";
-  var description = "Retrieve stickers on a card by card ID.";
+  var description = "getCardsStickersByIdCard() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addCardsStickersByIdCard(cards_stickers, fields, idCard, idSticker, image, key, left, token, top, zIndex) {
+function addCardsStickersByIdCard(cards_stickers, fields, id, idCard, idSticker, key, token) {
   var url = "/cards/" + idCard + "/stickers";
-  var description = "Add a sticker to a card by card ID.";
+  var description = "addCardsStickersByIdCard() " + idCard;
   var body = {
-    "image": String(image),
-    "left": Number(left),
-    "top": Number(top),
-    "zIndex": Number(zIndex),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"cards_stickers": cards_stickers, "fields": fields, "idCard": idCard, "idSticker": idSticker, "image": image, "key": key, "left": left, "token": token, "top": top, "zIndex": zIndex}) });
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"cards_stickers": cards_stickers, "fields": fields, "id": id, "idCard": idCard, "idSticker": idSticker, "key": key, "token": token}) });
 }
 
-function deleteCardsStickersByIdCardByIdSticker(cards_stickers, fields, idCard, idSticker, image, key, left, token, top, zIndex) {
+function deleteCardsStickersByIdCardByIdSticker(cards_stickers, fields, id, idCard, idSticker, key, token) {
   var url = "/cards/" + idCard + "/stickers/" + idSticker;
-  var description = "deleteCardsStickersByIdCardByIdSticker()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteCardsStickersByIdCardByIdSticker() " + idCard;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getCardsStickersByIdCardByIdSticker(cards_stickers, fields, idCard, idSticker, image, key, left, token, top, zIndex) {
+function getCardsStickersByIdCardByIdSticker(cards_stickers, fields, id, idCard, idSticker, key, token) {
   var url = "/cards/" + idCard + "/stickers/" + idSticker;
-  var description = "getCardsStickersByIdCardByIdSticker()";
+  var description = "getCardsStickersByIdCardByIdSticker() " + idCard;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateCardsStickersByIdCardByIdSticker(cards_stickers, fields, idCard, idSticker, image, key, left, token, top, zIndex) {
+function updateCardsStickersByIdCardByIdSticker(cards_stickers, fields, id, idCard, idSticker, key, token) {
   var url = "/cards/" + idCard + "/stickers/" + idSticker;
-  var description = "updateCardsStickersByIdCardByIdSticker()";
+  var description = "updateCardsStickersByIdCardByIdSticker() " + idCard;
   var body = {
     "cards_stickers": String(cards_stickers),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"cards_stickers": cards_stickers, "fields": fields, "idCard": idCard, "idSticker": idSticker, "image": image, "key": key, "left": left, "token": token, "top": top, "zIndex": zIndex}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"cards_stickers": cards_stickers, "fields": fields, "id": id, "idCard": idCard, "idSticker": idSticker, "key": key, "token": token}) });
 }
 
-// No verifyCardsStickersExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
-function waitForCardsStickersAdded(cards_stickers, fields, idCard, idSticker, image, key, left, token, top, zIndex) {
-  waitFor(matchSuccess("Add a sticker to a card by card ID."));
+function tryToAddExistingCardsStickers(cards_stickers, fields, id, idCard, idSticker, key, token) {
+  var url = "/cards/" + idCard + "/stickers";
+  var description = "Try Add Existing CardsStickers " + idCard;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyCardsStickersExists(cards_stickers, fields, id, idCard, idSticker, key, token) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Verify CardsStickers " + idCard + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("CardsStickers found");
+}
+
+function verifyCardsStickersDoesNotExist(cards_stickers, fields, id, idCard, idSticker, key, token) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Verify CardsStickers " + idCard + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("CardsStickers not found");
+}
+
+function tryToDeleteANonExistingCardsStickers(cards_stickers, fields, id, idCard, idSticker, key, token) {
+  var url = "/cards/" + idCard + "/stickers/" + idSticker;
+  var description = "Verify negative delete for CardsStickers";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedCardsStickers(cards_stickers, fields, id, idCard, idSticker, key, token) {
+  return bp.EventSet("Delete CardsStickers", function(e) {
+      return e.name === "Done: " + "deleteCardsStickersByIdCardByIdSticker()";
+  });
+}
+
+function waitForCardsStickersAdded(cards_stickers, fields, id, idCard, idSticker, key, token) {
+  waitFor(matchSuccess("addCardsStickersByIdCard()"));
 }
 
 function matchAnyCardsStickersAdded() {
   return bp.EventSet("Any CardsStickers Added", function(e) {
-      return e.name.startsWith("Done: Add a sticker to a card by card ID.");
+      return e.name.startsWith("Done: addCardsStickersByIdCard()");
   });
 }
 
-function updateCardsSubscribedByIdCard(cards_subscribed, idCard, key, token) {
+function updateCardsSubscribedByIdCard(cards_subscribed, id, idCard, key, token) {
   var url = "/cards/" + idCard + "/subscribed";
-  var description = "updateCardsSubscribedByIdCard()";
+  var description = "updateCardsSubscribedByIdCard() " + idCard;
   var body = {
     "cards_subscribed": String(cards_subscribed),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"cards_subscribed": cards_subscribed, "idCard": idCard, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"cards_subscribed": cards_subscribed, "id": id, "idCard": idCard, "key": key, "token": token}) });
 }
 
-// No verifyCardsSubscribedExists generated: Primary Key "idCard" is not in POST body (Server-Generated ID).
+// verifyCardsSubscribedExists skipped: No GET /{id} operation detected.
 function matchAnyCardsSubscribedAdded() {
   return bp.EventSet("Any CardsSubscribed Added", function(e) {
       return e.name.startsWith("Done: Create CardsSubscribed");
   });
 }
 
-function addChecklists(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function addChecklists(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists";
-  var description = "addChecklists()";
+  var description = "addChecklists() " + idChecklist;
   var body = {
     "checklists": String(checklists),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
 }
 
-function deleteChecklistsCheckItemsByIdChecklistByIdCheckItem(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function deleteChecklistsCheckItemsByIdChecklistByIdCheckItem(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
-  var description = "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem() " + idChecklist;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getChecklistsCheckItemsByIdChecklistByIdCheckItem(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function getChecklistsCheckItemsByIdChecklistByIdCheckItem(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
-  var description = "getChecklistsCheckItemsByIdChecklistByIdCheckItem()";
+  var description = "getChecklistsCheckItemsByIdChecklistByIdCheckItem() " + idChecklist;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateChecklistsIdCardByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
-  var url = "/checklists/" + idChecklist + "/idCard";
-  var description = "updateChecklistsIdCardByIdChecklist()";
+function updateChecklistsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist;
+  var description = "updateChecklistsByIdChecklist() " + idChecklist;
   var body = {
-    "idCard": String(idCard),
-  };
+    "checklists": String(checklists),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
 }
 
-function getChecklistsByIdChecklistByField(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function getChecklistsByIdChecklistByField(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/" + field;
-  var description = "getChecklistsByIdChecklistByField()";
+  var description = "getChecklistsByIdChecklistByField() " + idChecklist;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getChecklistsCardsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function getChecklistsCardsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/cards";
-  var description = "List cards associated with a specific checklist.";
+  var description = "getChecklistsCardsByIdChecklist() " + idChecklist;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getChecklistsCardsByIdChecklistByFilter(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function getChecklistsCardsByIdChecklistByFilter(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/cards/" + filter;
-  var description = "Retrieve cards associated with a checklist filtered by a specific criterion.";
+  var description = "getChecklistsCardsByIdChecklistByFilter() " + idChecklist;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getChecklistsCheckItemsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function getChecklistsCheckItemsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/checkItems";
-  var description = "List check items associated with a specific checklist.";
+  var description = "getChecklistsCheckItemsByIdChecklist() " + idChecklist;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addChecklistsCheckItemsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function addChecklistsCheckItemsByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   var url = "/checklists/" + idChecklist + "/checkItems";
-  var description = "Add a check item to a specific checklist.";
+  var description = "addChecklistsCheckItemsByIdChecklist() " + idChecklist;
   var body = {
-    "name": String(name),
-    "pos": String(pos),
+    "id": id,
     "checked": checked,
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
-}
-
-function updateChecklistsNameByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
-  var url = "/checklists/" + idChecklist + "/name";
-  var description = "updateChecklistsNameByIdChecklist()";
-  var body = {
+    "key": String(key),
     "name": String(name),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
-}
-
-function updateChecklistsPosByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
-  var url = "/checklists/" + idChecklist + "/pos";
-  var description = "updateChecklistsPosByIdChecklist()";
-  var body = {
     "pos": String(pos),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
 }
 
-// No verifyChecklistsExists generated: Primary Key "idChecklist" is not in POST body (Server-Generated ID).
-function waitForChecklistsAdded(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+function updateChecklistsIdCardByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist + "/idCard";
+  var description = "updateChecklistsIdCardByIdChecklist() " + idChecklist;
+  var body = {
+    "id": String(id),
+    "idCard": String(idCard),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
+}
+
+function updateChecklistsNameByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist + "/name";
+  var description = "updateChecklistsNameByIdChecklist() " + idChecklist;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
+}
+
+function updateChecklistsPosByIdChecklist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist + "/pos";
+  var description = "updateChecklistsPosByIdChecklist() " + idChecklist;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "pos": String(pos),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checked": checked, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idCard": idCard, "idCheckItem": idCheckItem, "idChecklist": idChecklist, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "token": token}) });
+}
+
+function tryToAddExistingChecklists(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists";
+  var description = "Try Add Existing Checklists " + idChecklist;
+  var body = {
+    "checklists": String(checklists),
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyChecklistsExists(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
+  var description = "Verify Checklists " + idChecklist + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Checklists found");
+}
+
+function verifyChecklistsDoesNotExist(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
+  var description = "Verify Checklists " + idChecklist + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Checklists not found");
+}
+
+function tryToDeleteANonExistingChecklists(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  var url = "/checklists/" + idChecklist + "/checkItems/" + idCheckItem;
+  var description = "Verify negative delete for Checklists";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedChecklists(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
+  return bp.EventSet("Delete Checklists", function(e) {
+      return e.name === "Done: " + "deleteChecklistsCheckItemsByIdChecklistByIdCheckItem()";
+  });
+}
+
+function waitForChecklistsAdded(actions, attachment_fields, attachments, before, checkItemStates, checked, checklists, field, fields, filter, id, idCard, idCheckItem, idChecklist, key, limit, member_fields, members, name, pos, since, stickers, token) {
   waitFor(matchSuccess("addChecklists()"));
 }
 
@@ -1082,301 +1485,496 @@ function matchAnyChecklistsAdded() {
   });
 }
 
-function addLabels(color, fields, idBoard, idLabel, key, name, token) {
+function addLabels(color, fields, id, idLabel, key, name, token) {
   var url = "/labels";
-  var description = "Attributes of \"Labels\" to be added.";
+  var description = "addLabels() " + idLabel;
   var body = {
-    "name": String(name),
     "color": String(color),
-    "idBoard": String(idBoard),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "fields": fields, "idBoard": idBoard, "idLabel": idLabel, "key": key, "name": name, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "fields": fields, "id": id, "idLabel": idLabel, "key": key, "name": name, "token": token}) });
 }
 
-function deleteLabelsByIdLabel(color, fields, idBoard, idLabel, key, name, token) {
+function deleteLabelsByIdLabel(color, fields, id, idLabel, key, name, token) {
   var url = "/labels/" + idLabel;
-  var description = "Delete a label by its ID.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteLabelsByIdLabel() " + idLabel;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getLabelsByIdLabel(color, fields, idBoard, idLabel, key, name, token) {
+function getLabelsByIdLabel(color, fields, id, idLabel, key, name, token) {
   var url = "/labels/" + idLabel;
-  var description = "Retrieve a label by its ID.";
+  var description = "getLabelsByIdLabel() " + idLabel;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateLabelsNameByIdLabel(color, fields, idBoard, idLabel, key, name, token) {
+function updateLabelsNameByIdLabel(color, fields, id, idLabel, key, name, token) {
   var url = "/labels/" + idLabel + "/name";
-  var description = "updateLabelsNameByIdLabel()";
+  var description = "updateLabelsNameByIdLabel() " + idLabel;
   var body = {
+    "id": id,
+    "key": String(key),
     "name": String(name),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "fields": fields, "idBoard": idBoard, "idLabel": idLabel, "key": key, "name": name, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "fields": fields, "id": id, "idLabel": idLabel, "key": key, "name": name, "token": token}) });
 }
 
-// No verifyLabelsExists generated: Primary Key "idLabel" is not in POST body (Server-Generated ID).
-function waitForLabelsAdded(color, fields, idBoard, idLabel, key, name, token) {
-  waitFor(matchSuccess("Attributes of \"Labels\" to be added."));
+function tryToAddExistingLabels(color, fields, id, idLabel, key, name, token) {
+  var url = "/labels";
+  var description = "Try Add Existing Labels " + idLabel;
+  var body = {
+    "color": String(color),
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyLabelsExists(color, fields, id, idLabel, key, name, token) {
+  var url = "/labels/" + idLabel;
+  var description = "Verify Labels " + idLabel + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Labels found");
+}
+
+function verifyLabelsDoesNotExist(color, fields, id, idLabel, key, name, token) {
+  var url = "/labels/" + idLabel;
+  var description = "Verify Labels " + idLabel + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Labels not found");
+}
+
+function tryToDeleteANonExistingLabels(color, fields, id, idLabel, key, name, token) {
+  var url = "/labels/" + idLabel;
+  var description = "Verify negative delete for Labels";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedLabels(color, fields, id, idLabel, key, name, token) {
+  return bp.EventSet("Delete Labels", function(e) {
+      return e.name === "Done: " + "deleteLabelsByIdLabel()";
+  });
+}
+
+function waitForLabelsAdded(color, fields, id, idLabel, key, name, token) {
+  waitFor(matchSuccess("addLabels()"));
 }
 
 function matchAnyLabelsAdded() {
   return bp.EventSet("Any Labels Added", function(e) {
-      return e.name.startsWith("Done: Attributes of \"Labels\" to be added.");
+      return e.name.startsWith("Done: addLabels()");
   });
 }
 
-function getLabelsBoardByIdLabel(fields, idLabel, key, token) {
+function getLabelsBoardByIdLabel(fields, id, idLabel, key, token) {
   var url = "/labels/" + idLabel + "/board";
-  var description = "Retrieve the board associated with a label by its ID.";
+  var description = "getLabelsBoardByIdLabel() " + idLabel;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyLabelsBoardExists generated: Primary Key "idLabel" is not in POST body (Server-Generated ID).
+function verifyLabelsBoardExists(fields, id, idLabel, key, token) {
+  var url = "/labels/" + idLabel + "/board";
+  var description = "Verify LabelsBoard " + idLabel + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("LabelsBoard found");
+}
+
+function verifyLabelsBoardDoesNotExist(fields, id, idLabel, key, token) {
+  var url = "/labels/" + idLabel + "/board";
+  var description = "Verify LabelsBoard " + idLabel + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("LabelsBoard not found");
+}
+
 function matchAnyLabelsBoardAdded() {
   return bp.EventSet("Any LabelsBoard Added", function(e) {
       return e.name.startsWith("Done: Create LabelsBoard");
   });
 }
 
-function getLabelsBoardByIdLabelByField(field, idLabel, key, token) {
+function getLabelsBoardByIdLabelByField(field, id, idLabel, key, token) {
   var url = "/labels/" + idLabel + "/board/" + field;
-  var description = "Retrieve a specific field of the board associated with a label by its ID.";
+  var description = "getLabelsBoardByIdLabelByField() " + idLabel;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyLabelsBoardFieldExists generated: Primary Key "idLabel" is not in POST body (Server-Generated ID).
+function verifyLabelsBoardFieldExists(field, id, idLabel, key, token) {
+  var url = "/labels/" + idLabel + "/board/" + field;
+  var description = "Verify LabelsBoardField " + idLabel + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("LabelsBoardField found");
+}
+
+function verifyLabelsBoardFieldDoesNotExist(field, id, idLabel, key, token) {
+  var url = "/labels/" + idLabel + "/board/" + field;
+  var description = "Verify LabelsBoardField " + idLabel + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("LabelsBoardField not found");
+}
+
 function matchAnyLabelsBoardFieldAdded() {
   return bp.EventSet("Any LabelsBoardField Added", function(e) {
       return e.name.startsWith("Done: Create LabelsBoardField");
   });
 }
 
-function updateLabelsColorByIdLabel(color, idLabel, key, token) {
+function updateLabelsColorByIdLabel(color, id, idLabel, key, token) {
   var url = "/labels/" + idLabel + "/color";
-  var description = "Attributes of \"Labels Color\" to be updated.";
+  var description = "updateLabelsColorByIdLabel() " + idLabel;
   var body = {
     "color": String(color),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "idLabel": idLabel, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "id": id, "idLabel": idLabel, "key": key, "token": token}) });
 }
 
-// No verifyLabelsColorExists generated: Primary Key "idLabel" is not in POST body (Server-Generated ID).
+// verifyLabelsColorExists skipped: No GET /{id} operation detected.
 function matchAnyLabelsColorAdded() {
   return bp.EventSet("Any LabelsColor Added", function(e) {
       return e.name.startsWith("Done: Create LabelsColor");
   });
 }
 
-function addListsMoveAllCardsByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function addListsMoveAllCardsByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/moveAllCards";
-  var description = "Move all cards from one list to another.";
+  var description = "addListsMoveAllCardsByIdList() " + idList;
   var body = {
+    "id": String(id),
     "idBoard": String(idBoard),
-    "idList": String(idList),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function getListsByIdListByField(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function getListsByIdListByField(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/" + field;
-  var description = "Retrieve specific field of a list by its ID.";
+  var description = "getListsByIdListByField() " + idList;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateListsIdBoardByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function updateListsIdBoardByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/idBoard";
-  var description = "Update the board ID for a specific list.";
+  var description = "updateListsIdBoardByIdList() " + idList;
   var body = {
+    "id": String(id),
     "idBoard": String(idBoard),
-  };
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function getListsCardsByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function getListsCardsByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/cards";
-  var description = "Retrieve cards associated with a specific list.";
+  var description = "getListsCardsByIdList() " + idList;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateListsNameByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function getListsBoardByIdListByField(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+  var url = "/lists/" + idList + "/board/" + field;
+  var description = "getListsBoardByIdListByField() " + idList;
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function getListsCardsByIdListByFilter(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+  var url = "/lists/" + idList + "/cards/" + filter;
+  var description = "getListsCardsByIdListByFilter() " + idList;
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function updateListsNameByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/name";
-  var description = "Update the name of a specific list.";
+  var description = "updateListsNameByIdList() " + idList;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "name": String(name),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function updateListsPosByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function updateListsPosByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/pos";
-  var description = "Update the position of a specific list.";
+  var description = "updateListsPosByIdList() " + idList;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "pos": String(pos),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function updateListsSubscribedByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function updateListsSubscribedByIdList(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/subscribed";
-  var description = "Update the subscription status of a specific list.";
+  var description = "updateListsSubscribedByIdList() " + idList;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "subscribed": subscribed,
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "before": before, "checkItemStates": checkItemStates, "checklists": checklists, "field": field, "fields": fields, "filter": filter, "id": id, "idBoard": idBoard, "idList": idList, "key": key, "limit": limit, "member_fields": member_fields, "members": members, "name": name, "pos": pos, "since": since, "stickers": stickers, "subscribed": subscribed, "token": token}) });
 }
 
-function tryToAddExistingLists(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function tryToAddExistingLists(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/moveAllCards";
-  var description = "Try Add Existing Lists";
+  var description = "Try Add Existing Lists " + idList;
   var body = {
+    "id": String(id),
     "idBoard": String(idBoard),
-    "idList": String(idList),
-  };
+    "key": String(key),
+    "token": String(token),
+};
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyListsExists(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function verifyListsExists(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/" + field;
   var description = "Verify Lists " + idList + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Lists found");
 }
 
-function verifyListsDoesNotExist(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+function verifyListsDoesNotExist(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
   var url = "/lists/" + idList + "/" + field;
   var description = "Verify Lists " + idList + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Lists not found");
 }
 
-function waitForListsAdded(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
-  waitFor(matchSuccess("Move all cards from one list to another."));
+function waitForListsAdded(actions, attachment_fields, attachments, before, checkItemStates, checklists, field, fields, filter, id, idBoard, idList, key, limit, member_fields, members, name, pos, since, stickers, subscribed, token) {
+  waitFor(matchSuccess("addListsMoveAllCardsByIdList()"));
 }
 
 function matchAnyListsAdded() {
   return bp.EventSet("Any Lists Added", function(e) {
-      return e.name.startsWith("Done: Move all cards from one list to another.");
+      return e.name.startsWith("Done: addListsMoveAllCardsByIdList()");
   });
 }
 
-function getMembersByIdMemberByField(field, filter, idMember, key, members_avatarSource, members_username, token) {
+function getMembersByIdMemberByField(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
   var url = "/members/" + idMember + "/" + field;
-  var description = "getMembersByIdMemberByField()";
+  var description = "getMembersByIdMemberByField() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateMembersUsernameByIdMember(field, filter, idMember, key, members_avatarSource, members_username, token) {
+function updateMembersUsernameByIdMember(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
   var url = "/members/" + idMember + "/username";
-  var description = "updateMembersUsernameByIdMember()";
+  var description = "updateMembersUsernameByIdMember() " + idMember;
   var body = {
-    "members_username": String(members_username),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+    "username": String(username),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "filter": filter, "idMember": idMember, "key": key, "members_avatarSource": members_avatarSource, "members_username": members_username, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "filter": filter, "id": id, "idMember": idMember, "idSavedSearch": idSavedSearch, "key": key, "members_savedSearches": members_savedSearches, "name": name, "token": token, "username": username}) });
 }
 
-function getMembersTokensByIdMember(field, filter, idMember, key, members_avatarSource, members_username, token) {
+function getMembersTokensByIdMember(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
   var url = "/members/" + idMember + "/tokens";
-  var description = "getMembersTokensByIdMember()";
+  var description = "getMembersTokensByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addMembersOneTimeMessagesDismissedByIdMember(field, filter, idMember, key, members_avatarSource, members_username, token) {
-  var url = "/members/" + idMember + "/oneTimeMessagesDismissed";
-  var description = "addMembersOneTimeMessagesDismissedByIdMember()";
+function addMembersSavedSearchesByIdMember(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  var url = "/members/" + idMember + "/savedSearches";
+  var description = "addMembersSavedSearchesByIdMember() " + idMember;
   var body = {
-    "$ref": "#/components/schemas/members_oneTimeMessagesDismissed",
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "filter": filter, "idMember": idMember, "key": key, "members_avatarSource": members_avatarSource, "members_username": members_username, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "members_savedSearches": String(members_savedSearches),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "filter": filter, "id": id, "idMember": idMember, "idSavedSearch": idSavedSearch, "key": key, "members_savedSearches": members_savedSearches, "name": name, "token": token, "username": username}) });
 }
 
-function updateMembersAvatarSourceByIdMember(field, filter, idMember, key, members_avatarSource, members_username, token) {
+function updateMembersAvatarSourceByIdMember(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
   var url = "/members/" + idMember + "/avatarSource";
-  var description = "Update avatar source for a member by ID or username.";
+  var description = "updateMembersAvatarSourceByIdMember() " + idMember;
   var body = {
-    "members_avatarSource": String(members_avatarSource),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "filter": filter, "idMember": idMember, "key": key, "members_avatarSource": members_avatarSource, "members_username": members_username, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "filter": filter, "id": id, "idMember": idMember, "idSavedSearch": idSavedSearch, "key": key, "members_savedSearches": members_savedSearches, "name": name, "token": token, "username": username}) });
 }
 
-// No verifyMembersExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersAdded(field, filter, idMember, key, members_avatarSource, members_username, token) {
-  waitFor(matchSuccess("addMembersOneTimeMessagesDismissedByIdMember()"));
+function deleteMembersSavedSearchesByIdMemberByIdSavedSearch(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
+  var description = "deleteMembersSavedSearchesByIdMemberByIdSavedSearch() " + idMember;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
+}
+
+function tryToAddExistingMembers(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  var url = "/members/" + idMember + "/savedSearches";
+  var description = "Try Add Existing Members " + idMember;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "members_savedSearches": String(members_savedSearches),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyMembersExists(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  var url = "/members/" + idMember + "/" + field;
+  var description = "Verify Members " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Members found");
+}
+
+function verifyMembersDoesNotExist(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  var url = "/members/" + idMember + "/" + field;
+  var description = "Verify Members " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Members not found");
+}
+
+function tryToDeleteANonExistingMembers(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
+  var description = "Verify negative delete for Members";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedMembers(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  return bp.EventSet("Delete Members", function(e) {
+      return e.name === "Done: " + "deleteMembersSavedSearchesByIdMemberByIdSavedSearch()";
+  });
+}
+
+function waitForMembersAdded(field, filter, id, idMember, idSavedSearch, key, members_savedSearches, name, token, username) {
+  waitFor(matchSuccess("addMembersSavedSearchesByIdMember()"));
 }
 
 function matchAnyMembersAdded() {
   return bp.EventSet("Any Members Added", function(e) {
-      return e.name.startsWith("Done: addMembersOneTimeMessagesDismissedByIdMember()");
+      return e.name.startsWith("Done: addMembersSavedSearchesByIdMember()");
   });
 }
 
-function updateMembersBioByIdMember(idMember, key, token) {
+function updateMembersBioByIdMember(id, idMember, key, token) {
   var url = "/members/" + idMember + "/bio";
-  var description = "updateMembersBioByIdMember()";
+  var description = "updateMembersBioByIdMember() " + idMember;
   var body = {
-    "$ref": "#/components/schemas/members_bio",
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idMember": idMember, "key": key, "token": token}) });
 }
 
-// No verifyMembersBioExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+// verifyMembersBioExists skipped: No GET /{id} operation detected.
 function matchAnyMembersBioAdded() {
   return bp.EventSet("Any MembersBio Added", function(e) {
       return e.name.startsWith("Done: Create MembersBio");
   });
 }
 
-function getMembersBoardBackgroundsByIdMember(fields, filter, idBoardBackground, idMember, key, token) {
+function getMembersBoardBackgroundsByIdMember(fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/boardBackgrounds";
-  var description = "getMembersBoardBackgroundsByIdMember()";
+  var description = "getMembersBoardBackgroundsByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addMembersBoardBackgroundsByIdMember(fields, filter, idBoardBackground, idMember, key, token) {
+function addMembersBoardBackgroundsByIdMember(fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/boardBackgrounds";
-  var description = "addMembersBoardBackgroundsByIdMember()";
+  var description = "addMembersBoardBackgroundsByIdMember() " + idMember;
   var body = {
-    "$ref": "#/components/schemas/members_boardBackgrounds",
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "id": id, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function getMembersBoardBackgroundsByIdMemberByIdBoardBackground(fields, filter, idBoardBackground, idMember, key, token) {
+function getMembersBoardBackgroundsByIdMemberByIdBoardBackground(fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
-  var description = "getMembersBoardBackgroundsByIdMemberByIdBoardBackground()";
+  var description = "getMembersBoardBackgroundsByIdMemberByIdBoardBackground() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateMembersBoardBackgroundsByIdMemberByIdBoardBackground(fields, filter, idBoardBackground, idMember, key, token) {
+function updateMembersBoardBackgroundsByIdMemberByIdBoardBackground(fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
-  var description = "updateMembersBoardBackgroundsByIdMemberByIdBoardBackground()";
+  var description = "updateMembersBoardBackgroundsByIdMemberByIdBoardBackground() " + idMember;
   var body = {
-    "$ref": "#/components/schemas/members_boardBackgrounds",
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "id": id, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground(fields, filter, idBoardBackground, idMember, key, token) {
+function deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground(fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
-  var description = "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground() " + idMember;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyMembersBoardBackgroundsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersBoardBackgroundsAdded(fields, filter, idBoardBackground, idMember, key, token) {
+function tryToAddExistingMembersBoardBackgrounds(fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/boardBackgrounds";
+  var description = "Try Add Existing MembersBoardBackgrounds " + idMember;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyMembersBoardBackgroundsExists(fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
+  var description = "Verify MembersBoardBackgrounds " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersBoardBackgrounds found");
+}
+
+function verifyMembersBoardBackgroundsDoesNotExist(fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
+  var description = "Verify MembersBoardBackgrounds " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersBoardBackgrounds not found");
+}
+
+function tryToDeleteANonExistingMembersBoardBackgrounds(fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/boardBackgrounds/" + idBoardBackground;
+  var description = "Verify negative delete for MembersBoardBackgrounds";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedMembersBoardBackgrounds(fields, filter, id, idBoardBackground, idMember, key, token) {
+  return bp.EventSet("Delete MembersBoardBackgrounds", function(e) {
+      return e.name === "Done: " + "deleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()";
+  });
+}
+
+function waitForMembersBoardBackgroundsAdded(fields, filter, id, idBoardBackground, idMember, key, token) {
   waitFor(matchSuccess("addMembersBoardBackgroundsByIdMember()"));
 }
 
@@ -1386,46 +1984,100 @@ function matchAnyMembersBoardBackgroundsAdded() {
   });
 }
 
-function getMembersBoardStarsByIdMember(idBoard, idBoardStar, idMember, key, token) {
+function getMembersBoardStarsByIdMember(id, idBoard, idBoardStar, idMember, key, pos, token) {
   var url = "/members/" + idMember + "/boardStars";
-  var description = "getMembersBoardStarsByIdMember()";
+  var description = "getMembersBoardStarsByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addMembersBoardStarsByIdMember(idBoard, idBoardStar, idMember, key, token) {
+function addMembersBoardStarsByIdMember(id, idBoard, idBoardStar, idMember, key, pos, token) {
   var url = "/members/" + idMember + "/boardStars";
-  var description = "addMembersBoardStarsByIdMember()";
+  var description = "addMembersBoardStarsByIdMember() " + idMember;
   var body = {
-    "$ref": "#/components/schemas/members_boardStars",
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "idBoardStar": idBoardStar, "idMember": idMember, "key": key, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "idBoardStar": idBoardStar, "idMember": idMember, "key": key, "pos": pos, "token": token}) });
 }
 
-function getMembersBoardStarsByIdMemberByIdBoardStar(idBoard, idBoardStar, idMember, key, token) {
+function getMembersBoardStarsByIdMemberByIdBoardStar(id, idBoard, idBoardStar, idMember, key, pos, token) {
   var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
-  var description = "getMembersBoardStarsByIdMemberByIdBoardStar()";
+  var description = "getMembersBoardStarsByIdMemberByIdBoardStar() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateMembersBoardStarsIdBoardByIdMemberByIdBoardStar(idBoard, idBoardStar, idMember, key, token) {
+function updateMembersBoardStarsIdBoardByIdMemberByIdBoardStar(id, idBoard, idBoardStar, idMember, key, pos, token) {
   var url = "/members/" + idMember + "/boardStars/" + idBoardStar + "/idBoard";
-  var description = "updateMembersBoardStarsIdBoardByIdMemberByIdBoardStar()";
+  var description = "updateMembersBoardStarsIdBoardByIdMemberByIdBoardStar() " + idMember;
   var body = {
+    "id": String(id),
     "idBoard": String(idBoard),
-  };
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoard": idBoard, "idBoardStar": idBoardStar, "idMember": idMember, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "idBoardStar": idBoardStar, "idMember": idMember, "key": key, "pos": pos, "token": token}) });
 }
 
-function deleteMembersBoardStarsByIdMemberByIdBoardStar(idBoard, idBoardStar, idMember, key, token) {
+function deleteMembersBoardStarsByIdMemberByIdBoardStar(id, idBoard, idBoardStar, idMember, key, pos, token) {
   var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
-  var description = "deleteMembersBoardStarsByIdMemberByIdBoardStar()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteMembersBoardStarsByIdMemberByIdBoardStar() " + idMember;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyMembersBoardStarsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersBoardStarsAdded(idBoard, idBoardStar, idMember, key, token) {
+function updateMembersBoardStarsPosByIdMemberByIdBoardStar(id, idBoard, idBoardStar, idMember, key, pos, token) {
+  var url = "/members/" + idMember + "/boardStars/" + idBoardStar + "/pos";
+  var description = "updateMembersBoardStarsPosByIdMemberByIdBoardStar() " + idMember;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "pos": String(pos),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idBoard": idBoard, "idBoardStar": idBoardStar, "idMember": idMember, "key": key, "pos": pos, "token": token}) });
+}
+
+function tryToAddExistingMembersBoardStars(id, idBoard, idBoardStar, idMember, key, pos, token) {
+  var url = "/members/" + idMember + "/boardStars";
+  var description = "Try Add Existing MembersBoardStars " + idMember;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyMembersBoardStarsExists(id, idBoard, idBoardStar, idMember, key, pos, token) {
+  var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
+  var description = "Verify MembersBoardStars " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersBoardStars found");
+}
+
+function verifyMembersBoardStarsDoesNotExist(id, idBoard, idBoardStar, idMember, key, pos, token) {
+  var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
+  var description = "Verify MembersBoardStars " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersBoardStars not found");
+}
+
+function tryToDeleteANonExistingMembersBoardStars(id, idBoard, idBoardStar, idMember, key, pos, token) {
+  var url = "/members/" + idMember + "/boardStars/" + idBoardStar;
+  var description = "Verify negative delete for MembersBoardStars";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedMembersBoardStars(id, idBoard, idBoardStar, idMember, key, pos, token) {
+  return bp.EventSet("Delete MembersBoardStars", function(e) {
+      return e.name === "Done: " + "deleteMembersBoardStarsByIdMemberByIdBoardStar()";
+  });
+}
+
+function waitForMembersBoardStarsAdded(id, idBoard, idBoardStar, idMember, key, pos, token) {
   waitFor(matchSuccess("addMembersBoardStarsByIdMember()"));
 }
 
@@ -1435,154 +2087,233 @@ function matchAnyMembersBoardStarsAdded() {
   });
 }
 
-function updateMembersBoardStarsPosByIdMemberByIdBoardStar(idBoardStar, idMember, key, pos, token) {
-  var url = "/members/" + idMember + "/boardStars/" + idBoardStar + "/pos";
-  var description = "updateMembersBoardStarsPosByIdMemberByIdBoardStar()";
-  var body = {
-    "pos": String(pos),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idBoardStar": idBoardStar, "idMember": idMember, "key": key, "pos": pos, "token": token}) });
-}
-
-// No verifyMembersBoardStarsPosExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function matchAnyMembersBoardStarsPosAdded() {
-  return bp.EventSet("Any MembersBoardStarsPos Added", function(e) {
-      return e.name.startsWith("Done: Create MembersBoardStarsPos");
-  });
-}
-
-function getMembersBoardsByIdMember(action_fields, actions, actions_entities, actions_format, actions_limit, actions_since, fields, filter, idMember, key, lists, memberships, organization, organization_fields, token) {
+function getMembersBoardsByIdMember(action_fields, actions, actions_entities, actions_format, actions_limit, actions_since, fields, filter, id, idMember, key, lists, memberships, organization, organization_fields, token) {
   var url = "/members/" + idMember + "/boards";
-  var description = "getMembersBoardsByIdMember()";
+  var description = "getMembersBoardsByIdMember() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getMembersBoardsByIdMemberByFilter(action_fields, actions, actions_entities, actions_format, actions_limit, actions_since, fields, filter, idMember, key, lists, memberships, organization, organization_fields, token) {
+function getMembersBoardsByIdMemberByFilter(action_fields, actions, actions_entities, actions_format, actions_limit, actions_since, fields, filter, id, idMember, key, lists, memberships, organization, organization_fields, token) {
   var url = "/members/" + idMember + "/boards/" + filter;
-  var description = "getMembersBoardsByIdMemberByFilter()";
+  var description = "getMembersBoardsByIdMemberByFilter() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersBoardsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+function getMembersBoardsInvitedByIdMember(action_fields, actions, actions_entities, actions_format, actions_limit, actions_since, fields, filter, id, idMember, key, lists, memberships, organization, organization_fields, token) {
+  var url = "/members/" + idMember + "/boardsInvited";
+  var description = "getMembersBoardsInvitedByIdMember() " + id;
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+// verifyMembersBoardsExists skipped: No GET /{id} operation detected.
 function matchAnyMembersBoardsAdded() {
   return bp.EventSet("Any MembersBoards Added", function(e) {
       return e.name.startsWith("Done: Create MembersBoards");
   });
 }
 
-function getMembersBoardsInvitedByIdMember(field, fields, idMember, key, token) {
-  var url = "/members/" + idMember + "/boardsInvited";
-  var description = "getMembersBoardsInvitedByIdMember()";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getMembersBoardsInvitedByIdMemberByField(field, fields, idMember, key, token) {
+function getMembersBoardsInvitedByIdMemberByField(field, id, idMember, key, token) {
   var url = "/members/" + idMember + "/boardsInvited/" + field;
-  var description = "Retrieve invited boards for a member by specific field.";
+  var description = "getMembersBoardsInvitedByIdMemberByField() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersBoardsInvitedExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+function verifyMembersBoardsInvitedExists(field, id, idMember, key, token) {
+  var url = "/members/" + idMember + "/boardsInvited/" + field;
+  var description = "Verify MembersBoardsInvited " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersBoardsInvited found");
+}
+
+function verifyMembersBoardsInvitedDoesNotExist(field, id, idMember, key, token) {
+  var url = "/members/" + idMember + "/boardsInvited/" + field;
+  var description = "Verify MembersBoardsInvited " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersBoardsInvited not found");
+}
+
 function matchAnyMembersBoardsInvitedAdded() {
   return bp.EventSet("Any MembersBoardsInvited Added", function(e) {
       return e.name.startsWith("Done: Create MembersBoardsInvited");
   });
 }
 
-function getMembersCardsByIdMember(actions, attachment_fields, attachments, before, checkItemStates, checklists, fields, filter, idMember, key, limit, member_fields, members, since, stickers, token) {
+function getMembersCardsByIdMember(actions, attachment_fields, attachments, before, checkItemStates, checklists, fields, filter, id, idMember, key, limit, member_fields, members, since, stickers, token) {
   var url = "/members/" + idMember + "/cards";
-  var description = "List all cards for a member.";
+  var description = "getMembersCardsByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getMembersCardsByIdMemberByFilter(actions, attachment_fields, attachments, before, checkItemStates, checklists, fields, filter, idMember, key, limit, member_fields, members, since, stickers, token) {
+function getMembersCardsByIdMemberByFilter(actions, attachment_fields, attachments, before, checkItemStates, checklists, fields, filter, id, idMember, key, limit, member_fields, members, since, stickers, token) {
   var url = "/members/" + idMember + "/cards/" + filter;
-  var description = "Retrieve cards for a member by filter.";
+  var description = "getMembersCardsByIdMemberByFilter() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersCardsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+function verifyMembersCardsExists(actions, attachment_fields, attachments, before, checkItemStates, checklists, fields, filter, id, idMember, key, limit, member_fields, members, since, stickers, token) {
+  var url = "/members/" + idMember + "/cards/" + filter;
+  var description = "Verify MembersCards " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersCards found");
+}
+
+function verifyMembersCardsDoesNotExist(actions, attachment_fields, attachments, before, checkItemStates, checklists, fields, filter, id, idMember, key, limit, member_fields, members, since, stickers, token) {
+  var url = "/members/" + idMember + "/cards/" + filter;
+  var description = "Verify MembersCards " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersCards not found");
+}
+
 function matchAnyMembersCardsAdded() {
   return bp.EventSet("Any MembersCards Added", function(e) {
       return e.name.startsWith("Done: Create MembersCards");
   });
 }
 
-function getMembersCustomBoardBackgroundsByIdMember(customBoardBackgrounds, fields, filter, idBoardBackground, idMember, key, token) {
+function getMembersCustomBoardBackgroundsByIdMember(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/customBoardBackgrounds";
-  var description = "List custom board backgrounds for a member.";
+  var description = "getMembersCustomBoardBackgroundsByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addMembersCustomBoardBackgroundsByIdMember(customBoardBackgrounds, fields, filter, idBoardBackground, idMember, key, token) {
+function addMembersCustomBoardBackgroundsByIdMember(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/customBoardBackgrounds";
-  var description = "Add a custom board background for a member.";
+  var description = "addMembersCustomBoardBackgroundsByIdMember() " + idMember;
   var body = {
     "customBoardBackgrounds": String(customBoardBackgrounds),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"customBoardBackgrounds": customBoardBackgrounds, "fields": fields, "filter": filter, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"customBoardBackgrounds": customBoardBackgrounds, "fields": fields, "filter": filter, "id": id, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground(customBoardBackgrounds, fields, filter, idBoardBackground, idMember, key, token) {
+function deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
-  var description = "Retrieve a specific custom board background for a member.";
+  var description = "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground() " + idMember;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
+}
+
+function getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
+  var description = "getMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground(customBoardBackgrounds, fields, filter, idBoardBackground, idMember, key, token) {
+function updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
-  var description = "Update a specific custom board background for a member.";
+  var description = "updateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground() " + idMember;
   var body = {
     "customBoardBackgrounds": String(customBoardBackgrounds),
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"customBoardBackgrounds": customBoardBackgrounds, "fields": fields, "filter": filter, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"customBoardBackgrounds": customBoardBackgrounds, "fields": fields, "filter": filter, "id": id, "idBoardBackground": idBoardBackground, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground(customBoardBackgrounds, fields, filter, idBoardBackground, idMember, key, token) {
+function tryToAddExistingMembersCustomBoardBackgrounds(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/customBoardBackgrounds";
+  var description = "Try Add Existing MembersCustomBoardBackgrounds " + idMember;
+  var body = {
+    "customBoardBackgrounds": String(customBoardBackgrounds),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyMembersCustomBoardBackgroundsExists(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
   var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
-  var description = "Delete a specific custom board background for a member.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "Verify MembersCustomBoardBackgrounds " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersCustomBoardBackgrounds found");
 }
 
-// No verifyMembersCustomBoardBackgroundsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersCustomBoardBackgroundsAdded(customBoardBackgrounds, fields, filter, idBoardBackground, idMember, key, token) {
-  waitFor(matchSuccess("Add a custom board background for a member."));
+function verifyMembersCustomBoardBackgroundsDoesNotExist(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
+  var description = "Verify MembersCustomBoardBackgrounds " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersCustomBoardBackgrounds not found");
+}
+
+function tryToDeleteANonExistingMembersCustomBoardBackgrounds(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
+  var url = "/members/" + idMember + "/customBoardBackgrounds/" + idBoardBackground;
+  var description = "Verify negative delete for MembersCustomBoardBackgrounds";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedMembersCustomBoardBackgrounds(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
+  return bp.EventSet("Delete MembersCustomBoardBackgrounds", function(e) {
+      return e.name === "Done: " + "deleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()";
+  });
+}
+
+function waitForMembersCustomBoardBackgroundsAdded(customBoardBackgrounds, fields, filter, id, idBoardBackground, idMember, key, token) {
+  waitFor(matchSuccess("addMembersCustomBoardBackgroundsByIdMember()"));
 }
 
 function matchAnyMembersCustomBoardBackgroundsAdded() {
   return bp.EventSet("Any MembersCustomBoardBackgrounds Added", function(e) {
-      return e.name.startsWith("Done: Add a custom board background for a member.");
+      return e.name.startsWith("Done: addMembersCustomBoardBackgroundsByIdMember()");
   });
 }
 
-function getMembersCustomEmojiByIdMember(fields, filter, idCustomEmoji, idMember, key, name, token, url) {
+function getMembersCustomEmojiByIdMember(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
   var url = "/members/" + idMember + "/customEmoji";
-  var description = "This gets the list of all of the user’s uploaded emoji";
+  var description = "This gets the list of all of the user’s uploaded emoji " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addMembersCustomEmojiByIdMember(fields, filter, idCustomEmoji, idMember, key, name, token, url) {
+function addMembersCustomEmojiByIdMember(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
   var url = "/members/" + idMember + "/customEmoji";
-  var description = "Attributes of \"Members Custom Emoji\" to be added.";
+  var description = "Attributes of \"Members Custom Emoji\" to be added. " + idMember;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "name": String(name),
-    "url": String(url),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "idCustomEmoji": idCustomEmoji, "idMember": idMember, "key": key, "name": name, "token": token, "url": url}) });
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "id": id, "idCustomEmoji": idCustomEmoji, "idMember": idMember, "key": key, "name": name, "token": token}) });
 }
 
-function getMembersCustomEmojiByIdMemberByIdCustomEmoji(fields, filter, idCustomEmoji, idMember, key, name, token, url) {
+function getMembersCustomEmojiByIdMemberByIdCustomEmoji(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
   var url = "/members/" + idMember + "/customEmoji/" + idCustomEmoji;
-  var description = "Get a specific custom emoji by ID.";
+  var description = "Get a specific custom emoji by id. " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersCustomEmojiExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersCustomEmojiAdded(fields, filter, idCustomEmoji, idMember, key, name, token, url) {
+function tryToAddExistingMembersCustomEmoji(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
+  var url = "/members/" + idMember + "/customEmoji";
+  var description = "Try Add Existing MembersCustomEmoji " + idMember;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyMembersCustomEmojiExists(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
+  var url = "/members/" + idMember + "/customEmoji/" + idCustomEmoji;
+  var description = "Verify MembersCustomEmoji " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersCustomEmoji found");
+}
+
+function verifyMembersCustomEmojiDoesNotExist(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
+  var url = "/members/" + idMember + "/customEmoji/" + idCustomEmoji;
+  var description = "Verify MembersCustomEmoji " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersCustomEmoji not found");
+}
+
+function waitForMembersCustomEmojiAdded(fields, filter, id, idCustomEmoji, idMember, key, name, token) {
   waitFor(matchSuccess("Attributes of \"Members Custom Emoji\" to be added."));
 }
 
@@ -1592,37 +2323,74 @@ function matchAnyMembersCustomEmojiAdded() {
   });
 }
 
-function getMembersCustomStickersByIdMember(fields, filter, idCustomSticker, idMember, key, name, token, url) {
+function getMembersCustomStickersByIdMember(fields, filter, id, idCustomSticker, idMember, key, token) {
   var url = "/members/" + idMember + "/customStickers";
-  var description = "This gets a list of all of the user’s uploaded stickers";
+  var description = "This gets a list of all of the user’s uploaded stickers " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function addMembersCustomStickersByIdMember(fields, filter, idCustomSticker, idMember, key, name, token, url) {
+function addMembersCustomStickersByIdMember(fields, filter, id, idCustomSticker, idMember, key, token) {
   var url = "/members/" + idMember + "/customStickers";
-  var description = "Attributes of \"Members Custom Stickers\" to be added.";
+  var description = "Attributes of \"Members Custom Stickers\" to be added. " + idMember;
   var body = {
-    "name": String(name),
-    "url": String(url),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "idCustomSticker": idCustomSticker, "idMember": idMember, "key": key, "name": name, "token": token, "url": url}) });
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"fields": fields, "filter": filter, "id": id, "idCustomSticker": idCustomSticker, "idMember": idMember, "key": key, "token": token}) });
 }
 
-function getMembersCustomStickersByIdMemberByIdCustomSticker(fields, filter, idCustomSticker, idMember, key, name, token, url) {
+function getMembersCustomStickersByIdMemberByIdCustomSticker(fields, filter, id, idCustomSticker, idMember, key, token) {
   var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
-  var description = "Get a specific custom sticker by ID.";
+  var description = "Get a specific custom sticker by id. " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function deleteMembersCustomStickersByIdMemberByIdCustomSticker(fields, filter, idCustomSticker, idMember, key, name, token, url) {
+function deleteMembersCustomStickersByIdMemberByIdCustomSticker(fields, filter, id, idCustomSticker, idMember, key, token) {
   var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
-  var description = "Delete a specific custom sticker by ID.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "Delete a specific custom sticker by id. " + idMember;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-// No verifyMembersCustomStickersExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersCustomStickersAdded(fields, filter, idCustomSticker, idMember, key, name, token, url) {
+function tryToAddExistingMembersCustomStickers(fields, filter, id, idCustomSticker, idMember, key, token) {
+  var url = "/members/" + idMember + "/customStickers";
+  var description = "Try Add Existing MembersCustomStickers " + idMember;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyMembersCustomStickersExists(fields, filter, id, idCustomSticker, idMember, key, token) {
+  var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
+  var description = "Verify MembersCustomStickers " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersCustomStickers found");
+}
+
+function verifyMembersCustomStickersDoesNotExist(fields, filter, id, idCustomSticker, idMember, key, token) {
+  var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
+  var description = "Verify MembersCustomStickers " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersCustomStickers not found");
+}
+
+function tryToDeleteANonExistingMembersCustomStickers(fields, filter, id, idCustomSticker, idMember, key, token) {
+  var url = "/members/" + idMember + "/customStickers/" + idCustomSticker;
+  var description = "Verify negative delete for MembersCustomStickers";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedMembersCustomStickers(fields, filter, id, idCustomSticker, idMember, key, token) {
+  return bp.EventSet("Delete MembersCustomStickers", function(e) {
+      return e.name === "Done: " + "Delete a specific custom sticker by id.";
+  });
+}
+
+function waitForMembersCustomStickersAdded(fields, filter, id, idCustomSticker, idMember, key, token) {
   waitFor(matchSuccess("Attributes of \"Members Custom Stickers\" to be added."));
 }
 
@@ -1634,11 +2402,11 @@ function matchAnyMembersCustomStickersAdded() {
 
 function getMembersDeltasByIdMember(id, idMember, ixLastUpdate, key, tags, token) {
   var url = "/members/" + idMember + "/deltas";
-  var description = "Get deltas for a member.";
+  var description = "Get deltas for a member. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersDeltasExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifyMembersDeltasExists skipped: No GET /{id} operation detected.
 function matchAnyMembersDeltasAdded() {
   return bp.EventSet("Any MembersDeltas Added", function(e) {
       return e.name.startsWith("Done: Create MembersDeltas");
@@ -1647,17 +2415,30 @@ function matchAnyMembersDeltasAdded() {
 
 function getMembersOrganizationsByIdMember(fields, filter, idMember, key, paid_account, token) {
   var url = "/members/" + idMember + "/organizations";
-  var description = "getMembersOrganizationsByIdMember()";
+  var description = "getMembersOrganizationsByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
 function getMembersOrganizationsByIdMemberByFilter(fields, filter, idMember, key, paid_account, token) {
   var url = "/members/" + idMember + "/organizations/" + filter;
-  var description = "getMembersOrganizationsByIdMemberByFilter()";
+  var description = "getMembersOrganizationsByIdMemberByFilter() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersOrganizationsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+function verifyMembersOrganizationsExists(fields, filter, idMember, key, paid_account, token) {
+  var url = "/members/" + idMember + "/organizations/" + filter;
+  var description = "Verify MembersOrganizations " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersOrganizations found");
+}
+
+function verifyMembersOrganizationsDoesNotExist(fields, filter, idMember, key, paid_account, token) {
+  var url = "/members/" + idMember + "/organizations/" + filter;
+  var description = "Verify MembersOrganizations " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersOrganizations not found");
+}
+
 function matchAnyMembersOrganizationsAdded() {
   return bp.EventSet("Any MembersOrganizations Added", function(e) {
       return e.name.startsWith("Done: Create MembersOrganizations");
@@ -1666,17 +2447,30 @@ function matchAnyMembersOrganizationsAdded() {
 
 function getMembersOrganizationsInvitedByIdMember(field, fields, idMember, key, token) {
   var url = "/members/" + idMember + "/organizationsInvited";
-  var description = "getMembersOrganizationsInvitedByIdMember()";
+  var description = "getMembersOrganizationsInvitedByIdMember() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
 function getMembersOrganizationsInvitedByIdMemberByField(field, fields, idMember, key, token) {
   var url = "/members/" + idMember + "/organizationsInvited/" + field;
-  var description = "getMembersOrganizationsInvitedByIdMemberByField()";
+  var description = "getMembersOrganizationsInvitedByIdMemberByField() " + idMember;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyMembersOrganizationsInvitedExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+function verifyMembersOrganizationsInvitedExists(field, fields, idMember, key, token) {
+  var url = "/members/" + idMember + "/organizationsInvited/" + field;
+  var description = "Verify MembersOrganizationsInvited " + idMember + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("MembersOrganizationsInvited found");
+}
+
+function verifyMembersOrganizationsInvitedDoesNotExist(field, fields, idMember, key, token) {
+  var url = "/members/" + idMember + "/organizationsInvited/" + field;
+  var description = "Verify MembersOrganizationsInvited " + idMember + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("MembersOrganizationsInvited not found");
+}
+
 function matchAnyMembersOrganizationsInvitedAdded() {
   return bp.EventSet("Any MembersOrganizationsInvited Added", function(e) {
       return e.name.startsWith("Done: Create MembersOrganizationsInvited");
@@ -1685,195 +2479,127 @@ function matchAnyMembersOrganizationsInvitedAdded() {
 
 function updateMembersPrefsColorBlindByIdMember(idMember, key, prefs_colorBlind, token) {
   var url = "/members/" + idMember + "/prefs/colorBlind";
-  var description = "updateMembersPrefsColorBlindByIdMember()";
+  var description = "updateMembersPrefsColorBlindByIdMember() " + idMember;
   var body = {
+    "key": String(key),
     "prefs_colorBlind": String(prefs_colorBlind),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "key": key, "prefs_colorBlind": prefs_colorBlind, "token": token}) });
 }
 
-// No verifyMembersPrefsExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
+// verifyMembersPrefsExists skipped: No GET /{id} operation detected.
 function matchAnyMembersPrefsAdded() {
   return bp.EventSet("Any MembersPrefs Added", function(e) {
       return e.name.startsWith("Done: Create MembersPrefs");
   });
 }
 
-function updateMembersPrefsLocaleByIdMember(idMember, key, prefs_locale, token) {
-  var url = "/members/" + idMember + "/prefs/locale";
-  var description = "updateMembersPrefsLocaleByIdMember()";
-  var body = {
-    "prefs_locale": String(prefs_locale),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "key": key, "prefs_locale": prefs_locale, "token": token}) });
-}
-
-// No verifyMembersPrefsLocaleExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function matchAnyMembersPrefsLocaleAdded() {
-  return bp.EventSet("Any MembersPrefsLocale Added", function(e) {
-      return e.name.startsWith("Done: Create MembersPrefsLocale");
-  });
-}
-
-function updateMembersPrefsMinutesBetweenSummariesByIdMember(idMember, key, prefs_minutesBetweenSummaries, token) {
-  var url = "/members/" + idMember + "/prefs/minutesBetweenSummaries";
-  var description = "updateMembersPrefsMinutesBetweenSummariesByIdMember()";
-  var body = {
-    "prefs_minutesBetweenSummaries": String(prefs_minutesBetweenSummaries),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "key": key, "prefs_minutesBetweenSummaries": prefs_minutesBetweenSummaries, "token": token}) });
-}
-
-// No verifyMembersPrefsMinutesBetweenSummariesExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function matchAnyMembersPrefsMinutesBetweenSummariesAdded() {
-  return bp.EventSet("Any MembersPrefsMinutesBetweenSummaries Added", function(e) {
-      return e.name.startsWith("Done: Create MembersPrefsMinutesBetweenSummaries");
-  });
-}
-
-function getMembersSavedSearchesByIdMember(idMember, idSavedSearch, key, members_savedSearches, token) {
-  var url = "/members/" + idMember + "/savedSearches";
-  var description = "getMembersSavedSearchesByIdMember()";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function addMembersSavedSearchesByIdMember(idMember, idSavedSearch, key, members_savedSearches, token) {
-  var url = "/members/" + idMember + "/savedSearches";
-  var description = "addMembersSavedSearchesByIdMember()";
-  var body = {
-    "members_savedSearches": String(members_savedSearches),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "idSavedSearch": idSavedSearch, "key": key, "members_savedSearches": members_savedSearches, "token": token}) });
-}
-
-function getMembersSavedSearchesByIdMemberByIdSavedSearch(idMember, idSavedSearch, key, members_savedSearches, token) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
-  var description = "getMembersSavedSearchesByIdMemberByIdSavedSearch()";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function updateMembersSavedSearchesByIdMemberByIdSavedSearch(idMember, idSavedSearch, key, members_savedSearches, token) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
-  var description = "updateMembersSavedSearchesByIdMemberByIdSavedSearch()";
-  var body = {
-    "members_savedSearches": String(members_savedSearches),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "idSavedSearch": idSavedSearch, "key": key, "members_savedSearches": members_savedSearches, "token": token}) });
-}
-
-function deleteMembersSavedSearchesByIdMemberByIdSavedSearch(idMember, idSavedSearch, key, members_savedSearches, token) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch;
-  var description = "deleteMembersSavedSearchesByIdMemberByIdSavedSearch()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyMembersSavedSearchesExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function waitForMembersSavedSearchesAdded(idMember, idSavedSearch, key, members_savedSearches, token) {
-  waitFor(matchSuccess("addMembersSavedSearchesByIdMember()"));
-}
-
-function matchAnyMembersSavedSearchesAdded() {
-  return bp.EventSet("Any MembersSavedSearches Added", function(e) {
-      return e.name.startsWith("Done: addMembersSavedSearchesByIdMember()");
-  });
-}
-
-function updateMembersSavedSearchesNameByIdMemberByIdSavedSearch(idMember, idSavedSearch, key, members_savedSearches_name, token) {
-  var url = "/members/" + idMember + "/savedSearches/" + idSavedSearch + "/name";
-  var description = "updateMembersSavedSearchesNameByIdMemberByIdSavedSearch()";
-  var body = {
-    "members_savedSearches_name": String(members_savedSearches_name),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idMember": idMember, "idSavedSearch": idSavedSearch, "key": key, "members_savedSearches_name": members_savedSearches_name, "token": token}) });
-}
-
-// No verifyMembersSavedSearchesNameExists generated: Primary Key "idMember" is not in POST body (Server-Generated ID).
-function matchAnyMembersSavedSearchesNameAdded() {
-  return bp.EventSet("Any MembersSavedSearchesName Added", function(e) {
-      return e.name.startsWith("Done: Create MembersSavedSearchesName");
-  });
-}
-
-function addNotificationsAllRead(field, fields, idNotification, key, token) {
+function addNotificationsAllRead(field, fields, id, idNotification, key, token) {
   var url = "/notifications/all/read";
-  var description = "addNotificationsAllRead()";
-  var body = undefined;
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "fields": fields, "idNotification": idNotification, "key": key, "token": token}) });
-}
-
-function getNotificationsByIdNotificationByField(field, fields, idNotification, key, token) {
-  var url = "/notifications/" + idNotification + "/" + field;
-  var description = "getNotificationsByIdNotificationByField()";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function updateNotificationsUnreadByIdNotification(field, fields, idNotification, key, token) {
-  var url = "/notifications/" + idNotification + "/unread";
-  var description = "updateNotificationsUnreadByIdNotification()";
+  var description = "addNotificationsAllRead() " + idNotification;
   var body = {
-    "$ref": "#/components/schemas/notifications_unread",
-  };
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "fields": fields, "id": id, "idNotification": idNotification, "key": key, "token": token}) });
+}
+
+function getNotificationsByIdNotificationByField(field, fields, id, idNotification, key, token) {
+  var url = "/notifications/" + idNotification + "/" + field;
+  var description = "getNotificationsByIdNotificationByField() " + idNotification;
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function updateNotificationsUnreadByIdNotification(field, fields, id, idNotification, key, token) {
+  var url = "/notifications/" + idNotification + "/unread";
+  var description = "updateNotificationsUnreadByIdNotification() " + idNotification;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "fields": fields, "idNotification": idNotification, "key": key, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "fields": fields, "id": id, "idNotification": idNotification, "key": key, "token": token}) });
 }
 
-function getNotificationsBoardByIdNotification(field, fields, idNotification, key, token) {
+function getNotificationsBoardByIdNotification(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/board";
-  var description = "getNotificationsBoardByIdNotification()";
+  var description = "getNotificationsBoardByIdNotification() " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsBoardByIdNotificationByField(field, fields, idNotification, key, token) {
+function getNotificationsBoardByIdNotificationByField(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/board/" + field;
-  var description = "getNotificationsBoardByIdNotificationByField()";
+  var description = "getNotificationsBoardByIdNotificationByField() " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsCardByIdNotification(field, fields, idNotification, key, token) {
+function getNotificationsCardByIdNotification(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/card";
-  var description = "getNotificationsCardByIdNotification()";
+  var description = "getNotificationsCardByIdNotification() " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsListByIdNotification(field, fields, idNotification, key, token) {
+function getNotificationsListByIdNotification(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/list";
-  var description = "Retrieve a list of notifications by notification ID.";
+  var description = "getNotificationsListByIdNotification() " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsMemberByIdNotificationByField(field, fields, idNotification, key, token) {
+function getNotificationsMemberByIdNotificationByField(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/member/" + field;
-  var description = "Retrieve a specific field of member details for a specific notification.";
+  var description = "Retrieve specific field of member details for a specific notification. " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsMemberCreatorByIdNotification(field, fields, idNotification, key, token) {
+function getNotificationsMemberCreatorByIdNotification(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/memberCreator";
-  var description = "Retrieve member creator details for a specific notification.";
+  var description = "Retrieve member creator details for a specific notification. " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsMemberCreatorByIdNotificationByField(field, fields, idNotification, key, token) {
+function getNotificationsMemberCreatorByIdNotificationByField(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/memberCreator/" + field;
-  var description = "Retrieve a specific field of member creator details for a specific notification.";
+  var description = "Retrieve specific field of member creator details for a specific notification. " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getNotificationsOrganizationByIdNotification(field, fields, idNotification, key, token) {
+function getNotificationsOrganizationByIdNotification(field, fields, id, idNotification, key, token) {
   var url = "/notifications/" + idNotification + "/organization";
-  var description = "Retrieve organization details for a specific notification.";
+  var description = "Retrieve organization details for a specific notification. " + idNotification;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyNotificationsExists generated: Primary Key "idNotification" is not in POST body (Server-Generated ID).
-function waitForNotificationsAdded(field, fields, idNotification, key, token) {
+function tryToAddExistingNotifications(field, fields, id, idNotification, key, token) {
+  var url = "/notifications/all/read";
+  var description = "Try Add Existing Notifications " + idNotification;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyNotificationsExists(field, fields, id, idNotification, key, token) {
+  var url = "/notifications/" + idNotification + "/" + field;
+  var description = "Verify Notifications " + idNotification + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Notifications found");
+}
+
+function verifyNotificationsDoesNotExist(field, fields, id, idNotification, key, token) {
+  var url = "/notifications/" + idNotification + "/" + field;
+  var description = "Verify Notifications " + idNotification + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Notifications not found");
+}
+
+function waitForNotificationsAdded(field, fields, id, idNotification, key, token) {
   waitFor(matchSuccess("addNotificationsAllRead()"));
 }
 
@@ -1883,46 +2609,89 @@ function matchAnyNotificationsAdded() {
   });
 }
 
-function addOrganizationsLogoByIdOrg(activity, field, fields, filter, idOrg, key, logo, token, value, website) {
+function addOrganizationsLogoByIdOrg(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
   var url = "/organizations/" + idOrg + "/logo";
-  var description = "addOrganizationsLogoByIdOrg()";
+  var description = "addOrganizationsLogoByIdOrg() " + idOrg;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "logo": String(logo),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"activity": activity, "field": field, "fields": fields, "filter": filter, "idOrg": idOrg, "key": key, "logo": logo, "token": token, "value": value, "website": website}) });
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"activity": activity, "field": field, "fields": fields, "filter": filter, "id": id, "idOrg": idOrg, "key": key, "logo": logo, "token": token, "value": value, "website": website}) });
 }
 
-function deleteOrganizationsPrefsOrgInviteRestrictByIdOrg(activity, field, fields, filter, idOrg, key, logo, token, value, website) {
+function deleteOrganizationsPrefsOrgInviteRestrictByIdOrg(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
   var url = "/organizations/" + idOrg + "/prefs/orgInviteRestrict";
-  var description = "Delete the organization invite restriction preferences for an organization by ID.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteOrganizationsPrefsOrgInviteRestrictByIdOrg() " + idOrg;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getOrganizationsByIdOrgByField(activity, field, fields, filter, idOrg, key, logo, token, value, website) {
+function getOrganizationsByIdOrgByField(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
   var url = "/organizations/" + idOrg + "/" + field;
-  var description = "getOrganizationsByIdOrgByField()";
+  var description = "getOrganizationsByIdOrgByField() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateOrganizationsWebsiteByIdOrg(activity, field, fields, filter, idOrg, key, logo, token, value, website) {
+function updateOrganizationsWebsiteByIdOrg(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
   var url = "/organizations/" + idOrg + "/website";
-  var description = "updateOrganizationsWebsiteByIdOrg()";
+  var description = "updateOrganizationsWebsiteByIdOrg() " + idOrg;
   var body = {
+    "id": id,
+    "key": String(key),
+    "token": String(token),
     "website": String(website),
-  };
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"activity": activity, "field": field, "fields": fields, "filter": filter, "idOrg": idOrg, "key": key, "logo": logo, "token": token, "value": value, "website": website}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"activity": activity, "field": field, "fields": fields, "filter": filter, "id": id, "idOrg": idOrg, "key": key, "logo": logo, "token": token, "value": value, "website": website}) });
 }
 
-function getOrganizationsMembersByIdOrg(activity, field, fields, filter, idOrg, key, logo, token, value, website) {
+function getOrganizationsMembersByIdOrg(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
   var url = "/organizations/" + idOrg + "/members";
-  var description = "getOrganizationsMembersByIdOrg()";
+  var description = "getOrganizationsMembersByIdOrg() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyOrganizationsExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
-function waitForOrganizationsAdded(activity, field, fields, filter, idOrg, key, logo, token, value, website) {
+function tryToAddExistingOrganizations(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
+  var url = "/organizations/" + idOrg + "/logo";
+  var description = "Try Add Existing Organizations " + idOrg;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "logo": String(logo),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyOrganizationsExists(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
+  var url = "/organizations/" + idOrg + "/" + field;
+  var description = "Verify Organizations " + idOrg + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Organizations found");
+}
+
+function verifyOrganizationsDoesNotExist(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
+  var url = "/organizations/" + idOrg + "/" + field;
+  var description = "Verify Organizations " + idOrg + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Organizations not found");
+}
+
+function tryToDeleteANonExistingOrganizations(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
+  var url = "/organizations/" + idOrg + "/prefs/orgInviteRestrict";
+  var description = "Verify negative delete for Organizations";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedOrganizations(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
+  return bp.EventSet("Delete Organizations", function(e) {
+      return e.name === "Done: " + "deleteOrganizationsPrefsOrgInviteRestrictByIdOrg()";
+  });
+}
+
+function waitForOrganizationsAdded(activity, field, fields, filter, id, idOrg, key, logo, token, value, website) {
   waitFor(matchSuccess("addOrganizationsLogoByIdOrg()"));
 }
 
@@ -1932,364 +2701,485 @@ function matchAnyOrganizationsAdded() {
   });
 }
 
-function deleteOrganizationsMembersAllByIdOrgByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, idMember, idOrg, key, list, list_fields, member_fields, members, organizations_members_deactivated, token) {
+function deleteOrganizationsMembersAllByIdOrgByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, id, idMember, idOrg, key, list, list_fields, member_fields, members, organizations_members_deactivated, token) {
   var url = "/organizations/" + idOrg + "/members/" + idMember + "/all";
-  var description = "deleteOrganizationsMembersAllByIdOrgByIdMember()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteOrganizationsMembersAllByIdOrgByIdMember() " + idOrg;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getOrganizationsMembersCardsByIdOrgByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, idMember, idOrg, key, list, list_fields, member_fields, members, organizations_members_deactivated, token) {
+function getOrganizationsMembersCardsByIdOrgByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, id, idMember, idOrg, key, list, list_fields, member_fields, members, organizations_members_deactivated, token) {
   var url = "/organizations/" + idOrg + "/members/" + idMember + "/cards";
-  var description = "getOrganizationsMembersCardsByIdOrgByIdMember()";
+  var description = "getOrganizationsMembersCardsByIdOrgByIdMember() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateOrganizationsMembersDeactivatedByIdOrgByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, idMember, idOrg, key, list, list_fields, member_fields, members, organizations_members_deactivated, token) {
+function updateOrganizationsMembersDeactivatedByIdOrgByIdMember(actions, attachment_fields, attachments, board, board_fields, checkItemStates, checklists, fields, filter, id, idMember, idOrg, key, list, list_fields, member_fields, members, organizations_members_deactivated, token) {
   var url = "/organizations/" + idOrg + "/members/" + idMember + "/deactivated";
-  var description = "updateOrganizationsMembersDeactivatedByIdOrgByIdMember()";
+  var description = "updateOrganizationsMembersDeactivatedByIdOrgByIdMember() " + idOrg;
   var body = {
+    "id": String(id),
+    "key": String(key),
     "organizations_members_deactivated": String(organizations_members_deactivated),
-  };
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "board": board, "board_fields": board_fields, "checkItemStates": checkItemStates, "checklists": checklists, "fields": fields, "filter": filter, "idMember": idMember, "idOrg": idOrg, "key": key, "list": list, "list_fields": list_fields, "member_fields": member_fields, "members": members, "organizations_members_deactivated": organizations_members_deactivated, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"actions": actions, "attachment_fields": attachment_fields, "attachments": attachments, "board": board, "board_fields": board_fields, "checkItemStates": checkItemStates, "checklists": checklists, "fields": fields, "filter": filter, "id": id, "idMember": idMember, "idOrg": idOrg, "key": key, "list": list, "list_fields": list_fields, "member_fields": member_fields, "members": members, "organizations_members_deactivated": organizations_members_deactivated, "token": token}) });
 }
 
-// No verifyOrganizationsMembersExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
+// verifyOrganizationsMembersExists skipped: No GET /{id} operation detected.
 function matchAnyOrganizationsMembersAdded() {
   return bp.EventSet("Any OrganizationsMembers Added", function(e) {
       return e.name.startsWith("Done: Create OrganizationsMembers");
   });
 }
 
-function getOrganizationsMembersInvitedByIdOrg(field, fields, idOrg, key, token) {
+function getOrganizationsMembersInvitedByIdOrg(field, fields, id, idOrg, key, token) {
   var url = "/organizations/" + idOrg + "/membersInvited";
-  var description = "getOrganizationsMembersInvitedByIdOrg()";
+  var description = "getOrganizationsMembersInvitedByIdOrg() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getOrganizationsMembersInvitedByIdOrgByField(field, fields, idOrg, key, token) {
+function getOrganizationsMembersInvitedByIdOrgByField(field, fields, id, idOrg, key, token) {
   var url = "/organizations/" + idOrg + "/membersInvited/" + field;
-  var description = "getOrganizationsMembersInvitedByIdOrgByField()";
+  var description = "getOrganizationsMembersInvitedByIdOrgByField() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyOrganizationsMembersInvitedExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
+function verifyOrganizationsMembersInvitedExists(field, fields, id, idOrg, key, token) {
+  var url = "/organizations/" + idOrg + "/membersInvited/" + field;
+  var description = "Verify OrganizationsMembersInvited " + idOrg + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("OrganizationsMembersInvited found");
+}
+
+function verifyOrganizationsMembersInvitedDoesNotExist(field, fields, id, idOrg, key, token) {
+  var url = "/organizations/" + idOrg + "/membersInvited/" + field;
+  var description = "Verify OrganizationsMembersInvited " + idOrg + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("OrganizationsMembersInvited not found");
+}
+
 function matchAnyOrganizationsMembersInvitedAdded() {
   return bp.EventSet("Any OrganizationsMembersInvited Added", function(e) {
       return e.name.startsWith("Done: Create OrganizationsMembersInvited");
   });
 }
 
-function getOrganizationsMembershipsByIdOrg(filter, idMembership, idOrg, key, member, member_fields, organizations_memberships, token) {
+function getOrganizationsMembershipsByIdOrg(attributes, filter, id, idMembership, idOrg, key, member, member_fields, token) {
   var url = "/organizations/" + idOrg + "/memberships";
-  var description = "Retrieve a list of memberships for a specific organization.";
+  var description = "getOrganizationsMembershipsByIdOrg() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getOrganizationsMembershipsByIdOrgByIdMembership(filter, idMembership, idOrg, key, member, member_fields, organizations_memberships, token) {
+function getOrganizationsMembershipsByIdOrgByIdMembership(attributes, filter, id, idMembership, idOrg, key, member, member_fields, token) {
   var url = "/organizations/" + idOrg + "/memberships/" + idMembership;
-  var description = "Retrieve a specific membership by ID for a specific organization.";
+  var description = "getOrganizationsMembershipsByIdOrgByIdMembership() " + idOrg;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateOrganizationsMembershipsByIdOrgByIdMembership(filter, idMembership, idOrg, key, member, member_fields, organizations_memberships, token) {
+function updateOrganizationsMembershipsByIdOrgByIdMembership(attributes, filter, id, idMembership, idOrg, key, member, member_fields, token) {
   var url = "/organizations/" + idOrg + "/memberships/" + idMembership;
-  var description = "Update a specific membership by ID for a specific organization.";
+  var description = "updateOrganizationsMembershipsByIdOrgByIdMembership() " + idOrg;
   var body = {
-    "organizations_memberships": String(organizations_memberships),
-  };
+    "attributes": String(attributes),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"filter": filter, "idMembership": idMembership, "idOrg": idOrg, "key": key, "member": member, "member_fields": member_fields, "organizations_memberships": organizations_memberships, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"attributes": attributes, "filter": filter, "id": id, "idMembership": idMembership, "idOrg": idOrg, "key": key, "member": member, "member_fields": member_fields, "token": token}) });
 }
 
-// No verifyOrganizationsMembershipsExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
+function verifyOrganizationsMembershipsExists(attributes, filter, id, idMembership, idOrg, key, member, member_fields, token) {
+  var url = "/organizations/" + idOrg + "/memberships/" + idMembership;
+  var description = "Verify OrganizationsMemberships " + idOrg + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("OrganizationsMemberships found");
+}
+
+function verifyOrganizationsMembershipsDoesNotExist(attributes, filter, id, idMembership, idOrg, key, member, member_fields, token) {
+  var url = "/organizations/" + idOrg + "/memberships/" + idMembership;
+  var description = "Verify OrganizationsMemberships " + idOrg + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("OrganizationsMemberships not found");
+}
+
 function matchAnyOrganizationsMembershipsAdded() {
   return bp.EventSet("Any OrganizationsMemberships Added", function(e) {
       return e.name.startsWith("Done: Create OrganizationsMemberships");
   });
 }
 
-function updateOrganizationsNameByIdOrg(idOrg, key, organizations_name, token) {
+function updateOrganizationsNameByIdOrg(attributes, id, idOrg, key, token) {
   var url = "/organizations/" + idOrg + "/name";
-  var description = "Update the name of a specific organization.";
+  var description = "updateOrganizationsNameByIdOrg() " + idOrg;
   var body = {
-    "organizations_name": String(organizations_name),
-  };
+    "attributes": String(attributes),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idOrg": idOrg, "key": key, "organizations_name": organizations_name, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"attributes": attributes, "id": id, "idOrg": idOrg, "key": key, "token": token}) });
 }
 
-// No verifyOrganizationsNameExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
+// verifyOrganizationsNameExists skipped: No GET /{id} operation detected.
 function matchAnyOrganizationsNameAdded() {
   return bp.EventSet("Any OrganizationsName Added", function(e) {
       return e.name.startsWith("Done: Create OrganizationsName");
   });
 }
 
-function deleteOrganizationsPrefsAssociatedDomainByIdOrg(idOrg, key, prefs_associatedDomain, token) {
+function deleteOrganizationsPrefsAssociatedDomainByIdOrg(attributes, id, idOrg, key, token) {
   var url = "/organizations/" + idOrg + "/prefs/associatedDomain";
-  var description = "Delete the associated domain preference for a specific organization.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteOrganizationsPrefsAssociatedDomainByIdOrg() " + idOrg;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function updateOrganizationsPrefsAssociatedDomainByIdOrg(idOrg, key, prefs_associatedDomain, token) {
+function updateOrganizationsPrefsAssociatedDomainByIdOrg(attributes, id, idOrg, key, token) {
   var url = "/organizations/" + idOrg + "/prefs/associatedDomain";
-  var description = "Update the associated domain preference for a specific organization.";
+  var description = "updateOrganizationsPrefsAssociatedDomainByIdOrg() " + idOrg;
   var body = {
-    "prefs_associatedDomain": String(prefs_associatedDomain),
-  };
+    "attributes": String(attributes),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idOrg": idOrg, "key": key, "prefs_associatedDomain": prefs_associatedDomain, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"attributes": attributes, "id": id, "idOrg": idOrg, "key": key, "token": token}) });
 }
 
-// No verifyOrganizationsPrefsAssociatedDomainExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
+// verifyOrganizationsPrefsAssociatedDomainExists skipped: No GET /{id} operation detected.
 function matchAnyOrganizationsPrefsAssociatedDomainAdded() {
   return bp.EventSet("Any OrganizationsPrefsAssociatedDomain Added", function(e) {
       return e.name.startsWith("Done: Create OrganizationsPrefsAssociatedDomain");
   });
 }
 
-function updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg(idOrg, key, prefs_boardVisibilityRestrict, token) {
+function updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg(attributes, id, idOrg, key, token) {
   var url = "/organizations/" + idOrg + "/prefs/boardVisibilityRestrict/org";
-  var description = "Update the board visibility restriction preference for a specific organization.";
+  var description = "updateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg() " + idOrg;
   var body = {
-    "prefs_boardVisibilityRestrict": String(prefs_boardVisibilityRestrict),
-  };
+    "attributes": String(attributes),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idOrg": idOrg, "key": key, "prefs_boardVisibilityRestrict": prefs_boardVisibilityRestrict, "token": token}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"attributes": attributes, "id": id, "idOrg": idOrg, "key": key, "token": token}) });
 }
 
-// No verifyOrganizationsPrefsBoardVisibilityRestrictExists generated: Primary Key "idOrg" is not in POST body (Server-Generated ID).
-function matchAnyOrganizationsPrefsBoardVisibilityRestrictAdded() {
-  return bp.EventSet("Any OrganizationsPrefsBoardVisibilityRestrict Added", function(e) {
-      return e.name.startsWith("Done: Create OrganizationsPrefsBoardVisibilityRestrict");
+// verifyOrganizationsPrefsBoardVisibilityRestrictOrgExists skipped: No GET /{id} operation detected.
+function matchAnyOrganizationsPrefsBoardVisibilityRestrictOrgAdded() {
+  return bp.EventSet("Any OrganizationsPrefsBoardVisibilityRestrictOrg Added", function(e) {
+      return e.name.startsWith("Done: Create OrganizationsPrefsBoardVisibilityRestrictOrg");
   });
 }
 
 function getSearchMembers(id, idBoard, idOrganization, key, limit, onlyOrgMembers, query, token) {
   var url = "/search/members";
-  var description = "getSearchMembers()";
+  var description = "getSearchMembers() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifySearchExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+// verifySearchExists skipped: No GET /{id} operation detected.
 function matchAnySearchAdded() {
   return bp.EventSet("Any Search Added", function(e) {
       return e.name.startsWith("Done: Create Search");
   });
 }
 
-function addSessions(idSession, key, sessions, sessions_status, token) {
+function addSessions(id, idSession, key, name, status, token) {
   var url = "/sessions";
-  var description = "Attributes of \"Sessions\" to be added.";
+  var description = "addSessions() " + idSession;
   var body = {
-    "sessions": String(sessions),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idSession": idSession, "key": key, "sessions": sessions, "sessions_status": sessions_status, "token": token}) });
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "status": String(status),
+    "token": String(token),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idSession": idSession, "key": key, "name": name, "status": status, "token": token}) });
 }
 
-function getSessionsSocket(idSession, key, sessions, sessions_status, token) {
+function updateSessionsByIdSession(id, idSession, key, name, status, token) {
+  var url = "/sessions/" + idSession;
+  var description = "updateSessionsByIdSession() " + idSession;
+  var body = {
+    "id": String(id),
+    "key": String(key),
+    "name": String(name),
+    "status": String(status),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idSession": idSession, "key": key, "name": name, "status": status, "token": token}) });
+}
+
+function updateSessionsStatusByIdSession(id, idSession, key, name, status, token) {
+  var url = "/sessions/" + idSession + "/status";
+  var description = "updateSessionsStatusByIdSession() " + idSession;
+  var body = {
+    "id": id,
+    "key": String(key),
+    "status": String(status),
+    "token": String(token),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "idSession": idSession, "key": key, "name": name, "status": status, "token": token}) });
+}
+
+function getSessionsSocket(id, idSession, key, name, status, token) {
   var url = "/sessions/socket";
-  var description = "This is the route for WebSocket requests. See the socket API reference for a description of WebSocket usage.";
+  var description = "getSessionsSocket() " + idSession;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateSessionsByIdSession(idSession, key, sessions, sessions_status, token) {
-  var url = "/sessions/" + idSession;
-  var description = "Attributes of \"Sessions\" to be updated.";
-  var body = {
-    "sessions": String(sessions),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idSession": idSession, "key": key, "sessions": sessions, "sessions_status": sessions_status, "token": token}) });
-}
-
-function updateSessionsStatusByIdSession(idSession, key, sessions, sessions_status, token) {
-  var url = "/sessions/" + idSession + "/status";
-  var description = "Attributes of \"Sessions Status\" to be updated.";
-  var body = {
-    "sessions_status": String(sessions_status),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"idSession": idSession, "key": key, "sessions": sessions, "sessions_status": sessions_status, "token": token}) });
-}
-
-// No verifySessionsExists generated: Primary Key "idSession" is not in POST body (Server-Generated ID).
-function waitForSessionsAdded(idSession, key, sessions, sessions_status, token) {
-  waitFor(matchSuccess("Attributes of \"Sessions\" to be added."));
+// verifySessionsExists skipped: No GET /{id} operation detected.
+function waitForSessionsAdded(id, idSession, key, name, status, token) {
+  waitFor(matchSuccess("addSessions()"));
 }
 
 function matchAnySessionsAdded() {
   return bp.EventSet("Any Sessions Added", function(e) {
-      return e.name.startsWith("Done: Attributes of \"Sessions\" to be added.");
+      return e.name.startsWith("Done: addSessions()");
   });
 }
 
-function deleteTokensByToken(field, fields, key, token, webhooks) {
+function deleteTokensByToken(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
   var url = "/tokens/" + token;
-  var description = "Delete a token by its identifier.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteTokensByToken() " + token;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getTokensByToken(field, fields, key, token, webhooks) {
-  var url = "/tokens/" + token;
-  var description = "Retrieve a token by its identifier.";
+function getTokensMemberByToken(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/member";
+  var description = "Retrieve member information associated with a token.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function getTokensByTokenByField(field, fields, key, token, webhooks) {
+function getTokensMemberByTokenByField(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/member/" + field;
+  var description = "Retrieve specific field information of a member associated with a token.";
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function getTokensWebhooksByToken(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/webhooks";
+  var description = "List webhooks associated with a token.";
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function addTokensWebhooksByToken(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/webhooks";
+  var description = "Add a new webhook associated with a token.";
+  var body = {
+    "active": active,
+    "callbackURL": String(callbackURL),
+    "description": String(description),
+    "idModel": String(idModel),
+    "key": String(key),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"active": active, "callbackURL": callbackURL, "description": description, "field": field, "fields": fields, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token}) });
+}
+
+function updateTokensWebhooksByToken(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/webhooks";
+  var description = "Update an existing webhook associated with a token.";
+  var body = {
+    "active": active,
+    "callbackURL": String(callbackURL),
+    "description": String(description),
+    "idModel": String(idModel),
+    "key": String(key),
+};
+  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"active": active, "callbackURL": callbackURL, "description": description, "field": field, "fields": fields, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token}) });
+}
+
+function deleteTokensWebhooksByTokenByIdWebhook(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/webhooks/" + idWebhook;
+  var description = "Delete a webhook associated with a token by its ID.";
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
+}
+
+function getTokensWebhooksByTokenByIdWebhook(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/webhooks/" + idWebhook;
+  var description = "Retrieve a specific webhook associated with a token by its ID.";
+  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+}
+
+function getTokensByTokenByField(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
   var url = "/tokens/" + token + "/" + field;
   var description = "Retrieve specific field information associated with a token.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyTokensExists generated: Primary Key "token" is not in POST body (Server-Generated ID).
+function verifyTokensExists(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/member";
+  var description = "Verify Tokens " + token + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Tokens found");
+}
+
+function verifyTokensDoesNotExist(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token + "/member";
+  var description = "Verify Tokens " + token + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Tokens not found");
+}
+
+function tryToDeleteANonExistingTokens(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  var url = "/tokens/" + token;
+  var description = "Verify negative delete for Tokens";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedTokens(active, callbackURL, description, field, fields, idModel, idWebhook, key, token) {
+  return bp.EventSet("Delete Tokens", function(e) {
+      return e.name === "Done: " + "deleteTokensByToken()";
+  });
+}
+
 function matchAnyTokensAdded() {
   return bp.EventSet("Any Tokens Added", function(e) {
       return e.name.startsWith("Done: Create Tokens");
   });
 }
 
-function getTokensMemberByToken(field, fields, key, token) {
-  var url = "/tokens/" + token + "/member";
-  var description = "Retrieve member information associated with a token.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getTokensMemberByTokenByField(field, fields, key, token) {
-  var url = "/tokens/" + token + "/member/" + field;
-  var description = "Retrieve specific field information of a member associated with a token.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyTokensMemberExists generated: Primary Key "token" is not in POST body (Server-Generated ID).
-function matchAnyTokensMemberAdded() {
-  return bp.EventSet("Any TokensMember Added", function(e) {
-      return e.name.startsWith("Done: Create TokensMember");
-  });
-}
-
-function getTokensWebhooksByToken(callbackURL, description, idModel, idWebhook, key, token) {
-  var url = "/tokens/" + token + "/webhooks";
-  var description = "List all webhooks associated with a token.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function addTokensWebhooksByToken(callbackURL, description, idModel, idWebhook, key, token) {
-  var url = "/tokens/" + token + "/webhooks";
-  var description = "Add a new webhook associated with a token.";
-  var body = {
-    "callbackURL": String(callbackURL),
-    "idModel": String(idModel),
-    "description": String(description),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"callbackURL": callbackURL, "description": description, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token}) });
-}
-
-function updateTokensWebhooksByToken(callbackURL, description, idModel, idWebhook, key, token) {
-  var url = "/tokens/" + token + "/webhooks";
-  var description = "Update an existing webhook associated with a token.";
-  var body = {
-    "callbackURL": String(callbackURL),
-    "idModel": String(idModel),
-    "description": String(description),
-  };
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"callbackURL": callbackURL, "description": description, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token}) });
-}
-
-function deleteTokensWebhooksByTokenByIdWebhook(callbackURL, description, idModel, idWebhook, key, token) {
-  var url = "/tokens/" + token + "/webhooks/" + idWebhook;
-  var description = "Delete a specific webhook associated with a token.";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-function getTokensWebhooksByTokenByIdWebhook(callbackURL, description, idModel, idWebhook, key, token) {
-  var url = "/tokens/" + token + "/webhooks/" + idWebhook;
-  var description = "Retrieve a specific webhook associated with a token.";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
-}
-
-// No verifyTokensWebhooksExists generated: Primary Key "token" is not in POST body (Server-Generated ID).
-function waitForTokensWebhooksAdded(callbackURL, description, idModel, idWebhook, key, token) {
-  waitFor(matchSuccess("Add a new webhook associated with a token."));
-}
-
-function matchAnyTokensWebhooksAdded() {
-  return bp.EventSet("Any TokensWebhooks Added", function(e) {
-      return e.name.startsWith("Done: Add a new webhook associated with a token.");
-  });
-}
-
 function getTypesById(id, key, token) {
   var url = "/types/" + id;
-  var description = "getTypesById()";
+  var description = "getTypesById() " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-// No verifyTypesExists generated: Primary Key "id" is not in POST body (Server-Generated ID).
+function verifyTypesExists(id, key, token) {
+  var url = "/types/" + id;
+  var description = "Verify Types " + id + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Types found");
+}
+
+function verifyTypesDoesNotExist(id, key, token) {
+  var url = "/types/" + id;
+  var description = "Verify Types " + id + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Types not found");
+}
+
 function matchAnyTypesAdded() {
   return bp.EventSet("Any Types Added", function(e) {
       return e.name.startsWith("Done: Create Types");
   });
 }
 
-function addWebhooks(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function addWebhooks(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   var url = "/webhooks";
-  var description = "addWebhooks()";
+  var description = "addWebhooks() " + idWebhook;
   var body = {
+    "description": String(description),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
     "webhooks": String(webhooks),
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"description": description, "field": field, "id": id, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
 }
 
-function updateWebhooksIdModelByIdWebhook(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function updateWebhooksIdModelByIdWebhook(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   var url = "/webhooks/" + idWebhook + "/idModel";
-  var description = "updateWebhooksIdModelByIdWebhook()";
+  var description = "updateWebhooksIdModelByIdWebhook() " + idWebhook;
   var body = {
+    "id": String(id),
     "idModel": String(idModel),
-  };
+    "key": String(key),
+    "token": String(token),
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"description": description, "field": field, "id": id, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
 }
 
-function deleteWebhooksByIdWebhook(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function deleteWebhooksByIdWebhook(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   var url = "/webhooks/" + idWebhook;
-  var description = "deleteWebhooksByIdWebhook()";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
+  var description = "deleteWebhooksByIdWebhook() " + idWebhook;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400] });
 }
 
-function getWebhooksByIdWebhookByField(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function getWebhooksByIdWebhookByField(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   var url = "/webhooks/" + idWebhook + "/" + field;
-  var description = "getWebhooksByIdWebhookByField()";
+  var description = "getWebhooksByIdWebhookByField() " + idWebhook;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400] });
 }
 
-function updateWebhooksByIdWebhook(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function updateWebhooksByIdWebhook(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   var url = "/webhooks/" + idWebhook;
-  var description = "updateWebhooksByIdWebhook()";
+  var description = "updateWebhooksByIdWebhook() " + idWebhook;
   var body = {
+    "id": id,
+    "key": String(key),
+    "token": String(token),
     "webhooks": String(webhooks),
-  };
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"description": description, "field": field, "id": id, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
 }
 
-function updateWebhooksActiveByIdWebhook(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function updateWebhooksActiveByIdWebhook(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   var url = "/webhooks/" + idWebhook + "/active";
-  var description = "updateWebhooksActiveByIdWebhook()";
+  var description = "updateWebhooksActiveByIdWebhook() " + idWebhook;
   var body = {
+    "id": id,
+    "key": String(key),
+    "token": String(token),
     "webhooks_active": String(webhooks_active),
-  };
+};
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"field": field, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"description": description, "field": field, "id": id, "idModel": idModel, "idWebhook": idWebhook, "key": key, "token": token, "webhooks": webhooks, "webhooks_active": webhooks_active}) });
 }
 
-// No verifyWebhooksExists generated: Primary Key "idWebhook" is not in POST body (Server-Generated ID).
-function waitForWebhooksAdded(field, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+function tryToAddExistingWebhooks(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+  var url = "/webhooks";
+  var description = "Try Add Existing Webhooks " + idWebhook;
+  var body = {
+    "description": String(description),
+    "id": String(id),
+    "key": String(key),
+    "token": String(token),
+    "webhooks": String(webhooks),
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+}
+
+function verifyWebhooksExists(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+  var url = "/webhooks/" + idWebhook + "/" + field;
+  var description = "Verify Webhooks " + idWebhook + " exists";
+  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
+  pvg.success("Webhooks found");
+}
+
+function verifyWebhooksDoesNotExist(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+  var url = "/webhooks/" + idWebhook + "/" + field;
+  var description = "Verify Webhooks " + idWebhook + " does not exist";
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+  pvg.success("Webhooks not found");
+}
+
+function tryToDeleteANonExistingWebhooks(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+  var url = "/webhooks/" + idWebhook;
+  var description = "Verify negative delete for Webhooks";
+  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function matchDeletedWebhooks(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
+  return bp.EventSet("Delete Webhooks", function(e) {
+      return e.name === "Done: " + "deleteWebhooksByIdWebhook()";
+  });
+}
+
+function waitForWebhooksAdded(description, field, id, idModel, idWebhook, key, token, webhooks, webhooks_active) {
   waitFor(matchSuccess("addWebhooks()"));
 }
 

@@ -22,13 +22,16 @@
           "method": "POST",
           "path": "/drugs",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "name": "{name}"
           },
           "paramTypes": {
-            "id": "string"
+            "id": "string",
+            "name": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -206,13 +209,16 @@
           "method": "POST",
           "path": "/patients",
           "params": [
-            "id"
+            "id",
+            "name"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "id": "{id}",
+            "name": "{name}"
           },
           "paramTypes": {
-            "id": "string"
+            "id": "string",
+            "name": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -467,6 +473,14 @@
     }
   },
   "dependencies": {
+    "Orders": [
+      "Drugs",
+      "Patients"
+    ],
+    "Prescriptions": [
+      "Drugs",
+      "Patients"
+    ],
     "Inventory": [
       "Drugs"
     ]

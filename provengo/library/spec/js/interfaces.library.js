@@ -90,32 +90,33 @@ function matchAnyBooksAdded() {
   });
 }
 
-function listLoans(bookId, loanDate, userId) {
+function listLoans(bookId, id, loanDate, userId) {
   var url = "/loans";
   var description = "List/search loans " + userId;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createLoan(bookId, loanDate, userId) {
+function createLoan(bookId, id, loanDate, userId) {
   var url = "/loans";
   var description = "Create a loan " + userId;
   var body = {
     "bookId": bookId,
+    "id": String(id),
     "loanDate": String(loanDate),
     "userId": userId,
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "loanDate": loanDate, "userId": userId}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "id": id, "loanDate": loanDate, "userId": userId}) });
 }
 
-function deleteLoan(bookId, loanDate, userId) {
+function deleteLoan(bookId, id, loanDate, userId) {
   var url = "/loans/" + userId + "/" + bookId;
   var description = "Delete a loan by composite id " + userId;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
 }
 
 // verifyLoansExists skipped: No GET /{id} operation detected.
-function waitForLoansAdded(bookId, loanDate, userId) {
+function waitForLoansAdded(bookId, id, loanDate, userId) {
   waitFor(matchSuccess("Create a loan"));
 }
 
@@ -161,34 +162,33 @@ function matchAnyUsersAdded() {
   });
 }
 
-function listHolds(bookId, id, name, status, userId) {
+function listHolds(bookId, hidden, id, userId) {
   var url = "/holds";
   var description = "List holds " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createHold(bookId, id, name, status, userId) {
+function createHold(bookId, hidden, id, userId) {
   var url = "/holds";
   var description = "Create a hold " + id;
   var body = {
     "bookId": bookId,
+    "hidden": hidden,
     "id": id,
-    "name": String(name),
-    "status": String(status),
     "userId": userId,
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "id": id, "name": name, "status": status, "userId": userId}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "hidden": hidden, "id": id, "userId": userId}) });
 }
 
-function deleteHold(bookId, id, name, status, userId) {
+function deleteHold(bookId, hidden, id, userId) {
   var url = "/holds/" + id;
   var description = "Delete a hold " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
 }
 
 // verifyHoldsExists skipped: No GET /{id} operation detected.
-function waitForHoldsAdded(bookId, id, name, status, userId) {
+function waitForHoldsAdded(bookId, hidden, id, userId) {
   waitFor(matchSuccess("Create a hold"));
 }
 

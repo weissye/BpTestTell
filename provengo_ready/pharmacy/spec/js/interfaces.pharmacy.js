@@ -11,80 +11,80 @@ const pvg = {
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listDrugs(id) {
+function listDrugs(id, name) {
   var url = "/drugs";
   var description = "List drugs " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createDrug(id) {
+function createDrug(id, name) {
   var url = "/drugs";
   var description = "Create drug " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
 }
 
-function getDrug(id) {
+function getDrug(id, name) {
   var url = "/drugs/" + id;
   var description = "Get drug " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function updateDrug(id) {
+function updateDrug(id, name) {
   var url = "/drugs/" + id;
   var description = "Update drug " + id;
-  var body = {
-    "id": String(id),
-};
+  var body = undefined;
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
 }
 
-function deleteDrug(id) {
+function deleteDrug(id, name) {
   var url = "/drugs/" + id;
   var description = "Delete drug (idempotent)";
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
 }
 
-function tryToAddExistingDrugs(id) {
+function tryToAddExistingDrugs(id, name) {
   var url = "/drugs";
   var description = "Try Add Existing Drugs " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyDrugsExists(id) {
+function verifyDrugsExists(id, name) {
   var url = "/drugs/" + id;
   var description = "Verify Drugs " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Drugs found");
 }
 
-function verifyDrugsDoesNotExist(id) {
+function verifyDrugsDoesNotExist(id, name) {
   var url = "/drugs/" + id;
   var description = "Verify Drugs " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Drugs not found");
 }
 
-function tryToDeleteANonExistingDrugs(id) {
+function tryToDeleteANonExistingDrugs(id, name) {
   var url = "/drugs/" + id;
   var description = "Verify negative delete for Drugs";
   svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
 }
 
-function matchDeletedDrugs(id) {
+function matchDeletedDrugs(id, name) {
   return bp.EventSet("Delete Drugs", function(e) {
       return e.name === "Done: " + "Delete drug (idempotent)";
   });
 }
 
-function waitForDrugsAdded(id) {
+function waitForDrugsAdded(id, name) {
   waitFor(matchSuccess("Create drug"));
 }
 
@@ -119,9 +119,7 @@ function getOrder(id) {
 function updateOrder(id) {
   var url = "/orders/" + id;
   var description = "Update order " + id;
-  var body = {
-    "id": String(id),
-};
+  var body = undefined;
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
 }
@@ -177,80 +175,80 @@ function matchAnyOrdersAdded() {
   });
 }
 
-function listPatients(id) {
+function listPatients(id, name) {
   var url = "/patients";
   var description = "List patients " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createPatient(id) {
+function createPatient(id, name) {
   var url = "/patients";
   var description = "Create patient " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
 }
 
-function getPatient(id) {
+function getPatient(id, name) {
   var url = "/patients/" + id;
   var description = "Get patient " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function updatePatient(id) {
+function updatePatient(id, name) {
   var url = "/patients/" + id;
   var description = "Update patient " + id;
-  var body = {
-    "id": String(id),
-};
+  var body = undefined;
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
 }
 
-function deletePatient(id) {
+function deletePatient(id, name) {
   var url = "/patients/" + id;
   var description = "Delete patient (idempotent)";
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
 }
 
-function tryToAddExistingPatients(id) {
+function tryToAddExistingPatients(id, name) {
   var url = "/patients";
   var description = "Try Add Existing Patients " + id;
   var body = {
     "id": String(id),
+    "name": String(name),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyPatientsExists(id) {
+function verifyPatientsExists(id, name) {
   var url = "/patients/" + id;
   var description = "Verify Patients " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Patients found");
 }
 
-function verifyPatientsDoesNotExist(id) {
+function verifyPatientsDoesNotExist(id, name) {
   var url = "/patients/" + id;
   var description = "Verify Patients " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Patients not found");
 }
 
-function tryToDeleteANonExistingPatients(id) {
+function tryToDeleteANonExistingPatients(id, name) {
   var url = "/patients/" + id;
   var description = "Verify negative delete for Patients";
   svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
 }
 
-function matchDeletedPatients(id) {
+function matchDeletedPatients(id, name) {
   return bp.EventSet("Delete Patients", function(e) {
       return e.name === "Done: " + "Delete patient (idempotent)";
   });
 }
 
-function waitForPatientsAdded(id) {
+function waitForPatientsAdded(id, name) {
   waitFor(matchSuccess("Create patient"));
 }
 
@@ -286,10 +284,7 @@ function getInventory(id, ndc) {
 function updateInventory(id, ndc) {
   var url = "/inventory/" + ndc;
   var description = "Update inventory " + ndc;
-  var body = {
-    "id": String(id),
-    "ndc": String(ndc),
-};
+  var body = undefined;
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "ndc": ndc}) });
 }
@@ -371,9 +366,7 @@ function getPrescription(id) {
 function updatePrescription(id) {
   var url = "/prescriptions/" + id;
   var description = "Update prescription " + id;
-  var body = {
-    "id": String(id),
-};
+  var body = undefined;
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
 }

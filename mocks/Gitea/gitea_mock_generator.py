@@ -1,6 +1,10 @@
 import json
 import os
 import re
+import yaml # pip install PyYAML
+import random
+from collections import defaultdict
+from flask import Flask, request, jsonify
 
 # Configuration paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -20,26 +24,28 @@ def extract_status_codes(spec):
         if 'post' in methods:
             responses = methods['post'].get('responses', {})
             clean_path = path.strip('/')
+            # Remove api/v1/ prefix if present to match mock logic
             if clean_path.startswith('api/v1/'):
                 clean_path = clean_path[7:]
             
+            # FIX: Added check for 202 (Accepted)
             if '201' in responses:
                 path_overrides[clean_path] = 201
             elif '200' in responses:
                 path_overrides[clean_path] = 200
             elif '204' in responses:
                 path_overrides[clean_path] = 204
+            elif '202' in responses:
+                path_overrides[clean_path] = 202
+                
     return path_overrides
 
 def generate_mock(spec_path, output_path):
     print(f"Loading spec from {spec_path}...")
     spec = load_spec(spec_path)
-    if not spec:
-        return
+    if not spec: return
 
     status_code_map = extract_status_codes(spec)
-    print(f"Extracted {len(status_code_map)} specific status code rules.")
-
     title = spec.get('info', {}).get('title', 'Gitea API')
     
     code = []
@@ -53,88 +59,84 @@ def generate_mock(spec_path, output_path):
     code.append("mock_db = defaultdict(list)")
     code.append("")
     
-    code.append(f"# Map of API paths to their expected POST success code")
     code.append(f"PATH_STATUS_CODES = {json.dumps(status_code_map, indent=4)}")
     code.append("")
 
     code.append("def get_success_code(resource_path):")
-    code.append("    if resource_path in PATH_STATUS_CODES:")
-    code.append("        return PATH_STATUS_CODES[resource_path]")
+    code.append("    # Normalize path")
+    code.append("    if resource_path.startswith('api/v1/'): resource_path = resource_path[7:]")
+    code.append("    ")
+    code.append("    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]")
     code.append("    for path_pattern, code in PATH_STATUS_CODES.items():")
     code.append("        if '{' in path_pattern:")
-    code.append("            # Safe Regex replacement")
-    code.append("            regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)")
+    code.append("            regex = re.sub(r'\\{[^}]+\\}', '[^/]+', path_pattern)")
     code.append("            regex = '^' + regex + '$'")
-    code.append("            if re.fullmatch(regex, resource_path):")
-    code.append("                return code")
+    code.append("            if re.fullmatch(regex, resource_path): return code")
     code.append("    return 201")
     code.append("")
 
     code.append("def mock_retrieve(resource_key, item_id):")
     code.append("    for item in mock_db[resource_key]:")
     code.append("        if str(item.get('id')) == str(item_id): return item")
-    code.append("        if item.get('username') == str(item_id): return item")
-    code.append("        if item.get('name') == str(item_id): return item")
     code.append("    return None")
-    code.append("")
-    
-    code.append("def mock_list(resource_key, filters):")
-    code.append("    items = mock_db[resource_key]")
-    code.append("    return items")
     code.append("")
     
     code.append("@app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])")
     code.append("def handle_request(resource_path):")
-    code.append("    clean_path = resource_path.strip('/')")
-    code.append("    if clean_path.startswith('api/v1/'):")
-    code.append("        clean_path = clean_path[7:]")
+    code.append("    # Normalize Gitea API path")
+    code.append("    clean_path = resource_path")
+    code.append("    if clean_path.startswith('api/v1/'): clean_path = clean_path[7:]")
     code.append("    ")
     code.append("    resource_key = clean_path")
     code.append("    parts = clean_path.split('/')")
     code.append("    item_id = None")
-    code.append("    ")
-    code.append("    non_id_endings = [")
-    code.append("        'repos', 'issues', 'pulls', 'commits', 'branches', 'tags', ")
-    code.append("        'keys', 'tokens', 'collaborators', 'hooks', 'labels', 'milestones',")
-    code.append("        'merge', 'fork', 'mirror', 'test', 'raw', 'import', 'render',")
-    code.append("        'oauth2', 'access_tokens', 'emails', 'gpg_keys', 'public_keys',")
-    code.append("        'assets', 'times', 'reactions', 'blocks', 'reviews', 'activities'")
-    code.append("    ]")
-    code.append("    ")
-    code.append("    potential_id = parts[-1]")
-    code.append("    if len(parts) > 1 and potential_id not in non_id_endings:")
-    code.append("        item_id = potential_id")
+    code.append("    if len(parts) > 1:")
+    code.append("        last_part = parts[-1]")
+    code.append("        # Gitea IDs are integers, usernames are strings. Simple heuristic:")
+    code.append("        # If it looks like an ID (digit) or we are in a detail route context")
+    code.append("        item_id = last_part")
     code.append("        resource_key = '/'.join(parts[:-1])")
     code.append("")
     code.append("    print(f'[{request.method}] Path: {resource_path} | Clean: {clean_path} | Key: {resource_key} | ID: {item_id}')")
     code.append("")
     
     code.append("    if request.method == 'GET':")
-    code.append("        if item_id is not None:")
-    code.append("            item = mock_retrieve(resource_key, item_id)")
-    code.append("            if item: return jsonify(item)")
-    code.append("            return jsonify({'message': 'Not Found'}), 404")
-    code.append("        else:")
-    code.append("            data = mock_list(resource_key, request.args)")
-    code.append("            return jsonify(data)")
+    code.append("        # List vs Item logic")
+    code.append("        # A heuristic: if 'item_id' seems to be a variable part, try retrieve.")
+    code.append("        # If retrieve fails, it might be a list endpoint that just looks like a detail.")
+    code.append("        item = mock_retrieve(resource_key, item_id)")
+    code.append("        if item: return jsonify(item)")
+    code.append("        ")
+    code.append("        # Fallback: Maybe it wasn't an ID, but a list resource")
+    code.append("        if resource_key in mock_db and len(mock_db[resource_key]) > 0:")
+    code.append("             # It was a list, return list")
+    code.append("             return jsonify(mock_db[resource_key])")
+    code.append("        ")
+    code.append("        # Check if the full path is a list key")
+    code.append("        if clean_path in mock_db:")
+    code.append("             return jsonify(mock_db[clean_path])")
+    code.append("        ")
+    code.append("        return jsonify({'message': 'Not Found'}), 404")
     code.append("")
 
     code.append("    elif request.method == 'POST':")
     code.append("        success_code = get_success_code(clean_path)")
-    code.append("")
-    # --- FIX: Explicitly handle Admin Adoption to force success ---
-    code.append("        # Explicit override for Admin Adoption endpoints (Logic simulation)")
+    code.append("        # Handle empty body (204) or specific logic")
     code.append("        if 'admin/unadopted' in clean_path:")
     code.append("             return '', 204")
-    # -------------------------------------------------------------
     code.append("")
-    code.append("        new_item = request.json or {}")
+    code.append("        try: new_item = request.json or {}")
+    code.append("        except: new_item = {}")
+    code.append("        ")
     code.append("        if 'id' not in new_item:")
     code.append("            new_item['id'] = random.randint(1000, 9999)")
     code.append("")
-    code.append("        for item in mock_db[resource_key]:")
-    code.append("            if str(item.get('id')) == str(new_item['id']):")
-    code.append("                return jsonify({'message': 'ID exists'}), 409")
+    code.append("        # Upsert Logic for Tests")
+    code.append("        existing_idx = next((index for (index, d) in enumerate(mock_db[resource_key]) if str(d.get('id')) == str(new_item.get('id'))), None)")
+    code.append("        if existing_idx is not None:")
+    code.append("             mock_db[resource_key][existing_idx] = new_item")
+    code.append("             # Return 200 for updates to avoid conflicts, or the expected success code if safe")
+    code.append("             return jsonify(new_item), 200")
     code.append("")
     code.append("        mock_db[resource_key].append(new_item)")
     code.append("        print(f\"DEBUG POST: Added to '{resource_key}'. Returning {success_code}\")")
@@ -146,7 +148,8 @@ def generate_mock(spec_path, output_path):
     code.append("        if item_id is None: return '', 405")
     code.append("        existing_item = mock_retrieve(resource_key, item_id)")
     code.append("        if existing_item:")
-    code.append("            existing_item.update(request.json or {})")
+    code.append("            try: existing_item.update(request.json or {})")
+    code.append("            except: pass")
     code.append("            return jsonify(existing_item)")
     code.append("        return jsonify({'message': 'Not Found'}), 404")
     code.append("")
@@ -167,8 +170,7 @@ def generate_mock(spec_path, output_path):
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write("\n".join(code))
-    
-    print(f"Successfully generated Gitea mock server at: {output_path}")
+    print(f"Mock server generated at: {output_path}")
 
 if __name__ == '__main__':
     generate_mock(OPENAPI_PATH, OUTPUT_PATH)

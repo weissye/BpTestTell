@@ -10,12 +10,17 @@
           "method": "GET",
           "path": "/activitypub/user-id/{user-id}",
           "params": [
-            "user-id"
+            "user-id",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "user-id": "integer"
-          }
+            "user-id": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "activitypubPersonInbox",
@@ -23,12 +28,18 @@
           "method": "POST",
           "path": "/activitypub/user-id/{user-id}/inbox",
           "params": [
-            "user-id"
+            "user-id",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "user-id": "integer"
-          }
+            "user-id": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -41,13 +52,19 @@
           "path": "/admin/cron",
           "params": [
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403
+          ]
         },
         "add": {
           "name": "adminCronRun",
@@ -55,15 +72,22 @@
           "method": "POST",
           "path": "/admin/cron/{task}",
           "params": [
-            "task"
+            "task",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "task": "string"
+            "task": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
-          ]
+          ],
+          "x-defined-response-codes": [
+            204,
+            404
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -76,13 +100,19 @@
           "path": "/admin/emails",
           "params": [
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403
+          ]
         }
       }
     },
@@ -98,12 +128,16 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "q": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            403
+          ]
         }
       }
     },
@@ -122,26 +156,31 @@
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "userCreateHook",
           "descriptionTemplate": "Create a hook",
           "method": "POST",
           "path": "/user/hooks",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "type": "{type}",
-            "config": "{config}",
-            "events": "{events}",
-            "active": "{active}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
-            "type": "string",
-            "config": "object",
-            "events": "array",
-            "active": "boolean"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "userGetHook",
@@ -151,10 +190,13 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "userEditHook",
@@ -170,7 +212,10 @@
           "paramTypes": {
             "id": "integer",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "delete": {
           "name": "userDeleteHook",
@@ -180,12 +225,15 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204
           ]
         }
       }
@@ -200,15 +248,18 @@
           "params": [
             "username",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "username": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -219,14 +270,18 @@
           "path": "/users/{username}/orgs/{org}/permissions",
           "params": [
             "username",
-            "org"
+            "org",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "username": "string",
-            "org": "string"
+            "org": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
+            403,
             404
           ]
         }
@@ -240,8 +295,11 @@
           "method": "GET",
           "path": "/admin/runners/registration-token",
           "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {}
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -257,12 +315,16 @@
             "limit",
             "pattern"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
             "limit": "integer",
             "pattern": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            403
+          ]
         },
         "delete": {
           "name": "adminDeleteUnadoptedRepository",
@@ -273,13 +335,17 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403
           ]
         },
         "add": {
@@ -289,13 +355,23 @@
           "path": "/admin/unadopted/{owner}/{repo}",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "id": "{id}"
+          },
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
-          }
+            "repo": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -309,14 +385,20 @@
           "params": [
             "username",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
             "username": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "userCreateToken",
@@ -324,19 +406,25 @@
           "method": "POST",
           "path": "/users/{username}/tokens",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
           "bodyTemplate": {
             "name": "{name}",
-            "scopes": [
-              "{scope}"
-            ]
+            "scopes": "{scopes}"
           },
           "paramTypes": {
             "username": "string",
             "name": "string",
-            "scope": "string"
-          }
+            "scopes": "array",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            403
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "userDeleteAccessToken",
@@ -345,15 +433,23 @@
           "path": "/users/{username}/tokens/{token}",
           "params": [
             "username",
-            "token"
+            "token",
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
             "username": "string",
-            "token": "string"
+            "token": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            422
           ]
         },
         "update": {
@@ -370,7 +466,13 @@
           "paramTypes": {
             "username": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            422
+          ]
         },
         "get": {
           "name": "userGetTokens",
@@ -380,14 +482,20 @@
           "params": [
             "username",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
             "username": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403
+          ]
         }
       }
     },
@@ -401,10 +509,14 @@
           "params": [
             "username"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "username": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "adminAddUserBadges",
@@ -412,15 +524,23 @@
           "method": "POST",
           "path": "/admin/users/{username}/badges",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "username": "string",
-            "body": "object"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            403
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "adminDeleteUserBadges",
@@ -436,7 +556,12 @@
           "paramTypes": {
             "username": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            422
+          ]
         }
       }
     },
@@ -448,15 +573,23 @@
           "method": "POST",
           "path": "/admin/users/{username}/keys",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
           "bodyTemplate": {
             "key": "{key}"
           },
           "paramTypes": {
             "username": "string",
-            "key": "string"
-          }
+            "id": "string",
+            "key": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "adminDeleteUserPublicKey",
@@ -467,12 +600,16 @@
             "username",
             "id"
           ],
-          "bodyTemplate": {},
           "paramTypes": {
             "username": "string",
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
             404
           ]
         }
@@ -486,15 +623,23 @@
           "method": "POST",
           "path": "/admin/users/{username}/orgs",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
           "bodyTemplate": {
             "organization": "{organization}"
           },
           "paramTypes": {
             "username": "string",
-            "organization": "string"
-          }
+            "id": "string",
+            "organization": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -506,15 +651,23 @@
           "method": "POST",
           "path": "/admin/users/{username}/rename",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
             "username": "string",
-            "body": "string"
-          }
+            "id": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -526,15 +679,26 @@
           "method": "POST",
           "path": "/admin/users/{username}/repos",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
           "bodyTemplate": {
             "repository": "{repository}"
           },
           "paramTypes": {
             "username": "string",
-            "repository": "string"
-          }
+            "id": "string",
+            "repository": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            403,
+            404,
+            409,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -546,9 +710,11 @@
           "method": "GET",
           "path": "/gitignore/templates",
           "params": [],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "get": {
           "name": "getGitignoreTemplateInfo",
@@ -558,11 +724,15 @@
           "params": [
             "name"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "name": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -576,9 +746,11 @@
           "method": "GET",
           "path": "/label/templates",
           "params": [],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "get": {
           "name": "getLabelTemplateInfo",
@@ -588,11 +760,15 @@
           "params": [
             "name"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "name": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -606,9 +782,11 @@
           "method": "GET",
           "path": "/licenses",
           "params": [],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -620,13 +798,16 @@
           "method": "GET",
           "path": "/licenses/{name}",
           "params": [
-            "name"
+            "name",
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
-            "name": "string"
+            "name": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -639,28 +820,41 @@
           "descriptionTemplate": "Render a markdown document as HTML",
           "method": "POST",
           "path": "/markdown",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
-            "body": "object"
+            "body": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "addRaw": {
           "name": "renderMarkdownRaw",
           "descriptionTemplate": "Render raw markdown as HTML",
           "method": "POST",
           "path": "/markdown/raw",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
-            "body": "string"
+            "body": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            422
+          ]
         }
       }
     },
@@ -671,14 +865,21 @@
           "descriptionTemplate": "Render a markup document as HTML",
           "method": "POST",
           "path": "/markup",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
-            "body": "object"
+            "body": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -689,10 +890,16 @@
           "descriptionTemplate": "Returns the nodeinfo of the Gitea application",
           "method": "GET",
           "path": "/nodeinfo",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": null,
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -714,7 +921,7 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -725,7 +932,10 @@
             "before": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "notifyReadRepoList",
@@ -740,7 +950,7 @@
             "to-status",
             "last_read_at"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -748,50 +958,22 @@
             "status-types": "array",
             "to-status": "string",
             "last_read_at": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            205
+          ]
         },
         "get": {
-          "name": "notifyGetThread",
-          "descriptionTemplate": "Get notification thread by ID",
-          "method": "GET",
-          "path": "/notifications/threads/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        },
-        "updateThread": {
-          "name": "notifyReadThread",
-          "descriptionTemplate": "Mark notification thread as read by ID",
-          "method": "PATCH",
-          "path": "/notifications/threads/{id}",
-          "params": [
-            "id",
-            "to-status"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string",
-            "to-status": "string"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        },
-        "checkNew": {
           "name": "notifyNewAvailable",
           "descriptionTemplate": "Check if unread notifications exist",
           "method": "GET",
           "path": "/notifications/new",
           "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {}
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -806,40 +988,40 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
-          "name": "orgCreate",
-          "descriptionTemplate": "Create an organization",
-          "method": "POST",
-          "path": "/orgs",
-          "params": [],
-          "bodyTemplate": {
-            "organization": "{organization}"
-          },
-          "paramTypes": {
-            "organization": "string"
-          }
-        },
-        "addRepo": {
           "name": "createOrgRepoDeprecated",
           "descriptionTemplate": "Create a repository in an organization",
           "method": "POST",
           "path": "/org/{org}/repos",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "org": "string",
-            "body": "string"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "orgDelete",
@@ -847,13 +1029,19 @@
           "method": "DELETE",
           "path": "/orgs/{org}",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "org": "string"
+            "org": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -863,12 +1051,18 @@
           "method": "GET",
           "path": "/orgs/{org}",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "org": "string"
-          }
+            "org": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "orgEdit",
@@ -876,15 +1070,21 @@
           "method": "PATCH",
           "path": "/orgs/{org}",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
             "org": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "getRunnerRegistrationToken": {
           "name": "orgGetRunnerRegistrationToken",
@@ -892,12 +1092,17 @@
           "method": "GET",
           "path": "/orgs/{org}/actions/runners/registration-token",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "org": "string"
-          }
+            "org": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "listActionsSecrets": {
           "name": "orgListActionsSecrets",
@@ -907,14 +1112,20 @@
           "params": [
             "org",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "deleteSecret": {
           "name": "deleteOrgSecret",
@@ -923,14 +1134,21 @@
           "path": "/orgs/{org}/actions/secrets/{secretname}",
           "params": [
             "org",
-            "secretname"
+            "secretname",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "secretname": "string"
+            "secretname": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         },
@@ -941,7 +1159,8 @@
           "path": "/orgs/{org}/actions/secrets/{secretname}",
           "params": [
             "org",
-            "secretname"
+            "secretname",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -949,10 +1168,17 @@
           "paramTypes": {
             "org": "string",
             "secretname": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
         },
-        "listVariables": {
+        "getVariablesList": {
           "name": "getOrgVariablesList",
           "descriptionTemplate": "Get an org-level variables list",
           "method": "GET",
@@ -960,14 +1186,21 @@
           "params": [
             "org",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         }
       }
     },
@@ -980,14 +1213,23 @@
           "path": "/orgs/{org}/actions/variables/{variablename}",
           "params": [
             "org",
-            "variablename"
+            "variablename",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "variablename": "string"
+            "variablename": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            201,
+            204,
+            400,
             404
           ]
         },
@@ -998,13 +1240,20 @@
           "path": "/orgs/{org}/actions/variables/{variablename}",
           "params": [
             "org",
-            "variablename"
+            "variablename",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "variablename": "string"
-          }
+            "variablename": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "add": {
           "name": "createOrgVariable",
@@ -1013,16 +1262,25 @@
           "path": "/orgs/{org}/actions/variables/{variablename}",
           "params": [
             "org",
-            "variablename"
+            "variablename",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "option": "{option}"
           },
           "paramTypes": {
             "org": "string",
             "variablename": "string",
-            "body": "object"
-          }
+            "id": "string",
+            "option": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ],
+          "x-generate-full-story": false
         },
         "update": {
           "name": "updateOrgVariable",
@@ -1031,16 +1289,24 @@
           "path": "/orgs/{org}/actions/variables/{variablename}",
           "params": [
             "org",
-            "variablename"
+            "variablename",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "option": "{option}"
           },
           "paramTypes": {
             "org": "string",
             "variablename": "string",
-            "body": "object"
-          }
+            "id": "string",
+            "option": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
         }
       }
     },
@@ -1055,15 +1321,21 @@
             "org",
             "date",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "date": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -1075,13 +1347,19 @@
           "method": "DELETE",
           "path": "/orgs/{org}/avatar",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "org": "string"
+            "org": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -1091,15 +1369,22 @@
           "method": "POST",
           "path": "/orgs/{org}/avatar",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "avatarOption": "{avatarOption}"
           },
           "paramTypes": {
             "org": "string",
-            "body": "object"
-          }
+            "id": "string",
+            "avatarOption": "object"
+          },
+          "x-defined-response-codes": [
+            204,
+            404
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -1113,14 +1398,19 @@
           "params": [
             "org",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -1133,14 +1423,21 @@
           "path": "/orgs/{org}/blocks/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
+            "username": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404,
+            422
+          ],
+          "x-defined-response-codes": [
+            204,
             404,
             422
           ]
@@ -1152,13 +1449,19 @@
           "path": "/orgs/{org}/blocks/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
         },
         "update": {
           "name": "organizationBlockUser",
@@ -1168,14 +1471,21 @@
           "params": [
             "org",
             "username",
-            "note"
+            "note",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "username": "string",
-            "note": "string"
-          }
+            "note": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
+          ]
         }
       }
     },
@@ -1192,13 +1502,17 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "issueCreateLabel",
@@ -1207,20 +1521,29 @@
           "path": "/repos/{owner}/{repo}/labels",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
             "name": "{name}",
             "color": "{color}",
-            "description": "{description}"
+            "description": "{description}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "name": "string",
             "color": "string",
-            "description": "string"
-          }
+            "description": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "issueGetLabel",
@@ -1232,12 +1555,16 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "issueEditLabel",
@@ -1261,7 +1588,12 @@
             "name": "string",
             "color": "string",
             "description": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404,
+            422
+          ]
         },
         "delete": {
           "name": "issueDeleteLabel",
@@ -1273,13 +1605,17 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         }
@@ -1297,13 +1633,21 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "page": "integer",
             "limit": "integer"
-          }
-        },
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        }
+      }
+    },
+    "OrganizationMembers": {
+      "operations": {
         "delete": {
           "name": "orgDeleteMember",
           "descriptionTemplate": "Remove a member from an organization",
@@ -1311,14 +1655,20 @@
           "path": "/orgs/{org}/members/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
+            "username": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -1329,17 +1679,24 @@
           "path": "/orgs/{org}/members/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            303,
+            404
+          ]
         }
       }
     },
-    "PublicMembers": {
+    "OrganizationPublicMembers": {
       "operations": {
         "list": {
           "name": "orgListPublicMembers",
@@ -1349,14 +1706,20 @@
           "params": [
             "org",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "orgConcealMember",
@@ -1365,14 +1728,21 @@
           "path": "/orgs/{org}/public_members/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
+            "username": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
             404
           ]
         },
@@ -1383,13 +1753,19 @@
           "path": "/orgs/{org}/public_members/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
         },
         "update": {
           "name": "orgPublicizeMember",
@@ -1398,17 +1774,24 @@
           "path": "/orgs/{org}/public_members/{username}",
           "params": [
             "org",
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
         }
       }
     },
-    "Repos": {
+    "OrganizationRepos": {
       "operations": {
         "list": {
           "name": "orgListRepos",
@@ -1418,14 +1801,20 @@
           "params": [
             "org",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "org": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "createOrgRepo",
@@ -1433,15 +1822,75 @@
           "method": "POST",
           "path": "/orgs/{org}/repos",
           "params": [
-            "org"
+            "org",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
             "org": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
+        }
+      }
+    },
+    "OrganizationTeams": {
+      "operations": {
+        "list": {
+          "name": "orgListTeams",
+          "descriptionTemplate": "List an organization's teams",
+          "method": "GET",
+          "path": "/orgs/{org}/teams",
+          "params": [
+            "org",
+            "page",
+            "limit",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "org": "string",
+            "page": "integer",
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "add": {
+          "name": "orgCreateTeam",
+          "descriptionTemplate": "Create a team",
+          "method": "POST",
+          "path": "/orgs/{org}/teams",
+          "params": [
+            "org",
+            "id"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "org": "string",
+            "id": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -1457,28 +1906,16 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer",
             "page": "integer",
             "limit": "integer"
-          }
-        },
-        "add": {
-          "name": "orgCreateTeam",
-          "descriptionTemplate": "Create a team",
-          "method": "POST",
-          "path": "/orgs/{org}/teams",
-          "params": [
-            "org"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
           },
-          "paramTypes": {
-            "org": "string",
-            "body": "object"
-          }
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "orgRemoveTeamRepository",
@@ -1490,13 +1927,18 @@
             "org",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer",
             "org": "string",
             "repo": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
             404
           ]
         },
@@ -1510,14 +1952,38 @@
             "org",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer",
             "org": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
+          "name": "orgEditTeam",
+          "descriptionTemplate": "Edit a team",
+          "method": "PATCH",
+          "path": "/teams/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "id": "integer",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "add": {
           "name": "orgAddTeamRepository",
           "descriptionTemplate": "Add a repository to a team",
           "method": "PUT",
@@ -1527,12 +1993,18 @@
             "org",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer",
             "org": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -1548,39 +2020,20 @@
             "page",
             "limit",
             "type",
-            "q"
+            "q",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "page": "integer",
             "limit": "integer",
             "type": "string",
-            "q": "string"
+            "q": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        },
-        "get": {
-          "name": "getPackage",
-          "descriptionTemplate": "Gets a package",
-          "method": "GET",
-          "path": "/packages/{owner}/{type}/{name}/{version}",
-          "params": [
-            "owner",
-            "type",
-            "name",
-            "version"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "type": "string",
-            "name": "string",
-            "version": "string"
-          },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -1593,16 +2046,47 @@
             "owner",
             "type",
             "name",
-            "version"
+            "version",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "type": "string",
             "name": "string",
-            "version": "string"
+            "version": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
+        },
+        "get": {
+          "name": "getPackage",
+          "descriptionTemplate": "Gets a package",
+          "method": "GET",
+          "path": "/packages/{owner}/{type}/{name}/{version}",
+          "params": [
+            "owner",
+            "type",
+            "name",
+            "version",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "type": "string",
+            "name": "string",
+            "version": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -1615,16 +2099,19 @@
             "owner",
             "type",
             "name",
-            "version"
+            "version",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "type": "string",
             "name": "string",
-            "version": "string"
+            "version": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -1642,7 +2129,8 @@
             "repo",
             "index",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
@@ -1650,9 +2138,15 @@
             "repo": "string",
             "index": "integer",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            403,
             404
           ]
         },
@@ -1664,37 +2158,21 @@
           "params": [
             "owner",
             "repo",
-            "index"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        },
-        "update": {
-          "name": "moveIssuePin",
-          "descriptionTemplate": "Moves the Pin to the given Position",
-          "method": "PATCH",
-          "path": "/repos/{owner}/{repo}/issues/{index}/pin/{position}",
-          "params": [
-            "owner",
-            "repo",
             "index",
-            "position"
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "position": "integer"
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -1709,7 +2187,7 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -1718,74 +2196,44 @@
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
+            403,
+            404
           ]
         },
-        "add": {
-          "name": "issuePostIssueReaction",
-          "descriptionTemplate": "Add a reaction to an issue",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+        "update": {
+          "name": "moveIssuePin",
+          "descriptionTemplate": "Moves the Pin to the given Position",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}/issues/{index}/pin/{position}",
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "position",
+            "id"
           ],
-          "bodyTemplate": {
-            "content": "{content}"
-          },
+          "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "content": "string"
+            "position": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
-          ]
-        },
-        "deleteStopwatch": {
-          "name": "issueDeleteStopWatch",
-          "descriptionTemplate": "Delete an issue's existing stopwatch.",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/delete",
-          "params": [
-            "owner",
-            "repo",
-            "index"
           ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer"
-          },
-          "x-negative-delete-expected-codes": [
-            404,
-            409
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
           ]
         },
-        "startStopwatch": {
-          "name": "issueStartStopWatch",
-          "descriptionTemplate": "Start stopwatch on an issue.",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/issues/{index}/stopwatch/start",
-          "params": [
-            "owner",
-            "repo",
-            "index"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer"
-          },
-          "x-negative-delete-expected-codes": [
-            404,
-            409
-          ]
-        },
-        "stopStopwatch": {
+        "add": {
           "name": "issueStopStopWatch",
           "descriptionTemplate": "Stop an issue's existing stopwatch.",
           "method": "POST",
@@ -1793,112 +2241,156 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "index": "integer"
+            "index": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            201,
+            403,
             404,
             409
-          ]
+          ],
+          "x-generate-full-story": false
         }
       }
     },
     "Repository": {
       "operations": {
         "add": {
-          "name": "repoCreateWikiPage",
-          "descriptionTemplate": "Create a wiki page",
+          "name": "repoTransfer",
+          "descriptionTemplate": "Transfer a repo ownership",
           "method": "POST",
-          "path": "/repos/{owner}/{repo}/wiki/new",
+          "path": "/repos/{owner}/{repo}/transfer",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "new_owner": "{new_owner}",
+            "team_ids": "{team_ids}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "body": "object"
-          }
+            "new_owner": "string",
+            "team_ids": "array",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            202,
+            403,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "list": {
-          "name": "repoGetIssueTemplates",
-          "descriptionTemplate": "Get available issue templates for a repository",
+          "name": "repoListStargazers",
+          "descriptionTemplate": "List a repo's stargazers",
           "method": "GET",
-          "path": "/repos/{owner}/{repo}/issue_templates",
+          "path": "/repos/{owner}/{repo}/stargazers",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "page",
+            "limit",
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
-          },
-          "x-negative-delete-expected-codes": []
-        },
-        "get": {
-          "name": "repoGetWikiPage",
-          "descriptionTemplate": "Get a wiki page",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
-          "params": [
-            "owner",
-            "repo",
-            "pageName"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
             "repo": "string",
-            "pageName": "string"
-          }
-        },
-        "update": {
-          "name": "repoEditWikiPage",
-          "descriptionTemplate": "Edit a wiki page",
-          "method": "PATCH",
-          "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
-          "params": [
-            "owner",
-            "repo",
-            "pageName"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
+            "page": "integer",
+            "limit": "integer",
+            "id": "string"
           },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "pageName": "string",
-            "body": "object"
-          }
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
-          "name": "repoDeleteWikiPage",
-          "descriptionTemplate": "Delete a wiki page",
+          "name": "repoDeleteAvatar",
+          "descriptionTemplate": "Delete avatar",
           "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
+          "path": "/repos/{owner}/{repo}/avatar",
           "params": [
             "owner",
             "repo",
-            "pageName"
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "pageName": "string"
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
+        },
+        "get": {
+          "name": "repoSigningKey",
+          "descriptionTemplate": "Get signing-key.gpg for given repository",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/signing-key.gpg",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "update": {
+          "name": "repoEdit",
+          "descriptionTemplate": "Edit a repository's properties. Only fields that are set will be changed.",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": {
+            "editOptions": "{editOptions}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "string",
+            "editOptions": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404,
+            422
           ]
         },
         "getRunnerRegistrationToken": {
@@ -1908,14 +2400,17 @@
           "path": "/repos/{owner}/{repo}/actions/runners/registration-token",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
+            "repo": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "listActionsSecrets": {
           "name": "repoListActionsSecrets",
@@ -1926,16 +2421,18 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -1946,14 +2443,20 @@
           "path": "/repos/{owner}/{repo}/languages",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
+            "repo": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -1964,36 +2467,48 @@
           "path": "/repos/{owner}/{repo}/licenses",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
+            "repo": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
         "getRawFileOrLFS": {
           "name": "repoGetRawFileOrLFS",
-          "descriptionTemplate": "Get a file or its LFS object from a repository",
+          "descriptionTemplate": "Get a file or it's LFS object from a repository",
           "method": "GET",
           "path": "/repos/{owner}/{repo}/media/{filepath}",
           "params": [
             "owner",
             "repo",
             "filepath",
-            "ref"
+            "ref",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "filepath": "string",
-            "ref": "string"
+            "ref": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -2004,30 +2519,8 @@
           "path": "/repos/{owner}/{repo}/merge-upstream",
           "params": [
             "owner",
-            "repo"
-          ],
-          "bodyTemplate": {
-            "merge_strategy": "{merge_strategy}",
-            "head": "{head}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "merge_strategy": "string",
-            "head": "string"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        },
-        "transfer": {
-          "name": "repoTransfer",
-          "descriptionTemplate": "Transfer a repo ownership",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/transfer",
-          "params": [
-            "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -2035,38 +2528,340 @@
           "paramTypes": {
             "owner": "string",
             "repo": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
-        "acceptTransfer": {
+        "listStatuses": {
+          "name": "repoListStatuses",
+          "descriptionTemplate": "Get a commit's statuses",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/statuses/{sha}",
+          "params": [
+            "owner",
+            "repo",
+            "sha",
+            "sort",
+            "state",
+            "page",
+            "limit",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "sha": "string",
+            "sort": "integer",
+            "state": "string",
+            "page": "integer",
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
+        },
+        "addStatus": {
+          "name": "repoCreateStatus",
+          "descriptionTemplate": "Create a commit status",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/statuses/{sha}",
+          "params": [
+            "owner",
+            "repo",
+            "sha",
+            "id"
+          ],
+          "bodyTemplate": {
+            "context": "{context}",
+            "description": "{description}",
+            "state": "{state}",
+            "target_url": "{target_url}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "sha": "string",
+            "context": "string",
+            "description": "string",
+            "state": "string",
+            "target_url": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            404
+          ]
+        },
+        "listSubscribers": {
+          "name": "repoListSubscribers",
+          "descriptionTemplate": "List a repo's watchers",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/subscribers",
+          "params": [
+            "owner",
+            "repo",
+            "page",
+            "limit",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "page": "integer",
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "deleteSubscription": {
+          "name": "userCurrentDeleteSubscription",
+          "descriptionTemplate": "Unwatch a repo",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/subscription",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
+        },
+        "checkSubscription": {
+          "name": "userCurrentCheckSubscription",
+          "descriptionTemplate": "Check if the current user is watching a repo",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/subscription",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "putSubscription": {
+          "name": "userCurrentPutSubscription",
+          "descriptionTemplate": "Watch a repo",
+          "method": "PUT",
+          "path": "/repos/{owner}/{repo}/subscription",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404
+          ]
+        },
+        "accept": {
           "name": "acceptRepoTransfer",
           "descriptionTemplate": "Accept a repo transfer",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/transfer/accept",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
-          }
+            "repo": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            202,
+            403,
+            404
+          ]
         },
-        "rejectTransfer": {
+        "reject": {
           "name": "rejectRepoTransfer",
           "descriptionTemplate": "Reject a repo transfer",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/transfer/reject",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
-          }
+            "repo": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            403,
+            404
+          ]
+        },
+        "createWikiPage": {
+          "name": "repoCreateWikiPage",
+          "descriptionTemplate": "Create a wiki page",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/wiki/new",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": {
+            "title": "{title}",
+            "content": "{content}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "title": "string",
+            "content": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            201,
+            400,
+            403,
+            404,
+            423
+          ]
+        },
+        "deleteWikiPage": {
+          "name": "repoDeleteWikiPage",
+          "descriptionTemplate": "Delete a wiki page",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
+          "params": [
+            "owner",
+            "repo",
+            "pageName",
+            "id"
+          ],
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "pageName": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            423
+          ]
+        },
+        "getWikiPage": {
+          "name": "repoGetWikiPage",
+          "descriptionTemplate": "Get a wiki page",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
+          "params": [
+            "owner",
+            "repo",
+            "pageName",
+            "id"
+          ],
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "pageName": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "editWikiPage": {
+          "name": "repoEditWikiPage",
+          "descriptionTemplate": "Edit a wiki page",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}/wiki/page/{pageName}",
+          "params": [
+            "owner",
+            "repo",
+            "pageName",
+            "id"
+          ],
+          "bodyTemplate": {
+            "title": "{title}",
+            "content": "{content}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "pageName": "string",
+            "title": "string",
+            "content": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404,
+            423
+          ]
         }
       }
     },
@@ -2080,15 +2875,22 @@
           "params": [
             "owner",
             "repo",
-            "secretname"
+            "secretname",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "secretname": "string"
+            "secretname": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         },
@@ -2100,18 +2902,27 @@
           "params": [
             "owner",
             "repo",
-            "secretname"
+            "secretname",
+            "id"
           ],
           "bodyTemplate": {
-            "key": "{key}"
+            "key": "{key}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "secretname": "string",
-            "key": "string"
+            "key": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
         }
       }
     },
@@ -2126,16 +2937,26 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404,
+            409,
+            422
+          ]
         }
       }
     },
@@ -2150,16 +2971,23 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "delete": {
           "name": "deleteRepoVariable",
@@ -2169,15 +2997,24 @@
           "params": [
             "owner",
             "repo",
-            "variablename"
+            "variablename",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "variablename": "string"
+            "variablename": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            201,
+            204,
+            400,
             404
           ]
         },
@@ -2189,15 +3026,22 @@
           "params": [
             "owner",
             "repo",
-            "variablename"
+            "variablename",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "variablename": "string"
+            "variablename": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "add": {
           "name": "createRepoVariable",
@@ -2207,18 +3051,28 @@
           "params": [
             "owner",
             "repo",
-            "variablename"
+            "variablename",
+            "id"
           ],
           "bodyTemplate": {
-            "key": "{key}"
+            "key": "{key}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "variablename": "string",
-            "key": "string"
+            "key": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ],
+          "x-generate-full-story": false
         },
         "update": {
           "name": "updateRepoVariable",
@@ -2228,18 +3082,27 @@
           "params": [
             "owner",
             "repo",
-            "variablename"
+            "variablename",
+            "id"
           ],
           "bodyTemplate": {
-            "key": "{key}"
+            "key": "{key}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "variablename": "string",
-            "key": "string"
+            "key": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
         }
       }
     },
@@ -2255,17 +3118,23 @@
             "repo",
             "date",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "date": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -2279,15 +3148,21 @@
           "params": [
             "owner",
             "repo",
-            "name"
+            "name",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "name": "string"
+            "name": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -2299,14 +3174,20 @@
           "params": [
             "owner",
             "repo",
-            "name"
+            "name",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "name": "string"
-          }
+            "name": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "repoEditBranchProtection",
@@ -2316,17 +3197,25 @@
           "params": [
             "owner",
             "repo",
-            "name"
+            "name",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{EditBranchProtectionOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "name": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404,
+            422,
+            423
+          ]
         }
       }
     },
@@ -2341,15 +3230,20 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "repoCreateBranch",
@@ -2358,16 +3252,26 @@
           "path": "/repos/{owner}/{repo}/branches",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{CreateBranchRepoOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            404,
+            409,
+            423
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "repoDeleteBranch",
@@ -2377,16 +3281,24 @@
           "params": [
             "owner",
             "repo",
-            "branch"
+            "branch",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "branch": "string"
+            "branch": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            423
           ]
         },
         "get": {
@@ -2397,14 +3309,20 @@
           "params": [
             "owner",
             "repo",
-            "branch"
+            "branch",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "branch": "string"
-          }
+            "branch": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "repoUpdateBranch",
@@ -2414,17 +3332,25 @@
           "params": [
             "owner",
             "repo",
-            "branch"
+            "branch",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{UpdateBranchRepoOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "branch": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            422
+          ]
         }
       }
     },
@@ -2439,15 +3365,21 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "repoDeleteCollaborator",
@@ -2457,16 +3389,23 @@
           "params": [
             "owner",
             "repo",
-            "collaborator"
+            "collaborator",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "collaborator": "string"
+            "collaborator": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
           ]
         },
         "get": {
@@ -2477,15 +3416,22 @@
           "params": [
             "owner",
             "repo",
-            "collaborator"
+            "collaborator",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "collaborator": "string"
+            "collaborator": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            403,
             404
           ]
         },
@@ -2497,17 +3443,26 @@
           "params": [
             "owner",
             "repo",
-            "collaborator"
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{AddCollaboratorOption}"
+            "body": "{body}",
+            "collaborator": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "collaborator": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -2528,9 +3483,10 @@
             "files",
             "page",
             "limit",
-            "not"
+            "not",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -2541,9 +3497,15 @@
             "files": "boolean",
             "page": "integer",
             "limit": "integer",
-            "not": "string"
+            "not": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404,
+            409
+          ],
+          "x-defined-response-codes": [
+            200,
             404,
             409
           ]
@@ -2559,19 +3521,26 @@
             "sha",
             "stat",
             "verification",
-            "files"
+            "files",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "sha": "string",
             "stat": "boolean",
             "verification": "boolean",
-            "files": "boolean"
+            "files": "boolean",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            200,
+            404,
+            422
           ]
         },
         "listStatuses": {
@@ -2586,19 +3555,26 @@
             "sort",
             "state",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "ref": "string",
-            "sort": "string",
+            "sort": "integer",
             "state": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
             404
           ]
         },
@@ -2610,19 +3586,25 @@
           "params": [
             "owner",
             "repo",
-            "sha"
+            "sha",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "sha": "string"
+            "sha": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            200,
+            404
           ]
         },
-        "getDiffOrPatch": {
+        "download": {
           "name": "repoDownloadCommitDiffOrPatch",
           "descriptionTemplate": "Get a commit's diff or patch",
           "method": "GET",
@@ -2631,16 +3613,22 @@
             "owner",
             "repo",
             "sha",
-            "diffType"
+            "diffType",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "sha": "string",
-            "diffType": "string"
+            "diffType": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -2656,10 +3644,14 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "list": {
           "name": "userCurrentListRepos",
@@ -2670,59 +3662,98 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createCurrentUserRepo",
           "descriptionTemplate": "Create a repository",
           "method": "POST",
           "path": "/user/repos",
-          "params": [],
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "body": "{body}",
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            409,
+            422
+          ],
+          "x-generate-full-story": false
+        },
+        "delete": {
+          "name": "repoDeleteFile",
+          "descriptionTemplate": "Delete a file in a repository",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/contents/{filepath}",
+          "params": [
+            "owner",
+            "repo",
+            "filepath",
+            "id"
+          ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
-            "body": "object"
-          }
-        },
-        "delete": {
-          "name": "userCurrentDeleteSubscription",
-          "descriptionTemplate": "Unwatch a repo",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/subscription",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
             "owner": "string",
-            "repo": "string"
+            "repo": "string",
+            "filepath": "string",
+            "id": "string",
+            "body": "object"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404,
+            423
           ]
         },
         "update": {
-          "name": "userCurrentPutSubscription",
-          "descriptionTemplate": "Watch a repo",
+          "name": "repoUpdateFile",
+          "descriptionTemplate": "Update a file in a repository",
           "method": "PUT",
-          "path": "/repos/{owner}/{repo}/subscription",
+          "path": "/repos/{owner}/{repo}/contents/{filepath}",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "filepath",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "body": "{body}"
+          },
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
+            "repo": "string",
+            "filepath": "string",
+            "id": "string",
+            "body": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
+          "x-defined-response-codes": [
+            200,
+            403,
+            404,
+            422,
+            423
           ]
         }
       }
@@ -2738,16 +3769,22 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -2758,7 +3795,8 @@
           "path": "/repos/{owner}/{repo}/forks",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -2766,11 +3804,20 @@
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "body": "string"
+            "id": "string",
+            "body": "object"
           },
           "x-negative-delete-expected-codes": [
             404
-          ]
+          ],
+          "x-defined-response-codes": [
+            202,
+            403,
+            404,
+            409,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -2784,15 +3831,22 @@
           "params": [
             "owner",
             "repo",
-            "sha"
+            "sha",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "sha": "string"
+            "sha": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
             404
           ]
         }
@@ -2810,18 +3864,25 @@
             "repo",
             "sha",
             "verification",
-            "files"
+            "files",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "sha": "string",
             "verification": "boolean",
-            "files": "boolean"
+            "files": "boolean",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            200,
+            404,
+            422
           ]
         }
       }
@@ -2835,14 +3896,17 @@
           "path": "/repos/{owner}/{repo}/git/refs",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
+            "repo": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -2854,15 +3918,18 @@
           "params": [
             "owner",
             "repo",
-            "ref"
+            "ref",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "ref": "string"
+            "ref": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -2878,15 +3945,19 @@
           "params": [
             "owner",
             "repo",
-            "sha"
+            "sha",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "sha": "string"
+            "sha": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
+            400,
             404
           ]
         }
@@ -2905,18 +3976,22 @@
             "sha",
             "recursive",
             "page",
-            "per_page"
+            "per_page",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "sha": "string",
             "recursive": "boolean",
             "page": "integer",
-            "per_page": "integer"
+            "per_page": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
+            400,
             404
           ]
         }
@@ -2933,11 +4008,15 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "get": {
           "name": "repoGetGitHook",
@@ -2949,12 +4028,16 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "repoEditGitHook",
@@ -2974,7 +4057,11 @@
             "repo": "string",
             "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "repoDeleteGitHook",
@@ -2986,7 +4073,7 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -2994,30 +4081,11 @@
           },
           "x-negative-delete-expected-codes": [
             404
-          ]
-        }
-      }
-    },
-    "HookTests": {
-      "operations": {
-        "add": {
-          "name": "repoTestHook",
-          "descriptionTemplate": "Test a push webhook",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/hooks/{id}/tests",
-          "params": [
-            "owner",
-            "repo",
-            "id",
-            "ref"
           ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "id": "integer",
-            "ref": "string"
-          }
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
         }
       }
     },
@@ -3032,11 +4100,15 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -3080,7 +4152,10 @@
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "issueCreateIssue",
@@ -3089,27 +4164,28 @@
           "path": "/repos/{owner}/{repo}/issues",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "title": "{title}",
             "body": "{body}",
-            "assignee": "{assignee}",
-            "milestone": "{milestone}",
-            "labels": "{labels}",
-            "assignees": "{assignees}"
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "title": "string",
-            "body": "string",
-            "assignee": "string",
-            "milestone": "integer",
-            "labels": "array",
-            "assignees": "array"
+            "body": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            201,
+            403,
+            404,
+            412,
+            422,
+            423
+          ],
+          "x-generate-full-story": false
         },
         "listMilestones": {
           "name": "issueGetMilestonesList",
@@ -3122,18 +4198,24 @@
             "state",
             "name",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "state": "string",
             "name": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -3144,23 +4226,23 @@
           "path": "/repos/{owner}/{repo}/milestones",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "title": "{title}",
-            "description": "{description}",
-            "due_on": "{due_on}",
-            "state": "{state}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "title": "string",
-            "description": "string",
-            "due_on": "string",
-            "state": "string"
+            "id": "string",
+            "body": "object"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            201,
             404
           ]
         }
@@ -3190,7 +4272,10 @@
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "get": {
           "name": "issueGetComment",
@@ -3208,28 +4293,12 @@
             "repo": "string",
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": []
-        },
-        "update": {
-          "name": "issueEditComment",
-          "descriptionTemplate": "Edit a comment",
-          "method": "PATCH",
-          "path": "/repos/{owner}/{repo}/issues/comments/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "id"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "id": "integer",
-            "body": "string"
-          },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            204,
+            403,
+            404
+          ]
         },
         "delete": {
           "name": "issueDeleteComment",
@@ -3249,6 +4318,38 @@
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
+        },
+        "update": {
+          "name": "issueEditComment",
+          "descriptionTemplate": "Edit a comment",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "integer",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            204,
+            403,
+            404,
+            423
           ]
         }
       }
@@ -3271,7 +4372,8 @@
             "repo": "string",
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -3296,14 +4398,22 @@
             "repo": "string",
             "id": "integer",
             "name": "string",
-            "attachment": "file"
+            "attachment": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            201,
+            400,
+            403,
             404,
             422,
             423
-          ]
-        },
+          ],
+          "x-generate-full-story": false
+        }
+      }
+    },
+    "IssueCommentAttachment": {
+      "operations": {
         "get": {
           "name": "issueGetIssueCommentAttachment",
           "descriptionTemplate": "Get a comment attachment",
@@ -3322,8 +4432,36 @@
             "id": "integer",
             "attachment_id": "integer"
           },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "delete": {
+          "name": "issueDeleteIssueCommentAttachment",
+          "descriptionTemplate": "Delete a comment attachment",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}",
+          "params": [
+            "owner",
+            "repo",
+            "id",
+            "attachment_id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "integer",
+            "attachment_id": "integer"
+          },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            423
           ]
         },
         "update": {
@@ -3348,32 +4486,10 @@
             "attachment_id": "integer",
             "body": "object"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            201,
             404,
             422,
-            423
-          ]
-        },
-        "delete": {
-          "name": "issueDeleteIssueCommentAttachment",
-          "descriptionTemplate": "Delete a comment attachment",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}",
-          "params": [
-            "owner",
-            "repo",
-            "id",
-            "attachment_id"
-          ],
-          "bodyTemplate": null,
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "id": "integer",
-            "attachment_id": "integer"
-          },
-          "x-negative-delete-expected-codes": [
-            404,
             423
           ]
         }
@@ -3397,7 +4513,8 @@
             "repo": "string",
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             403,
             404
           ]
@@ -3422,10 +4539,13 @@
             "id": "integer",
             "content": "object"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
+            201,
             403,
             404
-          ]
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "issueDeleteCommentReaction",
@@ -3448,6 +4568,10 @@
             "content": "object"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             403,
             404
           ]
@@ -3470,7 +4594,8 @@
             "owner": "string",
             "repo": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -3488,12 +4613,16 @@
             "repo",
             "index"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "issueCreateIssueAttachment",
@@ -3505,19 +4634,28 @@
             "repo",
             "index",
             "name",
-            "attachment"
+            "attachment",
+            "id"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "attachment": "{attachment}"
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
             "name": "string",
-            "attachment": "file"
-          }
+            "attachment": "file",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            404,
+            422,
+            423
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "issueGetIssueAttachment",
@@ -3530,13 +4668,17 @@
             "index",
             "attachment_id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
             "attachment_id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "issueEditIssueAttachment",
@@ -3547,7 +4689,8 @@
             "owner",
             "repo",
             "index",
-            "attachment_id"
+            "attachment_id",
+            "body"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -3558,7 +4701,13 @@
             "index": "integer",
             "attachment_id": "integer",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422,
+            423
+          ]
         },
         "delete": {
           "name": "issueDeleteIssueAttachment",
@@ -3571,7 +4720,7 @@
             "index",
             "attachment_id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -3580,6 +4729,11 @@
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            423
           ]
         }
       }
@@ -3598,14 +4752,18 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "issueCreateIssueBlocking",
@@ -3615,17 +4773,26 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "body",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "string",
-            "body": "object"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            404
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "issueRemoveIssueBlocking",
@@ -3635,7 +4802,8 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "body"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -3645,7 +4813,14 @@
             "repo": "string",
             "index": "string",
             "body": "object"
-          }
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -3663,14 +4838,18 @@
             "since",
             "before"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
             "since": "string",
             "before": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "issueCreateComment",
@@ -3680,17 +4859,28 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "body",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "body": "object"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            404,
+            423
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "issueGetComment",
@@ -3703,7 +4893,7 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -3720,7 +4910,8 @@
             "owner",
             "repo",
             "index",
-            "id"
+            "id",
+            "body"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -3731,7 +4922,13 @@
             "index": "integer",
             "id": "integer",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            204,
+            403,
+            404
+          ]
         },
         "delete": {
           "name": "issueDeleteCommentDeprecated",
@@ -3744,7 +4941,7 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -3752,6 +4949,11 @@
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
             404
           ]
         }
@@ -3769,17 +4971,23 @@
             "repo",
             "index",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -3791,15 +4999,21 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "index": "integer"
+            "index": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -3812,16 +5026,24 @@
             "owner",
             "repo",
             "index",
-            "user"
+            "user",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "user": "string"
+            "user": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            201,
+            304,
             404
           ]
         },
@@ -3834,16 +5056,24 @@
             "owner",
             "repo",
             "index",
-            "user"
+            "user",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "user": "string"
+            "user": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            201,
+            304,
             404
           ]
         }
@@ -3863,9 +5093,10 @@
             "since",
             "page",
             "limit",
-            "before"
+            "before",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -3873,9 +5104,14 @@
             "since": "string",
             "page": "integer",
             "limit": "integer",
-            "before": "string"
+            "before": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -3891,15 +5127,23 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "index": "integer"
+            "index": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
+            403,
             404
           ]
         },
@@ -3916,9 +5160,10 @@
             "since",
             "before",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -3927,9 +5172,14 @@
             "since": "string",
             "before": "string",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -3941,22 +5191,29 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "id"
           ],
           "bodyTemplate": {
-            "time": "{time}",
-            "user": "{user}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "time": "string",
-            "user": "string"
+            "id": "string",
+            "body": "object"
           },
           "x-negative-delete-expected-codes": [
             404
-          ]
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -3975,7 +5232,7 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -3983,7 +5240,11 @@
             "fingerprint": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "repoCreateKey",
@@ -3992,37 +5253,27 @@
           "path": "/repos/{owner}/{repo}/keys",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "title": "{title}",
             "key": "{key}",
-            "read_only": "{read_only}"
+            "read_only": "{read_only}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "title": "string",
             "key": "string",
-            "read_only": "boolean"
-          }
-        },
-        "get": {
-          "name": "repoGetKey",
-          "descriptionTemplate": "Get a repository's key by id",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/keys/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "id"
+            "read_only": "boolean",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
           ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "id": "integer"
-          }
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "repoDeleteKey",
@@ -4034,13 +5285,39 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
+        },
+        "get": {
+          "name": "repoGetKey",
+          "descriptionTemplate": "Get a repository's key by id",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/keys/{id}",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -4058,13 +5335,17 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -4078,12 +5359,16 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "issueEditMilestone",
@@ -4097,19 +5382,23 @@
           ],
           "bodyTemplate": {
             "title": "{title}",
-            "state": "{state}",
             "description": "{description}",
-            "due_on": "{due_on}"
+            "due_on": "{due_on}",
+            "state": "{state}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "string",
             "title": "string",
-            "state": "string",
             "description": "string",
-            "due_on": "string"
-          }
+            "due_on": "string",
+            "state": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -4122,13 +5411,23 @@
           "path": "/repos/{owner}/{repo}/mirror-sync",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "id": "{id}"
+          },
           "paramTypes": {
             "owner": "string",
-            "repo": "string"
-          }
+            "repo": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -4143,11 +5442,15 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -4167,7 +5470,7 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -4177,35 +5480,47 @@
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
         "add": {
-          "name": "repoMergePullRequest",
-          "descriptionTemplate": "Merge a pull request",
+          "name": "repoUpdatePullRequest",
+          "descriptionTemplate": "Merge PR's baseBranch into headBranch",
           "method": "POST",
-          "path": "/repos/{owner}/{repo}/pulls/{index}/merge",
+          "path": "/repos/{owner}/{repo}/pulls/{index}/update",
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "style",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "body": "object"
+            "style": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404,
-            405,
+            403,
             409,
-            423
-          ]
+            422
+          ],
+          "x-defined-response-codes": [
+            200,
+            403,
+            404,
+            409,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "repoPullRequestIsMerged",
@@ -4217,38 +5532,44 @@
             "repo",
             "index"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
         "update": {
-          "name": "repoUpdatePullRequest",
-          "descriptionTemplate": "Merge PR's baseBranch into headBranch",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/pulls/{index}/update",
+          "name": "repoEditPullRequest",
+          "descriptionTemplate": "Update a pull request. If using deadline only the date will be taken into account, and time of day ignored.",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}/pulls/{index}",
           "params": [
             "owner",
             "repo",
             "index",
-            "style"
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "body": "{body}"
+          },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "style": "string"
+            "body": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404,
+          "x-defined-response-codes": [
+            201,
             403,
+            404,
             409,
+            412,
             422
           ]
         },
@@ -4262,15 +5583,19 @@
             "repo",
             "index"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer"
           },
           "x-negative-delete-expected-codes": [
-            404,
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             403,
+            404,
             423
           ]
         }
@@ -4298,8 +5623,12 @@
             "body": "object"
           },
           "x-negative-delete-expected-codes": [
-            404,
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             403,
+            404,
             422
           ]
         },
@@ -4311,21 +5640,26 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "body": "object"
+            "body": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            201,
             404,
             422
-          ]
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -4343,7 +5677,7 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -4351,7 +5685,8 @@
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -4363,21 +5698,26 @@
           "params": [
             "owner",
             "repo",
-            "index"
+            "index",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "body": "object"
+            "body": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404,
             422
-          ]
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "repoDeletePullReview",
@@ -4390,7 +5730,7 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -4398,8 +5738,12 @@
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
-            404,
-            403
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
           ]
         },
         "get": {
@@ -4413,18 +5757,19 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
-        "submit": {
+        "update": {
           "name": "repoSubmitPullReview",
           "descriptionTemplate": "Submit a pending review to a pull request",
           "method": "POST",
@@ -4445,7 +5790,8 @@
             "id": "integer",
             "body": "object"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404,
             422
           ]
@@ -4465,14 +5811,15 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -4505,7 +5852,14 @@
             404,
             403,
             422
-          ]
+          ],
+          "x-defined-response-codes": [
+            200,
+            403,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -4522,7 +5876,7 @@
             "index",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -4533,7 +5887,14 @@
             404,
             403,
             422
-          ]
+          ],
+          "x-defined-response-codes": [
+            200,
+            403,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -4550,17 +5911,18 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": [
-            404,
+          "x-defined-response-codes": [
+            200,
             400,
-            403
+            403,
+            404
           ]
         },
         "add": {
@@ -4570,32 +5932,47 @@
           "path": "/repos/{owner}/{repo}/push_mirrors-sync",
           "params": [
             "owner",
-            "repo"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string"
-          },
-          "x-negative-delete-expected-codes": []
-        },
-        "delete": {
-          "name": "repoDeletePushMirror",
-          "descriptionTemplate": "Deletes a push mirror from a repository by remoteName",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/push_mirrors/{name}",
-          "params": [
-            "owner",
             "repo",
-            "name"
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "name": "string"
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
+        },
+        "delete": {
+          "name": "repoDeletePushMirror",
+          "descriptionTemplate": "deletes a push mirror from a repository by remoteName",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/push_mirrors/{name}",
+          "params": [
+            "owner",
+            "repo",
+            "name",
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "name": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         },
@@ -4607,15 +5984,22 @@
           "params": [
             "owner",
             "repo",
-            "name"
+            "name",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "name": "string"
+            "name": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404
+          ]
         }
       }
     },
@@ -4630,16 +6014,21 @@
             "owner",
             "repo",
             "filepath",
-            "ref"
+            "ref",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "filepath": "string",
-            "ref": "string"
+            "ref": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -4656,7 +6045,8 @@
             "draft",
             "pre-release",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
@@ -4665,9 +6055,13 @@
             "draft": "boolean",
             "pre-release": "boolean",
             "page": "integer",
-            "limit": "integer"
+            "limit": "integer",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "repoCreateRelease",
@@ -4676,76 +6070,27 @@
           "path": "/repos/{owner}/{repo}/releases",
           "params": [
             "owner",
-            "repo"
-          ],
-          "bodyTemplate": {
-            "body": "{CreateReleaseOption}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "body": "string"
-          },
-          "x-negative-delete-expected-codes": []
-        },
-        "get": {
-          "name": "repoGetReleaseByTag",
-          "descriptionTemplate": "Get a release by tag name",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/releases/tags/{tag}",
-          "params": [
-            "owner",
-            "repo",
-            "tag"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "tag": "string"
-          }
-        },
-        "delete": {
-          "name": "repoDeleteReleaseByTag",
-          "descriptionTemplate": "Delete a release by tag name",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/releases/tags/{tag}",
-          "params": [
-            "owner",
-            "repo",
-            "tag"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "tag": "string"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        },
-        "deleteById": {
-          "name": "repoDeleteRelease",
-          "descriptionTemplate": "Delete a release",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/releases/{id}",
-          "params": [
-            "owner",
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "body": "{body}"
+          },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "id": "integer"
+            "id": "string",
+            "body": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ]
+          "x-defined-response-codes": [
+            201,
+            404,
+            409,
+            422
+          ],
+          "x-generate-full-story": false
         },
-        "getById": {
+        "get": {
           "name": "repoGetRelease",
           "descriptionTemplate": "Get a release",
           "method": "GET",
@@ -4755,12 +6100,41 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "delete": {
+          "name": "repoDeleteRelease",
+          "descriptionTemplate": "Delete a release",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/releases/{id}",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "integer"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
+          ]
         },
         "update": {
           "name": "repoEditRelease",
@@ -4780,7 +6154,11 @@
             "repo": "string",
             "id": "integer",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -4796,12 +6174,16 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "repoCreateReleaseAttachment",
@@ -4825,7 +6207,13 @@
             "id": "integer",
             "name": "string",
             "attachment": "file"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            404
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "repoDeleteReleaseAttachment",
@@ -4838,7 +6226,7 @@
             "id",
             "attachment_id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -4846,6 +6234,10 @@
             "attachment_id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -4860,13 +6252,17 @@
             "id",
             "attachment_id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer",
             "attachment_id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "repoEditReleaseAttachment",
@@ -4888,7 +6284,12 @@
             "id": "integer",
             "attachment_id": "integer",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
+          ]
         }
       }
     },
@@ -4903,11 +6304,15 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -4922,29 +6327,43 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "repoCreateTagProtection",
-          "descriptionTemplate": "Create a tag protection for a repository",
+          "descriptionTemplate": "Create a tag protections for a repository",
           "method": "POST",
           "path": "/repos/{owner}/{repo}/tag_protections",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "body": "string"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            404,
+            422,
+            423
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "repoGetTagProtection",
@@ -4956,16 +6375,20 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "repoEditTagProtection",
-          "descriptionTemplate": "Edit a tag protection for a repository. Only fields that are set will be changed",
+          "descriptionTemplate": "Edit a tag protections for a repository. Only fields that are set will be changed",
           "method": "PATCH",
           "path": "/repos/{owner}/{repo}/tag_protections/{id}",
           "params": [
@@ -4980,8 +6403,14 @@
             "owner": "string",
             "repo": "string",
             "id": "integer",
-            "body": "string"
-          }
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            404,
+            422,
+            423
+          ]
         },
         "delete": {
           "name": "repoDeleteTagProtection",
@@ -4993,13 +6422,17 @@
             "repo",
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         }
@@ -5018,13 +6451,17 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "add": {
           "name": "repoCreateTag",
@@ -5033,16 +6470,28 @@
           "path": "/repos/{owner}/{repo}/tags",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "body": "string"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404,
+            405,
+            409,
+            422,
+            423
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "repoGetTag",
@@ -5054,12 +6503,16 @@
             "repo",
             "tag"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "tag": "string"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "repoDeleteTag",
@@ -5071,7 +6524,7 @@
             "repo",
             "tag"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -5079,6 +6532,14 @@
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            405,
+            409,
+            422,
+            423
           ]
         }
       }
@@ -5097,9 +6558,10 @@
             "since",
             "before",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
@@ -5107,8 +6569,15 @@
             "since": "string",
             "before": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404
+          ]
         },
         "get": {
           "name": "userTrackedTimes",
@@ -5118,14 +6587,22 @@
           "params": [
             "owner",
             "repo",
-            "user"
+            "user",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "user": "string"
-          }
+            "user": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            403,
+            404
+          ]
         }
       }
     },
@@ -5141,12 +6618,17 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "q": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404
+          ]
         },
         "update": {
           "name": "repoUpdateTopics",
@@ -5155,18 +6637,23 @@
           "path": "/repos/{owner}/{repo}/topics",
           "params": [
             "owner",
-            "repo"
+            "repo",
+            "id"
           ],
           "bodyTemplate": {
-            "topics": [
-              "{topic}"
-            ]
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "topics": "string"
-          }
+            "id": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
+          ]
         },
         "delete": {
           "name": "repoDeleteTopic",
@@ -5176,16 +6663,23 @@
           "params": [
             "owner",
             "repo",
-            "topic"
+            "topic",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "topic": "string"
+            "topic": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
           ]
         },
         "add": {
@@ -5196,14 +6690,23 @@
           "params": [
             "owner",
             "repo",
-            "topic"
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "topic": "{id}"
+          },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "topic": "string"
-          }
+            "topic": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -5218,15 +6721,21 @@
             "owner",
             "repo",
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -5241,15 +6750,21 @@
             "owner",
             "repo",
             "pageName",
-            "page"
+            "page",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "pageName": "string",
-            "page": "integer"
-          }
+            "page": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -5260,9 +6775,16 @@
           "descriptionTemplate": "Get instance's global settings for api",
           "method": "GET",
           "path": "/settings/api",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {}
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "list": {
           "name": "getGeneralUISettings",
@@ -5270,9 +6792,11 @@
           "method": "GET",
           "path": "/settings/ui",
           "params": [],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -5283,9 +6807,16 @@
           "descriptionTemplate": "Returns the version of the Gitea application",
           "method": "GET",
           "path": "/version",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": null,
-          "paramTypes": {}
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -5297,13 +6828,16 @@
           "method": "GET",
           "path": "/users/{username}",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "username": "string"
+            "username": "string",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -5313,13 +6847,20 @@
           "method": "DELETE",
           "path": "/user/actions/secrets/{secretname}",
           "params": [
-            "secretname"
+            "secretname",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "secretname": "string"
+            "secretname": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         },
@@ -5329,15 +6870,23 @@
           "method": "PUT",
           "path": "/user/actions/secrets/{secretname}",
           "params": [
-            "secretname"
+            "secretname",
+            "id"
           ],
           "bodyTemplate": {
-            "secretValue": "{secretValue}"
+            "body": "{body}"
           },
           "paramTypes": {
             "secretname": "string",
-            "secretValue": "string"
-          }
+            "id": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
         },
         "list": {
           "name": "userListActivityFeeds",
@@ -5351,7 +6900,7 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "username": "string",
             "only-performed-by": "boolean",
@@ -5359,7 +6908,8 @@
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": [
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -5373,13 +6923,21 @@
           "method": "DELETE",
           "path": "/user/actions/variables/{variablename}",
           "params": [
-            "variablename"
+            "variablename",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "variablename": "string"
+            "variablename": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
             404
           ]
         },
@@ -5389,12 +6947,19 @@
           "method": "GET",
           "path": "/user/actions/variables/{variablename}",
           "params": [
-            "variablename"
+            "variablename",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "variablename": "string"
-          }
+            "variablename": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "add": {
           "name": "createUserVariable",
@@ -5402,15 +6967,24 @@
           "method": "POST",
           "path": "/user/actions/variables/{variablename}",
           "params": [
-            "variablename"
+            "variablename",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
             "variablename": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ],
+          "x-generate-full-story": false
         },
         "update": {
           "name": "updateUserVariable",
@@ -5418,15 +6992,23 @@
           "method": "PUT",
           "path": "/user/actions/variables/{variablename}",
           "params": [
-            "variablename"
+            "variablename",
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
             "variablename": "string",
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
         }
       }
     },
@@ -5439,26 +7021,39 @@
           "path": "/user/applications/oauth2",
           "params": [
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "userCreateOAuth2Application",
           "descriptionTemplate": "creates a new OAuth2 application",
           "method": "POST",
           "path": "/user/applications/oauth2",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "userDeleteOAuth2Application",
@@ -5468,11 +7063,15 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -5484,10 +7083,14 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "userUpdateOAuth2Application",
@@ -5503,7 +7106,11 @@
           "paramTypes": {
             "id": "integer",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -5514,23 +7121,37 @@
           "descriptionTemplate": "Delete Avatar",
           "method": "DELETE",
           "path": "/user/avatar",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [],
+          "x-defined-response-codes": [
+            204
+          ]
         },
         "add": {
           "name": "userUpdateAvatar",
           "descriptionTemplate": "Update Avatar",
           "method": "POST",
           "path": "/user/avatar",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
             "body": "{body}"
           },
           "paramTypes": {
+            "id": "string",
             "body": "object"
-          }
+          },
+          "x-defined-response-codes": [
+            204
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -5543,13 +7164,18 @@
           "path": "/user/blocks",
           "params": [
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "delete": {
           "name": "userUnblockUser",
@@ -5557,14 +7183,21 @@
           "method": "DELETE",
           "path": "/user/blocks/{username}",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "username": "string"
+            "username": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
           ]
         },
         "get": {
@@ -5573,12 +7206,18 @@
           "method": "GET",
           "path": "/user/blocks/{username}",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
         },
         "update": {
           "name": "userBlockUser",
@@ -5587,13 +7226,20 @@
           "path": "/user/blocks/{username}",
           "params": [
             "username",
-            "note"
+            "note",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "username": "string",
-            "note": "string"
-          }
+            "note": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404,
+            422
+          ]
         }
       }
     },
@@ -5604,14 +7250,21 @@
           "descriptionTemplate": "Delete email addresses",
           "method": "DELETE",
           "path": "/user/emails",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "email": "{email}"
+            "body": "{body}"
           },
           "paramTypes": {
-            "email": "string"
+            "body": "object",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -5620,22 +7273,37 @@
           "descriptionTemplate": "List the authenticated user's email addresses",
           "method": "GET",
           "path": "/user/emails",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {}
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "userAddEmail",
           "descriptionTemplate": "Add email addresses",
           "method": "POST",
           "path": "/user/emails",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "email": "{email}"
+            "body": "{body}"
           },
           "paramTypes": {
-            "email": "string"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -5648,13 +7316,18 @@
           "path": "/user/followers",
           "params": [
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -5667,13 +7340,18 @@
           "path": "/user/following",
           "params": [
             "page",
-            "limit"
+            "limit",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
-            "limit": "integer"
-          }
+            "limit": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -5685,13 +7363,19 @@
           "method": "DELETE",
           "path": "/user/following/{username}",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "username": "string"
+            "username": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -5701,12 +7385,18 @@
           "method": "GET",
           "path": "/user/following/{username}",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
         },
         "update": {
           "name": "userCurrentPutFollow",
@@ -5714,12 +7404,19 @@
           "method": "PUT",
           "path": "/user/following/{username}",
           "params": [
-            "username"
+            "username",
+            "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
-            "username": "string"
-          }
+            "username": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
         }
       }
     },
@@ -5736,7 +7433,11 @@
           "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "list": {
           "name": "userCurrentListGPGKeys",
@@ -5751,22 +7452,33 @@
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "userCurrentPostGPGKey",
           "descriptionTemplate": "Create a GPG key",
           "method": "POST",
           "path": "/user/gpg_keys",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "key": "{key}",
-            "read_only": "{read_only}"
+            "Form": "{Form}",
+            "id": "{id}"
           },
           "paramTypes": {
-            "key": "string",
-            "read_only": "boolean"
-          }
+            "Form": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "userCurrentDeleteGPGKey",
@@ -5782,6 +7494,11 @@
           },
           "x-negative-delete-expected-codes": [
             404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
           ]
         }
       }
@@ -5795,26 +7512,38 @@
           "path": "/user/gpg_key_token",
           "params": [],
           "bodyTemplate": null,
-          "paramTypes": {}
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
-    "GPGKeyVerification": {
+    "GPGKeyVerify": {
       "operations": {
         "add": {
           "name": "userVerifyGPGKey",
           "descriptionTemplate": "Verify a GPG key",
           "method": "POST",
           "path": "/user/gpg_key_verify",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "key_id": "{key_id}",
-            "token": "{token}"
+            "Form": "{Form}",
+            "id": "{id}"
           },
           "paramTypes": {
-            "key_id": "string",
-            "token": "string"
-          }
+            "Form": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
+          ],
+          "x-generate-full-story": false
         }
       }
     },
@@ -5830,25 +7559,37 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "fingerprint": "string",
             "page": "integer",
             "limit": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "userCurrentPostKey",
           "descriptionTemplate": "Create a public key",
           "method": "POST",
           "path": "/user/keys",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{body}",
+            "id": "{id}"
           },
           "paramTypes": {
-            "body": "object"
-          }
+            "body": "object",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            422
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "userCurrentDeleteKey",
@@ -5858,11 +7599,16 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            403,
             404
           ]
         },
@@ -5874,10 +7620,14 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "integer"
-          }
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         }
       }
     },
@@ -5889,9 +7639,11 @@
           "method": "GET",
           "path": "/user/settings",
           "params": [],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {},
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "updateUserSettings",
@@ -5900,12 +7652,14 @@
           "path": "/user/settings",
           "params": [],
           "bodyTemplate": {
-            "body": "{UserSettingsOptions}"
+            "body": "{body}"
           },
           "paramTypes": {
-            "body": "string"
+            "body": "object"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -5920,29 +7674,13 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": []
-        },
-        "delete": {
-          "name": "userCurrentDeleteStar",
-          "descriptionTemplate": "Unstar the given repo",
-          "method": "DELETE",
-          "path": "/user/starred/{owner}/{repo}",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string"
-          },
-          "x-negative-delete-expected-codes": [
-            404
+          "x-defined-response-codes": [
+            200
           ]
         },
         "get": {
@@ -5954,12 +7692,15 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            204,
+            404
+          ]
         },
         "add": {
           "name": "userCurrentPutStar",
@@ -5968,14 +7709,43 @@
           "path": "/user/starred/{owner}/{repo}",
           "params": [
             "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
+        },
+        "delete": {
+          "name": "userCurrentDeleteStar",
+          "descriptionTemplate": "Unstar the given repo",
+          "method": "DELETE",
+          "path": "/user/starred/{owner}/{repo}",
+          "params": [
+            "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
           },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         }
@@ -5992,12 +7762,14 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -6012,15 +7784,163 @@
             "page",
             "limit"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "page": "integer",
             "limit": "integer"
           },
-          "x-negative-delete-expected-codes": []
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     }
+  },
+  "dependencies": {
+    "ActivityPub": [
+      "Users"
+    ],
+    "UserBadges": [
+      "Users"
+    ],
+    "UserKeys": [
+      "Users"
+    ],
+    "UserOrganizations": [
+      "Users"
+    ],
+    "UserRename": [
+      "Users"
+    ],
+    "UserRepositories": [
+      "Users"
+    ],
+    "UnadoptedRepositories": [
+      "Repositories"
+    ],
+    "Labels": [
+      "Repository"
+    ],
+    "Organization": [],
+    "OrgVariables": [
+      "Organization"
+    ],
+    "OrgAvatar": [
+      "Organization"
+    ],
+    "OrganizationRepos": [
+      "Organization"
+    ],
+    "OrganizationTeams": [
+      "Organization"
+    ],
+    "Teams": [
+      "Organization",
+      "Repository"
+    ],
+    "Issues": [
+      "Repository"
+    ],
+    "IssueAttachments": [
+      "Issues"
+    ],
+    "IssueBlocks": [
+      "Issues"
+    ],
+    "IssueComments": [
+      "Issues"
+    ],
+    "IssueTimes": [
+      "Issues"
+    ],
+    "Repositories": [
+      "Users"
+    ],
+    "Forks": [
+      "Repository"
+    ],
+    "RepositoryKeys": [
+      "Repository"
+    ],
+    "MirrorSync": [
+      "Repository"
+    ],
+    "Collaborators": [
+      "Repository"
+    ],
+    "Branches": [
+      "Repository"
+    ],
+    "Variables": [
+      "Repository"
+    ],
+    "PullRequests": [
+      "Repository"
+    ],
+    "PullReviewRequests": [
+      "PullRequests"
+    ],
+    "PullReviews": [
+      "PullRequests"
+    ],
+    "PullReviewDismissals": [
+      "PullReviews"
+    ],
+    "PullReviewUndismissals": [
+      "PullReviews"
+    ],
+    "PushMirrors": [
+      "Repository"
+    ],
+    "Releases": [
+      "Repository"
+    ],
+    "ReleaseAttachments": [
+      "Releases"
+    ],
+    "TagProtections": [
+      "Repository"
+    ],
+    "Tags": [
+      "Repository"
+    ],
+    "Topics": [
+      "Repository"
+    ],
+    "UserVariables": [
+      "Users"
+    ],
+    "OAuth2Applications": [
+      "Users"
+    ],
+    "UserAvatar": [
+      "Users"
+    ],
+    "UserEmails": [
+      "Users"
+    ],
+    "GPGKeys": [
+      "Users"
+    ],
+    "GPGKeyVerify": [
+      "GPGKeys"
+    ],
+    "Keys": [
+      "Users"
+    ],
+    "UserStarred": [
+      "Repository"
+    ],
+    "IssueCommentAttachments": [
+      "IssueComments"
+    ],
+    "IssueCommentReactions": [
+      "IssueComments"
+    ],
+    "AdminCron": [],
+    "Hooks": [],
+    "Markdown": [],
+    "Markup": []
   },
   "original_spec": {
     "consumes": [

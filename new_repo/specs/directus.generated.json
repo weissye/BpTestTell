@@ -16,8 +16,7 @@
             "offset",
             "sort",
             "filter",
-            "search",
-            "id"
+            "search"
           ],
           "bodyTemplate": null,
           "paramTypes": {
@@ -27,8 +26,7 @@
             "offset": "integer",
             "sort": "integer",
             "filter": "string",
-            "search": "string",
-            "id": "string"
+            "search": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -106,7 +104,8 @@
           },
           "paramTypes": {
             "token": "string",
-            "password": "string"
+            "password": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             401
@@ -119,8 +118,9 @@
           "method": "GET",
           "path": "/auth/oauth",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
+            "data": "array",
             "public": "boolean"
           },
           "x-defined-response-codes": [
@@ -137,10 +137,12 @@
             "provider",
             "redirect"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "provider": "string",
-            "redirect": "string"
+            "redirect": "string",
+            "token": "string",
+            "public": "boolean"
           },
           "x-defined-response-codes": [
             200,
@@ -213,7 +215,8 @@
             "sort_field": "string",
             "translation": "string",
             "unarchive_value": "string",
-            "versioning": "boolean"
+            "versioning": "boolean",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -358,7 +361,8 @@
           },
           "paramTypes": {
             "meta": "string",
-            "collection": "string"
+            "collection": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -483,6 +487,7 @@
             "fields",
             "meta",
             "collection",
+            "title",
             "id"
           ],
           "bodyTemplate": {
@@ -506,7 +511,8 @@
             "layout_query": "string",
             "role": "string",
             "search": "string",
-            "title": "string"
+            "title": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -618,9 +624,27 @@
           "descriptionTemplate": "List the comments.",
           "method": "GET",
           "path": "/comments",
-          "params": [],
+          "params": [
+            "fields",
+            "limit",
+            "offset",
+            "page",
+            "sort",
+            "filter",
+            "search",
+            "meta"
+          ],
           "bodyTemplate": null,
-          "paramTypes": {},
+          "paramTypes": {
+            "fields": "string",
+            "limit": "integer",
+            "offset": "integer",
+            "page": "integer",
+            "sort": "integer",
+            "filter": "string",
+            "search": "string",
+            "meta": "string"
+          },
           "x-defined-response-codes": [
             200,
             401
@@ -632,7 +656,9 @@
           "method": "PATCH",
           "path": "/comments/{id}",
           "params": [
-            "id"
+            "id",
+            "fields",
+            "meta"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
@@ -641,6 +667,8 @@
           },
           "paramTypes": {
             "id": "string",
+            "fields": "string",
+            "meta": "string",
             "collection": "string",
             "comment": "string",
             "item": "string"
@@ -657,6 +685,8 @@
           "method": "POST",
           "path": "/comments",
           "params": [
+            "fields",
+            "meta",
             "collection",
             "item",
             "id"
@@ -668,9 +698,12 @@
             "id": "{id}"
           },
           "paramTypes": {
+            "fields": "string",
+            "meta": "string",
             "collection": "string",
             "comment": "string",
-            "item": "string"
+            "item": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -684,11 +717,15 @@
           "method": "GET",
           "path": "/comments/{id}",
           "params": [
-            "id"
+            "id",
+            "fields",
+            "meta"
           ],
           "bodyTemplate": null,
           "paramTypes": {
-            "id": "string"
+            "id": "string",
+            "fields": "string",
+            "meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -750,13 +787,11 @@
           "method": "GET",
           "path": "/fields/{collection}",
           "params": [
-            "collection",
-            "Sort"
+            "collection"
           ],
           "bodyTemplate": null,
           "paramTypes": {
-            "collection": "string",
-            "Sort": "integer"
+            "collection": "string"
           },
           "x-negative-delete-expected-codes": [
             404
@@ -826,7 +861,7 @@
             "display_options": "object",
             "group": "integer",
             "hidden": "boolean",
-            "id": "integer",
+            "id": "string",
             "locked": "boolean",
             "note": "string",
             "options": "object",
@@ -1003,25 +1038,9 @@
           "descriptionTemplate": "List the files.",
           "method": "GET",
           "path": "/files",
-          "params": [
-            "Fields",
-            "Limit",
-            "Offset",
-            "Sort",
-            "Filter",
-            "Search",
-            "Meta"
-          ],
+          "params": [],
           "bodyTemplate": null,
-          "paramTypes": {
-            "Fields": "string",
-            "Limit": "integer",
-            "Offset": "integer",
-            "Sort": "integer",
-            "Filter": "string",
-            "Search": "string",
-            "Meta": "string"
-          },
+          "paramTypes": {},
           "x-negative-delete-expected-codes": [
             404
           ],
@@ -1036,15 +1055,16 @@
           "method": "POST",
           "path": "/files",
           "params": [
-            "id",
-            "data"
+            "data",
+            "id"
           ],
           "bodyTemplate": {
             "data": "{data}",
             "id": "{id}"
           },
           "paramTypes": {
-            "data": "string"
+            "data": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
@@ -1188,15 +1208,15 @@
           "method": "POST",
           "path": "/flows",
           "params": [
-            "id",
-            "data"
+            "id"
           ],
           "bodyTemplate": {
             "data": "{data}",
             "id": "{id}"
           },
           "paramTypes": {
-            "data": "string"
+            "data": "object",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -1301,7 +1321,8 @@
           },
           "paramTypes": {
             "name": "string",
-            "parent": "integer"
+            "parent": "integer",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -1340,7 +1361,9 @@
           "params": [],
           "bodyTemplate": null,
           "paramTypes": {},
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1353,17 +1376,17 @@
           "method": "POST",
           "path": "/operations",
           "params": [
-            "id",
-            "data"
+            "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "data": "{data}"
+            "id": "{id}"
           },
           "paramTypes": {
-            "data": "string"
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1376,33 +1399,29 @@
           "descriptionTemplate": "Update multiple operations at the same time.",
           "method": "PATCH",
           "path": "/operations",
-          "params": [
-            "Fields",
-            "Limit",
-            "Meta",
-            "Offset",
-            "Sort",
-            "Filter",
-            "Search"
-          ],
+          "params": [],
           "bodyTemplate": {
-            "data": "{data}",
-            "keys": [
-              "{keys}"
-            ]
+            "data": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Operations"
+                }
+              ]
+            },
+            "keys": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
           },
           "paramTypes": {
-            "Fields": "string",
-            "Limit": "integer",
-            "Meta": "string",
-            "Offset": "integer",
-            "Sort": "integer",
-            "Filter": "string",
-            "Search": "string",
             "data": "object",
             "keys": "array"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401
@@ -1430,15 +1449,15 @@
           "method": "GET",
           "path": "/operations/{id}",
           "params": [
-            "id",
-            "UUId"
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
-            "id": "string",
-            "UUId": "string"
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1451,20 +1470,15 @@
           "method": "PATCH",
           "path": "/operations/{id}",
           "params": [
-            "id",
-            "Fields",
-            "Meta"
+            "id"
           ],
-          "bodyTemplate": {
-            "data": "{data}"
-          },
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string",
-            "Fields": "string",
-            "Meta": "string",
-            "data": "object"
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1477,13 +1491,11 @@
           "method": "DELETE",
           "path": "/operations/{id}",
           "params": [
-            "id",
-            "UUId"
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
-            "id": "string",
-            "UUId": "string"
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
@@ -1503,28 +1515,12 @@
           "descriptionTemplate": "List all permissions.",
           "method": "GET",
           "path": "/permissions",
-          "params": [
-            "Fields",
-            "Limit",
-            "Offset",
-            "Meta",
-            "Sort",
-            "Filter",
-            "Search",
-            "Page"
-          ],
+          "params": [],
           "bodyTemplate": null,
-          "paramTypes": {
-            "Fields": "string",
-            "Limit": "integer",
-            "Offset": "integer",
-            "Meta": "string",
-            "Sort": "integer",
-            "Filter": "string",
-            "Search": "string",
-            "Page": "string"
-          },
-          "x-negative-delete-expected-codes": [],
+          "paramTypes": {},
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1537,9 +1533,7 @@
           "method": "POST",
           "path": "/permissions",
           "params": [
-            "Meta",
-            "id",
-            "name"
+            "id"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
@@ -1548,23 +1542,15 @@
             "delete": "{delete}",
             "explain": "{explain}",
             "read": "{read}",
-            "read_field_blacklist": [
-              "{read_field_blacklist}"
-            ],
+            "read_field_blacklist": "{read_field_blacklist}",
             "role": "{role}",
             "status": "{status}",
-            "status_blacklist": [
-              "{status_blacklist}"
-            ],
+            "status_blacklist": "{status_blacklist}",
             "update": "{update}",
-            "write_field_blacklist": [
-              "{write_field_blacklist}"
-            ],
-            "id": "{id}",
-            "name": "{name}"
+            "write_field_blacklist": "{write_field_blacklist}",
+            "id": "{id}"
           },
           "paramTypes": {
-            "Meta": "string",
             "collection": "string",
             "comment": "string",
             "create": "string",
@@ -1577,9 +1563,11 @@
             "status_blacklist": "array",
             "update": "string",
             "write_field_blacklist": "array",
-            "name": "string"
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1592,15 +1580,7 @@
           "descriptionTemplate": "Update multiple permissions at the same time.",
           "method": "PATCH",
           "path": "/permissions",
-          "params": [
-            "Fields",
-            "Limit",
-            "Meta",
-            "Offset",
-            "Sort",
-            "Filter",
-            "Search"
-          ],
+          "params": [],
           "bodyTemplate": {
             "data": {
               "collection": "{collection}",
@@ -1609,31 +1589,16 @@
               "delete": "{delete}",
               "explain": "{explain}",
               "read": "{read}",
-              "read_field_blacklist": [
-                "{read_field_blacklist}"
-              ],
+              "read_field_blacklist": "{read_field_blacklist}",
               "role": "{role}",
               "status": "{status}",
-              "status_blacklist": [
-                "{status_blacklist}"
-              ],
+              "status_blacklist": "{status_blacklist}",
               "update": "{update}",
-              "write_field_blacklist": [
-                "{write_field_blacklist}"
-              ]
+              "write_field_blacklist": "{write_field_blacklist}"
             },
-            "keys": [
-              "{keys}"
-            ]
+            "keys": "{keys}"
           },
           "paramTypes": {
-            "Fields": "string",
-            "Limit": "integer",
-            "Meta": "string",
-            "Offset": "integer",
-            "Sort": "integer",
-            "Filter": "string",
-            "Search": "string",
             "collection": "string",
             "comment": "string",
             "create": "string",
@@ -1648,7 +1613,9 @@
             "write_field_blacklist": "array",
             "keys": "array"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401
@@ -1676,17 +1643,15 @@
           "method": "GET",
           "path": "/permissions/{id}",
           "params": [
-            "id",
-            "Fields",
-            "Meta"
+            "id"
           ],
           "bodyTemplate": null,
           "paramTypes": {
-            "id": "string",
-            "Fields": "string",
-            "Meta": "string"
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1699,8 +1664,7 @@
           "method": "PATCH",
           "path": "/permissions/{id}",
           "params": [
-            "id",
-            "Meta"
+            "id"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
@@ -1717,8 +1681,6 @@
             "write_field_blacklist": "{write_field_blacklist}"
           },
           "paramTypes": {
-            "id": "string",
-            "Meta": "string",
             "collection": "object",
             "comment": "string",
             "create": "string",
@@ -1730,9 +1692,12 @@
             "status": "object",
             "status_blacklist": "object",
             "update": "string",
-            "write_field_blacklist": "object"
+            "write_field_blacklist": "object",
+            "id": "string"
           },
-          "x-negative-delete-expected-codes": [],
+          "x-negative-delete-expected-codes": [
+            404
+          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1754,21 +1719,6 @@
           "x-negative-delete-expected-codes": [
             404
           ],
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
-        "listMy": {
-          "name": "getMyPermissions",
-          "descriptionTemplate": "List the permissions that apply to the current user.",
-          "method": "GET",
-          "path": "/permissions/me",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [],
           "x-defined-response-codes": [
             200,
             401,
@@ -1836,7 +1786,8 @@
             "collection_one": "string",
             "field_many": "string",
             "field_one": "string",
-            "junction_field": "string"
+            "junction_field": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -2023,8 +1974,9 @@
           "params": [
             "Fields",
             "Meta",
-            "id",
-            "name"
+            "name",
+            "description",
+            "id"
           ],
           "bodyTemplate": {
             "description": "{description}",
@@ -2043,7 +1995,8 @@
             "external_id": "string",
             "ip_access": "array",
             "module_listing": "string",
-            "name": "string"
+            "name": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -2135,6 +2088,7 @@
           "path": "/schema/diff",
           "params": [
             "force",
+            "data",
             "id"
           ],
           "bodyTemplate": {
@@ -2143,7 +2097,8 @@
           },
           "paramTypes": {
             "force": "boolean",
-            "data": "object"
+            "data": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -2193,9 +2148,8 @@
           "method": "GET",
           "path": "/server/ping",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
-          "x-negative-delete-expected-codes": [],
           "x-defined-response-codes": [
             200
           ]
@@ -2215,14 +2169,13 @@
             "Meta",
             "Page"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "Limit": "integer",
             "Offset": "integer",
             "Meta": "string",
             "Page": "string"
           },
-          "x-negative-delete-expected-codes": [],
           "x-defined-response-codes": [
             200,
             401,
@@ -2237,7 +2190,6 @@
           "params": [],
           "bodyTemplate": {},
           "paramTypes": {},
-          "x-negative-delete-expected-codes": [],
           "x-defined-response-codes": [
             200,
             401,
@@ -2262,7 +2214,7 @@
             "Filter",
             "Search"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
             "Limit": "integer",
@@ -2272,7 +2224,6 @@
             "Filter": "string",
             "Search": "string"
           },
-          "x-negative-delete-expected-codes": [],
           "x-defined-response-codes": [
             200,
             401,
@@ -2296,7 +2247,8 @@
           },
           "paramTypes": {
             "password": "string",
-            "token": "string"
+            "token": "string",
+            "id": "string"
           },
           "x-negative-delete-expected-codes": [
             404
@@ -2333,7 +2285,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -2435,14 +2387,16 @@
           "bodyTemplate": {
             "id": "{id}"
           },
-          "paramTypes": {},
+          "paramTypes": {
+            "id": "string"
+          },
           "x-defined-response-codes": [
             200
           ],
           "x-generate-full-story": false
         },
         "list": {
-          "name": "getRandomString",
+          "name": "random",
           "descriptionTemplate": "Returns a random string of given length.",
           "method": "GET",
           "path": "/utils/random/string",
@@ -2518,17 +2472,17 @@
           "method": "PATCH",
           "path": "/versions/{id}",
           "params": [
-            "id",
             "Fields",
-            "Meta"
+            "Meta",
+            "id"
           ],
           "bodyTemplate": {
             "data": "{data}"
           },
           "paramTypes": {
-            "id": "string",
             "Fields": "string",
             "Meta": "string",
+            "id": "string",
             "data": "object"
           },
           "x-defined-response-codes": [
@@ -2547,8 +2501,7 @@
           ],
           "bodyTemplate": {
             "fields": "{fields}",
-            "mainHash": "{mainHash}",
-            "id": "{id}"
+            "mainHash": "{mainHash}"
           },
           "paramTypes": {
             "id": "string",
@@ -2606,6 +2559,8 @@
           "params": [
             "Fields",
             "Meta",
+            "name",
+            "data",
             "id"
           ],
           "bodyTemplate": {
@@ -2622,12 +2577,13 @@
             "Fields": "string",
             "Meta": "string",
             "actions": "string",
-            "data": "boolean",
+            "data": "string",
             "method": "string",
             "name": "string",
             "status": "string",
             "system-collections": "string",
-            "url": "string"
+            "url": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -2716,17 +2672,17 @@
     }
   },
   "dependencies": {
+    "Items": [
+      "Collections"
+    ],
+    "Presets": [
+      "Collections"
+    ],
     "Comments": [
       "Collections",
       "Items"
     ],
     "Fields": [
-      "Collections"
-    ],
-    "Items": [
-      "Collections"
-    ],
-    "Presets": [
       "Collections"
     ],
     "Permissions": [
@@ -2736,7 +2692,17 @@
       "Collections"
     ],
     "Roles": [],
-    "Webhooks": []
+    "Webhooks": [],
+    "Files": [],
+    "Collections": [],
+    "Folders": [],
+    "Flows": [],
+    "Operations": [],
+    "Schema": [],
+    "Users": [],
+    "Utilities": [],
+    "Versions": [],
+    "Authentication": []
   },
   "original_spec": {
     "openapi": "3.0.1",

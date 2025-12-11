@@ -28,7 +28,7 @@ function resolveDependencies(deps, pkMap) {
 
 // Story: crud:Chains:linear:1
 bthread("crud:Chains:linear:1", function () {
-  let chainId = "chainId_210_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let chainId = "chainId_210_" + Math.floor(Math.random() * 10000);
   let description = "description_210_" + Math.floor(Math.random() * 10000);
   let hqAddress = "hqAddress_210_" + Math.floor(Math.random() * 10000);
   let id = "id_210_" + Math.floor(Math.random() * 10000);
@@ -41,7 +41,7 @@ bthread("crud:Chains:linear:1", function () {
 
 // Story: crud:Chains:linear:2
 bthread("crud:Chains:linear:2", function () {
-  let chainId = "chainId_220_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let chainId = "chainId_220_" + Math.floor(Math.random() * 10000);
   let description = "description_220_" + Math.floor(Math.random() * 10000);
   let hqAddress = "hqAddress_220_" + Math.floor(Math.random() * 10000);
   let id = "id_220_" + Math.floor(Math.random() * 10000);
@@ -54,7 +54,7 @@ bthread("crud:Chains:linear:2", function () {
 
 // Story: crud:Chains:linear:3
 bthread("crud:Chains:linear:3", function () {
-  let chainId = "chainId_230_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let chainId = "chainId_230_" + Math.floor(Math.random() * 10000);
   let description = "description_230_" + Math.floor(Math.random() * 10000);
   let hqAddress = "hqAddress_230_" + Math.floor(Math.random() * 10000);
   let id = "id_230_" + Math.floor(Math.random() * 10000);
@@ -81,7 +81,7 @@ bthread("monitor:Chains", function () {
 
 // Story: crud:Customers:linear:1
 bthread("crud:Customers:linear:1", function () {
-  let customerId = "customerId_260_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let customerId = "customerId_260_" + Math.floor(Math.random() * 10000);
   let email = "email_260_" + Math.floor(Math.random() * 10000);
   let fullName = "fullName_260_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
   let id = "id_260_" + Math.floor(Math.random() * 10000);
@@ -96,7 +96,7 @@ bthread("crud:Customers:linear:1", function () {
 
 // Story: crud:Customers:linear:2
 bthread("crud:Customers:linear:2", function () {
-  let customerId = "customerId_270_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let customerId = "customerId_270_" + Math.floor(Math.random() * 10000);
   let email = "email_270_" + Math.floor(Math.random() * 10000);
   let fullName = "fullName_270_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
   let id = "id_270_" + Math.floor(Math.random() * 10000);
@@ -111,7 +111,7 @@ bthread("crud:Customers:linear:2", function () {
 
 // Story: crud:Customers:linear:3
 bthread("crud:Customers:linear:3", function () {
-  let customerId = "customerId_280_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let customerId = "customerId_280_" + Math.floor(Math.random() * 10000);
   let email = "email_280_" + Math.floor(Math.random() * 10000);
   let fullName = "fullName_280_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
   let id = "id_280_" + Math.floor(Math.random() * 10000);
@@ -143,9 +143,9 @@ bthread("monitor:Customers", function () {
 // Story: crud:Garages:linear:1
 bthread("crud:Garages:linear:1", function () {
   let address = "address_310_" + Math.floor(Math.random() * 10000);
-  let capacity = 310;
+  let capacity = 31000000 + Math.floor(Math.random() * 100000);
   let chainId; // Resolved Dependency
-  let garageId = "garageId_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let garageId = "garageId_310_" + Math.floor(Math.random() * 10000);
   let id = "id_310_" + Math.floor(Math.random() * 10000);
   let location = "location_310_" + Math.floor(Math.random() * 10000);
   let name = "name_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
@@ -166,9 +166,9 @@ bthread("crud:Garages:linear:1", function () {
 // Story: crud:Garages:linear:2
 bthread("crud:Garages:linear:2", function () {
   let address = "address_320_" + Math.floor(Math.random() * 10000);
-  let capacity = 320;
+  let capacity = 32000000 + Math.floor(Math.random() * 100000);
   let chainId; // Resolved Dependency
-  let garageId = "garageId_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let garageId = "garageId_320_" + Math.floor(Math.random() * 10000);
   let id = "id_320_" + Math.floor(Math.random() * 10000);
   let location = "location_320_" + Math.floor(Math.random() * 10000);
   let name = "name_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
@@ -189,9 +189,9 @@ bthread("crud:Garages:linear:2", function () {
 // Story: crud:Garages:linear:3
 bthread("crud:Garages:linear:3", function () {
   let address = "address_330_" + Math.floor(Math.random() * 10000);
-  let capacity = 330;
+  let capacity = 33000000 + Math.floor(Math.random() * 100000);
   let chainId; // Resolved Dependency
-  let garageId = "garageId_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let garageId = "garageId_330_" + Math.floor(Math.random() * 10000);
   let id = "id_330_" + Math.floor(Math.random() * 10000);
   let location = "location_330_" + Math.floor(Math.random() * 10000);
   let name = "name_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
@@ -230,11 +230,11 @@ bthread("monitor:Garages", function () {
 bthread("crud:Cars:linear:1", function () {
   let id = "id_360_" + Math.floor(Math.random() * 10000);
   let make = "make_360_" + Math.floor(Math.random() * 10000);
-  let mileage = 10360;
+  let mileage = 36000000 + Math.floor(Math.random() * 100000);
   let model = "model_360_" + Math.floor(Math.random() * 10000);
   let ownerCustomerId; // Resolved Dependency
-  let vin = "vin_360_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
-  let year = 2020;
+  let vin = "vin_360_" + Math.floor(Math.random() * 10000);
+  let year = 36000000 + Math.floor(Math.random() * 100000);
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
   deps["ownerCustomerId"] = matchAnyCustomersAdded();
@@ -252,11 +252,11 @@ bthread("crud:Cars:linear:1", function () {
 bthread("crud:Cars:linear:2", function () {
   let id = "id_370_" + Math.floor(Math.random() * 10000);
   let make = "make_370_" + Math.floor(Math.random() * 10000);
-  let mileage = 10370;
+  let mileage = 37000000 + Math.floor(Math.random() * 100000);
   let model = "model_370_" + Math.floor(Math.random() * 10000);
   let ownerCustomerId; // Resolved Dependency
-  let vin = "vin_370_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
-  let year = 2020;
+  let vin = "vin_370_" + Math.floor(Math.random() * 10000);
+  let year = 37000000 + Math.floor(Math.random() * 100000);
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
   deps["ownerCustomerId"] = matchAnyCustomersAdded();
@@ -274,11 +274,11 @@ bthread("crud:Cars:linear:2", function () {
 bthread("crud:Cars:linear:3", function () {
   let id = "id_380_" + Math.floor(Math.random() * 10000);
   let make = "make_380_" + Math.floor(Math.random() * 10000);
-  let mileage = 10380;
+  let mileage = 38000000 + Math.floor(Math.random() * 100000);
   let model = "model_380_" + Math.floor(Math.random() * 10000);
   let ownerCustomerId; // Resolved Dependency
-  let vin = "vin_380_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
-  let year = 2020;
+  let vin = "vin_380_" + Math.floor(Math.random() * 10000);
+  let year = 38000000 + Math.floor(Math.random() * 100000);
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
   deps["ownerCustomerId"] = matchAnyCustomersAdded();
@@ -314,7 +314,7 @@ bthread("crud:PeriodicMaintenance:linear:1", function () {
   let garageId; // Resolved Dependency
   let id = "id_410_" + Math.floor(Math.random() * 10000);
   let planType = "planType_410_" + Math.floor(Math.random() * 10000);
-  let pmId = "pmId_410_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let pmId = "pmId_410_" + Math.floor(Math.random() * 10000);
   let schedule = "schedule_410_" + Math.floor(Math.random() * 10000);
   let tasks = "tasks_410_" + Math.floor(Math.random() * 10000);
   // Ensure dependencies are resolved before starting CRUD
@@ -335,7 +335,7 @@ bthread("crud:PeriodicMaintenance:linear:2", function () {
   let garageId; // Resolved Dependency
   let id = "id_420_" + Math.floor(Math.random() * 10000);
   let planType = "planType_420_" + Math.floor(Math.random() * 10000);
-  let pmId = "pmId_420_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let pmId = "pmId_420_" + Math.floor(Math.random() * 10000);
   let schedule = "schedule_420_" + Math.floor(Math.random() * 10000);
   let tasks = "tasks_420_" + Math.floor(Math.random() * 10000);
   // Ensure dependencies are resolved before starting CRUD
@@ -356,7 +356,7 @@ bthread("crud:PeriodicMaintenance:linear:3", function () {
   let garageId; // Resolved Dependency
   let id = "id_430_" + Math.floor(Math.random() * 10000);
   let planType = "planType_430_" + Math.floor(Math.random() * 10000);
-  let pmId = "pmId_430_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
+  let pmId = "pmId_430_" + Math.floor(Math.random() * 10000);
   let schedule = "schedule_430_" + Math.floor(Math.random() * 10000);
   let tasks = "tasks_430_" + Math.floor(Math.random() * 10000);
   // Ensure dependencies are resolved before starting CRUD
@@ -375,15 +375,12 @@ bthread("crud:PeriodicMaintenance:linear:3", function () {
 bthread("crud:RepairOrders:linear:1", function () {
   let carVin; // Resolved Dependency
   let complaint = "complaint_460_" + Math.floor(Math.random() * 10000);
-  let customer = "customer_460_" + Math.floor(Math.random() * 10000);
   let customerId; // Resolved Dependency
-  let device = "device_460_" + Math.floor(Math.random() * 10000);
+  let field1 = "field1_460_" + Math.floor(Math.random() * 10000);
+  let field2 = 46000000 + Math.floor(Math.random() * 100000);
   let garageId; // Resolved Dependency
   let id = "id_460_" + Math.floor(Math.random() * 10000);
-  let issue = "issue_460_" + Math.floor(Math.random() * 10000);
-  let notes = "notes_460_" + Math.floor(Math.random() * 10000);
-  let roId = "roId_460_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
-  let status = "status_460_" + Math.floor(Math.random() * 10000);
+  let roId = "roId_460_" + Math.floor(Math.random() * 10000);
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
@@ -395,27 +392,24 @@ bthread("crud:RepairOrders:linear:1", function () {
   carVin = captured["carVin"];
   customerId = captured["customerId"];
   garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  verifyRepairOrdersExists(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  updateRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  deleteRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  tryToDeleteANonExistingRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  verifyRepairOrdersDoesNotExist(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
 });
 
 // Story: crud:RepairOrders:linear:2
 bthread("crud:RepairOrders:linear:2", function () {
   let carVin; // Resolved Dependency
   let complaint = "complaint_470_" + Math.floor(Math.random() * 10000);
-  let customer = "customer_470_" + Math.floor(Math.random() * 10000);
   let customerId; // Resolved Dependency
-  let device = "device_470_" + Math.floor(Math.random() * 10000);
+  let field1 = "field1_470_" + Math.floor(Math.random() * 10000);
+  let field2 = 47000000 + Math.floor(Math.random() * 100000);
   let garageId; // Resolved Dependency
   let id = "id_470_" + Math.floor(Math.random() * 10000);
-  let issue = "issue_470_" + Math.floor(Math.random() * 10000);
-  let notes = "notes_470_" + Math.floor(Math.random() * 10000);
-  let roId = "roId_470_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
-  let status = "status_470_" + Math.floor(Math.random() * 10000);
+  let roId = "roId_470_" + Math.floor(Math.random() * 10000);
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
@@ -427,27 +421,24 @@ bthread("crud:RepairOrders:linear:2", function () {
   carVin = captured["carVin"];
   customerId = captured["customerId"];
   garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  verifyRepairOrdersExists(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  updateRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  deleteRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  tryToDeleteANonExistingRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  verifyRepairOrdersDoesNotExist(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
 });
 
 // Story: crud:RepairOrders:linear:3
 bthread("crud:RepairOrders:linear:3", function () {
   let carVin; // Resolved Dependency
   let complaint = "complaint_480_" + Math.floor(Math.random() * 10000);
-  let customer = "customer_480_" + Math.floor(Math.random() * 10000);
   let customerId; // Resolved Dependency
-  let device = "device_480_" + Math.floor(Math.random() * 10000);
+  let field1 = "field1_480_" + Math.floor(Math.random() * 10000);
+  let field2 = 48000000 + Math.floor(Math.random() * 100000);
   let garageId; // Resolved Dependency
   let id = "id_480_" + Math.floor(Math.random() * 10000);
-  let issue = "issue_480_" + Math.floor(Math.random() * 10000);
-  let notes = "notes_480_" + Math.floor(Math.random() * 10000);
-  let roId = "roId_480_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000);
-  let status = "status_480_" + Math.floor(Math.random() * 10000);
+  let roId = "roId_480_" + Math.floor(Math.random() * 10000);
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
@@ -459,12 +450,12 @@ bthread("crud:RepairOrders:linear:3", function () {
   carVin = captured["carVin"];
   customerId = captured["customerId"];
   garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  verifyRepairOrdersExists(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  updateRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  deleteRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  tryToDeleteANonExistingRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
-  verifyRepairOrdersDoesNotExist(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
 });
 
 // Monitor: RepairOrders Verification
@@ -473,19 +464,16 @@ bthread("monitor:RepairOrders", function () {
     let e = bp.sync({ waitFor: matchAnyRepairOrdersAdded() });
     let carVin = (e.data.parameters && e.data.parameters["carVin"]) ? e.data.parameters["carVin"] : e.data["carVin"];
     let complaint = (e.data.parameters && e.data.parameters["complaint"]) ? e.data.parameters["complaint"] : e.data["complaint"];
-    let customer = (e.data.parameters && e.data.parameters["customer"]) ? e.data.parameters["customer"] : e.data["customer"];
     let customerId = (e.data.parameters && e.data.parameters["customerId"]) ? e.data.parameters["customerId"] : e.data["customerId"];
-    let device = (e.data.parameters && e.data.parameters["device"]) ? e.data.parameters["device"] : e.data["device"];
+    let field1 = (e.data.parameters && e.data.parameters["field1"]) ? e.data.parameters["field1"] : e.data["field1"];
+    let field2 = (e.data.parameters && e.data.parameters["field2"]) ? e.data.parameters["field2"] : e.data["field2"];
     let garageId = (e.data.parameters && e.data.parameters["garageId"]) ? e.data.parameters["garageId"] : e.data["garageId"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let issue = (e.data.parameters && e.data.parameters["issue"]) ? e.data.parameters["issue"] : e.data["issue"];
-    let notes = (e.data.parameters && e.data.parameters["notes"]) ? e.data.parameters["notes"] : e.data["notes"];
     let roId = (e.data.parameters && e.data.parameters["roId"]) ? e.data.parameters["roId"] : e.data["roId"];
-    let status = (e.data.parameters && e.data.parameters["status"]) ? e.data.parameters["status"] : e.data["status"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status), function() {
+    block(matchDeletedRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId), function() {
       bp.log.info(`Monitor RepairOrders: Verifying persistence of ID ${id} inside deletion block.`);
-        verifyRepairOrdersExists(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status);
+        verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
     });
   }
 });

@@ -113,17 +113,20 @@
           "path": "/loans",
           "params": [
             "userId",
-            "bookId"
+            "bookId",
+            "id"
           ],
           "bodyTemplate": {
             "userId": "{userId}",
             "bookId": "{bookId}",
-            "loanDate": "{loanDate}"
+            "loanDate": "{loanDate}",
+            "id": "{id}"
           },
           "paramTypes": {
             "userId": "integer",
             "bookId": "integer",
-            "loanDate": "string"
+            "loanDate": "string",
+            "id": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -248,15 +251,15 @@
           ],
           "bodyTemplate": {
             "id": "{id}",
-            "name": "{name}",
-            "status": "{status}",
+            "meta": {
+              "hidden": "{hidden}"
+            },
             "userId": "{userId}",
             "bookId": "{bookId}"
           },
           "paramTypes": {
             "id": "integer",
-            "name": "string",
-            "status": "string",
+            "hidden": "boolean",
             "userId": "integer",
             "bookId": "integer"
           },

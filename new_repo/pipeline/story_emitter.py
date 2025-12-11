@@ -92,12 +92,17 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         add_op = ops.get("add")
         if not add_op: continue
         
-        # Respect the LLM/Classifier flag
-        is_full_story = add_op.get("x-generate-full-story", True)
+        has_add = "add" in ops
+        has_get = "get" in ops
+        has_del = "delete" in ops
+        
+        spec_flag = add_op.get("x-generate-full-story")
+        if spec_flag is False:
+            is_full_story = False
+        else:
+            is_full_story = has_add and has_get and has_del
         
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
-        
-        can_fully_test = is_full_story 
         
         def get_safe_fn(op_key):
             raw_fn = ops.get(op_key, {}).get("name")
@@ -109,12 +114,18 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         del_op = ops.get("delete", {})
         
         is_collection_root_delete = False
+        is_primary_delete_batch = False # Flag to detect if 'delete' op is batch
         
         if del_op:
             path = del_op.get("path", "")
             path_has_params = "{" in path and "}" in path
             params_has_pk = primary_key in del_op.get("params", [])
             
+            # Check if the PRIMARY delete operation (used for tryToDelete...) is batch
+            if not (path_has_params or params_has_pk):
+                 is_primary_delete_batch = True
+            
+            # Now determine the 'del_fn' to use for the happy path
             if path_has_params or params_has_pk:
                 is_collection_root_delete = False
             else:
@@ -185,7 +196,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         def get_vars(idx):
             declarations = []
             
-            # --- FIX: Explicit list of known boolean fields to prevent String generation errors ---
             known_bool_fields = ["hidden", "singleton", "versioning", "locked", "readonly", "enabled", "required", "system", "active"]
 
             for p in sig_params:
@@ -205,7 +215,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 if not is_dep or p == primary_key:
                     ptype = param_types.get(p, "string").lower()
                     
-                    # --- FIX: Force boolean type if name matches known boolean fields ---
                     if p.lower() in known_bool_fields:
                         ptype = "boolean"
                     
@@ -216,11 +225,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                     else:
                          if p in ["data", "name", "key"] or "name" in p.lower():
                             val = f'"{p}_{idx}_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000)'
-                         
-                         # --- FIX: Strict UUID Generation ---
-                         # Ensures exactly 12 random digits at the end to form a valid-length UUID-like string
-                         elif p == "id" or p.endswith("Id") or p.endswith("_id"):
-                             val = f'"{idx}000000-0000-0000-0000-" + (100000000000 + Math.floor(Math.random() * 899999999999))'
                          else:
                             val = f'"{p}_{idx}_" + Math.floor(Math.random() * 10000)'
                                 
@@ -280,7 +284,10 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                         else:
                              lines.append(f'  {del_fn}({args_to_pass});')
                              if has_verify:
-                                 lines.append(f'  {try_del_fn}({args_to_pass});')
+                                 # --- FIX: Only execute negative delete verification if primary delete is NOT batch ---
+                                 if not is_primary_delete_batch:
+                                     lines.append(f'  {try_del_fn}({args_to_pass});')
+                                 # -------------------------------------------------------------------------------------
                                  lines.append(f'  {ver_ne_fn}({args_to_pass});')
                 
                 if harmful_events and has_delete and is_collection_root_delete:

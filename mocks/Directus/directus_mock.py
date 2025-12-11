@@ -70,7 +70,12 @@ def handle_request(resource_path):
     resource_key = resource_path
     parts = resource_key.split('/')
     item_id = None
-    if len(parts) > 1:
+
+    # Prevent misinterpreting the collection name as an ID during POST/List
+    if (parts[0] in ['items', 'fields', 'utils']) and len(parts) == 2:
+        item_id = None
+        resource_key = resource_path
+    elif len(parts) > 1:
         last_part = parts[-1]
         if last_part.isdigit() or len(last_part) > 30 or last_part.startswith('id_'):
             item_id = last_part
@@ -92,26 +97,16 @@ def handle_request(resource_path):
         except: new_item = {}
         if 'id' not in new_item: new_item['id'] = random.randint(1000, 9999)
         
-        # Whitelist Actions ONLY (Bypass duplicate check for RPCs)
         known_actions = ['clear', 'promote', 'diff', 'accept', 'invite', 'enable', 'disable', 'reset', 'generate', 'verify', 'ping', 'logout', 'refresh']
         if any(resource_path.endswith(a) for a in known_actions):
-             mock_db[resource_key].append(new_item)
              return jsonify({'data': new_item}), success_code
         
-        # Duplicate Check for RESOURCES (Strict Mode: return 409)
-        unique_fields = ['name', 'email', 'title', 'key', 'collection', 'filename_download', 'external_id', 'slug']
-        for item in mock_db[resource_key]:
-            if str(item.get('id')) == str(new_item['id']):
-                return jsonify({'errors': [{'message': 'Unique violation'}]}), 409
-            is_exact = True
-            for k, v in new_item.items():
-                if k == 'id': continue
-                if k not in item or str(item[k]) != str(v): is_exact = False; break
-            if is_exact:
-                return jsonify({'errors': [{'message': 'Duplicate'}]}), 409
-            for f in unique_fields:
-                if f in new_item and f in item and str(new_item[f]) == str(item[f]):
-                    return jsonify({'errors': [{'message': f'Unique: {f}'}]}), 409
+        # Upsert Logic
+        existing_idx = next((index for (index, d) in enumerate(mock_db[resource_key]) if str(d.get('id')) == str(new_item.get('id'))), None)
+        if existing_idx is not None:
+             mock_db[resource_key][existing_idx] = new_item
+             return jsonify({'data': new_item}), 200
+        
         mock_db[resource_key].append(new_item)
         return jsonify({'data': new_item}), success_code
 
@@ -132,7 +127,6 @@ def handle_request(resource_path):
                  return '', 204
              return jsonify({'errors': [{'message': 'Not Found'}]}), 404
         
-        # Collection-root DELETE (Batch Delete) Logic
         else:
              mock_db[resource_key].clear()
              return '', 204

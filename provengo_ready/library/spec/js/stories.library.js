@@ -79,6 +79,7 @@ bthread("monitor:Books", function () {
 // Story: crud:Loans:linear:1
 bthread("crud:Loans:linear:1", function () {
   let bookId; // Resolved Dependency
+  let id = "id_260_" + Math.floor(Math.random() * 10000);
   let loanDate = "loanDate_260_" + Math.floor(Math.random() * 10000);
   let userId = 26000000 + Math.floor(Math.random() * 100000);
   // Ensure dependencies are resolved before starting CRUD
@@ -90,13 +91,13 @@ bthread("crud:Loans:linear:1", function () {
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
-  createLoan(bookId, loanDate, userId);
-  deleteLoan(bookId, loanDate, userId);
+  createLoan(bookId, id, loanDate, userId);
 });
 
 // Story: crud:Loans:linear:2
 bthread("crud:Loans:linear:2", function () {
   let bookId; // Resolved Dependency
+  let id = "id_270_" + Math.floor(Math.random() * 10000);
   let loanDate = "loanDate_270_" + Math.floor(Math.random() * 10000);
   let userId = 27000000 + Math.floor(Math.random() * 100000);
   // Ensure dependencies are resolved before starting CRUD
@@ -108,13 +109,13 @@ bthread("crud:Loans:linear:2", function () {
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
-  createLoan(bookId, loanDate, userId);
-  deleteLoan(bookId, loanDate, userId);
+  createLoan(bookId, id, loanDate, userId);
 });
 
 // Story: crud:Loans:linear:3
 bthread("crud:Loans:linear:3", function () {
   let bookId; // Resolved Dependency
+  let id = "id_280_" + Math.floor(Math.random() * 10000);
   let loanDate = "loanDate_280_" + Math.floor(Math.random() * 10000);
   let userId = 28000000 + Math.floor(Math.random() * 100000);
   // Ensure dependencies are resolved before starting CRUD
@@ -126,8 +127,7 @@ bthread("crud:Loans:linear:3", function () {
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
-  createLoan(bookId, loanDate, userId);
-  deleteLoan(bookId, loanDate, userId);
+  createLoan(bookId, id, loanDate, userId);
 });
 
 // Story: crud:Users:linear:1
@@ -138,7 +138,6 @@ bthread("crud:Users:linear:1", function () {
   let password = "password_310_" + Math.floor(Math.random() * 10000);
   let q = "q_310_" + Math.floor(Math.random() * 10000);
   createUser(email, id, name, password, q);
-  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Users:linear:2
@@ -149,7 +148,6 @@ bthread("crud:Users:linear:2", function () {
   let password = "password_320_" + Math.floor(Math.random() * 10000);
   let q = "q_320_" + Math.floor(Math.random() * 10000);
   createUser(email, id, name, password, q);
-  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Users:linear:3
@@ -160,15 +158,13 @@ bthread("crud:Users:linear:3", function () {
   let password = "password_330_" + Math.floor(Math.random() * 10000);
   let q = "q_330_" + Math.floor(Math.random() * 10000);
   createUser(email, id, name, password, q);
-  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Holds:linear:1
 bthread("crud:Holds:linear:1", function () {
   let bookId; // Resolved Dependency
+  let hidden = true;
   let id = 36000000 + Math.floor(Math.random() * 100000);
-  let name = "name_360_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let status = "status_360_" + Math.floor(Math.random() * 10000);
   let userId; // Resolved Dependency
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
@@ -179,16 +175,14 @@ bthread("crud:Holds:linear:1", function () {
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
-  createHold(bookId, id, name, status, userId);
-  deleteHold(bookId, id, name, status, userId);
+  createHold(bookId, hidden, id, userId);
 });
 
 // Story: crud:Holds:linear:2
 bthread("crud:Holds:linear:2", function () {
   let bookId; // Resolved Dependency
+  let hidden = true;
   let id = 37000000 + Math.floor(Math.random() * 100000);
-  let name = "name_370_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let status = "status_370_" + Math.floor(Math.random() * 10000);
   let userId; // Resolved Dependency
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
@@ -199,16 +193,14 @@ bthread("crud:Holds:linear:2", function () {
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
-  createHold(bookId, id, name, status, userId);
-  deleteHold(bookId, id, name, status, userId);
+  createHold(bookId, hidden, id, userId);
 });
 
 // Story: crud:Holds:linear:3
 bthread("crud:Holds:linear:3", function () {
   let bookId; // Resolved Dependency
+  let hidden = true;
   let id = 38000000 + Math.floor(Math.random() * 100000);
-  let name = "name_380_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let status = "status_380_" + Math.floor(Math.random() * 10000);
   let userId; // Resolved Dependency
   // Ensure dependencies are resolved before starting CRUD
   let deps = {};
@@ -219,6 +211,5 @@ bthread("crud:Holds:linear:3", function () {
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
-  createHold(bookId, id, name, status, userId);
-  deleteHold(bookId, id, name, status, userId);
+  createHold(bookId, hidden, id, userId);
 });

@@ -7,7 +7,6 @@ import re
 app = Flask(__name__)
 mock_db = defaultdict(list)
 
-# Map of API paths to their expected POST success code
 PATH_STATUS_CODES = {
     "api/circuits/circuit-group-assignments": 201,
     "api/circuits/circuit-groups": 201,
@@ -152,53 +151,32 @@ PATH_STATUS_CODES = {
 }
 
 def get_success_code(resource_path):
-    # These action suffixes imply an RPC operation, not a creation.
-    action_suffixes = ['/sync', '/clean', '/render-config', '/napalm', '/trace', '/requeue', '/enqueue', '/stop']
-    for suffix in action_suffixes:
-        if resource_path.endswith(suffix):
-            return 200
-    if resource_path in PATH_STATUS_CODES:
-        return PATH_STATUS_CODES[resource_path]
+    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
+    # Regex matching for paths with IDs
     for path_pattern, code in PATH_STATUS_CODES.items():
         if '{' in path_pattern:
             regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
             regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path):
-                return code
+            if re.fullmatch(regex, resource_path): return code
     return 201
 
 def mock_retrieve(resource_key, item_id):
     for item in mock_db[resource_key]:
-        if str(item.get('id')) == str(item_id):
-            return item
+        if str(item.get('id')) == str(item_id): return item
     return None
 
-def mock_list(resource_key, filters):
-    items = mock_db[resource_key]
-    filtered_results = []
-    for item in items:
-        match = True
-        for key, value in filters.items():
-            if key in ['limit', 'offset', 'ordering', 'q', 'description']: continue
-            # Basic string comparison for filters
-            if key in item and str(item[key]) != str(value):
-                match = False
-                break
-        if match:
-            filtered_results.append(item)
-    return filtered_results
-
-@app.route('/api/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+@app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def handle_request(resource_path):
     resource_path = resource_path.rstrip('/')
     resource_key = resource_path
     parts = resource_key.split('/')
     item_id = None
+    if len(parts) > 1:
+        last_part = parts[-1]
+        if last_part.isdigit() or len(last_part) > 30 or last_part.startswith('id_'):
+            item_id = last_part
+            resource_key = '/'.join(parts[:-1])
     
-    if len(parts) > 0 and parts[-1].isdigit():
-        item_id = int(parts[-1])
-        resource_key = '/'.join(parts[:-1])
-
     print(f'[{request.method}] Path: {resource_path} | Key: {resource_key} | ID: {item_id}')
 
     if request.method == 'GET':
@@ -207,57 +185,33 @@ def handle_request(resource_path):
             if item: return jsonify(item)
             return jsonify({'detail': 'Not found.'}), 404
         else:
-            data = mock_list(resource_key, request.args)
-            return jsonify({'count': len(data), 'next': None, 'previous': None, 'results': data})
+            return jsonify({'count': len(mock_db[resource_key]), 'results': mock_db[resource_key]})
 
     elif request.method == 'POST':
         success_code = get_success_code(resource_path)
-        new_item = request.json or {}
+        try: new_item = request.get_json(silent=True) or {}
+        except: new_item = {}
+        if 'id' not in new_item: new_item['id'] = random.randint(1000, 9999)
         
-        # 1. ID Generation
-        if 'id' in new_item:
-            target_id = str(new_item['id'])
-        else:
-            target_id = str(random.randint(1000, 9999))
-            new_item['id'] = int(target_id)
-
-        # 2. Strict Duplicate Detection
-        unique_fields = ['name', 'slug', 'key', 'label', 'serial', 'asset_tag', 'device_role', 'cable', 'circuit']
+        # Test Friendly Logic: Upsert if ID exists, otherwise Append
+        existing_idx = next((index for (index, d) in enumerate(mock_db[resource_key]) if str(d.get('id')) == str(new_item.get('id'))), None)
+        if existing_idx is not None:
+             mock_db[resource_key][existing_idx] = new_item
+             return jsonify(new_item), 200
         
-        for item in mock_db[resource_key]:
-            # A. Check ID Collision
-            if str(item.get('id')) == target_id:
-                print(f"DEBUG POST: Duplicate ID {target_id}. Returning 409.")
-                return jsonify({'detail': 'ID already exists.'}), 409
-            
-            # B. Check Unique Field Collision
-            for field in unique_fields:
-                if field in new_item and field in item:
-                    if str(new_item[field]) == str(item[field]):
-                        print(f"DEBUG POST: Duplicate {field} '{new_item[field]}'. Returning 409.")
-                        return jsonify({'detail': f'{field} already exists.'}), 409
-            
-            # C. Check Full Payload Exact Match (Deep Equality)
-            is_exact_match = True
-            for k, v in new_item.items():
-                if k == 'id': continue
-                if k not in item or str(item[k]) != str(v):
-                    is_exact_match = False
-                    break
-            if is_exact_match:
-                print(f"DEBUG POST: Payload Exact Match. Returning 409.")
-                return jsonify({'detail': 'Duplicate entry detected.'}), 409
-
         mock_db[resource_key].append(new_item)
-        print(f"DEBUG POST: Added to '{resource_key}'. Returning {success_code}")
         return jsonify(new_item), success_code
 
     elif request.method in ['PUT', 'PATCH']:
+        # --- FIX: Allow Bulk Update (item_id is None) ---
         if item_id is None:
-            return jsonify([{'id': 0, 'status': 'bulk updated'}]), 200
+             # Determine bulk update logic or just return success
+             return jsonify([{'id': 0, 'status': 'bulk updated'}]), 200
+        # -----------------------------------------------
         existing_item = mock_retrieve(resource_key, item_id)
         if existing_item:
-            existing_item.update(request.json or {})
+            try: existing_item.update(request.get_json(silent=True) or {})
+            except: pass
             return jsonify(existing_item)
         return jsonify({'detail': 'Not found.'}), 404
 
@@ -269,8 +223,8 @@ def handle_request(resource_path):
                  return '', 204
              return jsonify({'detail': 'Not found.'}), 404
         else:
-            return jsonify({'detail': 'Method not allowed'}), 405
-
+             # Batch delete allowed
+             mock_db[resource_key].clear()
+             return '', 204
 if __name__ == '__main__':
-    print('🚀 Netbox Mock Server (RAM Only) running on http://127.0.0.1:5000')
     app.run(debug=False, port=5000)

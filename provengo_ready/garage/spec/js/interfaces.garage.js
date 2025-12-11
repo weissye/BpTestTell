@@ -41,10 +41,7 @@ function updateChain(chainId, description, hqAddress, id, name) {
   var url = "/chains/" + chainId;
   var description = "Update chain " + chainId;
   var body = {
-    "chainId": String(chainId),
     "description": String(description),
-    "hqAddress": String(hqAddress),
-    "id": String(id),
     "name": String(name),
 };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
@@ -138,13 +135,8 @@ function updateCustomer(customerId, email, fullName, id, name, phone, type) {
   var url = "/customers/" + customerId;
   var description = "Update customer " + customerId;
   var body = {
-    "customerId": String(customerId),
     "email": String(email),
-    "fullName": String(fullName),
-    "id": String(id),
     "name": String(name),
-    "phone": String(phone),
-    "type": String(type),
 };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"customerId": customerId, "email": email, "fullName": fullName, "id": id, "name": name, "phone": phone, "type": type}) });
@@ -218,7 +210,7 @@ function createGarage(address, capacity, chainId, garageId, id, location, name, 
   var description = "Create garage " + garageId;
   var body = {
     "address": String(address),
-    "capacity": Number(capacity),
+    "capacity": capacity,
     "chainId": String(chainId),
     "garageId": String(garageId),
     "id": String(id),
@@ -240,14 +232,8 @@ function updateGarage(address, capacity, chainId, garageId, id, location, name, 
   var url = "/garages/" + garageId;
   var description = "Update garage " + garageId;
   var body = {
-    "address": String(address),
-    "capacity": Number(capacity),
-    "chainId": String(chainId),
-    "garageId": String(garageId),
-    "id": String(id),
+    "capacity": capacity,
     "location": String(location),
-    "name": String(name),
-    "phone": String(phone),
 };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"address": address, "capacity": capacity, "chainId": chainId, "garageId": garageId, "id": id, "location": location, "name": name, "phone": phone}) });
@@ -264,7 +250,7 @@ function tryToAddExistingGarages(address, capacity, chainId, garageId, id, locat
   var description = "Try Add Existing Garages " + garageId;
   var body = {
     "address": String(address),
-    "capacity": Number(capacity),
+    "capacity": capacity,
     "chainId": String(chainId),
     "garageId": String(garageId),
     "id": String(id),
@@ -323,11 +309,11 @@ function createCar(id, make, mileage, model, ownerCustomerId, vin, year) {
   var body = {
     "id": String(id),
     "make": String(make),
-    "mileage": Number(mileage),
+    "mileage": mileage,
     "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
     "vin": String(vin),
-    "year": Number(year),
+    "year": year,
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
@@ -343,13 +329,9 @@ function updateCar(id, make, mileage, model, ownerCustomerId, vin, year) {
   var url = "/cars/" + vin;
   var description = "Update car " + vin;
   var body = {
-    "id": String(id),
     "make": String(make),
-    "mileage": String(mileage),
     "model": String(model),
-    "ownerCustomerId": String(ownerCustomerId),
-    "vin": String(vin),
-    "year": Number(year),
+    "year": year,
 };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
@@ -367,11 +349,11 @@ function tryToAddExistingCars(id, make, mileage, model, ownerCustomerId, vin, ye
   var body = {
     "id": String(id),
     "make": String(make),
-    "mileage": Number(mileage),
+    "mileage": mileage,
     "model": String(model),
     "ownerCustomerId": String(ownerCustomerId),
     "vin": String(vin),
-    "year": Number(year),
+    "year": year,
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -444,11 +426,6 @@ function updatePMPlan(carVin, garageId, id, planType, pmId, schedule, tasks) {
   var url = "/periodic-maintenance/" + pmId;
   var description = "Update PM plan " + pmId;
   var body = {
-    "carVin": String(carVin),
-    "garageId": String(garageId),
-    "id": String(id),
-    "planType": String(planType),
-    "pmId": String(pmId),
     "schedule": String(schedule),
     "tasks": [String(tasks)],
 };
@@ -513,150 +490,111 @@ function matchAnyPeriodicMaintenanceAdded() {
   });
 }
 
-function listRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function listRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders";
   var description = "List repair orders " + roId;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders";
   var description = "Create repair order " + roId;
   var body = {
     "carVin": String(carVin),
     "complaint": String(complaint),
-    "customer": String(customer),
     "customerId": String(customerId),
-    "device": String(device),
+    "field1": String(field1),
+    "field2": field2,
     "garageId": String(garageId),
     "id": String(id),
-    "issue": String(issue),
-    "notes": String(notes),
     "roId": String(roId),
-    "status": String(status),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customer": customer, "customerId": customerId, "device": device, "garageId": garageId, "id": id, "issue": issue, "notes": notes, "roId": roId, "status": status}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "field1": field1, "field2": field2, "garageId": garageId, "id": id, "roId": roId}) });
 }
 
-function readRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function readRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId;
   var description = "Read repair order " + roId;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
 }
 
-function updateRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId;
   var description = "Update repair order " + roId;
   var body = {
-    "carVin": String(carVin),
-    "complaint": String(complaint),
-    "customer": String(customer),
-    "customerId": String(customerId),
-    "device": String(device),
-    "garageId": String(garageId),
-    "id": String(id),
-    "issue": String(issue),
-    "notes": String(notes),
-    "roId": String(roId),
-    "status": String(status),
+    "field1": String(field1),
+    "field2": field2,
 };
   svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customer": customer, "customerId": customerId, "device": device, "garageId": garageId, "id": id, "issue": issue, "notes": notes, "roId": roId, "status": status}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "field1": field1, "field2": field2, "garageId": garageId, "id": id, "roId": roId}) });
 }
 
-function deleteRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId;
   var description = "Delete repair order " + roId;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function approveRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function approveRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId + "/approve";
   var description = "Approve RO (move to in-progress if allowed) " + roId;
-  var body = {
-    "carVin": String(carVin),
-    "complaint": String(complaint),
-    "customer": String(customer),
-    "customerId": String(customerId),
-    "device": String(device),
-    "garageId": String(garageId),
-    "id": String(id),
-    "issue": String(issue),
-    "notes": String(notes),
-    "roId": String(roId),
-    "status": String(status),
-};
+  var body = undefined;
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customer": customer, "customerId": customerId, "device": device, "garageId": garageId, "id": id, "issue": issue, "notes": notes, "roId": roId, "status": status}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "field1": field1, "field2": field2, "garageId": garageId, "id": id, "roId": roId}) });
 }
 
-function closeRepairOrder(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function closeRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId + "/close";
   var description = "Close RO (sets status=closed) " + roId;
-  var body = {
-    "carVin": String(carVin),
-    "complaint": String(complaint),
-    "customer": String(customer),
-    "customerId": String(customerId),
-    "device": String(device),
-    "garageId": String(garageId),
-    "id": String(id),
-    "issue": String(issue),
-    "notes": String(notes),
-    "roId": String(roId),
-    "status": String(status),
-};
+  var body = undefined;
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customer": customer, "customerId": customerId, "device": device, "garageId": garageId, "id": id, "issue": issue, "notes": notes, "roId": roId, "status": status}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "field1": field1, "field2": field2, "garageId": garageId, "id": id, "roId": roId}) });
 }
 
-function tryToAddExistingRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function tryToAddExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders";
   var description = "Try Add Existing RepairOrders " + roId;
   var body = {
     "carVin": String(carVin),
     "complaint": String(complaint),
-    "customer": String(customer),
     "customerId": String(customerId),
-    "device": String(device),
+    "field1": String(field1),
+    "field2": field2,
     "garageId": String(garageId),
     "id": String(id),
-    "issue": String(issue),
-    "notes": String(notes),
     "roId": String(roId),
-    "status": String(status),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyRepairOrdersExists(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId;
   var description = "Verify RepairOrders " + roId + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("RepairOrders found");
 }
 
-function verifyRepairOrdersDoesNotExist(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId;
   var description = "Verify RepairOrders " + roId + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("RepairOrders not found");
 }
 
-function tryToDeleteANonExistingRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   var url = "/repair-orders/" + roId;
   var description = "Verify negative delete for RepairOrders";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedRepairOrders(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function matchDeletedRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   return bp.EventSet("Delete RepairOrders", function(e) {
       return e.name === "Done: " + "Delete repair order";
   });
 }
 
-function waitForRepairOrdersAdded(carVin, complaint, customer, customerId, device, garageId, id, issue, notes, roId, status) {
+function waitForRepairOrdersAdded(carVin, complaint, customerId, field1, field2, garageId, id, roId) {
   waitFor(matchSuccess("Create repair order"));
 }
 

@@ -8,7 +8,6 @@ import re
 app = Flask(__name__)
 mock_db = defaultdict(list)
 
-# Map of API paths to their expected POST success code
 PATH_STATUS_CODES = {
     "boards": 200,
     "boards/{idBoard}/calendarKey/generate": 200,
@@ -53,20 +52,18 @@ PATH_STATUS_CODES = {
     "webhooks": 200
 }
 
+def generate_trello_id():
+    return ''.join(random.choices(string.hexdigits.lower(), k=24))
+
 def get_success_code(resource_path):
-    if resource_path in PATH_STATUS_CODES:
-        return PATH_STATUS_CODES[resource_path]
+    if resource_path.startswith('1/'): resource_path = resource_path[2:]
+    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
     for path_pattern, code in PATH_STATUS_CODES.items():
         if '{' in path_pattern:
-            # Safe Regex replacement for parameter matching
             regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
             regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path):
-                return code
-    return 200 # Default to 200 for Trello
-
-def generate_trello_id():
-    return ''.join(random.choices('0123456789abcdef', k=24))
+            if re.fullmatch(regex, resource_path): return code
+    return 200
 
 def mock_retrieve(resource_key, item_id):
     for item in mock_db[resource_key]:
@@ -77,27 +74,28 @@ def mock_list(resource_key, filters):
     items = mock_db[resource_key]
     return items
 
-@app.route('/', defaults={'resource_path': ''}, methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 @app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def handle_request(resource_path):
-    # Normalize path: strip leading '1/' if present
-    clean_path = resource_path.strip('/')
-    if clean_path.startswith('1/'):
-        clean_path = clean_path[2:]
-    
+    clean_path = resource_path
+    if clean_path.startswith('1/'): clean_path = clean_path[2:]
     resource_key = clean_path
     parts = clean_path.split('/')
     item_id = None
-    
-    # Trello ID Heuristic: 24-char hex OR just the last segment if it looks like an ID context
-    potential_id = parts[-1]
-    # Relaxed ID check to support generated IDs like 'idOrg_3320'
-    is_hex = len(potential_id) == 24 and all(c in '0123456789abcdef' for c in potential_id)
-    is_gen_id = '_' in potential_id # Support our test IDs
-    
-    if len(parts) > 1 and (is_hex or is_gen_id):
-        item_id = potential_id
-        resource_key = '/'.join(parts[:-1])
+    if len(parts) > 1:
+        last = parts[-1]
+        second_last = parts[-2]
+        
+        # 1. Check if Last part is ID (Standard Case)
+        if len(last) == 24 or last.startswith('id_') or last.startswith('id'):
+            item_id = last
+            resource_key = '/'.join(parts[:-1])
+        
+        # 2. Check if Second Last part is ID (Nested Resource or Field Update)
+        # FIX: Only apply this logic for PUT/PATCH/DELETE/GET. 
+        # For POST, we are creating a CHILD resource, so the full path IS the key.
+        elif request.method != 'POST' and (len(second_last) == 24 or second_last.startswith('id_') or second_last.startswith('id')):
+            item_id = second_last
+            resource_key = '/'.join(parts[:-2])
 
     print(f'[{request.method}] Path: {resource_path} | Clean: {clean_path} | Key: {resource_key} | ID: {item_id}')
 
@@ -105,7 +103,10 @@ def handle_request(resource_path):
         if item_id is not None:
             item = mock_retrieve(resource_key, item_id)
             if item: return jsonify(item)
-            return jsonify({'message': 'Not Found', 'error': 'ERROR'}), 404
+            # Debugging 404
+            if resource_key in mock_db:
+                 print(f'DEBUG 404: IDs in {resource_key}: {[i.get("id") for i in mock_db[resource_key]]}')
+            return jsonify({'message': 'Not Found'}), 404
         else:
             data = mock_list(resource_key, request.args)
             return jsonify(data)
@@ -114,10 +115,7 @@ def handle_request(resource_path):
         success_code = get_success_code(clean_path)
         new_item = request.json or {}
         if not new_item: new_item = request.args.to_dict()
-        
-        if 'id' not in new_item:
-            new_item['id'] = generate_trello_id()
-
+        if 'id' not in new_item: new_item['id'] = generate_trello_id()
         mock_db[resource_key].append(new_item)
         print(f"DEBUG POST: Added to '{resource_key}'. ID: {new_item.get('id')}")
         return jsonify(new_item), success_code
@@ -140,5 +138,5 @@ def handle_request(resource_path):
         return '', 405
 
 if __name__ == '__main__':
-    print('🚀 Trello Mock Server (RAM Only) running on http://127.0.0.1:3000')
-    app.run(debug=False, port=3000)
+    print('🚀 Trello Mock Server (RAM Only) running on http://127.0.0.1:8000')
+    app.run(debug=False, port=8000)

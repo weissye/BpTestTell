@@ -19,7 +19,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     path_tmpl = op_data.get("path", "")
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
     
-    # FIX: Inject the Primary Key into the description
     if primary_key in sig_params and primary_key not in desc_tmpl:
          desc_tmpl = desc_tmpl + " {" + primary_key + "}"
     if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
@@ -33,38 +32,45 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     js_url = f'"{safe_path}"'
     js_desc = f'"{safe_desc}"'
 
+    path_params = set()
     for p in sig_params:
         safe_p = sanitize_param(p)
-        js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        if f'{{{p}}}' in path_tmpl:
+            path_params.add(p)
+            js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
         js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        
     js_url = js_url.replace(' + ""', '')
     js_desc = js_desc.replace(' + ""', '')
 
     param_types = op_data.get("paramTypes", {})
 
-    body_js = "undefined"
+    body_js = "{}"
     if method in ["POST", "PUT", "PATCH"]:
         
-        # --- CRITICAL FIX 2: Explicitly include all payload parameters for uniqueness ---
         excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
         b_lines = ["{"]
         
+        # --- FIX: Ensure 'id' is always included in body if available and not in path ---
+        # This fixes Trello/Directus where 'id' is forced by story_emitter but might be missed
+        if "id" in sig_params and "id" not in path_params and "id" not in param_types:
+             b_lines.append(f'    "id": id,')
+        # -------------------------------------------------------------------------------
+
         for p in sig_params:
-             if p.lower() in excluded_query_params:
+             if p.lower() in excluded_query_params or p in path_params:
                  continue
                  
              if p in op_data.get("paramTypes", {}): 
                  sanitized_p = sanitize_param(p)
                  
                  ptype = param_types.get(p, "string").lower()
+                 cast = "String"
                  
-                 # --- FIX 3: Remove strict Number casting to allow String IDs from tests to pass ---
                  if ptype in ["integer", "number"]: 
                      cast = "" 
                  elif ptype == "boolean": 
                      cast = ""
-                 else:
-                     cast = "String"
                  
                  if param_types.get(p, "") == "array":
                      b_lines.append(f'    "{p}": [{cast}({sanitized_p})],')
@@ -79,12 +85,10 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
             b_lines.append("}")
             body_js = "\n".join(b_lines)
         else:
-            body_js = "undefined"
-        # ----------------------------------------------------------------------------------
+            body_js = "{}"
 
     if "..." in body_js: body_js = "{}"
 
-    # --- CODE GENERATION LOGIC ---
     if codes_override: 
         codes_list = codes_override
     else: 
@@ -93,7 +97,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
             
     codes_str = json.dumps(sorted(codes_list))
-    # -----------------------------
 
     sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
     

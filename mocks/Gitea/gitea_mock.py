@@ -7,7 +7,6 @@ import re
 app = Flask(__name__)
 mock_db = defaultdict(list)
 
-# Map of API paths to their expected POST success code
 PATH_STATUS_CODES = {
     "activitypub/user-id/{user-id}/inbox": 204,
     "admin/cron/{task}": 204,
@@ -39,6 +38,7 @@ PATH_STATUS_CODES = {
     "repos/{owner}/{repo}/contents": 201,
     "repos/{owner}/{repo}/contents/{filepath}": 201,
     "repos/{owner}/{repo}/diffpatch": 200,
+    "repos/{owner}/{repo}/forks": 202,
     "repos/{owner}/{repo}/hooks": 201,
     "repos/{owner}/{repo}/hooks/{id}/tests": 204,
     "repos/{owner}/{repo}/issues": 201,
@@ -75,6 +75,8 @@ PATH_STATUS_CODES = {
     "repos/{owner}/{repo}/statuses/{sha}": 201,
     "repos/{owner}/{repo}/tag_protections": 201,
     "repos/{owner}/{repo}/tags": 200,
+    "repos/{owner}/{repo}/transfer": 202,
+    "repos/{owner}/{repo}/transfer/accept": 202,
     "repos/{owner}/{repo}/transfer/reject": 200,
     "repos/{owner}/{repo}/wiki/new": 201,
     "repos/{template_owner}/{template_repo}/generate": 201,
@@ -91,76 +93,76 @@ PATH_STATUS_CODES = {
 }
 
 def get_success_code(resource_path):
-    if resource_path in PATH_STATUS_CODES:
-        return PATH_STATUS_CODES[resource_path]
+    # Normalize path
+    if resource_path.startswith('api/v1/'): resource_path = resource_path[7:]
+    
+    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
     for path_pattern, code in PATH_STATUS_CODES.items():
         if '{' in path_pattern:
-            # Safe Regex replacement
             regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
             regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path):
-                return code
+            if re.fullmatch(regex, resource_path): return code
     return 201
 
 def mock_retrieve(resource_key, item_id):
     for item in mock_db[resource_key]:
         if str(item.get('id')) == str(item_id): return item
-        if item.get('username') == str(item_id): return item
-        if item.get('name') == str(item_id): return item
     return None
-
-def mock_list(resource_key, filters):
-    items = mock_db[resource_key]
-    return items
 
 @app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def handle_request(resource_path):
-    clean_path = resource_path.strip('/')
-    if clean_path.startswith('api/v1/'):
-        clean_path = clean_path[7:]
+    # Normalize Gitea API path
+    clean_path = resource_path
+    if clean_path.startswith('api/v1/'): clean_path = clean_path[7:]
     
     resource_key = clean_path
     parts = clean_path.split('/')
     item_id = None
-    
-    non_id_endings = [
-        'repos', 'issues', 'pulls', 'commits', 'branches', 'tags', 
-        'keys', 'tokens', 'collaborators', 'hooks', 'labels', 'milestones',
-        'merge', 'fork', 'mirror', 'test', 'raw', 'import', 'render',
-        'oauth2', 'access_tokens', 'emails', 'gpg_keys', 'public_keys',
-        'assets', 'times', 'reactions', 'blocks', 'reviews', 'activities'
-    ]
-    
-    potential_id = parts[-1]
-    if len(parts) > 1 and potential_id not in non_id_endings:
-        item_id = potential_id
+    if len(parts) > 1:
+        last_part = parts[-1]
+        # Gitea IDs are integers, usernames are strings. Simple heuristic:
+        # If it looks like an ID (digit) or we are in a detail route context
+        item_id = last_part
         resource_key = '/'.join(parts[:-1])
 
     print(f'[{request.method}] Path: {resource_path} | Clean: {clean_path} | Key: {resource_key} | ID: {item_id}')
 
     if request.method == 'GET':
-        if item_id is not None:
-            item = mock_retrieve(resource_key, item_id)
-            if item: return jsonify(item)
-            return jsonify({'message': 'Not Found'}), 404
-        else:
-            data = mock_list(resource_key, request.args)
-            return jsonify(data)
+        # List vs Item logic
+        # A heuristic: if 'item_id' seems to be a variable part, try retrieve.
+        # If retrieve fails, it might be a list endpoint that just looks like a detail.
+        item = mock_retrieve(resource_key, item_id)
+        if item: return jsonify(item)
+        
+        # Fallback: Maybe it wasn't an ID, but a list resource
+        if resource_key in mock_db and len(mock_db[resource_key]) > 0:
+             # It was a list, return list
+             return jsonify(mock_db[resource_key])
+        
+        # Check if the full path is a list key
+        if clean_path in mock_db:
+             return jsonify(mock_db[clean_path])
+        
+        return jsonify({'message': 'Not Found'}), 404
 
     elif request.method == 'POST':
         success_code = get_success_code(clean_path)
-
-        # Explicit override for Admin Adoption endpoints (Logic simulation)
+        # Handle empty body (204) or specific logic
         if 'admin/unadopted' in clean_path:
              return '', 204
 
-        new_item = request.json or {}
+        try: new_item = request.json or {}
+        except: new_item = {}
+        
         if 'id' not in new_item:
             new_item['id'] = random.randint(1000, 9999)
 
-        for item in mock_db[resource_key]:
-            if str(item.get('id')) == str(new_item['id']):
-                return jsonify({'message': 'ID exists'}), 409
+        # Upsert Logic for Tests
+        existing_idx = next((index for (index, d) in enumerate(mock_db[resource_key]) if str(d.get('id')) == str(new_item.get('id'))), None)
+        if existing_idx is not None:
+             mock_db[resource_key][existing_idx] = new_item
+             # Return 200 for updates to avoid conflicts, or the expected success code if safe
+             return jsonify(new_item), 200
 
         mock_db[resource_key].append(new_item)
         print(f"DEBUG POST: Added to '{resource_key}'. Returning {success_code}")
@@ -171,7 +173,8 @@ def handle_request(resource_path):
         if item_id is None: return '', 405
         existing_item = mock_retrieve(resource_key, item_id)
         if existing_item:
-            existing_item.update(request.json or {})
+            try: existing_item.update(request.json or {})
+            except: pass
             return jsonify(existing_item)
         return jsonify({'message': 'Not Found'}), 404
 
