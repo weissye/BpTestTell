@@ -21,7 +21,6 @@ Your task is to analyze a small subset of OpenAPI paths and extract "Entities" a
 ### Rules:
 1. **Identify Entities:** Group paths by the resource they manage (e.g., /dcim/devices/{id} -> Entity "Devices").
 2. **Identify Operations:** Map methods to: "add" (POST), "get" (GET item), "list" (GET collection), "update" (PUT/PATCH), "delete" (DELETE).
-   - **Important:** For "get", "update", "delete", prefer the *Root Item* path (e.g., /users/{id}) over nested paths (e.g., /users/{id}/posts/{pid}).
 3. **Extract Parameters:** List path/query/body params.
    - **Crucial:** Always include "id" in the 'params' list and 'bodyTemplate' if it appears in the schema.
 4. **Body Template:** Create a JSON template for POST/PUT. 
@@ -191,65 +190,78 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
                     add_op.setdefault("bodyTemplate", {})[field] = f"{{{field}}}"
 
 def patch_simplify_primary_operations(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
-    """
-    Ensures that 'get', 'update', 'delete' operations point to the Resource Root (1 ID)
-    instead of Nested Resources (2+ IDs), which often causes verification failures.
-    """
     print("   > 🧹 Simplifying primary operations...")
-    
     paths = raw_spec.get("paths", {})
-    
     for ent_name, ent_data in entities.items():
         ops = ent_data.get("operations", {})
-        
-        # Check GET, UPDATE, DELETE
         for op_type in ["get", "update", "delete"]:
             if op_type not in ops: continue
-            
             current_op = ops[op_type]
             path = current_op.get("path", "")
-            
-            # Count params in path (approximate by counting '{')
             param_count = path.count("{")
-            
             if param_count > 1:
-                # This is likely a nested operation (e.g. /checklists/{id}/checkItems/{itemId})
-                # We want to find a simpler operation for this entity (e.g. /checklists/{id})
-                
-                # Heuristic: Find a path that starts with same prefix but has only 1 param
-                prefix = path.split("/{")[0] # e.g. /checklists
-                
+                prefix = path.split("/{")[0] 
                 best_match = None
-                
-                # Scan raw spec for a better candidate
                 for raw_path, raw_methods in paths.items():
                     if raw_path.startswith(prefix) and raw_path.count("{") == 1:
-                        # Check if method exists
                         target_method = "get" if op_type == "get" else ("delete" if op_type == "delete" else ("put" if "put" in raw_methods else "patch"))
-                        
                         if target_method in raw_methods:
-                             # Found a candidate!
-                             # We construct a synthetic op data from the raw spec info
                              op_id = raw_methods[target_method].get("operationId", f"{op_type}{ent_name}Simplified")
                              best_match = {
                                  "name": op_id,
                                  "descriptionTemplate": raw_methods[target_method].get("summary", ""),
                                  "method": target_method.upper(),
                                  "path": raw_path,
-                                 "params": [], # Will be re-extracted or just use 'id'
+                                 "params": [], 
                                  "paramTypes": {}
                              }
-                             # Extract basic params
                              for p in raw_methods[target_method].get("parameters", []):
                                  p_name = p.get("name")
                                  best_match["params"].append(p_name)
-                                 best_match["paramTypes"][p_name] = "string" # Default
-                             
+                                 best_match["paramTypes"][p_name] = "string"
                              break
-                
                 if best_match:
-                    # print(f"      + Replacing complex {op_type} '{path}' with '{best_match['path']}' for {ent_name}")
                     ops[op_type] = best_match
+
+def patch_normalize_id_parameters(entities: Dict[str, Any]):
+    """
+    Renames entity-specific IDs (e.g. idBoard, idCard) to 'id' in all operations.
+    This ensures that Create and Verify steps share the same variable.
+    """
+    print("   > 🏷️  Normalizing ID parameters...")
+    
+    for ent_name, ent_data in entities.items():
+        # Calculate the Trello-style ID name (e.g. Boards -> idBoard)
+        singular_name = ent_name.rstrip("s").lower()
+        # Handle exceptions or simple singularization
+        if ent_name.endswith("ies"): singular_name = ent_name[:-3] + "y"
+        
+        trello_key = "id" + singular_name.capitalize() # idBoard
+        
+        ops = ent_data.get("operations", {})
+        for op_type, op_data in ops.items():
+            params = op_data.get("params", [])
+            path = op_data.get("path", "")
+            
+            # If we find idBoard, rename to id
+            if trello_key in params:
+                # 1. Update Params List
+                params = [p if p != trello_key else "id" for p in params]
+                op_data["params"] = params
+                
+                # 2. Update Path
+                op_data["path"] = path.replace(f"{{{trello_key}}}", "{id}")
+                
+                # 3. Update Param Types
+                ptypes = op_data.get("paramTypes", {})
+                if trello_key in ptypes:
+                    ptypes["id"] = ptypes.pop(trello_key)
+                    
+                # 4. Update Body Template (if exists)
+                if "bodyTemplate" in op_data:
+                    # If the body actually USES idBoard, we keep the key but value is {id}
+                    if trello_key in op_data["bodyTemplate"]:
+                        op_data["bodyTemplate"][trello_key] = "{id}"
 
 def patch_augment_creation_params(entities: Dict[str, Any]):
     print("   > 🆔 Optimizing entity configuration (Generic)...")
@@ -275,19 +287,12 @@ def patch_augment_creation_params(entities: Dict[str, Any]):
              add_op["x-generate-full-story"] = False
 
         singular_name = ent_name.rstrip("s").lower()
-        trello_key = "id" + singular_name.capitalize() # idBoard
-        
         params = add_op.get("params", [])
         
         if singular_name in params and singular_name != "id":
              add_op["params"].remove(singular_name)
              if add_op.get("bodyTemplate") is None: add_op["bodyTemplate"] = {}
              add_op["bodyTemplate"][singular_name] = "{id}"
-             
-        if trello_key in params and trello_key != "id":
-             add_op["params"].remove(trello_key)
-             if add_op.get("bodyTemplate") is None: add_op["bodyTemplate"] = {}
-             add_op["bodyTemplate"][trello_key] = "{id}"
              
         if ent_name == "Webhooks" and "idWebhook" in params:
              add_op["params"].remove("idWebhook")
@@ -414,9 +419,10 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
     patch_known_types(all_entities)
     patch_ensure_required_fields(all_entities, raw_spec) 
     patch_link_orphaned_operations(all_entities, raw_spec)
-    # --- NEW: Simplify Nested Operations BEFORE augmenting creation params ---
     patch_simplify_primary_operations(all_entities, raw_spec)
-    # -----------------------------------------------------------------------
+    # --- NEW: Normalize IDs after simplification ---
+    patch_normalize_id_parameters(all_entities)
+    # -----------------------------------------------
     patch_augment_creation_params(all_entities) 
     patch_augment_response_codes(all_entities, raw_spec)
     dependencies = map_dependencies(all_entities)
