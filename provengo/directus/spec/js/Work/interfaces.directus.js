@@ -73,7 +73,10 @@ function passwordReset(id, password, provider, redirect, token) {
   var url = "/auth/password/reset";
   var description = "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password. " + provider;
   var body = {
+    "id": String(id),
     "password": String(password),
+    "provider": String(provider),
+    "redirect": String(redirect),
     "token": String(token),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [401, 409], parameters: { description: description } });
@@ -96,7 +99,10 @@ function tryToAddExistingAuthentication(id, password, provider, redirect, token)
   var url = "/auth/password/reset";
   var description = "Try Add Existing Authentication " + provider;
   var body = {
+    "id": String(id),
     "password": String(password),
+    "provider": String(provider),
+    "redirect": String(redirect),
     "token": String(token),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
@@ -126,22 +132,25 @@ function matchAnyAuthenticationAdded() {
   });
 }
 
-function getCollections(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function getCollections(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections";
   var description = "Returns a list of the collections available in the project. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function createCollection(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function createCollection(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections";
   var description = "Create a new collection in Directus. " + id;
   var body = {
     "archive_app_filter": String(archive_app_filter),
     "archive_field": String(archive_field),
     "archive_value": String(archive_value),
+    "collection": String(collection),
+    "color": String(color),
     "display_template": String(display_template),
     "hidden": hidden,
     "icon": String(icon),
+    "id": String(id),
     "note": String(note),
     "singleton": singleton,
     "sort_field": String(sort_field),
@@ -150,28 +159,29 @@ function createCollection(archive_app_filter, archive_field, archive_value, colo
     "versioning": versioning,
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"archive_app_filter": archive_app_filter, "archive_field": archive_field, "archive_value": archive_value, "color": color, "display_template": display_template, "fields": fields, "hidden": hidden, "icon": icon, "id": id, "meta": meta, "note": note, "offset": offset, "singleton": singleton, "sort_field": sort_field, "translation": translation, "unarchive_value": unarchive_value, "versioning": versioning}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"archive_app_filter": archive_app_filter, "archive_field": archive_field, "archive_value": archive_value, "collection": collection, "color": color, "display_template": display_template, "fields": fields, "hidden": hidden, "icon": icon, "id": id, "meta": meta, "note": note, "offset": offset, "singleton": singleton, "sort_field": sort_field, "translation": translation, "unarchive_value": unarchive_value, "versioning": versioning}) });
 }
 
-function deleteCollection(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function deleteCollection(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Delete an existing collection. Warning: This will delete the whole collection, including the items within. Proceed with caution. " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401, 404] });
 }
 
-function getCollection(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function getCollection(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Retrieves the details of a single collection. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updateCollection(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function updateCollection(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Update an existing collection. " + id;
   var body = {
     "archive_app_filter": String(archive_app_filter),
     "archive_field": String(archive_field),
     "archive_value": String(archive_value),
+    "collection": String(collection),
     "color": String(color),
     "display_template": String(display_template),
     "hidden": hidden,
@@ -185,19 +195,22 @@ function updateCollection(archive_app_filter, archive_field, archive_value, colo
     "versioning": versioning,
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"archive_app_filter": archive_app_filter, "archive_field": archive_field, "archive_value": archive_value, "color": color, "display_template": display_template, "fields": fields, "hidden": hidden, "icon": icon, "id": id, "meta": meta, "note": note, "offset": offset, "singleton": singleton, "sort_field": sort_field, "translation": translation, "unarchive_value": unarchive_value, "versioning": versioning}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"archive_app_filter": archive_app_filter, "archive_field": archive_field, "archive_value": archive_value, "collection": collection, "color": color, "display_template": display_template, "fields": fields, "hidden": hidden, "icon": icon, "id": id, "meta": meta, "note": note, "offset": offset, "singleton": singleton, "sort_field": sort_field, "translation": translation, "unarchive_value": unarchive_value, "versioning": versioning}) });
 }
 
-function tryToAddExistingCollections(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function tryToAddExistingCollections(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections";
   var description = "Try Add Existing Collections " + id;
   var body = {
     "archive_app_filter": String(archive_app_filter),
     "archive_field": String(archive_field),
     "archive_value": String(archive_value),
+    "collection": String(collection),
+    "color": String(color),
     "display_template": String(display_template),
     "hidden": hidden,
     "icon": String(icon),
+    "id": String(id),
     "note": String(note),
     "singleton": singleton,
     "sort_field": String(sort_field),
@@ -208,33 +221,33 @@ function tryToAddExistingCollections(archive_app_filter, archive_field, archive_
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyCollectionsExists(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function verifyCollectionsExists(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Verify Collections " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Collections found");
 }
 
-function verifyCollectionsDoesNotExist(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function verifyCollectionsDoesNotExist(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Verify Collections " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Collections not found");
 }
 
-function tryToDeleteANonExistingCollections(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function tryToDeleteANonExistingCollections(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   var url = "/collections/" + id;
   var description = "Verify negative delete for Collections";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedCollections(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function matchDeletedCollections(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   return bp.EventSet("Delete Collections", function(e) {
       return e.name === "Done: " + "Delete an existing collection. Warning: This will delete the whole collection, including the items within. Proceed with caution.";
   });
 }
 
-function waitForCollectionsAdded(archive_app_filter, archive_field, archive_value, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
+function waitForCollectionsAdded(archive_app_filter, archive_field, archive_value, collection, color, display_template, fields, hidden, icon, id, meta, note, offset, singleton, sort_field, translation, unarchive_value, versioning) {
   waitFor(matchSuccess("Create a new collection in Directus."));
 }
 
@@ -255,6 +268,8 @@ function createItem(collection, fields, filter, id, limit, meta, offset, search,
   var description = "Create a new item. " + collection;
   var body = {
     "collection": String(collection),
+    "id": String(id),
+    "version": String(version),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "fields": fields, "filter": filter, "id": id, "limit": limit, "meta": meta, "offset": offset, "search": search, "sort": sort, "version": version}) });
@@ -272,6 +287,7 @@ function updateItem(collection, fields, filter, id, limit, meta, offset, search,
   var body = {
     "collection": String(collection),
     "id": String(id),
+    "version": String(version),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "fields": fields, "filter": filter, "id": id, "limit": limit, "meta": meta, "offset": offset, "search": search, "sort": sort, "version": version}) });
@@ -288,6 +304,8 @@ function tryToAddExistingItems(collection, fields, filter, id, limit, meta, offs
   var description = "Try Add Existing Items " + collection;
   var body = {
     "collection": String(collection),
+    "id": String(id),
+    "version": String(version),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -340,11 +358,17 @@ function createPreset(collection, fields, filter, filters, id, layout, layout_op
   var body = {
     "collection": String(collection),
     "filters": [String(filters)],
+    "id": String(id),
     "layout": String(layout),
     "layout_options": String(layout_options),
     "layout_query": String(layout_query),
     "role": String(role),
+    "search_query": String(search_query),
     "title": String(title),
+    "translation": String(translation),
+    "view_options": String(view_options),
+    "view_query": String(view_query),
+    "view_type": String(view_type),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "fields": fields, "filter": filter, "filters": filters, "id": id, "layout": layout, "layout_options": layout_options, "layout_query": layout_query, "limit": limit, "meta": meta, "offset": offset, "page": page, "role": role, "search": search, "search_query": search_query, "sort": sort, "title": title, "translation": translation, "view_options": view_options, "view_query": view_query, "view_type": view_type}) });
@@ -363,7 +387,10 @@ function updatePreset(collection, fields, filter, filters, id, layout, layout_op
     "collection": String(collection),
     "filters": [String(filters)],
     "id": String(id),
-    "role": role,
+    "layout": String(layout),
+    "layout_options": String(layout_options),
+    "layout_query": String(layout_query),
+    "role": Number(role),
     "search_query": String(search_query),
     "title": String(title),
     "translation": String(translation),
@@ -387,11 +414,17 @@ function tryToAddExistingPresets(collection, fields, filter, filters, id, layout
   var body = {
     "collection": String(collection),
     "filters": [String(filters)],
+    "id": String(id),
     "layout": String(layout),
     "layout_options": String(layout_options),
     "layout_query": String(layout_query),
     "role": String(role),
+    "search_query": String(search_query),
     "title": String(title),
+    "translation": String(translation),
+    "view_options": String(view_options),
+    "view_query": String(view_query),
+    "view_type": String(view_type),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -432,19 +465,19 @@ function matchAnyPresetsAdded() {
   });
 }
 
-function deleteComment(collection, comment, id, item) {
+function deleteComment(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Delete an existing comment. " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401] });
 }
 
-function getComments(collection, comment, id, item) {
+function getComments(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments";
   var description = "List the comments. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401] });
 }
 
-function updateComment(collection, comment, id, item) {
+function updateComment(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Update an existing comment. " + id;
   var body = {
@@ -454,65 +487,67 @@ function updateComment(collection, comment, id, item) {
     "item": String(item),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "id": id, "item": item}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "id": id, "item": item}) });
 }
 
-function createComment(collection, comment, id, item) {
+function createComment(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments";
   var description = "Create a new comment. " + id;
   var body = {
     "collection": String(collection),
     "comment": String(comment),
+    "id": String(id),
     "item": String(item),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "id": id, "item": item}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "id": id, "item": item}) });
 }
 
-function getComment(collection, comment, id, item) {
+function getComment(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Retrieve a single comment by unique identifier.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401] });
 }
 
-function tryToAddExistingComments(collection, comment, id, item) {
+function tryToAddExistingComments(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments";
   var description = "Try Add Existing Comments " + id;
   var body = {
     "collection": String(collection),
     "comment": String(comment),
+    "id": String(id),
     "item": String(item),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyCommentsExists(collection, comment, id, item) {
+function verifyCommentsExists(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Verify Comments " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Comments found");
 }
 
-function verifyCommentsDoesNotExist(collection, comment, id, item) {
+function verifyCommentsDoesNotExist(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Verify Comments " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Comments not found");
 }
 
-function tryToDeleteANonExistingComments(collection, comment, id, item) {
+function tryToDeleteANonExistingComments(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   var url = "/comments/" + id;
   var description = "Verify negative delete for Comments";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedComments(collection, comment, id, item) {
+function matchDeletedComments(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   return bp.EventSet("Delete Comments", function(e) {
       return e.name === "Done: " + "Delete an existing comment.";
   });
 }
 
-function waitForCommentsAdded(collection, comment, id, item) {
+function waitForCommentsAdded(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, id, item) {
   waitFor(matchSuccess("Create a new comment."));
 }
 
@@ -547,19 +582,18 @@ function matchAnyExtensionsAdded() {
   });
 }
 
-function getCollectionFields(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function getCollectionFields(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection;
   var description = "Returns a list of the fields available in the given collection.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function createField(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function createField(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection;
   var description = "Create a new field in a given collection.";
   var body = {
     "collection": String(collection),
     "comment": String(comment),
-    "datatype": String(datatype),
     "default_value": String(default_value),
     "display": String(display),
     "display_options": String(display_options),
@@ -567,15 +601,14 @@ function createField(Sort, collection, comment, datatype, default_value, display
     "foreign_key_column": String(foreign_key_column),
     "foreign_key_schema": String(foreign_key_schema),
     "foreign_key_table": String(foreign_key_table),
-    "group": group,
+    "group": Number(group),
     "has_auto_increment": has_auto_increment,
     "hidden": hidden,
-    "id": id,
+    "id": String(id),
     "is_nullable": is_nullable,
     "is_primary_key": is_primary_key,
-    "length": String(length),
     "locked": locked,
-    "max_length": max_length,
+    "max_length": Number(max_length),
     "name": String(name),
     "note": String(note),
     "options": String(options),
@@ -586,19 +619,19 @@ function createField(Sort, collection, comment, datatype, default_value, display
     "table": String(table),
     "translation": String(translation),
     "type": String(type),
-    "width": width,
+    "width": Number(width),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Sort": Sort, "collection": collection, "comment": comment, "datatype": datatype, "default_value": default_value, "display": display, "display_options": display_options, "field": field, "foreign_key_column": foreign_key_column, "foreign_key_schema": foreign_key_schema, "foreign_key_table": foreign_key_table, "group": group, "has_auto_increment": has_auto_increment, "hidden": hidden, "id": id, "is_nullable": is_nullable, "is_primary_key": is_primary_key, "length": length, "locked": locked, "max_length": max_length, "name": name, "note": note, "options": options, "readonly": readonly, "schema": schema, "sort": sort, "special": special, "system-interface": system_interface, "table": table, "translation": translation, "type": type, "width": width}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "default_value": default_value, "display": display, "display_options": display_options, "field": field, "foreign_key_column": foreign_key_column, "foreign_key_schema": foreign_key_schema, "foreign_key_table": foreign_key_table, "group": group, "has_auto_increment": has_auto_increment, "hidden": hidden, "id": id, "is_nullable": is_nullable, "is_primary_key": is_primary_key, "locked": locked, "max_length": max_length, "name": name, "note": note, "options": options, "readonly": readonly, "schema": schema, "sort": sort, "special": special, "system-interface": system_interface, "table": table, "translation": translation, "type": type, "width": width}) });
 }
 
-function getCollectionField(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function getCollectionField(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Retrieves the details of a single field in a given collection.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updateField(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function updateField(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Update an existing field. " + collection;
   var body = {
@@ -611,14 +644,14 @@ function updateField(Sort, collection, comment, datatype, default_value, display
     "foreign_key_column": String(foreign_key_column),
     "foreign_key_schema": String(foreign_key_schema),
     "foreign_key_table": String(foreign_key_table),
-    "group": group,
+    "group": Number(group),
     "has_auto_increment": has_auto_increment,
     "hidden": hidden,
-    "id": id,
+    "id": Number(id),
     "is_nullable": is_nullable,
     "is_primary_key": is_primary_key,
     "locked": locked,
-    "max_length": max_length,
+    "max_length": Number(max_length),
     "name": String(name),
     "note": String(note),
     "options": String(options),
@@ -629,25 +662,24 @@ function updateField(Sort, collection, comment, datatype, default_value, display
     "table": String(table),
     "translation": String(translation),
     "type": String(type),
-    "width": width,
+    "width": Number(width),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Sort": Sort, "collection": collection, "comment": comment, "datatype": datatype, "default_value": default_value, "display": display, "display_options": display_options, "field": field, "foreign_key_column": foreign_key_column, "foreign_key_schema": foreign_key_schema, "foreign_key_table": foreign_key_table, "group": group, "has_auto_increment": has_auto_increment, "hidden": hidden, "id": id, "is_nullable": is_nullable, "is_primary_key": is_primary_key, "length": length, "locked": locked, "max_length": max_length, "name": name, "note": note, "options": options, "readonly": readonly, "schema": schema, "sort": sort, "special": special, "system-interface": system_interface, "table": table, "translation": translation, "type": type, "width": width}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "default_value": default_value, "display": display, "display_options": display_options, "field": field, "foreign_key_column": foreign_key_column, "foreign_key_schema": foreign_key_schema, "foreign_key_table": foreign_key_table, "group": group, "has_auto_increment": has_auto_increment, "hidden": hidden, "id": id, "is_nullable": is_nullable, "is_primary_key": is_primary_key, "locked": locked, "max_length": max_length, "name": name, "note": note, "options": options, "readonly": readonly, "schema": schema, "sort": sort, "special": special, "system-interface": system_interface, "table": table, "translation": translation, "type": type, "width": width}) });
 }
 
-function deleteField(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function deleteField(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Delete an existing field. " + collection;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401, 404] });
 }
 
-function tryToAddExistingFields(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function tryToAddExistingFields(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection;
   var description = "Try Add Existing Fields " + collection;
   var body = {
     "collection": String(collection),
     "comment": String(comment),
-    "datatype": String(datatype),
     "default_value": String(default_value),
     "display": String(display),
     "display_options": String(display_options),
@@ -655,15 +687,14 @@ function tryToAddExistingFields(Sort, collection, comment, datatype, default_val
     "foreign_key_column": String(foreign_key_column),
     "foreign_key_schema": String(foreign_key_schema),
     "foreign_key_table": String(foreign_key_table),
-    "group": group,
+    "group": Number(group),
     "has_auto_increment": has_auto_increment,
     "hidden": hidden,
-    "id": id,
+    "id": String(id),
     "is_nullable": is_nullable,
     "is_primary_key": is_primary_key,
-    "length": String(length),
     "locked": locked,
-    "max_length": max_length,
+    "max_length": Number(max_length),
     "name": String(name),
     "note": String(note),
     "options": String(options),
@@ -674,38 +705,38 @@ function tryToAddExistingFields(Sort, collection, comment, datatype, default_val
     "table": String(table),
     "translation": String(translation),
     "type": String(type),
-    "width": width,
+    "width": Number(width),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyFieldsExists(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function verifyFieldsExists(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Verify Fields " + collection + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Fields found");
 }
 
-function verifyFieldsDoesNotExist(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function verifyFieldsDoesNotExist(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Verify Fields " + collection + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Fields not found");
 }
 
-function tryToDeleteANonExistingFields(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function tryToDeleteANonExistingFields(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   var url = "/fields/" + collection + "/" + id;
   var description = "Verify negative delete for Fields";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedFields(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function matchDeletedFields(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   return bp.EventSet("Delete Fields", function(e) {
       return e.name === "Done: " + "Delete an existing field.";
   });
 }
 
-function waitForFieldsAdded(Sort, collection, comment, datatype, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, length, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
+function waitForFieldsAdded(collection, comment, default_value, display, display_options, field, foreign_key_column, foreign_key_schema, foreign_key_table, group, has_auto_increment, hidden, id, is_nullable, is_primary_key, locked, max_length, name, note, options, readonly, schema, sort, special, system_interface, table, translation, type, width) {
   waitFor(matchSuccess("Create a new field in a given collection."));
 }
 
@@ -715,26 +746,33 @@ function matchAnyFieldsAdded() {
   });
 }
 
-function getFiles(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function getFiles(data, description, filename_download, folder, id, tags, title) {
   var url = "/files";
   var description = "List the files. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401] });
 }
 
-function createFile(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function createFile(data, description, filename_download, folder, id, tags, title) {
   var url = "/files";
   var description = "Create a new file " + id;
   var body = {
     "data": String(data),
+    "description": String(description),
+    "filename_download": String(filename_download),
+    "folder": String(folder),
+    "id": String(id),
+    "tags": String(tags),
+    "title": String(title),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "data": data, "description": description, "filename_download": filename_download, "folder": folder, "id": id, "tags": tags, "title": title}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"data": data, "description": description, "filename_download": filename_download, "folder": folder, "id": id, "tags": tags, "title": title}) });
 }
 
-function updateFile(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function updateFile(data, description, filename_download, folder, id, tags, title) {
   var url = "/files/" + id;
   var description = "Update an existing file, and/or replace its file contents. " + id;
   var body = {
+    "data": String(data),
     "description": String(description),
     "filename_download": String(filename_download),
     "folder": String(folder),
@@ -743,57 +781,63 @@ function updateFile(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, des
     "title": String(title),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "data": data, "description": description, "filename_download": filename_download, "folder": folder, "id": id, "tags": tags, "title": title}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"data": data, "description": description, "filename_download": filename_download, "folder": folder, "id": id, "tags": tags, "title": title}) });
 }
 
-function deleteFile(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function deleteFile(data, description, filename_download, folder, id, tags, title) {
   var url = "/files/" + id;
   var description = "Delete an existing file. " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401] });
 }
 
-function getFile(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function getFile(data, description, filename_download, folder, id, tags, title) {
   var url = "/files/" + id;
   var description = "Retrieve a single file by unique identifier.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401] });
 }
 
-function tryToAddExistingFiles(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function tryToAddExistingFiles(data, description, filename_download, folder, id, tags, title) {
   var url = "/files";
   var description = "Try Add Existing Files " + id;
   var body = {
     "data": String(data),
+    "description": String(description),
+    "filename_download": String(filename_download),
+    "folder": String(folder),
+    "id": String(id),
+    "tags": String(tags),
+    "title": String(title),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyFilesExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function verifyFilesExists(data, description, filename_download, folder, id, tags, title) {
   var url = "/files/" + id;
   var description = "Verify Files " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Files found");
 }
 
-function verifyFilesDoesNotExist(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function verifyFilesDoesNotExist(data, description, filename_download, folder, id, tags, title) {
   var url = "/files/" + id;
   var description = "Verify Files " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Files not found");
 }
 
-function tryToDeleteANonExistingFiles(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function tryToDeleteANonExistingFiles(data, description, filename_download, folder, id, tags, title) {
   var url = "/files/" + id;
   var description = "Verify negative delete for Files";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedFiles(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function matchDeletedFiles(data, description, filename_download, folder, id, tags, title) {
   return bp.EventSet("Delete Files", function(e) {
       return e.name === "Done: " + "Delete an existing file.";
   });
 }
 
-function waitForFilesAdded(Fields, Filter, Limit, Meta, Offset, Search, Sort, data, description, filename_download, folder, id, tags, title) {
+function waitForFilesAdded(data, description, filename_download, folder, id, tags, title) {
   waitFor(matchSuccess("Create a new file"));
 }
 
@@ -831,6 +875,7 @@ function createFlow(data, id) {
   var description = "Create a new flow. " + id;
   var body = {
     "data": String(data),
+    "id": String(id),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"data": data, "id": id}) });
@@ -847,6 +892,7 @@ function tryToAddExistingFlows(data, id) {
   var description = "Try Add Existing Flows " + id;
   var body = {
     "data": String(data),
+    "id": String(id),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -905,7 +951,7 @@ function updateFolder(id, name, parent) {
   var body = {
     "id": String(id),
     "name": String(name),
-    "parent": parent,
+    "parent": Number(parent),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name, "parent": parent}) });
@@ -915,8 +961,9 @@ function createFolder(id, name, parent) {
   var url = "/folders";
   var description = "Create a new folder. " + id;
   var body = {
+    "id": String(id),
     "name": String(name),
-    "parent": parent,
+    "parent": Number(parent),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name, "parent": parent}) });
@@ -932,8 +979,9 @@ function tryToAddExistingFolders(id, name, parent) {
   var url = "/folders";
   var description = "Try Add Existing Folders " + id;
   var body = {
+    "id": String(id),
     "name": String(name),
-    "parent": parent,
+    "parent": Number(parent),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
@@ -974,45 +1022,47 @@ function matchAnyFoldersAdded() {
   });
 }
 
-function getOperations(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function getOperations(data, id, keys) {
   var url = "/operations";
   var description = "Get all operations. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function createOperation(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function createOperation(data, id, keys) {
   var url = "/operations";
   var description = "Create a new operation. " + id;
   var body = {
     "data": String(data),
+    "id": String(id),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "data": data, "id": id, "keys": keys}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"data": data, "id": id, "keys": keys}) });
 }
 
-function updateOperations(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function updateOperations(data, id, keys) {
   var url = "/operations";
   var description = "Update multiple operations at the same time. " + id;
   var body = {
     "data": String(data),
+    "id": String(id),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "data": data, "id": id, "keys": keys}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"data": data, "id": id, "keys": keys}) });
 }
 
-function deleteOperations(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function deleteOperations(data, id, keys) {
   var url = "/operations";
   var description = "Delete multiple existing operations. " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401] });
 }
 
-function getOperation(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function getOperation(data, id, keys) {
   var url = "/operations/" + id;
   var description = "Retrieve a single operation by unique identifier.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updateOperation(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function updateOperation(data, id, keys) {
   var url = "/operations/" + id;
   var description = "Update an existing operation " + id;
   var body = {
@@ -1020,51 +1070,52 @@ function updateOperation(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId
     "id": String(id),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "data": data, "id": id, "keys": keys}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"data": data, "id": id, "keys": keys}) });
 }
 
-function deleteOperation(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function deleteOperation(data, id, keys) {
   var url = "/operations/" + id;
   var description = "Delete an existing operation " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401, 404] });
 }
 
-function tryToAddExistingOperations(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function tryToAddExistingOperations(data, id, keys) {
   var url = "/operations";
   var description = "Try Add Existing Operations " + id;
   var body = {
     "data": String(data),
+    "id": String(id),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyOperationsExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function verifyOperationsExists(data, id, keys) {
   var url = "/operations/" + id;
   var description = "Verify Operations " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Operations found");
 }
 
-function verifyOperationsDoesNotExist(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function verifyOperationsDoesNotExist(data, id, keys) {
   var url = "/operations/" + id;
   var description = "Verify Operations " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Operations not found");
 }
 
-function tryToDeleteANonExistingOperations(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function tryToDeleteANonExistingOperations(data, id, keys) {
   var url = "/operations";
   var description = "Verify negative delete for Operations";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedOperations(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function matchDeletedOperations(data, id, keys) {
   return bp.EventSet("Delete Operations", function(e) {
       return e.name === "Done: " + "Delete multiple existing operations.";
   });
 }
 
-function waitForOperationsAdded(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, data, id, keys) {
+function waitForOperationsAdded(data, id, keys) {
   waitFor(matchSuccess("Create a new operation."));
 }
 
@@ -1074,13 +1125,13 @@ function matchAnyOperationsAdded() {
   });
 }
 
-function getPermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function getPermissions(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "List all permissions. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function createPermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function createPermission(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "Create a new permission. " + id;
   var body = {
@@ -1089,20 +1140,21 @@ function createPermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sor
     "create": String(create),
     "delete": String(_delete),
     "explain": String(explain),
+    "id": String(id),
     "name": String(name),
     "read": String(read),
     "read_field_blacklist": [String(read_field_blacklist)],
-    "role": role,
+    "role": Number(role),
     "status": String(status),
     "status_blacklist": [String(status_blacklist)],
     "update": String(update),
     "write_field_blacklist": [String(write_field_blacklist)],
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "keys": keys, "name": name, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "keys": keys, "name": name, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
 }
 
-function updatePermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function updatePermissions(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "Update multiple permissions at the same time. " + id;
   var body = {
@@ -1111,31 +1163,33 @@ function updatePermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, So
     "create": String(create),
     "delete": String(_delete),
     "explain": String(explain),
+    "id": String(id),
+    "name": String(name),
     "read": String(read),
-    "read_field_blacklist": [String(read_field_blacklist)],
-    "role": role,
+    "read_field_blacklist": String(read_field_blacklist),
+    "role": String(role),
     "status": String(status),
-    "status_blacklist": [String(status_blacklist)],
+    "status_blacklist": String(status_blacklist),
     "update": String(update),
-    "write_field_blacklist": [String(write_field_blacklist)],
+    "write_field_blacklist": String(write_field_blacklist),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "keys": keys, "name": name, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "keys": keys, "name": name, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
 }
 
-function deletePermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function deletePermissions(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "Delete multiple existing permissions. " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401] });
 }
 
-function getPermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function getPermission(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Retrieve a single permissions object by unique identifier.";
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updatePermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function updatePermission(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Update an existing permission " + id;
   var body = {
@@ -1145,6 +1199,7 @@ function updatePermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sor
     "delete": String(_delete),
     "explain": String(explain),
     "id": String(id),
+    "name": String(name),
     "read": String(read),
     "read_field_blacklist": String(read_field_blacklist),
     "role": String(role),
@@ -1154,22 +1209,16 @@ function updatePermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sor
     "write_field_blacklist": String(write_field_blacklist),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "keys": keys, "name": name, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "keys": keys, "name": name, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
 }
 
-function deletePermission(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function deletePermission(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Delete an existing permission " + id;
   svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401, 404] });
 }
 
-function getMyPermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
-  var url = "/permissions/me";
-  var description = "List the permissions that apply to the current user. " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
-}
-
-function tryToAddExistingPermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function tryToAddExistingPermissions(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "Try Add Existing Permissions " + id;
   var body = {
@@ -1178,10 +1227,11 @@ function tryToAddExistingPermissions(Fields, Filter, Limit, Meta, Offset, Page, 
     "create": String(create),
     "delete": String(_delete),
     "explain": String(explain),
+    "id": String(id),
     "name": String(name),
     "read": String(read),
     "read_field_blacklist": [String(read_field_blacklist)],
-    "role": role,
+    "role": Number(role),
     "status": String(status),
     "status_blacklist": [String(status_blacklist)],
     "update": String(update),
@@ -1190,33 +1240,33 @@ function tryToAddExistingPermissions(Fields, Filter, Limit, Meta, Offset, Page, 
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
 }
 
-function verifyPermissionsExists(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function verifyPermissionsExists(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Verify Permissions " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Permissions found");
 }
 
-function verifyPermissionsDoesNotExist(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function verifyPermissionsDoesNotExist(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions/" + id;
   var description = "Verify Permissions " + id + " does not exist";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Permissions not found");
 }
 
-function tryToDeleteANonExistingPermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function tryToDeleteANonExistingPermissions(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var description = "Verify negative delete for Permissions";
   svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function matchDeletedPermissions(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function matchDeletedPermissions(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   return bp.EventSet("Delete Permissions", function(e) {
       return e.name === "Done: " + "Delete multiple existing permissions.";
   });
 }
 
-function waitForPermissionsAdded(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function waitForPermissionsAdded(collection, comment, create, _delete, explain, id, keys, name, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   waitFor(matchSuccess("Create a new permission."));
 }
 
@@ -1240,6 +1290,7 @@ function createRelation(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort,
     "collection_one": String(collection_one),
     "field_many": String(field_many),
     "field_one": String(field_one),
+    "id": String(id),
     "junction_field": String(junction_field),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
@@ -1281,6 +1332,7 @@ function tryToAddExistingRelations(Fields, Filter, Limit, Meta, Offset, Page, Se
     "collection_one": String(collection_one),
     "field_many": String(field_many),
     "field_one": String(field_one),
+    "id": String(id),
     "junction_field": String(junction_field),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
@@ -1367,6 +1419,7 @@ function createRole(Fields, Filter, Limit, Meta, Offset, Page, Search, Sort, des
     "description": String(description),
     "enforce_tfa": enforce_tfa,
     "external_id": String(external_id),
+    "id": String(id),
     "ip_access": [String(ip_access)],
     "module_listing": String(module_listing),
     "name": String(name),
@@ -1410,6 +1463,7 @@ function tryToAddExistingRoles(Fields, Filter, Limit, Meta, Offset, Page, Search
     "description": String(description),
     "enforce_tfa": enforce_tfa,
     "external_id": String(external_id),
+    "id": String(id),
     "ip_access": [String(ip_access)],
     "module_listing": String(module_listing),
     "name": String(name),
@@ -1459,6 +1513,7 @@ function schemaDiff(data, force, id) {
   var body = {
     "data": String(data),
     "force": force,
+    "id": String(id),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"data": data, "force": force, "id": id}) });
@@ -1509,7 +1564,9 @@ function getSettings(Limit, Meta, Offset, Page, id) {
 function updateSetting(Limit, Meta, Offset, Page, id) {
   var url = "/settings";
   var description = "Update the settings " + id;
-  var body = undefined;
+  var body = {
+    "id": String(id),
+};
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "id": id}) });
 }
@@ -1521,35 +1578,42 @@ function matchAnySettingsAdded() {
   });
 }
 
+function deleteUser(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
+  var url = "/users/" + id;
+  var description = "Delete an existing user " + id;
+  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401, 404] });
+}
+
 function getUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
   var url = "/users";
   var description = "List the users. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 401, 404] });
 }
 
+function updateMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
+  var url = "/users/me";
+  var description = "Update the currently authenticated user. " + id;
+  var body = {
+    "id": String(id),
+    "last_page": String(last_page),
+    "password": String(password),
+    "token": String(token),
+};
+  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "last_page": last_page, "password": password, "token": token}) });
+}
+
 function acceptInvite(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
   var url = "/users/invite/accept";
   var description = "Accepts and enables an invited user using a JWT invitation token. " + id;
   var body = {
+    "id": String(id),
+    "last_page": String(last_page),
     "password": String(password),
     "token": String(token),
 };
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "last_page": last_page, "password": password, "token": token}) });
-}
-
-function updateMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
-  var url = "/users/me";
-  var description = "Update the currently authenticated user. " + id;
-  var body = undefined;
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "last_page": last_page, "password": password, "token": token}) });
-}
-
-function deleteUser(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
-  var url = "/users/" + id;
-  var description = "Delete an existing user " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 401, 404] });
 }
 
 function getMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
@@ -1561,7 +1625,12 @@ function getMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page,
 function meTfaDisable(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
   var url = "/users/me/tfa/disable";
   var description = "Disables two-factor authentication for the currently authenticated user. " + id;
-  var body = undefined;
+  var body = {
+    "id": String(id),
+    "last_page": String(last_page),
+    "password": String(password),
+    "token": String(token),
+};
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "last_page": last_page, "password": password, "token": token}) });
 }
@@ -1569,7 +1638,12 @@ function meTfaDisable(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, las
 function meTfaEnable(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, last_page, password, token) {
   var url = "/users/me/tfa/enable";
   var description = "Enables two-factor authentication for the currently authenticated user. " + id;
-  var body = undefined;
+  var body = {
+    "id": String(id),
+    "last_page": String(last_page),
+    "password": String(password),
+    "token": String(token),
+};
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "last_page": last_page, "password": password, "token": token}) });
 }
@@ -1578,7 +1652,10 @@ function updateLastUsedPageMe(Fields, Filter, Limit, Meta, Offset, Search, Sort,
   var url = "/users/me/track/page";
   var description = "Updates the last used page field of the currently authenticated user. " + id;
   var body = {
+    "id": String(id),
     "last_page": String(last_page),
+    "password": String(password),
+    "token": String(token),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "last_page": last_page, "password": password, "token": token}) });
@@ -1598,12 +1675,15 @@ function matchAnyUsersAdded() {
 function clearCache(id, length) {
   var url = "/utils/cache/clear";
   var description = "Resets both the data and schema cache of Directus. " + id;
-  var body = undefined;
+  var body = {
+    "id": String(id),
+    "length": String(length),
+};
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"id": id, "length": length}) });
 }
 
-function getRandomString(id, length) {
+function random(id, length) {
   var url = "/utils/random/string";
   var description = "Returns a random string of given length. " + id;
   svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
@@ -1638,6 +1718,7 @@ function updateContentVersion(Fields, Filter, Limit, Meta, Offset, Search, Sort,
   var body = {
     "data": String(data),
     "id": String(id),
+    "mainHash": String(mainHash),
 };
   svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "data": data, "fields": fields, "id": id, "mainHash": mainHash}) });
@@ -1647,6 +1728,7 @@ function promoteContentVersion(Fields, Filter, Limit, Meta, Offset, Search, Sort
   var url = "/versions/" + id + "/promote";
   var description = "Pass the current hash of the main version of the item (obtained from the `compare` endpoint) along with an optional array of field names of which the values are to be promoted (by default, all fields are selected). " + id;
   var body = {
+    "data": String(data),
     "id": String(id),
     "mainHash": String(mainHash),
 };
@@ -1664,6 +1746,7 @@ function tryToAddExistingVersions(Fields, Filter, Limit, Meta, Offset, Search, S
   var url = "/versions/" + id + "/promote";
   var description = "Try Add Existing Versions " + id;
   var body = {
+    "data": String(data),
     "id": String(id),
     "mainHash": String(mainHash),
 };
@@ -1718,6 +1801,7 @@ function createWebhook(Fields, Meta, actions, data, id, method, name, status, sy
   var body = {
     "actions": String(actions),
     "data": data,
+    "id": String(id),
     "method": String(method),
     "name": String(name),
     "status": String(status),
@@ -1763,6 +1847,7 @@ function tryToAddExistingWebhooks(Fields, Meta, actions, data, id, method, name,
   var body = {
     "actions": String(actions),
     "data": data,
+    "id": String(id),
     "method": String(method),
     "name": String(name),
     "status": String(status),

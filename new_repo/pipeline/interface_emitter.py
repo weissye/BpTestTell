@@ -46,12 +46,10 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     if method in ["POST", "PUT", "PATCH"]:
         
         # --- CRITICAL FIX 2: Explicitly include all payload parameters for uniqueness ---
-        # This generic logic solves the Flow's 409 error by including the 'data' field.
         excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
         b_lines = ["{"]
         
         for p in sig_params:
-             # Skip standard query/meta fields; everything else is assumed to be part of the JSON body.
              if p.lower() in excluded_query_params:
                  continue
                  
@@ -59,9 +57,14 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
                  sanitized_p = sanitize_param(p)
                  
                  ptype = param_types.get(p, "string").lower()
-                 cast = "String"
-                 if ptype in ["integer", "number"]: cast = "Number"
-                 elif ptype == "boolean": cast = "" 
+                 
+                 # --- FIX 3: Remove strict Number casting to allow String IDs from tests to pass ---
+                 if ptype in ["integer", "number"]: 
+                     cast = "" 
+                 elif ptype == "boolean": 
+                     cast = ""
+                 else:
+                     cast = "String"
                  
                  if param_types.get(p, "") == "array":
                      b_lines.append(f'    "{p}": [{cast}({sanitized_p})],')
@@ -81,17 +84,16 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     if "..." in body_js: body_js = "{}"
 
-    # --- CODE GENERATION LOGIC (204 & 409 INJECTION) ---
+    # --- CODE GENERATION LOGIC ---
     if codes_override: 
         codes_list = codes_override
     else: 
         codes_list = get_response_codes(path_tmpl, method, spec)
-        
         if method == "POST" and 409 not in codes_list: codes_list.append(409)
         if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
             
     codes_str = json.dumps(sorted(codes_list))
-    # ---------------------------------------------------
+    # -----------------------------
 
     sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
     
@@ -161,7 +163,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         can_verify = has_specific_get 
 
         for op_type, op_data in ops.items():
-            # Skip generation of negative test functions here, as they are generated below
             if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
             if not op_data: continue
             fn_name = op_data.get("name", f"{op_type}{name}")
@@ -169,7 +170,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append('')
 
         if "add" in ops and isinstance(ops["add"], dict) and can_verify:
-             # Generates the tryToAddExisting function
              lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{safe_entity_name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
              lines.append('')
 

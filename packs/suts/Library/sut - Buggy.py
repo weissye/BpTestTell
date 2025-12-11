@@ -221,7 +221,7 @@ def search_books() -> Response:
 
 
 @app.route("/books/<book_id>", methods=["GET"])
-def get_book(book_id):
+def get_book(book_id: int) -> Response:
     """
     Get detailed information about a specific book.
 
@@ -232,16 +232,7 @@ def get_book(book_id):
         200: Book found
         404: Book not found
     """
-    # --- FIX START: Convert URL string param to integer ---
-    try:
-        query_id = int(book_id)
-    except ValueError:
-        # If ID cannot be cast to int, it might be a string ID (backward compat)
-        query_id = book_id 
-    # --- FIX END ---
-
-    book = next((b for b in books if b.get("id") == query_id), None)
-    
+    book = next((b for b in books if b.get("id") == book_id), None)
     if book:
         return jsonify(book), 200
     return jsonify({"error": "Book not found"}), 404
@@ -337,7 +328,6 @@ def search_loans() -> Response:
     book_id = request.args.get("bookId")
     results = loans
     if user_id:
-        # Flexible comparison for ID types
         results = [loan for loan in results if str(loan.get("userId")) == str(user_id)]
     if book_id:
         results = [loan for loan in results if str(loan.get("bookId")) == str(book_id)]
@@ -402,3 +392,20 @@ if __name__ == "__main__":
 
     logger.info(f"Starting server on {HOST}:{PORT}")
     app.run(host=HOST, port=PORT, debug=DEBUG)
+
+"""
+The Bug
+The bug is in the Server Code (sut.py) regarding the get_book functionality.
+
+Creation: When POST /books is called, the server receives JSON where id can be an integer (e.g., 21081851 from your successful logs). The server stores this id as an integer in the books list.
+
+Retrieval: When GET /books/<book_id> is called, Flask captures book_id from the URL.
+
+The Issue: The route is defined as @app.route("/books/<book_id>", ...). In Flask, if you don't specify a converter (like <int:book_id>), the variable is captured as a String.
+
+Comparison Failure: The get_book function compares the String book_id from the URL with the Integer id stored in the database.
+
+"21081851" == 21081851 evaluates to False.
+
+Result: The server returns 404 Not Found even though the book exists.
+"""

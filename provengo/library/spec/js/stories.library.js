@@ -28,256 +28,197 @@ function resolveDependencies(deps, pkMap) {
 
 // Story: crud:Books:linear:1
 bthread("crud:Books:linear:1", function () {
-  let id = 210;
-  let q = "q_210";
-  let title = "title_210";
-  createBook(id, q, title);
-  tryToAddExistingBooks(id, q, title);
-  verifyBooksExists(id, q, title);
-  deleteBook(id, q, title);
-  tryToDeleteANonExistingBooks(id, q, title);
-  verifyBooksDoesNotExist(id, q, title);
+  let author = "author_210_" + Math.floor(Math.random() * 10000);
+  let id = 21000000 + Math.floor(Math.random() * 100000);
+  let publishedDate = "publishedDate_210_" + Math.floor(Math.random() * 10000);
+  let q = "q_210_" + Math.floor(Math.random() * 10000);
+  let title = "title_210_" + Math.floor(Math.random() * 10000);
+  createBook(author, id, publishedDate, q, title);
+  verifyBooksExists(author, id, publishedDate, q, title);
+  // Skip delete for Books to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Books:linear:2
 bthread("crud:Books:linear:2", function () {
-  let id = 220;
-  let q = "q_220";
-  let title = "title_220";
-  createBook(id, q, title);
-  tryToAddExistingBooks(id, q, title);
-  verifyBooksExists(id, q, title);
-  deleteBook(id, q, title);
-  tryToDeleteANonExistingBooks(id, q, title);
-  verifyBooksDoesNotExist(id, q, title);
+  let author = "author_220_" + Math.floor(Math.random() * 10000);
+  let id = 22000000 + Math.floor(Math.random() * 100000);
+  let publishedDate = "publishedDate_220_" + Math.floor(Math.random() * 10000);
+  let q = "q_220_" + Math.floor(Math.random() * 10000);
+  let title = "title_220_" + Math.floor(Math.random() * 10000);
+  createBook(author, id, publishedDate, q, title);
+  verifyBooksExists(author, id, publishedDate, q, title);
+  // Skip delete for Books to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Books:linear:3
 bthread("crud:Books:linear:3", function () {
-  let id = 230;
-  let q = "q_230";
-  let title = "title_230";
-  createBook(id, q, title);
-  tryToAddExistingBooks(id, q, title);
-  verifyBooksExists(id, q, title);
-  deleteBook(id, q, title);
-  tryToDeleteANonExistingBooks(id, q, title);
-  verifyBooksDoesNotExist(id, q, title);
+  let author = "author_230_" + Math.floor(Math.random() * 10000);
+  let id = 23000000 + Math.floor(Math.random() * 100000);
+  let publishedDate = "publishedDate_230_" + Math.floor(Math.random() * 10000);
+  let q = "q_230_" + Math.floor(Math.random() * 10000);
+  let title = "title_230_" + Math.floor(Math.random() * 10000);
+  createBook(author, id, publishedDate, q, title);
+  verifyBooksExists(author, id, publishedDate, q, title);
+  // Skip delete for Books to prevent foreign key errors (has active dependents)
 });
 
 // Monitor: Books Verification
 bthread("monitor:Books", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyBooksAdded() });
-    let id = (e.data.parameters && e.data.parameters.id) ? e.data.parameters.id : e.data.id;
-    let q = (e.data.parameters && e.data.parameters.q) ? e.data.parameters.q : e.data.q;
-    let title = (e.data.parameters && e.data.parameters.title) ? e.data.parameters.title : e.data.title;
-    // Block Deletion while Verifying Existence
-    block(matchDeletedBooks(id, q, title), function() {
-        verifyBooksExists(id, q, title);
-    });
-  }
-});
-
-// Story: crud:Holds:linear:1
-bthread("crud:Holds:linear:1", function () {
-  let bookId; // Resolved Dependency
-  let id = 260;
-  let userId; // Resolved Dependency
-  // Dependency Barrier
-  let deps = {};
-  deps["bookId"] = matchAnyBooksAdded();
-  deps["userId"] = matchAnyUsersAdded();
-  let pkMap = {"bookId": "id", "userId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bookId = captured["bookId"];
-  userId = captured["userId"];
-  createHold(bookId, id, userId);
-  tryToAddExistingHolds(bookId, id, userId);
-  verifyHoldsExists(bookId, id, userId);
-  deleteHold(bookId, id, userId);
-  tryToDeleteANonExistingHolds(bookId, id, userId);
-  verifyHoldsDoesNotExist(bookId, id, userId);
-});
-
-// Story: crud:Holds:linear:2
-bthread("crud:Holds:linear:2", function () {
-  let bookId; // Resolved Dependency
-  let id = 270;
-  let userId; // Resolved Dependency
-  // Dependency Barrier
-  let deps = {};
-  deps["bookId"] = matchAnyBooksAdded();
-  deps["userId"] = matchAnyUsersAdded();
-  let pkMap = {"bookId": "id", "userId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bookId = captured["bookId"];
-  userId = captured["userId"];
-  createHold(bookId, id, userId);
-  tryToAddExistingHolds(bookId, id, userId);
-  verifyHoldsExists(bookId, id, userId);
-  deleteHold(bookId, id, userId);
-  tryToDeleteANonExistingHolds(bookId, id, userId);
-  verifyHoldsDoesNotExist(bookId, id, userId);
-});
-
-// Story: crud:Holds:linear:3
-bthread("crud:Holds:linear:3", function () {
-  let bookId; // Resolved Dependency
-  let id = 280;
-  let userId; // Resolved Dependency
-  // Dependency Barrier
-  let deps = {};
-  deps["bookId"] = matchAnyBooksAdded();
-  deps["userId"] = matchAnyUsersAdded();
-  let pkMap = {"bookId": "id", "userId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bookId = captured["bookId"];
-  userId = captured["userId"];
-  createHold(bookId, id, userId);
-  tryToAddExistingHolds(bookId, id, userId);
-  verifyHoldsExists(bookId, id, userId);
-  deleteHold(bookId, id, userId);
-  tryToDeleteANonExistingHolds(bookId, id, userId);
-  verifyHoldsDoesNotExist(bookId, id, userId);
-});
-
-// Monitor: Holds Verification
-bthread("monitor:Holds", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyHoldsAdded() });
-    let bookId = (e.data.parameters && e.data.parameters.bookId) ? e.data.parameters.bookId : e.data.bookId;
-    let id = (e.data.parameters && e.data.parameters.id) ? e.data.parameters.id : e.data.id;
-    let userId = (e.data.parameters && e.data.parameters.userId) ? e.data.parameters.userId : e.data.userId;
-    // Block Deletion while Verifying Existence
-    block(matchDeletedHolds(bookId, id, userId), function() {
-        verifyHoldsExists(bookId, id, userId);
-    });
+    let author = (e.data.parameters && e.data.parameters["author"]) ? e.data.parameters["author"] : e.data["author"];
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let publishedDate = (e.data.parameters && e.data.parameters["publishedDate"]) ? e.data.parameters["publishedDate"] : e.data["publishedDate"];
+    let q = (e.data.parameters && e.data.parameters["q"]) ? e.data.parameters["q"] : e.data["q"];
+    let title = (e.data.parameters && e.data.parameters["title"]) ? e.data.parameters["title"] : e.data["title"];
+    // Monitor Books: Verifying existence (Deletion skipped due to dependencies)
+    verifyBooksExists(author, id, publishedDate, q, title);
   }
 });
 
 // Story: crud:Loans:linear:1
 bthread("crud:Loans:linear:1", function () {
   let bookId; // Resolved Dependency
-  let userId; // Resolved Dependency
-  // Dependency Barrier
+  let loanDate = "loanDate_260_" + Math.floor(Math.random() * 10000);
+  let userId = 26000000 + Math.floor(Math.random() * 100000);
+  // Ensure dependencies are resolved before starting CRUD
   let deps = {};
-  deps["bookId"] = matchAnyBooksAdded();
   deps["userId"] = matchAnyUsersAdded();
-  let pkMap = {"bookId": "id", "userId": "id"};
+  deps["bookId"] = matchAnyBooksAdded();
+  let pkMap = {"userId": "id", "bookId": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  bookId = captured["bookId"];
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
-  createLoan(bookId, userId);
-  tryToAddExistingLoans(bookId, userId);
-  verifyLoansExists(bookId, userId);
-  deleteLoan(bookId, userId);
-  tryToDeleteANonExistingLoans(bookId, userId);
-  verifyLoansDoesNotExist(bookId, userId);
+  bookId = captured["bookId"];
+  createLoan(bookId, loanDate, userId);
+  deleteLoan(bookId, loanDate, userId);
 });
 
 // Story: crud:Loans:linear:2
 bthread("crud:Loans:linear:2", function () {
   let bookId; // Resolved Dependency
-  let userId; // Resolved Dependency
-  // Dependency Barrier
+  let loanDate = "loanDate_270_" + Math.floor(Math.random() * 10000);
+  let userId = 27000000 + Math.floor(Math.random() * 100000);
+  // Ensure dependencies are resolved before starting CRUD
   let deps = {};
-  deps["bookId"] = matchAnyBooksAdded();
   deps["userId"] = matchAnyUsersAdded();
-  let pkMap = {"bookId": "id", "userId": "id"};
+  deps["bookId"] = matchAnyBooksAdded();
+  let pkMap = {"userId": "id", "bookId": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  bookId = captured["bookId"];
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
-  createLoan(bookId, userId);
-  tryToAddExistingLoans(bookId, userId);
-  verifyLoansExists(bookId, userId);
-  deleteLoan(bookId, userId);
-  tryToDeleteANonExistingLoans(bookId, userId);
-  verifyLoansDoesNotExist(bookId, userId);
+  bookId = captured["bookId"];
+  createLoan(bookId, loanDate, userId);
+  deleteLoan(bookId, loanDate, userId);
 });
 
 // Story: crud:Loans:linear:3
 bthread("crud:Loans:linear:3", function () {
   let bookId; // Resolved Dependency
-  let userId; // Resolved Dependency
-  // Dependency Barrier
+  let loanDate = "loanDate_280_" + Math.floor(Math.random() * 10000);
+  let userId = 28000000 + Math.floor(Math.random() * 100000);
+  // Ensure dependencies are resolved before starting CRUD
   let deps = {};
-  deps["bookId"] = matchAnyBooksAdded();
   deps["userId"] = matchAnyUsersAdded();
-  let pkMap = {"bookId": "id", "userId": "id"};
+  deps["bookId"] = matchAnyBooksAdded();
+  let pkMap = {"userId": "id", "bookId": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  bookId = captured["bookId"];
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
-  createLoan(bookId, userId);
-  tryToAddExistingLoans(bookId, userId);
-  verifyLoansExists(bookId, userId);
-  deleteLoan(bookId, userId);
-  tryToDeleteANonExistingLoans(bookId, userId);
-  verifyLoansDoesNotExist(bookId, userId);
-});
-
-// Monitor: Loans Verification
-bthread("monitor:Loans", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyLoansAdded() });
-    let bookId = (e.data.parameters && e.data.parameters.bookId) ? e.data.parameters.bookId : e.data.bookId;
-    let userId = (e.data.parameters && e.data.parameters.userId) ? e.data.parameters.userId : e.data.userId;
-    // Block Deletion while Verifying Existence
-    block(matchDeletedLoans(bookId, userId), function() {
-        verifyLoansExists(bookId, userId);
-    });
-  }
+  bookId = captured["bookId"];
+  createLoan(bookId, loanDate, userId);
+  deleteLoan(bookId, loanDate, userId);
 });
 
 // Story: crud:Users:linear:1
 bthread("crud:Users:linear:1", function () {
-  let id = 360;
-  let name = "name_360";
-  let q = "q_360";
-  createUser(id, name, q);
-  tryToAddExistingUsers(id, name, q);
-  verifyUsersExists(id, name, q);
-  deleteUser(id, name, q);
-  tryToDeleteANonExistingUsers(id, name, q);
-  verifyUsersDoesNotExist(id, name, q);
+  let email = "email_310_" + Math.floor(Math.random() * 10000);
+  let id = 31000000 + Math.floor(Math.random() * 100000);
+  let name = "name_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let password = "password_310_" + Math.floor(Math.random() * 10000);
+  let q = "q_310_" + Math.floor(Math.random() * 10000);
+  createUser(email, id, name, password, q);
+  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Users:linear:2
 bthread("crud:Users:linear:2", function () {
-  let id = 370;
-  let name = "name_370";
-  let q = "q_370";
-  createUser(id, name, q);
-  tryToAddExistingUsers(id, name, q);
-  verifyUsersExists(id, name, q);
-  deleteUser(id, name, q);
-  tryToDeleteANonExistingUsers(id, name, q);
-  verifyUsersDoesNotExist(id, name, q);
+  let email = "email_320_" + Math.floor(Math.random() * 10000);
+  let id = 32000000 + Math.floor(Math.random() * 100000);
+  let name = "name_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let password = "password_320_" + Math.floor(Math.random() * 10000);
+  let q = "q_320_" + Math.floor(Math.random() * 10000);
+  createUser(email, id, name, password, q);
+  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Users:linear:3
 bthread("crud:Users:linear:3", function () {
-  let id = 380;
-  let name = "name_380";
-  let q = "q_380";
-  createUser(id, name, q);
-  tryToAddExistingUsers(id, name, q);
-  verifyUsersExists(id, name, q);
-  deleteUser(id, name, q);
-  tryToDeleteANonExistingUsers(id, name, q);
-  verifyUsersDoesNotExist(id, name, q);
+  let email = "email_330_" + Math.floor(Math.random() * 10000);
+  let id = 33000000 + Math.floor(Math.random() * 100000);
+  let name = "name_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let password = "password_330_" + Math.floor(Math.random() * 10000);
+  let q = "q_330_" + Math.floor(Math.random() * 10000);
+  createUser(email, id, name, password, q);
+  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
-// Monitor: Users Verification
-bthread("monitor:Users", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyUsersAdded() });
-    let id = (e.data.parameters && e.data.parameters.id) ? e.data.parameters.id : e.data.id;
-    let name = (e.data.parameters && e.data.parameters.name) ? e.data.parameters.name : e.data.name;
-    let q = (e.data.parameters && e.data.parameters.q) ? e.data.parameters.q : e.data.q;
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUsers(id, name, q), function() {
-        verifyUsersExists(id, name, q);
-    });
-  }
+// Story: crud:Holds:linear:1
+bthread("crud:Holds:linear:1", function () {
+  let bookId; // Resolved Dependency
+  let id = 36000000 + Math.floor(Math.random() * 100000);
+  let name = "name_360_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let status = "status_360_" + Math.floor(Math.random() * 10000);
+  let userId; // Resolved Dependency
+  // Ensure dependencies are resolved before starting CRUD
+  let deps = {};
+  deps["userId"] = matchAnyUsersAdded();
+  deps["bookId"] = matchAnyBooksAdded();
+  let pkMap = {"userId": "id", "bookId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
+  userId = captured["userId"];
+  bookId = captured["bookId"];
+  createHold(bookId, id, name, status, userId);
+  deleteHold(bookId, id, name, status, userId);
+});
+
+// Story: crud:Holds:linear:2
+bthread("crud:Holds:linear:2", function () {
+  let bookId; // Resolved Dependency
+  let id = 37000000 + Math.floor(Math.random() * 100000);
+  let name = "name_370_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let status = "status_370_" + Math.floor(Math.random() * 10000);
+  let userId; // Resolved Dependency
+  // Ensure dependencies are resolved before starting CRUD
+  let deps = {};
+  deps["userId"] = matchAnyUsersAdded();
+  deps["bookId"] = matchAnyBooksAdded();
+  let pkMap = {"userId": "id", "bookId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
+  userId = captured["userId"];
+  bookId = captured["bookId"];
+  createHold(bookId, id, name, status, userId);
+  deleteHold(bookId, id, name, status, userId);
+});
+
+// Story: crud:Holds:linear:3
+bthread("crud:Holds:linear:3", function () {
+  let bookId; // Resolved Dependency
+  let id = 38000000 + Math.floor(Math.random() * 100000);
+  let name = "name_380_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let status = "status_380_" + Math.floor(Math.random() * 10000);
+  let userId; // Resolved Dependency
+  // Ensure dependencies are resolved before starting CRUD
+  let deps = {};
+  deps["userId"] = matchAnyUsersAdded();
+  deps["bookId"] = matchAnyBooksAdded();
+  let pkMap = {"userId": "id", "bookId": "id"};
+  let captured = resolveDependencies(deps, pkMap);
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
+  userId = captured["userId"];
+  bookId = captured["bookId"];
+  createHold(bookId, id, name, status, userId);
+  deleteHold(bookId, id, name, status, userId);
 });

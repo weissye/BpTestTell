@@ -1,6 +1,6 @@
 {
   "sut_name": "library",
-  "base_url": "http://localhost:8080",
+  "base_url": "http://localhost:8000",
   "entities": {
     "Books": {
       "operations": {
@@ -12,18 +12,39 @@
           "params": [
             "q"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "q": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createBook",
           "descriptionTemplate": "Create a book",
           "method": "POST",
           "path": "/books",
-          "params": [],
+          "params": [
+            "id",
+            "title"
+          ],
           "bodyTemplate": {
-            "id": "{id}",
-            "title": "{title}"
-          }
+            "title": "{title}",
+            "author": "{author}",
+            "publishedDate": "{publishedDate}",
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "title": "string",
+            "author": "string",
+            "publishedDate": "string",
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "getBook",
@@ -33,7 +54,14 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "deleteBook",
@@ -44,43 +72,17 @@
             "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "id": "integer"
+          },
           "x-negative-delete-expected-codes": [
             404
-          ]
-        }
-      }
-    },
-    "Holds": {
-      "operations": {
-        "list": {
-          "name": "listHolds",
-          "descriptionTemplate": "List holds",
-          "method": "GET",
-          "path": "/holds",
-          "params": [],
-          "bodyTemplate": null
-        },
-        "add": {
-          "name": "createHold",
-          "descriptionTemplate": "Create a hold",
-          "method": "POST",
-          "path": "/holds",
-          "params": [],
-          "bodyTemplate": {
-            "id": "{id}",
-            "userId": "{userId}",
-            "bookId": "{bookId}"
-          }
-        },
-        "delete": {
-          "name": "deleteHold",
-          "descriptionTemplate": "Delete a hold",
-          "method": "DELETE",
-          "path": "/holds/{id}",
-          "params": [
-            "id"
           ],
-          "bodyTemplate": null
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         }
       }
     },
@@ -95,18 +97,39 @@
             "userId",
             "bookId"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "userId": "integer",
+            "bookId": "integer"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createLoan",
           "descriptionTemplate": "Create a loan",
           "method": "POST",
           "path": "/loans",
-          "params": [],
+          "params": [
+            "userId",
+            "bookId"
+          ],
           "bodyTemplate": {
             "userId": "{userId}",
-            "bookId": "{bookId}"
-          }
+            "bookId": "{bookId}",
+            "loanDate": "{loanDate}"
+          },
+          "paramTypes": {
+            "userId": "integer",
+            "bookId": "integer",
+            "loanDate": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "deleteLoan",
@@ -118,7 +141,15 @@
             "bookId"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "userId": "integer",
+            "bookId": "integer"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         }
@@ -134,18 +165,39 @@
           "params": [
             "q"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "q": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createUser",
           "descriptionTemplate": "Create a user",
           "method": "POST",
           "path": "/users",
-          "params": [],
+          "params": [
+            "id",
+            "name"
+          ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+            "name": "{name}",
+            "email": "{email}",
+            "password": "{password}",
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "name": "string",
+            "email": "string",
+            "password": "string",
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": true
         },
         "delete": {
           "name": "deleteUser",
@@ -156,12 +208,94 @@
             "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "id": "integer"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200,
+            400,
             404
           ]
         }
       }
+    },
+    "Holds": {
+      "operations": {
+        "list": {
+          "name": "listHolds",
+          "descriptionTemplate": "List holds",
+          "method": "GET",
+          "path": "/holds",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "add": {
+          "name": "createHold",
+          "descriptionTemplate": "Create a hold",
+          "method": "POST",
+          "path": "/holds",
+          "params": [
+            "id",
+            "userId",
+            "bookId"
+          ],
+          "bodyTemplate": {
+            "id": "{id}",
+            "name": "{name}",
+            "status": "{status}",
+            "userId": "{userId}",
+            "bookId": "{bookId}"
+          },
+          "paramTypes": {
+            "id": "integer",
+            "name": "string",
+            "status": "string",
+            "userId": "integer",
+            "bookId": "integer"
+          },
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": false
+        },
+        "delete": {
+          "name": "deleteHold",
+          "descriptionTemplate": "Delete a hold",
+          "method": "DELETE",
+          "path": "/holds/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "integer"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            200
+          ]
+        }
+      }
     }
+  },
+  "dependencies": {
+    "Loans": [
+      "Users",
+      "Books"
+    ],
+    "Holds": [
+      "Users",
+      "Books"
+    ]
   },
   "original_spec": {
     "openapi": "3.0.3",

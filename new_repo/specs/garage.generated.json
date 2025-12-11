@@ -1,75 +1,7 @@
 {
   "sut_name": "garage",
-  "base_url": "http://localhost:5000",
+  "base_url": "http://localhost:8000",
   "entities": {
-    "Cars": {
-      "operations": {
-        "list": {
-          "name": "listCars",
-          "descriptionTemplate": "List cars",
-          "method": "GET",
-          "path": "/cars",
-          "params": [],
-          "bodyTemplate": null
-        },
-        "add": {
-          "name": "createCar",
-          "descriptionTemplate": "Create car",
-          "method": "POST",
-          "path": "/cars",
-          "params": [],
-          "bodyTemplate": {
-            "vin": "{vin}",
-            "make": "{make}",
-            "mileage": "{mileage}",
-            "model": "{model}",
-            "ownerCustomerId": "{ownerCustomerId}",
-            "year": "{year}",
-            "homeGarageId": "{homeGarageId}"
-          }
-        },
-        "get": {
-          "name": "readCar",
-          "descriptionTemplate": "Read car",
-          "method": "GET",
-          "path": "/cars/{vin}",
-          "params": [
-            "vin"
-          ],
-          "bodyTemplate": null
-        },
-        "update": {
-          "name": "updateCar",
-          "descriptionTemplate": "Update car",
-          "method": "PUT",
-          "path": "/cars/{vin}",
-          "params": [
-            "vin"
-          ],
-          "bodyTemplate": {
-            "make": "{make}",
-            "mileage": "{mileage}",
-            "model": "{model}",
-            "ownerCustomerId": "{ownerCustomerId}",
-            "year": "{year}",
-            "homeGarageId": "{homeGarageId}"
-          }
-        },
-        "delete": {
-          "name": "deleteCar",
-          "descriptionTemplate": "Delete car",
-          "method": "DELETE",
-          "path": "/cars/{vin}",
-          "params": [
-            "vin"
-          ],
-          "bodyTemplate": null,
-          "x-negative-delete-expected-codes": [
-            404
-          ]
-        }
-      }
-    },
     "Chains": {
       "operations": {
         "list": {
@@ -78,21 +10,42 @@
           "method": "GET",
           "path": "/chains",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createChain",
           "descriptionTemplate": "Create chain",
           "method": "POST",
           "path": "/chains",
-          "params": [],
+          "params": [
+            "id",
+            "chainId",
+            "name",
+            "hqAddress"
+          ],
           "bodyTemplate": {
-            "chainId": "{chainId}",
             "name": "{name}",
-            "hqAddress": "{hqAddress}",
-            "active": "{active}",
-            "supportEmail": "{supportEmail}"
-          }
+            "description": "{description}",
+            "id": "{id}",
+            "chainId": "{chainId}",
+            "hqAddress": "{hqAddress}"
+          },
+          "paramTypes": {
+            "name": "string",
+            "description": "string",
+            "id": "string",
+            "chainId": "string",
+            "hqAddress": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "readChain",
@@ -102,7 +55,14 @@
           "params": [
             "chainId"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "chainId": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "updateChain",
@@ -114,10 +74,17 @@
           ],
           "bodyTemplate": {
             "name": "{name}",
-            "hqAddress": "{hqAddress}",
-            "active": "{active}",
-            "supportEmail": "{supportEmail}"
-          }
+            "description": "{description}"
+          },
+          "paramTypes": {
+            "chainId": "string",
+            "name": "string",
+            "description": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "delete": {
           "name": "deleteChain",
@@ -128,7 +95,15 @@
             "chainId"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "chainId": "string"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         }
@@ -142,22 +117,48 @@
           "method": "GET",
           "path": "/customers",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createCustomer",
           "descriptionTemplate": "Create customer",
           "method": "POST",
           "path": "/customers",
-          "params": [],
+          "params": [
+            "id",
+            "customerId",
+            "type",
+            "fullName",
+            "email",
+            "phone"
+          ],
           "bodyTemplate": {
+            "name": "{name}",
+            "email": "{email}",
+            "id": "{id}",
             "customerId": "{customerId}",
             "type": "{type}",
             "fullName": "{fullName}",
-            "email": "{email}",
-            "phone": "{phone}",
-            "preferredGarageId": "{preferredGarageId}"
-          }
+            "phone": "{phone}"
+          },
+          "paramTypes": {
+            "name": "string",
+            "email": "string",
+            "id": "string",
+            "customerId": "string",
+            "type": "string",
+            "fullName": "string",
+            "phone": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "readCustomer",
@@ -165,9 +166,18 @@
           "method": "GET",
           "path": "/customers/{customerId}",
           "params": [
-            "customerId"
+            "customerId",
+            "id"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "customerId": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "updateCustomer",
@@ -175,15 +185,24 @@
           "method": "PUT",
           "path": "/customers/{customerId}",
           "params": [
-            "customerId"
+            "customerId",
+            "id"
           ],
           "bodyTemplate": {
-            "type": "{type}",
-            "fullName": "{fullName}",
-            "email": "{email}",
-            "phone": "{phone}",
-            "preferredGarageId": "{preferredGarageId}"
-          }
+            "name": "{name}",
+            "email": "{email}"
+          },
+          "paramTypes": {
+            "customerId": "string",
+            "name": "string",
+            "email": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "delete": {
           "name": "deleteCustomer",
@@ -191,10 +210,20 @@
           "method": "DELETE",
           "path": "/customers/{customerId}",
           "params": [
-            "customerId"
+            "customerId",
+            "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "customerId": "string",
+            "id": "string"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         }
@@ -208,24 +237,50 @@
           "method": "GET",
           "path": "/garages",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createGarage",
           "descriptionTemplate": "Create garage",
           "method": "POST",
           "path": "/garages",
-          "params": [],
+          "params": [
+            "id",
+            "garageId",
+            "chainId",
+            "name",
+            "address",
+            "phone"
+          ],
           "bodyTemplate": {
+            "location": "{location}",
+            "capacity": "{capacity}",
+            "id": "{id}",
             "garageId": "{garageId}",
             "chainId": "{chainId}",
             "name": "{name}",
             "address": "{address}",
-            "phone": "{phone}",
-            "active": "{active}",
-            "bayCount": "{bayCount}",
-            "servicesOffered": "{servicesOffered}"
-          }
+            "phone": "{phone}"
+          },
+          "paramTypes": {
+            "location": "string",
+            "capacity": "integer",
+            "id": "string",
+            "garageId": "string",
+            "chainId": "string",
+            "name": "string",
+            "address": "string",
+            "phone": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "readGarage",
@@ -235,7 +290,14 @@
           "params": [
             "garageId"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "garageId": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "updateGarage",
@@ -246,14 +308,19 @@
             "garageId"
           ],
           "bodyTemplate": {
-            "chainId": "{chainId}",
-            "name": "{name}",
-            "address": "{address}",
-            "phone": "{phone}",
-            "active": "{active}",
-            "bayCount": "{bayCount}",
-            "servicesOffered": "{servicesOffered}"
-          }
+            "location": "{location}",
+            "capacity": "{capacity}"
+          },
+          "paramTypes": {
+            "garageId": "string",
+            "location": "string",
+            "capacity": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "delete": {
           "name": "deleteGarage",
@@ -264,7 +331,138 @@
             "garageId"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "garageId": "string"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
+            404
+          ]
+        }
+      }
+    },
+    "Cars": {
+      "operations": {
+        "list": {
+          "name": "listCars",
+          "descriptionTemplate": "List cars",
+          "method": "GET",
+          "path": "/cars",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "add": {
+          "name": "createCar",
+          "descriptionTemplate": "Create car",
+          "method": "POST",
+          "path": "/cars",
+          "params": [
+            "id",
+            "vin",
+            "make",
+            "model",
+            "year",
+            "mileage",
+            "ownerCustomerId"
+          ],
+          "bodyTemplate": {
+            "make": "{make}",
+            "model": "{model}",
+            "year": "{year}",
+            "id": "{id}",
+            "vin": "{vin}",
+            "mileage": "{mileage}",
+            "ownerCustomerId": "{ownerCustomerId}"
+          },
+          "paramTypes": {
+            "make": "string",
+            "model": "string",
+            "year": "integer",
+            "id": "string",
+            "vin": "string",
+            "mileage": "integer",
+            "ownerCustomerId": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": true
+        },
+        "get": {
+          "name": "readCar",
+          "descriptionTemplate": "Read car",
+          "method": "GET",
+          "path": "/cars/{vin}",
+          "params": [
+            "vin",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "vin": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "update": {
+          "name": "updateCar",
+          "descriptionTemplate": "Update car",
+          "method": "PUT",
+          "path": "/cars/{vin}",
+          "params": [
+            "vin",
+            "id"
+          ],
+          "bodyTemplate": {
+            "make": "{make}",
+            "model": "{model}",
+            "year": "{year}"
+          },
+          "paramTypes": {
+            "vin": "string",
+            "make": "string",
+            "model": "string",
+            "year": "integer",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
+        },
+        "delete": {
+          "name": "deleteCar",
+          "descriptionTemplate": "Delete car",
+          "method": "DELETE",
+          "path": "/cars/{vin}",
+          "params": [
+            "vin",
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "vin": "string",
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
+            400,
             404
           ]
         }
@@ -278,24 +476,48 @@
           "method": "GET",
           "path": "/periodic-maintenance",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createPMPlan",
           "descriptionTemplate": "Create PM plan",
           "method": "POST",
           "path": "/periodic-maintenance",
-          "params": [],
+          "params": [
+            "id",
+            "pmId",
+            "carVin",
+            "garageId",
+            "planType",
+            "tasks"
+          ],
           "bodyTemplate": {
+            "schedule": "{schedule}",
+            "tasks": "{tasks}",
+            "id": "{id}",
             "pmId": "{pmId}",
             "carVin": "{carVin}",
             "garageId": "{garageId}",
-            "planType": "{planType}",
-            "tasks": "{tasks}",
-            "intervalKm": "{intervalKm}",
-            "intervalMonths": "{intervalMonths}",
-            "status": "{status}"
-          }
+            "planType": "{planType}"
+          },
+          "paramTypes": {
+            "schedule": "string",
+            "tasks": "array",
+            "id": "string",
+            "pmId": "string",
+            "carVin": "string",
+            "garageId": "string",
+            "planType": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": false
         },
         "get": {
           "name": "readPMPlan",
@@ -303,9 +525,18 @@
           "method": "GET",
           "path": "/periodic-maintenance/{pmId}",
           "params": [
-            "pmId"
+            "pmId",
+            "id"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "pmId": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "updatePMPlan",
@@ -313,17 +544,24 @@
           "method": "PUT",
           "path": "/periodic-maintenance/{pmId}",
           "params": [
-            "pmId"
+            "pmId",
+            "id"
           ],
           "bodyTemplate": {
-            "carVin": "{carVin}",
-            "garageId": "{garageId}",
-            "planType": "{planType}",
-            "tasks": "{tasks}",
-            "intervalKm": "{intervalKm}",
-            "intervalMonths": "{intervalMonths}",
-            "status": "{status}"
-          }
+            "schedule": "{schedule}",
+            "tasks": "{tasks}"
+          },
+          "paramTypes": {
+            "pmId": "string",
+            "schedule": "string",
+            "tasks": "array",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "delete": {
           "name": "deletePMPlan",
@@ -331,16 +569,25 @@
           "method": "DELETE",
           "path": "/periodic-maintenance/{pmId}",
           "params": [
-            "pmId"
+            "pmId",
+            "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "pmId": "string",
+            "id": "string"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         }
       }
     },
-    "RepairOrder": {
+    "RepairOrders": {
       "operations": {
         "list": {
           "name": "listRepairOrders",
@@ -348,22 +595,52 @@
           "method": "GET",
           "path": "/repair-orders",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createRepairOrder",
           "descriptionTemplate": "Create repair order",
           "method": "POST",
           "path": "/repair-orders",
-          "params": [],
+          "params": [
+            "id",
+            "roId",
+            "carVin",
+            "customerId",
+            "garageId",
+            "complaint"
+          ],
           "bodyTemplate": {
+            "customer": "{customer}",
+            "device": "{device}",
+            "issue": "{issue}",
+            "id": "{id}",
             "roId": "{roId}",
             "carVin": "{carVin}",
             "customerId": "{customerId}",
             "garageId": "{garageId}",
-            "complaint": "{complaint}",
-            "status": "{status}"
-          }
+            "complaint": "{complaint}"
+          },
+          "paramTypes": {
+            "customer": "string",
+            "device": "string",
+            "issue": "string",
+            "id": "string",
+            "roId": "string",
+            "carVin": "string",
+            "customerId": "string",
+            "garageId": "string",
+            "complaint": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "readRepairOrder",
@@ -373,7 +650,14 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "roId": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
         },
         "update": {
           "name": "updateRepairOrder",
@@ -384,12 +668,19 @@
             "roId"
           ],
           "bodyTemplate": {
-            "carVin": "{carVin}",
-            "customerId": "{customerId}",
-            "garageId": "{garageId}",
-            "complaint": "{complaint}",
-            "status": "{status}"
-          }
+            "status": "{status}",
+            "notes": "{notes}"
+          },
+          "paramTypes": {
+            "roId": "string",
+            "status": "string",
+            "notes": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "delete": {
           "name": "deleteRepairOrder",
@@ -400,7 +691,14 @@
             "roId"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "roId": "string"
+          },
           "x-negative-delete-expected-codes": [
+            404
+          ],
+          "x-defined-response-codes": [
+            204,
             404
           ]
         },
@@ -412,7 +710,15 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "roId": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         },
         "close": {
           "name": "closeRepairOrder",
@@ -422,10 +728,35 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "roId": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
         }
       }
     }
+  },
+  "dependencies": {
+    "Garages": [
+      "Chains"
+    ],
+    "Cars": [
+      "Customers"
+    ],
+    "PeriodicMaintenance": [
+      "Cars",
+      "Garages"
+    ],
+    "RepairOrders": [
+      "Cars",
+      "Customers",
+      "Garages"
+    ]
   },
   "original_spec": {
     "openapi": "3.0.3",

@@ -1,6 +1,6 @@
 {
   "sut_name": "pharmacy",
-  "base_url": "http://192.168.225.53:5014",
+  "base_url": "http://localhost:8000",
   "entities": {
     "Drugs": {
       "operations": {
@@ -10,18 +10,32 @@
           "method": "GET",
           "path": "/drugs",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createDrug",
           "descriptionTemplate": "Create drug",
           "method": "POST",
           "path": "/drugs",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            409
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "getDrug",
@@ -31,7 +45,13 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "updateDrug",
@@ -42,9 +62,14 @@
             "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "delete": {
           "name": "deleteDrug",
@@ -55,10 +80,16 @@
             "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
           "x-negative-delete-expected-codes": [
             200,
             404,
             401
+          ],
+          "x-defined-response-codes": [
+            200
           ]
         }
       }
@@ -71,17 +102,32 @@
           "method": "GET",
           "path": "/orders",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createOrder",
           "descriptionTemplate": "Create order",
           "method": "POST",
           "path": "/orders",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
             "id": "{id}"
-          }
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            409
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "getOrder",
@@ -91,7 +137,13 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "updateOrder",
@@ -103,21 +155,33 @@
           ],
           "bodyTemplate": {
             "id": "{id}"
-          }
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "delete": {
           "name": "deleteOrder",
-          "descriptionTemplate": "Delete order (idempotent)",
+          "descriptionTemplate": "Delete order",
           "method": "DELETE",
           "path": "/orders/{id}",
           "params": [
             "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
           "x-negative-delete-expected-codes": [
             200,
             404,
             401
+          ],
+          "x-defined-response-codes": [
+            200
           ]
         }
       }
@@ -130,18 +194,32 @@
           "method": "GET",
           "path": "/patients",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createPatient",
           "descriptionTemplate": "Create patient",
           "method": "POST",
           "path": "/patients",
-          "params": [],
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            409
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "getPatient",
@@ -151,7 +229,13 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "updatePatient",
@@ -162,9 +246,14 @@
             "id"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "name": "{name}"
-          }
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "delete": {
           "name": "deletePatient",
@@ -175,69 +264,16 @@
             "id"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
           "x-negative-delete-expected-codes": [
             200,
             404,
             401
-          ]
-        }
-      }
-    },
-    "Prescriptions": {
-      "operations": {
-        "list": {
-          "name": "listPrescriptions",
-          "descriptionTemplate": "List prescriptions",
-          "method": "GET",
-          "path": "/prescriptions",
-          "params": [],
-          "bodyTemplate": null
-        },
-        "add": {
-          "name": "createPrescription",
-          "descriptionTemplate": "Create prescription",
-          "method": "POST",
-          "path": "/prescriptions",
-          "params": [],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
-        },
-        "get": {
-          "name": "getPrescription",
-          "descriptionTemplate": "Get prescription",
-          "method": "GET",
-          "path": "/prescriptions/{id}",
-          "params": [
-            "id"
           ],
-          "bodyTemplate": null
-        },
-        "update": {
-          "name": "updatePrescription",
-          "descriptionTemplate": "Update prescription",
-          "method": "PUT",
-          "path": "/prescriptions/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}"
-          }
-        },
-        "delete": {
-          "name": "deletePrescription",
-          "descriptionTemplate": "Delete prescription (idempotent)",
-          "method": "DELETE",
-          "path": "/prescriptions/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": null,
-          "x-negative-delete-expected-codes": [
-            200,
-            404,
-            401
+          "x-defined-response-codes": [
+            200
           ]
         }
       }
@@ -250,17 +286,35 @@
           "method": "GET",
           "path": "/inventory",
           "params": [],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "add": {
           "name": "createInventory",
           "descriptionTemplate": "Create inventory",
           "method": "POST",
           "path": "/inventory",
-          "params": [],
+          "params": [
+            "ndc",
+            "id"
+          ],
           "bodyTemplate": {
-            "ndc": "{ndc}"
-          }
+            "ndc": "{ndc}",
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "ndc": "string",
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            409
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "getInventory",
@@ -270,7 +324,13 @@
           "params": [
             "ndc"
           ],
-          "bodyTemplate": null
+          "bodyTemplate": null,
+          "paramTypes": {
+            "ndc": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "update": {
           "name": "updateInventory",
@@ -282,25 +342,134 @@
           ],
           "bodyTemplate": {
             "ndc": "{ndc}"
-          }
+          },
+          "paramTypes": {
+            "ndc": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         },
         "delete": {
           "name": "deleteInventory",
-          "descriptionTemplate": "Delete inventory (idempotent)",
+          "descriptionTemplate": "Delete inventory",
           "method": "DELETE",
           "path": "/inventory/{ndc}",
           "params": [
             "ndc"
           ],
           "bodyTemplate": null,
+          "paramTypes": {
+            "ndc": "string"
+          },
           "x-negative-delete-expected-codes": [
             200,
             404,
             401
+          ],
+          "x-defined-response-codes": [
+            200
+          ]
+        }
+      }
+    },
+    "Prescriptions": {
+      "operations": {
+        "list": {
+          "name": "listPrescriptions",
+          "descriptionTemplate": "List prescriptions",
+          "method": "GET",
+          "path": "/prescriptions",
+          "params": [],
+          "bodyTemplate": null,
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "add": {
+          "name": "createPrescription",
+          "descriptionTemplate": "Create prescription",
+          "method": "POST",
+          "path": "/prescriptions",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            409
+          ],
+          "x-generate-full-story": true
+        },
+        "get": {
+          "name": "getPrescription",
+          "descriptionTemplate": "Get prescription",
+          "method": "GET",
+          "path": "/prescriptions/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "update": {
+          "name": "updatePrescription",
+          "descriptionTemplate": "Update prescription",
+          "method": "PUT",
+          "path": "/prescriptions/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {
+            "id": "{id}"
+          },
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "delete": {
+          "name": "deletePrescription",
+          "descriptionTemplate": "Delete prescription",
+          "method": "DELETE",
+          "path": "/prescriptions/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": null,
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-negative-delete-expected-codes": [
+            200,
+            404,
+            401
+          ],
+          "x-defined-response-codes": [
+            200
           ]
         }
       }
     }
+  },
+  "dependencies": {
+    "Inventory": [
+      "Drugs"
+    ]
   },
   "original_spec": {
     "openapi": "3.0.3",

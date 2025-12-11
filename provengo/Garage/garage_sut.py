@@ -1,8 +1,8 @@
-
 from typing import Dict, Any, List, Tuple, Optional
 from flask import Flask, request, jsonify, Response
 from datetime import datetime
 import logging
+import json
 
 # ---------------------------------
 # App setup
@@ -31,12 +31,17 @@ def ok(payload: Any, code: int = 200) -> Tuple[Response, int]:
     return jsonify(payload), code
 
 def err(msg: str, code: int = 400) -> Tuple[Response, int]:
+    # --- DEBUG PRINT ADDED ---
+    print(f"--- [SERVER ERROR {code}] {msg}")
     return jsonify({"error": msg}), code
 
 def require_fields(body: Dict[str, Any], fields: List[str]) -> Optional[str]:
     for f in fields:
         if f not in body:
-            return f"Missing required field: {f}"
+            msg = f"Missing required field: {f}"
+            # --- DEBUG PRINT ADDED ---
+            print(f"--- [VALIDATION FAIL] {msg}. Received Body keys: {list(body.keys())}")
+            return msg
     return None
 
 def as_bool(x: Any, default=False) -> bool:
@@ -117,6 +122,7 @@ def seed():
 # ---------------------------------
 # Reset endpoint
 # ---------------------------------
+@app.route("/reset", methods=["POST"])
 def reset():
     seed()
     return ok({"status":"reset","chains":len(chains),"garages":len(garages),"customers":len(customers),"cars":len(cars),"pms":len(pms),"ros":len(ros)}, 200)
@@ -127,6 +133,7 @@ def reset():
 @app.route("/chains", methods=["POST"])
 def create_chain():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /chains] Body: {json.dumps(body)}")
     missing = require_fields(body, ["chainId","name","hqAddress"])
     if missing: return err(missing, 400)
     cid = body["chainId"]
@@ -177,11 +184,12 @@ def delete_chain(chainId):
 @app.route("/garages", methods=["POST"])
 def create_garage():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /garages] Body: {json.dumps(body)}")
     missing = require_fields(body, ["garageId","chainId","name","address","phone"])
     if missing: return err(missing, 400)
     gid = body["garageId"]
     if gid in garages: return err("duplicate-id", 400)
-    if body["chainId"] not in chains: return err("invalid-chain", 400)
+    if body["chainId"] not in chains: return err(f"invalid-chain (ID: {body['chainId']})", 400)
     garages[gid] = {
         "garageId": gid,
         "chainId": body["chainId"],
@@ -236,12 +244,13 @@ def delete_garage(garageId):
 @app.route("/customers", methods=["POST"])
 def create_customer():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /customers] Body: {json.dumps(body)}")
     missing = require_fields(body, ["customerId","type","fullName","email","phone"])
     if missing: return err(missing, 400)
     cid = body["customerId"]
     if cid in customers: return err("duplicate-id", 400)
     if body.get("preferredGarageId") and body["preferredGarageId"] not in garages:
-        return err("invalid-garage", 400)
+        return err(f"invalid-garage (ID: {body['preferredGarageId']})", 400)
     customers[cid] = {
         "customerId": cid, "type": body["type"], "fullName": body["fullName"],
         "email": body["email"], "phone": body["phone"],
@@ -291,13 +300,14 @@ def delete_customer(customerId):
 @app.route("/cars", methods=["POST"])
 def create_car():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /cars] Body: {json.dumps(body)}")
     missing = require_fields(body, ["vin","make","model","year","mileage","ownerCustomerId"])
     if missing: return err(missing, 400)
     vin = body["vin"]
     if vin in cars: return err("duplicate-vin", 400)
-    if body["ownerCustomerId"] not in customers: return err("invalid-owner", 400)
+    if body["ownerCustomerId"] not in customers: return err(f"invalid-owner (ID: {body['ownerCustomerId']})", 400)
     if body.get("homeGarageId") and body["homeGarageId"] not in garages:
-        return err("invalid-garage", 400)
+        return err(f"invalid-garage (ID: {body['homeGarageId']})", 400)
     cars[vin] = {
         "vin": vin, "make":body["make"], "model":body["model"],
         "year": int(body["year"]), "mileage": int(body["mileage"]),
@@ -350,12 +360,13 @@ def delete_car(vin):
 @app.route("/periodic-maintenance", methods=["POST"])
 def create_pm():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /periodic-maintenance] Body: {json.dumps(body)}")
     missing = require_fields(body, ["pmId","carVin","garageId","planType","tasks"])
     if missing: return err(missing, 400)
     pmId = body["pmId"]
     if pmId in pms: return err("duplicate-id", 400)
-    if body["carVin"] not in cars: return err("invalid-car", 400)
-    if body["garageId"] not in garages: return err("invalid-garage", 400)
+    if body["carVin"] not in cars: return err(f"invalid-car (ID: {body['carVin']})", 400)
+    if body["garageId"] not in garages: return err(f"invalid-garage (ID: {body['garageId']})", 400)
     pms[pmId] = {
         "pmId": pmId, "carVin": body["carVin"], "garageId": body["garageId"],
         "planType": body["planType"],
@@ -405,13 +416,14 @@ VALID_RO_STATUS = ["open","awaiting-approval","in-progress","ready-for-pickup","
 @app.route("/repair-orders", methods=["POST"])
 def create_ro():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /repair-orders] Body: {json.dumps(body)}")
     missing = require_fields(body, ["roId","carVin","customerId","garageId","complaint"])
     if missing: return err(missing, 400)
     roId = body["roId"]
     if roId in ros: return err("duplicate-id", 400)
-    if body["carVin"] not in cars: return err("invalid-car", 400)
-    if body["customerId"] not in customers: return err("invalid-customer", 400)
-    if body["garageId"] not in garages: return err("invalid-garage", 400)
+    if body["carVin"] not in cars: return err(f"invalid-car (ID: {body['carVin']})", 400)
+    if body["customerId"] not in customers: return err(f"invalid-customer (ID: {body['customerId']})", 400)
+    if body["garageId"] not in garages: return err(f"invalid-garage (ID: {body['garageId']})", 400)
     ros[roId] = {
         "roId": roId, "carVin": body["carVin"], "customerId": body["customerId"],
         "garageId": body["garageId"], "complaint": body["complaint"],

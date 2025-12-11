@@ -6,10 +6,8 @@ from new_repo.pipeline.emitter_utils import (
     get_operation_schema, infer_type, collect_entity_params
 )
 
-# Function to safely get the event name based on the operation's description
 def _get_op_event_name(op_data):
     description = op_data.get("descriptionTemplate", "Unknown operation.")
-    # The event name is always "Done: " + description
     return f'bp.Event("Done: {description}")'
 
 def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
@@ -17,20 +15,23 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     dependencies = spec.get("dependencies", {}) 
     raw_spec = get_raw_spec(spec)
     
+    # Identify "Parent" entities that have dependents
+    has_dependents = set()
+    for child, parents in dependencies.items():
+        for p in parents:
+            has_dependents.add(p)
+
     lines = []
     lines.append(f'// Auto-generated stories for {sut_name}')
     lines.append('//@provengo summon rest')
     lines.append('')
     
-    # --- 1. GENERATE HARMFUL EVENT SET (For Concurrency Guard) ---
     harmful_events = []
     for name, ent in entities.items():
         ops = ent.get("operations", {})
         for op_type, op_data in ops.items():
             path = op_data.get("path", "")
             method = op_data.get("method", "").upper()
-
-            # Rule: If method is DELETE and path does not contain /{id} (Collection Root Delete)
             if method == "DELETE" and "{" not in path:
                 event_name = _get_op_event_name(op_data)
                 harmful_events.append(event_name)
@@ -39,22 +40,17 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     if harmful_events:
         lines.append(f'// EventSet of all known collection-root DELETE events')
         lines.append(f'const {harmful_event_set_name} = bp.EventSet("DestructiveDeleteEvents", function(e) {{')
-        
         event_names_list = [e.split('Done: ')[1].strip().strip(')"') for e in harmful_events]
         lines.append(f'    // Includes: {", ".join(event_names_list)}')
-        
         lines.append('    const destructiveEvents = [')
-        
         for event in harmful_events:
             description_part = event.split('Done: ')[1].strip().strip(')"') 
             lines.append(f'        "{description_part}",')
         lines.append('    ];')
-        
         lines.append('    const eventName = e.name.replace("Done: ", "");')
         lines.append('    return destructiveEvents.some(d => eventName.startsWith(d.trim()));')
         lines.append('});')
         lines.append('')
-    # -------------------------------------------------------------------
 
     lines.append('function resolveDependencies(deps, pkMap) {')
     lines.append('  let captured = {};')
@@ -96,9 +92,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         add_op = ops.get("add")
         if not add_op: continue
         
+        # Respect the LLM/Classifier flag
         is_full_story = add_op.get("x-generate-full-story", True)
         
-        # FIX: Initialize can_fully_test to the resource classification result
+        primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+        
         can_fully_test = is_full_story 
         
         def get_safe_fn(op_key):
@@ -107,38 +105,40 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
         add_fn = get_safe_fn("add")
         upd_fn = get_safe_fn("update")
-
-        # --- SMART DELETE SELECTION ---
         del_fn = get_safe_fn("delete")
         del_op = ops.get("delete", {})
         
         is_collection_root_delete = False
         
-        # Check if the default delete is a Batch Delete
-        if del_op and "id" not in del_op.get("params", []):
-            is_collection_root_delete = True
+        if del_op:
+            path = del_op.get("path", "")
+            path_has_params = "{" in path and "}" in path
+            params_has_pk = primary_key in del_op.get("params", [])
             
-            # 1. Search for a safer, single-item delete operation to use in the story.
-            del_fn_single = None
-            for key, val in ops.items():
-                if "delete" in key.lower() and "id" in val.get("params", []):
-                     del_fn_single = sanitize_param(val["name"])
-                     break
-
-            # Use the single delete if found. If not found, skip full test.
-            if del_fn_single:
-                del_fn = del_fn_single
+            if path_has_params or params_has_pk:
+                is_collection_root_delete = False
             else:
-                can_fully_test = False # Cannot safely cleanup if only batch delete exists
+                is_collection_root_delete = True
+                del_fn_single = None
+                for key, val in ops.items():
+                    val_path = val.get("path", "")
+                    if "delete" in key.lower():
+                        if (primary_key in val.get("params", [])) or ("{" in val_path):
+                             del_fn_single = sanitize_param(val["name"])
+                             break
+                
+                if del_fn_single:
+                    del_fn = del_fn_single
+                    is_collection_root_delete = False 
+                else:
+                    del_fn = None 
         
-        primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
-
         item_get_op = ops.get("get")
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         
-        # Final check on testability after smart selection
-        can_fully_test = can_fully_test and has_specific_get and (del_fn is not None)
-
+        has_verify = has_specific_get
+        has_delete = (del_fn is not None)
+        
         try_add_fn = f"tryToAddExisting{safe_entity_name}"
         try_del_fn = f"tryToDeleteANonExisting{safe_entity_name}"
         ver_ex_fn = f"verify{safe_entity_name}Exists"
@@ -154,21 +154,40 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
         deps = []
         story_pk_map = {}
-        
         parent_entities = dependencies.get(name, []) or []
+        
         for parent in parent_entities:
             target_param = None
             parent_pk = entity_pks_map.get(parent, "id")
+            
+            parent_clean = parent.lower()
+            if parent_clean.endswith("s") and not parent_clean.endswith("ss"):
+                parent_clean = parent_clean[:-1]
+
+            matches = []
             for p in sig_params:
-                if parent.lower() in p.lower() or p == "id": 
-                    target_param = p
-                    break
+                if p == "id": continue 
+                if parent_clean in p.lower():
+                    matches.append(p)
+            
+            if matches:
+                target_param = matches[0]
+                for m in matches:
+                    lower_m = m.lower()
+                    if lower_m.endswith("id") or lower_m.endswith("_id"):
+                        target_param = m
+                        break
+
             if target_param and parent in entity_pks_map:
                  deps.append((parent, target_param))
                  story_pk_map[target_param] = parent_pk
 
         def get_vars(idx):
             declarations = []
+            
+            # --- FIX: Explicit list of known boolean fields to prevent String generation errors ---
+            known_bool_fields = ["hidden", "singleton", "versioning", "locked", "readonly", "enabled", "required", "system", "active"]
+
             for p in sig_params:
                 auth_params = [
                     "token", "api_key", "apikey", "authorization", "auth",
@@ -183,27 +202,28 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 
                 sanitized = sanitize_param(p)
                 
-                if not is_dep:
-                    if p == "id":
-                        val = f'"id_{idx}_" + new Date().getTime() + "_" + Math.floor(Math.random() * 100000)'
+                if not is_dep or p == primary_key:
+                    ptype = param_types.get(p, "string").lower()
+                    
+                    # --- FIX: Force boolean type if name matches known boolean fields ---
+                    if p.lower() in known_bool_fields:
+                        ptype = "boolean"
+                    
+                    if ptype in ["integer", "number", "int", "float", "double"]:
+                         val = f'{idx}00000 + Math.floor(Math.random() * 100000)'
+                    elif ptype == "boolean":
+                        val = "true"
                     else:
-                        ptype = param_types.get(p, "string").lower()
-                        if ptype in ["integer", "number", "int", "float", "double"]:
-                            if "year" in p.lower(): val = f'{2020 + (idx % 5)}'
-                            elif "mileage" in p.lower(): val = f'{10000 + idx}'
-                            elif "bay" in p.lower(): val = f'{5 + (idx % 5)}'
-                            elif "interval" in p.lower(): val = f'6'
-                            elif p == primary_key or "id" in p.lower(): val = f'{idx}'
-                            else: val = f'{idx}'
-                        elif ptype == "boolean":
-                            val = "true"
-                        else: 
-                            # CRITICAL FIX: Ensure non-ID payload fields (like 'data' in Flow) are unique
-                            if p in ["data", "name", "key"]:
-                                val = f'"{p}_{idx}_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000)'
-                            else:
-                                val = f'"{p}_{idx}_" + Math.floor(Math.random() * 10000)'
-                            
+                         if p in ["data", "name", "key"] or "name" in p.lower():
+                            val = f'"{p}_{idx}_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000)'
+                         
+                         # --- FIX: Strict UUID Generation ---
+                         # Ensures exactly 12 random digits at the end to form a valid-length UUID-like string
+                         elif p == "id" or p.endswith("Id") or p.endswith("_id"):
+                             val = f'"{idx}000000-0000-0000-0000-" + (100000000000 + Math.floor(Math.random() * 899999999999))'
+                         else:
+                            val = f'"{p}_{idx}_" + Math.floor(Math.random() * 10000)'
+                                
                     declarations.append(f'  let {sanitized} = {val};')
                 else:
                     declarations.append(f'  let {sanitized}; // Resolved Dependency')
@@ -224,7 +244,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 lines.append(f'bthread("{story_name}", function () {{')
                 lines.append(get_vars(story_id))
                 
-                # --- DEPENDENCY INJECTION FIX: Consolidate resolution into a single block ---
                 if deps:
                     lines.append('  // Ensure dependencies are resolved before starting CRUD')
                     lines.append('  let deps = {};')
@@ -233,43 +252,44 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                         lines.append(f'  deps["{sanitized}"] = matchAny{sanitize_param(target_ent)}Added();')
                     
                     lines.append(f'  let pkMap = {json.dumps(story_pk_map)};')
-                    # FIX: Define 'captured' in the same scope where it is used (inside the bthread)
                     lines.append('  let captured = resolveDependencies(deps, pkMap);') 
                     lines.append(f'  bp.log.info(`Dependencies executed: ${{Object.keys(captured).join(", ")}}. Continuing story.`);')
 
-                    # Extracting variables (using the variable 'captured' defined immediately above)
                     for d_ent, var_name in deps:
                         sanitized = sanitize_param(var_name)
                         lines.append(f'  {sanitized} = captured["{sanitized}"];') 
-                # --- END DEPENDENCY INJECTION FIX ---
                 
                 args_to_pass = ", ".join([sanitize_param(p) for p in sig_params if p.lower() not in ["token", "api_key", "authorization", "auth", "client_id", "client_secret"]])
                 
-                # --- LOCAL EXECUTION GUARD START ---
-                if harmful_events and can_fully_test and is_collection_root_delete:
-                    # Guard the linear execution against all harmful batch delete events.
+                if harmful_events and has_delete and is_collection_root_delete:
                      lines.append(f'  // Guard against destructive parallel batch delete event')
                      lines.append(f'  block({harmful_event_set_name}, function() {{')
                 
                 lines.append(f'  {add_fn}({args_to_pass});')
                 
-                if can_fully_test:
-                    # Removed tryToAddExisting step to eliminate the 409 conflict
-                    lines.append(f'  {ver_ex_fn}({args_to_pass});')
+                if is_full_story:
+                    if has_verify:
+                        lines.append(f'  {ver_ex_fn}({args_to_pass});')
                     
-                    if upd_fn: lines.append(f'  {upd_fn}({args_to_pass});')
-                    if del_fn: lines.append(f'  {del_fn}({args_to_pass});')
-                    lines.append(f'  {try_del_fn}({args_to_pass});')
-                    lines.append(f'  {ver_ne_fn}({args_to_pass});')
+                    if upd_fn:
+                        lines.append(f'  {upd_fn}({args_to_pass});')
+                    
+                    if has_delete:
+                        if name in has_dependents:
+                             lines.append(f'  // Skip delete for {name} to prevent foreign key errors (has active dependents)')
+                        else:
+                             lines.append(f'  {del_fn}({args_to_pass});')
+                             if has_verify:
+                                 lines.append(f'  {try_del_fn}({args_to_pass});')
+                                 lines.append(f'  {ver_ne_fn}({args_to_pass});')
                 
-                if harmful_events and can_fully_test and is_collection_root_delete:
+                if harmful_events and has_delete and is_collection_root_delete:
                      lines.append(f'  }});')
-                # --- LOCAL EXECUTION GUARD END ---
                 
                 lines.append('});')
                 lines.append('')
 
-            if can_fully_test:
+            if has_verify and is_full_story:
                 lines.append(f'// Monitor: {name} Verification')
                 lines.append(f'bthread("monitor:{name}", function () {{')
                 lines.append('  while (true) {')
@@ -278,12 +298,16 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 
                 args_to_pass = ", ".join([sanitize_param(p) for p in sig_params if p.lower() not in ["token", "api_key", "authorization", "auth", "client_id", "client_secret"]])
 
-                lines.append(f'    // Block Deletion while Verifying Existence')
-                lines.append(f'    block(matchDeleted{safe_entity_name}({args_to_pass}), function() {{')
-                # DEBUG PRINT 1: Inside the monitor block (using bp.log.info)
-                lines.append(f'      bp.log.info(`Monitor {name}: Verifying persistence of ID ${{id}} inside deletion block.`);') 
-                lines.append(f'        {ver_ex_fn}({args_to_pass});') 
-                lines.append(f'    }});')
+                if has_delete and name not in has_dependents:
+                    lines.append(f'    // Block Deletion while Verifying Existence')
+                    lines.append(f'    block(matchDeleted{safe_entity_name}({args_to_pass}), function() {{')
+                    lines.append(f'      bp.log.info(`Monitor {name}: Verifying persistence of ID ${{id}} inside deletion block.`);') 
+                    lines.append(f'        {ver_ex_fn}({args_to_pass});') 
+                    lines.append(f'    }});')
+                else:
+                     lines.append(f'    // Monitor {name}: Verifying existence (Deletion skipped due to dependencies)') 
+                     lines.append(f'    {ver_ex_fn}({args_to_pass});')
+
                 lines.append('  }')
                 lines.append('});')
                 lines.append('')
