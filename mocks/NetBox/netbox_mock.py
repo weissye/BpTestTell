@@ -6,6 +6,7 @@ import re
 # Auto-generated Mock for NetBox REST API
 app = Flask(__name__)
 mock_db = defaultdict(list)
+call_counts = defaultdict(int)
 
 PATH_STATUS_CODES = {
     "api/circuits/circuit-group-assignments": 201,
@@ -178,6 +179,13 @@ def handle_request(resource_path):
             resource_key = '/'.join(parts[:-1])
     
     print(f'[{request.method}] Path: {resource_path} | Key: {resource_key} | ID: {item_id}')
+    
+    # Simulate Bug: Error every 3rd call to 'api/dcim/sites'
+    # if resource_path == 'api/dcim/sites':
+    call_counts[resource_path] += 1
+    if call_counts[resource_path] % 3 == 0:
+        print("Simulating specific bug: Internal Server Error")
+        return jsonify({'detail': 'Simulated specific bug: Internal Server Error'}), 503
 
     if request.method == 'GET':
         if item_id is not None:
