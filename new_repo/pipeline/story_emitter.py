@@ -30,6 +30,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     for name, ent in entities.items():
         ops = ent.get("operations", {})
         for op_type, op_data in ops.items():
+            if isinstance(op_data, list):
+                if len(op_data) > 0 and isinstance(op_data[0], dict):
+                    op_data = op_data[0]
+                else:
+                    continue
             path = op_data.get("path", "")
             method = op_data.get("method", "").upper()
             if method == "DELETE" and "{" not in path:
@@ -90,6 +95,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         
         ops = ent.get("operations", {})
         add_op = ops.get("add")
+        if isinstance(add_op, list):
+             if len(add_op) > 0 and isinstance(add_op[0], dict):
+                 add_op = add_op[0]
+             else:
+                 add_op = None
         if not add_op: continue
         
         has_add = "add" in ops
@@ -105,13 +115,24 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
         
         def get_safe_fn(op_key):
-            raw_fn = ops.get(op_key, {}).get("name")
+            op_d = ops.get(op_key, {})
+            if isinstance(op_d, list):
+                 if len(op_d) > 0 and isinstance(op_d[0], dict):
+                     op_d = op_d[0]
+                 else:
+                     op_d = {}
+            raw_fn = op_d.get("name")
             return sanitize_param(raw_fn) if raw_fn else None
 
         add_fn = get_safe_fn("add")
         upd_fn = get_safe_fn("update")
         del_fn = get_safe_fn("delete")
         del_op = ops.get("delete", {})
+        if isinstance(del_op, list):
+             if len(del_op) > 0 and isinstance(del_op[0], dict):
+                 del_op = del_op[0]
+             else:
+                 del_op = {}
         
         is_collection_root_delete = False
         is_primary_delete_batch = False # Flag to detect if 'delete' op is batch
@@ -132,6 +153,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 is_collection_root_delete = True
                 del_fn_single = None
                 for key, val in ops.items():
+                    if isinstance(val, list):
+                        if len(val) > 0 and isinstance(val[0], dict):
+                            val = val[0]
+                        else:
+                            continue
                     val_path = val.get("path", "")
                     if "delete" in key.lower():
                         if (primary_key in val.get("params", [])) or ("{" in val_path):
@@ -145,6 +171,11 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                     del_fn = None 
         
         item_get_op = ops.get("get")
+        if isinstance(item_get_op, list):
+             if len(item_get_op) > 0 and isinstance(item_get_op[0], dict):
+                 item_get_op = item_get_op[0]
+             else:
+                 item_get_op = None
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         
         has_verify = has_specific_get

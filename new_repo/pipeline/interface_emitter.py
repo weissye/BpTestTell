@@ -162,12 +162,23 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         ops = ent.get("operations", {})
 
         item_get_op = ops.get("get")
+        if isinstance(item_get_op, list):
+             if len(item_get_op) > 0 and isinstance(item_get_op[0], dict):
+                 item_get_op = item_get_op[0]
+             else:
+                 item_get_op = None
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         can_verify = has_specific_get 
 
         for op_type, op_data in ops.items():
             if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
             if not op_data: continue
+            if isinstance(op_data, list):
+                print(f"Warning: op_data for {op_type} in {name} is a list: {op_data}")
+                if len(op_data) > 0 and isinstance(op_data[0], dict):
+                    op_data = op_data[0]
+                else:
+                    continue
             fn_name = op_data.get("name", f"{op_type}{name}")
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
