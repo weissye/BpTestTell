@@ -174,8 +174,9 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
             if not op_data: continue
             if isinstance(op_data, list):
-                print(f"Warning: op_data for {op_type} in {name} is a list: {op_data}")
                 if len(op_data) > 0 and isinstance(op_data[0], dict):
+                    selected_name = op_data[0].get('name', 'std_op')
+                    print(f"   ℹ️  Resolving ambiguity for {name} ({op_type}): Found {len(op_data)} options. Auto-selecting '{selected_name}'.")
                     op_data = op_data[0]
                 else:
                     continue
