@@ -12,7 +12,7 @@ client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 CACHE_DIR = Path("new_repo/cache")
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-MODEL_NAME = "gpt-4o" 
+MODEL_NAME = os.getenv("OPENAI_MODEL", "gpt-4o") 
 
 SYSTEM_PROMPT = """
 You are an expert Test Automation Architect. 
