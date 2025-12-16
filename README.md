@@ -81,9 +81,9 @@ The repository includes a robust `run_manager.py` script to handle generation ef
 ### 1. Generate for a Single System
 To generate the test infrastructure for a specific system (e.g., `github` or `directus`):
 ```bash
-python run_manager.py --sut github
+python run_manager.py --sut netbox
 ```
-*This command automatically searches the `packs/` directory for the `github` folder, identifies the JSON or YAML OpenAPI file, and generates the Provengo code in `provengo_ready/github/spec/js`.*
+*This command automatically searches the `packs/` directory for the `netbox` folder, identifies the JSON or YAML OpenAPI file, and generates the Provengo code in `provengo_ready/netbox/spec/js`.*
 
 ### 2. Generate for All Systems
 To batch process every system found in the packs folder (useful for full benchmark reproduction):
@@ -172,6 +172,10 @@ For every processed system, the tool generates a `spec/js` folder containing:
 
 * **`interfaces.sut.js`:** Low-level logic, executable wrapper functions, and event matchers.
 * **`stories.sut.js`:** High-level behavioral threads defining linear CRUD stories, negative tests, and dependency synchronization.
+
+---
+
+Ready to use: pharmacy, library, garage, netbox, directus, trello
 
 ---
 
