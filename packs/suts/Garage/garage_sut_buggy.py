@@ -424,6 +424,21 @@ def create_ro():
     if body["carVin"] not in cars: return err(f"invalid-car (ID: {body['carVin']})", 400)
     if body["customerId"] not in customers: return err(f"invalid-customer (ID: {body['customerId']})", 400)
     if body["garageId"] not in garages: return err(f"invalid-garage (ID: {body['garageId']})", 400)
+
+    # === BUG #1 START: Overwhelmed Garage ===
+    # Logic: Crash if a single garage has >= 2 open Repair Orders.
+    current_load = len([r for r in ros.values() if r['garageId'] == body["garageId"] and r['status'] == "open"])
+    if current_load >= 2:
+        raise Exception(f"CRITICAL FAILURE: Garage {body['garageId']} worksapce overflow! Too many open orders.")
+    # === BUG #1 END ===
+
+    # === BUG #2 START: Teleporting Car ===
+    # Logic: Crash if car is already active in a different garage.
+    for r in ros.values():
+        if r['carVin'] == body["carVin"] and r['status'] in ["open", "in-progress"] and r['garageId'] != body["garageId"]:
+             raise Exception(f"CRITICAL LOGIC ERROR: Car {body['carVin']} is already active in Garage {r['garageId']}!")
+    # === BUG #2 END ===
+
     ros[roId] = {
         "roId": roId, "carVin": body["carVin"], "customerId": body["customerId"],
         "garageId": body["garageId"], "complaint": body["complaint"],
@@ -482,10 +497,20 @@ def approve_ro(roId):
 def close_ro(roId):
     ro = ros.get(roId)
     if not ro: return err("not-found", 404)
-    if ro["status"] not in ["ready-for-pickup","in-progress","open"]:
+    if ro["status"] not in ["in-progress"]:
         return err("invalid-state", 400)
     ro["status"] = "closed"
     ro["closedAt"] = now_iso()
+    ro["updatedAt"] = now_iso()
+    return ok(ro, 200)
+
+@app.route("/repair-orders/<roId>/cancel", methods=["POST"])
+def cancel_ro(roId):
+    ro = ros.get(roId)
+    if not ro: return err("not-found", 404)
+    if ro["status"] == "closed":
+        return err("invalid-state", 400)
+    ro["status"] = "cancelled"
     ro["updatedAt"] = now_iso()
     return ok(ro, 200)
 
