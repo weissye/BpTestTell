@@ -175,7 +175,7 @@ For every processed system, the tool generates a `spec/js` folder containing:
 
 ---
 
-Ready to use: pharmacy, library, garage, netbox, directus, trello
+Ready to use: pharmacy, library, garage, netbox, directus, gitea
 
 ---
 
