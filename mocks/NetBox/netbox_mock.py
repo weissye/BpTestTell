@@ -181,7 +181,7 @@ def handle_request(resource_path):
     print(f'[{request.method}] Path: {resource_path} | Key: {resource_key} | ID: {item_id}')
     
     # Simulate Bug: Error every 3rd call to 'api/dcim/sites'
-    # if resource_path == 'api/dcim/sites':
+    #if resource_path == 'api/dcim/sites':
     call_counts[resource_path] += 1
     if call_counts[resource_path] % 3 == 0:
         print("Simulating specific bug: Internal Server Error")
