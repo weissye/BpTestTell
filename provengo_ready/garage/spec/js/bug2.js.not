@@ -1,0 +1,46 @@
+// Story: stress:RepairOrders:cold_cache
+// Triggers Bug 2 (Replication Lag) by creating a car and immediately using it in a Repair Order.
+// This hits the SUT logic that crashes if the car is "too new" (< 1s old).
+
+bthread("stress:RepairOrders:cold_cache", function () {
+  let customerId;
+  let garageId;
+
+  // 1. Resolve Dependencies (Need an owner and a garage)
+  let deps = {};
+  deps["customerId"] = matchAnyCustomersAdded();
+  deps["garageId"] = matchAnyGaragesAdded();
+  
+  let pkMap = {"customerId": "customerId", "garageId": "garageId"};
+  let captured = resolveDependencies(deps, pkMap);
+  
+  customerId = captured["customerId"];
+  garageId = captured["garageId"];
+
+  bp.log.info("Starting Cold Cache sequence");
+
+  // 2. Rapid Fire Loop
+  // We try 10 times to ensure we hit the 30% failure chance.
+  for (let i = 0; i < 10; i++) {
+      // A. Create a NEW Car
+      let carId = "id_cold_" + Math.floor(Math.random() * 10000);
+      let make = "Rapid";
+      let mileage = 0;
+      let model = "Racer";
+      let vin = "vin_cold_" + new Date().getTime() + "_" + i;
+      let year = 2025;
+      
+      createCar(carId, make, mileage, model, customerId, vin, year);
+
+      // B. Create Repair Order IMMEDIATELY
+      // Because this happens in the same b-thread step sequence, 
+      // the time delta will be < 1s, triggering the bug logic.
+      let roId = "roId_cold_" + Math.floor(Math.random() * 10000);
+      let ro_id_field = "id_ro_cold_" + i;
+      let complaint = "Cold_Cache_Test";
+      let field1 = "Race_Condition";
+      let field2 = i;
+
+      createRepairOrder(vin, complaint, customerId, field1, field2, garageId, ro_id_field, roId);
+  }
+});
