@@ -1,0 +1,930 @@
+Random seed: 12345
+Setting fuzzing schemes: directed-smoke-test
+2025-12-19 06:51:13.246: Going to fuzz a set with 32 requests
+2025-12-19 06:51:13.246: Request-0: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-1: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-2: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-3: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-4: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-5: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-6: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-7: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-8: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-9: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-10: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-11: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-12: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-13: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-14: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-15: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-16: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-17: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-18: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-19: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-20: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-21: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-22: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-23: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-24: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-25: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-26: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-27: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-28: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-29: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-30: Value Combinations: 2
+2025-12-19 06:51:13.246: Request-31: Value Combinations: 2
+2025-12-19 06:51:13.246: Avg. Value Combinations per Request: 2
+2025-12-19 06:51:13.246: Median Value Combinations per Request: 2.0
+2025-12-19 06:51:13.246: Min Value Combinations per Request: 2
+2025-12-19 06:51:13.246: Max Value Combinations per Request: 2
+2025-12-19 06:51:13.246: Total dependencies: 28
+
+2025-12-19 06:51:13.255: Generation: 1 / Sequences Collection Size: 12 
+(After directed-smoke-test Extend)
+
+Rendering request 0 from scratch
+
+2025-12-19 06:51:13.379: Request 0
+2025-12-19 06:51:13.379: Endpoint - /repair-orders
+2025-12-19 06:51:13.379: Hex Def - 5bebba200fbc64b6d0b15cc646264bf1f8b96a13
+2025-12-19 06:51:13.379: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:13.379: Rendering INVALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "roId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "carVin":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "customerId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "garageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "complaint":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "status":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Rendering request 1 from scratch
+
+2025-12-19 06:51:13.438: Request 1
+2025-12-19 06:51:13.438: Endpoint - /customers
+2025-12-19 06:51:13.438: Hex Def - 954c7588a8434fd4a723288c75c18432c9c2cd94
+2025-12-19 06:51:13.438: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:13.438: Rendering VALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'customers'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "customerId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "type":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "fullName":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "email":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "phone":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "preferredGarageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Rendering request 2 from scratch
+
+2025-12-19 06:51:13.548: Request 2
+2025-12-19 06:51:13.548: Endpoint - /customers
+2025-12-19 06:51:13.548: Hex Def - 984b723756d3cfb434549fab507dba3b4ab5c5dc
+2025-12-19 06:51:13.548: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:13.548: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'customers'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Rendering request 3 from scratch
+
+2025-12-19 06:51:13.647: Request 3
+2025-12-19 06:51:13.647: Endpoint - /periodic-maintenance
+2025-12-19 06:51:13.647: Hex Def - a7194d98346a763c2654ca6a730c504e89ccff80
+2025-12-19 06:51:13.647: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:13.647: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'periodic-maintenance'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Rendering request 4 from scratch
+
+2025-12-19 06:51:13.789: Request 4
+2025-12-19 06:51:13.789: Endpoint - /chains
+2025-12-19 06:51:13.789: Hex Def - b69d2b7624243d211ca90c2972ca02a7831ae22b
+2025-12-19 06:51:13.789: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:13.789: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'chains'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Rendering request 5 from scratch
+
+2025-12-19 06:51:13.913: Request 5
+2025-12-19 06:51:13.913: Endpoint - /cars
+2025-12-19 06:51:13.913: Hex Def - b6c740444468a596abf20e757b3438e7813454af
+2025-12-19 06:51:13.913: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:13.913: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'cars'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Rendering request 6 from scratch
+
+2025-12-19 06:51:14.054: Request 6
+2025-12-19 06:51:14.054: Endpoint - /repair-orders
+2025-12-19 06:51:14.054: Hex Def - e10567119bc296a2bf2e3ddc130de20e6b371a03
+2025-12-19 06:51:14.054: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:14.054: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Rendering request 7 from scratch
+
+2025-12-19 06:51:14.183: Request 7
+2025-12-19 06:51:14.183: Endpoint - /garages
+2025-12-19 06:51:14.183: Hex Def - e685b22e4f7718dbaeae6716a4877d2ef0300bcd
+2025-12-19 06:51:14.183: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:14.183: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'garages'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Rendering request 8 from scratch
+
+2025-12-19 06:51:14.256: Request 8
+2025-12-19 06:51:14.256: Endpoint - /chains
+2025-12-19 06:51:14.256: Hex Def - e9ca6887907d901675522e997007c1bee44b7b70
+2025-12-19 06:51:14.256: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:14.256: Rendering VALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'chains'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "chainId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "name":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "hqAddress":'
+		- restler_fuzzable_object: '{ "fuzz": false }'
+		- restler_static_string: ',\n    "supportEmail":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "active":'
+		- restler_fuzzable_bool: 'true'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Rendering request 9 from scratch
+
+2025-12-19 06:51:14.323: Request 9
+2025-12-19 06:51:14.323: Endpoint - /periodic-maintenance
+2025-12-19 06:51:14.323: Hex Def - eaa4802a6dc7a660db21da7c296bbe7b0ce423f4
+2025-12-19 06:51:14.323: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:14.323: Rendering VALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'periodic-maintenance'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "pmId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "carVin":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "garageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "planType":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "intervalKm":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "intervalMonths":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "tasks":\n    [\n        '
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '\n    ],\n    "status":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Rendering request 10 from scratch
+
+2025-12-19 06:51:14.391: Request 10
+2025-12-19 06:51:14.391: Endpoint - /cars
+2025-12-19 06:51:14.391: Hex Def - f61c5c50c738fedb912cdd58e801ef7d98ff9e9e
+2025-12-19 06:51:14.391: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:14.391: Rendering VALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'cars'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "vin":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "make":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "model":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "year":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "mileage":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "ownerCustomerId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "homeGarageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Rendering request 11 from scratch
+
+2025-12-19 06:51:14.454: Request 11
+2025-12-19 06:51:14.454: Endpoint - /garages
+2025-12-19 06:51:14.454: Hex Def - f74a4eee00f1c693fce5e29536e22d07349eb6ff
+2025-12-19 06:51:14.454: Sequence length that satisfies dependencies: 1
+2025-12-19 06:51:14.454: Rendering VALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'garages'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "garageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "chainId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "name":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "address":'
+		- restler_fuzzable_object: '{ "fuzz": false }'
+		- restler_static_string: ',\n    "phone":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "bayCount":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "servicesOffered":\n    [\n        '
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '\n    ],\n    "active":'
+		- restler_fuzzable_bool: 'true'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+2025-12-19 06:51:14.454: Generation: 1 / Sequences Collection Size: 5 
+(After directed-smoke-test Render)
+
+2025-12-19 06:51:14.461: Final Swagger spec coverage: 5 / 32
+2025-12-19 06:51:14.461: Rendered requests: 12 / 32
+2025-12-19 06:51:14.461: Rendered requests with "valid" status codes: 5 / 12
+2025-12-19 06:51:14.461: Num fully valid requests (no resource creation failures): 5
+2025-12-19 06:51:14.461: Num requests not rendered due to invalid sequence re-renders: 0
+2025-12-19 06:51:14.461: Num invalid requests caused by failed resource creations: 0
+2025-12-19 06:51:14.461: Total Creations of Dyn Objects: 5
+2025-12-19 06:51:14.461: Total Requests Sent: {'gc': 0, 'main_driver': 19}
+2025-12-19 06:51:14.461: Bug Buckets: {}
+2025-12-19 06:51:14.464: Generation: 2 / Sequences Collection Size: 16 
+(After directed-smoke-test Extend)
+
+Found a matching prefix of length 1 for request 12 with previous request 0
+	but that prefix was INVALID (root = 0)
+
+2025-12-19 06:51:14.464: Request 12
+2025-12-19 06:51:14.464: Endpoint - /repair-orders/{roId}
+2025-12-19 06:51:14.464: Hex Def - 00974c3290b2d30a05122dac043ed3c674285522
+2025-12-19 06:51:14.464: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:14.464: Rendering INVALID
+		- restler_static_string: 'PUT '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_repair_orders_post_roId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "carVin":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "customerId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "garageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "complaint":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "status":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 13 with previous request 10
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:14.579: Request 13
+2025-12-19 06:51:14.579: Endpoint - /cars/{vin}
+2025-12-19 06:51:14.579: Hex Def - 0ffe55e558cf27ae6d8d1b9dc2abb8c6bfc861b0
+2025-12-19 06:51:14.579: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:14.579: Rendering VALID
+		- restler_static_string: 'DELETE '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'cars'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_cars_post_vin_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 14 with previous request 0
+	but that prefix was INVALID (root = 0)
+
+2025-12-19 06:51:14.589: Request 14
+2025-12-19 06:51:14.589: Endpoint - /repair-orders/{roId}/approve
+2025-12-19 06:51:14.589: Hex Def - 53a2896a60225dc34d293ffc77a1fd8501fac06e
+2025-12-19 06:51:14.589: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:14.589: Rendering INVALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_repair_orders_post_roId_READER_DELIM'
+		- restler_static_string: '/'
+		- restler_static_string: 'approve'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 15 with previous request 8
+	and re-using that VALID prefix (1 rendering combinations)
+
+Error: Parser exception occurred during valid sequence re-rendering.
+
+Error: Parser exception occurred during valid sequence re-rendering.
+
+2025-12-19 06:51:14.764: Request 15
+2025-12-19 06:51:14.764: Endpoint - /chains/{chainId}
+2025-12-19 06:51:14.764: Hex Def - 5a14a83f0895b22380401b4089659f206ede65a7
+2025-12-19 06:51:14.764: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:14.764: Rendering INVALID
+		- restler_static_string: 'PUT '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'chains'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_chains_post_chainId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "name":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "hqAddress":'
+		- restler_fuzzable_object: '{ "fuzz": false }'
+		- restler_static_string: ',\n    "supportEmail":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "active":'
+		- restler_fuzzable_bool: 'true'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 16 with previous request 10
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:14.878: Request 16
+2025-12-19 06:51:14.878: Endpoint - /cars/{vin}
+2025-12-19 06:51:14.878: Hex Def - 854360db6b3321784d578662e66aa088305c7d82
+2025-12-19 06:51:14.878: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:14.878: Rendering VALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'cars'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_cars_post_vin_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 17 with previous request 9
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:15.119: Request 17
+2025-12-19 06:51:15.119: Endpoint - /periodic-maintenance/{pmId}
+2025-12-19 06:51:15.119: Hex Def - 86f6e80ddb1dfee16d7f0862c793ba3bb2c6d7a2
+2025-12-19 06:51:15.119: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.119: Rendering INVALID
+		- restler_static_string: 'PUT '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'periodic-maintenance'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_periodic_maintenance_post_pmId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "carVin":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "garageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "planType":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "intervalKm":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "intervalMonths":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "tasks":\n    [\n        '
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '\n    ],\n    "status":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 18 with previous request 1
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:15.230: Request 18
+2025-12-19 06:51:15.230: Endpoint - /customers/{customerId}
+2025-12-19 06:51:15.230: Hex Def - 8ba074d939064862e65a34d60703109257e43fe6
+2025-12-19 06:51:15.230: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.230: Rendering VALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'customers'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_customers_post_customerId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 19 with previous request 10
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:15.345: Request 19
+2025-12-19 06:51:15.345: Endpoint - /cars/{vin}
+2025-12-19 06:51:15.345: Hex Def - 8c30c82591c4b4dd54c7397fe8ad2206b678c3da
+2025-12-19 06:51:15.345: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.345: Rendering VALID
+		- restler_static_string: 'PUT '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'cars'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_cars_post_vin_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "make":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "model":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "year":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "mileage":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "ownerCustomerId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "homeGarageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 20 with previous request 0
+	but that prefix was INVALID (root = 0)
+
+2025-12-19 06:51:15.351: Request 20
+2025-12-19 06:51:15.351: Endpoint - /repair-orders/{roId}/close
+2025-12-19 06:51:15.351: Hex Def - b5c2b9ec0f4076a4257869ed02465b932dc07b40
+2025-12-19 06:51:15.351: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.351: Rendering INVALID
+		- restler_static_string: 'POST '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_repair_orders_post_roId_READER_DELIM'
+		- restler_static_string: '/'
+		- restler_static_string: 'close'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 21 with previous request 9
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:15.584: Request 21
+2025-12-19 06:51:15.584: Endpoint - /periodic-maintenance/{pmId}
+2025-12-19 06:51:15.584: Hex Def - b79f4c257b102ef6246eb81bce02c14cf9c443d6
+2025-12-19 06:51:15.584: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.584: Rendering INVALID
+		- restler_static_string: 'DELETE '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'periodic-maintenance'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_periodic_maintenance_post_pmId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 22 with previous request 9
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:15.777: Request 22
+2025-12-19 06:51:15.777: Endpoint - /periodic-maintenance/{pmId}
+2025-12-19 06:51:15.777: Hex Def - bd02dc98d83000b652d7c12d9d056d59b5714679
+2025-12-19 06:51:15.777: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.777: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'periodic-maintenance'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_periodic_maintenance_post_pmId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 23 with previous request 0
+	but that prefix was INVALID (root = 0)
+
+2025-12-19 06:51:15.779: Request 23
+2025-12-19 06:51:15.779: Endpoint - /repair-orders/{roId}
+2025-12-19 06:51:15.779: Hex Def - c936d7bd80507981e1cf779b4753ba97ec2d18dc
+2025-12-19 06:51:15.779: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.779: Rendering INVALID
+		- restler_static_string: 'DELETE '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_repair_orders_post_roId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 24 with previous request 1
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:15.892: Request 24
+2025-12-19 06:51:15.892: Endpoint - /customers/{customerId}
+2025-12-19 06:51:15.892: Hex Def - cd8ece96c4736d500461a6cea1b9ac3bc8bb4dcb
+2025-12-19 06:51:15.892: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.892: Rendering VALID
+		- restler_static_string: 'PUT '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'customers'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_customers_post_customerId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "type":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "fullName":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "email":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "phone":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "preferredGarageId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 25 with previous request 0
+	but that prefix was INVALID (root = 0)
+
+2025-12-19 06:51:15.894: Request 25
+2025-12-19 06:51:15.894: Endpoint - /repair-orders/{roId}
+2025-12-19 06:51:15.894: Hex Def - d9316b69f1fa9a698770a688272e0748e9c6109c
+2025-12-19 06:51:15.894: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:15.894: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'repair-orders'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_repair_orders_post_roId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 26 with previous request 1
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:16.001: Request 26
+2025-12-19 06:51:16.001: Endpoint - /customers/{customerId}
+2025-12-19 06:51:16.001: Hex Def - e12ce77ac5ee34018635c92a388bc792b482d504
+2025-12-19 06:51:16.001: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:16.001: Rendering VALID
+		- restler_static_string: 'DELETE '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'customers'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_customers_post_customerId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 1 for request 27 with previous request 11
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:16.124: Request 27
+2025-12-19 06:51:16.124: Endpoint - /garages/{garageId}
+2025-12-19 06:51:16.124: Hex Def - e61b97a5a1c8d2ad79870df6ec310b450a525b35
+2025-12-19 06:51:16.124: Sequence length that satisfies dependencies: 2
+2025-12-19 06:51:16.124: Rendering VALID
+		- restler_static_string: 'PUT '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'garages'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_garages_post_garageId_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		- restler_static_string: 'Content-Type: '
+		- restler_static_string: 'application/json'
+		- restler_static_string: '\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+		- restler_static_string: '{'
+		- restler_static_string: '\n    "chainId":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "name":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "address":'
+		- restler_fuzzable_object: '{ "fuzz": false }'
+		- restler_static_string: ',\n    "phone":'
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: ',\n    "bayCount":'
+		- restler_fuzzable_int: '1'
+		- restler_static_string: ',\n    "servicesOffered":\n    [\n        '
+		- restler_fuzzable_string: '"fuzzstring"'
+		- restler_static_string: '\n    ],\n    "active":'
+		- restler_fuzzable_bool: 'true'
+		- restler_static_string: '}'
+		- restler_static_string: '\r\n'
+
+2025-12-19 06:51:16.124: Generation: 2 / Sequences Collection Size: 7 
+(After directed-smoke-test Render)
+
+2025-12-19 06:51:16.124: Final Swagger spec coverage: 15 / 32
+2025-12-19 06:51:16.124: Rendered requests: 22 / 32
+2025-12-19 06:51:16.124: Rendered requests with "valid" status codes: 15 / 22
+2025-12-19 06:51:16.124: Num fully valid requests (no resource creation failures): 15
+2025-12-19 06:51:16.124: Num requests not rendered due to invalid sequence re-renders: 1
+2025-12-19 06:51:16.124: Num invalid requests caused by failed resource creations: 0
+2025-12-19 06:51:16.124: Total Creations of Dyn Objects: 18
+2025-12-19 06:51:16.124: Total Requests Sent: {'gc': 0, 'main_driver': 44}
+2025-12-19 06:51:16.124: Bug Buckets: {}
+2025-12-19 06:51:16.128: Generation: 3 / Sequences Collection Size: 4 
+(After directed-smoke-test Extend)
+
+Found a matching prefix of length 2 for request 28 with previous request 27
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:16.301: Request 28
+2025-12-19 06:51:16.301: Endpoint - /garages/{garageId}
+2025-12-19 06:51:16.301: Hex Def - 49ba06ba9e2a074ce1c19cb737c09af4600a5151
+2025-12-19 06:51:16.301: Sequence length that satisfies dependencies: 3
+2025-12-19 06:51:16.301: Rendering VALID
+		- restler_static_string: 'DELETE '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'garages'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_garages__garageId__put_name_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 2 for request 29 with previous request 15
+	but that prefix was INVALID (root = 15)
+
+2025-12-19 06:51:16.303: Request 29
+2025-12-19 06:51:16.303: Endpoint - /chains/{chainId}
+2025-12-19 06:51:16.303: Hex Def - 60e330307e6e0d250e76e7c68ff7a5b5822efce0
+2025-12-19 06:51:16.303: Sequence length that satisfies dependencies: 3
+2025-12-19 06:51:16.303: Rendering INVALID
+		- restler_static_string: 'DELETE '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'chains'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_chains__chainId__put_name_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 2 for request 30 with previous request 27
+	and re-using that VALID prefix (1 rendering combinations)
+
+2025-12-19 06:51:16.468: Request 30
+2025-12-19 06:51:16.468: Endpoint - /garages/{garageId}
+2025-12-19 06:51:16.468: Hex Def - c38030a7bf0fe119362bd86242eb99a9a049bae6
+2025-12-19 06:51:16.468: Sequence length that satisfies dependencies: 3
+2025-12-19 06:51:16.468: Rendering VALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'garages'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_garages__garageId__put_name_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+Found a matching prefix of length 2 for request 31 with previous request 15
+	but that prefix was INVALID (root = 15)
+
+2025-12-19 06:51:16.468: Request 31
+2025-12-19 06:51:16.468: Endpoint - /chains/{chainId}
+2025-12-19 06:51:16.468: Hex Def - dfa6d4d2c2e17b7ff732c0eb2005249bade326c2
+2025-12-19 06:51:16.468: Sequence length that satisfies dependencies: 3
+2025-12-19 06:51:16.468: Rendering INVALID
+		- restler_static_string: 'GET '
+		- restler_static_string: ''
+		- restler_static_string: '/'
+		- restler_static_string: 'chains'
+		- restler_static_string: '/'
+		- restler_static_string: '_READER_DELIM_chains__chainId__put_name_READER_DELIM'
+		- restler_static_string: ' HTTP/1.1\r\n'
+		- restler_static_string: 'Accept: application/json\r\n'
+		- restler_static_string: 'Host: localhost:5000\r\n'
+		+ restler_refreshable_authentication_token: ['token_auth_method', 'token_refresh_interval']
+		- restler_static_string: '\r\n'
+
+2025-12-19 06:51:16.468: Generation: 3 / Sequences Collection Size: 2 
+(After directed-smoke-test Render)
+
+2025-12-19 06:51:16.468: Final Swagger spec coverage: 17 / 32
+2025-12-19 06:51:16.468: Rendered requests: 24 / 32
+2025-12-19 06:51:16.468: Rendered requests with "valid" status codes: 17 / 24
+2025-12-19 06:51:16.468: Num fully valid requests (no resource creation failures): 17
+2025-12-19 06:51:16.468: Num requests not rendered due to invalid sequence re-renders: 1
+2025-12-19 06:51:16.468: Num invalid requests caused by failed resource creations: 0
+2025-12-19 06:51:16.468: Total Creations of Dyn Objects: 22
+2025-12-19 06:51:16.468: Total Requests Sent: {'gc': 0, 'main_driver': 50}
+2025-12-19 06:51:16.468: Bug Buckets: {}
+
+Testing completed -- below are the final stats:
+
+2025-12-19 06:51:17.039: Final Swagger spec coverage: 17 / 32
+2025-12-19 06:51:17.039: Rendered requests: 24 / 32
+2025-12-19 06:51:17.039: Rendered requests with "valid" status codes: 17 / 24
+2025-12-19 06:51:17.039: Num fully valid requests (no resource creation failures): 17
+2025-12-19 06:51:17.039: Num requests not rendered due to invalid sequence re-renders: 1
+2025-12-19 06:51:17.039: Num invalid requests caused by failed resource creations: 0
+2025-12-19 06:51:17.039: Total Creations of Dyn Objects: 22
+2025-12-19 06:51:17.039: Total Requests Sent: {'gc': 17, 'main_driver': 50}
+2025-12-19 06:51:17.039: Bug Buckets: {}

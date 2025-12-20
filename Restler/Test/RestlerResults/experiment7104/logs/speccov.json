@@ -1,0 +1,1137 @@
+{
+    "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_1": {
+        "verb": "POST",
+        "endpoint": "/repair-orders",
+        "verb_endpoint": "POST /repair-orders",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "400",
+        "status_text": "BAD REQUEST",
+        "error_message": "{\"error\":\"invalid-car (fuzzstring)\"}\n",
+        "request_order": 0,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "POST",
+            "request_uri": "/repair-orders",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"roId\":\"fuzzstring\",\n    \"carVin\":\"fuzzstring\",\n    \"customerId\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"complaint\":\"fuzzstring\",\n    \"status\":\"fuzzstring\"}\r\n",
+            "response_status_code": "400",
+            "response_status_text": "BAD REQUEST",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 37",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "{\"error\":\"invalid-car (fuzzstring)\"}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "954c7588a8434fd4a723288c75c18432c9c2cd94_1": {
+        "verb": "POST",
+        "endpoint": "/customers",
+        "verb_endpoint": "POST /customers",
+        "valid": 1,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "201",
+        "status_text": "CREATED",
+        "error_message": null,
+        "request_order": 1,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "POST",
+            "request_uri": "/customers",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"customerId\":\"fuzzstring\",\n    \"type\":\"fuzzstring\",\n    \"fullName\":\"fuzzstring\",\n    \"email\":\"fuzzstring\",\n    \"phone\":\"fuzzstring\",\n    \"preferredGarageId\":\"fuzzstring\"}\r\n",
+            "response_status_code": "201",
+            "response_status_text": "CREATED",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 147",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "{\"customerId\":\"fuzzstring\",\"email\":\"fuzzstring\",\"fullName\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"preferredGarageId\":\"fuzzstring\",\"type\":\"fuzzstring\"}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "984b723756d3cfb434549fab507dba3b4ab5c5dc_1": {
+        "verb": "GET",
+        "endpoint": "/customers",
+        "verb_endpoint": "GET /customers",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "405",
+        "status_text": "METHOD NOT ALLOWED",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+        "request_order": 2,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "GET",
+            "request_uri": "/customers",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "405",
+            "response_status_text": "METHOD NOT ALLOWED",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Allow: POST, OPTIONS",
+                "Content-Length: 178",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "a7194d98346a763c2654ca6a730c504e89ccff80_1": {
+        "verb": "GET",
+        "endpoint": "/periodic-maintenance",
+        "verb_endpoint": "GET /periodic-maintenance",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "405",
+        "status_text": "METHOD NOT ALLOWED",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+        "request_order": 3,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "GET",
+            "request_uri": "/periodic-maintenance",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "405",
+            "response_status_text": "METHOD NOT ALLOWED",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Allow: POST, OPTIONS",
+                "Content-Length: 178",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "b69d2b7624243d211ca90c2972ca02a7831ae22b_1": {
+        "verb": "GET",
+        "endpoint": "/chains",
+        "verb_endpoint": "GET /chains",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "405",
+        "status_text": "METHOD NOT ALLOWED",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+        "request_order": 4,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "GET",
+            "request_uri": "/chains",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "405",
+            "response_status_text": "METHOD NOT ALLOWED",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Allow: POST, OPTIONS",
+                "Content-Length: 178",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "b6c740444468a596abf20e757b3438e7813454af_1": {
+        "verb": "GET",
+        "endpoint": "/cars",
+        "verb_endpoint": "GET /cars",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "405",
+        "status_text": "METHOD NOT ALLOWED",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+        "request_order": 5,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "GET",
+            "request_uri": "/cars",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "405",
+            "response_status_text": "METHOD NOT ALLOWED",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Allow: POST, OPTIONS",
+                "Content-Length: 178",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "e10567119bc296a2bf2e3ddc130de20e6b371a03_1": {
+        "verb": "GET",
+        "endpoint": "/repair-orders",
+        "verb_endpoint": "GET /repair-orders",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "405",
+        "status_text": "METHOD NOT ALLOWED",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+        "request_order": 6,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:13",
+            "request_verb": "GET",
+            "request_uri": "/repair-orders",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "405",
+            "response_status_text": "METHOD NOT ALLOWED",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Allow: POST, OPTIONS",
+                "Content-Length: 178",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:13 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "e685b22e4f7718dbaeae6716a4877d2ef0300bcd_1": {
+        "verb": "GET",
+        "endpoint": "/garages",
+        "verb_endpoint": "GET /garages",
+        "valid": 0,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "405",
+        "status_text": "METHOD NOT ALLOWED",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+        "request_order": 7,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "GET",
+            "request_uri": "/garages",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "405",
+            "response_status_text": "METHOD NOT ALLOWED",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Allow: POST, OPTIONS",
+                "Content-Length: 178",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "e9ca6887907d901675522e997007c1bee44b7b70_1": {
+        "verb": "POST",
+        "endpoint": "/chains",
+        "verb_endpoint": "POST /chains",
+        "valid": 1,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "201",
+        "status_text": "CREATED",
+        "error_message": null,
+        "request_order": 8,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "POST",
+            "request_uri": "/chains",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"hqAddress\":{ \"fuzz\": false },\n    \"supportEmail\":\"fuzzstring\",\n    \"active\":true}\r\n",
+            "response_status_code": "201",
+            "response_status_text": "CREATED",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 114",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "{\"active\":true,\"chainId\":\"fuzzstring\",\"hqAddress\":{\"fuzz\":false},\"name\":\"fuzzstring\",\"supportEmail\":\"fuzzstring\"}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1": {
+        "verb": "POST",
+        "endpoint": "/periodic-maintenance",
+        "verb_endpoint": "POST /periodic-maintenance",
+        "valid": 1,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "201",
+        "status_text": "CREATED",
+        "error_message": null,
+        "request_order": 9,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "POST",
+            "request_uri": "/periodic-maintenance",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"pmId\":\"fuzzstring\",\n    \"carVin\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"planType\":\"fuzzstring\",\n    \"intervalKm\":1,\n    \"intervalMonths\":1,\n    \"tasks\":\n    [\n        \"fuzzstring\"\n    ],\n    \"status\":\"fuzzstring\"}\r\n",
+            "response_status_code": "201",
+            "response_status_text": "CREATED",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 171",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "{\"carVin\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"intervalKm\":1,\"intervalMonths\":1,\"planType\":\"fuzzstring\",\"pmId\":\"fuzzstring\",\"status\":\"fuzzstring\",\"tasks\":[\"fuzzstring\"]}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1": {
+        "verb": "POST",
+        "endpoint": "/cars",
+        "verb_endpoint": "POST /cars",
+        "valid": 1,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "201",
+        "status_text": "CREATED",
+        "error_message": null,
+        "request_order": 10,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "POST",
+            "request_uri": "/cars",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"vin\":\"fuzzstring\",\n    \"make\":\"fuzzstring\",\n    \"model\":\"fuzzstring\",\n    \"year\":1,\n    \"mileage\":1,\n    \"ownerCustomerId\":\"fuzzstring\",\n    \"homeGarageId\":\"fuzzstring\"}\r\n",
+            "response_status_code": "201",
+            "response_status_text": "CREATED",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 142",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1": {
+        "verb": "POST",
+        "endpoint": "/garages",
+        "verb_endpoint": "POST /garages",
+        "valid": 1,
+        "matching_prefix": [],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "201",
+        "status_text": "CREATED",
+        "error_message": null,
+        "request_order": 11,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "POST",
+            "request_uri": "/garages",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"garageId\":\"fuzzstring\",\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"address\":{ \"fuzz\": false },\n    \"phone\":\"fuzzstring\",\n    \"bayCount\":1,\n    \"servicesOffered\":\n    [\n        \"fuzzstring\"\n    ],\n    \"active\":true}\r\n",
+            "response_status_code": "201",
+            "response_status_text": "CREATED",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 175",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "{\"active\":true,\"address\":{\"fuzz\":false},\"bayCount\":1,\"chainId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"servicesOffered\":[\"fuzzstring\"]}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "00974c3290b2d30a05122dac043ed3c674285522": {
+        "verb": "PUT",
+        "endpoint": "/repair-orders/{roId}",
+        "verb_endpoint": "PUT /repair-orders/{roId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 12
+    },
+    "0ffe55e558cf27ae6d8d1b9dc2abb8c6bfc861b0_1__1": {
+        "verb": "DELETE",
+        "endpoint": "/cars/{vin}",
+        "verb_endpoint": "DELETE /cars/{vin}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "204",
+        "status_text": "NO CONTENT",
+        "error_message": null,
+        "request_order": 13,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "DELETE",
+            "request_uri": "/cars/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "204",
+            "response_status_text": "NO CONTENT",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": ""
+        },
+        "tracked_parameters": {}
+    },
+    "53a2896a60225dc34d293ffc77a1fd8501fac06e": {
+        "verb": "POST",
+        "endpoint": "/repair-orders/{roId}/approve",
+        "verb_endpoint": "POST /repair-orders/{roId}/approve",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 14
+    },
+    "5a14a83f0895b22380401b4089659f206ede65a7_1__1": {
+        "verb": "PUT",
+        "endpoint": "/chains/{chainId}",
+        "verb_endpoint": "PUT /chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 1,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 15,
+        "sequence_failure_sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "POST",
+            "request_uri": "/chains",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"hqAddress\":{ \"fuzz\": false },\n    \"supportEmail\":\"fuzzstring\",\n    \"active\":true}\r\n",
+            "response_status_code": "400",
+            "response_status_text": "BAD REQUEST",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 25",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "{\"error\":\"duplicate-id\"}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "854360db6b3321784d578662e66aa088305c7d82_1__1": {
+        "verb": "GET",
+        "endpoint": "/cars/{vin}",
+        "verb_endpoint": "GET /cars/{vin}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "200",
+        "status_text": "OK",
+        "error_message": null,
+        "request_order": 16,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:14",
+            "request_verb": "GET",
+            "request_uri": "/cars/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "200",
+            "response_status_text": "OK",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 142",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "86f6e80ddb1dfee16d7f0862c793ba3bb2c6d7a2_1__1": {
+        "verb": "PUT",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "verb_endpoint": "PUT /periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "404",
+        "status_text": "NOT FOUND",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+        "request_order": 17,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:15",
+            "request_verb": "PUT",
+            "request_uri": "/periodic-maintenance/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"carVin\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"planType\":\"fuzzstring\",\n    \"intervalKm\":1,\n    \"intervalMonths\":1,\n    \"tasks\":\n    [\n        \"fuzzstring\"\n    ],\n    \"status\":\"fuzzstring\"}\r\n",
+            "response_status_code": "404",
+            "response_status_text": "NOT FOUND",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Content-Length: 232",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:14 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "8ba074d939064862e65a34d60703109257e43fe6_1__1": {
+        "verb": "GET",
+        "endpoint": "/customers/{customerId}",
+        "verb_endpoint": "GET /customers/{customerId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "954c7588a8434fd4a723288c75c18432c9c2cd94_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "200",
+        "status_text": "OK",
+        "error_message": null,
+        "request_order": 18,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:15",
+            "request_verb": "GET",
+            "request_uri": "/customers/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "200",
+            "response_status_text": "OK",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 147",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:15 GMT"
+            ],
+            "response_body": "{\"customerId\":\"fuzzstring\",\"email\":\"fuzzstring\",\"fullName\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"preferredGarageId\":\"fuzzstring\",\"type\":\"fuzzstring\"}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "8c30c82591c4b4dd54c7397fe8ad2206b678c3da_1__1": {
+        "verb": "PUT",
+        "endpoint": "/cars/{vin}",
+        "verb_endpoint": "PUT /cars/{vin}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "200",
+        "status_text": "OK",
+        "error_message": null,
+        "request_order": 19,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:15",
+            "request_verb": "PUT",
+            "request_uri": "/cars/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"make\":\"fuzzstring\",\n    \"model\":\"fuzzstring\",\n    \"year\":1,\n    \"mileage\":1,\n    \"ownerCustomerId\":\"fuzzstring\",\n    \"homeGarageId\":\"fuzzstring\"}\r\n",
+            "response_status_code": "200",
+            "response_status_text": "OK",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 142",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:15 GMT"
+            ],
+            "response_body": "{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "b5c2b9ec0f4076a4257869ed02465b932dc07b40": {
+        "verb": "POST",
+        "endpoint": "/repair-orders/{roId}/close",
+        "verb_endpoint": "POST /repair-orders/{roId}/close",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 20
+    },
+    "b79f4c257b102ef6246eb81bce02c14cf9c443d6_1__1": {
+        "verb": "DELETE",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "verb_endpoint": "DELETE /periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "404",
+        "status_text": "NOT FOUND",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+        "request_order": 21,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:15",
+            "request_verb": "DELETE",
+            "request_uri": "/periodic-maintenance/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "404",
+            "response_status_text": "NOT FOUND",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Content-Length: 232",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:15 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "bd02dc98d83000b652d7c12d9d056d59b5714679_1__1": {
+        "verb": "GET",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "verb_endpoint": "GET /periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "404",
+        "status_text": "NOT FOUND",
+        "error_message": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+        "request_order": 22,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:15",
+            "request_verb": "GET",
+            "request_uri": "/periodic-maintenance/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "404",
+            "response_status_text": "NOT FOUND",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Content-Length: 232",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:15 GMT"
+            ],
+            "response_body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+        },
+        "tracked_parameters": {}
+    },
+    "c936d7bd80507981e1cf779b4753ba97ec2d18dc": {
+        "verb": "DELETE",
+        "endpoint": "/repair-orders/{roId}",
+        "verb_endpoint": "DELETE /repair-orders/{roId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 23
+    },
+    "cd8ece96c4736d500461a6cea1b9ac3bc8bb4dcb_1__1": {
+        "verb": "PUT",
+        "endpoint": "/customers/{customerId}",
+        "verb_endpoint": "PUT /customers/{customerId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "954c7588a8434fd4a723288c75c18432c9c2cd94_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "200",
+        "status_text": "OK",
+        "error_message": null,
+        "request_order": 24,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:15",
+            "request_verb": "PUT",
+            "request_uri": "/customers/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"type\":\"fuzzstring\",\n    \"fullName\":\"fuzzstring\",\n    \"email\":\"fuzzstring\",\n    \"phone\":\"fuzzstring\",\n    \"preferredGarageId\":\"fuzzstring\"}\r\n",
+            "response_status_code": "200",
+            "response_status_text": "OK",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 147",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:15 GMT"
+            ],
+            "response_body": "{\"customerId\":\"fuzzstring\",\"email\":\"fuzzstring\",\"fullName\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"preferredGarageId\":\"fuzzstring\",\"type\":\"fuzzstring\"}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "d9316b69f1fa9a698770a688272e0748e9c6109c": {
+        "verb": "GET",
+        "endpoint": "/repair-orders/{roId}",
+        "verb_endpoint": "GET /repair-orders/{roId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 25
+    },
+    "e12ce77ac5ee34018635c92a388bc792b482d504_1__1": {
+        "verb": "DELETE",
+        "endpoint": "/customers/{customerId}",
+        "verb_endpoint": "DELETE /customers/{customerId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "954c7588a8434fd4a723288c75c18432c9c2cd94_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "204",
+        "status_text": "NO CONTENT",
+        "error_message": null,
+        "request_order": 26,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:16",
+            "request_verb": "DELETE",
+            "request_uri": "/customers/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "204",
+            "response_status_text": "NO CONTENT",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:16 GMT"
+            ],
+            "response_body": ""
+        },
+        "tracked_parameters": {}
+    },
+    "e61b97a5a1c8d2ad79870df6ec310b450a525b35_1__1": {
+        "verb": "PUT",
+        "endpoint": "/garages/{garageId}",
+        "verb_endpoint": "PUT /garages/{garageId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "200",
+        "status_text": "OK",
+        "error_message": null,
+        "request_order": 27,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:16",
+            "request_verb": "PUT",
+            "request_uri": "/garages/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000",
+                "Content-Type: application/json"
+            ],
+            "request_body": "{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"address\":{ \"fuzz\": false },\n    \"phone\":\"fuzzstring\",\n    \"bayCount\":1,\n    \"servicesOffered\":\n    [\n        \"fuzzstring\"\n    ],\n    \"active\":true}\r\n",
+            "response_status_code": "200",
+            "response_status_text": "OK",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 175",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:16 GMT"
+            ],
+            "response_body": "{\"active\":true,\"address\":{\"fuzz\":false},\"bayCount\":1,\"chainId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"servicesOffered\":[\"fuzzstring\"]}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "49ba06ba9e2a074ce1c19cb737c09af4600a5151_1__1_1": {
+        "verb": "DELETE",
+        "endpoint": "/garages/{garageId}",
+        "verb_endpoint": "DELETE /garages/{garageId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1",
+                "valid": 1
+            },
+            {
+                "id": "e61b97a5a1c8d2ad79870df6ec310b450a525b35_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "204",
+        "status_text": "NO CONTENT",
+        "error_message": null,
+        "request_order": 28,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:16",
+            "request_verb": "DELETE",
+            "request_uri": "/garages/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "204",
+            "response_status_text": "NO CONTENT",
+            "response_headers": [
+                "Content-Type: text/html; charset=utf-8",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:16 GMT"
+            ],
+            "response_body": ""
+        },
+        "tracked_parameters": {}
+    },
+    "60e330307e6e0d250e76e7c68ff7a5b5822efce0": {
+        "verb": "DELETE",
+        "endpoint": "/chains/{chainId}",
+        "verb_endpoint": "DELETE /chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            },
+            {
+                "id": "5a14a83f0895b22380401b4089659f206ede65a7_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 29
+    },
+    "c38030a7bf0fe119362bd86242eb99a9a049bae6_1__1_1": {
+        "verb": "GET",
+        "endpoint": "/garages/{garageId}",
+        "verb_endpoint": "GET /garages/{garageId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1",
+                "valid": 1
+            },
+            {
+                "id": "e61b97a5a1c8d2ad79870df6ec310b450a525b35_1",
+                "valid": 1
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": "200",
+        "status_text": "OK",
+        "error_message": null,
+        "request_order": 30,
+        "sample_request": {
+            "request_sent_timestamp": null,
+            "response_received_timestamp": "2025-12-19 04:51:16",
+            "request_verb": "GET",
+            "request_uri": "/garages/fuzzstring",
+            "request_headers": [
+                "Accept: application/json",
+                "Host: localhost:5000"
+            ],
+            "request_body": null,
+            "response_status_code": "200",
+            "response_status_text": "OK",
+            "response_headers": [
+                "Content-Type: application/json",
+                "Content-Length: 175",
+                "Server: Werkzeug/2.0.3 Python/3.9.18",
+                "Date: Fri, 19 Dec 2025 04:51:16 GMT"
+            ],
+            "response_body": "{\"active\":true,\"address\":{\"fuzz\":false},\"bayCount\":1,\"chainId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"servicesOffered\":[\"fuzzstring\"]}\n"
+        },
+        "tracked_parameters": {}
+    },
+    "dfa6d4d2c2e17b7ff732c0eb2005249bade326c2": {
+        "verb": "GET",
+        "endpoint": "/chains/{chainId}",
+        "verb_endpoint": "GET /chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            },
+            {
+                "id": "5a14a83f0895b22380401b4089659f206ede65a7_2",
+                "valid": 0
+            }
+        ],
+        "invalid_due_to_sequence_failure": 0,
+        "invalid_due_to_resource_failure": 0,
+        "invalid_due_to_parser_failure": 0,
+        "invalid_due_to_500": 0,
+        "status_code": null,
+        "status_text": null,
+        "error_message": null,
+        "request_order": 31
+    }
+}

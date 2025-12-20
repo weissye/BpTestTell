@@ -1,0 +1,132 @@
+2025-12-19 06:51:16.480: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.488: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.498: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.511: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.511: Re-creating connection and re-trying.
+2025-12-19 06:51:16.519: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.529: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.529: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.544: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.550: Re-creating connection and re-trying.
+2025-12-19 06:51:16.550: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.560: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.567: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.576: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.581: Re-creating connection and re-trying.
+2025-12-19 06:51:16.591: Sending: 'DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.592: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.602: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.608: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.612: Re-creating connection and re-trying.
+2025-12-19 06:51:16.623: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.623: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n'
+
+2025-12-19 06:51:16.633: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.643: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.643: Re-creating connection and re-trying.
+2025-12-19 06:51:16.656: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.664: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n'
+
+2025-12-19 06:51:16.664: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.674: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.674: Re-creating connection and re-trying.
+2025-12-19 06:51:16.688: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.695: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n'
+
+2025-12-19 06:51:16.695: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.706: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.706: Re-creating connection and re-trying.
+2025-12-19 06:51:16.720: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.727: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n'
+
+2025-12-19 06:51:16.735: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.740: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.748: Re-creating connection and re-trying.
+2025-12-19 06:51:16.751: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.758: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n'
+
+2025-12-19 06:51:16.767: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.775: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.779: Re-creating connection and re-trying.
+2025-12-19 06:51:16.783: Sending: 'DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.794: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n'
+
+2025-12-19 06:51:16.799: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.799: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.810: Re-creating connection and re-trying.
+2025-12-19 06:51:16.820: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.831: Received: 'HTTP/1.0 204 NO CONTENT\r\nContent-Type: text/html; charset=utf-8\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n'
+
+2025-12-19 06:51:16.841: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.848: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.855: Re-creating connection and re-trying.
+2025-12-19 06:51:16.863: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.863: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.872: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.879: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.883: Re-creating connection and re-trying.
+2025-12-19 06:51:16.895: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.895: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.904: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.914: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.914: Re-creating connection and re-trying.
+2025-12-19 06:51:16.926: Sending: 'DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.934: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.943: Sending: 'DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.945: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.945: Re-creating connection and re-trying.
+2025-12-19 06:51:16.959: Sending: 'DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.966: Received: 'HTTP/1.0 204 NO CONTENT\r\nContent-Type: text/html; charset=utf-8\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n'
+
+2025-12-19 06:51:16.966: Sending: 'DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.976: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:16.987: Re-creating connection and re-trying.
+2025-12-19 06:51:16.991: Sending: 'DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:16.997: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{"error":"not-found"}\n'
+
+2025-12-19 06:51:16.997: Sending: 'DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:17.007: Connection error: 'Exception: [WinError 10053] An established connection was aborted by the software in your host machine'
+2025-12-19 06:51:17.018: Re-creating connection and re-trying.
+2025-12-19 06:51:17.023: Sending: 'DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Length: 0\r\nUser-Agent: restler/9.3.1\r\n\r\n'
+
+2025-12-19 06:51:17.028: Received: 'HTTP/1.0 404 NOT FOUND\r\nContent-Type: application/json\r\nContent-Length: 22\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:17 GMT\r\n\r\n{"error":"not-found"}\n'
+

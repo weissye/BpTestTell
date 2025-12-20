@@ -1,0 +1,37 @@
+Restler Information: 0 : Starting task Fuzz...
+    DateTime=2025-12-19T04:51:26.9854240Z
+Restler Information: 0 : Launching 'python.exe --version'
+    DateTime=2025-12-19T04:51:27.4708715Z
+Restler Information: 0 : Process execution terminated in 00:00:00.0282926 with exit code 0x0: 'python.exe --version'
+    DateTime=2025-12-19T04:51:27.5029260Z
+Restler Information: 0 : (9192) python.exe --version exited with code: 0
+    DateTime=2025-12-19T04:51:27.5061778Z
+Restler Information: 0 : Launching 'python.exe -B "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../engine/restler.py" --restler_grammar "D:\Yeshayahu\BpTestTell\Restler\Compile\grammar.py" --custom_mutations "D:\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --set_version 9.3.1    --no_ssl   --settings "D:\Yeshayahu\BpTestTell\Restler\Compile\engine_settings.json" --enable_checkers * --disable_checkers namespacerule --time_budget 0.100000   --include_user_agent --no_tokens_in_logs t --garbage_collection_interval 30 --fuzzing_mode bfs-cheap'
+    DateTime=2025-12-19T04:51:27.5143331Z
+Restler Information: 0 : Process execution terminated in 00:11:04.2655698 with exit code 0x0: 'python.exe -B "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../engine/restler.py" --restler_grammar "D:\Yeshayahu\BpTestTell\Restler\Compile\grammar.py" --custom_mutations "D:\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --set_version 9.3.1    --no_ssl   --settings "D:\Yeshayahu\BpTestTell\Restler\Compile\engine_settings.json" --enable_checkers * --disable_checkers namespacerule --time_budget 0.100000   --include_user_agent --no_tokens_in_logs t --garbage_collection_interval 30 --fuzzing_mode bfs-cheap'
+    DateTime=2025-12-19T05:02:31.7801282Z
+Restler Information: 0 : (21124) python.exe -B "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../engine/restler.py" --restler_grammar "D:\Yeshayahu\BpTestTell\Restler\Compile\grammar.py" --custom_mutations "D:\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --set_version 9.3.1    --no_ssl   --settings "D:\Yeshayahu\BpTestTell\Restler\Compile\engine_settings.json" --enable_checkers * --disable_checkers namespacerule --time_budget 0.100000   --include_user_agent --no_tokens_in_logs t --garbage_collection_interval 30 --fuzzing_mode bfs-cheap exited with code: 0
+    DateTime=2025-12-19T05:02:31.7802285Z
+Restler Information: 0 : Launching 'dotnet "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../resultsAnalyzer/Restler.ResultsAnalyzer.dll" analyze "D:\Yeshayahu\BpTestTell\Restler\Fuzz" --output_dir "D:\Yeshayahu\BpTestTell\Restler\Fuzz\ResponseBuckets" --dictionary_file "D:\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --max_instances_per_bucket 10'
+    DateTime=2025-12-19T05:02:31.7869541Z
+Restler Information: 0 : Process execution terminated in 00:00:01.6900209 with exit code 0x0: 'dotnet "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../resultsAnalyzer/Restler.ResultsAnalyzer.dll" analyze "D:\Yeshayahu\BpTestTell\Restler\Fuzz" --output_dir "D:\Yeshayahu\BpTestTell\Restler\Fuzz\ResponseBuckets" --dictionary_file "D:\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --max_instances_per_bucket 10'
+    DateTime=2025-12-19T05:02:33.4770845Z
+Restler Information: 0 : (912) dotnet "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../resultsAnalyzer/Restler.ResultsAnalyzer.dll" analyze "D:\Yeshayahu\BpTestTell\Restler\Fuzz" --output_dir "D:\Yeshayahu\BpTestTell\Restler\Fuzz\ResponseBuckets" --dictionary_file "D:\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --max_instances_per_bucket 10 exited with code: 0
+    DateTime=2025-12-19T05:02:33.4772812Z
+Restler Information: 0 : Request coverage (successful / total): 10 / 32
+    DateTime=2025-12-19T05:02:33.5284144Z
+Restler Information: 0 : Attempted requests: 18 / 32
+    DateTime=2025-12-19T05:02:33.5285908Z
+Restler Information: 0 : Bugs were found!
+    DateTime=2025-12-19T05:02:33.5313582Z
+Restler Information: 0 : Bug buckets:
+    DateTime=2025-12-19T05:02:33.5315746Z
+Restler Information: 0 : 
+InvalidDynamicObjectChecker_20x: 5
+InvalidValueChecker_500: 1
+PayloadBodyChecker_500: 28
+    DateTime=2025-12-19T05:02:33.5323983Z
+Restler Information: 0 : Task Fuzz succeeded.
+    DateTime=2025-12-19T05:02:33.5338358Z
+Restler Information: 0 : Collecting logs...
+    DateTime=2025-12-19T05:02:33.8961146Z

@@ -1,0 +1,188 @@
+This file contains the failing requests, ordered by the number of blocked dependent requests.
+To improve coverage, fix the failing requests in the order listed in this file.
+
+Note: some requests are labeled as 'sequence failure'.
+This means the request depends on another request that is failing intermittently.
+For example, a DELETE request for a resource may be skipped because the resource
+PUT request failed due to exceeding quota.  The same PUT request succeeded earlier (and may
+succeed later depending on the resource clean-up behavior in the service), so it is
+considered an intermittent failure.
+
+-----------------------------------------------
+Request: Post /repair-orders
+Number of blocked dependent requests: 5
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "roId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "customerId":"fuzzstring",\n    "garageId":"fuzzstring",\n    "complaint":"fuzzstring",\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 37\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n{"error":"invalid-car (fuzzstring)"}\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{"roId":"fuzzstring","carVin":"fuzzstring","customerId":"fuzzstring","garageId":"fuzzstring","complaint":"fuzzstring"}
+	< HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 37\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n{"error":"invalid-car (fuzzstring)"}\n
+
+
+-----------------------------------------------
+Request: Get /customers
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> GET /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> GET /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+-----------------------------------------------
+Request: Get /periodic-maintenance
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> GET /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> GET /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+-----------------------------------------------
+Request: Get /chains
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> GET /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> GET /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+-----------------------------------------------
+Request: Get /cars
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> GET /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> GET /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+-----------------------------------------------
+Request: Get /repair-orders
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> GET /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> GET /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+-----------------------------------------------
+Request: Get /garages
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> GET /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> GET /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n
+
+
+-----------------------------------------------
+Request: Put /periodic-maintenance/{pmId}
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "pmId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{"carVin":"fuzzstring","garageId":"fuzzstring","intervalKm":1,"intervalMonths":1,"planType":"fuzzstring","pmId":"fuzzstring","status":"fuzzstring","tasks":["fuzzstring"]}\n
+
+	> PUT /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "pmId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{"carVin":"fuzzstring","garageId":"fuzzstring","intervalKm":1,"intervalMonths":1,"planType":"fuzzstring","pmId":"fuzzstring","status":"fuzzstring","tasks":["fuzzstring"]}\n
+
+	> PUT /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{}
+	< HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n
+
+
+-----------------------------------------------
+Request: Delete /periodic-maintenance/{pmId}
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "pmId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{"carVin":"fuzzstring","garageId":"fuzzstring","intervalKm":1,"intervalMonths":1,"planType":"fuzzstring","pmId":"fuzzstring","status":"fuzzstring","tasks":["fuzzstring"]}\n
+
+	> DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "pmId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{"carVin":"fuzzstring","garageId":"fuzzstring","intervalKm":1,"intervalMonths":1,"planType":"fuzzstring","pmId":"fuzzstring","status":"fuzzstring","tasks":["fuzzstring"]}\n
+
+	> DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n
+
+
+-----------------------------------------------
+Request: Get /periodic-maintenance/{pmId}
+Number of blocked dependent requests: 0
+
+	+++ Combination 1 +++:
+	Request sequence: 
+	> POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "pmId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{"carVin":"fuzzstring","garageId":"fuzzstring","intervalKm":1,"intervalMonths":1,"planType":"fuzzstring","pmId":"fuzzstring","status":"fuzzstring","tasks":["fuzzstring"]}\n
+
+	> GET /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n
+
+
+	+++ Combination 2 +++:
+	Request sequence: 
+	> POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "pmId":"fuzzstring",\n    "carVin":"fuzzstring",\n    "garageId":"fuzzstring",\n    "planType":"fuzzstring",\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        "fuzzstring"\n    ],\n    "status":"fuzzstring"}\r\n
+	< HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{"carVin":"fuzzstring","garageId":"fuzzstring","intervalKm":1,"intervalMonths":1,"planType":"fuzzstring","pmId":"fuzzstring","status":"fuzzstring","tasks":["fuzzstring"]}\n
+
+	> GET /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n
+	< HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n
+
+

@@ -1,0 +1,24 @@
+################################################################################
+ PayloadBodyChecker_500
+
+ TypeMismatch_chainId
+{'chainId': {'fuzz': False}, 'name': 'fuzzstring', 'hqAddress': {'fuzz': False}, 'supportEmail': 'fuzzstring', 'active': False}
+
+ Hash: PayloadBodyChecker_500_4c7f31f419412406fca96ea517928aa62300d0d9
+
+ To attempt to reproduce this bug using restler, run restler with the command
+ line option of --replay_log <path_to_this_log>.
+ If an authentication token is required, you must also specify the token_refresh_cmd.
+
+ This log may contain specific values for IDs or names that were generated
+ during fuzzing, using the fuzzing dictionary. Such names will be re-played
+ without modification. You must update the replay log manually with any changes
+ required to execute the requests in your environment (for example, replacing
+ pre-created account, subscription, or other resource IDs, as needed).
+################################################################################
+
+-> POST /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{"chainId":{ "fuzz" : false },"name":"fuzzstring","hqAddress":{ "fuzz" : false },"supportEmail":"fuzzstring","active":false}
+! producer_timing_delay 0
+! max_async_wait_time 0
+PREVIOUS RESPONSE: 'HTTP/1.0 500 INTERNAL SERVER ERROR\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 290\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:29 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n'
+
