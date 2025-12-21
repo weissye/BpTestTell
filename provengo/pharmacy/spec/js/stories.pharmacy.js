@@ -1,4 +1,4 @@
-// Auto-generated stories for Pharmacy
+// Auto-generated stories for pharmacy
 //@provengo summon rest
 
 function resolveDependencies(deps, pkMap) {
@@ -26,232 +26,336 @@ function resolveDependencies(deps, pkMap) {
   return captured;
 }
 
-// Story: crud:Patients:linear:1
-bthread("crud:Patients:linear:1", function () {
-  let id = "pat_" + Math.floor(Math.random() * 10000);
-  createPatient(id, "John Doe", "555-0100");
-  verifyPatientsExists(id);
-  updatePatient(id, "John Doe Jr", "555-0101");
-});
-
 // Story: crud:Drugs:linear:1
 bthread("crud:Drugs:linear:1", function () {
-  let id = "drug_" + Math.floor(Math.random() * 10000);
-  createDrug(id, "Aspirin", "500mg");
-  verifyDrugsExists(id);
+  let id = "id_210_" + Math.floor(Math.random() * 10000);
+  let name = "name_210_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createDrug(id, name);
+  verifyDrugsExists(id, name);
+  updateDrug(id, name);
 });
 
-// Story: crud:Stores:linear:1
-bthread("crud:Stores:linear:1", function () {
-  let id = "store_" + Math.floor(Math.random() * 10000);
-  createStore(id, "Main St Pharmacy", "123 Main St", "555-9999");
-  verifyStoresExists(id);
+// Story: crud:Drugs:linear:2
+bthread("crud:Drugs:linear:2", function () {
+  let id = "id_220_" + Math.floor(Math.random() * 10000);
+  let name = "name_220_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createDrug(id, name);
+  verifyDrugsExists(id, name);
+  updateDrug(id, name);
 });
 
-// Story: flow:Pharmacy:linear:1
-// === BUG 1: REFILL OVERFLOW (50% Chance) ===
+// Story: crud:Drugs:linear:3
+bthread("crud:Drugs:linear:3", function () {
+  let id = "id_230_" + Math.floor(Math.random() * 10000);
+  let name = "name_230_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createDrug(id, name);
+  verifyDrugsExists(id, name);
+  updateDrug(id, name);
+});
+
+// Monitor: Drugs Verification
+bthread("monitor:Drugs", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyDrugsAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
+    verifyDrugsExists(id, name);
+  }
+});
+
+// Story: crud:Orders:linear:1
+bthread("crud:Orders:linear:1", function () {
+  let id = "id_260_" + Math.floor(Math.random() * 10000);
+  createOrder(id);
+  verifyOrdersExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrders(id);
+  verifyOrdersDoesNotExist(id);
+});
+
+// Story: crud:Orders:linear:2
+bthread("crud:Orders:linear:2", function () {
+  let id = "id_270_" + Math.floor(Math.random() * 10000);
+  createOrder(id);
+  verifyOrdersExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrders(id);
+  verifyOrdersDoesNotExist(id);
+});
+
+// Story: crud:Orders:linear:3
+bthread("crud:Orders:linear:3", function () {
+  let id = "id_280_" + Math.floor(Math.random() * 10000);
+  createOrder(id);
+  verifyOrdersExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrders(id);
+  verifyOrdersDoesNotExist(id);
+});
+
+// Monitor: Orders Verification
+bthread("monitor:Orders", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyOrdersAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    block(matchDeletedOrders(id), function() {
+      bp.log.info(`Monitor Orders: Verifying persistence of ID ${id} inside deletion block.`);
+        verifyOrdersExists(id);
+    });
+  }
+});
+
+// Story: crud:Patients:linear:1
+bthread("crud:Patients:linear:1", function () {
+  let id = "id_310_" + Math.floor(Math.random() * 10000);
+  let name = "name_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createPatient(id, name);
+  verifyPatientsExists(id, name);
+  updatePatient(id, name);
+});
+
+// Story: crud:Patients:linear:2
+bthread("crud:Patients:linear:2", function () {
+  let id = "id_320_" + Math.floor(Math.random() * 10000);
+  let name = "name_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createPatient(id, name);
+  verifyPatientsExists(id, name);
+  updatePatient(id, name);
+});
+
+// Story: crud:Patients:linear:3
+bthread("crud:Patients:linear:3", function () {
+  let id = "id_330_" + Math.floor(Math.random() * 10000);
+  let name = "name_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createPatient(id, name);
+  verifyPatientsExists(id, name);
+  updatePatient(id, name);
+});
+
+// Monitor: Patients Verification
+bthread("monitor:Patients", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyPatientsAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
+    verifyPatientsExists(id, name);
+  }
+});
+
+// Story: crud:Inventory:linear:1
+bthread("crud:Inventory:linear:1", function () {
+  let id = "id_360_" + Math.floor(Math.random() * 10000);
+  let ndc = "ndc_360_" + Math.floor(Math.random() * 10000);
+  createInventory(id, ndc);
+  verifyInventoryExists(id, ndc);
+  updateInventory(id, ndc);
+  deleteInventory(id, ndc);
+  tryToDeleteANonExistingInventory(id, ndc);
+  verifyInventoryDoesNotExist(id, ndc);
+});
+
+// Story: crud:Inventory:linear:2
+bthread("crud:Inventory:linear:2", function () {
+  let id = "id_370_" + Math.floor(Math.random() * 10000);
+  let ndc = "ndc_370_" + Math.floor(Math.random() * 10000);
+  createInventory(id, ndc);
+  verifyInventoryExists(id, ndc);
+  updateInventory(id, ndc);
+  deleteInventory(id, ndc);
+  tryToDeleteANonExistingInventory(id, ndc);
+  verifyInventoryDoesNotExist(id, ndc);
+});
+
+// Story: crud:Inventory:linear:3
+bthread("crud:Inventory:linear:3", function () {
+  let id = "id_380_" + Math.floor(Math.random() * 10000);
+  let ndc = "ndc_380_" + Math.floor(Math.random() * 10000);
+  createInventory(id, ndc);
+  verifyInventoryExists(id, ndc);
+  updateInventory(id, ndc);
+  deleteInventory(id, ndc);
+  tryToDeleteANonExistingInventory(id, ndc);
+  verifyInventoryDoesNotExist(id, ndc);
+});
+
+// Monitor: Inventory Verification
+bthread("monitor:Inventory", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyInventoryAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let ndc = (e.data.parameters && e.data.parameters["ndc"]) ? e.data.parameters["ndc"] : e.data["ndc"];
+    block(matchDeletedInventory(id, ndc), function() {
+      bp.log.info(`Monitor Inventory: Verifying persistence of ID ${id} inside deletion block.`);
+        verifyInventoryExists(id, ndc);
+    });
+  }
+});
+
+// Story: crud:Prescriptions:linear:1
+bthread("crud:Prescriptions:linear:1", function () {
+  let id = "id_410_" + Math.floor(Math.random() * 10000);
+  createPrescription(id);
+  verifyPrescriptionsExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescriptions(id);
+  verifyPrescriptionsDoesNotExist(id);
+});
+
+// Story: crud:Prescriptions:linear:2
+bthread("crud:Prescriptions:linear:2", function () {
+  let id = "id_420_" + Math.floor(Math.random() * 10000);
+  createPrescription(id);
+  verifyPrescriptionsExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescriptions(id);
+  verifyPrescriptionsDoesNotExist(id);
+});
+
+// Story: crud:Prescriptions:linear:3
+bthread("crud:Prescriptions:linear:3", function () {
+  let id = "id_430_" + Math.floor(Math.random() * 10000);
+  createPrescription(id);
+  verifyPrescriptionsExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescriptions(id);
+  verifyPrescriptionsDoesNotExist(id);
+});
+
+// Monitor: Prescriptions Verification
+bthread("monitor:Prescriptions", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyPrescriptionsAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    block(matchDeletedPrescriptions(id), function() {
+      bp.log.info(`Monitor Prescriptions: Verifying persistence of ID ${id} inside deletion block.`);
+        verifyPrescriptionsExists(id);
+    });
+  }
+});
+
+// ======================================================
+// BUG 1 (Refill Overflow) & BUG 2 (Teleport)
+// ======================================================
+
+// Story: flow:Pharmacy:linear:1 (Bug 1)
 bthread("flow:Pharmacy:linear:1", function () {
   let patientId; 
   let rxId = "rx_" + Math.floor(Math.random() * 10000);
   let dispenseId = "disp_" + Math.floor(Math.random() * 10000);
   
-  // Dependencies
   let deps = {};
   deps["patientId"] = matchAnyPatientsAdded();
   let captured = resolveDependencies(deps, {"patientId": "id"});
   patientId = captured["patientId"];
 
-  // 1. Create Prescription with 1 refill
-  createPrescription(rxId, patientId, "drug_123", 1);
-  verifyPrescriptionsExists(rxId);
+  // Create Prescription with 1 refill (Uses custom helper)
+  createRxWithRefills(rxId, patientId, "drug_123", 1);
 
-  // 2. Standard Dispense (should work)
-  dispenseMedication(rxId, patientId, dispenseId);
+  // Standard Dispense
+  dispenseDrug(rxId, patientId, dispenseId);
 
-  // --- BUG 1 PATH SELECTION ---
-  let choice = bp.sync({
-      request: [
-          bp.Event("Path_Trigger_Bug1_Refill"), 
-          bp.Event("Path_Skip_Bug1")
-      ]
-  });
-
+  // --- BUG 1: ATTACK ---
+  let choice = bp.sync({ request: [bp.Event("Path_Trigger_Bug1_Refill"), bp.Event("Path_Skip_Bug1")] });
   if (choice.name === "Path_Trigger_Bug1_Refill") {
-      bp.log.info("💊 Path Selected: Triggering BUG 1 (Refill Overflow)");
+      bp.log.info("💊 Triggering BUG 1 (Refill Overflow)");
       for (let i = 1; i <= 3; i++) {
           let attackId = dispenseId + "_attack_" + i;
           bp.sync({ request: bp.Event("Dispense_Attack_" + i, {
               lib: "REST", method: "POST", url: "http://localhost:5000/dispense",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ 
-                  rxId: rxId, 
-                  patientId: patientId, 
-                  dispenseId: attackId,
-                  status: "active_attack" 
-              }),
+              body: JSON.stringify({ rxId: rxId, patientId: patientId, dispenseId: attackId, status: "active_attack" }),
               parameters: { "description": "Refill Overflow Attack " + i },
               expectedResponseCodes: [201] 
           })});
       }
   } else {
-      bp.log.info("✅ Path Selected: Skipping BUG 1");
+      bp.log.info("✅ Skipping BUG 1");
   }
 });
 
-// Story: flow:Pharmacy:linear:2
-// === BUG 2: TELEPORT / DOUBLE PROCESS (50% Chance) ===
+// Story: flow:Pharmacy:linear:2 (Bug 2)
 bthread("flow:Pharmacy:linear:2", function () {
   let patientId; 
   let rxId = "rx_tele_" + Math.floor(Math.random() * 10000);
-  let storeId1; // Resolved Dependency
   
   let deps = {};
   deps["patientId"] = matchAnyPatientsAdded();
-  deps["storeId1"] = matchAnyStoresAdded();
-  let captured = resolveDependencies(deps, {"patientId": "id", "storeId1": "storeId"});
+  let captured = resolveDependencies(deps, {"patientId": "id"});
   patientId = captured["patientId"];
-  storeId1 = captured["storeId1"];
 
-  // 1. Create Prescription
-  createPrescription(rxId, patientId, "drug_456", 5);
+  createRxWithRefills(rxId, patientId, "drug_456", 5);
 
-  // 2. Process at Store 1 (Standard)
-  processPrescription(rxId, storeId1);
+  let storeId1 = "Store_1_" + Math.floor(Math.random() * 10000);
+  createPharmacyStore(storeId1, "Store One", "1st Ave", "555-1111");
+  processRx(rxId, storeId1);
 
-  // --- BUG 2 PATH SELECTION ---
-  let choice = bp.sync({
-      request: [
-          bp.Event("Path_Trigger_Bug2_Teleport"), 
-          bp.Event("Path_Skip_Bug2")
-      ]
-  });
-
+  // --- BUG 2: ATTACK ---
+  let choice = bp.sync({ request: [bp.Event("Path_Trigger_Bug2_Teleport"), bp.Event("Path_Skip_Bug2")] });
   if (choice.name === "Path_Trigger_Bug2_Teleport") {
-      bp.log.info("💣 Path Selected: Triggering BUG 2 (Double Process)");
+      bp.log.info("💣 Triggering BUG 2 (Double Process)");
       
-      // 1. EXPLICITLY CREATE Store 2 (Force dependency)
       let storeId2 = "Store_Bug2_Target_" + Math.floor(Math.random() * 10000);
-      bp.sync({ request: bp.Event("Create_Store_For_Bug2", {
-          lib: "REST", method: "POST", url: "http://localhost:5000/stores",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-              storeId: storeId2, name: "Bug2 Target Pharmacy", 
-              address: "Conflict Ave", phone: "555-9999" 
-          }),
-          parameters: { "description": "Setup Store for Bug 2" }, expectedResponseCodes: [201]
-      })});
+      createPharmacyStore(storeId2, "Bug2 Target Pharmacy", "Conflict Ave", "555-9999");
 
-      // 2. Force Process at Store 2 (CRASH TARGET)
       bp.sync({ request: bp.Event("Attempt_Double_Process", {
           lib: "REST", method: "POST", url: "http://localhost:5000/process-rx",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-              rxId: rxId, 
-              storeId: storeId2, 
-              status: "active_attack",
-              complaint: "Teleport Crash"
-          }),
+          body: JSON.stringify({ rxId: rxId, storeId: storeId2, status: "active_attack", complaint: "Teleport Crash" }),
           parameters: { "description": "Trigger Double Process Crash" }, 
           expectedResponseCodes: [201] 
       })});
   } else {
-      bp.log.info("✅ Path Selected: Skipping BUG 2");
+      bp.log.info("✅ Skipping BUG 2");
   }
 });
 
-// === Helper Functions (Fixed: Added 'parameters') ===
+// ==============================================================
+// CUSTOM HELPERS (Not present in interfaces.js - REQUIRED)
+// ==============================================================
 
-function createPatient(id, name, phone) {
-    bp.sync({ request: bp.Event("Create_Patient", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/patients",
+function createRxWithRefills(id, pid, did, refills) {
+    bp.sync({ request: bp.Event("Create_Rx", {
+        lib: "REST", method: "POST", url: "http://localhost:5000/prescriptions",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, name: name, phone: phone }),
-        parameters: { description: "Create Patient " + id }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
-function matchAnyPatientsAdded() { return bp.EventSet("Match_Patients", function(e){ return e.name.includes("Create_Patient"); }); }
-
-function createDrug(id, name, dose) {
-    bp.sync({ request: bp.Event("Create_Drug", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/drugs",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, name: name, dosage: dose }),
-        parameters: { description: "Create Drug " + id }, // FIX
+        body: JSON.stringify({ id: id, patientId: pid, drugId: did, refillsLeft: refills }),
+        parameters: { description: "Create Rx " + id },
         expectedResponseCodes: [201]
     })});
 }
 
-function createStore(id, name, addr, phone) {
+function createPharmacyStore(id, name, addr, phone) {
     bp.sync({ request: bp.Event("Create_Store", {
         lib: "REST", method: "POST", url: "http://localhost:5000/stores",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ storeId: id, name: name, address: addr, phone: phone }),
-        parameters: { description: "Create Store " + id }, // FIX
+        parameters: { description: "Create Store " + id }, 
         expectedResponseCodes: [201]
     })});
 }
 function matchAnyStoresAdded() { return bp.EventSet("Match_Stores", function(e){ return e.name.includes("Create_Store"); }); }
 
-function createPrescription(id, pid, did, refills) {
-    bp.sync({ request: bp.Event("Create_Rx", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/prescriptions",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, patientId: pid, drugId: did, refillsLeft: refills }),
-        parameters: { description: "Create Rx " + id }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
-function matchAnyPrescriptionsAdded() { return bp.EventSet("Match_Rx", function(e){ return e.name.includes("Create_Rx"); }); }
-
-function dispenseMedication(rxId, pid, dispId) {
+function dispenseDrug(rxId, pid, dispId) {
     bp.sync({ request: bp.Event("Dispense", {
         lib: "REST", method: "POST", url: "http://localhost:5000/dispense",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rxId: rxId, patientId: pid, dispenseId: dispId }),
-        parameters: { description: "Dispense " + dispId }, // FIX
+        parameters: { description: "Dispense " + dispId },
         expectedResponseCodes: [201]
     })});
 }
 
-function processPrescription(rxId, storeId) {
+function processRx(rxId, storeId) {
     bp.sync({ request: bp.Event("Process_Rx", {
         lib: "REST", method: "POST", url: "http://localhost:5000/process-rx",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rxId: rxId, storeId: storeId }),
-        parameters: { description: "Process Rx at " + storeId }, // FIX
+        parameters: { description: "Process Rx at " + storeId }, 
         expectedResponseCodes: [201]
     })});
 }
-
-// Verification placeholders
-function verifyPatientsExists(id) {}
-function verifyDrugsExists(id) {}
-function verifyStoresExists(id) {}
-function verifyPrescriptionsExists(id) {}
-function updatePatient(id, name, phone) {}
-function updateDrug(id, name) {}
-function updateStore(id) {} // Add if needed
-function verifyOrdersExists(id) {}
-function updateOrder(id) {}
-function deleteOrder(id) {}
-function tryToDeleteANonExistingOrders(id) {}
-function verifyOrdersDoesNotExist(id) {}
-function matchAnyOrdersAdded() { return bp.EventSet("Match_Orders", function(e){ return false; }); } 
-function matchDeletedOrders(id) { return bp.EventSet("Match_Del_Orders", function(e){ return false; }); }
-
-function createInventory(id, ndc) {} // Add if needed
-function verifyInventoryExists(id, ndc) {}
-function updateInventory(id, ndc) {}
-function deleteInventory(id, ndc) {}
-function tryToDeleteANonExistingInventory(id, ndc) {}
-function verifyInventoryDoesNotExist(id, ndc) {}
-function matchAnyInventoryAdded() { return bp.EventSet("Match_Inv", function(e){ return false; }); } 
-function matchDeletedInventory(id, ndc) { return bp.EventSet("Match_Del_Inv", function(e){ return false; }); }
-
-function createOrder(id) {} // Add if needed
-function updatePrescription(id) {}
-function deletePrescription(id) {}
-function tryToDeleteANonExistingPrescriptions(id) {}
-function verifyPrescriptionsDoesNotExist(id) {}
-function matchDeletedPrescriptions(id) { return bp.EventSet("Match_Del_Rx", function(e){ return false; }); }

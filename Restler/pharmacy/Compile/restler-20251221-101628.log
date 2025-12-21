@@ -1,0 +1,12 @@
+Restler Information: 0 : Starting task Compile...
+    DateTime=2025-12-21T20:16:28.6357873Z
+Restler Information: 0 : Launching 'dotnet "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../compiler/Restler.CompilerExe.dll" "D:\Yeshayahu\BpTestTell\Restler\pharmacy\Compile\config.json"'
+    DateTime=2025-12-21T20:16:29.4180804Z
+Restler Information: 0 : Process execution terminated in 00:00:01.0222558 with exit code 0x0: 'dotnet "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../compiler/Restler.CompilerExe.dll" "D:\Yeshayahu\BpTestTell\Restler\pharmacy\Compile\config.json"'
+    DateTime=2025-12-21T20:16:30.4448479Z
+Restler Information: 0 : (12140) dotnet "D:\Yeshayahu\restler-fuzzer\restler_bin\restler\../compiler/Restler.CompilerExe.dll" "D:\Yeshayahu\BpTestTell\Restler\pharmacy\Compile\config.json" exited with code: 0
+    DateTime=2025-12-21T20:16:30.4492463Z
+Restler Information: 0 : Task Compile succeeded.
+    DateTime=2025-12-21T20:16:30.4595771Z
+Restler Information: 0 : Collecting logs...
+    DateTime=2025-12-21T20:16:30.6747671Z

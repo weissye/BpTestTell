@@ -1,0 +1,2534 @@
+{
+  "Requests": [
+    {
+      "id": {
+        "endpoint": "/drugs",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "drugs"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/drugs",
+        "method": "Post"
+      },
+      "method": "Post",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "drugs"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      },
+                      {
+                        "LeafNode": {
+                          "name": "name",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": false,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "dependencyData": {
+        "responseParser": {
+          "writerVariables": [
+            {
+              "requestId": {
+                "endpoint": "/drugs",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "id"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            },
+            {
+              "requestId": {
+                "endpoint": "/drugs",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "name"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            }
+          ],
+          "headerWriterVariables": []
+        },
+        "inputWriterVariables": [],
+        "orderingConstraintWriterVariables": [],
+        "orderingConstraintReaderVariables": []
+      },
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/drugs/{id}",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "drugs"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_drugs_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/drugs/{id}",
+        "method": "Put"
+      },
+      "method": "Put",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "drugs"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_drugs_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_drugs_post_id",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      },
+                      {
+                        "LeafNode": {
+                          "name": "name",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_drugs_post_name",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": false,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/drugs/{id}",
+        "method": "Delete"
+      },
+      "method": "Delete",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "drugs"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_drugs_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/patients",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "patients"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/patients",
+        "method": "Post"
+      },
+      "method": "Post",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "patients"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      },
+                      {
+                        "LeafNode": {
+                          "name": "name",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": false,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "dependencyData": {
+        "responseParser": {
+          "writerVariables": [
+            {
+              "requestId": {
+                "endpoint": "/patients",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "id"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            },
+            {
+              "requestId": {
+                "endpoint": "/patients",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "name"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            }
+          ],
+          "headerWriterVariables": []
+        },
+        "inputWriterVariables": [],
+        "orderingConstraintWriterVariables": [],
+        "orderingConstraintReaderVariables": []
+      },
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/patients/{id}",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "patients"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_patients_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/patients/{id}",
+        "method": "Put"
+      },
+      "method": "Put",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "patients"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_patients_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_patients_post_id",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      },
+                      {
+                        "LeafNode": {
+                          "name": "name",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_patients_post_name",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": false,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/patients/{id}",
+        "method": "Delete"
+      },
+      "method": "Delete",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "patients"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_patients_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/orders",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "orders"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/orders",
+        "method": "Post"
+      },
+      "method": "Post",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "orders"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "dependencyData": {
+        "responseParser": {
+          "writerVariables": [
+            {
+              "requestId": {
+                "endpoint": "/orders",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "id"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            }
+          ],
+          "headerWriterVariables": []
+        },
+        "inputWriterVariables": [],
+        "orderingConstraintWriterVariables": [],
+        "orderingConstraintReaderVariables": []
+      },
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/orders/{id}",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "orders"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_orders_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/orders/{id}",
+        "method": "Put"
+      },
+      "method": "Put",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "orders"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_orders_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_orders_post_id",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/orders/{id}",
+        "method": "Delete"
+      },
+      "method": "Delete",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "orders"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_orders_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/prescriptions",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "prescriptions"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/prescriptions",
+        "method": "Post"
+      },
+      "method": "Post",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "prescriptions"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "dependencyData": {
+        "responseParser": {
+          "writerVariables": [
+            {
+              "requestId": {
+                "endpoint": "/prescriptions",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "id"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            }
+          ],
+          "headerWriterVariables": []
+        },
+        "inputWriterVariables": [],
+        "orderingConstraintWriterVariables": [],
+        "orderingConstraintReaderVariables": []
+      },
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/prescriptions/{id}",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "prescriptions"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_prescriptions_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/prescriptions/{id}",
+        "method": "Put"
+      },
+      "method": "Put",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "prescriptions"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_prescriptions_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "id",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_prescriptions_post_id",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/prescriptions/{id}",
+        "method": "Delete"
+      },
+      "method": "Delete",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "prescriptions"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_prescriptions_post_id",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/inventory",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "inventory"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/inventory",
+        "method": "Post"
+      },
+      "method": "Post",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "inventory"
+          ]
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "ndc",
+                          "payload": {
+                            "Fuzzable": {
+                              "primitiveType": "String",
+                              "defaultValue": "fuzzstring"
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "dependencyData": {
+        "responseParser": {
+          "writerVariables": [
+            {
+              "requestId": {
+                "endpoint": "/inventory",
+                "method": "Post"
+              },
+              "accessPathParts": {
+                "path": [
+                  "ndc"
+                ]
+              },
+              "primitiveType": "String",
+              "kind": "BodyResponseProperty"
+            }
+          ],
+          "headerWriterVariables": []
+        },
+        "inputWriterVariables": [],
+        "orderingConstraintWriterVariables": [],
+        "orderingConstraintReaderVariables": []
+      },
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/inventory/{ndc}",
+        "method": "Get"
+      },
+      "method": "Get",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "inventory"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_inventory_post_ndc",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/inventory/{ndc}",
+        "method": "Put"
+      },
+      "method": "Put",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "inventory"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_inventory_post_ndc",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": [
+              {
+                "name": "__body__",
+                "payload": {
+                  "InternalNode": [
+                    {
+                      "name": "",
+                      "propertyType": "Object",
+                      "isRequired": true,
+                      "isReadOnly": false
+                    },
+                    [
+                      {
+                        "LeafNode": {
+                          "name": "ndc",
+                          "payload": {
+                            "DynamicObject": {
+                              "primitiveType": "String",
+                              "variableName": "_inventory_post_ndc",
+                              "isWriter": false
+                            }
+                          },
+                          "isRequired": true,
+                          "isReadOnly": false
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": [
+              {
+                "name": "Content-Type",
+                "payload": {
+                  "LeafNode": {
+                    "name": "",
+                    "payload": {
+                      "Constant": [
+                        "String",
+                        "application/json"
+                      ]
+                    },
+                    "isRequired": true,
+                    "isReadOnly": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    },
+    {
+      "id": {
+        "endpoint": "/inventory/{ndc}",
+        "method": "Delete"
+      },
+      "method": "Delete",
+      "basePath": "",
+      "path": [
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "inventory"
+          ]
+        },
+        {
+          "Constant": [
+            "String",
+            "/"
+          ]
+        },
+        {
+          "DynamicObject": {
+            "primitiveType": "String",
+            "variableName": "_inventory_post_ndc",
+            "isWriter": false
+          }
+        }
+      ],
+      "queryParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "bodyParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "headerParameters": [
+        [
+          "Schema",
+          {
+            "ParameterList": []
+          }
+        ],
+        [
+          "DictionaryCustomPayload",
+          {
+            "ParameterList": []
+          }
+        ]
+      ],
+      "token": "Refreshable",
+      "headers": [
+        [
+          "Accept",
+          "application/json"
+        ],
+        [
+          "Host",
+          "192.168.225.53:5014"
+        ]
+      ],
+      "httpVersion": "1.1",
+      "requestMetadata": {
+        "isLongRunningOperation": false
+      }
+    }
+  ]
+}

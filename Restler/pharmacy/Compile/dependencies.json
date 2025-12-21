@@ -1,0 +1,286 @@
+{
+  "/drugs": {
+    "POST": {
+      "Body": [
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "id"
+        },
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "name"
+        }
+      ]
+    }
+  },
+  "/drugs/{id}": {
+    "DELETE": {
+      "Path": [
+        {
+          "producer_endpoint": "/drugs",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "GET": {
+      "Path": [
+        {
+          "producer_endpoint": "/drugs",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "PUT": {
+      "Path": [
+        {
+          "producer_endpoint": "/drugs",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ],
+      "Body": [
+        {
+          "producer_endpoint": "/drugs",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        },
+        {
+          "producer_endpoint": "/drugs",
+          "producer_method": "POST",
+          "producer_resource_name": "name",
+          "consumer_param": "name"
+        }
+      ]
+    }
+  },
+  "/inventory": {
+    "POST": {
+      "Body": [
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "ndc"
+        }
+      ]
+    }
+  },
+  "/inventory/{ndc}": {
+    "DELETE": {
+      "Path": [
+        {
+          "producer_endpoint": "/inventory",
+          "producer_method": "POST",
+          "producer_resource_name": "ndc",
+          "consumer_param": "ndc"
+        }
+      ]
+    },
+    "GET": {
+      "Path": [
+        {
+          "producer_endpoint": "/inventory",
+          "producer_method": "POST",
+          "producer_resource_name": "ndc",
+          "consumer_param": "ndc"
+        }
+      ]
+    },
+    "PUT": {
+      "Path": [
+        {
+          "producer_endpoint": "/inventory",
+          "producer_method": "POST",
+          "producer_resource_name": "ndc",
+          "consumer_param": "ndc"
+        }
+      ],
+      "Body": [
+        {
+          "producer_endpoint": "/inventory",
+          "producer_method": "POST",
+          "producer_resource_name": "ndc",
+          "consumer_param": "ndc"
+        }
+      ]
+    }
+  },
+  "/orders": {
+    "POST": {
+      "Body": [
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "id"
+        }
+      ]
+    }
+  },
+  "/orders/{id}": {
+    "DELETE": {
+      "Path": [
+        {
+          "producer_endpoint": "/orders",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "GET": {
+      "Path": [
+        {
+          "producer_endpoint": "/orders",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "PUT": {
+      "Path": [
+        {
+          "producer_endpoint": "/orders",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ],
+      "Body": [
+        {
+          "producer_endpoint": "/orders",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    }
+  },
+  "/patients": {
+    "POST": {
+      "Body": [
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "id"
+        },
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "name"
+        }
+      ]
+    }
+  },
+  "/patients/{id}": {
+    "DELETE": {
+      "Path": [
+        {
+          "producer_endpoint": "/patients",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "GET": {
+      "Path": [
+        {
+          "producer_endpoint": "/patients",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "PUT": {
+      "Path": [
+        {
+          "producer_endpoint": "/patients",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ],
+      "Body": [
+        {
+          "producer_endpoint": "/patients",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        },
+        {
+          "producer_endpoint": "/patients",
+          "producer_method": "POST",
+          "producer_resource_name": "name",
+          "consumer_param": "name"
+        }
+      ]
+    }
+  },
+  "/prescriptions": {
+    "POST": {
+      "Body": [
+        {
+          "producer_endpoint": "",
+          "producer_method": "",
+          "producer_resource_name": "",
+          "consumer_param": "id"
+        }
+      ]
+    }
+  },
+  "/prescriptions/{id}": {
+    "DELETE": {
+      "Path": [
+        {
+          "producer_endpoint": "/prescriptions",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "GET": {
+      "Path": [
+        {
+          "producer_endpoint": "/prescriptions",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    },
+    "PUT": {
+      "Path": [
+        {
+          "producer_endpoint": "/prescriptions",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ],
+      "Body": [
+        {
+          "producer_endpoint": "/prescriptions",
+          "producer_method": "POST",
+          "producer_resource_name": "id",
+          "consumer_param": "id"
+        }
+      ]
+    }
+  }
+}
