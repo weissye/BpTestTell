@@ -1,0 +1,6 @@
+"BugID","Found","TimeSeconds","Status"
+"A_LOGIC","True","10.110489","DETECTED"
+"B_LIFECYCLE","True","8.0843131","DETECTED"
+"C_UNIQUENESS","True","6.0415037","DETECTED"
+"D_INTEGRITY","True","12.0875095","DETECTED"
+"E_WORKFLOW","False","15","MISSED"
