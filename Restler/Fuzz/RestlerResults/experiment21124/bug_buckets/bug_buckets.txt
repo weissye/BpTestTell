@@ -1,0 +1,148 @@
+PayloadBodyChecker_500: 28
+InvalidValueChecker_500: 1
+InvalidDynamicObjectChecker_20x: 5
+Total Buckets: 34
+-------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_1.replay.txt
+Hash: PayloadBodyChecker_500_4c7f31f419412406fca96ea517928aa62300d0d9
+POST /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"chainId":{ "fuzz" : false },"name":"fuzzstring","hqAddress":{ "fuzz" : false },"supportEmail":"fuzzstring","active":false}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_2.replay.txt
+Hash: PayloadBodyChecker_500_cb12eed3ade1feb4767e71300e72e5d2ba42474c
+POST /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_3.replay.txt
+Hash: PayloadBodyChecker_500_c673b50b969e34af6b1c54e60328f3e8c8dd3b45
+POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"garageId":"fuzzstring","chainId":{ "fuzz" : false },"name":"fuzzstring","address":{ "fuzz" : false },"phone":"fuzzstring","bayCount":0,"servicesOffered":["False"],"active":false}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_4.replay.txt
+Hash: PayloadBodyChecker_500_3e41eb91d4142e90eee41acaefc15f20a1fa77d9
+POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"garageId":{ "fuzz" : false },"chainId":"fuzzstring","name":"fuzzstring","address":{ "fuzz" : false },"phone":"fuzzstring","bayCount":1,"servicesOffered":["fuzzstring"],"active":true}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_5.replay.txt
+Hash: PayloadBodyChecker_500_02f449a04f345d25817d22805ed0e7079860c564
+POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_6.replay.txt
+Hash: PayloadBodyChecker_500_4048210fd3354e0640b8ecc6487d1f8aa752c073
+POST /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"customerId":{ "fuzz" : false },"type":"fuzzstring","fullName":"fuzzstring","email":"fuzzstring","phone":"fuzzstring","preferredGarageId":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_7.replay.txt
+Hash: PayloadBodyChecker_500_1cedc486371ff2d84e55f9f6ca8840ce9a38e843
+POST /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_8.replay.txt
+Hash: PayloadBodyChecker_500_baa6c3b1d7e4dac964497f97c699c97debc99ca3
+POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"vin":"fuzzstring","make":"fuzzstring","model":"fuzzstring","year":0,"mileage":0,"ownerCustomerId":{ "fuzz" : false },"homeGarageId":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_9.replay.txt
+Hash: PayloadBodyChecker_500_e6597eac40b38f08525849bd8730c0d13d38a673
+POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"vin":{ "fuzz" : false },"make":"fuzzstring","model":"fuzzstring","year":1,"mileage":1,"ownerCustomerId":"fuzzstring","homeGarageId":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_10.replay.txt
+Hash: PayloadBodyChecker_500_9dec237d93602fcf8edfd6f6014975132155e2d4
+POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_11.replay.txt
+Hash: PayloadBodyChecker_500_1184f7e3b3c89a40300568d3e5095540cc7e8cb5
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"tasks":["fuzzstring"]}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_12.replay.txt
+Hash: PayloadBodyChecker_500_7bef5a71315ebc53f9df13d6248cca2049461441
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"intervalKm":1}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_13.replay.txt
+Hash: PayloadBodyChecker_500_c6f15168e337caba33d759955e2bf99cdc962f9a
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"garageId":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_14.replay.txt
+Hash: PayloadBodyChecker_500_9cc50e7c412203689b3c8c9551345c45f2b691b4
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"planType":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_15.replay.txt
+Hash: PayloadBodyChecker_500_1664fbdbbb9e894019622f7da0c8d6ac2451e76c
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"carVin":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_16.replay.txt
+Hash: PayloadBodyChecker_500_97552df23a201776762d4fa7d5a0564105792ba0
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"status":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_17.replay.txt
+Hash: PayloadBodyChecker_500_c766e520884e57de1c17eaf0c957738c195f3f40
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"intervalMonths":1}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_18.replay.txt
+Hash: PayloadBodyChecker_500_7525fdfedb5de577f6012c18ab63a81235b356ae
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"pmId":{ "fuzz" : false }}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_19.replay.txt
+Hash: PayloadBodyChecker_500_8b53291f64e658766ae6af49a0680b023edc27cf
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\nfalse
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_20.replay.txt
+Hash: PayloadBodyChecker_500_bfa2b257c83b8be669b449219d0d67a085eab830
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"tasks":[{ "fuzz" : false }]}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_21.replay.txt
+Hash: PayloadBodyChecker_500_aa4b8c3e2bc50a7fe25ebbcee9933abf708ed690
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"tasks":false}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_22.replay.txt
+Hash: PayloadBodyChecker_500_2453dba26ad6ef7049a16b7ab9c911a8f533fce1
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{ "fuzz" : false }
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_23.replay.txt
+Hash: PayloadBodyChecker_500_dfd617fd023911906d3c675abc9b6d9771de8023
+POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"roId":"fuzzstring","carVin":{ "fuzz" : false },"customerId":"fuzzstring","garageId":"fuzzstring","complaint":"fuzzstring","status":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_24.replay.txt
+Hash: PayloadBodyChecker_500_e7d26c0bf03efed406fdd51bb5cc1673d4d28e4b
+POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{"roId":{ "fuzz" : false },"carVin":"fuzzstring","customerId":"fuzzstring","garageId":"fuzzstring","complaint":"fuzzstring","status":"fuzzstring"}
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_25.replay.txt
+Hash: PayloadBodyChecker_500_a4db84ff197ca1c556e2128e2f46677332a1b289
+POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_26.replay.txt
+Hash: PayloadBodyChecker_500_007c1c28535416b20d5c0b1c80f7d7290e6d4c47
+PUT /garages/_READER_DELIM_garages_post_garageId_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_27.replay.txt
+Hash: PayloadBodyChecker_500_6595ab0fc4dc033bf8b6204ed075aa3b4777628c
+POST /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "customerId":fuzzstring,\n    "type":fuzzstring,\n    "fullName":fuzzstring,\n    "email":fuzzstring,\n    "phone":fuzzstring,\n    "preferredGarageId":fuzzstring}\r\n
+PUT /customers/_READER_DELIM_customers_post_customerId_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+PayloadBodyChecker_500 - Bug was reproduced - PayloadBodyChecker_500_28.replay.txt
+Hash: PayloadBodyChecker_500_cb2633fbc409858efc6ba2d11a3ba6a2728cf7b8
+POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "vin":fuzzstring,\n    "make":fuzzstring,\n    "model":fuzzstring,\n    "year":1,\n    "mileage":1,\n    "ownerCustomerId":fuzzstring,\n    "homeGarageId":fuzzstring}\r\n
+PUT /cars/_READER_DELIM_cars_post_vin_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n"fuzzstring"
+--------------------------------------------------------------------------------
+InvalidValueChecker_500 - Bug was reproduced - InvalidValueChecker_500_1.replay.txt
+Hash: InvalidValueChecker_500_bf7b946f399557f673e1fac901946b6e56b92ce5
+POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "pmId":fuzzstring,\n    "carVin":fuzzstring,\n    "garageId":fuzzstring,\n    "planType":fuzzstring,\n    "intervalKm":1,\n    "intervalMonths":1,\n    "tasks":\n    [\n        fuzzstring\n    ],\n    "status":fuzzstring}\r\n
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_1.replay.txt
+Hash: InvalidDynamicObjectChecker_20x_726e8154b1d1ccfad02e1a060432381012534803
+POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "garageId":fuzzstring,\n    "chainId":fuzzstring,\n    "name":fuzzstring,\n    "address":{ "fuzz": false },\n    "phone":fuzzstring,\n    "bayCount":1,\n    "servicesOffered":\n    [\n        fuzzstring\n    ],\n    "active":true}\r\n
+PUT /garages/_READER_DELIM_garages_post_garageId_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "chainId":fuzzstring,\n    "name":fuzzstring,\n    "address":{ "fuzz": false },\n    "phone":fuzzstring,\n    "bayCount":1,\n    "servicesOffered":\n    [\n        fuzzstring\n    ],\n    "active":true}\r\n
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_2.replay.txt
+Hash: InvalidDynamicObjectChecker_20x_312c44314fafa83bad02d312271c0ce89c2bcdfa
+POST /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "customerId":fuzzstring,\n    "type":fuzzstring,\n    "fullName":fuzzstring,\n    "email":fuzzstring,\n    "phone":fuzzstring,\n    "preferredGarageId":fuzzstring}\r\n
+GET /customers/_READER_DELIM_customers_post_customerId_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nauthentication_token_tag\r\n
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_3.replay.txt
+Hash: InvalidDynamicObjectChecker_20x_659210c809695c406bb95eaf2aa183f6c940ab13
+POST /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "customerId":fuzzstring,\n    "type":fuzzstring,\n    "fullName":fuzzstring,\n    "email":fuzzstring,\n    "phone":fuzzstring,\n    "preferredGarageId":fuzzstring}\r\n
+PUT /customers/_READER_DELIM_customers_post_customerId_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "type":fuzzstring,\n    "fullName":fuzzstring,\n    "email":fuzzstring,\n    "phone":fuzzstring,\n    "preferredGarageId":fuzzstring}\r\n
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_4.replay.txt
+Hash: InvalidDynamicObjectChecker_20x_aa62eededba4db16bb6e8fe42029f38452725663
+POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "vin":fuzzstring,\n    "make":fuzzstring,\n    "model":fuzzstring,\n    "year":1,\n    "mileage":1,\n    "ownerCustomerId":fuzzstring,\n    "homeGarageId":fuzzstring}\r\n
+GET /cars/_READER_DELIM_cars_post_vin_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nauthentication_token_tag\r\n
+--------------------------------------------------------------------------------
+InvalidDynamicObjectChecker_20x - Bug was reproduced - InvalidDynamicObjectChecker_20x_5.replay.txt
+Hash: InvalidDynamicObjectChecker_20x_938b7af5f31a953f6ec3ac08dbeef00b597ae50a
+POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "vin":fuzzstring,\n    "make":fuzzstring,\n    "model":fuzzstring,\n    "year":1,\n    "mileage":1,\n    "ownerCustomerId":fuzzstring,\n    "homeGarageId":fuzzstring}\r\n
+PUT /cars/_READER_DELIM_cars_post_vin_READER_DELIM HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\nauthentication_token_tag\r\n{\n    "make":fuzzstring,\n    "model":fuzzstring,\n    "year":1,\n    "mileage":1,\n    "ownerCustomerId":fuzzstring,\n    "homeGarageId":fuzzstring}\r\n
+--------------------------------------------------------------------------------

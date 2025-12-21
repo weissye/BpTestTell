@@ -1,0 +1,26 @@
+################################################################################
+ InvalidDynamicObjectChecker_20x
+
+ Hash: InvalidDynamicObjectChecker_20x_938b7af5f31a953f6ec3ac08dbeef00b597ae50a
+
+ To attempt to reproduce this bug using restler, run restler with the command
+ line option of --replay_log <path_to_this_log>.
+ If an authentication token is required, you must also specify the token_refresh_cmd.
+
+ This log may contain specific values for IDs or names that were generated
+ during fuzzing, using the fuzzing dictionary. Such names will be re-played
+ without modification. You must update the replay log manually with any changes
+ required to execute the requests in your environment (for example, replacing
+ pre-created account, subscription, or other resource IDs, as needed).
+################################################################################
+
+-> POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "vin":"fuzzstring",\n    "make":"fuzzstring",\n    "model":"fuzzstring",\n    "year":1,\n    "mileage":1,\n    "ownerCustomerId":"fuzzstring",\n    "homeGarageId":"fuzzstring"}\r\n
+! producer_timing_delay 0
+! max_async_wait_time 20
+PREVIOUS RESPONSE: 'HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:57:16 GMT\r\n\r\n{"homeGarageId":"fuzzstring","make":"fuzzstring","mileage":1,"model":"fuzzstring","ownerCustomerId":"fuzzstring","vin":"fuzzstring","year":1}\n'
+
+-> PUT /cars/fuzzstring?injected_query_string=123 HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    "make":"fuzzstring",\n    "model":"fuzzstring",\n    "year":1,\n    "mileage":1,\n    "ownerCustomerId":"fuzzstring",\n    "homeGarageId":"fuzzstring"}\r\n
+! producer_timing_delay 0
+! max_async_wait_time 0
+PREVIOUS RESPONSE: 'HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:57:16 GMT\r\n\r\n{"homeGarageId":"fuzzstring","make":"fuzzstring","mileage":1,"model":"fuzzstring","ownerCustomerId":"fuzzstring","vin":"fuzzstring","year":1}\n'
+

@@ -1,0 +1,401 @@
+{
+  "0": {},
+  "400": {
+    "2734ac3f-6a33-41bf-9292-cce5c44a1303": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/chains",
+            "query": "",
+            "body": "{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"hqAddress\":{ \"fuzz\": false },\n    \"supportEmail\":\"fuzzstring\",\n    \"active\":true}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\"error\":\"duplicate-id\"}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "62756ce6-2e6d-435b-9274-e5dc210ed88a": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/repair-orders",
+            "query": "",
+            "body": "{\"roId\":\"fuzzstring\",\"carVin\":\"fuzzstring\",\"customerId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"complaint\":\"fuzzstring\"}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\"error\":\"invalid-car (fuzzstring)\"}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "946f6a08-dc07-42d2-a43f-600ca8c32bc1": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/chains",
+            "query": "",
+            "body": "{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"hqAddress\":{ \"fuzz\": false },\n    \"supportEmail\":\"fuzzstring\",\n    \"active\":true}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\"error\":\"duplicate-id\"}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ],
+    "db5cfa54-632f-485e-a3f7-4ebf56b360e8": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "POST",
+            "path": "/repair-orders",
+            "query": "",
+            "body": "{\n    \"roId\":\"fuzzstring\",\n    \"carVin\":\"fuzzstring\",\n    \"customerId\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"complaint\":\"fuzzstring\",\n    \"status\":\"fuzzstring\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 400,
+            "codeDescription": "BAD REQUEST",
+            "content": "{\"error\":\"invalid-car (fuzzstring)\"}\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ]
+  },
+  "404": {
+    "8e529cee-fd83-4100-8a26-cef0dd06a337": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/periodic-maintenance/fuzzstring",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/periodic-maintenance/fuzzstring",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "DELETE",
+            "path": "/periodic-maintenance/fuzzstring",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "DELETE",
+            "path": "/periodic-maintenance/fuzzstring",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/periodic-maintenance/fuzzstring",
+            "query": "",
+            "body": "{}"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "PUT",
+            "path": "/periodic-maintenance/fuzzstring",
+            "query": "",
+            "body": "{\n    \"carVin\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"planType\":\"fuzzstring\",\n    \"intervalKm\":1,\n    \"intervalMonths\":1,\n    \"tasks\":\n    [\n        \"fuzzstring\"\n    ],\n    \"status\":\"fuzzstring\"}\r\n"
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 404,
+            "codeDescription": "NOT FOUND",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ]
+  },
+  "405": {
+    "43d6b307-fedc-40bb-a9d7-cf2e2a2a1cec": [
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/garages",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/garages",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/repair-orders",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/repair-orders",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/cars",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/cars",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/chains",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/chains",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/periodic-maintenance",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      },
+      {
+        "request": {
+          "RequestData": {
+            "method": "GET",
+            "path": "/periodic-maintenance",
+            "query": "",
+            "body": ""
+          }
+        },
+        "response": {
+          "ResponseData": {
+            "code": 405,
+            "codeDescription": "METHOD NOT ALLOWED",
+            "content": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n",
+            "isFailure": true,
+            "isBug": false
+          }
+        }
+      }
+    ]
+  }
+}

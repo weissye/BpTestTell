@@ -1,0 +1,42 @@
+// Story: stress:RepairOrders:phantom_load
+// Triggers Bug 1 (Resource Leak) by repeatedly creating and deleting orders.
+// The SUT randomly fails to free up capacity on delete, causing an eventual overflow.
+
+bthread("stress:RepairOrders:phantom_load", function () {
+  let carVin;
+  let customerId;
+  let garageId;
+  
+  // 1. Resolve Dependencies (Reuse resources created by other stories)
+  let deps = {};
+  deps["carVin"] = matchAnyCarsAdded();
+  deps["customerId"] = matchAnyCustomersAdded();
+  deps["garageId"] = matchAnyGaragesAdded();
+  
+  // Map event fields to local variables
+  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
+  let captured = resolveDependencies(deps, pkMap);
+  
+  carVin = captured["carVin"];
+  customerId = captured["customerId"];
+  garageId = captured["garageId"];
+
+  bp.log.info("Starting Phantom Load sequence on Garage: " + garageId);
+
+  // 2. Stress Loop: Create -> Delete
+  // The SUT limit is 5 phantom slots. A loop of 20 ensures we statistically hit it.
+  for (let i = 0; i < 20; i++) {
+      let complaint = "Phantom_Test_" + i;
+      let field1 = "Stress_Test";
+      let field2 = 1000 + i;
+      let id = "id_phantom_" + Math.floor(Math.random() * 10000);
+      let roId = "roId_phantom_" + new Date().getTime() + "_" + i;
+
+      // Step A: Create Order (Increases Load)
+      // Eventually, this call will fail with 500 when the leak limit is reached.
+      createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+      
+      // Step B: Delete Order (Should decrease load, but has 20% chance to leak)
+      deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  }
+});

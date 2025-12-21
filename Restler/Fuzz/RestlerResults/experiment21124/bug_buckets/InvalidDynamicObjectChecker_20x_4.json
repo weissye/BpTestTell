@@ -1,0 +1,22 @@
+{
+    "status_code": "200",
+    "checker_name": "InvalidDynamicObjectChecker",
+    "reproducible": true,
+    "verb": "GET",
+    "endpoint": "/cars/{vin}",
+    "status_text": "OK",
+    "request_sequence": [
+        {
+            "producer_timing_delay": 0,
+            "max_async_wait_time": 20,
+            "replay_request": "POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"vin\":\"fuzzstring\",\n    \"make\":\"fuzzstring\",\n    \"model\":\"fuzzstring\",\n    \"year\":1,\n    \"mileage\":1,\n    \"ownerCustomerId\":\"fuzzstring\",\n    \"homeGarageId\":\"fuzzstring\"}\r\n",
+            "response": "HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:57:16 GMT\r\n\r\n{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+        },
+        {
+            "producer_timing_delay": 0,
+            "max_async_wait_time": 0,
+            "replay_request": "GET /cars/fuzzstring?injected_query_string=123 HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+            "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:57:16 GMT\r\n\r\n{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+        }
+    ]
+}

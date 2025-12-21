@@ -1,0 +1,93 @@
+POST /chains
+	TypeMismatch_chainId
+	{'chainId': {'fuzz': False}, 'name': 'fuzzstring', 'hqAddress': {'fuzz': False}, 'supportEmail': 'fuzzstring', 'active': False}
+
+	InvalidJson
+	"fuzzstring"
+
+POST /garages
+	TypeMismatch_chainId
+	{'garageId': 'fuzzstring', 'chainId': {'fuzz': False}, 'name': 'fuzzstring', 'address': {'fuzz': False}, 'phone': 'fuzzstring', 'bayCount': 0, 'servicesOffered': ['False'], 'active': False}
+
+	TypeMismatch_garageId
+	{'garageId': {'fuzz': False}, 'chainId': 'fuzzstring', 'name': 'fuzzstring', 'address': {'fuzz': False}, 'phone': 'fuzzstring', 'bayCount': 1, 'servicesOffered': ['fuzzstring'], 'active': True}
+
+	InvalidJson
+	"fuzzstring"
+
+POST /customers
+	TypeMismatch_customerId
+	{'customerId': {'fuzz': False}, 'type': 'fuzzstring', 'fullName': 'fuzzstring', 'email': 'fuzzstring', 'phone': 'fuzzstring', 'preferredGarageId': 'fuzzstring'}
+
+	InvalidJson
+	"fuzzstring"
+
+POST /cars
+	TypeMismatch_ownerCustomerId
+	{'vin': 'fuzzstring', 'make': 'fuzzstring', 'model': 'fuzzstring', 'year': 0, 'mileage': 0, 'ownerCustomerId': {'fuzz': False}, 'homeGarageId': 'fuzzstring'}
+
+	TypeMismatch_vin
+	{'vin': {'fuzz': False}, 'make': 'fuzzstring', 'model': 'fuzzstring', 'year': 1, 'mileage': 1, 'ownerCustomerId': 'fuzzstring', 'homeGarageId': 'fuzzstring'}
+
+	InvalidJson
+	"fuzzstring"
+
+POST /periodic-maintenance
+	StructMissing_/pmId/carVin/garageId/planType/intervalKm/intervalMonths/status
+	{'tasks': ['fuzzstring']}
+
+	StructMissing_/pmId/carVin/garageId/planType/intervalMonths/tasks[...]/status
+	{'intervalKm': 1}
+
+	StructMissing_/pmId/carVin/planType/intervalKm/intervalMonths/tasks[...]/status
+	{'garageId': 'fuzzstring'}
+
+	StructMissing_/pmId/carVin/garageId/intervalKm/intervalMonths/tasks[...]/status
+	{'planType': 'fuzzstring'}
+
+	StructMissing_/pmId/garageId/planType/intervalKm/intervalMonths/tasks[...]/status
+	{'carVin': 'fuzzstring'}
+
+	StructMissing_/pmId/carVin/garageId/planType/intervalKm/intervalMonths/tasks[...]
+	{'status': 'fuzzstring'}
+
+	StructMissing_/pmId/carVin/garageId/planType/intervalKm/tasks[...]/status
+	{'intervalMonths': 1}
+
+	TypeMismatch_pmId
+	{'pmId': {'fuzz': False}}
+
+	InvalidJson
+	false
+
+	TypeMismatch_tasks
+	{'tasks': [{'fuzz': False}]}
+
+	TypeMismatch_tasks_array
+	{'tasks': False}
+
+	StructMissing_/pmId/carVin/garageId/planType/intervalKm/intervalMonths/tasks[...]/status
+	{'fuzz': False}
+
+POST /repair-orders
+	TypeMismatch_carVin
+	{'roId': 'fuzzstring', 'carVin': {'fuzz': False}, 'customerId': 'fuzzstring', 'garageId': 'fuzzstring', 'complaint': 'fuzzstring', 'status': 'fuzzstring'}
+
+	TypeMismatch_roId
+	{'roId': {'fuzz': False}, 'carVin': 'fuzzstring', 'customerId': 'fuzzstring', 'garageId': 'fuzzstring', 'complaint': 'fuzzstring', 'status': 'fuzzstring'}
+
+	InvalidJson
+	"fuzzstring"
+
+PUT /garages/{garageId}
+	InvalidJson
+	"fuzzstring"
+
+PUT /customers/{customerId}
+	InvalidJson
+	"fuzzstring"
+
+PUT /cars/{vin}
+	InvalidJson
+	"fuzzstring"
+

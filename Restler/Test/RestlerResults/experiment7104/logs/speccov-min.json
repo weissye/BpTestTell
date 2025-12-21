@@ -1,0 +1,463 @@
+{
+    "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_1": {
+        "verb": "POST",
+        "endpoint": "/repair-orders",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"roId\":\"fuzzstring\",\n    \"carVin\":\"fuzzstring\",\n    \"customerId\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"complaint\":\"fuzzstring\",\n    \"status\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 37\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n{\"error\":\"invalid-car (fuzzstring)\"}\n"
+    },
+    "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2": {
+        "verb": "POST",
+        "endpoint": "/repair-orders",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "POST /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\"roId\":\"fuzzstring\",\"carVin\":\"fuzzstring\",\"customerId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"complaint\":\"fuzzstring\"}",
+        "response": "HTTP/1.0 400 BAD REQUEST\r\nContent-Type: application/json\r\nContent-Length: 37\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n{\"error\":\"invalid-car (fuzzstring)\"}\n"
+    },
+    "954c7588a8434fd4a723288c75c18432c9c2cd94_1": {
+        "verb": "POST",
+        "endpoint": "/customers",
+        "valid": 1,
+        "matching_prefix": [],
+        "request": "POST /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"customerId\":\"fuzzstring\",\n    \"type\":\"fuzzstring\",\n    \"fullName\":\"fuzzstring\",\n    \"email\":\"fuzzstring\",\n    \"phone\":\"fuzzstring\",\n    \"preferredGarageId\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 147\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n{\"customerId\":\"fuzzstring\",\"email\":\"fuzzstring\",\"fullName\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"preferredGarageId\":\"fuzzstring\",\"type\":\"fuzzstring\"}\n"
+    },
+    "984b723756d3cfb434549fab507dba3b4ab5c5dc_1": {
+        "verb": "GET",
+        "endpoint": "/customers",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "984b723756d3cfb434549fab507dba3b4ab5c5dc_2": {
+        "verb": "GET",
+        "endpoint": "/customers",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /customers HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "a7194d98346a763c2654ca6a730c504e89ccff80_1": {
+        "verb": "GET",
+        "endpoint": "/periodic-maintenance",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "a7194d98346a763c2654ca6a730c504e89ccff80_2": {
+        "verb": "GET",
+        "endpoint": "/periodic-maintenance",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "b69d2b7624243d211ca90c2972ca02a7831ae22b_1": {
+        "verb": "GET",
+        "endpoint": "/chains",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "b69d2b7624243d211ca90c2972ca02a7831ae22b_2": {
+        "verb": "GET",
+        "endpoint": "/chains",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "b6c740444468a596abf20e757b3438e7813454af_1": {
+        "verb": "GET",
+        "endpoint": "/cars",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "b6c740444468a596abf20e757b3438e7813454af_2": {
+        "verb": "GET",
+        "endpoint": "/cars",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "e10567119bc296a2bf2e3ddc130de20e6b371a03_1": {
+        "verb": "GET",
+        "endpoint": "/repair-orders",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:13 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "e10567119bc296a2bf2e3ddc130de20e6b371a03_2": {
+        "verb": "GET",
+        "endpoint": "/repair-orders",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /repair-orders HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "e685b22e4f7718dbaeae6716a4877d2ef0300bcd_1": {
+        "verb": "GET",
+        "endpoint": "/garages",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "e685b22e4f7718dbaeae6716a4877d2ef0300bcd_2": {
+        "verb": "GET",
+        "endpoint": "/garages",
+        "valid": 0,
+        "matching_prefix": [],
+        "request": "GET /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 405 METHOD NOT ALLOWED\r\nContent-Type: text/html; charset=utf-8\r\nAllow: POST, OPTIONS\r\nContent-Length: 178\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+    },
+    "e9ca6887907d901675522e997007c1bee44b7b70_1": {
+        "verb": "POST",
+        "endpoint": "/chains",
+        "valid": 1,
+        "matching_prefix": [],
+        "request": "POST /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"hqAddress\":{ \"fuzz\": false },\n    \"supportEmail\":\"fuzzstring\",\n    \"active\":true}\r\n",
+        "response": "HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 114\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{\"active\":true,\"chainId\":\"fuzzstring\",\"hqAddress\":{\"fuzz\":false},\"name\":\"fuzzstring\",\"supportEmail\":\"fuzzstring\"}\n"
+    },
+    "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1": {
+        "verb": "POST",
+        "endpoint": "/periodic-maintenance",
+        "valid": 1,
+        "matching_prefix": [],
+        "request": "POST /periodic-maintenance HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"pmId\":\"fuzzstring\",\n    \"carVin\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"planType\":\"fuzzstring\",\n    \"intervalKm\":1,\n    \"intervalMonths\":1,\n    \"tasks\":\n    [\n        \"fuzzstring\"\n    ],\n    \"status\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 171\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{\"carVin\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"intervalKm\":1,\"intervalMonths\":1,\"planType\":\"fuzzstring\",\"pmId\":\"fuzzstring\",\"status\":\"fuzzstring\",\"tasks\":[\"fuzzstring\"]}\n"
+    },
+    "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1": {
+        "verb": "POST",
+        "endpoint": "/cars",
+        "valid": 1,
+        "matching_prefix": [],
+        "request": "POST /cars HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"vin\":\"fuzzstring\",\n    \"make\":\"fuzzstring\",\n    \"model\":\"fuzzstring\",\n    \"year\":1,\n    \"mileage\":1,\n    \"ownerCustomerId\":\"fuzzstring\",\n    \"homeGarageId\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+    },
+    "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1": {
+        "verb": "POST",
+        "endpoint": "/garages",
+        "valid": 1,
+        "matching_prefix": [],
+        "request": "POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"garageId\":\"fuzzstring\",\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"address\":{ \"fuzz\": false },\n    \"phone\":\"fuzzstring\",\n    \"bayCount\":1,\n    \"servicesOffered\":\n    [\n        \"fuzzstring\"\n    ],\n    \"active\":true}\r\n",
+        "response": "HTTP/1.0 201 CREATED\r\nContent-Type: application/json\r\nContent-Length: 175\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{\"active\":true,\"address\":{\"fuzz\":false},\"bayCount\":1,\"chainId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"servicesOffered\":[\"fuzzstring\"]}\n"
+    },
+    "00974c3290b2d30a05122dac043ed3c674285522": {
+        "verb": "PUT",
+        "endpoint": "/repair-orders/{roId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ]
+    },
+    "0ffe55e558cf27ae6d8d1b9dc2abb8c6bfc861b0_1__1": {
+        "verb": "DELETE",
+        "endpoint": "/cars/{vin}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1",
+                "valid": 1
+            }
+        ],
+        "request": "DELETE /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 204 NO CONTENT\r\nContent-Type: text/html; charset=utf-8\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n"
+    },
+    "53a2896a60225dc34d293ffc77a1fd8501fac06e": {
+        "verb": "POST",
+        "endpoint": "/repair-orders/{roId}/approve",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ]
+    },
+    "5a14a83f0895b22380401b4089659f206ede65a7_1__1": {
+        "verb": "PUT",
+        "endpoint": "/chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            }
+        ]
+    },
+    "5a14a83f0895b22380401b4089659f206ede65a7_2__1": {
+        "verb": "PUT",
+        "endpoint": "/chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            }
+        ]
+    },
+    "854360db6b3321784d578662e66aa088305c7d82_1__1": {
+        "verb": "GET",
+        "endpoint": "/cars/{vin}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1",
+                "valid": 1
+            }
+        ],
+        "request": "GET /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+    },
+    "86f6e80ddb1dfee16d7f0862c793ba3bb2c6d7a2_1__1": {
+        "verb": "PUT",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "request": "PUT /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"carVin\":\"fuzzstring\",\n    \"garageId\":\"fuzzstring\",\n    \"planType\":\"fuzzstring\",\n    \"intervalKm\":1,\n    \"intervalMonths\":1,\n    \"tasks\":\n    [\n        \"fuzzstring\"\n    ],\n    \"status\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:14 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+    },
+    "86f6e80ddb1dfee16d7f0862c793ba3bb2c6d7a2_2__1": {
+        "verb": "PUT",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "request": "PUT /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{}",
+        "response": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+    },
+    "8ba074d939064862e65a34d60703109257e43fe6_1__1": {
+        "verb": "GET",
+        "endpoint": "/customers/{customerId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "954c7588a8434fd4a723288c75c18432c9c2cd94_1",
+                "valid": 1
+            }
+        ],
+        "request": "GET /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 147\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n{\"customerId\":\"fuzzstring\",\"email\":\"fuzzstring\",\"fullName\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"preferredGarageId\":\"fuzzstring\",\"type\":\"fuzzstring\"}\n"
+    },
+    "8c30c82591c4b4dd54c7397fe8ad2206b678c3da_1__1": {
+        "verb": "PUT",
+        "endpoint": "/cars/{vin}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f61c5c50c738fedb912cdd58e801ef7d98ff9e9e_1",
+                "valid": 1
+            }
+        ],
+        "request": "PUT /cars/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"make\":\"fuzzstring\",\n    \"model\":\"fuzzstring\",\n    \"year\":1,\n    \"mileage\":1,\n    \"ownerCustomerId\":\"fuzzstring\",\n    \"homeGarageId\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 142\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n{\"homeGarageId\":\"fuzzstring\",\"make\":\"fuzzstring\",\"mileage\":1,\"model\":\"fuzzstring\",\"ownerCustomerId\":\"fuzzstring\",\"vin\":\"fuzzstring\",\"year\":1}\n"
+    },
+    "b5c2b9ec0f4076a4257869ed02465b932dc07b40": {
+        "verb": "POST",
+        "endpoint": "/repair-orders/{roId}/close",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ]
+    },
+    "b79f4c257b102ef6246eb81bce02c14cf9c443d6_1__1": {
+        "verb": "DELETE",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "request": "DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+    },
+    "b79f4c257b102ef6246eb81bce02c14cf9c443d6_2__1": {
+        "verb": "DELETE",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "request": "DELETE /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+    },
+    "bd02dc98d83000b652d7c12d9d056d59b5714679_1__1": {
+        "verb": "GET",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "request": "GET /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+    },
+    "bd02dc98d83000b652d7c12d9d056d59b5714679_2__1": {
+        "verb": "GET",
+        "endpoint": "/periodic-maintenance/{pmId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "eaa4802a6dc7a660db21da7c296bbe7b0ce423f4_1",
+                "valid": 1
+            }
+        ],
+        "request": "GET /periodic-maintenance/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 404 NOT FOUND\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 232\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>\n"
+    },
+    "c936d7bd80507981e1cf779b4753ba97ec2d18dc": {
+        "verb": "DELETE",
+        "endpoint": "/repair-orders/{roId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ]
+    },
+    "cd8ece96c4736d500461a6cea1b9ac3bc8bb4dcb_1__1": {
+        "verb": "PUT",
+        "endpoint": "/customers/{customerId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "954c7588a8434fd4a723288c75c18432c9c2cd94_1",
+                "valid": 1
+            }
+        ],
+        "request": "PUT /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"type\":\"fuzzstring\",\n    \"fullName\":\"fuzzstring\",\n    \"email\":\"fuzzstring\",\n    \"phone\":\"fuzzstring\",\n    \"preferredGarageId\":\"fuzzstring\"}\r\n",
+        "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 147\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:15 GMT\r\n\r\n{\"customerId\":\"fuzzstring\",\"email\":\"fuzzstring\",\"fullName\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"preferredGarageId\":\"fuzzstring\",\"type\":\"fuzzstring\"}\n"
+    },
+    "d9316b69f1fa9a698770a688272e0748e9c6109c": {
+        "verb": "GET",
+        "endpoint": "/repair-orders/{roId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "5bebba200fbc64b6d0b15cc646264bf1f8b96a13_2",
+                "valid": 0
+            }
+        ]
+    },
+    "e12ce77ac5ee34018635c92a388bc792b482d504_1__1": {
+        "verb": "DELETE",
+        "endpoint": "/customers/{customerId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "954c7588a8434fd4a723288c75c18432c9c2cd94_1",
+                "valid": 1
+            }
+        ],
+        "request": "DELETE /customers/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 204 NO CONTENT\r\nContent-Type: text/html; charset=utf-8\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n"
+    },
+    "e61b97a5a1c8d2ad79870df6ec310b450a525b35_1__1": {
+        "verb": "PUT",
+        "endpoint": "/garages/{garageId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1",
+                "valid": 1
+            }
+        ],
+        "request": "PUT /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"address\":{ \"fuzz\": false },\n    \"phone\":\"fuzzstring\",\n    \"bayCount\":1,\n    \"servicesOffered\":\n    [\n        \"fuzzstring\"\n    ],\n    \"active\":true}\r\n",
+        "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 175\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{\"active\":true,\"address\":{\"fuzz\":false},\"bayCount\":1,\"chainId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"servicesOffered\":[\"fuzzstring\"]}\n"
+    },
+    "49ba06ba9e2a074ce1c19cb737c09af4600a5151_1__1_1": {
+        "verb": "DELETE",
+        "endpoint": "/garages/{garageId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1",
+                "valid": 1
+            },
+            {
+                "id": "e61b97a5a1c8d2ad79870df6ec310b450a525b35_1",
+                "valid": 1
+            }
+        ],
+        "request": "DELETE /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 204 NO CONTENT\r\nContent-Type: text/html; charset=utf-8\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n"
+    },
+    "60e330307e6e0d250e76e7c68ff7a5b5822efce0": {
+        "verb": "DELETE",
+        "endpoint": "/chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            },
+            {
+                "id": "5a14a83f0895b22380401b4089659f206ede65a7_2",
+                "valid": 0
+            }
+        ]
+    },
+    "c38030a7bf0fe119362bd86242eb99a9a049bae6_1__1_1": {
+        "verb": "GET",
+        "endpoint": "/garages/{garageId}",
+        "valid": 1,
+        "matching_prefix": [
+            {
+                "id": "f74a4eee00f1c693fce5e29536e22d07349eb6ff_1",
+                "valid": 1
+            },
+            {
+                "id": "e61b97a5a1c8d2ad79870df6ec310b450a525b35_1",
+                "valid": 1
+            }
+        ],
+        "request": "GET /garages/fuzzstring HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\n\r\n",
+        "response": "HTTP/1.0 200 OK\r\nContent-Type: application/json\r\nContent-Length: 175\r\nServer: Werkzeug/2.0.3 Python/3.9.18\r\nDate: Fri, 19 Dec 2025 04:51:16 GMT\r\n\r\n{\"active\":true,\"address\":{\"fuzz\":false},\"bayCount\":1,\"chainId\":\"fuzzstring\",\"garageId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"phone\":\"fuzzstring\",\"servicesOffered\":[\"fuzzstring\"]}\n"
+    },
+    "dfa6d4d2c2e17b7ff732c0eb2005249bade326c2": {
+        "verb": "GET",
+        "endpoint": "/chains/{chainId}",
+        "valid": 0,
+        "matching_prefix": [
+            {
+                "id": "e9ca6887907d901675522e997007c1bee44b7b70_1",
+                "valid": 1
+            },
+            {
+                "id": "5a14a83f0895b22380401b4089659f206ede65a7_2",
+                "valid": 0
+            }
+        ]
+    }}

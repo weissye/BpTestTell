@@ -1,0 +1,1083 @@
+Testing request: /chains POST
+Found 5 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_object
+Fuzzing request block 20, type: restler_fuzzable_string
+Fuzzing request block 22, type: restler_fuzzable_bool
+Tested 500 combinations for request /chains POST, combination 1
+Testing request: /chains GET
+Testing request: /garages POST
+Found 8 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_object
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_int
+Fuzzing request block 26, type: restler_fuzzable_string
+Fuzzing request block 28, type: restler_fuzzable_bool
+Tested 800 combinations for request /garages POST, combination 1
+Testing request: /garages GET
+Testing request: /customers POST
+Found 6 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_string
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_string
+Tested 600 combinations for request /customers POST, combination 1
+Testing request: /customers GET
+Testing request: /cars POST
+Found 7 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_int
+Fuzzing request block 22, type: restler_fuzzable_int
+Fuzzing request block 24, type: restler_fuzzable_string
+Fuzzing request block 26, type: restler_fuzzable_string
+Tested 700 combinations for request /cars POST, combination 1
+Testing request: /cars GET
+Testing request: /periodic-maintenance POST
+Found 8 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 16, type: restler_fuzzable_string
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 18, type: restler_fuzzable_string
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 20, type: restler_fuzzable_string
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 22, type: restler_fuzzable_int
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 24, type: restler_fuzzable_int
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 26, type: restler_fuzzable_string
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Fuzzing request block 28, type: restler_fuzzable_string
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+
+Suspect sequence: 500
+POST /periodic-maintenance
+Tested 800 combinations for request /periodic-maintenance POST, combination 1
+Testing request: /periodic-maintenance GET
+Testing request: /repair-orders POST
+Found 6 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_string
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_string
+Tested 600 combinations for request /repair-orders POST, combination 1
+Testing request: /repair-orders GET
+Testing request: /garages POST
+Found 8 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_object
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_int
+Fuzzing request block 26, type: restler_fuzzable_string
+Fuzzing request block 28, type: restler_fuzzable_bool
+Tested 800 combinations for request /garages POST, combination 1
+Testing request: /garages POST
+Testing request: /garages POST
+Testing request: /garages POST
+Testing request: /garages/_READER_DELIM_garages_post_garageId_READER_DELIM PUT
+Found 7 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_object
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_int
+Fuzzing request block 26, type: restler_fuzzable_string
+Fuzzing request block 28, type: restler_fuzzable_bool
+Tested 700 combinations for request /garages/_READER_DELIM_garages_post_garageId_READER_DELIM PUT, combination 1
+Testing request: /customers POST
+Found 6 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_string
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_string
+Tested 600 combinations for request /customers POST, combination 1
+Testing request: /customers POST
+Testing request: /customers POST
+Testing request: /customers POST
+Testing request: /customers/_READER_DELIM_customers_post_customerId_READER_DELIM GET
+Testing request: /customers/_READER_DELIM_customers_post_customerId_READER_DELIM PUT
+Found 5 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_string
+Fuzzing request block 22, type: restler_fuzzable_string
+Fuzzing request block 24, type: restler_fuzzable_string
+Tested 500 combinations for request /customers/_READER_DELIM_customers_post_customerId_READER_DELIM PUT, combination 1
+Testing request: /customers/_READER_DELIM_customers_post_customerId_READER_DELIM DELETE
+Testing request: /cars POST
+Found 7 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 14, type: restler_fuzzable_string
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_int
+Fuzzing request block 22, type: restler_fuzzable_int
+Fuzzing request block 24, type: restler_fuzzable_string
+Fuzzing request block 26, type: restler_fuzzable_string
+Tested 700 combinations for request /cars POST, combination 1
+Testing request: /cars POST
+Testing request: /cars POST
+Testing request: /cars POST
+Testing request: /cars/_READER_DELIM_cars_post_vin_READER_DELIM GET
+Testing request: /cars/_READER_DELIM_cars_post_vin_READER_DELIM PUT
+Found 6 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 16, type: restler_fuzzable_string
+Fuzzing request block 18, type: restler_fuzzable_string
+Fuzzing request block 20, type: restler_fuzzable_int

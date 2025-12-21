@@ -1,0 +1,26 @@
+{
+    "delete_stats": {
+        "_customers_post_customerId": {
+            "204": 280,
+            "404": 529,
+            "400": 256
+        },
+        "_cars_post_vin": {
+            "204": 58,
+            "404": 391,
+            "400": 132
+        },
+        "_periodic_maintenance_post_pmId": {
+            "404": 626,
+            "400": 128
+        },
+        "_repair_orders_post_roId": {
+            "204": 1
+        },
+        "_garages__garageId__put_name": {
+            "204": 56,
+            "400": 1099,
+            "404": 186
+        }
+    }
+}

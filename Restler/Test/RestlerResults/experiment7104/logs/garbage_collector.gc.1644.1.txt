@@ -1,0 +1,8 @@
+2025-12-19 06:51:16.479: Trying garbage collection of * 4 * objects
+_customers_post_customerId: ['fuzzstring', 'fuzzstring', 'fuzzstring', 'fuzzstring']
+2025-12-19 06:51:16.602: Trying garbage collection of * 6 * objects
+_periodic_maintenance_post_pmId: ['fuzzstring', 'fuzzstring', 'fuzzstring', 'fuzzstring', 'fuzzstring', 'fuzzstring']
+2025-12-19 06:51:16.799: Trying garbage collection of * 4 * objects
+_cars_post_vin: ['fuzzstring', 'fuzzstring', 'fuzzstring', 'fuzzstring']
+2025-12-19 06:51:16.934: Trying garbage collection of * 3 * objects
+_garages__garageId__put_name: ['fuzzstring', 'fuzzstring', 'fuzzstring']
