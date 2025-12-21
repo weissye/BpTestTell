@@ -179,6 +179,13 @@ def handle_request(resource_path):
             resource_key = '/'.join(parts[:-1])
     
     print(f'[{request.method}] Path: {resource_path} | Key: {resource_key} | ID: {item_id}')
+
+    # --- INJECTED BUG 2: Resource Crash (Fuzzing Target) ---
+    # Accessing any resource with ID ending in '666' crashes the server
+    if item_id and str(item_id).endswith('666'):
+        print("Simulating crash bug: ID ends with 666")
+        return jsonify({'detail': 'Critical System Failure: Unhandled Exception'}), 500
+    # -------------------------------------------------------
     
     # Simulate Bug: Error every 3rd call to 'api/dcim/sites'
     #if resource_path == 'api/dcim/sites':
@@ -207,6 +214,20 @@ def handle_request(resource_path):
              mock_db[resource_key][existing_idx] = new_item
              return jsonify(new_item), 200
         
+        # --- INJECTED BUG 1: Logic Violation (State Transition) ---
+        # Requirement: Cannot create a Device if the associated Site is 'retired'.
+        # Implementation: We intentionally IGNORE this check, allowing the creation.
+        # Provengo should catch this by knowing the site is retired and expecting a failure.
+        if resource_key == 'api/dcim/devices':
+            site_id = new_item.get('site', {}).get('id')
+            if site_id:
+                site = mock_retrieve('api/dcim/sites', site_id)
+                if site and site.get('status') == 'retired':
+                    print(f"BUG TRIGGERED: Created device {new_item.get('id')} on retired site {site_id}")
+                    # Correct behavior would be: return jsonify({'detail': 'Site is retired'}), 400
+                    # We proceed to allow it (The Bug).
+        # ----------------------------------------------------------
+
         mock_db[resource_key].append(new_item)
         return jsonify(new_item), success_code
 
@@ -218,7 +239,17 @@ def handle_request(resource_path):
         # -----------------------------------------------
         existing_item = mock_retrieve(resource_key, item_id)
         if existing_item:
-            try: existing_item.update(request.get_json(silent=True) or {})
+            updates = request.get_json(silent=True) or {}
+            
+            # --- INJECTED BUG 3: Data Inconsistency (Silent Failure) ---
+            # Implementation: If updating 'api/circuits/circuits', ignore 'status' field updates.
+            # Return 200 OK with the *old* object (or object with other updates), fooling simple checks.
+            if resource_key == 'api/circuits/circuits' and 'status' in updates:
+                print(f"BUG TRIGGERED: Ignored status update for circuit {item_id}")
+                updates.pop('status') # Drop the status change silently
+            # -----------------------------------------------------------
+
+            try: existing_item.update(updates)
             except: pass
             return jsonify(existing_item)
         return jsonify({'detail': 'Not found.'}), 404
