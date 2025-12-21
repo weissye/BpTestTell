@@ -24,7 +24,9 @@ BUGS_ENABLED = {
     'B_LIFECYCLE': is_bug_enabled('B_LIFECYCLE'),   # Use-After-Delete: Accessing deleted resource
     'C_UNIQUENESS': is_bug_enabled('C_UNIQUENESS'),  # Key Uniqueness: Duplicate Slugs allowed
     'D_INTEGRITY': is_bug_enabled('D_INTEGRITY'),   # Data Integrity: Silent Update Failure
-    'E_WORKFLOW': is_bug_enabled('E_WORKFLOW')     # Workflow Bypass: Draft -> Archived (skipping Active)
+    'E_WORKFLOW': is_bug_enabled('E_WORKFLOW'),     # Workflow Bypass: Draft -> Archived (skipping Active)
+    'F_CRASH_500': is_bug_enabled('F_CRASH_500'),   # Crash: 500 Error on specific input
+    'G_INPUT_VALIDATION': is_bug_enabled('G_INPUT_VALIDATION') # Crash: 500 on bad validation
 }
 
 print(f"Benchmark Configuration: Active Bug = {active_bug_env}")
@@ -69,7 +71,10 @@ def handle_request(resource_path):
     if request.method == 'GET':
         if item_id is not None:
             item = mock_retrieve(resource_key, item_id)
-            if item: return jsonify(item)
+            if item: 
+                if BUGS_ENABLED['B_LIFECYCLE'] and item_id in zombies:
+                    print(f"BUG B TRIGGERED: Accessed deleted item {item_id}")
+                return jsonify(item)
             return jsonify({'detail': 'Not found.'}), 404
         else:
             return jsonify({'count': len(mock_db[resource_key]), 'results': mock_db[resource_key]})
@@ -85,6 +90,11 @@ def handle_request(resource_path):
         if not BUGS_ENABLED['C_UNIQUENESS']: 
              # Logic for correct behavior (not implemented here to keep it simple, assuming bug is the focus)
              pass 
+        else:
+             # Check if we are creating a duplicate
+             slug = new_item.get('slug')
+             if slug and any(x.get('slug') == slug for x in mock_db[resource_key]):
+                 print(f"BUG C TRIGGERED: Duplicate slug accepted: {slug}")
         # If bug is enabled, we just allow duplicates.
         # --------------------------------------
 
@@ -112,6 +122,23 @@ def handle_request(resource_path):
                  updates.pop('status')
             # --------------------------------------------------
 
+            # --- BUG F: CRASH 500 (Magic String) ---
+            if BUGS_ENABLED['F_CRASH_500']:
+                for v in updates.values():
+                    if isinstance(v, str) and "crash_me" in v:
+                        print(f"BUG F TRIGGERED: Magic string 'crash_me' found. Crashing...")
+                        raise Exception("Simulated 500 Internal Server Error (Magic String)")
+            # ---------------------------------------
+
+            # --- BUG G: INPUT VALIDATION (Numeric Crash) ---
+            if BUGS_ENABLED['G_INPUT_VALIDATION']:
+                # Arbitrary check: if any integer field is -999, crash
+                for v in updates.values():
+                    if isinstance(v, int) and v == -999:
+                        print(f"BUG G TRIGGERED: Invalid integer -999. Crashing...")
+                        raise Exception("Simulated 500 Internal Server Error (Validation Crash)")
+            # -----------------------------------------------
+
             try: existing_item.update(updates)
             except: pass
             return jsonify(existing_item)
@@ -123,8 +150,9 @@ def handle_request(resource_path):
              # Keep track of deleted IDs for Bug B
              if BUGS_ENABLED['B_LIFECYCLE']:
                  zombies.add(item_id)
-                 
-             mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
+                 # Bug: Don't delete it! Let it persist as a zombie.
+             else:
+                 mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
              
              if len(mock_db[resource_key]) < initial_len:
                  return '', 204

@@ -1,0 +1,100 @@
+// @provengo summon rest
+// NetBox Experiment Model for Provengo vs RESTLER Comparison
+
+/**
+ * Bug 1: Logic Violation
+ * Scenario: Create a Site with status 'retired', then try to create a Device on it.
+ * Expected: Should Fail (or we assert it should). 
+ * Actual (Bug): It succeeds.
+ */
+bthread('Bug1_LogicViolation', function () {
+    let siteId = 'site_' + new Date().getTime();
+    let siteName = 'RetiredSite_' + new Date().getTime();
+
+    // 1. Create Site (Retired)
+    let site = check(bp.sync({
+        request: bp.Event('CreateSite', {
+            url: 'api/dcim/sites',
+            method: 'POST',
+            body: { id: siteId, name: siteName, slug: siteName, status: 'retired' }
+        })
+    }));
+
+    // 2. Create Device on Retired Site
+    // Ideally, this should fail (400). The bug allows it (201).
+    bp.log.info("Bug1 Test: Attempting to create device on retired site: " + siteId);
+
+    let deviceId = 'dev_' + new Date().getTime();
+    let createDevice = bp.Event('CreateDevice', {
+        url: 'api/dcim/devices',
+        method: 'POST',
+        body: {
+            id: deviceId,
+            name: 'DeviceOnRetired',
+            site: { id: siteId }
+        }
+    });
+
+    try {
+        let response = check(bp.sync({ request: createDevice }));
+        // If we reach here, the creation succeeded.
+        if (response.status >= 200 && response.status < 300) {
+            bp.log.info("Bug1 Result: Bug Confirmed! Device created on retired site! Status: " + response.status);
+        } else {
+            bp.log.info("Bug1 Result: Unexpected success (creation failed with " + response.status + ")");
+        }
+    } catch (e) {
+        bp.log.info("Bug1 Result: Unexpected exception: " + e);
+    }
+});
+
+/**
+ * Bug 3: Data Inconsistency
+ * Scenario: Create Circuit, Update Status, Read Status.
+ * Expected: Status matches update.
+ * Actual (Bug): Status ignores update.
+ */
+bthread('Bug3_DataInconsistency', function () {
+    let circuitId = Math.floor(Math.random() * 100000);
+    bp.log.info("Bug3 Test: Testing Circuit Status Update for ID: " + circuitId);
+
+    // 1. Create Circuit
+    check(bp.sync({
+        request: bp.Event('CreateCircuit', {
+            url: 'api/circuits/circuits',
+            method: 'POST',
+            body: { id: circuitId, cid: 'CIT-' + circuitId, status: 'planned' }
+        })
+    }));
+
+    // 2. Update Status to 'active'
+    check(bp.sync({
+        request: bp.Event('UpdateCircuit', {
+            url: 'api/circuits/circuits/' + circuitId,
+            method: 'PATCH',
+            body: { status: 'active' }
+        })
+    }));
+
+    // 3. Read Back
+    let getCircuit = bp.Event('GetCircuit', {
+        url: 'api/circuits/circuits/' + circuitId,
+        method: 'GET'
+    });
+
+    let readRes = check(bp.sync({ request: getCircuit }));
+    let status = JSON.parse(readRes.body).status;
+
+    if (status !== 'active') {
+        bp.log.info("Bug3 Result: Bug Confirmed! Circuit status is '" + status + "' but should be 'active'.");
+    } else {
+        bp.log.info("Bug3 Result: Bug NOT triggered. Status is " + status);
+    }
+});
+
+function check(e) {
+    if (e.data && e.data.status) {
+        return e.data;
+    }
+    return { status: 200, body: '{}' };
+}

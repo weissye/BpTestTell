@@ -10,10 +10,10 @@ const GOALS = [
     Ctrl.markEvent("Classic!")
 ];
 
-const makeGoals = function(){
-    return [ [ any(/Howdy/), any(/Venus/) ],
-             [ any(/Mars/) ],
-             [ Ctrl.markEvent("Classic!") ] ];
+const makeGoals = function () {
+    return [[any(/Howdy/), any(/Venus/)],
+    [any(/Mars/)],
+    [Ctrl.markEvent("Classic!")]];
 }
 
 
@@ -26,9 +26,9 @@ const makeGoals = function(){
 function countMetGoals(ensemble, goals) {
     let metGoals = 0;
     goalLoop: for (let goal of goals) {
-        for ( let test of ensemble ) {
+        for (let test of ensemble) {
             for (let event of test) {
-                if ( goal.contains(event) ) {
+                if (goal.contains(event)) {
                     metGoals++;
                     continue goalLoop;
                 }
@@ -46,10 +46,10 @@ function countMetGoals(ensemble, goals) {
  */
 function countGoalMeeters(ensemble, goals) {
     let meeters = 0;
-    scenarioLoop: for ( let scenario of ensemble ) {
+    scenarioLoop: for (let scenario of ensemble) {
         for (let event of scenario) {
             for (let goal of goals) {
-                if ( goal.contains(event) ) {
+                if (goal.contains(event)) {
                     meeters++;
                     continue scenarioLoop;
                 }
@@ -74,15 +74,13 @@ function countGoalMeeters(ensemble, goals) {
  * @param {Event[][]} ensemble Test suite to be ranked.
  * @returns Score of the test suite.
  */
+/**
+ * Rank test suites based on their length (number of events).
+ * This helps in detecting bugs that appear after a sequence of operations.
+ * 
+ * @param {Event[][]} ensemble Test suite to be ranked.
+ * @returns {Array<Number>} Array of lengths for each test scenario.
+ */
 function rankingFunction(ensemble) {
-    
-    // How many goals did `ensemble` hit?
-    const metGoalsCount = countMetGoals(ensemble, GOALS);
-    const metGoalsPercent = metGoalsCount/GOALS.length;
-
-    const goalMeeters = countGoalMeeters(ensemble, GOALS);
-    const goalMeetersPercent = goalMeeters/ensemble.length;
-
-    return metGoalsPercent*goalMeetersPercent*100; // convert to human-readable percentage
-
+    return ensemble.map(test => test.length);
 }

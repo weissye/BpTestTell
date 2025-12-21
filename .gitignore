@@ -43,9 +43,11 @@ artifacts/
 model/
 
 mySetupEnv.bat
-set-OPENAPI-key.batprovengo/netbox/products/internal/runs-db.db
+set-OPENAPI-key.bat
+provengo/netbox/products/internal/runs-db.db
+**/runs-db.db
 mySetupEnv.ps1
 
 
-provengo/
+# provengo/
 # provengo_ready/

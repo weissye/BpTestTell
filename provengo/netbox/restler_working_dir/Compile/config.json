@@ -1,0 +1,23 @@
+{
+  "SwaggerSpecFilePath": [
+    "c:\\Users\\geraw\\provengo\\BpTestTell\\packs\\real_world\\netbox\\openapi.json"
+  ],
+  "GrammarOutputDirectoryPath": "C:\\Users\\geraw\\provengo\\BpTestTell\\provengo\\netbox\\restler_working_dir\\Compile",
+  "CustomDictionaryFilePath": "C:\\Users\\geraw\\provengo\\BpTestTell\\provengo\\netbox\\restler_working_dir\\Compile\\defaultDict.json",
+  "IncludeOptionalParameters": true,
+  "UseHeaderExamples": true,
+  "UsePathExamples": false,
+  "UseQueryExamples": true,
+  "UseBodyExamples": true,
+  "UseAllExamplePayloads": false,
+  "DiscoverExamples": false,
+  "ExamplesDirectory": "",
+  "DataFuzzing": true,
+  "ReadOnlyFuzz": false,
+  "ResolveQueryDependencies": true,
+  "ResolveBodyDependencies": true,
+  "ResolveHeaderDependencies": false,
+  "UseRefreshableToken": true,
+  "AllowGetProducers": false,
+  "TrackFuzzedParameterNames": false
+}

@@ -1,0 +1,12 @@
+Restler Information: 0 : Starting task Compile...
+    DateTime=2025-12-21T16:27:45.8517913Z
+Restler Information: 0 : Launching 'dotnet "C:\Users\geraw\provengo\restler-fuzzer\restler_bin\restler\../compiler/Restler.CompilerExe.dll" "C:\Users\geraw\provengo\BpTestTell\provengo\netbox\restler_working_dir\Compile\config.json"'
+    DateTime=2025-12-21T16:27:46.8359476Z
+Restler Information: 0 : Process execution terminated in 00:00:11.4003176 with exit code 0x0: 'dotnet "C:\Users\geraw\provengo\restler-fuzzer\restler_bin\restler\../compiler/Restler.CompilerExe.dll" "C:\Users\geraw\provengo\BpTestTell\provengo\netbox\restler_working_dir\Compile\config.json"'
+    DateTime=2025-12-21T16:27:58.2417033Z
+Restler Information: 0 : (23556) dotnet "C:\Users\geraw\provengo\restler-fuzzer\restler_bin\restler\../compiler/Restler.CompilerExe.dll" "C:\Users\geraw\provengo\BpTestTell\provengo\netbox\restler_working_dir\Compile\config.json" exited with code: 0
+    DateTime=2025-12-21T16:27:58.2451214Z
+Restler Information: 0 : Task Compile succeeded.
+    DateTime=2025-12-21T16:27:58.6543323Z
+Restler Information: 0 : Collecting logs...
+    DateTime=2025-12-21T16:27:58.8671807Z

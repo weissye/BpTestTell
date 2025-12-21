@@ -1,0 +1,11 @@
+Testing request: /api/circuits/circuit-group-assignments GET
+Found 52 fuzzable blocks.
+Budget: 100 values per parameter.
+Fuzzing request block 10, type: restler_fuzzable_string
+
+Suspect sequence: Timeout
+GET /api/circuits/circuit-group-assignments
+Fuzzing request block 13, type: restler_fuzzable_int
+
+Suspect sequence: Timeout
+GET /api/circuits/circuit-group-assignments
