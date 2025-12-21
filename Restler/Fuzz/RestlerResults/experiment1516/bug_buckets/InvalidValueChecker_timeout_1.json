@@ -1,0 +1,16 @@
+{
+    "status_code": "",
+    "checker_name": "InvalidValueChecker",
+    "reproducible": false,
+    "verb": "POST",
+    "endpoint": "/chains",
+    "status_text": "",
+    "request_sequence": [
+        {
+            "producer_timing_delay": 0,
+            "max_async_wait_time": 20,
+            "replay_request": "POST /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"chainId\":\"p8QtRJovpNb9p\",\n    \"name\":\"fuzzstring\",\n    \"hqAddress\":{ \"fuzz\": false },\n    \"supportEmail\":\"fuzzstring\",\n    \"active\":true}\r\n",
+            "response": "Exception: timed out"
+        }
+    ]
+}

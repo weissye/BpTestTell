@@ -3,35 +3,31 @@ from flask import Flask, request, jsonify, Response
 from datetime import datetime
 import logging
 import json
-import random
 
-# ---------------------------------
-# App setup
-# ---------------------------------
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("garage-chain-sut")
 
-# ---------------------------------
-# In-memory stores
-# ---------------------------------
-chains: Dict[str, Dict[str, Any]] = {}
-garages: Dict[str, Dict[str, Any]] = {}
-customers: Dict[str, Dict[str, Any]] = {}
-cars: Dict[str, Dict[str, Any]] = {}
-pms: Dict[str, Dict[str, Any]] = {}
-ros: Dict[str, Dict[str, Any]] = {}
+# ==========================================
+#   🔬 EXPERIMENT CONFIGURATION
+#   Edit these flags to enable/disable bugs
+# ==========================================
+BUG_CONFIG = {
+    "bug1": True,   # Bug 1: Garage Overflow (Crash on 3rd active RO)
+    "bug2": True    # Bug 2: Teleporting Car (Crash on moving active car)
+}
+# ==========================================
 
-# --- BUG STATE ---
-# Bug 1: Tracks active load. Leak limit is 3.
-garage_load = {}          
-# Bug 2: Tracks 'unstable' customers after update.
-unstable_customers = set()
+# Stores
+chains = {}
+garages = {}
+customers = {}
+cars = {}
+pms = {}
+ros = {}
 
-# ---------------------------------
-# Helpers
-# ---------------------------------
 def now_iso() -> str:
+    # Use timezone-aware UTC
     return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
 def ok(payload: Any, code: int = 200) -> Tuple[Response, int]:
@@ -44,86 +40,65 @@ def err(msg: str, code: int = 400) -> Tuple[Response, int]:
 def require_fields(body: Dict[str, Any], fields: List[str]) -> Optional[str]:
     for f in fields:
         if f not in body:
-            return f"Missing required field: {f}"
+            msg = f"Missing required field: {f}"
+            print(f"--- [VALIDATION FAIL] {msg}. Received Body keys: {list(body.keys())}")
+            return msg
     return None
 
-def as_bool(x: Any, default=False) -> bool:
-    if isinstance(x, bool): return x
-    return default
-
-# ---------------------------------
-# Seed data
-# ---------------------------------
 def seed():
+    # Clear Data Stores
     chains.clear(); garages.clear(); customers.clear(); cars.clear(); pms.clear(); ros.clear()
-    garage_load.clear(); unstable_customers.clear()
+    
+    print(f"--- [SEED] Data reset. Active Bugs: {BUG_CONFIG}")
 
-    # Seed Data
+    # Chains
     chains["CHAIN-001"] = {
-        "chainId": "CHAIN-001",
-        "name": "Prime Auto Care",
-        "hqAddress": {"street":"100 HQ Ave","city":"Metropolis","postalCode":"10000","country":"US"},
-        "supportEmail": "support@primeautocare.example",
-        "active": True,
+        "chainId": "CHAIN-001", "name": "Prime Auto Care",
+        "hqAddress": {"street":"100 HQ Ave"}, "active": True,
         "createdAt": now_iso(), "updatedAt": now_iso()
     }
-
-    # Garages (Bug 1: Low Capacity to trigger leak faster)
+    # Garages
     garages["GAR-001"] = {
-        "garageId": "GAR-001",
-        "chainId": "CHAIN-001",
-        "name": "Prime Downtown",
-        "address": {"street":"10 Main St","city":"Metro","postalCode":"12345","country":"US"},
-        "phone": "+15551234567",
-        "bayCount": 6,
-        "servicesOffered": ["oil-change","brakes","tires"],
-        "active": True,
-        "createdAt": now_iso(), "updatedAt": now_iso()
+        "garageId": "GAR-001", "chainId": "CHAIN-001", "name": "Prime Downtown",
+        "address": "10 Main St", "phone": "+15551234567", "bayCount": 6,
+        "active": True, "createdAt": now_iso(), "updatedAt": now_iso()
     }
-    garage_load["GAR-001"] = 0 
-
+    garages["GAR-002"] = {
+        "garageId": "GAR-002", "chainId": "CHAIN-001", "name": "Prime Airport",
+        "address": "1 Terminal Rd", "phone": "+15559990000", "bayCount": 8,
+        "active": True, "createdAt": now_iso(), "updatedAt": now_iso()
+    }
     # Customers
     customers["CUST-100"] = {
         "customerId": "CUST-100", "type":"individual", "fullName":"Ava Chen",
-        "email":"ava@example.com", "phone":"+15557654321",
-        "preferredGarageId": "GAR-001",
+        "email":"ava@example.com", "phone":"+15557654321", "preferredGarageId": "GAR-001",
         "createdAt": now_iso(), "updatedAt": now_iso()
     }
-
     # Cars
     cars["1HGCM82633A004352"] = {
-        "vin":"1HGCM82633A004352", "make":"Honda","model":"Civic","year":2021,
-        "mileage":42000, "ownerCustomerId":"CUST-100", "homeGarageId":"GAR-001",
+        "vin":"1HGCM82633A004352", "make":"Honda","model":"Civic","year":2021, "mileage":42000,
+        "ownerCustomerId":"CUST-100", "homeGarageId":"GAR-001",
         "createdAt": now_iso(), "updatedAt": now_iso()
     }
-
-    # Periodic Maintenance
+    # PMs
     pms["PM-10010"] = {
         "pmId":"PM-10010", "carVin":"1HGCM82633A004352", "garageId":"GAR-001",
-        "planType":"distance_or_time", "intervalKm":10000, "intervalMonths":12,
-        "tasks":["oil-change","filter","inspection"],
+        "planType":"distance_or_time", "tasks":["oil-change"],
         "status":"active", "createdAt": now_iso(), "updatedAt": now_iso()
     }
-
-    # Repair Order
+    # ROs
     ros["RO-55512"] = {
-        "roId":"RO-55512","carVin":"1HGCM82633A004352","customerId":"CUST-100","garageId":"GAR-001",
-        "openedAt": now_iso(), "status":"awaiting-approval",
-        "complaint":"Grinding noise when braking",
+        "roId":"RO-55512","carVin":"1HGCM82633A004352","customerId":"CUST-100",
+        "garageId":"GAR-001", "status":"awaiting-approval", "complaint":"Grinding",
         "createdAt": now_iso(), "updatedAt": now_iso()
     }
 
-# ---------------------------------
-# Reset endpoint
-# ---------------------------------
 @app.route("/reset", methods=["POST"])
 def reset():
     seed()
-    return ok({"status":"reset","chains":len(chains),"garages":len(garages),"customers":len(customers),"cars":len(cars),"pms":len(pms),"ros":len(ros)}, 200)
+    return ok({"status":"reset"}, 200)
 
-# ---------------------------------
-# Chains
-# ---------------------------------
+# --- CHAINS ---
 @app.route("/chains", methods=["POST"])
 def create_chain():
     body = request.get_json(force=True, silent=True) or {}
@@ -131,420 +106,175 @@ def create_chain():
     if missing: return err(missing, 400)
     cid = body["chainId"]
     if cid in chains: return err("duplicate-id", 400)
-    chains[cid] = {
-        "chainId": cid,
-        "name": body["name"],
-        "hqAddress": body["hqAddress"],
-        "supportEmail": body.get("supportEmail"),
-        "active": as_bool(body.get("active", True)),
-        "createdAt": now_iso(), "updatedAt": now_iso()
-    }
+    chains[cid] = body
     return ok(chains[cid], 201)
-
-@app.route("/chains", methods=["GET"])
-def list_chains():
-    return ok(list(chains.values()), 200)
 
 @app.route("/chains/<chainId>", methods=["GET"])
 def read_chain(chainId):
-    c = chains.get(chainId)
-    if not c: return err("not-found", 404)
-    return ok(c, 200)
+    if chainId not in chains: return err("not-found", 404)
+    return ok(chains[chainId], 200)
 
 @app.route("/chains/<chainId>", methods=["PUT"])
 def update_chain(chainId):
-    c = chains.get(chainId)
-    if not c: return err("not-found", 404)
-    body = request.get_json(force=True, silent=True) or {}
-    for k in ["name","hqAddress","supportEmail","active"]:
-        if k in body: c[k] = body[k]
-    c["updatedAt"] = now_iso()
-    return ok(c, 200)
+    if chainId not in chains: return err("not-found", 404)
+    chains[chainId].update(request.get_json(force=True, silent=True) or {})
+    return ok(chains[chainId], 200)
 
 @app.route("/chains/<chainId>", methods=["DELETE"])
 def delete_chain(chainId):
-    c = chains.get(chainId)
-    if not c: return err("not-found", 404)
-    if any(g.get("chainId")==chainId for g in garages.values()):
-        return err("chain-has-garages", 400)
+    if chainId not in chains: return err("not-found", 404)
+    if any(g.get("chainId")==chainId for g in garages.values()): return err("chain-has-garages", 400)
     del chains[chainId]
     return Response(status=204)
 
-# ---------------------------------
-# Garages
-# ---------------------------------
+# --- GARAGES ---
 @app.route("/garages", methods=["POST"])
 def create_garage():
     body = request.get_json(force=True, silent=True) or {}
     missing = require_fields(body, ["garageId","chainId","name","address","phone"])
     if missing: return err(missing, 400)
-    gid = body["garageId"]
-    if gid in garages: return err("duplicate-id", 400)
     if body["chainId"] not in chains: return err("invalid-chain", 400)
-    
-    garages[gid] = {
-        "garageId": gid,
-        "chainId": body["chainId"],
-        "name": body["name"],
-        "address": body["address"],
-        "phone": body["phone"],
-        "bayCount": body.get("bayCount", 0),
-        "servicesOffered": body.get("servicesOffered", []),
-        "active": as_bool(body.get("active", True)),
-        "createdAt": now_iso(), "updatedAt": now_iso()
-    }
-    
-    # Init load tracking for new garages
-    garage_load[gid] = 0
-    return ok(garages[gid], 201)
-
-@app.route("/garages", methods=["GET"])
-def list_garages():
-    return ok(list(garages.values()), 200)
+    garages[body["garageId"]] = body
+    return ok(garages[body["garageId"]], 201)
 
 @app.route("/garages/<garageId>", methods=["GET"])
 def read_garage(garageId):
-    g = garages.get(garageId)
-    if not g: return err("not-found", 404)
-    return ok(g, 200)
+    if garageId not in garages: return err("not-found", 404)
+    return ok(garages[garageId], 200)
 
 @app.route("/garages/<garageId>", methods=["PUT"])
 def update_garage(garageId):
-    g = garages.get(garageId)
-    if not g: return err("not-found", 404)
-    body = request.get_json(force=True, silent=True) or {}
-    if "chainId" in body and body["chainId"] not in chains:
-        return err("invalid-chain", 400)
-    for k in ["chainId","name","address","phone","bayCount","servicesOffered","active"]:
-        if k in body: g[k] = body[k]
-    g["updatedAt"] = now_iso()
-    return ok(g, 200)
+    if garageId not in garages: return err("not-found", 404)
+    garages[garageId].update(request.get_json(force=True, silent=True) or {})
+    return ok(garages[garageId], 200)
 
 @app.route("/garages/<garageId>", methods=["DELETE"])
 def delete_garage(garageId):
-    g = garages.get(garageId)
-    if not g: return err("not-found", 404)
-    # Cannot delete if open repair orders
-    if any(ro for ro in ros.values() if ro.get("garageId")==garageId and ro.get("status")!="closed"):
-        return err("garage-has-open-orders", 400)
-    # Cannot delete if any cars have this homeGarageId
-    if any(car for car in cars.values() if car.get("homeGarageId")==garageId):
-        return err("garage-has-cars", 400)
+    if garageId not in garages: return err("not-found", 404)
+    if any(ro for ro in ros.values() if ro.get("garageId")==garageId and ro.get("status")!="closed"): return err("garage-has-open-orders", 400)
     del garages[garageId]
     return Response(status=204)
 
-# ---------------------------------
-# Customers (Bug 2 Trigger)
-# ---------------------------------
+# --- CUSTOMERS ---
 @app.route("/customers", methods=["POST"])
 def create_customer():
     body = request.get_json(force=True, silent=True) or {}
     missing = require_fields(body, ["customerId","type","fullName","email","phone"])
     if missing: return err(missing, 400)
-    cid = body["customerId"]
-    if cid in customers: return err("duplicate-id", 400)
-    if body.get("preferredGarageId") and body["preferredGarageId"] not in garages:
-        return err("invalid-garage", 400)
-    customers[cid] = {
-        "customerId": cid, "type": body["type"], "fullName": body["fullName"],
-        "email": body["email"], "phone": body["phone"],
-        "preferredGarageId": body.get("preferredGarageId"),
-        "createdAt": now_iso(), "updatedAt": now_iso()
-    }
-    return ok(customers[cid], 201)
-
-@app.route("/customers", methods=["GET"])
-def list_customers():
-    return ok(list(customers.values()), 200)
+    customers[body["customerId"]] = body
+    return ok(customers[body["customerId"]], 201)
 
 @app.route("/customers/<customerId>", methods=["GET"])
 def read_customer(customerId):
-    c = customers.get(customerId)
-    if not c: return err("not-found", 404)
-    
-    # === BUG 2 FIX: Read stabilizes the customer ===
-    if customerId in unstable_customers:
-        unstable_customers.remove(customerId)
-        
-    return ok(c, 200)
+    if customerId not in customers: return err("not-found", 404)
+    return ok(customers[customerId], 200)
 
 @app.route("/customers/<customerId>", methods=["PUT"])
 def update_customer(customerId):
-    c = customers.get(customerId)
-    if not c: return err("not-found", 404)
-    body = request.get_json(force=True, silent=True) or {}
-    if "preferredGarageId" in body and body["preferredGarageId"] not in garages:
-        return err("invalid-garage", 400)
-    for k in ["type","fullName","email","phone","preferredGarageId"]:
-        if k in body: c[k] = body[k]
-    c["updatedAt"] = now_iso()
-    
-    # === BUG 2 TRIGGER: Update makes customer unstable ===
-    unstable_customers.add(customerId)
-    
-    return ok(c, 200)
+    if customerId not in customers: return err("not-found", 404)
+    customers[customerId].update(request.get_json(force=True, silent=True) or {})
+    return ok(customers[customerId], 200)
 
 @app.route("/customers/<customerId>", methods=["DELETE"])
 def delete_customer(customerId):
-    c = customers.get(customerId)
-    if not c: return err("not-found", 404)
-    if any(car for car in cars.values() if car.get("ownerCustomerId")==customerId):
-        return err("customer-has-active-cars", 400)
-    if any(ro for ro in ros.values() if ro.get("customerId")==customerId and ro.get("status")!="closed"):
-        return err("customer-has-open-orders", 400)
+    if customerId not in customers: return err("not-found", 404)
     del customers[customerId]
     return Response(status=204)
 
-# ---------------------------------
-# Cars (Bug 2 Victim)
-# ---------------------------------
+# --- CARS ---
 @app.route("/cars", methods=["POST"])
 def create_car():
     body = request.get_json(force=True, silent=True) or {}
-    missing = require_fields(body, ["vin","make","model","year","mileage","ownerCustomerId"])
+    missing = require_fields(body, ["vin","ownerCustomerId"])
     if missing: return err(missing, 400)
-    vin = body["vin"]
-    if vin in cars: return err("duplicate-vin", 400)
-    owner = body["ownerCustomerId"]
-    if owner not in customers: return err("invalid-owner", 400)
-    if body.get("homeGarageId") and body["homeGarageId"] not in garages:
-        return err("invalid-garage", 400)
-    
-    # === BUG 2: Unstable Owner Sequence ===
-    # Triggered if Update happened recently without a Read (Verify)
-    if owner in unstable_customers:
-        print(f"!!! BUG 2 TRIGGERED: Cannot create car for unstable customer {owner}")
-        return err("CRITICAL FAILURE: Database Deadlock on Owner Record", 500)
-
-    cars[vin] = {
-        "vin": vin, "make":body["make"], "model":body["model"],
-        "year": int(body["year"]), "mileage": int(body["mileage"]),
-        "ownerCustomerId": owner,
-        "homeGarageId": body.get("homeGarageId"),
-        "createdAt": now_iso(), "updatedAt": now_iso()
-    }
-    return ok(cars[vin], 201)
-
-@app.route("/cars", methods=["GET"])
-def list_cars():
-    return ok(list(cars.values()), 200)
+    if body["ownerCustomerId"] not in customers: return err("invalid-owner", 400)
+    cars[body["vin"]] = body
+    return ok(cars[body["vin"]], 201)
 
 @app.route("/cars/<vin>", methods=["GET"])
 def read_car(vin):
-    car = cars.get(vin)
-    if not car: return err("not-found", 404)
-    return ok(car, 200)
+    if vin not in cars: return err("not-found", 404)
+    return ok(cars[vin], 200)
 
 @app.route("/cars/<vin>", methods=["PUT"])
 def update_car(vin):
-    car = cars.get(vin)
-    if not car: return err("not-found", 404)
-    body = request.get_json(force=True, silent=True) or {}
-    if "ownerCustomerId" in body and body["ownerCustomerId"] not in customers:
-        return err("invalid-owner", 400)
-    if "homeGarageId" in body and body["homeGarageId"] not in garages:
-        return err("invalid-garage", 400)
-    for k in ["make","model","year","mileage","ownerCustomerId","homeGarageId"]:
-        if k in body: car[k] = body[k]
-    car["updatedAt"] = now_iso()
-    return ok(car, 200)
+    if vin not in cars: return err("not-found", 404)
+    cars[vin].update(request.get_json(force=True, silent=True) or {})
+    return ok(cars[vin], 200)
 
 @app.route("/cars/<vin>", methods=["DELETE"])
 def delete_car(vin):
-    car = cars.get(vin)
-    if not car: return err("not-found", 404)
-    if any(ro for ro in ros.values() if ro.get("carVin")==vin and ro.get("status")!="closed"):
-        return err("car-has-open-orders", 400)
-    for pmid in [pm["pmId"] for pm in pms.values() if pm.get("carVin")==vin]:
-        del pms[pmid]
+    if vin not in cars: return err("not-found", 404)
     del cars[vin]
     return Response(status=204)
 
-# ---------------------------------
-# Periodic Maintenance
-# ---------------------------------
+# --- PMS ---
 @app.route("/periodic-maintenance", methods=["POST"])
 def create_pm():
     body = request.get_json(force=True, silent=True) or {}
-    missing = require_fields(body, ["pmId","carVin","garageId","planType","tasks"])
-    if missing: return err(missing, 400)
-    pmId = body["pmId"]
-    if pmId in pms: return err("duplicate-id", 400)
-    if body["carVin"] not in cars: return err("invalid-car", 400)
-    if body["garageId"] not in garages: return err("invalid-garage", 400)
-    pms[pmId] = {
-        "pmId": pmId, "carVin": body["carVin"], "garageId": body["garageId"],
-        "planType": body["planType"],
-        "intervalKm": body.get("intervalKm"), "intervalMonths": body.get("intervalMonths"),
-        "tasks": body["tasks"],
-        "status": body.get("status","active"),
-        "createdAt": now_iso(), "updatedAt": now_iso()
-    }
-    return ok(pms[pmId], 201)
+    pms[body["pmId"]] = body
+    return ok(pms[body["pmId"]], 201)
 
-@app.route("/periodic-maintenance", methods=["GET"])
-def list_pm():
-    return ok(list(pms.values()), 200)
-
-@app.route("/periodic-maintenance/<pmId>", methods=["GET"])
-def read_pm(pmId):
-    pm = pms.get(pmId)
-    if not pm: return err("not-found", 404)
-    return ok(pm, 200)
-
-@app.route("/periodic-maintenance/<pmId>", methods=["PUT"])
-def update_pm(pmId):
-    pm = pms.get(pmId)
-    if not pm: return err("not-found", 404)
-    body = request.get_json(force=True, silent=True) or {}
-    if "carVin" in body and body["carVin"] not in cars:
-        return err("invalid-car", 400)
-    if "garageId" in body and body["garageId"] not in garages:
-        return err("invalid-garage", 400)
-    for k in ["carVin","garageId","planType","intervalKm","intervalMonths","tasks","status"]:
-        if k in body: pm[k] = body[k]
-    pm["updatedAt"] = now_iso()
-    return ok(pm, 200)
-
-@app.route("/periodic-maintenance/<pmId>", methods=["DELETE"])
-def delete_pm(pmId):
-    pm = pms.get(pmId)
-    if not pm: return err("not-found", 404)
-    del pms[pmId]
-    return Response(status=204)
-
-# ---------------------------------
-# Repair Orders (Bug 1 Trigger)
-# ---------------------------------
+# --- REPAIR ORDERS (WITH BUGS) ---
 VALID_RO_STATUS = ["open","awaiting-approval","in-progress","ready-for-pickup","closed","canceled"]
 
 @app.route("/repair-orders", methods=["POST"])
 def create_ro():
     body = request.get_json(force=True, silent=True) or {}
+    print(f"--- [POST /repair-orders] Body: {json.dumps(body)}")
     missing = require_fields(body, ["roId","carVin","customerId","garageId","complaint"])
     if missing: return err(missing, 400)
+    
     roId = body["roId"]
     if roId in ros: return err("duplicate-id", 400)
-    gid = body["garageId"]
-    if gid not in garages: return err("invalid-garage", 400)
-    if body["carVin"] not in cars: return err("invalid-car", 400)
-    if body["customerId"] not in customers: return err("invalid-customer", 400)
+    if body["carVin"] not in cars: return err(f"invalid-car ({body['carVin']})", 400)
+    if body["garageId"] not in garages: return err(f"invalid-garage ({body['garageId']})", 400)
 
-    # === BUG 1: THE OPEN DELETE LEAK ===
-    # Capacity limit is 3. If "phantom load" exceeds this, crash.
-    current = garage_load.get(gid, 0)
-    if current >= 3:
-        print(f"!!! BUG 1 TRIGGERED: Garage {gid} Capacity Exceeded (Load: {current})")
-        return err("CRITICAL FAILURE: Garage Overflow Exception", 500)
+    # === BUG 1: Overwhelmed Garage ===
+    if BUG_CONFIG["bug1"]:
+        garage_orders = [r for r in ros.values() if r.get('garageId') == body["garageId"] and r.get('status') == "open"]
+        current_load = len(garage_orders)
         
-    garage_load[gid] = current + 1
+        print(f"DEBUG BUG1: Garage {body['garageId']} has {current_load} open orders.")
+        
+        if current_load >= 2:
+            print(f"DEBUG BUG1: CRASHING NOW!")
+            raise Exception(f"CRITICAL FAILURE: Garage {body['garageId']} overflow!")
+    # === BUG 1 END ===
+
+    # === BUG 2: Teleporting Car ===
+    if BUG_CONFIG["bug2"]:
+        for r in ros.values():
+            if r.get('carVin') == body["carVin"] and r.get('status') in ["open", "in-progress"] and r.get('garageId') != body["garageId"]:
+                 print(f"DEBUG BUG2: CRASHING NOW! Car {body['carVin']} is in {r['garageId']}")
+                 raise Exception(f"CRITICAL LOGIC ERROR: Car {body['carVin']} is already active in Garage {r['garageId']}!")
+    # === BUG 2 END ===
 
     ros[roId] = {
         "roId": roId, "carVin": body["carVin"], "customerId": body["customerId"],
-        "garageId": gid, "complaint": body["complaint"],
-        "openedAt": now_iso(), 
-        "status": body.get("status","awaiting-approval"),
+        "garageId": body["garageId"], "complaint": body["complaint"],
+        "openedAt": now_iso(), "status": body.get("status","awaiting-approval"),
         "createdAt": now_iso(), "updatedAt": now_iso()
     }
     return ok(ros[roId], 201)
 
-@app.route("/repair-orders", methods=["GET"])
-def list_ro():
-    return ok(list(ros.values()), 200)
-
 @app.route("/repair-orders/<roId>", methods=["GET"])
 def read_ro(roId):
-    ro = ros.get(roId)
-    if not ro: return err("not-found", 404)
-    return ok(ro, 200)
+    if roId not in ros: return err("not-found", 404)
+    return ok(ros[roId], 200)
 
 @app.route("/repair-orders/<roId>", methods=["PUT"])
 def update_ro(roId):
-    ro = ros.get(roId)
-    if not ro: return err("not-found", 404)
-    body = request.get_json(force=True, silent=True) or {}
-    if "carVin" in body and body["carVin"] not in cars:
-        return err("invalid-car", 400)
-    if "customerId" in body and body["customerId"] not in customers:
-        return err("invalid-customer", 400)
-    if "garageId" in body and body["garageId"] not in garages:
-        return err("invalid-garage", 400)
-    if "status" in body and body["status"] not in VALID_RO_STATUS:
-        return err("invalid-status", 400)
-    for k in ["carVin","customerId","garageId","complaint","status"]:
-        if k in body: ro[k] = body[k]
-    ro["updatedAt"] = now_iso()
-    return ok(ro, 200)
+    if roId not in ros: return err("not-found", 404)
+    ros[roId].update(request.get_json(force=True, silent=True) or {})
+    return ok(ros[roId], 200)
 
 @app.route("/repair-orders/<roId>", methods=["DELETE"])
 def delete_ro(roId):
-    ro = ros.get(roId)
-    if not ro: return err("not-found", 404)
-    gid = ro["garageId"]
-    status = ro.get("status", "open")
+    if roId not in ros: return err("not-found", 404)
     del ros[roId]
-    
-    # === BUG 1 TRIGGER: Open Delete Leak ===
-    # Probabilistic Trigger: 60% chance to leak if not closed
-    if status != "closed":
-        if random.random() > 0.4:
-            print(f"!!! BUG 1 PRIMED: Deleted OPEN order {roId}. Load for {gid} NOT reduced (Leak).")
-        else:
-            # 40% chance it works correctly (Safe Path)
-            if gid in garage_load and garage_load[gid] > 0:
-                garage_load[gid] -= 1
-    else:
-        # Closed orders are always safe (load reduced in close_ro)
-        pass
-
     return Response(status=204)
 
-# Workflow actions
-@app.route("/repair-orders/<roId>/approve", methods=["POST"])
-def approve_ro(roId):
-    ro = ros.get(roId)
-    if not ro: return err("not-found", 404)
-    if ro["status"] not in ["open","awaiting-approval"]:
-        return err("invalid-state", 400)
-    ro["status"] = "in-progress"
-    ro["updatedAt"] = now_iso()
-    return ok(ro, 200)
-
-@app.route("/repair-orders/<roId>/close", methods=["POST"])
-def close_ro(roId):
-    ro = ros.get(roId)
-    if not ro: return err("not-found", 404)
-    gid = ro["garageId"]
-    
-    # === BUG 1 FIX: Close reduces load ===
-    if ro["status"] != "closed":
-        ro["status"] = "closed"
-        ro["closedAt"] = now_iso()
-        ro["updatedAt"] = now_iso()
-        if gid in garage_load and garage_load[gid] > 0:
-            garage_load[gid] -= 1
-            
-    return ok(ro, 200)
-
-@app.route("/repair-orders/<roId>/cancel", methods=["POST"])
-def cancel_ro(roId):
-    ro = ros.get(roId)
-    if not ro: return err("not-found", 404)
-    if ro["status"] == "closed":
-        return err("invalid-state", 400)
-    
-    # Cancel also fixes load (Safe Path)
-    gid = ro["garageId"]
-    if gid in garage_load and garage_load[gid] > 0:
-        garage_load[gid] -= 1
-        
-    ro["status"] = "cancelled"
-    ro["updatedAt"] = now_iso()
-    return ok(ro, 200)
-
-# ---------------------------------
-# Main
-# ---------------------------------
 if __name__ == "__main__":
     seed()
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="localhost", port=5000, debug=False)

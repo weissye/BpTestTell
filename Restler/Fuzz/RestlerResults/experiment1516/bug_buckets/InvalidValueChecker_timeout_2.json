@@ -1,0 +1,16 @@
+{
+    "status_code": "",
+    "checker_name": "InvalidValueChecker",
+    "reproducible": false,
+    "verb": "POST",
+    "endpoint": "/garages",
+    "status_text": "",
+    "request_sequence": [
+        {
+            "producer_timing_delay": 0,
+            "max_async_wait_time": 20,
+            "replay_request": "POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\n    \"garageId\":\"K&<'%(1/*F}\u000bxS!z[;`y34Kz-n$Hq<}\r(O6ZokS642Q\\7F,K\",\n    \"chainId\":\"fuzzstring\",\n    \"name\":\"fuzzstring\",\n    \"address\":{ \"fuzz\": false },\n    \"phone\":\"fuzzstring\",\n    \"bayCount\":1,\n    \"servicesOffered\":\n    [\n        \"fuzzstring\"\n    ],\n    \"active\":true}\r\n",
+            "response": "Exception: timed out"
+        }
+    ]
+}

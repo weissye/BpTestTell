@@ -1,0 +1,16 @@
+{
+    "status_code": "",
+    "checker_name": "PayloadBodyChecker",
+    "reproducible": false,
+    "verb": "POST",
+    "endpoint": null,
+    "status_text": "",
+    "request_sequence": [
+        {
+            "producer_timing_delay": 0,
+            "max_async_wait_time": 0,
+            "replay_request": "POST /garages HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n{\"bayCount\":0,\"garageId\":\"fuzzstring\",\"chainId\":\"fuzzstring\",\"name\":\"fuzzstring\",\"address\":{ \"fuzz\" : false },\"phone\":\"fuzzstring\",\"bayCount\":0,\"servicesOffered\":[\"fuzzstring\"],\"active\":false}",
+            "response": "Exception: timed out"
+        }
+    ]
+}

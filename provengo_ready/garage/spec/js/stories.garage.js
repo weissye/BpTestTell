@@ -1,4 +1,4 @@
-// Auto-generated stories for garage
+// Auto-generated stories for pharmacy
 //@provengo summon rest
 
 function resolveDependencies(deps, pkMap) {
@@ -26,454 +26,378 @@ function resolveDependencies(deps, pkMap) {
   return captured;
 }
 
-// Story: crud:Chains:linear:1
-bthread("crud:Chains:linear:1", function () {
-  let chainId = "chainId_210_" + Math.floor(Math.random() * 10000);
-  let description = "description_210_" + Math.floor(Math.random() * 10000);
-  let hqAddress = "hqAddress_210_" + Math.floor(Math.random() * 10000);
+// Story: crud:Drugs:linear:1
+bthread("crud:Drugs:linear:1", function () {
   let id = "id_210_" + Math.floor(Math.random() * 10000);
   let name = "name_210_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  createChain(chainId, description, hqAddress, id, name);
-  verifyChainsExists(chainId, description, hqAddress, id, name);
-  updateChain(chainId, description, hqAddress, id, name);
-  // Skip delete for Chains to prevent foreign key errors (has active dependents)
+  createDrug(id, name);
+  verifyDrugsExists(id, name);
+  updateDrug(id, name);
+  // Skip delete for Drugs to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Chains:linear:2
-bthread("crud:Chains:linear:2", function () {
-  let chainId = "chainId_220_" + Math.floor(Math.random() * 10000);
-  let description = "description_220_" + Math.floor(Math.random() * 10000);
-  let hqAddress = "hqAddress_220_" + Math.floor(Math.random() * 10000);
+// Story: crud:Drugs:linear:2
+bthread("crud:Drugs:linear:2", function () {
   let id = "id_220_" + Math.floor(Math.random() * 10000);
   let name = "name_220_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  createChain(chainId, description, hqAddress, id, name);
-  verifyChainsExists(chainId, description, hqAddress, id, name);
-  updateChain(chainId, description, hqAddress, id, name);
-  // Skip delete for Chains to prevent foreign key errors (has active dependents)
+  createDrug(id, name);
+  verifyDrugsExists(id, name);
+  updateDrug(id, name);
+  // Skip delete for Drugs to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Chains:linear:3
-bthread("crud:Chains:linear:3", function () {
-  let chainId = "chainId_230_" + Math.floor(Math.random() * 10000);
-  let description = "description_230_" + Math.floor(Math.random() * 10000);
-  let hqAddress = "hqAddress_230_" + Math.floor(Math.random() * 10000);
+// Story: crud:Drugs:linear:3
+bthread("crud:Drugs:linear:3", function () {
   let id = "id_230_" + Math.floor(Math.random() * 10000);
   let name = "name_230_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  createChain(chainId, description, hqAddress, id, name);
-  verifyChainsExists(chainId, description, hqAddress, id, name);
-  updateChain(chainId, description, hqAddress, id, name);
-  // Skip delete for Chains to prevent foreign key errors (has active dependents)
+  createDrug(id, name);
+  verifyDrugsExists(id, name);
+  updateDrug(id, name);
+  // Skip delete for Drugs to prevent foreign key errors (has active dependents)
 });
 
-// Monitor: Chains Verification
-bthread("monitor:Chains", function () {
+// Monitor: Drugs Verification
+bthread("monitor:Drugs", function () {
   while (true) {
-    let e = bp.sync({ waitFor: matchAnyChainsAdded() });
-    let chainId = (e.data.parameters && e.data.parameters["chainId"]) ? e.data.parameters["chainId"] : e.data["chainId"];
-    let description = (e.data.parameters && e.data.parameters["description"]) ? e.data.parameters["description"] : e.data["description"];
-    let hqAddress = (e.data.parameters && e.data.parameters["hqAddress"]) ? e.data.parameters["hqAddress"] : e.data["hqAddress"];
+    let e = bp.sync({ waitFor: matchAnyDrugsAdded() });
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
     let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    // Monitor Chains: Verifying existence (Deletion skipped due to dependencies)
-    verifyChainsExists(chainId, description, hqAddress, id, name);
+    // Monitor Drugs: Verifying existence (Deletion skipped due to dependencies)
+    verifyDrugsExists(id, name);
   }
 });
 
-// Story: crud:Customers:linear:1
-bthread("crud:Customers:linear:1", function () {
-  let customerId = "customerId_260_" + Math.floor(Math.random() * 10000);
-  let email = "email_260_" + Math.floor(Math.random() * 10000);
-  let fullName = "fullName_260_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+// Story: crud:Orders:linear:1
+bthread("crud:Orders:linear:1", function () {
   let id = "id_260_" + Math.floor(Math.random() * 10000);
-  let name = "name_260_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let phone = "phone_260_" + Math.floor(Math.random() * 10000);
-  let type = "type_260_" + Math.floor(Math.random() * 10000);
-  createCustomer(customerId, email, fullName, id, name, phone, type);
-  verifyCustomersExists(customerId, email, fullName, id, name, phone, type);
-  updateCustomer(customerId, email, fullName, id, name, phone, type);
-  // Skip delete for Customers to prevent foreign key errors (has active dependents)
+  createOrder(id);
+  verifyOrdersExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrders(id);
+  verifyOrdersDoesNotExist(id);
 });
 
-// Story: crud:Customers:linear:2
-bthread("crud:Customers:linear:2", function () {
-  let customerId = "customerId_270_" + Math.floor(Math.random() * 10000);
-  let email = "email_270_" + Math.floor(Math.random() * 10000);
-  let fullName = "fullName_270_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+// Story: crud:Orders:linear:2
+bthread("crud:Orders:linear:2", function () {
   let id = "id_270_" + Math.floor(Math.random() * 10000);
-  let name = "name_270_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let phone = "phone_270_" + Math.floor(Math.random() * 10000);
-  let type = "type_270_" + Math.floor(Math.random() * 10000);
-  createCustomer(customerId, email, fullName, id, name, phone, type);
-  verifyCustomersExists(customerId, email, fullName, id, name, phone, type);
-  updateCustomer(customerId, email, fullName, id, name, phone, type);
-  // Skip delete for Customers to prevent foreign key errors (has active dependents)
+  createOrder(id);
+  verifyOrdersExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrders(id);
+  verifyOrdersDoesNotExist(id);
 });
 
-// Story: crud:Customers:linear:3
-bthread("crud:Customers:linear:3", function () {
-  let customerId = "customerId_280_" + Math.floor(Math.random() * 10000);
-  let email = "email_280_" + Math.floor(Math.random() * 10000);
-  let fullName = "fullName_280_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+// Story: crud:Orders:linear:3
+bthread("crud:Orders:linear:3", function () {
   let id = "id_280_" + Math.floor(Math.random() * 10000);
-  let name = "name_280_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let phone = "phone_280_" + Math.floor(Math.random() * 10000);
-  let type = "type_280_" + Math.floor(Math.random() * 10000);
-  createCustomer(customerId, email, fullName, id, name, phone, type);
-  verifyCustomersExists(customerId, email, fullName, id, name, phone, type);
-  updateCustomer(customerId, email, fullName, id, name, phone, type);
-  // Skip delete for Customers to prevent foreign key errors (has active dependents)
+  createOrder(id);
+  verifyOrdersExists(id);
+  updateOrder(id);
+  deleteOrder(id);
+  tryToDeleteANonExistingOrders(id);
+  verifyOrdersDoesNotExist(id);
 });
 
-// Monitor: Customers Verification
-bthread("monitor:Customers", function () {
+// Monitor: Orders Verification
+bthread("monitor:Orders", function () {
   while (true) {
-    let e = bp.sync({ waitFor: matchAnyCustomersAdded() });
-    let customerId = (e.data.parameters && e.data.parameters["customerId"]) ? e.data.parameters["customerId"] : e.data["customerId"];
-    let email = (e.data.parameters && e.data.parameters["email"]) ? e.data.parameters["email"] : e.data["email"];
-    let fullName = (e.data.parameters && e.data.parameters["fullName"]) ? e.data.parameters["fullName"] : e.data["fullName"];
+    let e = bp.sync({ waitFor: matchAnyOrdersAdded() });
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let phone = (e.data.parameters && e.data.parameters["phone"]) ? e.data.parameters["phone"] : e.data["phone"];
-    let type = (e.data.parameters && e.data.parameters["type"]) ? e.data.parameters["type"] : e.data["type"];
-    // Monitor Customers: Verifying existence (Deletion skipped due to dependencies)
-    verifyCustomersExists(customerId, email, fullName, id, name, phone, type);
-  }
-});
-
-// Story: crud:Garages:linear:1
-bthread("crud:Garages:linear:1", function () {
-  let address = "address_310_" + Math.floor(Math.random() * 10000);
-  let capacity = 31000000 + Math.floor(Math.random() * 100000);
-  let chainId; // Resolved Dependency
-  let garageId = "garageId_310_" + Math.floor(Math.random() * 10000);
-  let id = "id_310_" + Math.floor(Math.random() * 10000);
-  let location = "location_310_" + Math.floor(Math.random() * 10000);
-  let name = "name_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let phone = "phone_310_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["chainId"] = matchAnyChainsAdded();
-  let pkMap = {"chainId": "chainId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  chainId = captured["chainId"];
-  createGarage(address, capacity, chainId, garageId, id, location, name, phone);
-  verifyGaragesExists(address, capacity, chainId, garageId, id, location, name, phone);
-  updateGarage(address, capacity, chainId, garageId, id, location, name, phone);
-  // Skip delete for Garages to prevent foreign key errors (has active dependents)
-});
-
-// Story: crud:Garages:linear:2
-bthread("crud:Garages:linear:2", function () {
-  let address = "address_320_" + Math.floor(Math.random() * 10000);
-  let capacity = 32000000 + Math.floor(Math.random() * 100000);
-  let chainId; // Resolved Dependency
-  let garageId = "garageId_320_" + Math.floor(Math.random() * 10000);
-  let id = "id_320_" + Math.floor(Math.random() * 10000);
-  let location = "location_320_" + Math.floor(Math.random() * 10000);
-  let name = "name_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let phone = "phone_320_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["chainId"] = matchAnyChainsAdded();
-  let pkMap = {"chainId": "chainId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  chainId = captured["chainId"];
-  createGarage(address, capacity, chainId, garageId, id, location, name, phone);
-  verifyGaragesExists(address, capacity, chainId, garageId, id, location, name, phone);
-  updateGarage(address, capacity, chainId, garageId, id, location, name, phone);
-  // Skip delete for Garages to prevent foreign key errors (has active dependents)
-});
-
-// Story: crud:Garages:linear:3
-bthread("crud:Garages:linear:3", function () {
-  let address = "address_330_" + Math.floor(Math.random() * 10000);
-  let capacity = 33000000 + Math.floor(Math.random() * 100000);
-  let chainId; // Resolved Dependency
-  let garageId = "garageId_330_" + Math.floor(Math.random() * 10000);
-  let id = "id_330_" + Math.floor(Math.random() * 10000);
-  let location = "location_330_" + Math.floor(Math.random() * 10000);
-  let name = "name_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let phone = "phone_330_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["chainId"] = matchAnyChainsAdded();
-  let pkMap = {"chainId": "chainId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  chainId = captured["chainId"];
-  createGarage(address, capacity, chainId, garageId, id, location, name, phone);
-  verifyGaragesExists(address, capacity, chainId, garageId, id, location, name, phone);
-  updateGarage(address, capacity, chainId, garageId, id, location, name, phone);
-  // Skip delete for Garages to prevent foreign key errors (has active dependents)
-});
-
-// Monitor: Garages Verification
-bthread("monitor:Garages", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyGaragesAdded() });
-    let address = (e.data.parameters && e.data.parameters["address"]) ? e.data.parameters["address"] : e.data["address"];
-    let capacity = (e.data.parameters && e.data.parameters["capacity"]) ? e.data.parameters["capacity"] : e.data["capacity"];
-    let chainId = (e.data.parameters && e.data.parameters["chainId"]) ? e.data.parameters["chainId"] : e.data["chainId"];
-    let garageId = (e.data.parameters && e.data.parameters["garageId"]) ? e.data.parameters["garageId"] : e.data["garageId"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let location = (e.data.parameters && e.data.parameters["location"]) ? e.data.parameters["location"] : e.data["location"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let phone = (e.data.parameters && e.data.parameters["phone"]) ? e.data.parameters["phone"] : e.data["phone"];
-    // Monitor Garages: Verifying existence (Deletion skipped due to dependencies)
-    verifyGaragesExists(address, capacity, chainId, garageId, id, location, name, phone);
-  }
-});
-
-// Story: crud:Cars:linear:1
-bthread("crud:Cars:linear:1", function () {
-  let id = "id_360_" + Math.floor(Math.random() * 10000);
-  let make = "make_360_" + Math.floor(Math.random() * 10000);
-  let mileage = 36000000 + Math.floor(Math.random() * 100000);
-  let model = "model_360_" + Math.floor(Math.random() * 10000);
-  let ownerCustomerId; // Resolved Dependency
-  let vin = "vin_360_" + Math.floor(Math.random() * 10000);
-  let year = 36000000 + Math.floor(Math.random() * 100000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["ownerCustomerId"] = matchAnyCustomersAdded();
-  let pkMap = {"ownerCustomerId": "customerId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  ownerCustomerId = captured["ownerCustomerId"];
-  createCar(id, make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarsExists(id, make, mileage, model, ownerCustomerId, vin, year);
-  updateCar(id, make, mileage, model, ownerCustomerId, vin, year);
-  // Skip delete for Cars to prevent foreign key errors (has active dependents)
-});
-
-// Story: crud:Cars:linear:2
-bthread("crud:Cars:linear:2", function () {
-  let id = "id_370_" + Math.floor(Math.random() * 10000);
-  let make = "make_370_" + Math.floor(Math.random() * 10000);
-  let mileage = 37000000 + Math.floor(Math.random() * 100000);
-  let model = "model_370_" + Math.floor(Math.random() * 10000);
-  let ownerCustomerId; // Resolved Dependency
-  let vin = "vin_370_" + Math.floor(Math.random() * 10000);
-  let year = 37000000 + Math.floor(Math.random() * 100000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["ownerCustomerId"] = matchAnyCustomersAdded();
-  let pkMap = {"ownerCustomerId": "customerId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  ownerCustomerId = captured["ownerCustomerId"];
-  createCar(id, make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarsExists(id, make, mileage, model, ownerCustomerId, vin, year);
-  updateCar(id, make, mileage, model, ownerCustomerId, vin, year);
-  // Skip delete for Cars to prevent foreign key errors (has active dependents)
-});
-
-// Story: crud:Cars:linear:3
-bthread("crud:Cars:linear:3", function () {
-  let id = "id_380_" + Math.floor(Math.random() * 10000);
-  let make = "make_380_" + Math.floor(Math.random() * 10000);
-  let mileage = 38000000 + Math.floor(Math.random() * 100000);
-  let model = "model_380_" + Math.floor(Math.random() * 10000);
-  let ownerCustomerId; // Resolved Dependency
-  let vin = "vin_380_" + Math.floor(Math.random() * 10000);
-  let year = 38000000 + Math.floor(Math.random() * 100000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["ownerCustomerId"] = matchAnyCustomersAdded();
-  let pkMap = {"ownerCustomerId": "customerId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  ownerCustomerId = captured["ownerCustomerId"];
-  createCar(id, make, mileage, model, ownerCustomerId, vin, year);
-  verifyCarsExists(id, make, mileage, model, ownerCustomerId, vin, year);
-  updateCar(id, make, mileage, model, ownerCustomerId, vin, year);
-  // Skip delete for Cars to prevent foreign key errors (has active dependents)
-});
-
-// Monitor: Cars Verification
-bthread("monitor:Cars", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyCarsAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let make = (e.data.parameters && e.data.parameters["make"]) ? e.data.parameters["make"] : e.data["make"];
-    let mileage = (e.data.parameters && e.data.parameters["mileage"]) ? e.data.parameters["mileage"] : e.data["mileage"];
-    let model = (e.data.parameters && e.data.parameters["model"]) ? e.data.parameters["model"] : e.data["model"];
-    let ownerCustomerId = (e.data.parameters && e.data.parameters["ownerCustomerId"]) ? e.data.parameters["ownerCustomerId"] : e.data["ownerCustomerId"];
-    let vin = (e.data.parameters && e.data.parameters["vin"]) ? e.data.parameters["vin"] : e.data["vin"];
-    let year = (e.data.parameters && e.data.parameters["year"]) ? e.data.parameters["year"] : e.data["year"];
-    // Monitor Cars: Verifying existence (Deletion skipped due to dependencies)
-    verifyCarsExists(id, make, mileage, model, ownerCustomerId, vin, year);
-  }
-});
-
-// Story: crud:PeriodicMaintenance:linear:1
-bthread("crud:PeriodicMaintenance:linear:1", function () {
-  let carVin; // Resolved Dependency
-  let garageId; // Resolved Dependency
-  let id = "id_410_" + Math.floor(Math.random() * 10000);
-  let planType = "planType_410_" + Math.floor(Math.random() * 10000);
-  let pmId = "pmId_410_" + Math.floor(Math.random() * 10000);
-  let schedule = "schedule_410_" + Math.floor(Math.random() * 10000);
-  let tasks = "tasks_410_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["carVin"] = matchAnyCarsAdded();
-  deps["garageId"] = matchAnyGaragesAdded();
-  let pkMap = {"carVin": "vin", "garageId": "garageId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  carVin = captured["carVin"];
-  garageId = captured["garageId"];
-  createPMPlan(carVin, garageId, id, planType, pmId, schedule, tasks);
-});
-
-// Story: crud:PeriodicMaintenance:linear:2
-bthread("crud:PeriodicMaintenance:linear:2", function () {
-  let carVin; // Resolved Dependency
-  let garageId; // Resolved Dependency
-  let id = "id_420_" + Math.floor(Math.random() * 10000);
-  let planType = "planType_420_" + Math.floor(Math.random() * 10000);
-  let pmId = "pmId_420_" + Math.floor(Math.random() * 10000);
-  let schedule = "schedule_420_" + Math.floor(Math.random() * 10000);
-  let tasks = "tasks_420_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["carVin"] = matchAnyCarsAdded();
-  deps["garageId"] = matchAnyGaragesAdded();
-  let pkMap = {"carVin": "vin", "garageId": "garageId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  carVin = captured["carVin"];
-  garageId = captured["garageId"];
-  createPMPlan(carVin, garageId, id, planType, pmId, schedule, tasks);
-});
-
-// Story: crud:PeriodicMaintenance:linear:3
-bthread("crud:PeriodicMaintenance:linear:3", function () {
-  let carVin; // Resolved Dependency
-  let garageId; // Resolved Dependency
-  let id = "id_430_" + Math.floor(Math.random() * 10000);
-  let planType = "planType_430_" + Math.floor(Math.random() * 10000);
-  let pmId = "pmId_430_" + Math.floor(Math.random() * 10000);
-  let schedule = "schedule_430_" + Math.floor(Math.random() * 10000);
-  let tasks = "tasks_430_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["carVin"] = matchAnyCarsAdded();
-  deps["garageId"] = matchAnyGaragesAdded();
-  let pkMap = {"carVin": "vin", "garageId": "garageId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  carVin = captured["carVin"];
-  garageId = captured["garageId"];
-  createPMPlan(carVin, garageId, id, planType, pmId, schedule, tasks);
-});
-
-// Story: crud:RepairOrders:linear:1
-bthread("crud:RepairOrders:linear:1", function () {
-  let carVin; // Resolved Dependency
-  let complaint = "complaint_460_" + Math.floor(Math.random() * 10000);
-  let customerId; // Resolved Dependency
-  let field1 = "field1_460_" + Math.floor(Math.random() * 10000);
-  let field2 = 46000000 + Math.floor(Math.random() * 100000);
-  let garageId; // Resolved Dependency
-  let id = "id_460_" + Math.floor(Math.random() * 10000);
-  let roId = "roId_460_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["carVin"] = matchAnyCarsAdded();
-  deps["customerId"] = matchAnyCustomersAdded();
-  deps["garageId"] = matchAnyGaragesAdded();
-  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  carVin = captured["carVin"];
-  customerId = captured["customerId"];
-  garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-});
-
-// Story: crud:RepairOrders:linear:2
-bthread("crud:RepairOrders:linear:2", function () {
-  let carVin; // Resolved Dependency
-  let complaint = "complaint_470_" + Math.floor(Math.random() * 10000);
-  let customerId; // Resolved Dependency
-  let field1 = "field1_470_" + Math.floor(Math.random() * 10000);
-  let field2 = 47000000 + Math.floor(Math.random() * 100000);
-  let garageId; // Resolved Dependency
-  let id = "id_470_" + Math.floor(Math.random() * 10000);
-  let roId = "roId_470_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["carVin"] = matchAnyCarsAdded();
-  deps["customerId"] = matchAnyCustomersAdded();
-  deps["garageId"] = matchAnyGaragesAdded();
-  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  carVin = captured["carVin"];
-  customerId = captured["customerId"];
-  garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-});
-
-// Story: crud:RepairOrders:linear:3
-bthread("crud:RepairOrders:linear:3", function () {
-  let carVin; // Resolved Dependency
-  let complaint = "complaint_480_" + Math.floor(Math.random() * 10000);
-  let customerId; // Resolved Dependency
-  let field1 = "field1_480_" + Math.floor(Math.random() * 10000);
-  let field2 = 48000000 + Math.floor(Math.random() * 100000);
-  let garageId; // Resolved Dependency
-  let id = "id_480_" + Math.floor(Math.random() * 10000);
-  let roId = "roId_480_" + Math.floor(Math.random() * 10000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["carVin"] = matchAnyCarsAdded();
-  deps["customerId"] = matchAnyCustomersAdded();
-  deps["garageId"] = matchAnyGaragesAdded();
-  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  carVin = captured["carVin"];
-  customerId = captured["customerId"];
-  garageId = captured["garageId"];
-  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
-});
-
-// Monitor: RepairOrders Verification
-bthread("monitor:RepairOrders", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyRepairOrdersAdded() });
-    let carVin = (e.data.parameters && e.data.parameters["carVin"]) ? e.data.parameters["carVin"] : e.data["carVin"];
-    let complaint = (e.data.parameters && e.data.parameters["complaint"]) ? e.data.parameters["complaint"] : e.data["complaint"];
-    let customerId = (e.data.parameters && e.data.parameters["customerId"]) ? e.data.parameters["customerId"] : e.data["customerId"];
-    let field1 = (e.data.parameters && e.data.parameters["field1"]) ? e.data.parameters["field1"] : e.data["field1"];
-    let field2 = (e.data.parameters && e.data.parameters["field2"]) ? e.data.parameters["field2"] : e.data["field2"];
-    let garageId = (e.data.parameters && e.data.parameters["garageId"]) ? e.data.parameters["garageId"] : e.data["garageId"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let roId = (e.data.parameters && e.data.parameters["roId"]) ? e.data.parameters["roId"] : e.data["roId"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId), function() {
-      bp.log.info(`Monitor RepairOrders: Verifying persistence of ID ${id} inside deletion block.`);
-        verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+    block(matchDeletedOrders(id), function() {
+      bp.log.info(`Monitor Orders: Verifying persistence of ID ${id} inside deletion block.`);
+        verifyOrdersExists(id);
     });
   }
 });
+
+// Story: crud:Patients:linear:1
+bthread("crud:Patients:linear:1", function () {
+  let id = "id_310_" + Math.floor(Math.random() * 10000);
+  let name = "name_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createPatient(id, name);
+  verifyPatientsExists(id, name);
+  updatePatient(id, name);
+  // Skip delete for Patients to prevent foreign key errors (has active dependents)
+});
+
+// Story: crud:Patients:linear:2
+bthread("crud:Patients:linear:2", function () {
+  let id = "id_320_" + Math.floor(Math.random() * 10000);
+  let name = "name_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createPatient(id, name);
+  verifyPatientsExists(id, name);
+  updatePatient(id, name);
+  // Skip delete for Patients to prevent foreign key errors (has active dependents)
+});
+
+// Story: crud:Patients:linear:3
+bthread("crud:Patients:linear:3", function () {
+  let id = "id_330_" + Math.floor(Math.random() * 10000);
+  let name = "name_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  createPatient(id, name);
+  verifyPatientsExists(id, name);
+  updatePatient(id, name);
+  // Skip delete for Patients to prevent foreign key errors (has active dependents)
+});
+
+// Monitor: Patients Verification
+bthread("monitor:Patients", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyPatientsAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
+    // Monitor Patients: Verifying existence (Deletion skipped due to dependencies)
+    verifyPatientsExists(id, name);
+  }
+});
+
+// Story: crud:Inventory:linear:1
+bthread("crud:Inventory:linear:1", function () {
+  let id = "id_360_" + Math.floor(Math.random() * 10000);
+  let ndc = "ndc_360_" + Math.floor(Math.random() * 10000);
+  createInventory(id, ndc);
+  verifyInventoryExists(id, ndc);
+  updateInventory(id, ndc);
+  deleteInventory(id, ndc);
+  tryToDeleteANonExistingInventory(id, ndc);
+  verifyInventoryDoesNotExist(id, ndc);
+});
+
+// Story: crud:Inventory:linear:2
+bthread("crud:Inventory:linear:2", function () {
+  let id = "id_370_" + Math.floor(Math.random() * 10000);
+  let ndc = "ndc_370_" + Math.floor(Math.random() * 10000);
+  createInventory(id, ndc);
+  verifyInventoryExists(id, ndc);
+  updateInventory(id, ndc);
+  deleteInventory(id, ndc);
+  tryToDeleteANonExistingInventory(id, ndc);
+  verifyInventoryDoesNotExist(id, ndc);
+});
+
+// Story: crud:Inventory:linear:3
+bthread("crud:Inventory:linear:3", function () {
+  let id = "id_380_" + Math.floor(Math.random() * 10000);
+  let ndc = "ndc_380_" + Math.floor(Math.random() * 10000);
+  createInventory(id, ndc);
+  verifyInventoryExists(id, ndc);
+  updateInventory(id, ndc);
+  deleteInventory(id, ndc);
+  tryToDeleteANonExistingInventory(id, ndc);
+  verifyInventoryDoesNotExist(id, ndc);
+});
+
+// Monitor: Inventory Verification
+bthread("monitor:Inventory", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyInventoryAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let ndc = (e.data.parameters && e.data.parameters["ndc"]) ? e.data.parameters["ndc"] : e.data["ndc"];
+    // Block Deletion while Verifying Existence
+    block(matchDeletedInventory(id, ndc), function() {
+      bp.log.info(`Monitor Inventory: Verifying persistence of ID ${id} inside deletion block.`);
+        verifyInventoryExists(id, ndc);
+    });
+  }
+});
+
+// Story: crud:Prescriptions:linear:1
+bthread("crud:Prescriptions:linear:1", function () {
+  let id = "id_410_" + Math.floor(Math.random() * 10000);
+  createPrescription(id);
+  verifyPrescriptionsExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescriptions(id);
+  verifyPrescriptionsDoesNotExist(id);
+});
+
+// Story: crud:Prescriptions:linear:2
+bthread("crud:Prescriptions:linear:2", function () {
+  let id = "id_420_" + Math.floor(Math.random() * 10000);
+  createPrescription(id);
+  verifyPrescriptionsExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescriptions(id);
+  verifyPrescriptionsDoesNotExist(id);
+});
+
+// Story: crud:Prescriptions:linear:3
+bthread("crud:Prescriptions:linear:3", function () {
+  let id = "id_430_" + Math.floor(Math.random() * 10000);
+  createPrescription(id);
+  verifyPrescriptionsExists(id);
+  updatePrescription(id);
+  deletePrescription(id);
+  tryToDeleteANonExistingPrescriptions(id);
+  verifyPrescriptionsDoesNotExist(id);
+});
+
+// Monitor: Prescriptions Verification
+bthread("monitor:Prescriptions", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyPrescriptionsAdded() });
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    // Block Deletion while Verifying Existence
+    block(matchDeletedPrescriptions(id), function() {
+      bp.log.info(`Monitor Prescriptions: Verifying persistence of ID ${id} inside deletion block.`);
+        verifyPrescriptionsExists(id);
+    });
+  }
+});
+
+// ======================================================
+// NEW STORIES: BUG 1 (Refill Overflow) & BUG 2 (Teleport)
+// ======================================================
+
+// Story: flow:Pharmacy:linear:1
+// === BUG 1: REFILL OVERFLOW (50% Chance) ===
+bthread("flow:Pharmacy:linear:1", function () {
+  let patientId; 
+  let rxId = "rx_" + Math.floor(Math.random() * 10000);
+  let dispenseId = "disp_" + Math.floor(Math.random() * 10000);
+  
+  // Dependencies
+  let deps = {};
+  deps["patientId"] = matchAnyPatientsAdded();
+  let captured = resolveDependencies(deps, {"patientId": "id"});
+  patientId = captured["patientId"];
+
+  // 1. Create Prescription with 1 refill (Uses custom helper with refills)
+  createRxWithRefills(rxId, patientId, "drug_123", 1);
+  verifyPrescriptionsExists(rxId);
+
+  // 2. Standard Dispense (should work)
+  dispenseDrug(rxId, patientId, dispenseId);
+
+  // --- BUG 1 PATH SELECTION ---
+  let choice = bp.sync({
+      request: [
+          bp.Event("Path_Trigger_Bug1_Refill"), 
+          bp.Event("Path_Skip_Bug1")
+      ]
+  });
+
+  if (choice.name === "Path_Trigger_Bug1_Refill") {
+      bp.log.info("💊 Path Selected: Triggering BUG 1 (Refill Overflow)");
+      for (let i = 1; i <= 3; i++) {
+          let attackId = dispenseId + "_attack_" + i;
+          bp.sync({ request: bp.Event("Dispense_Attack_" + i, {
+              lib: "REST", method: "POST", url: "http://localhost:5000/dispense",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ 
+                  rxId: rxId, 
+                  patientId: patientId, 
+                  dispenseId: attackId,
+                  status: "active_attack" 
+              }),
+              parameters: { "description": "Refill Overflow Attack " + i },
+              expectedResponseCodes: [201] 
+          })});
+      }
+  } else {
+      bp.log.info("✅ Path Selected: Skipping BUG 1");
+  }
+});
+
+// Story: flow:Pharmacy:linear:2
+// === BUG 2: TELEPORT / DOUBLE PROCESS (50% Chance) ===
+bthread("flow:Pharmacy:linear:2", function () {
+  let patientId; 
+  let rxId = "rx_tele_" + Math.floor(Math.random() * 10000);
+  // Note: Standard 'matchAnyStoresAdded' matches 'createStore' from interfaces.js 
+  // which might fail if we need specific phone data. 
+  // For the bug setup, we create our own store.
+  
+  let deps = {};
+  deps["patientId"] = matchAnyPatientsAdded();
+  let captured = resolveDependencies(deps, {"patientId": "id"});
+  patientId = captured["patientId"];
+
+  // 1. Create Prescription
+  createRxWithRefills(rxId, patientId, "drug_456", 5);
+
+  // 2. Create Store 1 (Custom helper with phone) and Process
+  let storeId1 = "Store_1_" + Math.floor(Math.random() * 10000);
+  createPharmacyStore(storeId1, "Store One", "1st Ave", "555-1111");
+  processRx(rxId, storeId1);
+
+  // --- BUG 2 PATH SELECTION ---
+  let choice = bp.sync({
+      request: [
+          bp.Event("Path_Trigger_Bug2_Teleport"), 
+          bp.Event("Path_Skip_Bug2")
+      ]
+  });
+
+  if (choice.name === "Path_Trigger_Bug2_Teleport") {
+      bp.log.info("💣 Path Selected: Triggering BUG 2 (Double Process)");
+      
+      // 1. EXPLICITLY CREATE Store 2 (Force dependency)
+      let storeId2 = "Store_Bug2_Target_" + Math.floor(Math.random() * 10000);
+      createPharmacyStore(storeId2, "Bug2 Target Pharmacy", "Conflict Ave", "555-9999");
+
+      // 2. Force Process at Store 2 (CRASH TARGET)
+      bp.sync({ request: bp.Event("Attempt_Double_Process", {
+          lib: "REST", method: "POST", url: "http://localhost:5000/process-rx",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+              rxId: rxId, 
+              storeId: storeId2, 
+              status: "active_attack",
+              complaint: "Teleport Crash"
+          }),
+          parameters: { "description": "Trigger Double Process Crash" }, 
+          expectedResponseCodes: [201] 
+      })});
+  } else {
+      bp.log.info("✅ Path Selected: Skipping BUG 2");
+  }
+});
+
+// === Helper Functions for Bugs (With 'parameters' fixed) ===
+
+function createPharmacyStore(id, name, addr, phone) {
+    bp.sync({ request: bp.Event("Create_Store", {
+        lib: "REST", method: "POST", url: "http://localhost:5000/stores",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ storeId: id, name: name, address: addr, phone: phone }),
+        parameters: { description: "Create Store " + id }, 
+        expectedResponseCodes: [201]
+    })});
+}
+function matchAnyStoresAdded() { return bp.EventSet("Match_Stores", function(e){ return e.name.includes("Create_Store"); }); }
+
+function createRxWithRefills(id, pid, did, refills) {
+    bp.sync({ request: bp.Event("Create_Rx", {
+        lib: "REST", method: "POST", url: "http://localhost:5000/prescriptions",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id, patientId: pid, drugId: did, refillsLeft: refills }),
+        parameters: { description: "Create Rx " + id },
+        expectedResponseCodes: [201]
+    })});
+}
+
+function dispenseDrug(rxId, pid, dispId) {
+    bp.sync({ request: bp.Event("Dispense", {
+        lib: "REST", method: "POST", url: "http://localhost:5000/dispense",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rxId: rxId, patientId: pid, dispenseId: dispId }),
+        parameters: { description: "Dispense " + dispId },
+        expectedResponseCodes: [201]
+    })});
+}
+
+function processRx(rxId, storeId) {
+    bp.sync({ request: bp.Event("Process_Rx", {
+        lib: "REST", method: "POST", url: "http://localhost:5000/process-rx",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rxId: rxId, storeId: storeId }),
+        parameters: { description: "Process Rx at " + storeId }, 
+        expectedResponseCodes: [201]
+    })});
+}

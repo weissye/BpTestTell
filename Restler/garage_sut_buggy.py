@@ -8,6 +8,16 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("garage-chain-sut")
 
+# ==========================================
+#   🔬 EXPERIMENT CONFIGURATION
+#   Edit these flags to enable/disable bugs
+# ==========================================
+BUG_CONFIG = {
+    "bug1": True,   # Bug 1: Garage Overflow (Crash on 3rd active RO)
+    "bug2": True    # Bug 2: Teleporting Car (Crash on moving active car)
+}
+# ==========================================
+
 # Stores
 chains = {}
 garages = {}
@@ -17,6 +27,7 @@ pms = {}
 ros = {}
 
 def now_iso() -> str:
+    # Use timezone-aware UTC
     return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
 def ok(payload: Any, code: int = 200) -> Tuple[Response, int]:
@@ -34,13 +45,12 @@ def require_fields(body: Dict[str, Any], fields: List[str]) -> Optional[str]:
             return msg
     return None
 
-def as_bool(x: Any, default=False) -> bool:
-    if isinstance(x, bool): return x
-    return default
-
 def seed():
+    # Clear Data Stores
     chains.clear(); garages.clear(); customers.clear(); cars.clear(); pms.clear(); ros.clear()
     
+    print(f"--- [SEED] Data reset. Active Bugs: {BUG_CONFIG}")
+
     # Chains
     chains["CHAIN-001"] = {
         "chainId": "CHAIN-001", "name": "Prime Auto Care",
@@ -221,22 +231,23 @@ def create_ro():
     if body["garageId"] not in garages: return err(f"invalid-garage ({body['garageId']})", 400)
 
     # === BUG 1: Overwhelmed Garage ===
-    garage_orders = [r for r in ros.values() if r.get('garageId') == body["garageId"] and r.get('status') == "open"]
-    current_load = len(garage_orders)
-    
-    # DEBUG PRINT FOR TRACEABILITY
-    print(f"DEBUG BUG1: Garage {body['garageId']} has {current_load} open orders.")
-    
-    if current_load >= 2:
-        print(f"DEBUG BUG1: CRASHING NOW!")
-        raise Exception(f"CRITICAL FAILURE: Garage {body['garageId']} overflow!")
+    if BUG_CONFIG["bug1"]:
+        garage_orders = [r for r in ros.values() if r.get('garageId') == body["garageId"] and r.get('status') == "open"]
+        current_load = len(garage_orders)
+        
+        print(f"DEBUG BUG1: Garage {body['garageId']} has {current_load} open orders.")
+        
+        if current_load >= 2:
+            print(f"DEBUG BUG1: CRASHING NOW!")
+            raise Exception(f"CRITICAL FAILURE: Garage {body['garageId']} overflow!")
     # === BUG 1 END ===
 
     # === BUG 2: Teleporting Car ===
-    for r in ros.values():
-        if r.get('carVin') == body["carVin"] and r.get('status') in ["open", "in-progress"] and r.get('garageId') != body["garageId"]:
-             print(f"DEBUG BUG2: CRASHING NOW! Car {body['carVin']} is in {r['garageId']}")
-             raise Exception(f"CRITICAL LOGIC ERROR: Car {body['carVin']} is already active in Garage {r['garageId']}!")
+    if BUG_CONFIG["bug2"]:
+        for r in ros.values():
+            if r.get('carVin') == body["carVin"] and r.get('status') in ["open", "in-progress"] and r.get('garageId') != body["garageId"]:
+                 print(f"DEBUG BUG2: CRASHING NOW! Car {body['carVin']} is in {r['garageId']}")
+                 raise Exception(f"CRITICAL LOGIC ERROR: Car {body['carVin']} is already active in Garage {r['garageId']}!")
     # === BUG 2 END ===
 
     ros[roId] = {

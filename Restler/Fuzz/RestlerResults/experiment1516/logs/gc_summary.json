@@ -1,0 +1,17 @@
+{
+    "delete_stats": {
+        "_customers_post_customerId": {
+            "204": 117,
+            "404": 311,
+            "400": 432
+        },
+        "_cars_post_vin": {
+            "204": 2,
+            "404": 26
+        },
+        "_periodic_maintenance_post_pmId": {
+            "404": 623,
+            "400": 400
+        }
+    }
+}

@@ -1,0 +1,32 @@
+Restler Information: 0 : Starting task Test...
+    DateTime=2025-12-21T11:02:27.4040290Z
+Restler Information: 0 : Launching 'python.exe --version'
+    DateTime=2025-12-21T11:02:28.1034995Z
+Restler Information: 0 : Process execution terminated in 00:00:00.1115490 with exit code 0x0: 'python.exe --version'
+    DateTime=2025-12-21T11:02:28.2296396Z
+Restler Information: 0 : (27752) python.exe --version exited with code: 0
+    DateTime=2025-12-21T11:02:28.2335519Z
+Restler Information: 0 : Launching 'python.exe -B "C:\work\Yeshayahu\restler-fuzzer\restler_bin\restler\../engine/restler.py" --restler_grammar "C:\work\Yeshayahu\BpTestTell\Restler\Compile\grammar.py" --custom_mutations "C:\work\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --set_version 9.3.1    --no_ssl   --settings "C:\work\Yeshayahu\BpTestTell\Restler\Compile\engine_settings.json"     --include_user_agent --no_tokens_in_logs t --garbage_collection_interval 30 --fuzzing_mode directed-smoke-test'
+    DateTime=2025-12-21T11:02:28.2438571Z
+Restler Information: 0 : Process execution terminated in 00:00:15.0054160 with exit code 0x0: 'python.exe -B "C:\work\Yeshayahu\restler-fuzzer\restler_bin\restler\../engine/restler.py" --restler_grammar "C:\work\Yeshayahu\BpTestTell\Restler\Compile\grammar.py" --custom_mutations "C:\work\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --set_version 9.3.1    --no_ssl   --settings "C:\work\Yeshayahu\BpTestTell\Restler\Compile\engine_settings.json"     --include_user_agent --no_tokens_in_logs t --garbage_collection_interval 30 --fuzzing_mode directed-smoke-test'
+    DateTime=2025-12-21T11:02:43.2494800Z
+Restler Information: 0 : (17168) python.exe -B "C:\work\Yeshayahu\restler-fuzzer\restler_bin\restler\../engine/restler.py" --restler_grammar "C:\work\Yeshayahu\BpTestTell\Restler\Compile\grammar.py" --custom_mutations "C:\work\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --set_version 9.3.1    --no_ssl   --settings "C:\work\Yeshayahu\BpTestTell\Restler\Compile\engine_settings.json"     --include_user_agent --no_tokens_in_logs t --garbage_collection_interval 30 --fuzzing_mode directed-smoke-test exited with code: 0
+    DateTime=2025-12-21T11:02:43.2496499Z
+Restler Information: 0 : Launching 'dotnet "C:\work\Yeshayahu\restler-fuzzer\restler_bin\restler\../resultsAnalyzer/Restler.ResultsAnalyzer.dll" analyze "C:\work\Yeshayahu\BpTestTell\Restler\Test" --output_dir "C:\work\Yeshayahu\BpTestTell\Restler\Test\ResponseBuckets" --dictionary_file "C:\work\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --max_instances_per_bucket 10'
+    DateTime=2025-12-21T11:02:43.2649286Z
+Restler Information: 0 : Process execution terminated in 00:00:01.9552346 with exit code 0x0: 'dotnet "C:\work\Yeshayahu\restler-fuzzer\restler_bin\restler\../resultsAnalyzer/Restler.ResultsAnalyzer.dll" analyze "C:\work\Yeshayahu\BpTestTell\Restler\Test" --output_dir "C:\work\Yeshayahu\BpTestTell\Restler\Test\ResponseBuckets" --dictionary_file "C:\work\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --max_instances_per_bucket 10'
+    DateTime=2025-12-21T11:02:45.2203583Z
+Restler Information: 0 : (23560) dotnet "C:\work\Yeshayahu\restler-fuzzer\restler_bin\restler\../resultsAnalyzer/Restler.ResultsAnalyzer.dll" analyze "C:\work\Yeshayahu\BpTestTell\Restler\Test" --output_dir "C:\work\Yeshayahu\BpTestTell\Restler\Test\ResponseBuckets" --dictionary_file "C:\work\Yeshayahu\BpTestTell\Restler\Compile\dict.json" --max_instances_per_bucket 10 exited with code: 0
+    DateTime=2025-12-21T11:02:45.2205502Z
+Restler Information: 0 : Request coverage (successful / total): 17 / 32
+    DateTime=2025-12-21T11:02:45.3776755Z
+Restler Information: 0 : Attempted requests: 24 / 32
+    DateTime=2025-12-21T11:02:45.3781927Z
+Restler Information: 0 : No bugs were found.
+    DateTime=2025-12-21T11:02:45.3799202Z
+Restler Information: 0 : See 'coverage_failures_to_investigate.txt' to investigate API coverage.
+    DateTime=2025-12-21T11:02:45.4746338Z
+Restler Information: 0 : Task Test succeeded.
+    DateTime=2025-12-21T11:02:45.4767355Z
+Restler Information: 0 : Collecting logs...
+    DateTime=2025-12-21T11:02:45.7174463Z

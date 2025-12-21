@@ -1,0 +1,24 @@
+################################################################################
+ PayloadBodyChecker_500
+
+ InvalidJson
+"fuzzstring"
+
+ Hash: PayloadBodyChecker_500_cb12eed3ade1feb4767e71300e72e5d2ba42474c
+
+ To attempt to reproduce this bug using restler, run restler with the command
+ line option of --replay_log <path_to_this_log>.
+ If an authentication token is required, you must also specify the token_refresh_cmd.
+
+ This log may contain specific values for IDs or names that were generated
+ during fuzzing, using the fuzzing dictionary. Such names will be re-played
+ without modification. You must update the replay log manually with any changes
+ required to execute the requests in your environment (for example, replacing
+ pre-created account, subscription, or other resource IDs, as needed).
+################################################################################
+
+-> POST /chains HTTP/1.1\r\nAccept: application/json\r\nHost: localhost:5000\r\nContent-Type: application/json\r\n\r\n"fuzzstring"
+! producer_timing_delay 0
+! max_async_wait_time 0
+PREVIOUS RESPONSE: 'HTTP/1.1 500 INTERNAL SERVER ERROR\r\nServer: Werkzeug/3.1.3 Python/3.12.10\r\nDate: Sun, 21 Dec 2025 11:51:53 GMT\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 265\r\nConnection: close\r\n\r\n<!doctype html>\n<html lang=en>\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>\n'
+

@@ -1,6 +1,6 @@
 //@provengo summon rest
 // === Auto-generated interfaces for pharmacy ===
-var host = (typeof host !== 'undefined') ? host : '10.100.102.6';
+var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 5014;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
