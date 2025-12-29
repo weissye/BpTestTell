@@ -1,8 +1,63 @@
-2025-12-21 22:17:46.167: Initializing: Garbage collection every 30 seconds.
-2025-12-21 22:17:46.177: Generation: 1 
-Invalid value generator random seed: 1766348898.4118621
+2025-12-22 06:27:55.944: Initializing: Garbage collection every 30 seconds.
+2025-12-22 06:27:55.951: Generation: 1 
+Invalid value generator random seed: 1766377683.4698467
 Setting invalid value generator random seed: 12345
-Exception 'Exceed Timeout' applying checker <checkers.invalid_value_checker.InvalidValueChecker object at 0x0000022969078C70>
+Invalid value generator random seed: 1766377692.996925
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377712.091606
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377721.607778
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377736.6915195
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377750.1514046
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377764.2302105
+Setting invalid value generator random seed: 12345
+2025-12-22 06:29:33.345: Generation: 2 
+Invalid value generator random seed: 1766377783.431136
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377792.6783414
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377825.757897
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377835.2743256
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377870.2755537
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377904.1846638
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766377939.655595
+Setting invalid value generator random seed: 12345
+2025-12-22 06:32:41.771: Generation: 3 
+2025-12-22 06:37:17.158: Generation: 4 
+Invalid value generator random seed: 1766378361.33219
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766378370.47356
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766378404.0565066
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766378762.460021
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766378771.9174783
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766379143.4287283
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766379498.5221982
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766379539.0016713
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766379884.384171
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766379946.7690306
+Setting invalid value generator random seed: 12345
+2025-12-22 07:08:52.458: Generation: 5 
+Invalid value generator random seed: 1766380874.019731
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766380884.2673416
+Setting invalid value generator random seed: 12345
+Invalid value generator random seed: 1766380905.9367332
+Setting invalid value generator random seed: 12345
 timeout reached
-2025-12-21 23:18:08.205: Terminating garbage collection. Waiting for max 300 seconds. 
+2025-12-22 07:27:57.242: Terminating garbage collection. Waiting for max 300 seconds. 
 Done.

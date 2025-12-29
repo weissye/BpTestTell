@@ -1,0 +1,138 @@
+// Story: crud:Customers:linear:1
+bthread("crud:Customers:linear:1", function () {
+  let customerId = "customerId_260_" + Math.floor(Math.random() * 10000);
+  let email = "email_260_" + Math.floor(Math.random() * 10000);
+  let fullName = "fullName_260_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let id = "id_260_" + Math.floor(Math.random() * 10000);
+  let name = "name_260_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
+  let phone = "phone_260_" + Math.floor(Math.random() * 10000);
+  let type = "type_260_" + Math.floor(Math.random() * 10000);
+  createCustomer(customerId, email, fullName, id, name, phone, type);
+  verifyCustomersExists(customerId, email, fullName, id, name, phone, type);
+  updateCustomer(customerId, email, fullName, id, name, phone, type);
+  // Skip delete for Customers to prevent foreign key errors (has active dependents)
+});
+
+// Story: crud:RepairOrders:linear:1
+// EXTENDED: Triggers Bug 1 (Garage Overflow)
+bthread("crud:RepairOrders:linear:1", function () {
+  let carVin; // Resolved Dependency
+  let complaint = "complaint_460_" + Math.floor(Math.random() * 10000);
+  let customerId; // Resolved Dependency
+  let field1 = "field1_460_" + Math.floor(Math.random() * 10000);
+  let field2 = 46000000 + Math.floor(Math.random() * 100000);
+  let garageId; // Resolved Dependency
+  let id = "id_460_" + Math.floor(Math.random() * 10000);
+  let roId = "roId_460_" + Math.floor(Math.random() * 10000);
+  
+  // Ensure dependencies are resolved before starting CRUD
+  let deps = {};
+  deps["carVin"] = matchAnyCarsAdded();
+  deps["customerId"] = matchAnyCustomersAdded();
+  deps["garageId"] = matchAnyGaragesAdded();
+  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
+  let captured = resolveDependencies(deps, pkMap);
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
+  carVin = captured["carVin"];
+  customerId = captured["customerId"];
+  garageId = captured["garageId"];
+  
+  // 1. Create first RO (Load = 1)
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+
+  // --- BUG 1 TRIGGER START ---
+  // Create 2nd RO on SAME garage (Load = 2)
+  let roId2 = roId + "_bug1_2";
+  let id2 = id + "_bug1_2";
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id2, roId2);
+
+  // Create 3rd RO on SAME garage (Load = 3) -> SUT should CRASH here
+  let roId3 = roId + "_bug1_3";
+  let id3 = id + "_bug1_3";
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id3, roId3);
+  // --- BUG 1 TRIGGER END ---
+
+  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+});
+
+// Story: crud:RepairOrders:linear:2
+// EXTENDED: Triggers Bug 2 (Teleporting Car)
+bthread("crud:RepairOrders:linear:2", function () {
+  let carVin; // Resolved Dependency
+  let complaint = "complaint_470_" + Math.floor(Math.random() * 10000);
+  let customerId; // Resolved Dependency
+  let field1 = "field1_470_" + Math.floor(Math.random() * 10000);
+  let field2 = 47000000 + Math.floor(Math.random() * 100000);
+  let garageId; // Resolved Dependency
+  let id = "id_470_" + Math.floor(Math.random() * 10000);
+  let roId = "roId_470_" + Math.floor(Math.random() * 10000);
+  
+  // Ensure dependencies are resolved before starting CRUD
+  let deps = {};
+  deps["carVin"] = matchAnyCarsAdded();
+  deps["customerId"] = matchAnyCustomersAdded();
+  deps["garageId"] = matchAnyGaragesAdded();
+  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
+  let captured = resolveDependencies(deps, pkMap);
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
+  carVin = captured["carVin"];
+  customerId = captured["customerId"];
+  garageId = captured["garageId"];
+  
+  // 1. Create first RO (Car is now active in 'garageId')
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+
+  // --- BUG 2 TRIGGER START ---
+  // Try to use the SAME carVin in a DIFFERENT garage
+  
+  // 1. Resolve a second garage
+  let deps2 = {};
+  deps2["garageId2"] = matchAnyGaragesAdded();
+  let captured2 = resolveDependencies(deps2, {"garageId2": "garageId"});
+  let garageId2 = captured2["garageId2"];
+
+  // 2. Attempt creation in second garage (Should CRASH if garageId != garageId2)
+  let roId_bug2 = roId + "_bug2";
+  let id_bug2 = id + "_bug2";
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId2, id_bug2, roId_bug2);
+  // --- BUG 2 TRIGGER END ---
+
+  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+});
+
+// Story: crud:RepairOrders:linear:3
+bthread("crud:RepairOrders:linear:3", function () {
+  let carVin; // Resolved Dependency
+  let complaint = "complaint_480_" + Math.floor(Math.random() * 10000);
+  let customerId; // Resolved Dependency
+  let field1 = "field1_480_" + Math.floor(Math.random() * 10000);
+  let field2 = 48000000 + Math.floor(Math.random() * 100000);
+  let garageId; // Resolved Dependency
+  let id = "id_480_" + Math.floor(Math.random() * 10000);
+  let roId = "roId_480_" + Math.floor(Math.random() * 10000);
+  // Ensure dependencies are resolved before starting CRUD
+  let deps = {};
+  deps["carVin"] = matchAnyCarsAdded();
+  deps["customerId"] = matchAnyCustomersAdded();
+  deps["garageId"] = matchAnyGaragesAdded();
+  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
+  let captured = resolveDependencies(deps, pkMap);
+  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
+  carVin = captured["carVin"];
+  customerId = captured["customerId"];
+  garageId = captured["garageId"];
+  createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersExists(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  updateRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+});

@@ -1,4 +1,0 @@
-
-Target type: _drugs_post_name
-
-Target type: _drugs_post_id

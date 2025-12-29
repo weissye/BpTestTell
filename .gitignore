@@ -51,3 +51,8 @@ mySetupEnv.ps1
 
 # provengo/
 # provengo_ready/
+
+Restler/
+RestlerResults/
+*/*/*/*/*/*logs*
+RestlerResults/
