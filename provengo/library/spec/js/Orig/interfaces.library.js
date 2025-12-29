@@ -1,7 +1,7 @@
 //@provengo summon rest
 // === Auto-generated interfaces for library ===
 var host = (typeof host !== 'undefined') ? host : 'localhost';
-var port = (typeof port !== 'undefined') ? port : 23242;
+var port = (typeof port !== 'undefined') ? port : 5001;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
 const pvg = {

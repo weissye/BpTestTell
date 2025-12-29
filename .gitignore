@@ -56,3 +56,5 @@ Restler/
 RestlerResults/
 */*/*/*/*/*logs*
 RestlerResults/
+
+*.out

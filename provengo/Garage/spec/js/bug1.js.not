@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // Story: crud:Customers:linear:1
 bthread("crud:Customers:linear:1", function () {
   let customerId = "customerId_260_" + Math.floor(Math.random() * 10000);
@@ -26,10 +27,23 @@ bthread("crud:RepairOrders:linear:1", function () {
   let roId = "roId_460_" + Math.floor(Math.random() * 10000);
   
   // Ensure dependencies are resolved before starting CRUD
+=======
+// Story: stress:RepairOrders:phantom_load
+// Triggers Bug 1 (Resource Leak) by repeatedly creating and deleting orders.
+// The SUT randomly fails to free up capacity on delete, causing an eventual overflow.
+
+bthread("stress:RepairOrders:phantom_load", function () {
+  let carVin;
+  let customerId;
+  let garageId;
+  
+  // 1. Resolve Dependencies (Reuse resources created by other stories)
+>>>>>>> Stashed changes
   let deps = {};
   deps["carVin"] = matchAnyCarsAdded();
   deps["customerId"] = matchAnyCustomersAdded();
   deps["garageId"] = matchAnyGaragesAdded();
+<<<<<<< Updated upstream
   let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
   let captured = resolveDependencies(deps, pkMap);
   bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
@@ -135,4 +149,33 @@ bthread("crud:RepairOrders:linear:3", function () {
   deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
   tryToDeleteANonExistingRepairOrders(carVin, complaint, customerId, field1, field2, garageId, id, roId);
   verifyRepairOrdersDoesNotExist(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+=======
+  
+  // Map event fields to local variables
+  let pkMap = {"carVin": "vin", "customerId": "customerId", "garageId": "garageId"};
+  let captured = resolveDependencies(deps, pkMap);
+  
+  carVin = captured["carVin"];
+  customerId = captured["customerId"];
+  garageId = captured["garageId"];
+
+  bp.log.info("Starting Phantom Load sequence on Garage: " + garageId);
+
+  // 2. Stress Loop: Create -> Delete
+  // The SUT limit is 5 phantom slots. A loop of 20 ensures we statistically hit it.
+  for (let i = 0; i < 20; i++) {
+      let complaint = "Phantom_Test_" + i;
+      let field1 = "Stress_Test";
+      let field2 = 1000 + i;
+      let id = "id_phantom_" + Math.floor(Math.random() * 10000);
+      let roId = "roId_phantom_" + new Date().getTime() + "_" + i;
+
+      // Step A: Create Order (Increases Load)
+      // Eventually, this call will fail with 500 when the leak limit is reached.
+      createRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+      
+      // Step B: Delete Order (Should decrease load, but has 20% chance to leak)
+      deleteRepairOrder(carVin, complaint, customerId, field1, field2, garageId, id, roId);
+  }
+>>>>>>> Stashed changes
 });

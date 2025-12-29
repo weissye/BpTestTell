@@ -251,15 +251,19 @@
           ],
           "bodyTemplate": {
             "id": "{id}",
-            "meta": {
-              "hidden": "{hidden}"
-            },
+            "user_id": "{user_id}",
+            "book_id": "{book_id}",
+            "start_date": "{start_date}",
+            "end_date": "{end_date}",
             "userId": "{userId}",
             "bookId": "{bookId}"
           },
           "paramTypes": {
             "id": "integer",
-            "hidden": "boolean",
+            "user_id": "integer",
+            "book_id": "integer",
+            "start_date": "string",
+            "end_date": "string",
             "userId": "integer",
             "bookId": "integer"
           },

@@ -26,190 +26,178 @@ function resolveDependencies(deps, pkMap) {
   return captured;
 }
 
-// Story: crud:Books:linear:1
-bthread("crud:Books:linear:1", function () {
-  let author = "author_210_" + Math.floor(Math.random() * 10000);
-  let id = 21000000 + Math.floor(Math.random() * 100000);
-  let publishedDate = "publishedDate_210_" + Math.floor(Math.random() * 10000);
-  let q = "q_210_" + Math.floor(Math.random() * 10000);
-  let title = "title_210_" + Math.floor(Math.random() * 10000);
-  createBook(author, id, publishedDate, q, title);
-  verifyBooksExists(author, id, publishedDate, q, title);
-  // Skip delete for Books to prevent foreign key errors (has active dependents)
+// ==============================================================================
+// 🧠 GLOBAL STATE TRACKER
+// ==============================================================================
+const STATE = {
+    users: [],
+    books: [],
+    holds: []
+};
+
+bthread("monitor:StateTracker", function() {
+    while (true) {
+        let e = bp.sync({ waitFor: [matchAnyUsersAdded(), matchAnyBooksAdded(), matchAnyHoldsAdded()] });
+        
+        if (e.name.startsWith("Done: Create a user")) {
+            STATE.users.push(e.data.id);
+            bp.sync({ request: bp.Event("StateUpdate_User") });
+        }
+        else if (e.name.startsWith("Done: Create a book")) {
+            STATE.books.push(e.data.id);
+            bp.sync({ request: bp.Event("StateUpdate_Book") });
+        }
+        else if (e.name.startsWith("Done: Create a hold")) {
+            STATE.holds.push({ userId: e.data.userId, bookId: e.data.bookId });
+            bp.sync({ request: bp.Event("StateUpdate_Hold") });
+        }
+    }
 });
 
-// Story: crud:Books:linear:2
-bthread("crud:Books:linear:2", function () {
-  let author = "author_220_" + Math.floor(Math.random() * 10000);
-  let id = 22000000 + Math.floor(Math.random() * 100000);
-  let publishedDate = "publishedDate_220_" + Math.floor(Math.random() * 10000);
-  let q = "q_220_" + Math.floor(Math.random() * 10000);
-  let title = "title_220_" + Math.floor(Math.random() * 10000);
-  createBook(author, id, publishedDate, q, title);
-  verifyBooksExists(author, id, publishedDate, q, title);
-  // Skip delete for Books to prevent foreign key errors (has active dependents)
+// ==============================================================================
+// 🧪 META-STORIES (Strict Failure on Crash)
+// ==============================================================================
+
+function requestLoanAttack(bookId, id, loanDate, userId, type) {
+    let port = 5001; 
+    let url = "http://localhost:" + port + "/loans";
+    let desc = "ATTACK: " + type + " Loan " + id;
+    
+    return bp.Event("Create_Loan_Attack", {
+        lib: "REST", 
+        method: "POST", 
+        url: url,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            bookId: bookId,
+            id: id,
+            loanDate: loanDate,
+            userId: userId,
+            status: "active_attack"
+        }),
+        parameters: { description: desc },
+        // STRICT MODE: We expect 201. If server crashes (500), TEST FAILS.
+        expectedResponseCodes: [201] 
+    });
+}
+
+// ------------------------------------------------------------------------------
+// BUG 2: Hold Theft
+// ------------------------------------------------------------------------------
+bthread("meta:Inject_HoldTheft", function() {
+    let victimId = null;
+    let bookId = null;
+    let attackerId = null;
+
+    // Wait loop
+    while (true) {
+        if (STATE.holds.length > 0 && !victimId) {
+            let h = STATE.holds[0];
+            victimId = h.userId;
+            bookId = h.bookId;
+        }
+        if (victimId && !attackerId) {
+            for (let i = 0; i < STATE.users.length; i++) {
+                if (STATE.users[i] !== victimId) {
+                    attackerId = STATE.users[i];
+                    break;
+                }
+            }
+        }
+        if (victimId && attackerId) break; 
+        bp.sync({ waitFor: [bp.Event("StateUpdate_User"), bp.Event("StateUpdate_Hold")] });
+    }
+
+    let attackEvent = requestLoanAttack(bookId, "loan_THEFT", "2025-01-01", attackerId, "THEFT");
+    bp.log.info("💣 BUG 2: Launching Theft Attack (Expect Test Failure)...");
+    bp.sync({ request: attackEvent });
 });
 
-// Story: crud:Books:linear:3
-bthread("crud:Books:linear:3", function () {
-  let author = "author_230_" + Math.floor(Math.random() * 10000);
-  let id = 23000000 + Math.floor(Math.random() * 100000);
-  let publishedDate = "publishedDate_230_" + Math.floor(Math.random() * 10000);
-  let q = "q_230_" + Math.floor(Math.random() * 10000);
-  let title = "title_230_" + Math.floor(Math.random() * 10000);
-  createBook(author, id, publishedDate, q, title);
-  verifyBooksExists(author, id, publishedDate, q, title);
-  // Skip delete for Books to prevent foreign key errors (has active dependents)
+
+// ------------------------------------------------------------------------------
+// BUG 1: Loan Overflow
+// ------------------------------------------------------------------------------
+bthread("meta:Inject_LoanOverflow", function() {
+    
+    // Needs 1 User and 3 Books
+    while (STATE.users.length < 1 || STATE.books.length < 3) {
+         bp.sync({ waitFor: [bp.Event("StateUpdate_User"), bp.Event("StateUpdate_Book")] });
+    }
+
+    let user = STATE.users[0];
+    let books = [STATE.books[0], STATE.books[1], STATE.books[2]];
+
+    // Fill Limit (2 loans)
+    createLoan(books[0], "loan_fill_1", "2025-01-01", user);
+    createLoan(books[1], "loan_fill_2", "2025-01-01", user);
+
+    // Overflow (3rd loan)
+    let attackEvent = requestLoanAttack(books[2], "loan_OVERFLOW", "2025-01-01", user, "OVERFLOW");
+    bp.log.info("💣 BUG 1: Launching Overflow Attack (Expect Test Failure)...");
+    bp.sync({ request: attackEvent });
 });
 
-// Monitor: Books Verification
-bthread("monitor:Books", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyBooksAdded() });
-    let author = (e.data.parameters && e.data.parameters["author"]) ? e.data.parameters["author"] : e.data["author"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let publishedDate = (e.data.parameters && e.data.parameters["publishedDate"]) ? e.data.parameters["publishedDate"] : e.data["publishedDate"];
-    let q = (e.data.parameters && e.data.parameters["q"]) ? e.data.parameters["q"] : e.data["q"];
-    let title = (e.data.parameters && e.data.parameters["title"]) ? e.data.parameters["title"] : e.data["title"];
-    // Monitor Books: Verifying existence (Deletion skipped due to dependencies)
-    verifyBooksExists(author, id, publishedDate, q, title);
-  }
-});
+// --------------------------------------------------------
+// DATA GENERATION (Increased Volume)
+// --------------------------------------------------------
 
-// Story: crud:Loans:linear:1
-bthread("crud:Loans:linear:1", function () {
-  let bookId; // Resolved Dependency
-  let id = "id_260_" + Math.floor(Math.random() * 10000);
-  let loanDate = "loanDate_260_" + Math.floor(Math.random() * 10000);
-  let userId = 26000000 + Math.floor(Math.random() * 100000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["userId"] = matchAnyUsersAdded();
-  deps["bookId"] = matchAnyBooksAdded();
-  let pkMap = {"userId": "id", "bookId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  userId = captured["userId"];
-  bookId = captured["bookId"];
-  createLoan(bookId, id, loanDate, userId);
-});
+// Helper for generating users
+function runUserStory(i) {
+    let email = "email_" + i + "_" + Math.floor(Math.random() * 10000);
+    let id = (30000000 + i * 10000) + Math.floor(Math.random() * 10000);
+    let name = "name_" + i + "_" + Math.floor(Math.random() * 10000);
+    let password = "pass_" + Math.floor(Math.random() * 10000);
+    let q = "q_" + Math.floor(Math.random() * 10000);
+    createUser(email, id, name, password, q);
+}
 
-// Story: crud:Loans:linear:2
-bthread("crud:Loans:linear:2", function () {
-  let bookId; // Resolved Dependency
-  let id = "id_270_" + Math.floor(Math.random() * 10000);
-  let loanDate = "loanDate_270_" + Math.floor(Math.random() * 10000);
-  let userId = 27000000 + Math.floor(Math.random() * 100000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["userId"] = matchAnyUsersAdded();
-  deps["bookId"] = matchAnyBooksAdded();
-  let pkMap = {"userId": "id", "bookId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  userId = captured["userId"];
-  bookId = captured["bookId"];
-  createLoan(bookId, id, loanDate, userId);
-});
+// Helper for generating books
+function runBookStory(i) {
+    let author = "author_" + i + "_" + Math.floor(Math.random() * 10000);
+    let id = (20000000 + i * 10000) + Math.floor(Math.random() * 10000);
+    let publishedDate = "date_" + Math.floor(Math.random() * 10000);
+    let q = "q_" + Math.floor(Math.random() * 10000);
+    let title = "title_" + i + "_" + Math.floor(Math.random() * 10000);
+    createBook(author, id, publishedDate, q, title);
+}
 
-// Story: crud:Loans:linear:3
-bthread("crud:Loans:linear:3", function () {
-  let bookId; // Resolved Dependency
-  let id = "id_280_" + Math.floor(Math.random() * 10000);
-  let loanDate = "loanDate_280_" + Math.floor(Math.random() * 10000);
-  let userId = 28000000 + Math.floor(Math.random() * 100000);
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["userId"] = matchAnyUsersAdded();
-  deps["bookId"] = matchAnyBooksAdded();
-  let pkMap = {"userId": "id", "bookId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  userId = captured["userId"];
-  bookId = captured["bookId"];
-  createLoan(bookId, id, loanDate, userId);
-});
+// --- Create 5 Books (Ensures Bug 1 has plenty) ---
+bthread("crud:Books:1", function(){ runBookStory(1); });
+bthread("crud:Books:2", function(){ runBookStory(2); });
+bthread("crud:Books:3", function(){ runBookStory(3); });
+bthread("crud:Books:4", function(){ runBookStory(4); }); // Extra
+bthread("crud:Books:5", function(){ runBookStory(5); }); // Extra
 
-// Story: crud:Users:linear:1
-bthread("crud:Users:linear:1", function () {
-  let email = "email_310_" + Math.floor(Math.random() * 10000);
-  let id = 31000000 + Math.floor(Math.random() * 100000);
-  let name = "name_310_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let password = "password_310_" + Math.floor(Math.random() * 10000);
-  let q = "q_310_" + Math.floor(Math.random() * 10000);
-  createUser(email, id, name, password, q);
-});
+// --- Create 5 Users (Ensures Bug 2 has Victim + Attacker) ---
+bthread("crud:Users:1", function(){ runUserStory(1); });
+bthread("crud:Users:2", function(){ runUserStory(2); });
+bthread("crud:Users:3", function(){ runUserStory(3); });
+bthread("crud:Users:4", function(){ runUserStory(4); }); // Extra
+bthread("crud:Users:5", function(){ runUserStory(5); }); // Extra
 
-// Story: crud:Users:linear:2
-bthread("crud:Users:linear:2", function () {
-  let email = "email_320_" + Math.floor(Math.random() * 10000);
-  let id = 32000000 + Math.floor(Math.random() * 100000);
-  let name = "name_320_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let password = "password_320_" + Math.floor(Math.random() * 10000);
-  let q = "q_320_" + Math.floor(Math.random() * 10000);
-  createUser(email, id, name, password, q);
-});
-
-// Story: crud:Users:linear:3
-bthread("crud:Users:linear:3", function () {
-  let email = "email_330_" + Math.floor(Math.random() * 10000);
-  let id = 33000000 + Math.floor(Math.random() * 100000);
-  let name = "name_330_" + new Date().getTime() + "_" + Math.floor(Math.random() * 10000);
-  let password = "password_330_" + Math.floor(Math.random() * 10000);
-  let q = "q_330_" + Math.floor(Math.random() * 10000);
-  createUser(email, id, name, password, q);
-});
-
-// Story: crud:Holds:linear:1
+// --- Create Holds (Trigger for Bug 2) ---
 bthread("crud:Holds:linear:1", function () {
-  let bookId; // Resolved Dependency
-  let hidden = true;
+  let bookId; let hidden = true; let userId;
   let id = 36000000 + Math.floor(Math.random() * 100000);
-  let userId; // Resolved Dependency
-  // Ensure dependencies are resolved before starting CRUD
+  
   let deps = {};
   deps["userId"] = matchAnyUsersAdded();
   deps["bookId"] = matchAnyBooksAdded();
   let pkMap = {"userId": "id", "bookId": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
   userId = captured["userId"];
   bookId = captured["bookId"];
+  
   createHold(bookId, hidden, id, userId);
 });
 
-// Story: crud:Holds:linear:2
-bthread("crud:Holds:linear:2", function () {
-  let bookId; // Resolved Dependency
-  let hidden = true;
-  let id = 37000000 + Math.floor(Math.random() * 100000);
-  let userId; // Resolved Dependency
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["userId"] = matchAnyUsersAdded();
-  deps["bookId"] = matchAnyBooksAdded();
-  let pkMap = {"userId": "id", "bookId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  userId = captured["userId"];
-  bookId = captured["bookId"];
-  createHold(bookId, hidden, id, userId);
-});
-
-// Story: crud:Holds:linear:3
-bthread("crud:Holds:linear:3", function () {
-  let bookId; // Resolved Dependency
-  let hidden = true;
-  let id = 38000000 + Math.floor(Math.random() * 100000);
-  let userId; // Resolved Dependency
-  // Ensure dependencies are resolved before starting CRUD
-  let deps = {};
-  deps["userId"] = matchAnyUsersAdded();
-  deps["bookId"] = matchAnyBooksAdded();
-  let pkMap = {"userId": "id", "bookId": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  bp.log.info(`Dependencies executed: ${Object.keys(captured).join(", ")}. Continuing story.`);
-  userId = captured["userId"];
-  bookId = captured["bookId"];
-  createHold(bookId, hidden, id, userId);
-});
+// Event Matchers
+function matchAnyUsersAdded() {
+  return bp.EventSet("Any Users Added", function(e) { return e.name.startsWith("Done: Create a user"); });
+}
+function matchAnyBooksAdded() {
+  return bp.EventSet("Any Books Added", function(e) { return e.name.startsWith("Done: Create a book"); });
+}
+function matchAnyHoldsAdded() {
+  return bp.EventSet("Any Holds Added", function(e) { return e.name.startsWith("Done: Create a hold"); });
+}
