@@ -44,8 +44,8 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     js_desc = js_desc.replace(' + ""', '')
 
     param_types = op_data.get("paramTypes", {})
-
     body_js = "{}"
+
     if method in ["POST", "PUT", "PATCH"]:
         excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
         b_lines = ["{"]
@@ -54,18 +54,24 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
         for p in sig_params:
              if p.lower() in excluded_query_params or p in path_params: continue
+             
+             # Check if parameter exists in operation definition
              if p in op_data.get("paramTypes", {}): 
                  sanitized_p = sanitize_param(p)
                  ptype = param_types.get(p, "string").lower()
-                 cast = "String"
-                 if ptype in ["integer", "number"]: cast = "" 
-                 elif ptype == "boolean": cast = ""
                  
-                 if param_types.get(p, "") == "array":
-                     b_lines.append(f'    "{p}": [{cast}({sanitized_p})],')
+                 # --- GENERIC TYPE LOGIC ---
+                 # If the spec defines it as complex or numeric, keep it raw.
+                 # Otherwise, cast to String to be safe.
+                 if ptype in ["object", "array", "integer", "number", "boolean"]:
+                     cast = "" 
                  else:
-                     if cast: b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
-                     else: b_lines.append(f'    "{p}": {sanitized_p},')
+                     cast = "String"
+                 
+                 if cast: 
+                     b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
+                 else: 
+                     b_lines.append(f'    "{p}": {sanitized_p},')
                      
         b_lines = [l for l in b_lines if l.strip()]
         if len(b_lines) > 1:
@@ -91,9 +97,9 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     lines.append(f'  var url = {js_url};')
     lines.append(f'  var description = {js_desc};')
     
-    # --- CHANGE: Added 'return' to capture the response object ---
     if method in ["POST", "PUT", "PATCH"]:
         lines.append(f'  var body = {body_js};')
+        lines.append(f'  bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
         lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: description }} }});')
         if not codes_override:
              payload_parts = []
@@ -105,6 +111,52 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append('  return res;')
     else:
         lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: description }}, expectedResponseCodes: {codes_str} }});')
+    lines.append('}')
+    return lines
+
+def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
+    lines = []
+    path_tmpl = op_data.get("path", "")
+    
+    safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
+    js_url = f'"{safe_path}"'
+    
+    path_params = set()
+    for p in sig_params:
+        safe_p = sanitize_param(p)
+        if f'{{{p}}}' in path_tmpl:
+            path_params.add(p)
+            js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
+    js_url = js_url.replace(' + ""', '')
+
+    b_lines = ["{"]
+    if "id" in sig_params and "id" not in path_params:
+         b_lines.append(f'    "id": id,')
+
+    excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
+    for p in sig_params:
+         if p.lower() in excluded_query_params or p in path_params: continue
+         sanitized_p = sanitize_param(p)
+         # No casting for negative tests (send raw)
+         b_lines.append(f'    "{p}": {sanitized_p},') 
+                 
+    b_lines = [l for l in b_lines if l.strip()]
+    if len(b_lines) > 1:
+        b_lines.append("}")
+        body_js = "\n".join(b_lines)
+    else:
+        body_js = "{}"
+
+    sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+    safe_fn_name = sanitize_param(fn_name)
+
+    lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
+    lines.append(f'  var url = {js_url};')
+    lines.append(f'  var description = "Negative Test: Verify Rejection for " + url;')
+    lines.append(f'  var body = {body_js};')
+    lines.append(f'  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));')
+    lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: {{ description: description }} }});')
+    lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description) }});')
     lines.append('}')
     return lines
 
@@ -162,6 +214,11 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         if "add" in ops and isinstance(ops["add"], dict) and has_specific_get:
              lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{safe_entity_name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
              lines.append('')
+             
+        # Negative Verification (Fuzzing)
+        if "add" in ops and isinstance(ops["add"], dict):
+             lines.extend(_generate_reject_operation(ops["add"], f"verify{safe_entity_name}Rejects", sig_params, primary_key))
+             lines.append('')
 
         # === 1. Verify Exists (Universal) ===
         safe_pk = sanitize_param(primary_key)
@@ -181,14 +238,13 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append('}')
             lines.append('')
         elif list_op:
-             # List-based Fallback (UPDATED: Uses Return Value)
              list_fn_name = sanitize_param(list_op.get("name", f"list{name}"))
              lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{')
              lines.append(f'  // Fallback: Use list operation to verify existence')
-             lines.append(f'  let res = {list_fn_name}({sig_args_str});') # Capture return
+             lines.append(f'  let res = {list_fn_name}({sig_args_str});') 
              lines.append(f'  try {{')
-             lines.append(f'      let listData = res;') # Assume already parsed or object
-             lines.append(f'      if (typeof listData === "string") listData = JSON.parse(listData);') # Safety check
+             lines.append(f'      let listData = res;') 
+             lines.append(f'      if (typeof listData === "string") listData = JSON.parse(listData);') 
              lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
              lines.append(f'      if (Array.isArray(listData)) {{')
              lines.append(f'          let found = listData.find(item => item.{primary_key} == {safe_pk} || item.id == {safe_pk});')
@@ -224,7 +280,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              list_fn_name = sanitize_param(list_op.get("name", f"list{name}"))
              lines.append(f'function verify{safe_entity_name}Deleted({sig_args_str}) {{')
              lines.append(f'  // Fallback: Use list operation to verify deletion')
-             lines.append(f'  let res = {list_fn_name}({sig_args_str});') # Capture return
+             lines.append(f'  let res = {list_fn_name}({sig_args_str});')
              lines.append(f'  try {{')
              lines.append(f'      let listData = res;')
              lines.append(f'      if (typeof listData === "string") listData = JSON.parse(listData);')

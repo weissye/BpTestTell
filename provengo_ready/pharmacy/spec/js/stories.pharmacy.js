@@ -1,4 +1,4 @@
-// Auto-generated stories for Pharmacy
+// Auto-generated stories for pharmacy
 //@provengo summon rest
 
 function resolveDependencies(deps, pkMap) {
@@ -8,13 +8,10 @@ function resolveDependencies(deps, pkMap) {
     let e = bp.sync({waitFor: missingEventSets});
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id || e.data.parameters.vin));
+        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
         if (!val && pkMap && pkMap[k]) {
             let mappedKey = pkMap[k];
             val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
-        }
-        if (!val && e.data) {
-          for (let f in e.data) { if (f.toLowerCase().indexOf("id") > -1 || f.toLowerCase().indexOf("vin") > -1) { val = e.data[f]; break; } }
         }
         if (val) {
             captured[k] = val;
@@ -26,232 +23,281 @@ function resolveDependencies(deps, pkMap) {
   return captured;
 }
 
-// Story: crud:Patients:linear:1
-bthread("crud:Patients:linear:1", function () {
-  let id = "pat_" + Math.floor(Math.random() * 10000);
-  createPatient(id, "John Doe", "555-0100");
-  verifyPatientsExists(id);
-  updatePatient(id, "John Doe Jr", "555-0101");
+// Story: Chain Patients_Orders
+bthread("chain:Patients_Orders", function () {
+  // --- Level 0: Patients ---
+  let id_0_0 = 200000 + Math.floor(Math.random()*10000);
+  let name_0_0 = "name_0_0_" + Math.floor(Math.random()*1000);
+  createPatient(id_0_0, name_0_0);
+  verifyPatientsExists(id_0_0, name_0_0);
+  updatePatient(id_0_0, name_0_0);
+  verifyPatientsExists(id_0_0, name_0_0);
+  // --- Level 1: Orders ---
+  let id_0_1 = 200000 + Math.floor(Math.random()*10000);
+  createOrder(id_0_1);
+  verifyOrdersExists(id_0_1);
+  updateOrder(id_0_1);
+  verifyOrdersExists(id_0_1);
+  // --- Teardown Phase (Reverse Order) ---
+  deleteOrder(id_0_1);
+  verifyOrdersDeleted(id_0_1);
+  deletePatient(id_0_0, name_0_0);
+  verifyPatientsDeleted(id_0_0, name_0_0);
+});
+
+// Story: Chain Patients_Prescriptions
+bthread("chain:Patients_Prescriptions", function () {
+  // --- Level 0: Patients ---
+  let id_1_0 = 700000 + Math.floor(Math.random()*10000);
+  let name_1_0 = "name_1_0_" + Math.floor(Math.random()*1000);
+  createPatient(id_1_0, name_1_0);
+  verifyPatientsExists(id_1_0, name_1_0);
+  updatePatient(id_1_0, name_1_0);
+  verifyPatientsExists(id_1_0, name_1_0);
+  // --- Level 1: Prescriptions ---
+  let id_1_1 = 700000 + Math.floor(Math.random()*10000);
+  createPrescription(id_1_1);
+  verifyPrescriptionsExists(id_1_1);
+  updatePrescription(id_1_1);
+  verifyPrescriptionsExists(id_1_1);
+  // --- Teardown Phase (Reverse Order) ---
+  deletePrescription(id_1_1);
+  verifyPrescriptionsDeleted(id_1_1);
+  deletePatient(id_1_0, name_1_0);
+  verifyPatientsDeleted(id_1_0, name_1_0);
+});
+
+// Story: Chain Drugs_Orders
+bthread("chain:Drugs_Orders", function () {
+  // --- Level 0: Drugs ---
+  let id_2_0 = 1200000 + Math.floor(Math.random()*10000);
+  let name_2_0 = "name_2_0_" + Math.floor(Math.random()*1000);
+  createDrug(id_2_0, name_2_0);
+  verifyDrugsExists(id_2_0, name_2_0);
+  updateDrug(id_2_0, name_2_0);
+  verifyDrugsExists(id_2_0, name_2_0);
+  // --- Level 1: Orders ---
+  let id_2_1 = 1200000 + Math.floor(Math.random()*10000);
+  createOrder(id_2_1);
+  verifyOrdersExists(id_2_1);
+  updateOrder(id_2_1);
+  verifyOrdersExists(id_2_1);
+  // --- Teardown Phase (Reverse Order) ---
+  deleteOrder(id_2_1);
+  verifyOrdersDeleted(id_2_1);
+  deleteDrug(id_2_0, name_2_0);
+  verifyDrugsDeleted(id_2_0, name_2_0);
+});
+
+// Story: Chain Drugs_Prescriptions
+bthread("chain:Drugs_Prescriptions", function () {
+  // --- Level 0: Drugs ---
+  let id_3_0 = 1700000 + Math.floor(Math.random()*10000);
+  let name_3_0 = "name_3_0_" + Math.floor(Math.random()*1000);
+  createDrug(id_3_0, name_3_0);
+  verifyDrugsExists(id_3_0, name_3_0);
+  updateDrug(id_3_0, name_3_0);
+  verifyDrugsExists(id_3_0, name_3_0);
+  // --- Level 1: Prescriptions ---
+  let id_3_1 = 1700000 + Math.floor(Math.random()*10000);
+  createPrescription(id_3_1);
+  verifyPrescriptionsExists(id_3_1);
+  updatePrescription(id_3_1);
+  verifyPrescriptionsExists(id_3_1);
+  // --- Teardown Phase (Reverse Order) ---
+  deletePrescription(id_3_1);
+  verifyPrescriptionsDeleted(id_3_1);
+  deleteDrug(id_3_0, name_3_0);
+  verifyDrugsDeleted(id_3_0, name_3_0);
+});
+
+// Story: Chain Drugs_Inventory
+bthread("chain:Drugs_Inventory", function () {
+  // --- Level 0: Drugs ---
+  let id_4_0 = 2200000 + Math.floor(Math.random()*10000);
+  let name_4_0 = "name_4_0_" + Math.floor(Math.random()*1000);
+  createDrug(id_4_0, name_4_0);
+  verifyDrugsExists(id_4_0, name_4_0);
+  updateDrug(id_4_0, name_4_0);
+  verifyDrugsExists(id_4_0, name_4_0);
+  // --- Level 1: Inventory ---
+  let id_4_1 = Math.floor(Math.random()*100);
+  let ndc_4_1 = 2200000 + Math.floor(Math.random()*10000);
+  createInventory(id_4_1, ndc_4_1);
+  verifyInventoryExists(id_4_1, ndc_4_1);
+  updateInventory(id_4_1, ndc_4_1);
+  verifyInventoryExists(id_4_1, ndc_4_1);
+  // --- Teardown Phase (Reverse Order) ---
+  deleteInventory(id_4_1, ndc_4_1);
+  verifyInventoryDeleted(id_4_1, ndc_4_1);
+  deleteDrug(id_4_0, name_4_0);
+  verifyDrugsDeleted(id_4_0, name_4_0);
 });
 
 // Story: crud:Drugs:linear:1
 bthread("crud:Drugs:linear:1", function () {
-  let id = "drug_" + Math.floor(Math.random() * 10000);
-  createDrug(id, "Aspirin", "500mg");
-  verifyDrugsExists(id);
+  let id_lin_1 = 2700000 + Math.floor(Math.random()*10000);
+  let name_lin_1 = "name_lin_1_" + Math.floor(Math.random()*1000);
+  createDrug(id_lin_1, name_lin_1);
+  verifyDrugsExists(id_lin_1, name_lin_1);
+  updateDrug(id_lin_1, name_lin_1);
+  verifyDrugsExists(id_lin_1, name_lin_1);
+  // Skip delete for Drugs to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Stores:linear:1
-bthread("crud:Stores:linear:1", function () {
-  let id = "store_" + Math.floor(Math.random() * 10000);
-  createStore(id, "Main St Pharmacy", "123 Main St", "555-9999");
-  verifyStoresExists(id);
+// Story: crud:Drugs:linear:2
+bthread("crud:Drugs:linear:2", function () {
+  let id_lin_2 = 2700000 + Math.floor(Math.random()*10000);
+  let name_lin_2 = "name_lin_2_" + Math.floor(Math.random()*1000);
+  createDrug(id_lin_2, name_lin_2);
+  verifyDrugsExists(id_lin_2, name_lin_2);
+  updateDrug(id_lin_2, name_lin_2);
+  verifyDrugsExists(id_lin_2, name_lin_2);
+  // Skip delete for Drugs to prevent foreign key errors (has active dependents)
 });
 
-// Story: flow:Pharmacy:linear:1
-// === BUG 1: REFILL OVERFLOW (50% Chance) ===
-bthread("flow:Pharmacy:linear:1", function () {
-  let patientId; 
-  let rxId = "rx_" + Math.floor(Math.random() * 10000);
-  let dispenseId = "disp_" + Math.floor(Math.random() * 10000);
-  
-  // Dependencies
-  let deps = {};
-  deps["patientId"] = matchAnyPatientsAdded();
-  let captured = resolveDependencies(deps, {"patientId": "id"});
-  patientId = captured["patientId"];
-
-  // 1. Create Prescription with 1 refill
-  createPrescription(rxId, patientId, "drug_123", 1);
-  verifyPrescriptionsExists(rxId);
-
-  // 2. Standard Dispense (should work)
-  dispenseMedication(rxId, patientId, dispenseId);
-
-  // --- BUG 1 PATH SELECTION ---
-  let choice = bp.sync({
-      request: [
-          bp.Event("Path_Trigger_Bug1_Refill"), 
-          bp.Event("Path_Skip_Bug1")
-      ]
-  });
-
-  if (choice.name === "Path_Trigger_Bug1_Refill") {
-      bp.log.info("💊 Path Selected: Triggering BUG 1 (Refill Overflow)");
-      for (let i = 1; i <= 3; i++) {
-          let attackId = dispenseId + "_attack_" + i;
-          bp.sync({ request: bp.Event("Dispense_Attack_" + i, {
-              lib: "REST", method: "POST", url: "http://localhost:5000/dispense",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ 
-                  rxId: rxId, 
-                  patientId: patientId, 
-                  dispenseId: attackId,
-                  status: "active_attack" 
-              }),
-              parameters: { "description": "Refill Overflow Attack " + i },
-              expectedResponseCodes: [201] 
-          })});
-      }
-  } else {
-      bp.log.info("✅ Path Selected: Skipping BUG 1");
-  }
+// Story: crud:Drugs:linear:3
+bthread("crud:Drugs:linear:3", function () {
+  let id_lin_3 = 2700000 + Math.floor(Math.random()*10000);
+  let name_lin_3 = "name_lin_3_" + Math.floor(Math.random()*1000);
+  createDrug(id_lin_3, name_lin_3);
+  verifyDrugsExists(id_lin_3, name_lin_3);
+  updateDrug(id_lin_3, name_lin_3);
+  verifyDrugsExists(id_lin_3, name_lin_3);
+  // Skip delete for Drugs to prevent foreign key errors (has active dependents)
 });
 
-// Story: flow:Pharmacy:linear:2
-// === BUG 2: TELEPORT / DOUBLE PROCESS (50% Chance) ===
-bthread("flow:Pharmacy:linear:2", function () {
-  let patientId; 
-  let rxId = "rx_tele_" + Math.floor(Math.random() * 10000);
-  let storeId1; // Resolved Dependency
-  
-  let deps = {};
-  deps["patientId"] = matchAnyPatientsAdded();
-  deps["storeId1"] = matchAnyStoresAdded();
-  let captured = resolveDependencies(deps, {"patientId": "id", "storeId1": "storeId"});
-  patientId = captured["patientId"];
-  storeId1 = captured["storeId1"];
-
-  // 1. Create Prescription
-  createPrescription(rxId, patientId, "drug_456", 5);
-
-  // 2. Process at Store 1 (Standard)
-  processPrescription(rxId, storeId1);
-
-  // --- BUG 2 PATH SELECTION ---
-  let choice = bp.sync({
-      request: [
-          bp.Event("Path_Trigger_Bug2_Teleport"), 
-          bp.Event("Path_Skip_Bug2")
-      ]
-  });
-
-  if (choice.name === "Path_Trigger_Bug2_Teleport") {
-      bp.log.info("💣 Path Selected: Triggering BUG 2 (Double Process)");
-      
-      // 1. EXPLICITLY CREATE Store 2 (Force dependency)
-      let storeId2 = "Store_Bug2_Target_" + Math.floor(Math.random() * 10000);
-      bp.sync({ request: bp.Event("Create_Store_For_Bug2", {
-          lib: "REST", method: "POST", url: "http://localhost:5000/stores",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-              storeId: storeId2, name: "Bug2 Target Pharmacy", 
-              address: "Conflict Ave", phone: "555-9999" 
-          }),
-          parameters: { "description": "Setup Store for Bug 2" }, expectedResponseCodes: [201]
-      })});
-
-      // 2. Force Process at Store 2 (CRASH TARGET)
-      bp.sync({ request: bp.Event("Attempt_Double_Process", {
-          lib: "REST", method: "POST", url: "http://localhost:5000/process-rx",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-              rxId: rxId, 
-              storeId: storeId2, 
-              status: "active_attack",
-              complaint: "Teleport Crash"
-          }),
-          parameters: { "description": "Trigger Double Process Crash" }, 
-          expectedResponseCodes: [201] 
-      })});
-  } else {
-      bp.log.info("✅ Path Selected: Skipping BUG 2");
-  }
+// Story: crud:Orders:linear:1
+bthread("crud:Orders:linear:1", function () {
+  let id_lin_1 = 2800000 + Math.floor(Math.random()*10000);
+  createOrder(id_lin_1);
+  verifyOrdersExists(id_lin_1);
+  updateOrder(id_lin_1);
+  verifyOrdersExists(id_lin_1);
+  deleteOrder(id_lin_1);
+  verifyOrdersDeleted(id_lin_1);
 });
 
-// === Helper Functions (Fixed: Added 'parameters') ===
+// Story: crud:Orders:linear:2
+bthread("crud:Orders:linear:2", function () {
+  let id_lin_2 = 2800000 + Math.floor(Math.random()*10000);
+  createOrder(id_lin_2);
+  verifyOrdersExists(id_lin_2);
+  updateOrder(id_lin_2);
+  verifyOrdersExists(id_lin_2);
+  deleteOrder(id_lin_2);
+  verifyOrdersDeleted(id_lin_2);
+});
 
-function createPatient(id, name, phone) {
-    bp.sync({ request: bp.Event("Create_Patient", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/patients",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, name: name, phone: phone }),
-        parameters: { description: "Create Patient " + id }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
-function matchAnyPatientsAdded() { return bp.EventSet("Match_Patients", function(e){ return e.name.includes("Create_Patient"); }); }
+// Story: crud:Orders:linear:3
+bthread("crud:Orders:linear:3", function () {
+  let id_lin_3 = 2800000 + Math.floor(Math.random()*10000);
+  createOrder(id_lin_3);
+  verifyOrdersExists(id_lin_3);
+  updateOrder(id_lin_3);
+  verifyOrdersExists(id_lin_3);
+  deleteOrder(id_lin_3);
+  verifyOrdersDeleted(id_lin_3);
+});
 
-function createDrug(id, name, dose) {
-    bp.sync({ request: bp.Event("Create_Drug", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/drugs",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, name: name, dosage: dose }),
-        parameters: { description: "Create Drug " + id }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
+// Story: crud:Patients:linear:1
+bthread("crud:Patients:linear:1", function () {
+  let id_lin_1 = 2900000 + Math.floor(Math.random()*10000);
+  let name_lin_1 = "name_lin_1_" + Math.floor(Math.random()*1000);
+  createPatient(id_lin_1, name_lin_1);
+  verifyPatientsExists(id_lin_1, name_lin_1);
+  updatePatient(id_lin_1, name_lin_1);
+  verifyPatientsExists(id_lin_1, name_lin_1);
+  // Skip delete for Patients to prevent foreign key errors (has active dependents)
+});
 
-function createStore(id, name, addr, phone) {
-    bp.sync({ request: bp.Event("Create_Store", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/stores",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ storeId: id, name: name, address: addr, phone: phone }),
-        parameters: { description: "Create Store " + id }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
-function matchAnyStoresAdded() { return bp.EventSet("Match_Stores", function(e){ return e.name.includes("Create_Store"); }); }
+// Story: crud:Patients:linear:2
+bthread("crud:Patients:linear:2", function () {
+  let id_lin_2 = 2900000 + Math.floor(Math.random()*10000);
+  let name_lin_2 = "name_lin_2_" + Math.floor(Math.random()*1000);
+  createPatient(id_lin_2, name_lin_2);
+  verifyPatientsExists(id_lin_2, name_lin_2);
+  updatePatient(id_lin_2, name_lin_2);
+  verifyPatientsExists(id_lin_2, name_lin_2);
+  // Skip delete for Patients to prevent foreign key errors (has active dependents)
+});
 
-function createPrescription(id, pid, did, refills) {
-    bp.sync({ request: bp.Event("Create_Rx", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/prescriptions",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: id, patientId: pid, drugId: did, refillsLeft: refills }),
-        parameters: { description: "Create Rx " + id }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
-function matchAnyPrescriptionsAdded() { return bp.EventSet("Match_Rx", function(e){ return e.name.includes("Create_Rx"); }); }
+// Story: crud:Patients:linear:3
+bthread("crud:Patients:linear:3", function () {
+  let id_lin_3 = 2900000 + Math.floor(Math.random()*10000);
+  let name_lin_3 = "name_lin_3_" + Math.floor(Math.random()*1000);
+  createPatient(id_lin_3, name_lin_3);
+  verifyPatientsExists(id_lin_3, name_lin_3);
+  updatePatient(id_lin_3, name_lin_3);
+  verifyPatientsExists(id_lin_3, name_lin_3);
+  // Skip delete for Patients to prevent foreign key errors (has active dependents)
+});
 
-function dispenseMedication(rxId, pid, dispId) {
-    bp.sync({ request: bp.Event("Dispense", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/dispense",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rxId: rxId, patientId: pid, dispenseId: dispId }),
-        parameters: { description: "Dispense " + dispId }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
+// Story: crud:Inventory:linear:1
+bthread("crud:Inventory:linear:1", function () {
+  let id_lin_1 = Math.floor(Math.random()*100);
+  let ndc_lin_1 = 3000000 + Math.floor(Math.random()*10000);
+  createInventory(id_lin_1, ndc_lin_1);
+  verifyInventoryExists(id_lin_1, ndc_lin_1);
+  updateInventory(id_lin_1, ndc_lin_1);
+  verifyInventoryExists(id_lin_1, ndc_lin_1);
+  deleteInventory(id_lin_1, ndc_lin_1);
+  verifyInventoryDeleted(id_lin_1, ndc_lin_1);
+});
 
-function processPrescription(rxId, storeId) {
-    bp.sync({ request: bp.Event("Process_Rx", {
-        lib: "REST", method: "POST", url: "http://localhost:5000/process-rx",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rxId: rxId, storeId: storeId }),
-        parameters: { description: "Process Rx at " + storeId }, // FIX
-        expectedResponseCodes: [201]
-    })});
-}
+// Story: crud:Inventory:linear:2
+bthread("crud:Inventory:linear:2", function () {
+  let id_lin_2 = Math.floor(Math.random()*100);
+  let ndc_lin_2 = 3000000 + Math.floor(Math.random()*10000);
+  createInventory(id_lin_2, ndc_lin_2);
+  verifyInventoryExists(id_lin_2, ndc_lin_2);
+  updateInventory(id_lin_2, ndc_lin_2);
+  verifyInventoryExists(id_lin_2, ndc_lin_2);
+  deleteInventory(id_lin_2, ndc_lin_2);
+  verifyInventoryDeleted(id_lin_2, ndc_lin_2);
+});
 
-// Verification placeholders
-function verifyPatientsExists(id) {}
-function verifyDrugsExists(id) {}
-function verifyStoresExists(id) {}
-function verifyPrescriptionsExists(id) {}
-function updatePatient(id, name, phone) {}
-function updateDrug(id, name) {}
-function updateStore(id) {} // Add if needed
-function verifyOrdersExists(id) {}
-function updateOrder(id) {}
-function deleteOrder(id) {}
-function tryToDeleteANonExistingOrders(id) {}
-function verifyOrdersDoesNotExist(id) {}
-function matchAnyOrdersAdded() { return bp.EventSet("Match_Orders", function(e){ return false; }); } 
-function matchDeletedOrders(id) { return bp.EventSet("Match_Del_Orders", function(e){ return false; }); }
+// Story: crud:Inventory:linear:3
+bthread("crud:Inventory:linear:3", function () {
+  let id_lin_3 = Math.floor(Math.random()*100);
+  let ndc_lin_3 = 3000000 + Math.floor(Math.random()*10000);
+  createInventory(id_lin_3, ndc_lin_3);
+  verifyInventoryExists(id_lin_3, ndc_lin_3);
+  updateInventory(id_lin_3, ndc_lin_3);
+  verifyInventoryExists(id_lin_3, ndc_lin_3);
+  deleteInventory(id_lin_3, ndc_lin_3);
+  verifyInventoryDeleted(id_lin_3, ndc_lin_3);
+});
 
-function createInventory(id, ndc) {} // Add if needed
-function verifyInventoryExists(id, ndc) {}
-function updateInventory(id, ndc) {}
-function deleteInventory(id, ndc) {}
-function tryToDeleteANonExistingInventory(id, ndc) {}
-function verifyInventoryDoesNotExist(id, ndc) {}
-function matchAnyInventoryAdded() { return bp.EventSet("Match_Inv", function(e){ return false; }); } 
-function matchDeletedInventory(id, ndc) { return bp.EventSet("Match_Del_Inv", function(e){ return false; }); }
+// Story: crud:Prescriptions:linear:1
+bthread("crud:Prescriptions:linear:1", function () {
+  let id_lin_1 = 3100000 + Math.floor(Math.random()*10000);
+  createPrescription(id_lin_1);
+  verifyPrescriptionsExists(id_lin_1);
+  updatePrescription(id_lin_1);
+  verifyPrescriptionsExists(id_lin_1);
+  deletePrescription(id_lin_1);
+  verifyPrescriptionsDeleted(id_lin_1);
+});
 
-function createOrder(id) {} // Add if needed
-function updatePrescription(id) {}
-function deletePrescription(id) {}
-function tryToDeleteANonExistingPrescriptions(id) {}
-function verifyPrescriptionsDoesNotExist(id) {}
-function matchDeletedPrescriptions(id) { return bp.EventSet("Match_Del_Rx", function(e){ return false; }); }
+// Story: crud:Prescriptions:linear:2
+bthread("crud:Prescriptions:linear:2", function () {
+  let id_lin_2 = 3100000 + Math.floor(Math.random()*10000);
+  createPrescription(id_lin_2);
+  verifyPrescriptionsExists(id_lin_2);
+  updatePrescription(id_lin_2);
+  verifyPrescriptionsExists(id_lin_2);
+  deletePrescription(id_lin_2);
+  verifyPrescriptionsDeleted(id_lin_2);
+});
+
+// Story: crud:Prescriptions:linear:3
+bthread("crud:Prescriptions:linear:3", function () {
+  let id_lin_3 = 3100000 + Math.floor(Math.random()*10000);
+  createPrescription(id_lin_3);
+  verifyPrescriptionsExists(id_lin_3);
+  updatePrescription(id_lin_3);
+  verifyPrescriptionsExists(id_lin_3);
+  deletePrescription(id_lin_3);
+  verifyPrescriptionsDeleted(id_lin_3);
+});

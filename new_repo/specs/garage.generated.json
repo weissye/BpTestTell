@@ -10,7 +10,7 @@
           "method": "GET",
           "path": "/chains",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -25,21 +25,22 @@
             "chainId",
             "name",
             "hqAddress",
-            "id"
+            "supportEmail",
+            "active"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}",
             "chainId": "{chainId}",
+            "name": "{name}",
             "hqAddress": "{hqAddress}",
-            "id": "{id}"
+            "supportEmail": "{supportEmail}",
+            "active": "{active}"
           },
           "paramTypes": {
-            "name": "string",
-            "description": "string",
             "chainId": "string",
-            "hqAddress": "string",
-            "id": "string"
+            "name": "string",
+            "hqAddress": "object",
+            "supportEmail": "string",
+            "active": "boolean"
           },
           "x-defined-response-codes": [
             201,
@@ -55,7 +56,7 @@
           "params": [
             "chainId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "chainId": "string"
           },
@@ -73,13 +74,11 @@
             "chainId"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "description": "{description}"
+            "chainUpdate": "{chainUpdate}"
           },
           "paramTypes": {
             "chainId": "string",
-            "name": "string",
-            "description": "string"
+            "chainUpdate": "object"
           },
           "x-defined-response-codes": [
             200,
@@ -94,13 +93,10 @@
           "params": [
             "chainId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "chainId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             204,
             400,
@@ -117,7 +113,7 @@
           "method": "GET",
           "path": "/customers",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -134,25 +130,23 @@
             "fullName",
             "email",
             "phone",
-            "id"
+            "preferredGarageId"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "email": "{email}",
             "customerId": "{customerId}",
             "type": "{type}",
             "fullName": "{fullName}",
+            "email": "{email}",
             "phone": "{phone}",
-            "id": "{id}"
+            "preferredGarageId": "{preferredGarageId}"
           },
           "paramTypes": {
-            "name": "string",
-            "email": "string",
             "customerId": "string",
             "type": "string",
             "fullName": "string",
+            "email": "string",
             "phone": "string",
-            "id": "string"
+            "preferredGarageId": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -168,7 +162,7 @@
           "params": [
             "customerId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "customerId": "string"
           },
@@ -186,13 +180,11 @@
             "customerId"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "email": "{email}"
+            "CustomerUpdate": "{CustomerUpdate}"
           },
           "paramTypes": {
             "customerId": "string",
-            "name": "string",
-            "email": "string"
+            "CustomerUpdate": "object"
           },
           "x-defined-response-codes": [
             200,
@@ -208,13 +200,10 @@
           "params": [
             "customerId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "customerId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             204,
             400,
@@ -231,7 +220,7 @@
           "method": "GET",
           "path": "/garages",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -248,27 +237,29 @@
             "name",
             "address",
             "phone",
-            "id"
+            "bayCount",
+            "servicesOffered",
+            "active"
           ],
           "bodyTemplate": {
-            "location": "{location}",
-            "capacity": "{capacity}",
             "garageId": "{garageId}",
             "chainId": "{chainId}",
             "name": "{name}",
             "address": "{address}",
             "phone": "{phone}",
-            "id": "{id}"
+            "bayCount": "{bayCount}",
+            "servicesOffered": "{servicesOffered}",
+            "active": "{active}"
           },
           "paramTypes": {
-            "location": "string",
-            "capacity": "integer",
             "garageId": "string",
             "chainId": "string",
             "name": "string",
-            "address": "string",
+            "address": "object",
             "phone": "string",
-            "id": "string"
+            "bayCount": "integer",
+            "servicesOffered": "array",
+            "active": "boolean"
           },
           "x-defined-response-codes": [
             201,
@@ -284,7 +275,7 @@
           "params": [
             "garageId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "garageId": "string"
           },
@@ -302,13 +293,11 @@
             "garageId"
           ],
           "bodyTemplate": {
-            "location": "{location}",
-            "capacity": "{capacity}"
+            "garageUpdate": "{garageUpdate}"
           },
           "paramTypes": {
             "garageId": "string",
-            "location": "string",
-            "capacity": "integer"
+            "garageUpdate": "object"
           },
           "x-defined-response-codes": [
             200,
@@ -324,13 +313,10 @@
           "params": [
             "garageId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "garageId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             204,
             400,
@@ -347,7 +333,7 @@
           "method": "GET",
           "path": "/cars",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -365,25 +351,25 @@
             "year",
             "mileage",
             "ownerCustomerId",
-            "id"
+            "homeGarageId"
           ],
           "bodyTemplate": {
+            "vin": "{vin}",
             "make": "{make}",
             "model": "{model}",
             "year": "{year}",
-            "vin": "{vin}",
             "mileage": "{mileage}",
             "ownerCustomerId": "{ownerCustomerId}",
-            "id": "{id}"
+            "homeGarageId": "{homeGarageId}"
           },
           "paramTypes": {
+            "vin": "string",
             "make": "string",
             "model": "string",
             "year": "integer",
-            "vin": "string",
             "mileage": "integer",
             "ownerCustomerId": "string",
-            "id": "string"
+            "homeGarageId": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -399,7 +385,7 @@
           "params": [
             "vin"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "vin": "string"
           },
@@ -417,15 +403,11 @@
             "vin"
           ],
           "bodyTemplate": {
-            "make": "{make}",
-            "model": "{model}",
-            "year": "{year}"
+            "CarUpdate": "{CarUpdate}"
           },
           "paramTypes": {
             "vin": "string",
-            "make": "string",
-            "model": "string",
-            "year": "integer"
+            "CarUpdate": "object"
           },
           "x-defined-response-codes": [
             200,
@@ -441,13 +423,10 @@
           "params": [
             "vin"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "vin": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             204,
             400,
@@ -464,7 +443,7 @@
           "method": "GET",
           "path": "/periodic-maintenance",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -480,26 +459,30 @@
             "carVin",
             "garageId",
             "planType",
+            "intervalKm",
+            "intervalMonths",
             "tasks",
-            "id"
+            "status"
           ],
           "bodyTemplate": {
-            "schedule": "{schedule}",
-            "tasks": "{tasks}",
             "pmId": "{pmId}",
             "carVin": "{carVin}",
             "garageId": "{garageId}",
             "planType": "{planType}",
-            "id": "{id}"
+            "intervalKm": "{intervalKm}",
+            "intervalMonths": "{intervalMonths}",
+            "tasks": "{tasks}",
+            "status": "{status}"
           },
           "paramTypes": {
-            "schedule": "string",
-            "tasks": "array",
             "pmId": "string",
             "carVin": "string",
             "garageId": "string",
             "planType": "string",
-            "id": "string"
+            "intervalKm": "integer",
+            "intervalMonths": "integer",
+            "tasks": "array",
+            "status": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -515,7 +498,7 @@
           "params": [
             "pmId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "pmId": "string"
           },
@@ -533,13 +516,11 @@
             "pmId"
           ],
           "bodyTemplate": {
-            "schedule": "{schedule}",
-            "tasks": "{tasks}"
+            "PMUpdate": "{PMUpdate}"
           },
           "paramTypes": {
             "pmId": "string",
-            "schedule": "string",
-            "tasks": "array"
+            "PMUpdate": "object"
           },
           "x-defined-response-codes": [
             200,
@@ -555,13 +536,10 @@
           "params": [
             "pmId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "pmId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             204,
             404
@@ -577,7 +555,7 @@
           "method": "GET",
           "path": "/repair-orders",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -594,27 +572,23 @@
             "customerId",
             "garageId",
             "complaint",
-            "id"
+            "status"
           ],
           "bodyTemplate": {
-            "field1": "{field1}",
-            "field2": "{field2}",
             "roId": "{roId}",
             "carVin": "{carVin}",
             "customerId": "{customerId}",
             "garageId": "{garageId}",
             "complaint": "{complaint}",
-            "id": "{id}"
+            "status": "{status}"
           },
           "paramTypes": {
-            "field1": "string",
-            "field2": "integer",
             "roId": "string",
             "carVin": "string",
             "customerId": "string",
             "garageId": "string",
             "complaint": "string",
-            "id": "string"
+            "status": "string"
           },
           "x-defined-response-codes": [
             201,
@@ -623,14 +597,14 @@
           "x-generate-full-story": true
         },
         "get": {
-          "name": "readRepairOrder",
+          "name": "getRepairOrder",
           "descriptionTemplate": "Read repair order",
           "method": "GET",
           "path": "/repair-orders/{roId}",
           "params": [
             "roId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "roId": "string"
           },
@@ -648,13 +622,11 @@
             "roId"
           ],
           "bodyTemplate": {
-            "field1": "{field1}",
-            "field2": "{field2}"
+            "ROUpdate": "{ROUpdate}"
           },
           "paramTypes": {
             "roId": "string",
-            "field1": "string",
-            "field2": "integer"
+            "ROUpdate": "object"
           },
           "x-defined-response-codes": [
             200,
@@ -670,13 +642,10 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "roId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             204,
             404
@@ -690,7 +659,7 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "roId": "string"
           },
@@ -708,7 +677,7 @@
           "params": [
             "roId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "roId": "string"
           },
@@ -725,8 +694,12 @@
     "Garages": [
       "Chains"
     ],
+    "Customers": [
+      "Garages"
+    ],
     "Cars": [
-      "Customers"
+      "Customers",
+      "Garages"
     ],
     "PeriodicMaintenance": [
       "Cars",

@@ -53,6 +53,21 @@ function tryToAddExistingBooks(author, id, publishedDate, q, title) {
   return res;
 }
 
+function verifyBooksRejects(author, id, publishedDate, q, title) {
+  var url = "/books";
+  var description = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "author": author,
+    "id": id,
+    "publishedDate": publishedDate,
+    "q": q,
+    "title": title,
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description) });
+}
+
 function verifyBooksExists(author, id, publishedDate, q, title) {
   var url = "/books/" + id;
   var description = "Verify Books " + id + " exists";
@@ -99,6 +114,20 @@ function deleteLoan(bookId, id, loanDate, userId) {
   var url = "/loans/" + userId + "/" + bookId;
   var description = "Delete a loan by composite id " + userId;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function verifyLoansRejects(bookId, id, loanDate, userId) {
+  var url = "/loans";
+  var description = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "bookId": bookId,
+    "id": id,
+    "loanDate": loanDate,
+    "userId": userId,
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description) });
 }
 
 function verifyLoansExists(bookId, id, loanDate, userId) {
@@ -163,6 +192,21 @@ function deleteUser(email, id, name, password, q) {
   var url = "/users/" + id;
   var description = "Delete a user " + id;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+}
+
+function verifyUsersRejects(email, id, name, password, q) {
+  var url = "/users";
+  var description = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "email": email,
+    "id": id,
+    "name": name,
+    "password": password,
+    "q": q,
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description) });
 }
 
 function verifyUsersExists(email, id, name, password, q) {
@@ -230,6 +274,23 @@ function deleteHold(bookId, book_id, end_date, id, start_date, userId, user_id) 
   var url = "/holds/" + id;
   var description = "Delete a hold " + id;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+}
+
+function verifyHoldsRejects(bookId, book_id, end_date, id, start_date, userId, user_id) {
+  var url = "/holds";
+  var description = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "bookId": bookId,
+    "book_id": book_id,
+    "end_date": end_date,
+    "id": id,
+    "start_date": start_date,
+    "userId": userId,
+    "user_id": user_id,
+};
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
+  bp.sync({ request: bp.Event("Done: " + description) });
 }
 
 function verifyHoldsExists(bookId, book_id, end_date, id, start_date, userId, user_id) {

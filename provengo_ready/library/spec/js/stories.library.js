@@ -23,16 +23,16 @@ function resolveDependencies(deps, pkMap) {
   return captured;
 }
 
-// Story: Chain Users_Loans
-bthread("chain:Users_Loans", function () {
-  // --- Level 0: Users ---
-  let email_0_0 = "u0_0_" + Math.floor(Math.random()*1000) + "@test.com";
+// Story: Chain Books_Loans
+bthread("chain:Books_Loans", function () {
+  // --- Level 0: Books ---
+  let author_0_0 = "author_0_0_" + Math.floor(Math.random()*1000);
   let id_0_0 = 200000 + Math.floor(Math.random()*10000);
-  let name_0_0 = "name_0_0_" + Math.floor(Math.random()*1000);
-  let password_0_0 = "password_0_0_" + Math.floor(Math.random()*1000);
+  let publishedDate_0_0 = "publishedDate_0_0_" + Math.floor(Math.random()*1000);
   let q_0_0 = "q_0_0_" + Math.floor(Math.random()*1000);
-  createUser(email_0_0, id_0_0, name_0_0, password_0_0, q_0_0);
-  verifyUsersExists(email_0_0, id_0_0, name_0_0, password_0_0, q_0_0);
+  let title_0_0 = "title_0_0_" + Math.floor(Math.random()*1000);
+  createBook(author_0_0, id_0_0, publishedDate_0_0, q_0_0, title_0_0);
+  verifyBooksExists(author_0_0, id_0_0, publishedDate_0_0, q_0_0, title_0_0);
   // --- Level 1: Loans ---
   let bookId_0_1 = Math.floor(Math.random()*100);
   let id_0_1 = Math.floor(Math.random()*100);
@@ -43,20 +43,20 @@ bthread("chain:Users_Loans", function () {
   // --- Teardown Phase (Reverse Order) ---
   deleteLoan(bookId_0_1, id_0_1, loanDate_0_1, userId_0_1);
   verifyLoansDeleted(bookId_0_1, id_0_1, loanDate_0_1, userId_0_1);
-  deleteUser(email_0_0, id_0_0, name_0_0, password_0_0, q_0_0);
-  verifyUsersDeleted(email_0_0, id_0_0, name_0_0, password_0_0, q_0_0);
+  deleteBook(author_0_0, id_0_0, publishedDate_0_0, q_0_0, title_0_0);
+  verifyBooksDeleted(author_0_0, id_0_0, publishedDate_0_0, q_0_0, title_0_0);
 });
 
-// Story: Chain Users_Holds
-bthread("chain:Users_Holds", function () {
-  // --- Level 0: Users ---
-  let email_1_0 = "u1_0_" + Math.floor(Math.random()*1000) + "@test.com";
+// Story: Chain Books_Holds
+bthread("chain:Books_Holds", function () {
+  // --- Level 0: Books ---
+  let author_1_0 = "author_1_0_" + Math.floor(Math.random()*1000);
   let id_1_0 = 700000 + Math.floor(Math.random()*10000);
-  let name_1_0 = "name_1_0_" + Math.floor(Math.random()*1000);
-  let password_1_0 = "password_1_0_" + Math.floor(Math.random()*1000);
+  let publishedDate_1_0 = "publishedDate_1_0_" + Math.floor(Math.random()*1000);
   let q_1_0 = "q_1_0_" + Math.floor(Math.random()*1000);
-  createUser(email_1_0, id_1_0, name_1_0, password_1_0, q_1_0);
-  verifyUsersExists(email_1_0, id_1_0, name_1_0, password_1_0, q_1_0);
+  let title_1_0 = "title_1_0_" + Math.floor(Math.random()*1000);
+  createBook(author_1_0, id_1_0, publishedDate_1_0, q_1_0, title_1_0);
+  verifyBooksExists(author_1_0, id_1_0, publishedDate_1_0, q_1_0, title_1_0);
   // --- Level 1: Holds ---
   let bookId_1_1 = Math.floor(Math.random()*100);
   let book_id_1_1 = Math.floor(Math.random()*100);
@@ -70,20 +70,20 @@ bthread("chain:Users_Holds", function () {
   // --- Teardown Phase (Reverse Order) ---
   deleteHold(bookId_1_1, book_id_1_1, end_date_1_1, id_1_1, start_date_1_1, userId_1_1, user_id_1_1);
   verifyHoldsDeleted(bookId_1_1, book_id_1_1, end_date_1_1, id_1_1, start_date_1_1, userId_1_1, user_id_1_1);
-  deleteUser(email_1_0, id_1_0, name_1_0, password_1_0, q_1_0);
-  verifyUsersDeleted(email_1_0, id_1_0, name_1_0, password_1_0, q_1_0);
+  deleteBook(author_1_0, id_1_0, publishedDate_1_0, q_1_0, title_1_0);
+  verifyBooksDeleted(author_1_0, id_1_0, publishedDate_1_0, q_1_0, title_1_0);
 });
 
-// Story: Chain Books_Loans
-bthread("chain:Books_Loans", function () {
-  // --- Level 0: Books ---
-  let author_2_0 = "author_2_0_" + Math.floor(Math.random()*1000);
+// Story: Chain Users_Loans
+bthread("chain:Users_Loans", function () {
+  // --- Level 0: Users ---
+  let email_2_0 = "u2_0_" + Math.floor(Math.random()*1000) + "@test.com";
   let id_2_0 = 1200000 + Math.floor(Math.random()*10000);
-  let publishedDate_2_0 = "publishedDate_2_0_" + Math.floor(Math.random()*1000);
+  let name_2_0 = "name_2_0_" + Math.floor(Math.random()*1000);
+  let password_2_0 = "password_2_0_" + Math.floor(Math.random()*1000);
   let q_2_0 = "q_2_0_" + Math.floor(Math.random()*1000);
-  let title_2_0 = "title_2_0_" + Math.floor(Math.random()*1000);
-  createBook(author_2_0, id_2_0, publishedDate_2_0, q_2_0, title_2_0);
-  verifyBooksExists(author_2_0, id_2_0, publishedDate_2_0, q_2_0, title_2_0);
+  createUser(email_2_0, id_2_0, name_2_0, password_2_0, q_2_0);
+  verifyUsersExists(email_2_0, id_2_0, name_2_0, password_2_0, q_2_0);
   // --- Level 1: Loans ---
   let bookId_2_1 = Math.floor(Math.random()*100);
   let id_2_1 = Math.floor(Math.random()*100);
@@ -94,20 +94,20 @@ bthread("chain:Books_Loans", function () {
   // --- Teardown Phase (Reverse Order) ---
   deleteLoan(bookId_2_1, id_2_1, loanDate_2_1, userId_2_1);
   verifyLoansDeleted(bookId_2_1, id_2_1, loanDate_2_1, userId_2_1);
-  deleteBook(author_2_0, id_2_0, publishedDate_2_0, q_2_0, title_2_0);
-  verifyBooksDeleted(author_2_0, id_2_0, publishedDate_2_0, q_2_0, title_2_0);
+  deleteUser(email_2_0, id_2_0, name_2_0, password_2_0, q_2_0);
+  verifyUsersDeleted(email_2_0, id_2_0, name_2_0, password_2_0, q_2_0);
 });
 
-// Story: Chain Books_Holds
-bthread("chain:Books_Holds", function () {
-  // --- Level 0: Books ---
-  let author_3_0 = "author_3_0_" + Math.floor(Math.random()*1000);
+// Story: Chain Users_Holds
+bthread("chain:Users_Holds", function () {
+  // --- Level 0: Users ---
+  let email_3_0 = "u3_0_" + Math.floor(Math.random()*1000) + "@test.com";
   let id_3_0 = 1700000 + Math.floor(Math.random()*10000);
-  let publishedDate_3_0 = "publishedDate_3_0_" + Math.floor(Math.random()*1000);
+  let name_3_0 = "name_3_0_" + Math.floor(Math.random()*1000);
+  let password_3_0 = "password_3_0_" + Math.floor(Math.random()*1000);
   let q_3_0 = "q_3_0_" + Math.floor(Math.random()*1000);
-  let title_3_0 = "title_3_0_" + Math.floor(Math.random()*1000);
-  createBook(author_3_0, id_3_0, publishedDate_3_0, q_3_0, title_3_0);
-  verifyBooksExists(author_3_0, id_3_0, publishedDate_3_0, q_3_0, title_3_0);
+  createUser(email_3_0, id_3_0, name_3_0, password_3_0, q_3_0);
+  verifyUsersExists(email_3_0, id_3_0, name_3_0, password_3_0, q_3_0);
   // --- Level 1: Holds ---
   let bookId_3_1 = Math.floor(Math.random()*100);
   let book_id_3_1 = Math.floor(Math.random()*100);
@@ -121,8 +121,8 @@ bthread("chain:Books_Holds", function () {
   // --- Teardown Phase (Reverse Order) ---
   deleteHold(bookId_3_1, book_id_3_1, end_date_3_1, id_3_1, start_date_3_1, userId_3_1, user_id_3_1);
   verifyHoldsDeleted(bookId_3_1, book_id_3_1, end_date_3_1, id_3_1, start_date_3_1, userId_3_1, user_id_3_1);
-  deleteBook(author_3_0, id_3_0, publishedDate_3_0, q_3_0, title_3_0);
-  verifyBooksDeleted(author_3_0, id_3_0, publishedDate_3_0, q_3_0, title_3_0);
+  deleteUser(email_3_0, id_3_0, name_3_0, password_3_0, q_3_0);
+  verifyUsersDeleted(email_3_0, id_3_0, name_3_0, password_3_0, q_3_0);
 });
 
 // Story: crud:Books:linear:1
