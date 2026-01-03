@@ -8,81 +8,77 @@ const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) 
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listBooks(author, id, publishedDate, q, title) {
+function listBooks(id) {
   var url = "/books";
   var description = "List/search books " + id;
   return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createBook(author, id, publishedDate, q, title) {
+function createBook(id, q, title) {
   var url = "/books";
   var description = "Create a book " + id;
   var body = {
-    "author": String(author),
     "id": id,
-    "publishedDate": String(publishedDate),
     "title": String(title),
 };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"author": author, "id": id, "publishedDate": publishedDate, "q": q, "title": title}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "q": q, "title": title}) });
   return res;
 }
 
-function getBook(author, id, publishedDate, q, title) {
+function getBook(id) {
   var url = "/books/" + id;
   var description = "Get book by id";
   return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
 }
 
-function deleteBook(author, id, publishedDate, q, title) {
+function deleteBook(id) {
   var url = "/books/" + id;
   var description = "Delete a book " + id;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
 }
 
-function tryToAddExistingBooks(author, id, publishedDate, q, title) {
+function tryToAddExistingBooks(id, q, title) {
   var url = "/books";
   var description = "Try Add Existing Books " + id;
   var body = {
-    "author": String(author),
     "id": id,
-    "publishedDate": String(publishedDate),
     "title": String(title),
 };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
   return res;
 }
 
-function verifyBooksRejects(author, id, publishedDate, q, title) {
+function verifyBooksRejects(id, q, title) {
   var url = "/books";
   var description = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
-    "author": author,
     "id": id,
-    "publishedDate": publishedDate,
-    "q": q,
     "title": title,
 };
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description) });
 }
 
-function verifyBooksExists(author, id, publishedDate, q, title) {
+function verifyBooksExists(id) {
   var url = "/books/" + id;
   var description = "Verify Books " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Books found");
 }
 
-function verifyBooksDeleted(author, id, publishedDate, q, title) {
+function verifyBooksDeleted(id) {
   var url = "/books/" + id;
   var description = "Verify Books " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("Books correctly deleted (404)");
 }
 
-function verifyBooksDoesNotExist(author, id, publishedDate, q, title) { verifyBooksDeleted(author, id, publishedDate, q, title); }
+function verifyBooksDoesNotExist(id) { verifyBooksDeleted(id); }
 
 function matchAnyBooksAdded() {
   return bp.EventSet("Any Books Added", function(e) {
@@ -90,49 +86,46 @@ function matchAnyBooksAdded() {
   });
 }
 
-function listLoans(bookId, id, loanDate, userId) {
+function listLoans(userId) {
   var url = "/loans";
   var description = "List/search loans " + userId;
   return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createLoan(bookId, id, loanDate, userId) {
+function createLoan(bookId, userId) {
   var url = "/loans";
   var description = "Create a loan " + userId;
   var body = {
-    "bookId": bookId,
-    "id": String(id),
-    "loanDate": String(loanDate),
-    "userId": userId,
+    "bookId": String(bookId),
+    "userId": String(userId),
 };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "id": id, "loanDate": loanDate, "userId": userId}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "userId": userId}) });
   return res;
 }
 
-function deleteLoan(bookId, id, loanDate, userId) {
+function deleteLoan(bookId, userId) {
   var url = "/loans/" + userId + "/" + bookId;
   var description = "Delete a loan by composite id " + userId;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function verifyLoansRejects(bookId, id, loanDate, userId) {
+function verifyLoansRejects(bookId, userId) {
   var url = "/loans";
   var description = "Negative Test: Verify Rejection for " + url;
   var body = {
-    "id": id,
     "bookId": bookId,
-    "id": id,
-    "loanDate": loanDate,
     "userId": userId,
 };
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description) });
 }
 
-function verifyLoansExists(bookId, id, loanDate, userId) {
+function verifyLoansExists(bookId, userId) {
   // Fallback: Use list operation to verify existence
-  let res = listLoans(bookId, id, loanDate, userId);
+  let res = listLoans(bookId, userId);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -145,9 +138,9 @@ function verifyLoansExists(bookId, id, loanDate, userId) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyLoansDeleted(bookId, id, loanDate, userId) {
+function verifyLoansDeleted(bookId, userId) {
   // Fallback: Use list operation to verify deletion
-  let res = listLoans(bookId, id, loanDate, userId);
+  let res = listLoans(bookId, userId);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -160,7 +153,7 @@ function verifyLoansDeleted(bookId, id, loanDate, userId) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyLoansDoesNotExist(bookId, id, loanDate, userId) { verifyLoansDeleted(bookId, id, loanDate, userId); }
+function verifyLoansDoesNotExist(bookId, userId) { verifyLoansDeleted(bookId, userId); }
 
 function matchAnyLoansAdded() {
   return bp.EventSet("Any Loans Added", function(e) {
@@ -168,50 +161,47 @@ function matchAnyLoansAdded() {
   });
 }
 
-function listUsers(email, id, name, password, q) {
+function listUsers(id) {
   var url = "/users";
   var description = "List/search users " + id;
   return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createUser(email, id, name, password, q) {
+function createUser(id, name, q) {
   var url = "/users";
   var description = "Create a user " + id;
   var body = {
-    "email": String(email),
     "id": id,
     "name": String(name),
-    "password": String(password),
 };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"email": email, "id": id, "name": name, "password": password, "q": q}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name, "q": q}) });
   return res;
 }
 
-function deleteUser(email, id, name, password, q) {
+function deleteUser(id) {
   var url = "/users/" + id;
   var description = "Delete a user " + id;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
 }
 
-function verifyUsersRejects(email, id, name, password, q) {
+function verifyUsersRejects(id, name, q) {
   var url = "/users";
   var description = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
-    "email": email,
     "id": id,
     "name": name,
-    "password": password,
-    "q": q,
 };
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description) });
 }
 
-function verifyUsersExists(email, id, name, password, q) {
+function verifyUsersExists(id, name, q) {
   // Fallback: Use list operation to verify existence
-  let res = listUsers(email, id, name, password, q);
+  let res = listUsers(id, name, q);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -224,9 +214,9 @@ function verifyUsersExists(email, id, name, password, q) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDeleted(email, id, name, password, q) {
+function verifyUsersDeleted(id, name, q) {
   // Fallback: Use list operation to verify deletion
-  let res = listUsers(email, id, name, password, q);
+  let res = listUsers(id, name, q);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -239,7 +229,7 @@ function verifyUsersDeleted(email, id, name, password, q) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDoesNotExist(email, id, name, password, q) { verifyUsersDeleted(email, id, name, password, q); }
+function verifyUsersDoesNotExist(id, name, q) { verifyUsersDeleted(id, name, q); }
 
 function matchAnyUsersAdded() {
   return bp.EventSet("Any Users Added", function(e) {
@@ -247,55 +237,49 @@ function matchAnyUsersAdded() {
   });
 }
 
-function listHolds(bookId, book_id, end_date, id, start_date, userId, user_id) {
+function listHolds(id) {
   var url = "/holds";
   var description = "List holds " + id;
   return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
 }
 
-function createHold(bookId, book_id, end_date, id, start_date, userId, user_id) {
+function createHold(bookId, id, userId) {
   var url = "/holds";
   var description = "Create a hold " + id;
   var body = {
-    "bookId": bookId,
-    "book_id": book_id,
-    "end_date": String(end_date),
+    "bookId": String(bookId),
     "id": id,
-    "start_date": String(start_date),
-    "userId": userId,
-    "user_id": user_id,
+    "userId": String(userId),
 };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "book_id": book_id, "end_date": end_date, "id": id, "start_date": start_date, "userId": userId, "user_id": user_id}) });
+  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "id": id, "userId": userId}) });
   return res;
 }
 
-function deleteHold(bookId, book_id, end_date, id, start_date, userId, user_id) {
+function deleteHold(id) {
   var url = "/holds/" + id;
   var description = "Delete a hold " + id;
   return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
 }
 
-function verifyHoldsRejects(bookId, book_id, end_date, id, start_date, userId, user_id) {
+function verifyHoldsRejects(bookId, id, userId) {
   var url = "/holds";
   var description = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
     "bookId": bookId,
-    "book_id": book_id,
-    "end_date": end_date,
     "id": id,
-    "start_date": start_date,
     "userId": userId,
-    "user_id": user_id,
 };
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
   bp.sync({ request: bp.Event("Done: " + description) });
 }
 
-function verifyHoldsExists(bookId, book_id, end_date, id, start_date, userId, user_id) {
+function verifyHoldsExists(bookId, id, userId) {
   // Fallback: Use list operation to verify existence
-  let res = listHolds(bookId, book_id, end_date, id, start_date, userId, user_id);
+  let res = listHolds(bookId, id, userId);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -308,9 +292,9 @@ function verifyHoldsExists(bookId, book_id, end_date, id, start_date, userId, us
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyHoldsDeleted(bookId, book_id, end_date, id, start_date, userId, user_id) {
+function verifyHoldsDeleted(bookId, id, userId) {
   // Fallback: Use list operation to verify deletion
-  let res = listHolds(bookId, book_id, end_date, id, start_date, userId, user_id);
+  let res = listHolds(bookId, id, userId);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -323,7 +307,7 @@ function verifyHoldsDeleted(bookId, book_id, end_date, id, start_date, userId, u
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyHoldsDoesNotExist(bookId, book_id, end_date, id, start_date, userId, user_id) { verifyHoldsDeleted(bookId, book_id, end_date, id, start_date, userId, user_id); }
+function verifyHoldsDoesNotExist(bookId, id, userId) { verifyHoldsDeleted(bookId, id, userId); }
 
 function matchAnyHoldsAdded() {
   return bp.EventSet("Any Holds Added", function(e) {

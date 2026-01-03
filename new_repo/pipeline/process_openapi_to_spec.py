@@ -98,27 +98,35 @@ def chunk_openapi(raw_spec: Dict[str, Any], batch_size=5) -> List[Dict[str, Any]
     paths = list(raw_spec.get("paths", {}).items())
     return [{"paths": dict(paths[i:i + batch_size])} for i in range(0, len(paths), batch_size)]
 
+def sanitize_llm_output(extracted: Dict[str, Any]) -> Dict[str, Any]:
+    """FIREWALL: Discards operations with missing/empty paths or methods."""
+    clean = {}
+    for ent, data in extracted.items():
+        clean_ops = {}
+        for op_key, op_data in data.get("operations", {}).items():
+            if op_data.get("path") and op_data.get("method"):
+                clean_ops[op_key] = op_data
+        if clean_ops:
+            clean[ent] = {"operations": clean_ops}
+    return clean
+
 def merge_specs(main_entities, new_entities):
     for ent_name, ent_data in new_entities.items():
         if ent_name not in main_entities: main_entities[ent_name] = {"operations": {}}
         if "operations" in ent_data: main_entities[ent_name]["operations"].update(ent_data["operations"])
 
-def _recursive_find_keys(template: Any, found_keys: Set[str]):
-    if isinstance(template, dict):
-        for k, v in template.items():
-            found_keys.add(k)
-            _recursive_find_keys(v, found_keys)
-    elif isinstance(template, list):
-        for item in template:
-            _recursive_find_keys(item, found_keys)
-    elif isinstance(template, str):
-        if template.startswith("{") and template.endswith("}"):
-             found_keys.add(template.strip("{}"))
-
-# --- MANUAL FALLBACK ---
+def validate_extraction(entities: Dict[str, Any]) -> bool:
+    """Checks if the extracted entities contain valid paths/methods."""
+    if not entities: return False
+    valid_count = 0
+    for ent in entities.values():
+        for op in ent.get("operations", {}).values():
+            if op.get("path") and op.get("method"):
+                valid_count += 1
+    return valid_count > 0
 
 def manual_fallback_extraction(raw_spec: Dict[str, Any]) -> Dict[str, Any]:
-    print("   > ⚠️  LLM returned empty results. Running manual fallback extraction...")
+    print("   > ⚠️  LLM returned empty or invalid results. Running manual fallback extraction...")
     entities = {}
     for path, methods in raw_spec.get("paths", {}).items():
         parts = [p for p in path.split("/") if p and "{" not in p]
@@ -137,14 +145,16 @@ def manual_fallback_extraction(raw_spec: Dict[str, Any]) -> Dict[str, Any]:
             
             params = []
             param_types = {}
-            # Path/Query params
+            query_params = [] 
+            
             for p in details.get("parameters", []):
                 p_name = p.get("name")
-                p_type = p.get("schema", {}).get("type", "string")
+                p_in = p.get("in")
                 params.append(p_name)
-                param_types[p_name] = p_type
+                param_types[p_name] = p.get("schema", {}).get("type", "string")
+                if p_in == "query":
+                    query_params.append(p_name)
             
-            # Body params
             body_tmpl = {}
             if method in ["post", "put"]:
                 content = details.get("requestBody", {}).get("content", {})
@@ -161,75 +171,103 @@ def manual_fallback_extraction(raw_spec: Dict[str, Any]) -> Dict[str, Any]:
                 "method": method.upper(),
                 "path": path,
                 "params": list(set(params)),
+                "queryParams": query_params,
                 "bodyTemplate": body_tmpl,
                 "paramTypes": param_types
             }
             entities[entity_name]["operations"][op_type] = op_data
     return entities
 
-# --- CORE PATCHING LOGIC (FULL) ---
+def _fuzzy_match_path(target_path: str, all_paths: List[str]) -> str:
+    if target_path in all_paths: return target_path
+    target_regex = "^" + re.sub(r'\{[^}]+\}', r'{[^}]+}', target_path) + "$"
+    for path in all_paths:
+        candidate_regex = re.sub(r'\{[^}]+\}', r'{[^}]+}', path)
+        if candidate_regex == target_regex.replace("^", "").replace("$", ""):
+            return path 
+    return None
+
+def _get_schema_by_ref(ref: str, raw_spec: Dict[str, Any]) -> Dict[str, Any]:
+    """Resolves references for both OpenAPI 3.0 and Swagger 2.0."""
+    parts = ref.split("/")
+    name = parts[-1]
+    
+    # Try OpenAPI 3.0
+    schema = raw_spec.get("components", {}).get("schemas", {}).get(name)
+    if schema: return schema
+    
+    # Try Swagger 2.0
+    schema = raw_spec.get("definitions", {}).get(name)
+    if schema: return schema
+    
+    return {}
+
+def _resolve_schema_properties(schema: Dict[str, Any], raw_spec: Dict[str, Any], visited: Set[str] = None) -> Dict[str, Any]:
+    """Recursively resolves properties from schema, handling $ref and allOf."""
+    if visited is None: visited = set()
+    properties = {}
+    
+    if "$ref" in schema:
+        ref_key = schema["$ref"]
+        if ref_key not in visited:
+            visited.add(ref_key)
+            ref_schema = _get_schema_by_ref(ref_key, raw_spec)
+            properties.update(_resolve_schema_properties(ref_schema, raw_spec, visited))
+            
+    if "allOf" in schema:
+        for sub_schema in schema["allOf"]:
+            properties.update(_resolve_schema_properties(sub_schema, raw_spec, visited))
+    
+    if "properties" in schema:
+        properties.update(schema["properties"])
+        
+    return properties
+
+# --- PATCHES ---
 
 def patch_extract_all_types_from_schema(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
-    print("   > 🧬 Extracting EXACT types from OpenAPI schema (Generic)...")
+    print("   > 🧬 Extracting EXACT types from OpenAPI schema...")
     paths = raw_spec.get("paths", {})
     
-    # Regex to identify "Action-like" names (e.g. chainCreate, updateCar) to ban them
-    # This prevents the generator from treating Operation IDs as parameters
-    bad_param_regex = re.compile(r'^[a-z]+[A-Z][a-zA-Z]+$') 
-
     for ent_name, ent_data in entities.items():
         ops = ent_data.get("operations", {})
         add_op = ops.get("add")
         if not add_op: continue
         
-        path = add_op.get("path")
+        target_path = add_op.get("path")
         method = add_op.get("method", "").lower()
         
-        # 1. Locate the Schema for this operation
-        if path in paths and method in paths[path]:
-            req_body = paths[path][method].get("requestBody", {})
+        real_path = _fuzzy_match_path(target_path, list(paths.keys()))
+        
+        if real_path and method in paths[real_path]:
+            req_body = paths[real_path][method].get("requestBody", {})
             content = req_body.get("content", {}).get("application/json", {})
             schema = content.get("schema", {})
             
             if not schema: continue
 
-            # 2. Resolve $ref (e.g., "$ref": "#/components/schemas/Car")
-            if "$ref" in schema:
-                ref_name = schema["$ref"].split("/")[-1]
-                schema = raw_spec.get("components", {}).get("schemas", {}).get(ref_name, {})
-
-            # 3. Iterate over ALL properties (Required AND Optional)
-            properties = schema.get("properties", {})
+            properties = _resolve_schema_properties(schema, raw_spec)
             
-            # --- CRITICAL FIX: RESET PARAMETERS ---
-            # We wipe the existing params (which might contain hallucinations like 'chainCreate')
-            # and rebuild them strictly from the schema properties.
-            add_op["paramTypes"] = {}
-            add_op["params"] = []
-            add_op["bodyTemplate"] = {}
+            if "paramTypes" not in add_op: add_op["paramTypes"] = {}
+            if "params" not in add_op: add_op["params"] = []
+            if "bodyTemplate" not in add_op: add_op["bodyTemplate"] = {}
 
             for prop_name, prop_def in properties.items():
-                # Correctly map OpenAPI types to our internal types
                 raw_type = prop_def.get("type", "string")
-                if raw_type == "number": raw_type = "integer" # Simplify numbers to int for testing
-                
-                # Check against regex filter if the name looks like an action (CamelCase)
-                # But mostly, since we iterate *properties*, we are safe.
-                # The extra safety is ensuring we don't accidentally pull in metadata.
+                if raw_type == "number": raw_type = "integer" 
                 
                 add_op["paramTypes"][prop_name] = raw_type
                 
-                if prop_name != "id":
+                if prop_name != "id" and prop_name not in add_op["params"]:
                     add_op["params"].append(prop_name)
                     add_op["bodyTemplate"][prop_name] = f"{{{prop_name}}}"
 
-            # 4. Handle ID logic specifically (Force IDs to string if generic)
             for p in list(add_op["paramTypes"].keys()):
                 if p.lower().endswith("id") and p.lower() != "id":
                      add_op["paramTypes"][p] = "string"
 
 def patch_heuristic_type_inference(entities: Dict[str, Any]):
-    print("   > 🧠 Applying Heuristic Type Inference (Generic)...")
+    print("   > 🧠 Applying Heuristic Type Inference (Safe Mode)...")
     object_hints = ["schedule", "address", "meta", "config", "settings", "location", "properties", "payload", "data"]
     array_hints = ["list", "tags", "roles", "permissions", "tasks", "services"]
     
@@ -240,13 +278,16 @@ def patch_heuristic_type_inference(entities: Dict[str, Any]):
             params = op.get("params", [])
             
             for p in params:
-                # If type is missing or generic 'string', try to improve it
-                if p not in param_types or param_types[p] == "string":
-                    p_lower = p.lower()
-                    if any(h in p_lower for h in object_hints):
-                        param_types[p] = "object"
-                    elif any(h in p_lower for h in array_hints):
-                        param_types[p] = "array"
+                if p in param_types and param_types[p] not in ["string", "unknown"]:
+                    continue
+
+                p_lower = p.lower()
+                if any(h in p_lower for h in object_hints):
+                    param_types[p] = "object"
+                elif any(h in p_lower for h in array_hints):
+                    param_types[p] = "array"
+                elif p not in param_types:
+                    param_types[p] = "string"
 
 def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
     print("   > 🛡️  Enforcing required fields from OpenAPI schema...")
@@ -260,24 +301,20 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
         path = add_op.get("path")
         method = add_op.get("method", "").lower()
         
-        if path in paths and method in paths[path]:
-            req_body = paths[path][method].get("requestBody", {})
+        real_path = _fuzzy_match_path(path, list(paths.keys()))
+        if real_path and method in paths[real_path]:
+            req_body = paths[real_path][method].get("requestBody", {})
             content = req_body.get("content", {}).get("application/json", {})
             schema = content.get("schema", {})
             
             if not schema: continue
 
-            if "$ref" in schema:
-                ref_name = schema["$ref"].split("/")[-1]
-                schema = raw_spec.get("components", {}).get("schemas", {}).get(ref_name, {})
-
+            properties = _resolve_schema_properties(schema, raw_spec)
             required_fields = schema.get("required", [])
-            properties = schema.get("properties", {})
 
             for field in required_fields:
                 if field not in add_op.get("params", []):
                     add_op.setdefault("params", []).append(field)
-                    
                     field_type = "string"
                     if field in properties:
                         prop_type = properties[field].get("type")
@@ -299,7 +336,10 @@ def patch_link_orphaned_operations(entities: Dict[str, Any], raw_spec: Dict[str,
         method = op_data.get("method", "").lower()
         if not path or not method: return None
         
-        responses = paths.get(path, {}).get(method, {}).get("responses", {})
+        real_path = _fuzzy_match_path(path, list(paths.keys()))
+        if not real_path: return None
+
+        responses = paths[real_path].get(method, {}).get("responses", {})
         success_code = next((c for c in ["200", "201", "202"] if c in responses), None)
         if not success_code: return None
         
@@ -358,12 +398,15 @@ def patch_simplify_primary_operations(entities: Dict[str, Any], raw_spec: Dict[s
                                  "method": target_method.upper(),
                                  "path": raw_path,
                                  "params": [], 
-                                 "paramTypes": {}
+                                 "paramTypes": {},
+                                 "queryParams": [] 
                              }
                              for p in raw_methods[target_method].get("parameters", []):
                                  p_name = p.get("name")
                                  best_match["params"].append(p_name)
                                  best_match["paramTypes"][p_name] = "string"
+                                 if p.get("in") == "query":
+                                     best_match["queryParams"].append(p_name)
                              break
                 if best_match:
                     ops[op_type] = best_match
@@ -382,7 +425,6 @@ def patch_augment_creation_params(entities: Dict[str, Any]):
         add_op = ops.get("add")
         if not add_op: continue
         
-        # REMOVE GHOST ID logic
         params = add_op.get("params", [])
         if "id" in params:
             has_specific = any(p.lower().endswith("id") and p != "id" for p in params)
@@ -411,10 +453,120 @@ def patch_augment_response_codes(entities: Dict[str, Any], raw_spec: Dict[str, A
         for op_type, op_data in ops.items():
             path = op_data.get("path")
             method = op_data.get("method", "").lower()
-            if path in paths and method in paths[path]:
-                responses = paths[path][method].get("responses", {})
+            real_path = _fuzzy_match_path(path, list(paths.keys()))
+            if real_path and method in paths[real_path]:
+                responses = paths[real_path][method].get("responses", {})
                 codes = [int(c) for c in responses.keys() if c.isdigit()]
                 op_data["x-defined-response-codes"] = sorted(codes)
+
+def patch_verify_methods(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
+    """
+    CRITICAL: Kills any operation (like DELETE) that doesn't exist in the OpenAPI spec.
+    """
+    print("   > 🕵️  Verifying methods against Source OpenAPI...")
+    paths = raw_spec.get("paths", {})
+    path_keys = list(paths.keys())
+    
+    for ent_name, ent in entities.items():
+        ops = ent.get("operations", {})
+        to_delete = []
+        for op_key, op_data in ops.items():
+            path = op_data.get("path")
+            method = op_data.get("method", "").lower()
+            
+            real_path = _fuzzy_match_path(path, path_keys)
+            
+            if not real_path:
+                print(f"     [DROP] Path not found: {path}")
+                to_delete.append(op_key)
+                continue
+            
+            if method not in paths[real_path]:
+                print(f"     [DROP] Method {method} not allowed for {real_path}")
+                to_delete.append(op_key)
+                
+        for k in to_delete:
+            del ops[k]
+
+def patch_enforce_schema_parameters(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
+    """
+    STRICT SCHEMA ENFORCEMENT WITH SAFETY NET:
+    1. Resolve full schema properties (recursive).
+    2. IF properties found: Wipe AI params and use Schema (Ground Truth).
+    3. IF NO properties found (Resolution failed): KEEP AI params (Safety Net).
+    """
+    print("   > 🧬 Enforcing Strict Schema Parameters (Recursive + Safe)...")
+    paths = raw_spec.get("paths", {})
+    path_keys = list(paths.keys())
+    
+    for ent_name, ent_data in entities.items():
+        ops = ent_data.get("operations", {})
+        
+        for op_type, op_data in ops.items():
+            target_path = op_data.get("path")
+            method = op_data.get("method", "").lower()
+            
+            real_path = _fuzzy_match_path(target_path, path_keys)
+            
+            if real_path and method in paths[real_path]:
+                print(f"     [DEBUG] Processing {method.upper()} {real_path}...")
+                spec_op = paths[real_path][method]
+                
+                # Check Body
+                req_body = spec_op.get("requestBody", {})
+                content = req_body.get("content", {}).get("application/json", {})
+                schema = content.get("schema", {})
+                
+                # --- SAFETY NET ---
+                properties = {}
+                if schema:
+                    properties = _resolve_schema_properties(schema, raw_spec)
+                
+                if not properties:
+                    print(f"     [DEBUG] No body properties found for {real_path}. Skipping strict enforcement.")
+                    continue
+
+                # --- PROCEED WITH RESET ---
+                print(f"     [DEBUG] STRICT MODE: Resetting params for {ent_name} {op_type}")
+                op_data["paramTypes"] = {}
+                op_data["params"] = []
+                op_data["bodyTemplate"] = {}
+                op_data["queryParams"] = [] 
+                
+                # 1. Path/Query Params
+                for p_def in spec_op.get("parameters", []):
+                    p_name = p_def.get("name")
+                    p_in = p_def.get("in") 
+                    p_schema = p_def.get("schema", {})
+                    p_type = p_schema.get("type", "string")
+                    
+                    if p_in == "query":
+                        print(f"       + Query Param: {p_name}")
+                        op_data["queryParams"].append(p_name)
+                        if p_name not in op_data["params"]: op_data["params"].append(p_name)
+                        op_data["paramTypes"][p_name] = p_type
+                    elif p_in == "path":
+                        print(f"       + Path Param: {p_name}")
+                        if p_name not in op_data["params"]: op_data["params"].append(p_name)
+                        op_data["paramTypes"][p_name] = p_type
+
+                # 2. Body Params
+                for prop_name, prop_def in properties.items():
+                    raw_type = prop_def.get("type", "string")
+                    if raw_type == "number": raw_type = "integer" 
+                    
+                    print(f"       + Body Param: {prop_name} ({raw_type})")
+                    op_data["paramTypes"][prop_name] = raw_type
+                    
+                    if prop_name != "id":
+                        if prop_name not in op_data["params"]:
+                            op_data["params"].append(prop_name)
+                        op_data["bodyTemplate"][prop_name] = f"{{{prop_name}}}"
+
+                # 3. ID Safety
+                for p in list(op_data["paramTypes"].keys()):
+                    if p.lower().endswith("id") and p.lower() != "id":
+                         op_data["paramTypes"][p] = "string"
 
 def map_dependencies(entities: Dict[str, Any]) -> Dict[str, List[str]]:
     print("   > 🔗 Mapping global dependencies (LLM)...")
@@ -441,7 +593,6 @@ def classify_entities_semantically(entities: Dict[str, Any], raw_spec: Dict[str,
         if not add_op: continue
         summary[name] = {"path": add_op.get("path"), "method": add_op.get("method")}
     if not summary: return
-
     try:
         res = client.chat.completions.create(model=MODEL_NAME, response_format={"type": "json_object"}, messages=[{"role": "user", "content": CLASSIFICATION_PROMPT.replace("{summary}", json.dumps(summary))}], temperature=0)
         classification = json.loads(res.choices[0].message.content)
@@ -462,28 +613,30 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
     chunks = chunk_openapi(raw_spec)
     all_entities = {}
     
-    # 1. Try LLM Extraction
+    # 1. LLM Extraction
     for chunk in chunks:
         extracted = call_llm(chunk, force)
-        merge_specs(all_entities, extracted)
+        clean_extracted = sanitize_llm_output(extracted)
+        merge_specs(all_entities, clean_extracted)
     
-    # 2. Fallback to Manual Extraction if LLM failed
-    if not all_entities:
+    if not validate_extraction(all_entities):
         all_entities = manual_fallback_extraction(raw_spec)
 
-    # 3. Apply all patches (The order matters!)
-    # First, fix the types and params based on the schema (Fixes phantom params)
+    # 2. Patching Phase
     patch_extract_all_types_from_schema(all_entities, raw_spec)
-    
-    # Second, verify if any heuristic fixes are needed (e.g. schedule -> object)
     patch_heuristic_type_inference(all_entities)
     
-    # Then apply standard logic
     patch_ensure_required_fields(all_entities, raw_spec) 
     patch_link_orphaned_operations(all_entities, raw_spec)
     patch_simplify_primary_operations(all_entities, raw_spec)
     patch_augment_creation_params(all_entities) 
     patch_augment_response_codes(all_entities, raw_spec)
+    
+    # 4. FIX 1: Verify methods (Kills 405)
+    patch_verify_methods(all_entities, raw_spec)
+    
+    # 5. FIX 2: Enforce Schema WITH SAFETY NET (Kills 400 + Fixes Back Compat)
+    patch_enforce_schema_parameters(all_entities, raw_spec) 
     
     dependencies = map_dependencies(all_entities)
     classify_entities_semantically(all_entities, raw_spec)

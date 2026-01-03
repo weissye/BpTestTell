@@ -12,7 +12,7 @@
           "params": [
             "q"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "q": "string"
           },
@@ -26,24 +26,19 @@
           "method": "POST",
           "path": "/books",
           "params": [
-            "id",
             "title"
           ],
           "bodyTemplate": {
-            "title": "{title}",
-            "author": "{author}",
-            "publishedDate": "{publishedDate}",
-            "id": "{id}"
+            "title": "{title}"
           },
           "paramTypes": {
-            "title": "string",
-            "author": "string",
-            "publishedDate": "string",
-            "id": "integer"
+            "id": "integer",
+            "title": "string"
           },
           "x-defined-response-codes": [
             201
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -54,7 +49,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "integer"
           },
@@ -71,13 +66,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             400,
@@ -97,7 +89,7 @@
             "userId",
             "bookId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "userId": "integer",
             "bookId": "integer"
@@ -113,25 +105,21 @@
           "path": "/loans",
           "params": [
             "userId",
-            "bookId",
-            "id"
+            "bookId"
           ],
           "bodyTemplate": {
             "userId": "{userId}",
-            "bookId": "{bookId}",
-            "loanDate": "{loanDate}",
-            "id": "{id}"
+            "bookId": "{bookId}"
           },
           "paramTypes": {
-            "userId": "integer",
-            "bookId": "integer",
-            "loanDate": "string",
-            "id": "string"
+            "userId": "string",
+            "bookId": "string"
           },
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": false
         },
         "delete": {
@@ -143,14 +131,11 @@
             "userId",
             "bookId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "userId": "integer",
             "bookId": "integer"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             404
@@ -168,7 +153,7 @@
           "params": [
             "q"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "q": "string"
           },
@@ -182,24 +167,19 @@
           "method": "POST",
           "path": "/users",
           "params": [
-            "id",
             "name"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "email": "{email}",
-            "password": "{password}",
-            "id": "{id}"
+            "name": "{name}"
           },
           "paramTypes": {
-            "name": "string",
-            "email": "string",
-            "password": "string",
-            "id": "integer"
+            "id": "integer",
+            "name": "string"
           },
           "x-defined-response-codes": [
             201
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "delete": {
@@ -210,13 +190,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             400,
@@ -233,7 +210,7 @@
           "method": "GET",
           "path": "/holds",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200
@@ -245,31 +222,22 @@
           "method": "POST",
           "path": "/holds",
           "params": [
-            "id",
             "userId",
             "bookId"
           ],
           "bodyTemplate": {
-            "id": "{id}",
-            "user_id": "{user_id}",
-            "book_id": "{book_id}",
-            "start_date": "{start_date}",
-            "end_date": "{end_date}",
             "userId": "{userId}",
             "bookId": "{bookId}"
           },
           "paramTypes": {
             "id": "integer",
-            "user_id": "integer",
-            "book_id": "integer",
-            "start_date": "string",
-            "end_date": "string",
-            "userId": "integer",
-            "bookId": "integer"
+            "userId": "string",
+            "bookId": "string"
           },
           "x-defined-response-codes": [
             201
           ],
+          "queryParams": [],
           "x-generate-full-story": false
         },
         "delete": {
@@ -280,13 +248,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "integer"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200
           ]

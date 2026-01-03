@@ -180,11 +180,13 @@
             "customerId"
           ],
           "bodyTemplate": {
-            "CustomerUpdate": "{CustomerUpdate}"
+            "name": "{name}",
+            "email": "{email}"
           },
           "paramTypes": {
             "customerId": "string",
-            "CustomerUpdate": "object"
+            "name": "string",
+            "email": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -403,11 +405,15 @@
             "vin"
           ],
           "bodyTemplate": {
-            "CarUpdate": "{CarUpdate}"
+            "make": "{make}",
+            "model": "{model}",
+            "year": "{year}"
           },
           "paramTypes": {
             "vin": "string",
-            "CarUpdate": "object"
+            "make": "string",
+            "model": "string",
+            "year": "integer"
           },
           "x-defined-response-codes": [
             200,
@@ -516,11 +522,13 @@
             "pmId"
           ],
           "bodyTemplate": {
-            "PMUpdate": "{PMUpdate}"
+            "schedule": "{schedule}",
+            "tasks": "{tasks}"
           },
           "paramTypes": {
             "pmId": "string",
-            "PMUpdate": "object"
+            "schedule": "string",
+            "tasks": "array"
           },
           "x-defined-response-codes": [
             200,
@@ -691,11 +699,10 @@
     }
   },
   "dependencies": {
+    "Customers": [],
+    "Chains": [],
     "Garages": [
       "Chains"
-    ],
-    "Customers": [
-      "Garages"
     ],
     "Cars": [
       "Customers",

@@ -1,12 +1,12 @@
-from pathlib import Path
 import json
+import re
+from pathlib import Path
 from typing import Dict, Any, List
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
     collect_entity_params
 )
 
-# --- Helper: JS Runtime Dependency Resolver ---
 def _get_js_resolve_dependencies_fn():
     lines = []
     lines.append('function resolveDependencies(deps, pkMap) {')
@@ -32,129 +32,121 @@ def _get_js_resolve_dependencies_fn():
     lines.append('}')
     return lines
 
-# --- Helper: Variable Generator (Schema-Driven) ---
 def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_map={}, param_types={}):
     pk, params = collect_entity_params(ent_name, entities[ent_name], raw_spec)
     lines_code = []
     args = []
+    pk_var_name = "null"
     
+    # Store param_name -> var_name mapping for later use (teardown)
+    param_var_map = {} 
+
     for p in params:
         safe_p = sanitize_param(p)
         var_name = f"{safe_p}_{suffix}"
         p_type = param_types.get(p, "string").lower()
+        
+        param_var_map[p] = var_name
 
-        # 1. Dependency Link (Highest Priority)
+        if p == pk: pk_var_name = var_name
+
         if p in link_map:
             lines_code.append(f'  let {var_name} = {link_map[p]};')
         
-        # 2. Objects
-        elif p_type == "object":
-            lines_code.append(f'  let {var_name} = {{}};')
-
-        # 3. Arrays
-        elif p_type == "array":
-            lines_code.append(f'  let {var_name} = [];')
-
-        # 4. Integers/Numbers
+        # --- FIX START: STRICT TYPE CHECKING FIRST ---
+        # 1. Check strict types (Integer/Boolean/Array) BEFORE checking name patterns (like "id")
+        # This prevents "id" fields defined as integers from becoming strings.
         elif p_type in ["integer", "number"]:
-            lines_code.append(f'  let {var_name} = Math.floor(Math.random() * 1000) + 1990;')
-        
-        # 5. Booleans
+             # Generates pure integer: let id_... = 12345;
+             lines_code.append(f'  let {var_name} = Math.floor(Math.random() * 1000000);')
         elif p_type == "boolean":
-            lines_code.append(f'  let {var_name} = true;')
-
-        # 6. IDs & Strings
+             lines_code.append(f'  let {var_name} = true;')
+        elif p_type == "array":
+             lines_code.append(f'  let {var_name} = [];')
+        elif p_type == "object":
+             lines_code.append(f'  let {var_name} = {{}};')
+        
+        # 2. Handle Strings and loose types
         elif p == pk or p.lower().endswith("id") or p_type == "string":
             p_lower = p.lower()
-            if "email" in p_lower:
-                val = f'"u{suffix}_" + Math.floor(Math.random()*1000) + "@test.com"'
-            elif "phone" in p_lower:
-                val = f'"+1555" + Math.floor(Math.random()*10000000)'
-            elif "status" in p_lower:
-                val = '"open"' 
-            else:
-                val = f'"{p}_{suffix}_" + Math.floor(Math.random()*1000)'
+            if "email" in p_lower: val = f'"u{suffix}_" + Math.floor(Math.random()*1000) + "@test.com"'
+            elif "phone" in p_lower: val = f'"+1555" + Math.floor(Math.random()*10000000)'
+            elif "status" in p_lower: val = '"open"'
+            # Ensure ID strings are generated as strings, but ONLY if they fell through the Integer check above
+            else: val = f'"{p}_{suffix}_" + Math.floor(Math.random()*1000)'
             lines_code.append(f'  let {var_name} = {val};')
-
+        # --- FIX END ---
+        
         else:
              lines_code.append(f'  let {var_name} = "val_" + Math.floor(Math.random()*1000);')
         
         args.append(var_name)
     
-    return lines_code, args, pk
+    if pk_var_name == "null" and args:
+        for a in args:
+            if "id" in a.lower(): 
+                pk_var_name = a
+                break
+        if pk_var_name == "null": pk_var_name = args[0]
 
-# --- Recursive Creator with Auto-Detection ---
-def _recursive_emit_creation(ent_name: str, entities: Dict, dependencies: Dict, raw_spec: Dict, lines: List[str], created_context: Dict, base_id: int):
+    return lines_code, args, pk, pk_var_name, param_var_map
+
+def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, created_context, base_id):
     if ent_name in created_context: return
-
-    # --- AUTO-DETECT DEPENDENCIES ---
-    # Scan parameters to find Foreign Keys even if LLM missed them
+    
     detected_parents = []
     _, params = collect_entity_params(ent_name, entities[ent_name], raw_spec)
     for p in params:
         p_lower = p.lower()
-        if "id" not in p_lower: continue
-        
-        for potential_parent in entities.keys():
-            if potential_parent == ent_name: continue
-            
-            # Check if param matches entity name (e.g. "preferredGarageId" matches "Garages")
-            # We strip 's' to handle plural/singular mismatch
-            singular_parent = potential_parent.rstrip('s').lower()
-            if singular_parent in p_lower:
-                if potential_parent not in detected_parents:
-                    detected_parents.append(potential_parent)
+        if "vin" in p_lower and ent_name != "Cars" and "Cars" in entities:
+             if "Cars" not in detected_parents: detected_parents.append("Cars")
+        if "id" in p_lower:
+            for potential in entities.keys():
+                if potential == ent_name: continue
+                if potential.rstrip('s').lower() in p_lower:
+                    if potential not in detected_parents: detected_parents.append(potential)
 
-    # Combine explicit (from LLM) and detected dependencies
-    explicit_parents = dependencies.get(ent_name, [])
-    all_parents = list(set(explicit_parents + detected_parents))
+    all_parents = list(set(dependencies.get(ent_name, []) + detected_parents))
 
-    # 1. Create Parents Recursively
     for parent in all_parents:
         if parent in entities:
             _recursive_emit_creation(parent, entities, dependencies, raw_spec, lines, created_context, base_id)
 
-    # 2. Prepare Dependency Links
     link_map = {}
-    
     for p in params:
         for parent in all_parents:
             if parent not in created_context: continue
-            
-            parent_pk_var = created_context[parent]["pk_var"]
-            # Get parent PK name to verify match
-            parent_pk_name, _ = collect_entity_params(parent, entities[parent], raw_spec)
-            
-            # Direct match (chainId == chainId) or Fuzzy match (preferredGarageId ~= Garages)
-            if p == parent_pk_name: 
-                link_map[p] = parent_pk_var
-            elif parent.rstrip('s').lower() in p.lower() and "id" in p.lower():
-                link_map[p] = parent_pk_var
-            elif p == "parentId":
-                link_map[p] = parent_pk_var
+            pk_var = created_context[parent]["pk_var"]
+            pk_name, _ = collect_entity_params(parent, entities[parent], raw_spec)
+            if p == pk_name: link_map[p] = pk_var
+            elif parent.rstrip('s').lower() in p.lower() and "id" in p.lower(): link_map[p] = pk_var
+            elif p == "parentId": link_map[p] = pk_var
+            if "vin" in p.lower() and parent == "Cars": link_map[p] = pk_var
 
-    # 3. Generate Variables & Call
-    ops = entities[ent_name].get("operations", {})
-    add_op = ops.get("add", {})
-    param_types = add_op.get("paramTypes", {})
-    
+    add_op = entities[ent_name]["operations"].get("add", {})
     suffix = f"{ent_name}_{base_id}"
-    vars_code, args, pk = _generate_entity_vars(ent_name, entities, raw_spec, suffix, str(base_id), link_map, param_types)
+    
+    # Capture param_var_map here
+    vars_code, args, pk, pk_var_name, param_var_map = _generate_entity_vars(
+        ent_name, entities, raw_spec, suffix, str(base_id), link_map, add_op.get("paramTypes", {})
+    )
     
     lines.append(f'  // -> Creating {ent_name}')
     lines.extend(vars_code)
-    
     safe_ent = sanitize_param(ent_name)
     add_fn = add_op.get("name", f"create{ent_name}")
     
     lines.append(f'  {sanitize_param(add_fn)}({", ".join(args)});')
-    lines.append(f'  verify{safe_ent}Exists({", ".join(args)});')
+    lines.append(f'  verify{safe_ent}Exists({pk_var_name});')
     
-    pk_var = next((arg for arg in args if str(sanitize_param(pk)) in arg), args[0] if args else "null")
-    created_context[ent_name] = {"pk_var": pk_var}
+    # Store full context for teardown later
+    created_context[ent_name] = {
+        "pk_var": pk_var_name,
+        "param_map": param_var_map # <--- Storing map of {param_name: generated_var_name}
+    }
     lines.append('')
 
-def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
+def emit_stories(spec, out_dir, sut_name):
     print(f"   > 🔨 Generating stories for {sut_name}...")
     entities = spec.get("entities", {})
     dependencies = spec.get("dependencies", {}) 
@@ -168,23 +160,17 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     lines.append('')
 
     global_base_id = 100
-
-    # --- 1. Smart Coverage Stories ---
     for name in entities.keys():
         if not entities[name].get("operations", {}).get("add"): continue
-        
         story_name = f"cover:{sanitize_param(name)}"
         lines.append(f'// Story: Full Coverage for {name}')
         lines.append(f'bthread("{story_name}", function () {{')
-        
         created_context = {} 
         _recursive_emit_creation(name, entities, dependencies, raw_spec, lines, created_context, global_base_id)
-        
         lines.append('});')
         lines.append('')
         global_base_id += 50
 
-    # --- 2. V-Model Chain Stories ---
     parent_to_children = {}
     for child, parents in dependencies.items():
         for p in parents:
@@ -211,18 +197,48 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         chain_name = "_".join([sanitize_param(n) for n in chain])
         lines.append(f'// Story: Deep Chain {chain_name}')
         lines.append(f'bthread("chain:{chain_name}", function () {{')
-        
         chain_context = {}
         for ent_name in chain:
             _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, chain_context, global_base_id)
         
         lines.append('  // --- Teardown ---')
+        # Teardown in reverse order
         for ent_name in reversed(chain):
             safe_ent = sanitize_param(ent_name)
-            pk_var = chain_context[ent_name]["pk_var"]
-            del_fn = entities[ent_name]["operations"].get("delete", {}).get("name", f"delete{ent_name}")
-            lines.append(f'  {sanitize_param(del_fn)}({pk_var});')
-            lines.append(f'  verify{safe_ent}Deleted({pk_var});')
+            
+            # --- FIX START: SMART TEARDOWN ARGUMENTS ---
+            del_op = entities[ent_name]["operations"].get("delete")
+            if del_op:
+                del_fn = del_op.get("name", f"delete{ent_name}")
+                
+                # Get the parameter names required by the delete function
+                # (Falling back to keys of paramTypes if list not explicit)
+                del_param_names = list(del_op.get("paramTypes", {}).keys())
+                
+                # Look up the variables we generated for this entity
+                stored_map = chain_context[ent_name]["param_map"]
+                pk_var = chain_context[ent_name]["pk_var"]
+
+                # Construct the argument list for delete()
+                del_args = []
+                if del_param_names:
+                    for p_name in del_param_names:
+                        if p_name in stored_map:
+                            del_args.append(stored_map[p_name])
+                        else:
+                            # Fallback: if we can't find the param, pass the PK 
+                            # (This handles simple cases where delete(id) params might be implicit)
+                            if len(del_args) == 0: del_args.append(pk_var)
+                else:
+                    # Default if no params found: just pass PK
+                    del_args.append(pk_var)
+
+                arg_str = ", ".join(del_args)
+                lines.append(f'  {sanitize_param(del_fn)}({arg_str});')
+                lines.append(f'  verify{safe_ent}Deleted({arg_str});')
+            else:
+                lines.append(f'  // Skipped delete for {ent_name}: No operation found')
+            # --- FIX END ---
 
         lines.append('});')
         lines.append('')
@@ -230,7 +246,6 @@ def emit_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
     ensure_dir(out_dir)
     (out_dir / f"stories.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-    
     emit_negative_stories(spec, out_dir, sut_name)
 
 def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
@@ -246,35 +261,24 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     base_id = 900
     
     for name, ent in entities.items():
-        safe_entity_name = sanitize_param(name)
-        ops = ent.get("operations", {})
-        add_op = ops.get("add")
-        if not add_op: continue
-
+        if not ent["operations"].get("add"): continue
         pk, params = collect_entity_params(name, ent, raw_spec)
-        param_types = add_op.get("paramTypes", {})
+        param_types = ent["operations"]["add"].get("paramTypes", {})
         
-        vars_code, valid_args, _ = _generate_entity_vars(name, entities, raw_spec, "valid", str(base_id), {}, param_types)
+        # Note: We discard the 5th return value (param_var_map) here as we don't need context for negative tests
+        vars_code, valid_args, _, _, _ = _generate_entity_vars(name, entities, raw_spec, "valid", str(base_id), {}, param_types)
         arg_map = dict(zip(params, valid_args))
         
         for p in params:
-            target_type = param_types.get(p, "string").lower()
-            
-            if target_type in ["integer", "number"]:
-                bad_value = '"INVALID_STRING"'
-            elif target_type == "boolean":
-                bad_value = '"NOT_A_BOOL"'
-            elif target_type == "string":
-                bad_value = '12345'
-            elif target_type == "array":
-                bad_value = '"NOT_AN_ARRAY"'
-            elif target_type == "object":
-                bad_value = '12345'
-            else:
-                bad_value = '123456' 
+            t = param_types.get(p, "string").lower()
+            if t in ["integer", "number"]: bad_value = '"INVALID_STRING"'
+            elif t == "boolean": bad_value = '"NOT_A_BOOL"'
+            elif t == "string": bad_value = '12345'
+            elif t == "array": bad_value = '"NOT_AN_ARRAY"'
+            elif t == "object": bad_value = '12345'
+            else: bad_value = '123456' 
 
             story_name = f"fuzz:{name}:{sanitize_param(p)}_InvalidType"
-            lines.append(f'// Negative Test: Injecting invalid type into {p}')
             lines.append(f'bthread("{story_name}", function () {{')
             lines.extend(vars_code)
             
@@ -286,11 +290,8 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 else:
                     call_args.append(arg_map[arg_p])
             
-            lines.append(f'  verify{safe_entity_name}Rejects({", ".join(call_args)});')
+            lines.append(f'  verify{sanitize_param(name)}Rejects({", ".join(call_args)});')
             lines.append('});')
-            lines.append('')
-            
         base_id += 50
-
     ensure_dir(out_dir)
     (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")

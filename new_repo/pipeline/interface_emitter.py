@@ -14,9 +14,11 @@ def _is_valid_js_identifier(name: str) -> bool:
     return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
+    path_tmpl = op_data.get("path", "")
+    if not path_tmpl: return [] 
+
     lines = []
     method = (method_override or op_data.get("method", "GET")).upper()
-    path_tmpl = op_data.get("path", "")
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
     
     if primary_key in sig_params and primary_key not in desc_tmpl:
@@ -32,11 +34,29 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     js_url = f'"{safe_path}"'
     js_desc = f'"{safe_desc}"'
 
-    path_params = set()
-    for p in sig_params:
+    path_params = set(re.findall(r'\{([^\}]+)\}', path_tmpl))
+    query_params_list = op_data.get("queryParams", []) 
+
+    final_sig_params = []
+    
+    if method in ["POST", "PUT", "PATCH"]:
+        final_sig_params = sig_params
+    else:
+        for p in sig_params:
+            if p in path_params or p == primary_key or p == "id":
+                final_sig_params.append(p)
+    
+    for pp in path_params:
+        if pp not in final_sig_params:
+            final_sig_params.append(pp)
+
+    for qp in query_params_list:
+        if qp not in final_sig_params:
+             final_sig_params.append(qp)
+
+    for p in final_sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl:
-            path_params.add(p)
             js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
         js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
         
@@ -46,39 +66,32 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     param_types = op_data.get("paramTypes", {})
     body_js = "{}"
 
+    # FIX: Build Query Params Object
+    query_js_parts = []
+    for p in final_sig_params:
+        if p in query_params_list:
+            safe_p = sanitize_param(p)
+            query_js_parts.append(f'    "{p}": {safe_p}')
+    query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
+
     if method in ["POST", "PUT", "PATCH"]:
         excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
         b_lines = ["{"]
-        if "id" in sig_params and "id" not in path_params and "id" not in param_types:
+        if "id" in final_sig_params and "id" not in path_params and "id" not in param_types:
              b_lines.append(f'    "id": id,')
 
-        for p in sig_params:
-             if p.lower() in excluded_query_params or p in path_params: continue
+        for p in final_sig_params:
+             if p.lower() in excluded_query_params or p in path_params or p in query_params_list: continue
              
-             # Check if parameter exists in operation definition
+             # STRICT: Only add if in paramTypes
              if p in op_data.get("paramTypes", {}): 
                  sanitized_p = sanitize_param(p)
                  ptype = param_types.get(p, "string").lower()
-                 
-                 # --- GENERIC TYPE LOGIC ---
-                 # If the spec defines it as complex or numeric, keep it raw.
-                 # Otherwise, cast to String to be safe.
-                 if ptype in ["object", "array", "integer", "number", "boolean"]:
-                     cast = "" 
-                 else:
-                     cast = "String"
-                 
-                 if cast: 
-                     b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
-                 else: 
-                     b_lines.append(f'    "{p}": {sanitized_p},')
-                     
-        b_lines = [l for l in b_lines if l.strip()]
-        if len(b_lines) > 1:
-            b_lines.append("}")
-            body_js = "\n".join(b_lines)
-        else:
-            body_js = "{}"
+                 cast = "" if ptype in ["object", "array", "integer", "number", "boolean"] else "String"
+                 if cast: b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
+                 else: b_lines.append(f'    "{p}": {sanitized_p},')
+        b_lines.append("}")
+        body_js = "\n".join(b_lines) if len(b_lines) > 2 else "{}"
 
     if "..." in body_js: body_js = "{}"
 
@@ -90,33 +103,41 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
             
     codes_str = json.dumps(sorted(codes_list))
-    sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+    sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params])
     safe_fn_name = sanitize_param(fn_name)
     
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url};')
     lines.append(f'  var description = {js_desc};')
     
+    # FIX: Prepare the queryParameters argument
+    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
+
     if method in ["POST", "PUT", "PATCH"]:
         lines.append(f'  var body = {body_js};')
         lines.append(f'  bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
-        lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: description }} }});')
+        # FIX: Pass qp_arg to svc.post
+        lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: description }}{qp_arg} }});')
         if not codes_override:
              payload_parts = []
-             for p in sig_params:
+             for p in final_sig_params:
                  s_p = sanitize_param(p)
                  payload_parts.append(f'"{p}": {s_p}')
              payload_str = "{" + ", ".join(payload_parts) + "}"
              lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {payload_str}) }});')
         lines.append('  return res;')
     else:
-        lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: description }}, expectedResponseCodes: {codes_str} }});')
+        # GET/DELETE
+        # FIX: Pass qp_arg to svc.get/delete
+        lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: description }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
     lines.append('}')
     return lines
 
 def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
-    lines = []
     path_tmpl = op_data.get("path", "")
+    if not path_tmpl: return [] 
+
+    lines = []
     
     safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
     js_url = f'"{safe_path}"'
@@ -129,15 +150,23 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
             js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
     js_url = js_url.replace(' + ""', '')
 
+    query_params_list = op_data.get("queryParams", []) 
+
     b_lines = ["{"]
     if "id" in sig_params and "id" not in path_params:
          b_lines.append(f'    "id": id,')
 
     excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
+    param_types = op_data.get("paramTypes", {})
+    
     for p in sig_params:
-         if p.lower() in excluded_query_params or p in path_params: continue
+         if p.lower() in excluded_query_params or p in path_params or p in query_params_list: continue
+         
+         # FIX: STRICT CONSISTENCY for Negative Tests
+         # Do not add params to body if they are not in schema (like 'q')
+         if p not in param_types and p != "id": continue 
+
          sanitized_p = sanitize_param(p)
-         # No casting for negative tests (send raw)
          b_lines.append(f'    "{p}": {sanitized_p},') 
                  
     b_lines = [l for l in b_lines if l.strip()]
@@ -227,10 +256,11 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             path_tmpl = item_get_op.get("path", "")
             safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
             js_item_url = f'"{safe_path}"'
-            for p in sig_params: js_item_url = js_item_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            # STRICT FIX: Ensure verifyExists only uses PK
+            js_item_url = js_item_url.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "')
             js_item_url = js_item_url.replace(' + ""', '')
             
-            lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{')
+            lines.append(f'function verify{safe_entity_name}Exists({safe_pk}) {{')
             lines.append(f'  var url = {js_item_url};')
             lines.append(f'  var description = "Verify {name} " + {safe_pk} + " exists";')
             lines.append(f'  svc.get(url, {{ expectedResponseCodes: [200], parameters: {{ description: description }} }});')
@@ -262,10 +292,11 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             path_tmpl = item_get_op.get("path", "")
             safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
             js_item_url = f'"{safe_path}"'
-            for p in sig_params: js_item_url = js_item_url.replace(f'{{{p}}}', f'" + {sanitize_param(p)} + "')
+            js_item_url = js_item_url.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "')
             js_item_url = js_item_url.replace(' + ""', '')
 
-            lines.append(f'function verify{safe_entity_name}Deleted({sig_args_str}) {{')
+            # STRICT FIX: Delete verification should only take PK
+            lines.append(f'function verify{safe_entity_name}Deleted({safe_pk}) {{')
             lines.append(f'  var url = {js_item_url};')
             lines.append(f'  var description = "Verify {name} " + {safe_pk} + " deleted";')
             lines.append(f'  svc.get(url, {{ expectedResponseCodes: [404], parameters: {{ description: description }} }});')
@@ -273,7 +304,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append('}')
             lines.append('')
             
-            lines.append(f'function verify{safe_entity_name}DoesNotExist({sig_args_str}) {{ verify{safe_entity_name}Deleted({sig_args_str}); }}')
+            lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{ verify{safe_entity_name}Deleted({safe_pk}); }}')
             lines.append('')
             
         elif list_op:
