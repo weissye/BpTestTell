@@ -39,7 +39,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     final_sig_params = []
     
-    if method in ["POST", "PUT", "PATCH"]:
+    if method in ["POST", "PUT", "PATCH", "DELETE"]:
         final_sig_params = sig_params
     else:
         for p in sig_params:
@@ -66,7 +66,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     param_types = op_data.get("paramTypes", {})
     body_js = "{}"
 
-    # FIX: Build Query Params Object
     query_js_parts = []
     for p in final_sig_params:
         if p in query_params_list:
@@ -75,19 +74,17 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
 
     if method in ["POST", "PUT", "PATCH"]:
-        excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
         b_lines = ["{"]
         if "id" in final_sig_params and "id" not in path_params and "id" not in param_types:
              b_lines.append(f'    "id": id,')
 
         for p in final_sig_params:
-             if p.lower() in excluded_query_params or p in path_params or p in query_params_list: continue
-             
-             # STRICT: Only add if in paramTypes
+             if p in path_params or p in query_params_list: continue
              if p in op_data.get("paramTypes", {}): 
                  sanitized_p = sanitize_param(p)
                  ptype = param_types.get(p, "string").lower()
-                 cast = "" if ptype in ["object", "array", "integer", "number", "boolean"] else "String"
+                 is_primitive = ptype in ["object", "array", "integer", "number", "boolean"]
+                 cast = "" if is_primitive else "String"
                  if cast: b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
                  else: b_lines.append(f'    "{p}": {sanitized_p},')
         b_lines.append("}")
@@ -108,28 +105,38 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url};')
-    lines.append(f'  var description = {js_desc};')
+    # FIX: Renamed variable to avoid shadowing
+    lines.append(f'  var reqDescription = {js_desc};')
     
-    # FIX: Prepare the queryParameters argument
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
 
     if method in ["POST", "PUT", "PATCH"]:
         lines.append(f'  var body = {body_js};')
         lines.append(f'  bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
-        # FIX: Pass qp_arg to svc.post
-        lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: description }}{qp_arg} }});')
+        lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: reqDescription }}{qp_arg} }});')
         if not codes_override:
              payload_parts = []
              for p in final_sig_params:
                  s_p = sanitize_param(p)
                  payload_parts.append(f'"{p}": {s_p}')
              payload_str = "{" + ", ".join(payload_parts) + "}"
-             lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description, {payload_str}) }});')
+             
+             # FIX: Only emit Done event if status is 2xx
+             lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
+             lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload_str}) }});')
+             lines.append(f'  }} else {{')
+             lines.append(f'    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");')
+             lines.append(f'  }}')
         lines.append('  return res;')
+    elif method == "DELETE":
+        lines.append(f'  let res = svc.delete(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
+        # FIX: Check status for DELETE too
+        lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
+        lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
+        lines.append(f'  }}')
     else:
-        # GET/DELETE
-        # FIX: Pass qp_arg to svc.get/delete
-        lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: description }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
+        # GET
+        lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
     lines.append('}')
     return lines
 
@@ -138,7 +145,6 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     if not path_tmpl: return [] 
 
     lines = []
-    
     safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
     js_url = f'"{safe_path}"'
     
@@ -151,41 +157,33 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     js_url = js_url.replace(' + ""', '')
 
     query_params_list = op_data.get("queryParams", []) 
-
     b_lines = ["{"]
     if "id" in sig_params and "id" not in path_params:
          b_lines.append(f'    "id": id,')
 
-    excluded_query_params = ["fields", "filter", "limit", "meta", "offset", "page", "search", "sort", "keys"]
     param_types = op_data.get("paramTypes", {})
-    
     for p in sig_params:
-         if p.lower() in excluded_query_params or p in path_params or p in query_params_list: continue
-         
-         # FIX: STRICT CONSISTENCY for Negative Tests
-         # Do not add params to body if they are not in schema (like 'q')
+         if p.lower() in query_params_list or p in path_params: continue
          if p not in param_types and p != "id": continue 
-
          sanitized_p = sanitize_param(p)
          b_lines.append(f'    "{p}": {sanitized_p},') 
                  
     b_lines = [l for l in b_lines if l.strip()]
-    if len(b_lines) > 1:
-        b_lines.append("}")
-        body_js = "\n".join(b_lines)
-    else:
-        body_js = "{}"
+    if len(b_lines) > 1: b_lines.append("}")
+    body_js = "\n".join(b_lines) if len(b_lines) > 1 else "{}"
 
     sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
     safe_fn_name = sanitize_param(fn_name)
 
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url};')
-    lines.append(f'  var description = "Negative Test: Verify Rejection for " + url;')
+    # FIX: Renamed variable
+    lines.append(f'  var reqDescription = "Negative Test: Verify Rejection for " + url;')
     lines.append(f'  var body = {body_js};')
     lines.append(f'  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));')
-    lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: {{ description: description }} }});')
-    lines.append(f'  bp.sync({{ request: bp.Event("Done: " + description) }});')
+    lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: {{ description: reqDescription }} }});')
+    # Keep distinct event for Negative tests
+    lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: " + reqDescription) }});')
     lines.append('}')
     return lines
 
@@ -209,7 +207,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });')
     lines.append('const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };')
     lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
-    lines.append('function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }')
+    # FIX: Updated matcher helper to look for "Positive"
+    lines.append('function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }')
     lines.append('function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }')
 
     for name, ent in entities.items():
@@ -239,24 +238,21 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
 
-        # TryAddExisting
         if "add" in ops and isinstance(ops["add"], dict) and has_specific_get:
              lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{safe_entity_name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
              lines.append('')
              
-        # Negative Verification (Fuzzing)
         if "add" in ops and isinstance(ops["add"], dict):
              lines.extend(_generate_reject_operation(ops["add"], f"verify{safe_entity_name}Rejects", sig_params, primary_key))
              lines.append('')
 
-        # === 1. Verify Exists (Universal) ===
+        # Verification Logic
         safe_pk = sanitize_param(primary_key)
         
         if has_specific_get:
             path_tmpl = item_get_op.get("path", "")
             safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
             js_item_url = f'"{safe_path}"'
-            # STRICT FIX: Ensure verifyExists only uses PK
             js_item_url = js_item_url.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "')
             js_item_url = js_item_url.replace(' + ""', '')
             
@@ -267,6 +263,18 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append(f'  pvg.success("{name} found");')
             lines.append('}')
             lines.append('')
+            
+            lines.append(f'function verify{safe_entity_name}Deleted({safe_pk}) {{')
+            lines.append(f'  var url = {js_item_url};')
+            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " deleted";')
+            lines.append(f'  svc.get(url, {{ expectedResponseCodes: [404], parameters: {{ description: description }} }});')
+            lines.append(f'  pvg.success("{name} correctly deleted (404)");')
+            lines.append('}')
+            lines.append('')
+            
+            lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{ verify{safe_entity_name}Deleted({safe_pk}); }}')
+            lines.append('')
+            
         elif list_op:
              list_fn_name = sanitize_param(list_op.get("name", f"list{name}"))
              lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{')
@@ -284,31 +292,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'  }} catch (err) {{ bp.log.warn("Failed to parse list response: " + err); }}')
              lines.append('}')
              lines.append('')
-        else:
-             lines.append(f'// verify{safe_entity_name}Exists skipped: No GET /{{id}} or GET /collection detected.')
-
-        # === 2. Verify Deleted (Universal) ===
-        if has_specific_get:
-            path_tmpl = item_get_op.get("path", "")
-            safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
-            js_item_url = f'"{safe_path}"'
-            js_item_url = js_item_url.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "')
-            js_item_url = js_item_url.replace(' + ""', '')
-
-            # STRICT FIX: Delete verification should only take PK
-            lines.append(f'function verify{safe_entity_name}Deleted({safe_pk}) {{')
-            lines.append(f'  var url = {js_item_url};')
-            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " deleted";')
-            lines.append(f'  svc.get(url, {{ expectedResponseCodes: [404], parameters: {{ description: description }} }});')
-            lines.append(f'  pvg.success("{name} correctly deleted (404)");')
-            lines.append('}')
-            lines.append('')
-            
-            lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{ verify{safe_entity_name}Deleted({safe_pk}); }}')
-            lines.append('')
-            
-        elif list_op:
-             list_fn_name = sanitize_param(list_op.get("name", f"list{name}"))
+             
              lines.append(f'function verify{safe_entity_name}Deleted({sig_args_str}) {{')
              lines.append(f'  // Fallback: Use list operation to verify deletion')
              lines.append(f'  let res = {list_fn_name}({sig_args_str});')
@@ -324,15 +308,16 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'  }} catch (err) {{ bp.log.warn("Failed to parse list response: " + err); }}')
              lines.append('}')
              lines.append('')
+             
              lines.append(f'function verify{safe_entity_name}DoesNotExist({sig_args_str}) {{ verify{safe_entity_name}Deleted({sig_args_str}); }}')
              lines.append('')
-        else:
-             lines.append(f'// verify{safe_entity_name}Deleted skipped.')
 
-        # Matchers
+        # 1. ADDED MATCHERS
         desc_tmpl = "Create " + name
         if "add" in ops and isinstance(ops["add"], dict): desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
-        regex_start = f"Done: {desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0]
+        
+        # FIX: Regex matches strict Positive event
+        regex_start = f"Done: Positive: {desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0]
         if regex_start.endswith('"'): regex_start = regex_start[:-1]
         
         lines.append(f'function matchAny{safe_entity_name}Added() {{')
@@ -341,6 +326,19 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         lines.append(f'  }});')
         lines.append('}')
         lines.append('')
+
+        # 2. DELETE MATCHER
+        if "delete" in ops:
+             del_desc_tmpl = ops["delete"].get("descriptionTemplate", f"Delete {name}")
+             del_regex_start = f"Done: Positive: {del_desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0]
+             if del_regex_start.endswith('"'): del_regex_start = del_regex_start[:-1]
+             
+             lines.append(f'function matchDeleted{safe_entity_name}({sig_args_str}) {{')
+             lines.append(f'  return bp.EventSet("Delete {name}", function(e) {{')
+             lines.append(f'      return e.name.startsWith("{del_regex_start}");')
+             lines.append(f'  }});')
+             lines.append('}')
+             lines.append('')
 
     ensure_dir(out_dir)
     (out_dir / f"interfaces.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")

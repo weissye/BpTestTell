@@ -82,7 +82,6 @@ def reset():
     return ok({"status":"reset"}, 200)
 
 # --- DEFINITIONS ---
-# Schemas updated to match Generator output exactly
 CHAIN_SCHEMA = {
     "chainId": str, "name": str, "hqAddress": dict, "supportEmail": str, "active": bool, "description": str
 }
@@ -99,7 +98,7 @@ CUST_SCHEMA = {
 CAR_SCHEMA = {
     "vin": str, "make": str, "model": str, "year": int, "mileage": int, 
     "ownerCustomerId": str, "homeGarageId": str, "description": str,
-    "color": str, "licensePlate": str # <--- ADDED THESE
+    "color": str, "licensePlate": str 
 }
 PM_SCHEMA = {
     "pmId": str, "carVin": str, "garageId": str, "planType": str, "tasks": list,
@@ -114,7 +113,8 @@ RO_SCHEMA = {
 @app.route("/chains", methods=["POST"])
 def create_chain():
     body = request.get_json(force=True, silent=True) or {}
-    err_msg, code = validate_schema(body, CHAIN_SCHEMA, ["chainId", "name", "hqAddress"])
+    # FIX: Added 'active' to required list
+    err_msg, code = validate_schema(body, CHAIN_SCHEMA, ["chainId", "name", "hqAddress", "active"])
     if err_msg: return err(err_msg, code)
     if body["chainId"] in chains: return err("duplicate-id", 400)
     chains[body["chainId"]] = body
@@ -123,7 +123,8 @@ def create_chain():
 @app.route("/garages", methods=["POST"])
 def create_garage():
     body = request.get_json(force=True, silent=True) or {}
-    err_msg, code = validate_schema(body, GARAGE_SCHEMA, ["garageId", "chainId", "name", "address", "phone"])
+    # FIX: Added 'active' to required list
+    err_msg, code = validate_schema(body, GARAGE_SCHEMA, ["garageId", "chainId", "name", "address", "phone", "active"])
     if err_msg: return err(err_msg, code)
     if body["chainId"] not in chains: return err("invalid-chain", 400)
     if body["garageId"] in garages: return err("duplicate-id", 400)
@@ -154,7 +155,8 @@ def create_car():
 @app.route("/periodic-maintenance", methods=["POST"])
 def create_pm():
     body = request.get_json(force=True, silent=True) or {}
-    err_msg, code = validate_schema(body, PM_SCHEMA, ["pmId", "carVin", "garageId", "planType", "tasks"])
+    # FIX: Added 'status' to required list
+    err_msg, code = validate_schema(body, PM_SCHEMA, ["pmId", "carVin", "garageId", "planType", "tasks", "status"])
     if err_msg: return err(err_msg, code)
     if body["carVin"] not in cars: return err("invalid-car", 400)
     if body["garageId"] not in garages: return err("invalid-garage", 400)
@@ -165,7 +167,8 @@ def create_pm():
 @app.route("/repair-orders", methods=["POST"])
 def create_ro():
     body = request.get_json(force=True, silent=True) or {}
-    err_msg, code = validate_schema(body, RO_SCHEMA, ["roId", "carVin", "customerId", "garageId", "complaint"])
+    # FIX: Added 'status' to required list
+    err_msg, code = validate_schema(body, RO_SCHEMA, ["roId", "carVin", "customerId", "garageId", "complaint", "status"])
     if err_msg: return err(err_msg, code)
     if body["carVin"] not in cars: return err("invalid-car", 400)
     if body["customerId"] not in customers: return err("invalid-customer", 400)
@@ -174,18 +177,100 @@ def create_ro():
     ros[body["roId"]] = body
     return ok(body, 201)
 
-@app.route("/chains/<id>", methods=["GET"])
-def get_chain(id): return ok(chains[id]) if id in chains else err("not-found", 404)
-@app.route("/garages/<id>", methods=["GET"])
-def get_garage(id): return ok(garages[id]) if id in garages else err("not-found", 404)
-@app.route("/customers/<id>", methods=["GET"])
-def get_customer(id): return ok(customers[id]) if id in customers else err("not-found", 404)
-@app.route("/cars/<id>", methods=["GET"])
-def get_car(id): return ok(cars[id]) if id in cars else err("not-found", 404)
-@app.route("/repair-orders/<id>", methods=["GET"])
-def get_ro(id): return ok(ros[id]) if id in ros else err("not-found", 404)
-@app.route("/periodic-maintenance/<id>", methods=["GET"])
-def get_pm(id): return ok(pms[id]) if id in pms else err("not-found", 404)
+# --- SINGULAR RESOURCE HANDLERS (GET, PUT, DELETE) ---
+
+@app.route("/chains/<id>", methods=["GET", "PUT", "DELETE"])
+def handle_chain(id):
+    if id not in chains: return err("not-found", 404)
+    
+    if request.method == "GET":
+        return ok(chains[id])
+    elif request.method == "PUT":
+        body = request.get_json(force=True, silent=True) or {}
+        chains[id].update(body)
+        chains[id]["chainId"] = id # Ensure ID remains consistent
+        return ok(chains[id], 200)
+    elif request.method == "DELETE":
+        del chains[id]
+        return ok(None, 204)
+
+@app.route("/garages/<id>", methods=["GET", "PUT", "DELETE"])
+def handle_garage(id):
+    if id not in garages: return err("not-found", 404)
+    
+    if request.method == "GET":
+        return ok(garages[id])
+    elif request.method == "PUT":
+        body = request.get_json(force=True, silent=True) or {}
+        garages[id].update(body)
+        garages[id]["garageId"] = id
+        return ok(garages[id], 200)
+    elif request.method == "DELETE":
+        del garages[id]
+        return ok(None, 204)
+
+@app.route("/customers/<id>", methods=["GET", "PUT", "DELETE"])
+def handle_customer(id):
+    if id not in customers: return err("not-found", 404)
+    
+    if request.method == "GET":
+        return ok(customers[id])
+    elif request.method == "PUT":
+        body = request.get_json(force=True, silent=True) or {}
+        customers[id].update(body)
+        customers[id]["customerId"] = id
+        return ok(customers[id], 200)
+    elif request.method == "DELETE":
+        del customers[id]
+        return ok(None, 204)
+
+@app.route("/cars/<id>", methods=["GET", "PUT", "DELETE"])
+def handle_car(id):
+    if id not in cars: return err("not-found", 404)
+    
+    if request.method == "GET":
+        return ok(cars[id])
+    elif request.method == "PUT":
+        body = request.get_json(force=True, silent=True) or {}
+        cars[id].update(body)
+        cars[id]["vin"] = id
+        return ok(cars[id], 200)
+    elif request.method == "DELETE":
+        del cars[id]
+        return ok(None, 204)
+
+@app.route("/repair-orders/<id>", methods=["GET", "PUT", "DELETE"])
+def handle_ro(id):
+    if id not in ros: return err("not-found", 404)
+    
+    if request.method == "GET":
+        return ok(ros[id])
+    elif request.method == "PUT":
+        body = request.get_json(force=True, silent=True) or {}
+        ros[id].update(body)
+        ros[id]["roId"] = id
+        return ok(ros[id], 200)
+    elif request.method == "DELETE":
+        del ros[id]
+        return ok(None, 204)
+
+@app.route("/periodic-maintenance/<id>", methods=["GET", "PUT", "DELETE"])
+def handle_pm(id):
+    if id not in pms: return err("not-found", 404)
+    
+    if request.method == "GET":
+        return ok(pms[id])
+    elif request.method == "PUT":
+        body = request.get_json(force=True, silent=True) or {}
+        pms[id].update(body)
+        pms[id]["pmId"] = id
+        return ok(pms[id], 200)
+    elif request.method == "DELETE":
+        del pms[id]
+        return ok(None, 204)
+
+# --- LIST ROUTES ---
+
 @app.route("/chains", methods=["GET"])
 def list_chains(): return ok(list(chains.values()))
 @app.route("/garages", methods=["GET"])
@@ -196,6 +281,20 @@ def list_customers(): return ok(list(customers.values()))
 def list_cars(): return ok(list(cars.values()))
 @app.route("/repair-orders", methods=["GET"])
 def list_ros(): return ok(list(ros.values()))
+
+# --- ADDITIONAL ACTIONS ---
+
+@app.route("/repair-orders/<id>/approve", methods=["POST"])
+def approve_ro(id):
+    if id not in ros: return err("not-found", 404)
+    ros[id]["status"] = "in-progress"
+    return ok(ros[id], 200)
+
+@app.route("/repair-orders/<id>/close", methods=["POST"])
+def close_ro(id):
+    if id not in ros: return err("not-found", 404)
+    ros[id]["status"] = "closed"
+    return ok(ros[id], 200)
 
 if __name__ == "__main__":
     seed()    

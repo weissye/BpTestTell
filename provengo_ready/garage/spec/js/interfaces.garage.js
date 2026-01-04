@@ -6,83 +6,100 @@ var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
-function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
+function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
 function listChains(chainId) {
   var url = "/chains";
-  var description = "List chains " + chainId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List chains " + chainId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createChain(active, chainId, chainUpdate, hqAddress, name, supportEmail) {
+function createChain(active, chainId, description, hqAddress, name, supportEmail) {
   var url = "/chains";
-  var description = "Create chain " + chainId;
+  var reqDescription = "Create chain " + chainId;
   var body = {
     "active": active,
     "chainId": String(chainId),
+    "description": String(description),
     "hqAddress": hqAddress,
     "name": String(name),
     "supportEmail": String(supportEmail),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"active": active, "chainId": chainId, "chainUpdate": chainUpdate, "hqAddress": hqAddress, "name": name, "supportEmail": supportEmail}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "chainId": chainId, "description": description, "hqAddress": hqAddress, "name": name, "supportEmail": supportEmail}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function readChain(chainId) {
   var url = "/chains/" + chainId;
-  var description = "Read chain " + chainId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Read chain " + chainId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updateChain(active, chainId, chainUpdate, hqAddress, name, supportEmail) {
+function updateChain(active, chainId, description, hqAddress, name, supportEmail) {
   var url = "/chains/" + chainId;
-  var description = "Update chain " + chainId;
+  var reqDescription = "Update chain " + chainId;
   var body = {
-    "chainUpdate": chainUpdate,
+    "active": active,
+    "description": String(description),
+    "hqAddress": hqAddress,
+    "name": String(name),
+    "supportEmail": String(supportEmail),
 };
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"active": active, "chainId": chainId, "chainUpdate": chainUpdate, "hqAddress": hqAddress, "name": name, "supportEmail": supportEmail}) });
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "chainId": chainId, "description": description, "hqAddress": hqAddress, "name": name, "supportEmail": supportEmail}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
-function deleteChain(chainId) {
+function deleteChain(active, chainId, description, hqAddress, name, supportEmail) {
   var url = "/chains/" + chainId;
-  var description = "Delete chain " + chainId;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+  var reqDescription = "Delete chain " + chainId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
-function tryToAddExistingChains(active, chainId, chainUpdate, hqAddress, name, supportEmail) {
+function tryToAddExistingChains(active, chainId, description, hqAddress, name, supportEmail) {
   var url = "/chains";
-  var description = "Try Add Existing Chains " + chainId;
+  var reqDescription = "Try Add Existing Chains " + chainId;
   var body = {
     "active": active,
     "chainId": String(chainId),
+    "description": String(description),
     "hqAddress": hqAddress,
     "name": String(name),
     "supportEmail": String(supportEmail),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyChainsRejects(active, chainId, chainUpdate, hqAddress, name, supportEmail) {
+function verifyChainsRejects(active, chainId, description, hqAddress, name, supportEmail) {
   var url = "/chains";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "active": active,
     "chainId": chainId,
-    "chainUpdate": chainUpdate,
+    "description": description,
     "hqAddress": hqAddress,
     "name": name,
     "supportEmail": supportEmail,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyChainsExists(chainId) {
@@ -91,7 +108,6 @@ function verifyChainsExists(chainId) {
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Chains found");
 }
-
 
 function verifyChainsDeleted(chainId) {
   var url = "/chains/" + chainId;
@@ -102,77 +118,108 @@ function verifyChainsDeleted(chainId) {
 
 function verifyChainsDoesNotExist(chainId) { verifyChainsDeleted(chainId); }
 
-function matchAnyChainsAdded() { return bp.EventSet("Any Chains Added", function(e) { return e.name.startsWith("Done: Create chain"); }); }
+function matchAnyChainsAdded() {
+  return bp.EventSet("Any Chains Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create chain");
+  });
+}
+
+function matchDeletedChains(active, chainId, description, hqAddress, name, supportEmail) {
+  return bp.EventSet("Delete Chains", function(e) {
+      return e.name.startsWith("Done: Positive: Delete chain");
+  });
+}
 
 function listCustomers(customerId) {
   var url = "/customers";
-  var description = "List customers " + customerId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List customers " + customerId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createCustomer(customerId, email, fullName, name, phone, preferredGarageId, type) {
+function createCustomer(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
   var url = "/customers";
-  var description = "Create customer " + customerId;
+  var reqDescription = "Create customer " + customerId;
   var body = {
     "customerId": String(customerId),
+    "description": String(description),
     "email": String(email),
     "fullName": String(fullName),
+    "name": String(name),
     "phone": String(phone),
     "preferredGarageId": String(preferredGarageId),
     "type": String(type),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"customerId": customerId, "email": email, "fullName": fullName, "name": name, "phone": phone, "preferredGarageId": preferredGarageId, "type": type}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerId": customerId, "description": description, "email": email, "fullName": fullName, "name": name, "phone": phone, "preferredGarageId": preferredGarageId, "type": type}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function readCustomer(customerId) {
   var url = "/customers/" + customerId;
-  var description = "Read customer " + customerId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Read customer " + customerId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updateCustomer(customerId, email, fullName, name, phone, preferredGarageId, type) {
+function updateCustomer(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
   var url = "/customers/" + customerId;
-  var description = "Update customer " + customerId;
+  var reqDescription = "Update customer " + customerId;
   var body = {
+    "description": String(description),
     "email": String(email),
+    "fullName": String(fullName),
     "name": String(name),
+    "phone": String(phone),
+    "preferredGarageId": String(preferredGarageId),
+    "type": String(type),
 };
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"customerId": customerId, "email": email, "fullName": fullName, "name": name, "phone": phone, "preferredGarageId": preferredGarageId, "type": type}) });
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerId": customerId, "description": description, "email": email, "fullName": fullName, "name": name, "phone": phone, "preferredGarageId": preferredGarageId, "type": type}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
-function deleteCustomer(customerId) {
+function deleteCustomer(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
   var url = "/customers/" + customerId;
-  var description = "Delete customer " + customerId;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+  var reqDescription = "Delete customer " + customerId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
-function tryToAddExistingCustomers(customerId, email, fullName, name, phone, preferredGarageId, type) {
+function tryToAddExistingCustomers(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
   var url = "/customers";
-  var description = "Try Add Existing Customers " + customerId;
+  var reqDescription = "Try Add Existing Customers " + customerId;
   var body = {
     "customerId": String(customerId),
+    "description": String(description),
     "email": String(email),
     "fullName": String(fullName),
+    "name": String(name),
     "phone": String(phone),
     "preferredGarageId": String(preferredGarageId),
     "type": String(type),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyCustomersRejects(customerId, email, fullName, name, phone, preferredGarageId, type) {
+function verifyCustomersRejects(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
   var url = "/customers";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "customerId": customerId,
+    "description": description,
     "email": email,
     "fullName": fullName,
     "name": name,
@@ -181,8 +228,8 @@ function verifyCustomersRejects(customerId, email, fullName, name, phone, prefer
     "type": type,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyCustomersExists(customerId) {
@@ -191,7 +238,6 @@ function verifyCustomersExists(customerId) {
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Customers found");
 }
-
 
 function verifyCustomersDeleted(customerId) {
   var url = "/customers/" + customerId;
@@ -202,92 +248,130 @@ function verifyCustomersDeleted(customerId) {
 
 function verifyCustomersDoesNotExist(customerId) { verifyCustomersDeleted(customerId); }
 
-function matchAnyCustomersAdded() { return bp.EventSet("Any Customers Added", function(e) { return e.name.startsWith("Done: Create customer"); }); }
+function matchAnyCustomersAdded() {
+  return bp.EventSet("Any Customers Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create customer");
+  });
+}
+
+function matchDeletedCustomers(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
+  return bp.EventSet("Delete Customers", function(e) {
+      return e.name.startsWith("Done: Positive: Delete customer");
+  });
+}
 
 function listGarages(garageId) {
   var url = "/garages";
-  var description = "List garages " + garageId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List garages " + garageId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createGarage(active, address, bayCount, chainId, garageId, garageUpdate, name, phone, servicesOffered) {
+function createGarage(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
   var url = "/garages";
-  var description = "Create garage " + garageId;
+  var reqDescription = "Create garage " + garageId;
   var body = {
     "active": active,
     "address": address,
     "bayCount": bayCount,
+    "capacity": capacity,
     "chainId": String(chainId),
+    "description": String(description),
     "garageId": String(garageId),
+    "location": location,
     "name": String(name),
     "phone": String(phone),
     "servicesOffered": servicesOffered,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"active": active, "address": address, "bayCount": bayCount, "chainId": chainId, "garageId": garageId, "garageUpdate": garageUpdate, "name": name, "phone": phone, "servicesOffered": servicesOffered}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "address": address, "bayCount": bayCount, "capacity": capacity, "chainId": chainId, "description": description, "garageId": garageId, "location": location, "name": name, "phone": phone, "servicesOffered": servicesOffered}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function readGarage(garageId) {
   var url = "/garages/" + garageId;
-  var description = "Read garage " + garageId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Read garage " + garageId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updateGarage(active, address, bayCount, chainId, garageId, garageUpdate, name, phone, servicesOffered) {
+function updateGarage(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
   var url = "/garages/" + garageId;
-  var description = "Update garage " + garageId;
-  var body = {
-    "garageUpdate": garageUpdate,
-};
-  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"active": active, "address": address, "bayCount": bayCount, "chainId": chainId, "garageId": garageId, "garageUpdate": garageUpdate, "name": name, "phone": phone, "servicesOffered": servicesOffered}) });
-  return res;
-}
-
-function deleteGarage(garageId) {
-  var url = "/garages/" + garageId;
-  var description = "Delete garage " + garageId;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
-}
-
-function tryToAddExistingGarages(active, address, bayCount, chainId, garageId, garageUpdate, name, phone, servicesOffered) {
-  var url = "/garages";
-  var description = "Try Add Existing Garages " + garageId;
+  var reqDescription = "Update garage " + garageId;
   var body = {
     "active": active,
     "address": address,
     "bayCount": bayCount,
+    "capacity": capacity,
     "chainId": String(chainId),
+    "description": String(description),
+    "location": location,
+    "name": String(name),
+    "phone": String(phone),
+    "servicesOffered": servicesOffered,
+};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "address": address, "bayCount": bayCount, "capacity": capacity, "chainId": chainId, "description": description, "garageId": garageId, "location": location, "name": name, "phone": phone, "servicesOffered": servicesOffered}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
+}
+
+function deleteGarage(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
+  var url = "/garages/" + garageId;
+  var reqDescription = "Delete garage " + garageId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+}
+
+function tryToAddExistingGarages(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
+  var url = "/garages";
+  var reqDescription = "Try Add Existing Garages " + garageId;
+  var body = {
+    "active": active,
+    "address": address,
+    "bayCount": bayCount,
+    "capacity": capacity,
+    "chainId": String(chainId),
+    "description": String(description),
     "garageId": String(garageId),
+    "location": location,
     "name": String(name),
     "phone": String(phone),
     "servicesOffered": servicesOffered,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyGaragesRejects(active, address, bayCount, chainId, garageId, garageUpdate, name, phone, servicesOffered) {
+function verifyGaragesRejects(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
   var url = "/garages";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "active": active,
     "address": address,
     "bayCount": bayCount,
+    "capacity": capacity,
     "chainId": chainId,
+    "description": description,
     "garageId": garageId,
-    "garageUpdate": garageUpdate,
+    "location": location,
     "name": name,
     "phone": phone,
     "servicesOffered": servicesOffered,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyGaragesExists(garageId) {
@@ -296,7 +380,6 @@ function verifyGaragesExists(garageId) {
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Garages found");
 }
-
 
 function verifyGaragesDeleted(garageId) {
   var url = "/garages/" + garageId;
@@ -307,19 +390,32 @@ function verifyGaragesDeleted(garageId) {
 
 function verifyGaragesDoesNotExist(garageId) { verifyGaragesDeleted(garageId); }
 
-function matchAnyGaragesAdded() { return bp.EventSet("Any Garages Added", function(e) { return e.name.startsWith("Done: Create garage"); }); }
+function matchAnyGaragesAdded() {
+  return bp.EventSet("Any Garages Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create garage");
+  });
+}
+
+function matchDeletedGarages(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
+  return bp.EventSet("Delete Garages", function(e) {
+      return e.name.startsWith("Done: Positive: Delete garage");
+  });
+}
 
 function listCars(vin) {
   var url = "/cars";
-  var description = "List cars " + vin;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List cars " + vin;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year) {
+function createCar(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
   var url = "/cars";
-  var description = "Create car " + vin;
+  var reqDescription = "Create car " + vin;
   var body = {
+    "color": String(color),
+    "description": String(description),
     "homeGarageId": String(homeGarageId),
+    "licensePlate": String(licensePlate),
     "make": String(make),
     "mileage": mileage,
     "model": String(model),
@@ -328,42 +424,62 @@ function createCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, yea
     "year": year,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"homeGarageId": homeGarageId, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"color": color, "description": description, "homeGarageId": homeGarageId, "licensePlate": licensePlate, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function readCar(vin) {
   var url = "/cars/" + vin;
-  var description = "Read car " + vin;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Read car " + vin;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updateCar(homeGarageId, make, mileage, model, ownerCustomerId, vin, year) {
+function updateCar(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
   var url = "/cars/" + vin;
-  var description = "Update car " + vin;
+  var reqDescription = "Update car " + vin;
   var body = {
+    "color": String(color),
+    "description": String(description),
+    "homeGarageId": String(homeGarageId),
+    "licensePlate": String(licensePlate),
     "make": String(make),
+    "mileage": mileage,
     "model": String(model),
+    "ownerCustomerId": String(ownerCustomerId),
     "year": year,
 };
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"homeGarageId": homeGarageId, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"color": color, "description": description, "homeGarageId": homeGarageId, "licensePlate": licensePlate, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
-function deleteCar(vin) {
+function deleteCar(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
   var url = "/cars/" + vin;
-  var description = "Delete car " + vin;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+  var reqDescription = "Delete car " + vin;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
-function tryToAddExistingCars(homeGarageId, make, mileage, model, ownerCustomerId, vin, year) {
+function tryToAddExistingCars(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
   var url = "/cars";
-  var description = "Try Add Existing Cars " + vin;
+  var reqDescription = "Try Add Existing Cars " + vin;
   var body = {
+    "color": String(color),
+    "description": String(description),
     "homeGarageId": String(homeGarageId),
+    "licensePlate": String(licensePlate),
     "make": String(make),
     "mileage": mileage,
     "model": String(model),
@@ -372,15 +488,18 @@ function tryToAddExistingCars(homeGarageId, make, mileage, model, ownerCustomerI
     "year": year,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyCarsRejects(homeGarageId, make, mileage, model, ownerCustomerId, vin, year) {
+function verifyCarsRejects(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
   var url = "/cars";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
+    "color": color,
+    "description": description,
     "homeGarageId": homeGarageId,
+    "licensePlate": licensePlate,
     "make": make,
     "mileage": mileage,
     "model": model,
@@ -389,8 +508,8 @@ function verifyCarsRejects(homeGarageId, make, mileage, model, ownerCustomerId, 
     "year": year,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyCarsExists(vin) {
@@ -399,7 +518,6 @@ function verifyCarsExists(vin) {
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Cars found");
 }
-
 
 function verifyCarsDeleted(vin) {
   var url = "/cars/" + vin;
@@ -410,81 +528,114 @@ function verifyCarsDeleted(vin) {
 
 function verifyCarsDoesNotExist(vin) { verifyCarsDeleted(vin); }
 
-function matchAnyCarsAdded() { return bp.EventSet("Any Cars Added", function(e) { return e.name.startsWith("Done: Create car"); }); }
+function matchAnyCarsAdded() {
+  return bp.EventSet("Any Cars Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create car");
+  });
+}
+
+function matchDeletedCars(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
+  return bp.EventSet("Delete Cars", function(e) {
+      return e.name.startsWith("Done: Positive: Delete car");
+  });
+}
 
 function listPMPlans(pmId) {
   var url = "/periodic-maintenance";
-  var description = "List PM plans " + pmId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List PM plans " + pmId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createPMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
+function createPMPlan(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
   var url = "/periodic-maintenance";
-  var description = "Create PM plan " + pmId;
+  var reqDescription = "Create PM plan " + pmId;
   var body = {
     "carVin": String(carVin),
+    "description": String(description),
     "garageId": String(garageId),
     "intervalKm": intervalKm,
     "intervalMonths": intervalMonths,
     "planType": String(planType),
     "pmId": String(pmId),
+    "schedule": schedule,
     "status": String(status),
     "tasks": tasks,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "schedule": schedule, "status": status, "tasks": tasks}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "description": description, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "schedule": schedule, "status": status, "tasks": tasks}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function readPMPlan(pmId) {
   var url = "/periodic-maintenance/" + pmId;
-  var description = "Read PM plan " + pmId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Read PM plan " + pmId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updatePMPlan(carVin, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
+function updatePMPlan(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
-  var description = "Update PM plan " + pmId;
+  var reqDescription = "Update PM plan " + pmId;
   var body = {
-    "schedule": String(schedule),
+    "carVin": String(carVin),
+    "description": String(description),
+    "garageId": String(garageId),
+    "intervalKm": intervalKm,
+    "intervalMonths": intervalMonths,
+    "planType": String(planType),
+    "schedule": schedule,
+    "status": String(status),
     "tasks": tasks,
 };
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"carVin": carVin, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "schedule": schedule, "status": status, "tasks": tasks}) });
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "description": description, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "schedule": schedule, "status": status, "tasks": tasks}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
-function deletePMPlan(pmId) {
+function deletePMPlan(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
   var url = "/periodic-maintenance/" + pmId;
-  var description = "Delete PM plan " + pmId;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+  var reqDescription = "Delete PM plan " + pmId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
-function tryToAddExistingPeriodicMaintenance(carVin, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
+function tryToAddExistingPeriodicMaintenance(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
   var url = "/periodic-maintenance";
-  var description = "Try Add Existing PeriodicMaintenance " + pmId;
+  var reqDescription = "Try Add Existing PeriodicMaintenance " + pmId;
   var body = {
     "carVin": String(carVin),
+    "description": String(description),
     "garageId": String(garageId),
     "intervalKm": intervalKm,
     "intervalMonths": intervalMonths,
     "planType": String(planType),
     "pmId": String(pmId),
+    "schedule": schedule,
     "status": String(status),
     "tasks": tasks,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyPeriodicMaintenanceRejects(carVin, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
+function verifyPeriodicMaintenanceRejects(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
   var url = "/periodic-maintenance";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "carVin": carVin,
+    "description": description,
     "garageId": garageId,
     "intervalKm": intervalKm,
     "intervalMonths": intervalMonths,
@@ -495,8 +646,8 @@ function verifyPeriodicMaintenanceRejects(carVin, garageId, intervalKm, interval
     "tasks": tasks,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyPeriodicMaintenanceExists(pmId) {
@@ -505,7 +656,6 @@ function verifyPeriodicMaintenanceExists(pmId) {
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("PeriodicMaintenance found");
 }
-
 
 function verifyPeriodicMaintenanceDeleted(pmId) {
   var url = "/periodic-maintenance/" + pmId;
@@ -516,106 +666,142 @@ function verifyPeriodicMaintenanceDeleted(pmId) {
 
 function verifyPeriodicMaintenanceDoesNotExist(pmId) { verifyPeriodicMaintenanceDeleted(pmId); }
 
-function matchAnyPeriodicMaintenanceAdded() { return bp.EventSet("Any PeriodicMaintenance Added", function(e) { return e.name.startsWith("Done: Create PM plan"); }); }
+function matchAnyPeriodicMaintenanceAdded() {
+  return bp.EventSet("Any PeriodicMaintenance Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create PM plan");
+  });
+}
+
+function matchDeletedPeriodicMaintenance(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
+  return bp.EventSet("Delete PeriodicMaintenance", function(e) {
+      return e.name.startsWith("Done: Positive: Delete PM plan");
+  });
+}
 
 function listRepairOrders(roId) {
   var url = "/repair-orders";
-  var description = "List repair orders " + roId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List repair orders " + roId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createRepairOrder(ROUpdate, carVin, complaint, customerId, garageId, roId, status) {
+function createRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
   var url = "/repair-orders";
-  var description = "Create repair order " + roId;
+  var reqDescription = "Create repair order " + roId;
   var body = {
     "carVin": String(carVin),
     "complaint": String(complaint),
     "customerId": String(customerId),
+    "description": String(description),
     "garageId": String(garageId),
     "roId": String(roId),
     "status": String(status),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"ROUpdate": ROUpdate, "carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function getRepairOrder(roId) {
   var url = "/repair-orders/" + roId;
-  var description = "Read repair order " + roId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Read repair order " + roId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updateRepairOrder(ROUpdate, carVin, complaint, customerId, garageId, roId, status) {
+function updateRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
   var url = "/repair-orders/" + roId;
-  var description = "Update repair order " + roId;
-  var body = {
-    "ROUpdate": ROUpdate,
-};
-  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"ROUpdate": ROUpdate, "carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
-  return res;
-}
-
-function deleteRepairOrder(roId) {
-  var url = "/repair-orders/" + roId;
-  var description = "Delete repair order " + roId;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function approveRepairOrder(ROUpdate, carVin, complaint, customerId, garageId, roId, status) {
-  var url = "/repair-orders/" + roId + "/approve";
-  var description = "Approve RO (move to in-progress if allowed) " + roId;
-  var body = {};
-  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"ROUpdate": ROUpdate, "carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
-  return res;
-}
-
-function closeRepairOrder(ROUpdate, carVin, complaint, customerId, garageId, roId, status) {
-  var url = "/repair-orders/" + roId + "/close";
-  var description = "Close RO (sets status=closed) " + roId;
-  var body = {};
-  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"ROUpdate": ROUpdate, "carVin": carVin, "complaint": complaint, "customerId": customerId, "garageId": garageId, "roId": roId, "status": status}) });
-  return res;
-}
-
-function tryToAddExistingRepairOrders(ROUpdate, carVin, complaint, customerId, garageId, roId, status) {
-  var url = "/repair-orders";
-  var description = "Try Add Existing RepairOrders " + roId;
+  var reqDescription = "Update repair order " + roId;
   var body = {
     "carVin": String(carVin),
     "complaint": String(complaint),
     "customerId": String(customerId),
+    "description": String(description),
+    "garageId": String(garageId),
+    "status": String(status),
+};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
+}
+
+function deleteRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
+  var url = "/repair-orders/" + roId;
+  var reqDescription = "Delete repair order " + roId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+}
+
+function approveRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
+  var url = "/repair-orders/" + roId + "/approve";
+  var reqDescription = "Approve RO (move to in-progress if allowed) " + roId;
+  var body = {};
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
+}
+
+function closeRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
+  var url = "/repair-orders/" + roId + "/close";
+  var reqDescription = "Close RO (sets status=closed) " + roId;
+  var body = {};
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
+}
+
+function tryToAddExistingRepairOrders(carVin, complaint, customerId, description, garageId, roId, status) {
+  var url = "/repair-orders";
+  var reqDescription = "Try Add Existing RepairOrders " + roId;
+  var body = {
+    "carVin": String(carVin),
+    "complaint": String(complaint),
+    "customerId": String(customerId),
+    "description": String(description),
     "garageId": String(garageId),
     "roId": String(roId),
     "status": String(status),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyRepairOrdersRejects(ROUpdate, carVin, complaint, customerId, garageId, roId, status) {
+function verifyRepairOrdersRejects(carVin, complaint, customerId, description, garageId, roId, status) {
   var url = "/repair-orders";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
-    "ROUpdate": ROUpdate,
     "carVin": carVin,
     "complaint": complaint,
     "customerId": customerId,
+    "description": description,
     "garageId": garageId,
     "roId": roId,
     "status": status,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyRepairOrdersExists(roId) {
@@ -624,7 +810,6 @@ function verifyRepairOrdersExists(roId) {
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("RepairOrders found");
 }
-
 
 function verifyRepairOrdersDeleted(roId) {
   var url = "/repair-orders/" + roId;
@@ -635,4 +820,14 @@ function verifyRepairOrdersDeleted(roId) {
 
 function verifyRepairOrdersDoesNotExist(roId) { verifyRepairOrdersDeleted(roId); }
 
-function matchAnyRepairOrdersAdded() { return bp.EventSet("Any RepairOrders Added", function(e) { return e.name.startsWith("Done: Create repair order"); }); }
+function matchAnyRepairOrdersAdded() {
+  return bp.EventSet("Any RepairOrders Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create repair order");
+  });
+}
+
+function matchDeletedRepairOrders(carVin, complaint, customerId, description, garageId, roId, status) {
+  return bp.EventSet("Delete RepairOrders", function(e) {
+      return e.name.startsWith("Done: Positive: Delete repair order");
+  });
+}

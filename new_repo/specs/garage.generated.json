@@ -26,26 +26,31 @@
             "name",
             "hqAddress",
             "supportEmail",
-            "active"
+            "active",
+            "description"
           ],
           "bodyTemplate": {
             "chainId": "{chainId}",
             "name": "{name}",
             "hqAddress": "{hqAddress}",
             "supportEmail": "{supportEmail}",
-            "active": "{active}"
+            "active": "{active}",
+            "description": "{description}"
           },
           "paramTypes": {
             "chainId": "string",
             "name": "string",
             "hqAddress": "object",
             "supportEmail": "string",
-            "active": "boolean"
+            "active": "boolean",
+            "description": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -71,19 +76,31 @@
           "method": "PUT",
           "path": "/chains/{chainId}",
           "params": [
-            "chainId"
+            "name",
+            "hqAddress",
+            "supportEmail",
+            "active",
+            "description"
           ],
           "bodyTemplate": {
-            "chainUpdate": "{chainUpdate}"
+            "name": "{name}",
+            "hqAddress": "{hqAddress}",
+            "supportEmail": "{supportEmail}",
+            "active": "{active}",
+            "description": "{description}"
           },
           "paramTypes": {
-            "chainId": "string",
-            "chainUpdate": "object"
+            "name": "string",
+            "hqAddress": "object",
+            "supportEmail": "string",
+            "active": "boolean",
+            "description": "string"
           },
           "x-defined-response-codes": [
             200,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteChain",
@@ -130,7 +147,9 @@
             "fullName",
             "email",
             "phone",
-            "preferredGarageId"
+            "preferredGarageId",
+            "description",
+            "name"
           ],
           "bodyTemplate": {
             "customerId": "{customerId}",
@@ -138,7 +157,9 @@
             "fullName": "{fullName}",
             "email": "{email}",
             "phone": "{phone}",
-            "preferredGarageId": "{preferredGarageId}"
+            "preferredGarageId": "{preferredGarageId}",
+            "description": "{description}",
+            "name": "{name}"
           },
           "paramTypes": {
             "customerId": "string",
@@ -146,12 +167,16 @@
             "fullName": "string",
             "email": "string",
             "phone": "string",
-            "preferredGarageId": "string"
+            "preferredGarageId": "string",
+            "description": "string",
+            "name": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -177,22 +202,38 @@
           "method": "PUT",
           "path": "/customers/{customerId}",
           "params": [
-            "customerId"
+            "type",
+            "fullName",
+            "email",
+            "phone",
+            "preferredGarageId",
+            "description",
+            "name"
           ],
           "bodyTemplate": {
-            "name": "{name}",
-            "email": "{email}"
+            "type": "{type}",
+            "fullName": "{fullName}",
+            "email": "{email}",
+            "phone": "{phone}",
+            "preferredGarageId": "{preferredGarageId}",
+            "description": "{description}",
+            "name": "{name}"
           },
           "paramTypes": {
-            "customerId": "string",
-            "name": "string",
-            "email": "string"
+            "type": "string",
+            "fullName": "string",
+            "email": "string",
+            "phone": "string",
+            "preferredGarageId": "string",
+            "description": "string",
+            "name": "string"
           },
           "x-defined-response-codes": [
             200,
             400,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteCustomer",
@@ -241,7 +282,10 @@
             "phone",
             "bayCount",
             "servicesOffered",
-            "active"
+            "active",
+            "description",
+            "capacity",
+            "location"
           ],
           "bodyTemplate": {
             "garageId": "{garageId}",
@@ -251,7 +295,10 @@
             "phone": "{phone}",
             "bayCount": "{bayCount}",
             "servicesOffered": "{servicesOffered}",
-            "active": "{active}"
+            "active": "{active}",
+            "description": "{description}",
+            "capacity": "{capacity}",
+            "location": "{location}"
           },
           "paramTypes": {
             "garageId": "string",
@@ -261,12 +308,17 @@
             "phone": "string",
             "bayCount": "integer",
             "servicesOffered": "array",
-            "active": "boolean"
+            "active": "boolean",
+            "description": "string",
+            "capacity": "integer",
+            "location": "object"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -292,20 +344,47 @@
           "method": "PUT",
           "path": "/garages/{garageId}",
           "params": [
-            "garageId"
+            "chainId",
+            "name",
+            "address",
+            "phone",
+            "bayCount",
+            "servicesOffered",
+            "active",
+            "description",
+            "capacity",
+            "location"
           ],
           "bodyTemplate": {
-            "garageUpdate": "{garageUpdate}"
+            "chainId": "{chainId}",
+            "name": "{name}",
+            "address": "{address}",
+            "phone": "{phone}",
+            "bayCount": "{bayCount}",
+            "servicesOffered": "{servicesOffered}",
+            "active": "{active}",
+            "description": "{description}",
+            "capacity": "{capacity}",
+            "location": "{location}"
           },
           "paramTypes": {
-            "garageId": "string",
-            "garageUpdate": "object"
+            "chainId": "string",
+            "name": "string",
+            "address": "object",
+            "phone": "string",
+            "bayCount": "integer",
+            "servicesOffered": "array",
+            "active": "boolean",
+            "description": "string",
+            "capacity": "integer",
+            "location": "object"
           },
           "x-defined-response-codes": [
             200,
             400,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteGarage",
@@ -353,7 +432,10 @@
             "year",
             "mileage",
             "ownerCustomerId",
-            "homeGarageId"
+            "homeGarageId",
+            "description",
+            "color",
+            "licensePlate"
           ],
           "bodyTemplate": {
             "vin": "{vin}",
@@ -362,7 +444,10 @@
             "year": "{year}",
             "mileage": "{mileage}",
             "ownerCustomerId": "{ownerCustomerId}",
-            "homeGarageId": "{homeGarageId}"
+            "homeGarageId": "{homeGarageId}",
+            "description": "{description}",
+            "color": "{color}",
+            "licensePlate": "{licensePlate}"
           },
           "paramTypes": {
             "vin": "string",
@@ -371,12 +456,17 @@
             "year": "integer",
             "mileage": "integer",
             "ownerCustomerId": "string",
-            "homeGarageId": "string"
+            "homeGarageId": "string",
+            "description": "string",
+            "color": "string",
+            "licensePlate": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -402,24 +492,44 @@
           "method": "PUT",
           "path": "/cars/{vin}",
           "params": [
-            "vin"
+            "make",
+            "model",
+            "year",
+            "mileage",
+            "ownerCustomerId",
+            "homeGarageId",
+            "description",
+            "color",
+            "licensePlate"
           ],
           "bodyTemplate": {
             "make": "{make}",
             "model": "{model}",
-            "year": "{year}"
+            "year": "{year}",
+            "mileage": "{mileage}",
+            "ownerCustomerId": "{ownerCustomerId}",
+            "homeGarageId": "{homeGarageId}",
+            "description": "{description}",
+            "color": "{color}",
+            "licensePlate": "{licensePlate}"
           },
           "paramTypes": {
-            "vin": "string",
             "make": "string",
             "model": "string",
-            "year": "integer"
+            "year": "integer",
+            "mileage": "integer",
+            "ownerCustomerId": "string",
+            "homeGarageId": "string",
+            "description": "string",
+            "color": "string",
+            "licensePlate": "string"
           },
           "x-defined-response-codes": [
             200,
             400,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteCar",
@@ -468,7 +578,9 @@
             "intervalKm",
             "intervalMonths",
             "tasks",
-            "status"
+            "status",
+            "description",
+            "schedule"
           ],
           "bodyTemplate": {
             "pmId": "{pmId}",
@@ -478,7 +590,9 @@
             "intervalKm": "{intervalKm}",
             "intervalMonths": "{intervalMonths}",
             "tasks": "{tasks}",
-            "status": "{status}"
+            "status": "{status}",
+            "description": "{description}",
+            "schedule": "{schedule}"
           },
           "paramTypes": {
             "pmId": "string",
@@ -488,12 +602,16 @@
             "intervalKm": "integer",
             "intervalMonths": "integer",
             "tasks": "array",
-            "status": "string"
+            "status": "string",
+            "description": "string",
+            "schedule": "object"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": false
         },
         "get": {
@@ -519,22 +637,44 @@
           "method": "PUT",
           "path": "/periodic-maintenance/{pmId}",
           "params": [
-            "pmId"
+            "carVin",
+            "garageId",
+            "planType",
+            "intervalKm",
+            "intervalMonths",
+            "tasks",
+            "status",
+            "description",
+            "schedule"
           ],
           "bodyTemplate": {
-            "schedule": "{schedule}",
-            "tasks": "{tasks}"
+            "carVin": "{carVin}",
+            "garageId": "{garageId}",
+            "planType": "{planType}",
+            "intervalKm": "{intervalKm}",
+            "intervalMonths": "{intervalMonths}",
+            "tasks": "{tasks}",
+            "status": "{status}",
+            "description": "{description}",
+            "schedule": "{schedule}"
           },
           "paramTypes": {
-            "pmId": "string",
-            "schedule": "string",
-            "tasks": "array"
+            "carVin": "string",
+            "garageId": "string",
+            "planType": "string",
+            "intervalKm": "integer",
+            "intervalMonths": "integer",
+            "tasks": "array",
+            "status": "string",
+            "description": "string",
+            "schedule": "object"
           },
           "x-defined-response-codes": [
             200,
             400,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deletePMPlan",
@@ -580,7 +720,8 @@
             "customerId",
             "garageId",
             "complaint",
-            "status"
+            "status",
+            "description"
           ],
           "bodyTemplate": {
             "roId": "{roId}",
@@ -588,7 +729,8 @@
             "customerId": "{customerId}",
             "garageId": "{garageId}",
             "complaint": "{complaint}",
-            "status": "{status}"
+            "status": "{status}",
+            "description": "{description}"
           },
           "paramTypes": {
             "roId": "string",
@@ -596,12 +738,15 @@
             "customerId": "string",
             "garageId": "string",
             "complaint": "string",
-            "status": "string"
+            "status": "string",
+            "description": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -627,20 +772,35 @@
           "method": "PUT",
           "path": "/repair-orders/{roId}",
           "params": [
-            "roId"
+            "carVin",
+            "customerId",
+            "garageId",
+            "complaint",
+            "status",
+            "description"
           ],
           "bodyTemplate": {
-            "ROUpdate": "{ROUpdate}"
+            "carVin": "{carVin}",
+            "customerId": "{customerId}",
+            "garageId": "{garageId}",
+            "complaint": "{complaint}",
+            "status": "{status}",
+            "description": "{description}"
           },
           "paramTypes": {
-            "roId": "string",
-            "ROUpdate": "object"
+            "carVin": "string",
+            "customerId": "string",
+            "garageId": "string",
+            "complaint": "string",
+            "status": "string",
+            "description": "string"
           },
           "x-defined-response-codes": [
             200,
             400,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteRepairOrder",
@@ -699,11 +859,10 @@
     }
   },
   "dependencies": {
-    "Customers": [],
-    "Chains": [],
     "Garages": [
       "Chains"
     ],
+    "Customers": [],
     "Cars": [
       "Customers",
       "Garages"
@@ -716,7 +875,8 @@
       "Cars",
       "Customers",
       "Garages"
-    ]
+    ],
+    "Chains": []
   },
   "original_spec": {
     "openapi": "3.0.3",
@@ -727,7 +887,7 @@
     },
     "servers": [
       {
-        "url": "http://localhost:5000"
+        "url": "http://localhost:8000"
       }
     ],
     "paths": {
@@ -1578,6 +1738,9 @@
             "active": {
               "type": "boolean"
             },
+            "description": {
+              "type": "string"
+            },
             "createdAt": {
               "type": "string",
               "format": "date-time"
@@ -1613,6 +1776,9 @@
             },
             "active": {
               "type": "boolean"
+            },
+            "description": {
+              "type": "string"
             }
           },
           "required": [
@@ -1635,6 +1801,9 @@
             },
             "active": {
               "type": "boolean"
+            },
+            "description": {
+              "type": "string"
             }
           },
           "additionalProperties": true
@@ -1668,6 +1837,15 @@
             },
             "active": {
               "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "location": {
+              "type": "object"
             },
             "createdAt": {
               "type": "string",
@@ -1718,6 +1896,15 @@
             },
             "active": {
               "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "location": {
+              "type": "object"
             }
           },
           "required": [
@@ -1754,6 +1941,15 @@
             },
             "active": {
               "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "integer"
+            },
+            "location": {
+              "type": "object"
             }
           },
           "additionalProperties": true
@@ -1783,6 +1979,12 @@
             "preferredGarageId": {
               "type": "string",
               "nullable": true
+            },
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
             },
             "createdAt": {
               "type": "string",
@@ -1823,6 +2025,12 @@
             },
             "preferredGarageId": {
               "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
             }
           },
           "required": [
@@ -1849,6 +2057,12 @@
               "type": "string"
             },
             "preferredGarageId": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "name": {
               "type": "string"
             }
           },
@@ -1878,6 +2092,15 @@
             "homeGarageId": {
               "type": "string",
               "nullable": true
+            },
+            "description": {
+              "type": "string"
+            },
+            "color": {
+              "type": "string"
+            },
+            "licensePlate": {
+              "type": "string"
             },
             "createdAt": {
               "type": "string",
@@ -1922,6 +2145,15 @@
             },
             "homeGarageId": {
               "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "color": {
+              "type": "string"
+            },
+            "licensePlate": {
+              "type": "string"
             }
           },
           "required": [
@@ -1952,6 +2184,15 @@
               "type": "string"
             },
             "homeGarageId": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "color": {
+              "type": "string"
+            },
+            "licensePlate": {
               "type": "string"
             }
           },
@@ -1998,6 +2239,12 @@
                 "paused",
                 "completed"
               ]
+            },
+            "description": {
+              "type": "string"
+            },
+            "schedule": {
+              "type": "object"
             },
             "createdAt": {
               "type": "string",
@@ -2048,6 +2295,12 @@
             },
             "status": {
               "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "schedule": {
+              "type": "object"
             }
           },
           "required": [
@@ -2084,6 +2337,12 @@
             },
             "status": {
               "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "schedule": {
+              "type": "object"
             }
           },
           "additionalProperties": true
@@ -2116,6 +2375,9 @@
                 "closed",
                 "canceled"
               ]
+            },
+            "description": {
+              "type": "string"
             },
             "openedAt": {
               "type": "string",
@@ -2167,6 +2429,9 @@
             },
             "status": {
               "type": "string"
+            },
+            "description": {
+              "type": "string"
             }
           },
           "required": [
@@ -2193,6 +2458,9 @@
               "type": "string"
             },
             "status": {
+              "type": "string"
+            },
+            "description": {
               "type": "string"
             }
           },

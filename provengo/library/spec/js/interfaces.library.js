@@ -6,62 +6,69 @@ var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
-function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
+function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
 function listBooks(id) {
   var url = "/books";
-  var description = "List/search books " + id;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List/search books " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createBook(id, q, title) {
   var url = "/books";
-  var description = "Create a book " + id;
+  var reqDescription = "Create a book " + id;
   var body = {
     "id": id,
     "title": String(title),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "q": q, "title": title}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "q": q, "title": title}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function getBook(id) {
   var url = "/books/" + id;
-  var description = "Get book by id";
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var reqDescription = "Get book by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function deleteBook(id) {
+function deleteBook(id, q, title) {
   var url = "/books/" + id;
-  var description = "Delete a book " + id;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+  var reqDescription = "Delete a book " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function tryToAddExistingBooks(id, q, title) {
   var url = "/books";
-  var description = "Try Add Existing Books " + id;
+  var reqDescription = "Try Add Existing Books " + id;
   var body = {
     "id": id,
     "title": String(title),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
 function verifyBooksRejects(id, q, title) {
   var url = "/books";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
     "id": id,
     "title": title,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyBooksExists(id) {
@@ -82,45 +89,58 @@ function verifyBooksDoesNotExist(id) { verifyBooksDeleted(id); }
 
 function matchAnyBooksAdded() {
   return bp.EventSet("Any Books Added", function(e) {
-      return e.name.startsWith("Done: Create a book");
+      return e.name.startsWith("Done: Positive: Create a book");
+  });
+}
+
+function matchDeletedBooks(id, q, title) {
+  return bp.EventSet("Delete Books", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a book");
   });
 }
 
 function listLoans(userId) {
   var url = "/loans";
-  var description = "List/search loans " + userId;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List/search loans " + userId;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createLoan(bookId, userId) {
   var url = "/loans";
-  var description = "Create a loan " + userId;
+  var reqDescription = "Create a loan " + userId;
   var body = {
-    "bookId": String(bookId),
-    "userId": String(userId),
+    "bookId": bookId,
+    "userId": userId,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "userId": userId}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "userId": userId}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
 function deleteLoan(bookId, userId) {
   var url = "/loans/" + userId + "/" + bookId;
-  var description = "Delete a loan by composite id " + userId;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+  var reqDescription = "Delete a loan by composite id " + userId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function verifyLoansRejects(bookId, userId) {
   var url = "/loans";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "bookId": bookId,
     "userId": userId,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyLoansExists(bookId, userId) {
@@ -157,46 +177,59 @@ function verifyLoansDoesNotExist(bookId, userId) { verifyLoansDeleted(bookId, us
 
 function matchAnyLoansAdded() {
   return bp.EventSet("Any Loans Added", function(e) {
-      return e.name.startsWith("Done: Create a loan");
+      return e.name.startsWith("Done: Positive: Create a loan");
+  });
+}
+
+function matchDeletedLoans(bookId, userId) {
+  return bp.EventSet("Delete Loans", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a loan by composite id");
   });
 }
 
 function listUsers(id) {
   var url = "/users";
-  var description = "List/search users " + id;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List/search users " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createUser(id, name, q) {
   var url = "/users";
-  var description = "Create a user " + id;
+  var reqDescription = "Create a user " + id;
   var body = {
     "id": id,
     "name": String(name),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name, "q": q}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name, "q": q}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
-function deleteUser(id) {
+function deleteUser(id, name, q) {
   var url = "/users/" + id;
-  var description = "Delete a user " + id;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+  var reqDescription = "Delete a user " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function verifyUsersRejects(id, name, q) {
   var url = "/users";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
     "id": id,
     "name": name,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyUsersExists(id, name, q) {
@@ -233,39 +266,52 @@ function verifyUsersDoesNotExist(id, name, q) { verifyUsersDeleted(id, name, q);
 
 function matchAnyUsersAdded() {
   return bp.EventSet("Any Users Added", function(e) {
-      return e.name.startsWith("Done: Create a user");
+      return e.name.startsWith("Done: Positive: Create a user");
+  });
+}
+
+function matchDeletedUsers(id, name, q) {
+  return bp.EventSet("Delete Users", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a user");
   });
 }
 
 function listHolds(id) {
   var url = "/holds";
-  var description = "List holds " + id;
-  return svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List holds " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createHold(bookId, id, userId) {
   var url = "/holds";
-  var description = "Create a hold " + id;
+  var reqDescription = "Create a hold " + id;
   var body = {
-    "bookId": String(bookId),
+    "bookId": bookId,
     "id": id,
-    "userId": String(userId),
+    "userId": userId,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"bookId": bookId, "id": id, "userId": userId}) });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "id": id, "userId": userId}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
   return res;
 }
 
-function deleteHold(id) {
+function deleteHold(bookId, id, userId) {
   var url = "/holds/" + id;
-  var description = "Delete a hold " + id;
-  return svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+  var reqDescription = "Delete a hold " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function verifyHoldsRejects(bookId, id, userId) {
   var url = "/holds";
-  var description = "Negative Test: Verify Rejection for " + url;
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
     "bookId": bookId,
@@ -273,8 +319,8 @@ function verifyHoldsRejects(bookId, id, userId) {
     "userId": userId,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description) });
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyHoldsExists(bookId, id, userId) {
@@ -311,6 +357,12 @@ function verifyHoldsDoesNotExist(bookId, id, userId) { verifyHoldsDeleted(bookId
 
 function matchAnyHoldsAdded() {
   return bp.EventSet("Any Holds Added", function(e) {
-      return e.name.startsWith("Done: Create a hold");
+      return e.name.startsWith("Done: Positive: Create a hold");
+  });
+}
+
+function matchDeletedHolds(bookId, id, userId) {
+  return bp.EventSet("Delete Holds", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a hold");
   });
 }

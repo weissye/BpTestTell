@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000"
+      "url": "http://localhost:8000"
     }
   ],
   "paths": {
@@ -858,6 +858,9 @@
           "active": {
             "type": "boolean"
           },
+          "description": {
+            "type": "string"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -893,6 +896,9 @@
           },
           "active": {
             "type": "boolean"
+          },
+          "description": {
+            "type": "string"
           }
         },
         "required": [
@@ -915,6 +921,9 @@
           },
           "active": {
             "type": "boolean"
+          },
+          "description": {
+            "type": "string"
           }
         },
         "additionalProperties": true
@@ -948,6 +957,15 @@
           },
           "active": {
             "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer"
+          },
+          "location": {
+            "type": "object"
           },
           "createdAt": {
             "type": "string",
@@ -998,6 +1016,15 @@
           },
           "active": {
             "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer"
+          },
+          "location": {
+            "type": "object"
           }
         },
         "required": [
@@ -1034,6 +1061,15 @@
           },
           "active": {
             "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer"
+          },
+          "location": {
+            "type": "object"
           }
         },
         "additionalProperties": true
@@ -1063,6 +1099,12 @@
           "preferredGarageId": {
             "type": "string",
             "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1103,6 +1145,12 @@
           },
           "preferredGarageId": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
           }
         },
         "required": [
@@ -1129,6 +1177,12 @@
             "type": "string"
           },
           "preferredGarageId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
             "type": "string"
           }
         },
@@ -1158,6 +1212,15 @@
           "homeGarageId": {
             "type": "string",
             "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "licensePlate": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -1202,6 +1265,15 @@
           },
           "homeGarageId": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "licensePlate": {
+            "type": "string"
           }
         },
         "required": [
@@ -1232,6 +1304,15 @@
             "type": "string"
           },
           "homeGarageId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "licensePlate": {
             "type": "string"
           }
         },
@@ -1278,6 +1359,12 @@
               "paused",
               "completed"
             ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "object"
           },
           "createdAt": {
             "type": "string",
@@ -1328,6 +1415,12 @@
           },
           "status": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "object"
           }
         },
         "required": [
@@ -1364,6 +1457,12 @@
           },
           "status": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "object"
           }
         },
         "additionalProperties": true
@@ -1396,6 +1495,9 @@
               "closed",
               "canceled"
             ]
+          },
+          "description": {
+            "type": "string"
           },
           "openedAt": {
             "type": "string",
@@ -1447,6 +1549,9 @@
           },
           "status": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
           }
         },
         "required": [
@@ -1473,6 +1578,9 @@
             "type": "string"
           },
           "status": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         },

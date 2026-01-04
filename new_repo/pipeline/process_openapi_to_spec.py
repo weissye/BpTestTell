@@ -249,45 +249,21 @@ def patch_extract_all_types_from_schema(entities: Dict[str, Any], raw_spec: Dict
             properties = _resolve_schema_properties(schema, raw_spec)
             
             if "paramTypes" not in add_op: add_op["paramTypes"] = {}
+            if "paramFormats" not in add_op: add_op["paramFormats"] = {} # NEW: Capture Formats
             if "params" not in add_op: add_op["params"] = []
             if "bodyTemplate" not in add_op: add_op["bodyTemplate"] = {}
 
             for prop_name, prop_def in properties.items():
                 raw_type = prop_def.get("type", "string")
+                raw_format = prop_def.get("format", None)
                 if raw_type == "number": raw_type = "integer" 
                 
                 add_op["paramTypes"][prop_name] = raw_type
+                if raw_format: add_op["paramFormats"][prop_name] = raw_format
                 
                 if prop_name != "id" and prop_name not in add_op["params"]:
                     add_op["params"].append(prop_name)
                     add_op["bodyTemplate"][prop_name] = f"{{{prop_name}}}"
-
-            for p in list(add_op["paramTypes"].keys()):
-                if p.lower().endswith("id") and p.lower() != "id":
-                     add_op["paramTypes"][p] = "string"
-
-def patch_heuristic_type_inference(entities: Dict[str, Any]):
-    print("   > 🧠 Applying Heuristic Type Inference (Safe Mode)...")
-    object_hints = ["schedule", "address", "meta", "config", "settings", "location", "properties", "payload", "data"]
-    array_hints = ["list", "tags", "roles", "permissions", "tasks", "services"]
-    
-    for ent in entities.values():
-        ops = ent.get("operations", {})
-        for op in ops.values():
-            param_types = op.setdefault("paramTypes", {})
-            params = op.get("params", [])
-            
-            for p in params:
-                if p in param_types and param_types[p] not in ["string", "unknown"]:
-                    continue
-
-                p_lower = p.lower()
-                if any(h in p_lower for h in object_hints):
-                    param_types[p] = "object"
-                elif any(h in p_lower for h in array_hints):
-                    param_types[p] = "array"
-                elif p not in param_types:
-                    param_types[p] = "string"
 
 def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
     print("   > 🛡️  Enforcing required fields from OpenAPI schema...")
@@ -316,13 +292,17 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
                 if field not in add_op.get("params", []):
                     add_op.setdefault("params", []).append(field)
                     field_type = "string"
+                    field_format = None
                     if field in properties:
                         prop_type = properties[field].get("type")
+                        prop_format = properties[field].get("format")
                         if prop_type == "integer" or prop_type == "number": field_type = "integer"
                         elif prop_type == "boolean": field_type = "boolean"
                         elif prop_type == "array": field_type = "array"
+                        if prop_format: field_format = prop_format
                     
                     add_op.setdefault("paramTypes", {})[field] = field_type
+                    if field_format: add_op.setdefault("paramFormats", {})[field] = field_format
                     add_op.setdefault("bodyTemplate", {})[field] = f"{{{field}}}"
 
 def patch_link_orphaned_operations(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
@@ -410,40 +390,6 @@ def patch_simplify_primary_operations(entities: Dict[str, Any], raw_spec: Dict[s
                              break
                 if best_match:
                     ops[op_type] = best_match
-
-def patch_augment_creation_params(entities: Dict[str, Any]):
-    print("   > 🆔 Optimizing entity configuration...")
-    
-    system_entity_keywords = [
-        "activity", "log", "revision", "version", 
-        "file", "operation", "folder", "permission", "role", "preset", 
-        "relation", "comment", "field", "item"
-    ]
-    
-    for ent_name, ent_data in entities.items():
-        ops = ent_data.get("operations", {})
-        add_op = ops.get("add")
-        if not add_op: continue
-        
-        params = add_op.get("params", [])
-        if "id" in params:
-            has_specific = any(p.lower().endswith("id") and p != "id" for p in params)
-            if has_specific or ent_name in ["Chains", "Garages", "Customers", "Cars", "RepairOrders", "PeriodicMaintenance"]:
-                params.remove("id")
-                if "id" in add_op.get("paramTypes", {}):
-                    del add_op["paramTypes"]["id"]
-
-        if any(kw in ent_name.lower() for kw in system_entity_keywords):
-             add_op["x-generate-full-story"] = False
-
-        singular_name = ent_name.rstrip("s").lower()
-        if singular_name in params and singular_name != "id":
-             add_op["params"].remove(singular_name)
-             if add_op.get("bodyTemplate") is None: add_op["bodyTemplate"] = {}
-             add_op["bodyTemplate"][singular_name] = "{id}"
-             
-        if ent_name == "Webhooks" and "idWebhook" in params:
-             add_op["params"].remove("idWebhook")
 
 def patch_augment_response_codes(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
     print("   > 🔍 Extracting valid response codes...")
@@ -563,11 +509,6 @@ def patch_enforce_schema_parameters(entities: Dict[str, Any], raw_spec: Dict[str
                             op_data["params"].append(prop_name)
                         op_data["bodyTemplate"][prop_name] = f"{{{prop_name}}}"
 
-                # 3. ID Safety
-                for p in list(op_data["paramTypes"].keys()):
-                    if p.lower().endswith("id") and p.lower() != "id":
-                         op_data["paramTypes"][p] = "string"
-
 def map_dependencies(entities: Dict[str, Any]) -> Dict[str, List[str]]:
     print("   > 🔗 Mapping global dependencies (LLM)...")
     summary = {}
@@ -624,18 +565,17 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
 
     # 2. Patching Phase
     patch_extract_all_types_from_schema(all_entities, raw_spec)
-    patch_heuristic_type_inference(all_entities)
+    
+    # REMOVED: patch_heuristic_type_inference(all_entities)
     
     patch_ensure_required_fields(all_entities, raw_spec) 
     patch_link_orphaned_operations(all_entities, raw_spec)
     patch_simplify_primary_operations(all_entities, raw_spec)
-    patch_augment_creation_params(all_entities) 
+    
+    # REMOVED: patch_augment_creation_params(all_entities)
+    
     patch_augment_response_codes(all_entities, raw_spec)
-    
-    # 4. FIX 1: Verify methods (Kills 405)
     patch_verify_methods(all_entities, raw_spec)
-    
-    # 5. FIX 2: Enforce Schema WITH SAFETY NET (Kills 400 + Fixes Back Compat)
     patch_enforce_schema_parameters(all_entities, raw_spec) 
     
     dependencies = map_dependencies(all_entities)

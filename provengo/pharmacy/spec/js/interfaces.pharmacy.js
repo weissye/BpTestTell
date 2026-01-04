@@ -1,142 +1,192 @@
 //@provengo summon rest
 // === Auto-generated interfaces for pharmacy ===
-var host = (typeof host !== 'undefined') ? host : 'localhost';
+var host = (typeof host !== 'undefined') ? host : '192.168.225.40';
 var port = (typeof port !== 'undefined') ? port : 5000;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
-const pvg = {
-  success: function(msg) { bp.log.info(msg); },
-  fail: function(msg) { bp.log.error(msg); throw new Error(msg); }
-};
+const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
-function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
+function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listDrugs(id, name) {
+function listDrugs(id) {
   var url = "/drugs";
-  var description = "List drugs " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List drugs " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createDrug(id, name) {
   var url = "/drugs";
-  var description = "Create drug " + id;
+  var reqDescription = "Create drug " + id;
   var body = {
     "id": String(id),
     "name": String(name),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
-function getDrug(id, name) {
+function getDrug(id) {
   var url = "/drugs/" + id;
-  var description = "Get drug " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "Get drug " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function updateDrug(id, name) {
   var url = "/drugs/" + id;
-  var description = "Update drug " + id;
-  var body = undefined;
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
+  var reqDescription = "Update drug " + id;
+  var body = {
+    "name": String(name),
+};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
 function deleteDrug(id, name) {
   var url = "/drugs/" + id;
-  var description = "Delete drug (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+  var reqDescription = "Delete drug (idempotent)";
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function tryToAddExistingDrugs(id, name) {
   var url = "/drugs";
-  var description = "Try Add Existing Drugs " + id;
+  var reqDescription = "Try Add Existing Drugs " + id;
   var body = {
     "id": String(id),
     "name": String(name),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
+  return res;
 }
 
-function verifyDrugsExists(id, name) {
+function verifyDrugsRejects(id, name) {
+  var url = "/drugs";
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "id": id,
+    "name": name,
+};
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyDrugsExists(id) {
   var url = "/drugs/" + id;
   var description = "Verify Drugs " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Drugs found");
 }
 
-function verifyDrugsDoesNotExist(id, name) {
+function verifyDrugsDeleted(id) {
   var url = "/drugs/" + id;
-  var description = "Verify Drugs " + id + " does not exist";
+  var description = "Verify Drugs " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Drugs not found");
+  pvg.success("Drugs correctly deleted (404)");
 }
 
-function tryToDeleteANonExistingDrugs(id, name) {
-  var url = "/drugs/" + id;
-  var description = "Verify negative delete for Drugs";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
+function verifyDrugsDoesNotExist(id) { verifyDrugsDeleted(id); }
+
+function matchAnyDrugsAdded() {
+  return bp.EventSet("Any Drugs Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create drug");
+  });
 }
 
 function matchDeletedDrugs(id, name) {
   return bp.EventSet("Delete Drugs", function(e) {
-      return e.name === "Done: " + "Delete drug (idempotent)";
-  });
-}
-
-function waitForDrugsAdded(id, name) {
-  waitFor(matchSuccess("Create drug"));
-}
-
-function matchAnyDrugsAdded() {
-  return bp.EventSet("Any Drugs Added", function(e) {
-      return e.name.startsWith("Done: Create drug");
+      return e.name.startsWith("Done: Positive: Delete drug (idempotent)");
   });
 }
 
 function listOrders(id) {
   var url = "/orders";
-  var description = "List orders " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List orders " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createOrder(id) {
   var url = "/orders";
-  var description = "Create order " + id;
+  var reqDescription = "Create order " + id;
   var body = {
     "id": String(id),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
 function getOrder(id) {
   var url = "/orders/" + id;
-  var description = "Get order " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "Get order " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function updateOrder(id) {
   var url = "/orders/" + id;
-  var description = "Update order " + id;
-  var body = undefined;
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  var reqDescription = "Update order " + id;
+  var body = {};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
 function deleteOrder(id) {
   var url = "/orders/" + id;
-  var description = "Delete order " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+  var reqDescription = "Delete order " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function tryToAddExistingOrders(id) {
   var url = "/orders";
-  var description = "Try Add Existing Orders " + id;
+  var reqDescription = "Try Add Existing Orders " + id;
   var body = {
     "id": String(id),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
+  return res;
+}
+
+function verifyOrdersRejects(id) {
+  var url = "/orders";
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "id": id,
+};
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyOrdersExists(id) {
@@ -146,244 +196,307 @@ function verifyOrdersExists(id) {
   pvg.success("Orders found");
 }
 
-function verifyOrdersDoesNotExist(id) {
+function verifyOrdersDeleted(id) {
   var url = "/orders/" + id;
-  var description = "Verify Orders " + id + " does not exist";
+  var description = "Verify Orders " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Orders not found");
+  pvg.success("Orders correctly deleted (404)");
 }
 
-function tryToDeleteANonExistingOrders(id) {
-  var url = "/orders/" + id;
-  var description = "Verify negative delete for Orders";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
+function verifyOrdersDoesNotExist(id) { verifyOrdersDeleted(id); }
+
+function matchAnyOrdersAdded() {
+  return bp.EventSet("Any Orders Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create order");
+  });
 }
 
 function matchDeletedOrders(id) {
   return bp.EventSet("Delete Orders", function(e) {
-      return e.name === "Done: " + "Delete order";
+      return e.name.startsWith("Done: Positive: Delete order");
   });
 }
 
-function waitForOrdersAdded(id) {
-  waitFor(matchSuccess("Create order"));
-}
-
-function matchAnyOrdersAdded() {
-  return bp.EventSet("Any Orders Added", function(e) {
-      return e.name.startsWith("Done: Create order");
-  });
-}
-
-function listPatients(id, name) {
+function listPatients(id) {
   var url = "/patients";
-  var description = "List patients " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List patients " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createPatient(id, name) {
   var url = "/patients";
-  var description = "Create patient " + id;
+  var reqDescription = "Create patient " + id;
   var body = {
     "id": String(id),
     "name": String(name),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
-function getPatient(id, name) {
+function getPatient(id) {
   var url = "/patients/" + id;
-  var description = "Get patient " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "Get patient " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function updatePatient(id, name) {
   var url = "/patients/" + id;
-  var description = "Update patient " + id;
-  var body = undefined;
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "name": name}) });
+  var reqDescription = "Update patient " + id;
+  var body = {
+    "name": String(name),
+};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
 function deletePatient(id, name) {
   var url = "/patients/" + id;
-  var description = "Delete patient (idempotent)";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+  var reqDescription = "Delete patient (idempotent)";
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function tryToAddExistingPatients(id, name) {
   var url = "/patients";
-  var description = "Try Add Existing Patients " + id;
+  var reqDescription = "Try Add Existing Patients " + id;
   var body = {
     "id": String(id),
     "name": String(name),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
+  return res;
 }
 
-function verifyPatientsExists(id, name) {
+function verifyPatientsRejects(id, name) {
+  var url = "/patients";
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "id": id,
+    "name": name,
+};
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyPatientsExists(id) {
   var url = "/patients/" + id;
   var description = "Verify Patients " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Patients found");
 }
 
-function verifyPatientsDoesNotExist(id, name) {
+function verifyPatientsDeleted(id) {
   var url = "/patients/" + id;
-  var description = "Verify Patients " + id + " does not exist";
+  var description = "Verify Patients " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Patients not found");
+  pvg.success("Patients correctly deleted (404)");
 }
 
-function tryToDeleteANonExistingPatients(id, name) {
-  var url = "/patients/" + id;
-  var description = "Verify negative delete for Patients";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
+function verifyPatientsDoesNotExist(id) { verifyPatientsDeleted(id); }
+
+function matchAnyPatientsAdded() {
+  return bp.EventSet("Any Patients Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create patient");
+  });
 }
 
 function matchDeletedPatients(id, name) {
   return bp.EventSet("Delete Patients", function(e) {
-      return e.name === "Done: " + "Delete patient (idempotent)";
+      return e.name.startsWith("Done: Positive: Delete patient (idempotent)");
   });
 }
 
-function waitForPatientsAdded(id, name) {
-  waitFor(matchSuccess("Create patient"));
-}
-
-function matchAnyPatientsAdded() {
-  return bp.EventSet("Any Patients Added", function(e) {
-      return e.name.startsWith("Done: Create patient");
-  });
-}
-
-function listInventory(id, ndc) {
+function listInventory(ndc) {
   var url = "/inventory";
-  var description = "List inventory " + ndc;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List inventory " + ndc;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function createInventory(id, ndc) {
+function createInventory(ndc) {
   var url = "/inventory";
-  var description = "Create inventory " + ndc;
+  var reqDescription = "Create inventory " + ndc;
   var body = {
-    "id": String(id),
     "ndc": String(ndc),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "ndc": ndc}) });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"ndc": ndc}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
-function getInventory(id, ndc) {
+function getInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Get inventory " + ndc;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "Get inventory " + ndc;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function updateInventory(id, ndc) {
+function updateInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Update inventory " + ndc;
-  var body = undefined;
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "ndc": ndc}) });
+  var reqDescription = "Update inventory " + ndc;
+  var body = {};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"ndc": ndc}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
-function deleteInventory(id, ndc) {
+function deleteInventory(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Delete inventory " + ndc;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+  var reqDescription = "Delete inventory " + ndc;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
-function tryToAddExistingInventory(id, ndc) {
+function tryToAddExistingInventory(ndc) {
   var url = "/inventory";
-  var description = "Try Add Existing Inventory " + ndc;
+  var reqDescription = "Try Add Existing Inventory " + ndc;
   var body = {
-    "id": String(id),
     "ndc": String(ndc),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
+  return res;
 }
 
-function verifyInventoryExists(id, ndc) {
+function verifyInventoryRejects(ndc) {
+  var url = "/inventory";
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "ndc": ndc,
+};
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyInventoryExists(ndc) {
   var url = "/inventory/" + ndc;
   var description = "Verify Inventory " + ndc + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("Inventory found");
 }
 
-function verifyInventoryDoesNotExist(id, ndc) {
+function verifyInventoryDeleted(ndc) {
   var url = "/inventory/" + ndc;
-  var description = "Verify Inventory " + ndc + " does not exist";
+  var description = "Verify Inventory " + ndc + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Inventory not found");
+  pvg.success("Inventory correctly deleted (404)");
 }
 
-function tryToDeleteANonExistingInventory(id, ndc) {
-  var url = "/inventory/" + ndc;
-  var description = "Verify negative delete for Inventory";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
-}
-
-function matchDeletedInventory(id, ndc) {
-  return bp.EventSet("Delete Inventory", function(e) {
-      return e.name === "Done: " + "Delete inventory";
-  });
-}
-
-function waitForInventoryAdded(id, ndc) {
-  waitFor(matchSuccess("Create inventory"));
-}
+function verifyInventoryDoesNotExist(ndc) { verifyInventoryDeleted(ndc); }
 
 function matchAnyInventoryAdded() {
   return bp.EventSet("Any Inventory Added", function(e) {
-      return e.name.startsWith("Done: Create inventory");
+      return e.name.startsWith("Done: Positive: Create inventory");
+  });
+}
+
+function matchDeletedInventory(ndc) {
+  return bp.EventSet("Delete Inventory", function(e) {
+      return e.name.startsWith("Done: Positive: Delete inventory");
   });
 }
 
 function listPrescriptions(id) {
   var url = "/prescriptions";
-  var description = "List prescriptions " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "List prescriptions " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function createPrescription(id) {
   var url = "/prescriptions";
-  var description = "Create prescription " + id;
+  var reqDescription = "Create prescription " + id;
   var body = {
     "id": String(id),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
 function getPrescription(id) {
   var url = "/prescriptions/" + id;
-  var description = "Get prescription " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+  var reqDescription = "Get prescription " + id;
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function updatePrescription(id) {
   var url = "/prescriptions/" + id;
-  var description = "Update prescription " + id;
-  var body = undefined;
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id}) });
+  var reqDescription = "Update prescription " + id;
+  var body = {};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
+  } else {
+    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
+  }
+  return res;
 }
 
 function deletePrescription(id) {
   var url = "/prescriptions/" + id;
-  var description = "Delete prescription " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+  var reqDescription = "Delete prescription " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
 }
 
 function tryToAddExistingPrescriptions(id) {
   var url = "/prescriptions";
-  var description = "Try Add Existing Prescriptions " + id;
+  var reqDescription = "Try Add Existing Prescriptions " + id;
   var body = {
     "id": String(id),
 };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
+  return res;
+}
+
+function verifyPrescriptionsRejects(id) {
+  var url = "/prescriptions";
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "id": id,
+};
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyPrescriptionsExists(id) {
@@ -393,31 +506,23 @@ function verifyPrescriptionsExists(id) {
   pvg.success("Prescriptions found");
 }
 
-function verifyPrescriptionsDoesNotExist(id) {
+function verifyPrescriptionsDeleted(id) {
   var url = "/prescriptions/" + id;
-  var description = "Verify Prescriptions " + id + " does not exist";
+  var description = "Verify Prescriptions " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Prescriptions not found");
+  pvg.success("Prescriptions correctly deleted (404)");
 }
 
-function tryToDeleteANonExistingPrescriptions(id) {
-  var url = "/prescriptions/" + id;
-  var description = "Verify negative delete for Prescriptions";
-  svc.delete(url, { expectedResponseCodes: [200, 404, 401], parameters: { description: description } });
+function verifyPrescriptionsDoesNotExist(id) { verifyPrescriptionsDeleted(id); }
+
+function matchAnyPrescriptionsAdded() {
+  return bp.EventSet("Any Prescriptions Added", function(e) {
+      return e.name.startsWith("Done: Positive: Create prescription");
+  });
 }
 
 function matchDeletedPrescriptions(id) {
   return bp.EventSet("Delete Prescriptions", function(e) {
-      return e.name === "Done: " + "Delete prescription";
-  });
-}
-
-function waitForPrescriptionsAdded(id) {
-  waitFor(matchSuccess("Create prescription"));
-}
-
-function matchAnyPrescriptionsAdded() {
-  return bp.EventSet("Any Prescriptions Added", function(e) {
-      return e.name.startsWith("Done: Create prescription");
+      return e.name.startsWith("Done: Positive: Delete prescription");
   });
 }

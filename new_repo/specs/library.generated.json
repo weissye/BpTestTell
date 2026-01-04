@@ -35,6 +35,7 @@
             "id": "integer",
             "title": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201
           ],
@@ -112,9 +113,10 @@
             "bookId": "{bookId}"
           },
           "paramTypes": {
-            "userId": "string",
-            "bookId": "string"
+            "userId": "integer",
+            "bookId": "integer"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
@@ -176,6 +178,7 @@
             "id": "integer",
             "name": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201
           ],
@@ -231,9 +234,10 @@
           },
           "paramTypes": {
             "id": "integer",
-            "userId": "string",
-            "bookId": "string"
+            "userId": "integer",
+            "bookId": "integer"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             201
           ],
