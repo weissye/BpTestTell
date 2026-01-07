@@ -10,23 +10,23 @@
           "method": "GET",
           "path": "/activity",
           "params": [
-            "fields",
-            "limit",
-            "meta",
-            "offset",
-            "sort",
-            "filter",
-            "search"
+            "Fields",
+            "Limit",
+            "Meta",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "fields": "string",
-            "limit": "integer",
-            "meta": "string",
-            "offset": "integer",
-            "sort": "integer",
-            "filter": "string",
-            "search": "string"
+            "Fields": "string",
+            "Limit": "integer",
+            "Meta": "string",
+            "Offset": "integer",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -40,15 +40,15 @@
           "method": "GET",
           "path": "/activity/{id}",
           "params": [
-            "id",
-            "fields",
-            "meta"
+            "Id",
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string",
-            "fields": "string",
-            "meta": "string"
+            "Id": "string",
+            "Fields": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -71,7 +71,7 @@
             "transforms",
             "download"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string",
             "key": "string",
@@ -89,27 +89,28 @@
       "operations": {
         "add": {
           "name": "passwordReset",
-          "descriptionTemplate": "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password.",
+          "descriptionTemplate": "Reset a Password",
           "method": "POST",
           "path": "/auth/password/reset",
           "params": [
             "token",
-            "password",
-            "id"
+            "password"
           ],
           "bodyTemplate": {
             "token": "{token}",
-            "password": "{password}",
-            "id": "{id}"
+            "password": "{password}"
           },
           "paramTypes": {
             "token": "string",
-            "password": "string",
-            "id": "string"
+            "password": "string"
+          },
+          "paramFormats": {
+            "password": "password"
           },
           "x-defined-response-codes": [
             401
           ],
+          "queryParams": [],
           "x-generate-full-story": false
         },
         "list": {
@@ -119,10 +120,7 @@
           "path": "/auth/oauth",
           "params": [],
           "bodyTemplate": {},
-          "paramTypes": {
-            "data": "array",
-            "public": "boolean"
-          },
+          "paramTypes": {},
           "x-defined-response-codes": [
             200,
             401
@@ -140,9 +138,7 @@
           "bodyTemplate": {},
           "paramTypes": {
             "provider": "string",
-            "redirect": "string",
-            "token": "string",
-            "public": "boolean"
+            "redirect": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -159,13 +155,13 @@
           "method": "GET",
           "path": "/collections",
           "params": [
-            "offset",
-            "meta"
+            "Offset",
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "offset": "integer",
-            "meta": "string"
+            "Offset": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -179,50 +175,60 @@
           "method": "POST",
           "path": "/collections",
           "params": [
-            "meta",
+            "collection",
             "fields",
-            "id"
+            "icon",
+            "note",
+            "display_template",
+            "hidden",
+            "singleton",
+            "translation",
+            "versioning",
+            "archive_field",
+            "archive_app_filter",
+            "archive_value",
+            "unarchive_value",
+            "sort_field"
           ],
           "bodyTemplate": {
-            "archive_app_filter": "{archive_app_filter}",
-            "archive_field": "{archive_field}",
-            "archive_value": "{archive_value}",
-            "collection": "{id}",
-            "display_template": "{display_template}",
+            "collection": "{collection}",
             "fields": "{fields}",
-            "hidden": "{hidden}",
             "icon": "{icon}",
             "note": "{note}",
+            "display_template": "{display_template}",
+            "hidden": "{hidden}",
             "singleton": "{singleton}",
-            "sort_field": "{sort_field}",
             "translation": "{translation}",
-            "unarchive_value": "{unarchive_value}",
             "versioning": "{versioning}",
-            "id": "{id}"
+            "archive_field": "{archive_field}",
+            "archive_app_filter": "{archive_app_filter}",
+            "archive_value": "{archive_value}",
+            "unarchive_value": "{unarchive_value}",
+            "sort_field": "{sort_field}"
           },
           "paramTypes": {
-            "meta": "string",
-            "archive_app_filter": "string",
-            "archive_field": "string",
-            "archive_value": "string",
             "collection": "string",
-            "display_template": "string",
             "fields": "array",
-            "hidden": "boolean",
             "icon": "string",
             "note": "string",
+            "display_template": "string",
+            "hidden": "boolean",
             "singleton": "boolean",
-            "sort_field": "string",
             "translation": "string",
-            "unarchive_value": "string",
             "versioning": "boolean",
-            "id": "string"
+            "archive_field": "string",
+            "archive_app_filter": "string",
+            "archive_value": "string",
+            "unarchive_value": "string",
+            "sort_field": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "delete": {
@@ -233,13 +239,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -254,7 +257,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -270,46 +273,20 @@
           "method": "PATCH",
           "path": "/collections/{id}",
           "params": [
-            "id"
+            "meta"
           ],
           "bodyTemplate": {
-            "meta": {
-              "archive_app_filter": "{archive_app_filter}",
-              "archive_field": "{archive_field}",
-              "archive_value": "{archive_value}",
-              "color": "{color}",
-              "display_template": "{display_template}",
-              "hidden": "{hidden}",
-              "icon": "{icon}",
-              "note": "{note}",
-              "singleton": "{singleton}",
-              "sort_field": "{sort_field}",
-              "translation": "{translation}",
-              "unarchive_value": "{unarchive_value}",
-              "versioning": "{versioning}"
-            }
+            "meta": "{meta}"
           },
           "paramTypes": {
-            "id": "string",
-            "archive_app_filter": "string",
-            "archive_field": "string",
-            "archive_value": "string",
-            "color": "string",
-            "display_template": "string",
-            "hidden": "boolean",
-            "icon": "string",
-            "note": "string",
-            "singleton": "boolean",
-            "sort_field": "string",
-            "translation": "string",
-            "unarchive_value": "string",
-            "versioning": "boolean"
+            "meta": "object"
           },
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         }
       }
     },
@@ -321,25 +298,25 @@
           "method": "GET",
           "path": "/items/{collection}",
           "params": [
-            "fields",
-            "limit",
-            "meta",
-            "offset",
-            "sort",
-            "filter",
-            "search",
-            "collection"
+            "Fields",
+            "Limit",
+            "Meta",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search",
+            "Collection"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "fields": "string",
-            "limit": "integer",
-            "meta": "string",
-            "offset": "integer",
-            "sort": "integer",
-            "filter": "string",
-            "search": "string",
-            "collection": "string"
+            "Fields": "string",
+            "Limit": "string",
+            "Meta": "string",
+            "Offset": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Collection": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -352,17 +329,11 @@
           "method": "POST",
           "path": "/items/{collection}",
           "params": [
-            "meta",
-            "collection",
-            "id"
+            "Meta"
           ],
-          "bodyTemplate": {
-            "id": "{id}"
-          },
+          "bodyTemplate": {},
           "paramTypes": {
-            "meta": "string",
-            "collection": "string",
-            "id": "string"
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -370,49 +341,81 @@
           ],
           "x-generate-full-story": true
         },
-        "get": {
-          "name": "getItem",
-          "descriptionTemplate": "Retrieve a single item by unique identifier.",
-          "method": "GET",
-          "path": "/items/{collection}/{id}",
+        "update": {
+          "name": "updateItems",
+          "descriptionTemplate": "Update multiple items at the same time.",
+          "method": "PATCH",
+          "path": "/items/{collection}",
           "params": [
-            "fields",
-            "meta",
-            "version",
-            "collection",
-            "id"
+            "Fields",
+            "Limit",
+            "Meta",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "fields": "string",
-            "meta": "string",
-            "version": "string",
-            "collection": "string",
-            "id": "string"
+            "Fields": "string",
+            "Limit": "string",
+            "Meta": "string",
+            "Offset": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string"
           },
+          "x-defined-response-codes": []
+        },
+        "delete": {
+          "name": "deleteItems",
+          "descriptionTemplate": "Delete multiple existing items.",
+          "method": "DELETE",
+          "path": "/items/{collection}",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
           "x-defined-response-codes": [
             200,
-            401,
-            404
+            401
           ]
         },
-        "update": {
+        "get": {
+          "name": "getItems",
+          "descriptionTemplate": "List Items",
+          "method": "GET",
+          "path": "/items/{collection}",
+          "params": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "paramTypes": {
+            "null": "string"
+          },
+          "queryParams": [],
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
+        },
+        "updateSingle": {
           "name": "updateItem",
           "descriptionTemplate": "Update an existing item.",
           "method": "PATCH",
           "path": "/items/{collection}/{id}",
           "params": [
-            "fields",
-            "meta",
-            "collection",
-            "id"
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "fields": "string",
-            "meta": "string",
-            "collection": "string",
-            "id": "string"
+            "Fields": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -420,23 +423,20 @@
             404
           ]
         },
-        "delete": {
+        "deleteSingle": {
           "name": "deleteItem",
           "descriptionTemplate": "Delete an existing item.",
           "method": "DELETE",
           "path": "/items/{collection}/{id}",
           "params": [
-            "collection",
+            "Collection",
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "collection": "string",
+            "Collection": "string",
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -453,25 +453,25 @@
           "method": "GET",
           "path": "/presets",
           "params": [
-            "fields",
-            "limit",
-            "offset",
-            "page",
-            "sort",
-            "filter",
-            "search",
-            "meta"
+            "Fields",
+            "Limit",
+            "Offset",
+            "Page",
+            "Sort",
+            "Filter",
+            "Search",
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "fields": "string",
-            "limit": "integer",
-            "offset": "integer",
-            "page": "string",
-            "sort": "integer",
-            "filter": "string",
-            "search": "string",
-            "meta": "string"
+            "Fields": "string",
+            "Limit": "string",
+            "Offset": "string",
+            "Page": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -484,41 +484,78 @@
           "method": "POST",
           "path": "/presets",
           "params": [
-            "fields",
-            "meta",
             "collection",
             "title",
-            "id"
+            "role",
+            "search",
+            "filters",
+            "layout",
+            "layout_query",
+            "layout_options"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
-            "filters": "{filters}",
-            "layout": "{layout}",
-            "layout_options": "{layout_options}",
-            "layout_query": "{layout_query}",
+            "title": "{title}",
             "role": "{role}",
             "search": "{search}",
-            "title": "{title}",
-            "id": "{id}"
+            "filters": "{filters}",
+            "layout": "{layout}",
+            "layout_query": "{layout_query}",
+            "layout_options": "{layout_options}"
           },
           "paramTypes": {
-            "fields": "string",
-            "meta": "string",
             "collection": "string",
-            "filters": "array",
-            "layout": "string",
-            "layout_options": "string",
-            "layout_query": "string",
+            "title": "string",
             "role": "string",
             "search": "string",
-            "title": "string",
-            "id": "string"
+            "filters": "array",
+            "layout": "string",
+            "layout_query": "string",
+            "layout_options": "string"
+          },
+          "paramFormats": {},
+          "x-defined-response-codes": [
+            200,
+            401
+          ],
+          "queryParams": [],
+          "x-generate-full-story": true
+        },
+        "update": {
+          "name": "updatePresets",
+          "descriptionTemplate": "Update multiple presets at the same time.",
+          "method": "PATCH",
+          "path": "/presets",
+          "params": [
+            "keys",
+            "data"
+          ],
+          "bodyTemplate": {
+            "keys": "{keys}",
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "keys": "array",
+            "data": "object"
           },
           "x-defined-response-codes": [
             200,
             401
           ],
-          "x-generate-full-story": true
+          "queryParams": []
+        },
+        "delete": {
+          "name": "deletePresets",
+          "descriptionTemplate": "Delete multiple existing presets.",
+          "method": "DELETE",
+          "path": "/presets",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
         },
         "get": {
           "name": "getPreset",
@@ -526,72 +563,76 @@
           "method": "GET",
           "path": "/presets/{id}",
           "params": [
-            "fields",
-            "meta",
-            "id"
+            "Fields",
+            "Meta",
+            "Id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "fields": "string",
-            "meta": "string",
-            "id": "string"
+            "Fields": "string",
+            "Meta": "string",
+            "Id": "string"
           },
           "x-defined-response-codes": [
             200,
             401
           ]
         },
-        "update": {
+        "updateSingle": {
           "name": "updatePreset",
           "descriptionTemplate": "Update an existing preset.",
           "method": "PATCH",
           "path": "/presets/{id}",
           "params": [
-            "fields",
-            "meta",
-            "id"
+            "collection",
+            "title",
+            "role",
+            "search_query",
+            "filters",
+            "view_type",
+            "view_query",
+            "view_options",
+            "translation"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
-            "filters": "{filters}",
+            "title": "{title}",
             "role": "{role}",
             "search_query": "{search_query}",
-            "title": "{title}",
-            "translation": "{translation}",
-            "view_options": "{view_options}",
+            "filters": "{filters}",
+            "view_type": "{view_type}",
             "view_query": "{view_query}",
-            "view_type": "{view_type}"
+            "view_options": "{view_options}",
+            "translation": "{translation}"
           },
           "paramTypes": {
-            "fields": "string",
-            "meta": "string",
-            "id": "string",
             "collection": "string",
-            "filters": "array",
+            "title": "string",
             "role": "integer",
             "search_query": "string",
-            "title": "string",
-            "translation": "object",
-            "view_options": "string",
+            "filters": "array",
+            "view_type": "string",
             "view_query": "string",
-            "view_type": "string"
+            "view_options": "string",
+            "translation": "object"
           },
           "x-defined-response-codes": [
             200,
             401
-          ]
+          ],
+          "queryParams": []
         },
-        "delete": {
+        "deleteSingle": {
           "name": "deletePreset",
           "descriptionTemplate": "Delete an existing preset.",
           "method": "DELETE",
           "path": "/presets/{id}",
           "params": [
-            "id"
+            "Id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "Id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -610,7 +651,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -624,27 +665,9 @@
           "descriptionTemplate": "List the comments.",
           "method": "GET",
           "path": "/comments",
-          "params": [
-            "fields",
-            "limit",
-            "offset",
-            "page",
-            "sort",
-            "filter",
-            "search",
-            "meta"
-          ],
-          "bodyTemplate": null,
-          "paramTypes": {
-            "fields": "string",
-            "limit": "integer",
-            "offset": "integer",
-            "page": "integer",
-            "sort": "integer",
-            "filter": "string",
-            "search": "string",
-            "meta": "string"
-          },
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
           "x-defined-response-codes": [
             200,
             401
@@ -656,28 +679,26 @@
           "method": "PATCH",
           "path": "/comments/{id}",
           "params": [
-            "id",
-            "fields",
-            "meta"
+            "collection",
+            "item",
+            "comment"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
-            "comment": "{comment}",
-            "item": "{item}"
+            "item": "{item}",
+            "comment": "{comment}"
           },
           "paramTypes": {
-            "id": "string",
-            "fields": "string",
-            "meta": "string",
             "collection": "string",
-            "comment": "string",
-            "item": "string"
+            "item": "string",
+            "comment": "string"
           },
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "add": {
           "name": "createComment",
@@ -685,30 +706,26 @@
           "method": "POST",
           "path": "/comments",
           "params": [
-            "fields",
-            "meta",
             "collection",
             "item",
-            "id"
+            "comment"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
-            "comment": "{id}",
             "item": "{item}",
-            "id": "{id}"
+            "comment": "{comment}"
           },
           "paramTypes": {
-            "fields": "string",
-            "meta": "string",
             "collection": "string",
-            "comment": "string",
             "item": "string",
-            "id": "string"
+            "comment": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -717,15 +734,11 @@
           "method": "GET",
           "path": "/comments/{id}",
           "params": [
-            "id",
-            "fields",
-            "meta"
+            "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string",
-            "fields": "string",
-            "meta": "string"
+            "id": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -742,7 +755,7 @@
           "method": "GET",
           "path": "/extensions",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200,
@@ -750,32 +763,27 @@
           ]
         },
         "update": {
-          "name": "updateExtensionBundle",
-          "descriptionTemplate": "Update an existing extension.",
+          "name": "updateExtensions",
+          "descriptionTemplate": "Update an Extension",
           "method": "PATCH",
-          "path": "/extensions/{bundle}/{name}",
+          "path": "/extensions/{name}",
           "params": [
-            "bundle",
-            "name"
+            "name",
+            "meta"
           ],
-          "bodyTemplate": {
-            "meta": {
-              "enabled": "{enabled}"
-            }
-          },
           "paramTypes": {
-            "bundle": "string",
             "name": "string",
-            "enabled": "boolean"
+            "meta": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "queryParams": [],
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
+          ],
+          "bodyTemplate": {
+            "meta": "{meta}"
+          }
         }
       }
     },
@@ -787,15 +795,14 @@
           "method": "GET",
           "path": "/fields/{collection}",
           "params": [
-            "collection"
+            "collection",
+            "Sort"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "collection": "string"
+            "collection": "string",
+            "Sort": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -808,112 +815,44 @@
           "method": "POST",
           "path": "/fields/{collection}",
           "params": [
-            "collection",
-            "datatype",
+            "field",
             "type",
-            "length",
-            "id"
+            "schema",
+            "meta"
           ],
           "bodyTemplate": {
-            "field": "{id}",
-            "meta": {
-              "collection": "{collection}",
-              "display": "{display}",
-              "display_options": "{display_options}",
-              "field": "{field}",
-              "group": "{group}",
-              "hidden": "{hidden}",
-              "id": "{id}",
-              "locked": "{locked}",
-              "note": "{note}",
-              "options": "{options}",
-              "readonly": "{readonly}",
-              "sort": "{sort}",
-              "special": "{special}",
-              "system-interface": "{system-interface}",
-              "translation": "{translation}",
-              "width": "{width}"
-            },
-            "schema": {
-              "comment": "{comment}",
-              "default_value": "{default_value}",
-              "foreign_key_column": "{foreign_key_column}",
-              "foreign_key_schema": "{foreign_key_schema}",
-              "foreign_key_table": "{foreign_key_table}",
-              "has_auto_increment": "{has_auto_increment}",
-              "is_nullable": "{is_nullable}",
-              "is_primary_key": "{is_primary_key}",
-              "max_length": "{max_length}",
-              "name": "{name}",
-              "schema": "{schema}",
-              "table": "{table}",
-              "type": "{type}"
-            },
+            "field": "{field}",
             "type": "{type}",
-            "datatype": "{datatype}",
-            "length": "{length}",
-            "id": "{id}"
+            "schema": "{schema}",
+            "meta": "{meta}"
           },
           "paramTypes": {
-            "collection": "string",
             "field": "string",
-            "display": "string",
-            "display_options": "object",
-            "group": "integer",
-            "hidden": "boolean",
-            "id": "string",
-            "locked": "boolean",
-            "note": "string",
-            "options": "object",
-            "readonly": "boolean",
-            "sort": "integer",
-            "special": "array",
-            "system-interface": "string",
-            "translation": "object",
-            "width": "integer",
-            "comment": "string",
-            "default_value": "string",
-            "foreign_key_column": "string",
-            "foreign_key_schema": "string",
-            "foreign_key_table": "string",
-            "has_auto_increment": "boolean",
-            "is_nullable": "boolean",
-            "is_primary_key": "boolean",
-            "max_length": "integer",
-            "name": "string",
-            "schema": "string",
-            "table": "string",
             "type": "string",
-            "datatype": "string",
-            "length": "string"
+            "schema": "object",
+            "meta": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
-          "name": "getCollectionField",
-          "descriptionTemplate": "Retrieves the details of a single field in a given collection.",
+          "name": "getCollectionFields",
+          "descriptionTemplate": "List Fields in Collection",
           "method": "GET",
-          "path": "/fields/{collection}/{id}",
+          "path": "/fields/{collection}",
           "params": [
-            "collection",
-            "id"
+            null
           ],
-          "bodyTemplate": null,
           "paramTypes": {
-            "collection": "string",
-            "id": "string"
+            "null": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "queryParams": [],
           "x-defined-response-codes": [
             200,
             401,
@@ -926,85 +865,29 @@
           "method": "PATCH",
           "path": "/fields/{collection}/{id}",
           "params": [
-            "collection",
-            "id"
+            "field",
+            "type",
+            "schema",
+            "meta"
           ],
           "bodyTemplate": {
             "field": "{field}",
-            "meta": {
-              "collection": "{collection}",
-              "display": "{display}",
-              "display_options": "{display_options}",
-              "field": "{field}",
-              "group": "{group}",
-              "hidden": "{hidden}",
-              "id": "{id}",
-              "locked": "{locked}",
-              "note": "{note}",
-              "options": "{options}",
-              "readonly": "{readonly}",
-              "sort": "{sort}",
-              "special": "{special}",
-              "system-interface": "{system-interface}",
-              "translation": "{translation}",
-              "width": "{width}"
-            },
-            "schema": {
-              "comment": "{comment}",
-              "default_value": "{default_value}",
-              "foreign_key_column": "{foreign_key_column}",
-              "foreign_key_schema": "{foreign_key_schema}",
-              "foreign_key_table": "{foreign_key_table}",
-              "has_auto_increment": "{has_auto_increment}",
-              "is_nullable": "{is_nullable}",
-              "is_primary_key": "{is_primary_key}",
-              "max_length": "{max_length}",
-              "name": "{name}",
-              "schema": "{schema}",
-              "table": "{table}",
-              "type": "{type}"
-            },
-            "type": "{type}"
+            "type": "{type}",
+            "schema": "{schema}",
+            "meta": "{meta}"
           },
           "paramTypes": {
-            "collection": "string",
-            "id": "integer",
             "field": "string",
-            "display": "string",
-            "display_options": "object",
-            "group": "integer",
-            "hidden": "boolean",
-            "locked": "boolean",
-            "note": "string",
-            "options": "object",
-            "readonly": "boolean",
-            "sort": "integer",
-            "special": "array",
-            "system-interface": "string",
-            "translation": "object",
-            "width": "integer",
-            "comment": "string",
-            "default_value": "string",
-            "foreign_key_column": "string",
-            "foreign_key_schema": "string",
-            "foreign_key_table": "string",
-            "has_auto_increment": "boolean",
-            "is_nullable": "boolean",
-            "is_primary_key": "boolean",
-            "max_length": "integer",
-            "name": "string",
-            "schema": "string",
-            "table": "string",
-            "type": "string"
+            "type": "string",
+            "schema": "object",
+            "meta": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteField",
@@ -1015,14 +898,11 @@
             "collection",
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "collection": "string",
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1038,12 +918,25 @@
           "descriptionTemplate": "List the files.",
           "method": "GET",
           "path": "/files",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search",
+            "Meta"
           ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "object",
+            "Limit": "object",
+            "Offset": "object",
+            "Sort": "object",
+            "Filter": "object",
+            "Search": "object",
+            "Meta": "object"
+          },
           "x-defined-response-codes": [
             200,
             401
@@ -1055,24 +948,20 @@
           "method": "POST",
           "path": "/files",
           "params": [
-            "data",
-            "id"
+            "data"
           ],
           "bodyTemplate": {
-            "data": "{data}",
-            "id": "{id}"
+            "data": "{data}"
           },
           "paramTypes": {
-            "data": "string",
-            "id": "string"
+            "data": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "update": {
@@ -1081,29 +970,31 @@
           "method": "PATCH",
           "path": "/files/{id}",
           "params": [
-            "id"
+            "title",
+            "filename_download",
+            "description",
+            "folder",
+            "tags"
           ],
           "bodyTemplate": {
-            "description": "{description}",
+            "title": "{title}",
             "filename_download": "{filename_download}",
+            "description": "{description}",
             "folder": "{folder}",
-            "tags": [
-              "{tags}"
-            ],
-            "title": "{title}"
+            "tags": "{tags}"
           },
           "paramTypes": {
-            "id": "string",
-            "description": "string",
+            "title": "string",
             "filename_download": "string",
+            "description": "string",
             "folder": "string",
-            "tags": "array",
-            "title": "string"
+            "tags": "array"
           },
           "x-defined-response-codes": [
             200,
             401
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteFile",
@@ -1113,13 +1004,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401
@@ -1131,11 +1019,15 @@
           "method": "GET",
           "path": "/files/{id}",
           "params": [
-            "id"
+            "id",
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -1154,13 +1046,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1173,7 +1062,7 @@
           "method": "GET",
           "path": "/flows",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200,
@@ -1187,13 +1076,17 @@
           "method": "PATCH",
           "path": "/flows/{id}",
           "params": [
-            "id"
+            "id",
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {
             "data": "{data}"
           },
           "paramTypes": {
             "id": "string",
+            "Fields": "string",
+            "Meta": "string",
             "data": "object"
           },
           "x-defined-response-codes": [
@@ -1208,16 +1101,18 @@
           "method": "POST",
           "path": "/flows",
           "params": [
-            "id"
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {
-            "data": "{data}",
-            "id": "{id}"
+            "data": "{data}"
           },
           "paramTypes": {
-            "data": "object",
-            "id": "string"
+            "Fields": "string",
+            "Meta": "string",
+            "data": "object"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
@@ -1233,7 +1128,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -1255,13 +1150,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1273,9 +1165,25 @@
           "descriptionTemplate": "List the folders.",
           "method": "GET",
           "path": "/folders",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Sort",
+            "Filter",
+            "Search",
+            "Meta"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "integer",
+            "Offset": "integer",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Meta": "string"
+          },
           "x-defined-response-codes": [
             200,
             401,
@@ -1288,14 +1196,14 @@
           "method": "PATCH",
           "path": "/folders/{id}",
           "params": [
-            "id"
+            "name",
+            "parent"
           ],
           "bodyTemplate": {
             "name": "{name}",
             "parent": "{parent}"
           },
           "paramTypes": {
-            "id": "string",
             "name": "string",
             "parent": "integer"
           },
@@ -1303,7 +1211,8 @@
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "add": {
           "name": "createFolder",
@@ -1312,23 +1221,23 @@
           "path": "/folders",
           "params": [
             "name",
-            "id"
+            "parent"
           ],
           "bodyTemplate": {
             "name": "{name}",
-            "parent": "{parent}",
-            "id": "{id}"
+            "parent": "{parent}"
           },
           "paramTypes": {
             "name": "string",
-            "parent": "integer",
-            "id": "string"
+            "parent": "integer"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -1337,11 +1246,15 @@
           "method": "GET",
           "path": "/folders/{id}",
           "params": [
-            "id"
+            "id",
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -1353,22 +1266,55 @@
     },
     "Operations": {
       "operations": {
+        "delete": {
+          "name": "deleteOperations",
+          "descriptionTemplate": "Delete multiple existing operations.",
+          "method": "DELETE",
+          "path": "/operations",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
+        },
         "list": {
           "name": "getOperations",
           "descriptionTemplate": "Get all operations.",
           "method": "GET",
           "path": "/operations",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
+        },
+        "update": {
+          "name": "updateOperations",
+          "descriptionTemplate": "Update multiple operations at the same time.",
+          "method": "PATCH",
+          "path": "/operations",
+          "params": [
+            "data",
+            "keys"
+          ],
+          "bodyTemplate": {
+            "data": "{data}",
+            "keys": "{keys}"
+          },
+          "paramTypes": {
+            "data": "string",
+            "keys": "array"
+          },
+          "x-defined-response-codes": [
+            200,
+            401
+          ],
+          "queryParams": []
         },
         "add": {
           "name": "createOperation",
@@ -1376,17 +1322,17 @@
           "method": "POST",
           "path": "/operations",
           "params": [
-            "id"
+            "Fields",
+            "Meta"
           ],
           "bodyTemplate": {
-            "id": "{id}"
+            "data": "{data}"
           },
           "paramTypes": {
-            "id": "string"
+            "Fields": "string",
+            "Meta": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
@@ -1394,53 +1340,22 @@
           ],
           "x-generate-full-story": true
         },
-        "update": {
-          "name": "updateOperations",
-          "descriptionTemplate": "Update multiple operations at the same time.",
-          "method": "PATCH",
-          "path": "/operations",
-          "params": [],
-          "bodyTemplate": {
-            "data": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/Operations"
-                }
-              ]
-            },
-            "keys": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "paramTypes": {
-            "data": "object",
-            "keys": "array"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
-          "x-defined-response-codes": [
-            200,
-            401
-          ]
-        },
-        "delete": {
-          "name": "deleteOperations",
-          "descriptionTemplate": "Delete multiple existing operations.",
+        "deleteItem": {
+          "name": "deleteOperation",
+          "descriptionTemplate": "Delete an existing operation",
           "method": "DELETE",
-          "path": "/operations",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
+          "path": "/operations/{id}",
+          "params": [
+            "UUId"
           ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "UUId": "string"
+          },
           "x-defined-response-codes": [
             200,
-            401
+            401,
+            404
           ]
         },
         "get": {
@@ -1449,57 +1364,34 @@
           "method": "GET",
           "path": "/operations/{id}",
           "params": [
-            "id"
+            "UUId"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "UUId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
         },
-        "updateSingle": {
+        "updateItem": {
           "name": "updateOperation",
           "descriptionTemplate": "Update an existing operation",
           "method": "PATCH",
           "path": "/operations/{id}",
           "params": [
-            "id"
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string"
+          "bodyTemplate": {
+            "data": "{data}"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
-        "deleteSingle": {
-          "name": "deleteOperation",
-          "descriptionTemplate": "Delete an existing operation",
-          "method": "DELETE",
-          "path": "/operations/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": null,
           "paramTypes": {
-            "id": "string"
+            "Fields": "string",
+            "Meta": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1510,22 +1402,73 @@
     },
     "Permissions": {
       "operations": {
+        "delete": {
+          "name": "deletePermissions",
+          "descriptionTemplate": "Delete multiple existing permissions.",
+          "method": "DELETE",
+          "path": "/permissions",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
+        },
         "list": {
           "name": "getPermissions",
           "descriptionTemplate": "List all permissions.",
           "method": "GET",
           "path": "/permissions",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search",
+            "Page"
           ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "string",
+            "Limit": "string",
+            "Offset": "string",
+            "Meta": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Page": "string"
+          },
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
+        },
+        "update": {
+          "name": "updatePermissions",
+          "descriptionTemplate": "Update multiple permissions at the same time.",
+          "method": "PATCH",
+          "path": "/permissions",
+          "params": [
+            "keys",
+            "data"
+          ],
+          "bodyTemplate": {
+            "keys": "{keys}",
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "keys": "array",
+            "data": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            401
+          ],
+          "queryParams": []
         },
         "add": {
           "name": "createPermission",
@@ -1533,7 +1476,18 @@
           "method": "POST",
           "path": "/permissions",
           "params": [
-            "id"
+            "collection",
+            "comment",
+            "create",
+            "delete",
+            "explain",
+            "read",
+            "role",
+            "read_field_blacklist",
+            "status",
+            "status_blacklist",
+            "update",
+            "write_field_blacklist"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
@@ -1542,13 +1496,12 @@
             "delete": "{delete}",
             "explain": "{explain}",
             "read": "{read}",
-            "read_field_blacklist": "{read_field_blacklist}",
             "role": "{role}",
+            "read_field_blacklist": "{read_field_blacklist}",
             "status": "{status}",
             "status_blacklist": "{status_blacklist}",
             "update": "{update}",
-            "write_field_blacklist": "{write_field_blacklist}",
-            "id": "{id}"
+            "write_field_blacklist": "{write_field_blacklist}"
           },
           "paramTypes": {
             "collection": "string",
@@ -1557,84 +1510,52 @@
             "delete": "string",
             "explain": "string",
             "read": "string",
-            "read_field_blacklist": "array",
             "role": "integer",
+            "read_field_blacklist": "array",
             "status": "string",
             "status_blacklist": "array",
             "update": "string",
-            "write_field_blacklist": "array",
-            "id": "string"
+            "write_field_blacklist": "array"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
-        "update": {
-          "name": "updatePermissions",
-          "descriptionTemplate": "Update multiple permissions at the same time.",
-          "method": "PATCH",
-          "path": "/permissions",
+        "listMy": {
+          "name": "getMyPermissions",
+          "descriptionTemplate": "List the permissions that apply to the current user.",
+          "method": "GET",
+          "path": "/permissions/me",
           "params": [],
-          "bodyTemplate": {
-            "data": {
-              "collection": "{collection}",
-              "comment": "{comment}",
-              "create": "{create}",
-              "delete": "{delete}",
-              "explain": "{explain}",
-              "read": "{read}",
-              "read_field_blacklist": "{read_field_blacklist}",
-              "role": "{role}",
-              "status": "{status}",
-              "status_blacklist": "{status_blacklist}",
-              "update": "{update}",
-              "write_field_blacklist": "{write_field_blacklist}"
-            },
-            "keys": "{keys}"
-          },
-          "paramTypes": {
-            "collection": "string",
-            "comment": "string",
-            "create": "string",
-            "delete": "string",
-            "explain": "string",
-            "read": "string",
-            "read_field_blacklist": "array",
-            "role": "integer",
-            "status": "string",
-            "status_blacklist": "array",
-            "update": "string",
-            "write_field_blacklist": "array",
-            "keys": "array"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "bodyTemplate": {},
+          "paramTypes": {},
           "x-defined-response-codes": [
             200,
-            401
+            401,
+            404
           ]
         },
-        "delete": {
-          "name": "deletePermissions",
-          "descriptionTemplate": "Delete multiple existing permissions.",
+        "deleteItem": {
+          "name": "deletePermission",
+          "descriptionTemplate": "Delete an existing permission",
           "method": "DELETE",
-          "path": "/permissions",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
+          "path": "/permissions/{id}",
+          "params": [
+            "Id"
           ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Id": "string"
+          },
           "x-defined-response-codes": [
             200,
-            401
+            401,
+            404
           ]
         },
         "get": {
@@ -1643,28 +1564,40 @@
           "method": "GET",
           "path": "/permissions/{id}",
           "params": [
-            "id"
+            "Fields",
+            "Meta",
+            "Id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "Fields": "string",
+            "Meta": "string",
+            "Id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
         },
-        "updateSingle": {
+        "updateItem": {
           "name": "updatePermission",
           "descriptionTemplate": "Update an existing permission",
           "method": "PATCH",
           "path": "/permissions/{id}",
           "params": [
-            "id"
+            "collection",
+            "comment",
+            "create",
+            "delete",
+            "explain",
+            "read",
+            "read_field_blacklist",
+            "role",
+            "status",
+            "status_blacklist",
+            "update",
+            "write_field_blacklist"
           ],
           "bodyTemplate": {
             "collection": "{collection}",
@@ -1692,38 +1625,14 @@
             "status": "object",
             "status_blacklist": "object",
             "update": "string",
-            "write_field_blacklist": "object",
-            "id": "string"
+            "write_field_blacklist": "object"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
-        },
-        "deleteSingle": {
-          "name": "deletePermission",
-          "descriptionTemplate": "Delete an existing permission",
-          "method": "DELETE",
-          "path": "/permissions/{id}",
-          "params": [
-            "id"
           ],
-          "bodyTemplate": null,
-          "paramTypes": {
-            "id": "string"
-          },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
+          "queryParams": []
         }
       }
     },
@@ -1744,13 +1653,13 @@
             "Search",
             "Page"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
             "Limit": "integer",
             "Offset": "integer",
-            "Meta": "string",
-            "Sort": "integer",
+            "Meta": "boolean",
+            "Sort": "string",
             "Filter": "string",
             "Search": "string",
             "Page": "integer"
@@ -1767,33 +1676,33 @@
           "method": "POST",
           "path": "/relations",
           "params": [
-            "Fields",
-            "Meta",
-            "id"
+            "collection_many",
+            "collection_one",
+            "field_many",
+            "field_one",
+            "junction_field"
           ],
           "bodyTemplate": {
             "collection_many": "{collection_many}",
             "collection_one": "{collection_one}",
             "field_many": "{field_many}",
             "field_one": "{field_one}",
-            "junction_field": "{junction_field}",
-            "id": "{id}"
+            "junction_field": "{junction_field}"
           },
           "paramTypes": {
-            "Fields": "string",
-            "Meta": "string",
             "collection_many": "string",
             "collection_one": "string",
             "field_many": "string",
             "field_one": "string",
-            "junction_field": "string",
-            "id": "string"
+            "junction_field": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "get": {
@@ -1802,15 +1711,15 @@
           "method": "GET",
           "path": "/relations/{id}",
           "params": [
+            "Id",
             "Fields",
-            "Meta",
-            "id"
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
+            "Id": "string",
             "Fields": "string",
-            "Meta": "string",
-            "id": "string"
+            "Meta": "boolean"
           },
           "x-defined-response-codes": [
             200,
@@ -1824,9 +1733,11 @@
           "method": "PATCH",
           "path": "/relations/{id}",
           "params": [
-            "Fields",
-            "Meta",
-            "id"
+            "collection_many",
+            "collection_one",
+            "field_many",
+            "field_one",
+            "junction_field"
           ],
           "bodyTemplate": {
             "collection_many": "{collection_many}",
@@ -1836,9 +1747,6 @@
             "junction_field": "{junction_field}"
           },
           "paramTypes": {
-            "Fields": "string",
-            "Meta": "string",
-            "id": "string",
             "collection_many": "string",
             "collection_one": "string",
             "field_many": "string",
@@ -1849,7 +1757,8 @@
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteRelation",
@@ -1857,15 +1766,12 @@
           "method": "DELETE",
           "path": "/relations/{id}",
           "params": [
-            "id"
+            "Id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "Id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -1891,13 +1797,13 @@
             "Search",
             "Page"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
             "Limit": "integer",
             "Offset": "integer",
-            "Meta": "string",
-            "Sort": "integer",
+            "Meta": "boolean",
+            "Sort": "string",
             "Filter": "string",
             "Search": "string",
             "Page": "integer"
@@ -1918,11 +1824,11 @@
             "Fields",
             "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "Id": "string",
             "Fields": "string",
-            "Meta": "string"
+            "Meta": "boolean"
           },
           "x-defined-response-codes": [
             200,
@@ -1949,13 +1855,13 @@
             "Search",
             "Page"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
             "Limit": "integer",
             "Offset": "integer",
-            "Meta": "string",
-            "Sort": "integer",
+            "Meta": "boolean",
+            "Sort": "string",
             "Filter": "string",
             "Search": "string",
             "Page": "integer"
@@ -1972,11 +1878,12 @@
           "method": "POST",
           "path": "/roles",
           "params": [
-            "Fields",
-            "Meta",
-            "name",
             "description",
-            "id"
+            "enforce_tfa",
+            "external_id",
+            "ip_access",
+            "module_listing",
+            "name"
           ],
           "bodyTemplate": {
             "description": "{description}",
@@ -1984,25 +1891,23 @@
             "external_id": "{external_id}",
             "ip_access": "{ip_access}",
             "module_listing": "{module_listing}",
-            "name": "{name}",
-            "id": "{id}"
+            "name": "{name}"
           },
           "paramTypes": {
-            "Fields": "string",
-            "Meta": "string",
             "description": "string",
             "enforce_tfa": "boolean",
             "external_id": "string",
             "ip_access": "array",
             "module_listing": "string",
-            "name": "string",
-            "id": "string"
+            "name": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "update": {
@@ -2011,20 +1916,22 @@
           "method": "PATCH",
           "path": "/roles/{id}",
           "params": [
-            "id"
+            "description",
+            "enforce_tfa",
+            "external_id",
+            "ip_access",
+            "module_listing",
+            "name"
           ],
           "bodyTemplate": {
             "description": "{description}",
             "enforce_tfa": "{enforce_tfa}",
             "external_id": "{external_id}",
-            "ip_access": [
-              "{ip_access}"
-            ],
+            "ip_access": "{ip_access}",
             "module_listing": "{module_listing}",
             "name": "{name}"
           },
           "paramTypes": {
-            "id": "string",
             "description": "string",
             "enforce_tfa": "boolean",
             "external_id": "string",
@@ -2036,7 +1943,8 @@
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteRole",
@@ -2046,13 +1954,10 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -2065,11 +1970,15 @@
           "method": "GET",
           "path": "/roles/{id}",
           "params": [
-            "id"
+            "id",
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -2088,22 +1997,23 @@
           "path": "/schema/diff",
           "params": [
             "force",
-            "data",
-            "id"
+            "data"
           ],
           "bodyTemplate": {
-            "data": "{data}",
-            "id": "{id}"
+            "data": "{data}"
           },
           "paramTypes": {
             "force": "boolean",
-            "data": "string",
-            "id": "string"
+            "data": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             204,
             403
+          ],
+          "queryParams": [
+            "force"
           ],
           "x-generate-full-story": false
         },
@@ -2112,9 +2022,13 @@
           "descriptionTemplate": "Retrieve the current schema. This endpoint is only available to admin users.",
           "method": "GET",
           "path": "/schema/snapshot",
-          "params": [],
-          "bodyTemplate": null,
-          "paramTypes": {},
+          "params": [
+            "Export"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Export": "string"
+          },
           "x-defined-response-codes": [
             200,
             403
@@ -2132,7 +2046,7 @@
           "params": [
             "super_admin_token"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "super_admin_token": "integer"
           },
@@ -2171,8 +2085,8 @@
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "Limit": "integer",
-            "Offset": "integer",
+            "Limit": "string",
+            "Offset": "string",
             "Meta": "string",
             "Page": "string"
           },
@@ -2217,10 +2131,10 @@
           "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
-            "Limit": "integer",
-            "Offset": "integer",
+            "Limit": "string",
+            "Offset": "string",
             "Meta": "string",
-            "Sort": "integer",
+            "Sort": "string",
             "Filter": "string",
             "Search": "string"
           },
@@ -2236,28 +2150,26 @@
           "method": "POST",
           "path": "/users/invite/accept",
           "params": [
-            "password",
             "token",
-            "id"
+            "password"
           ],
           "bodyTemplate": {
-            "password": "{password}",
             "token": "{token}",
-            "id": "{id}"
+            "password": "{password}"
           },
           "paramTypes": {
-            "password": "string",
             "token": "string",
-            "id": "string"
+            "password": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
+          "paramFormats": {
+            "password": "password"
+          },
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": false
         },
         "update": {
@@ -2268,9 +2180,6 @@
           "params": [],
           "bodyTemplate": {},
           "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -2283,56 +2192,60 @@
           "method": "DELETE",
           "path": "/users/{id}",
           "params": [
-            "id"
+            "UUId"
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "UUId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
+        },
+        "invite": {
+          "name": "invite",
+          "descriptionTemplate": "Invites one or more users to this project.",
+          "method": "POST",
+          "path": "/users/invite",
+          "params": [
+            "email"
+          ],
+          "bodyTemplate": {
+            "email": "{email}"
+          },
+          "paramTypes": {
+            "email": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ],
+          "queryParams": []
         },
         "get": {
           "name": "getMe",
           "descriptionTemplate": "Retrieve the currently authenticated user.",
           "method": "GET",
           "path": "/users/me",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
+          "params": [
+            "Fields",
+            "Meta"
           ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "object",
+            "Meta": "object"
+          },
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
         },
-        "disable": {
-          "name": "meTfaDisable",
-          "descriptionTemplate": "Disables two-factor authentication for the currently authenticated user.",
-          "method": "POST",
-          "path": "/users/me/tfa/disable",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
-          ],
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
-        "enable": {
+        "addTfa": {
           "name": "meTfaEnable",
           "descriptionTemplate": "Enables two-factor authentication for the currently authenticated user.",
           "method": "POST",
@@ -2340,16 +2253,27 @@
           "params": [],
           "bodyTemplate": {},
           "paramTypes": {},
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
         },
-        "updateLastUsedPage": {
+        "removeTfa": {
+          "name": "meTfaDisable",
+          "descriptionTemplate": "Disables two-factor authentication for the currently authenticated user.",
+          "method": "POST",
+          "path": "/users/me/tfa/disable",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
+        },
+        "updateLastPage": {
           "name": "updateLastUsedPageMe",
           "descriptionTemplate": "Updates the last used page field of the currently authenticated user.",
           "method": "PATCH",
@@ -2363,14 +2287,12 @@
           "paramTypes": {
             "last_page": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         }
       }
     },
@@ -2381,22 +2303,16 @@
           "descriptionTemplate": "Resets both the data and schema cache of Directus.",
           "method": "POST",
           "path": "/utils/cache/clear",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {
-            "id": "{id}"
-          },
-          "paramTypes": {
-            "id": "string"
-          },
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
           "x-defined-response-codes": [
             200
           ],
           "x-generate-full-story": false
         },
         "list": {
-          "name": "random",
+          "name": "getRandomString",
           "descriptionTemplate": "Returns a random string of given length.",
           "method": "GET",
           "path": "/utils/random/string",
@@ -2421,15 +2337,12 @@
           "method": "DELETE",
           "path": "/versions/{id}",
           "params": [
-            "id"
+            "UUId"
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "id": "string"
+            "UUId": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -2456,7 +2369,7 @@
             "Limit": "integer",
             "Offset": "integer",
             "Meta": "string",
-            "Sort": "integer",
+            "Sort": "string",
             "Filter": "string",
             "Search": "string"
           },
@@ -2474,7 +2387,7 @@
           "params": [
             "Fields",
             "Meta",
-            "id"
+            "UUId"
           ],
           "bodyTemplate": {
             "data": "{data}"
@@ -2482,8 +2395,7 @@
           "paramTypes": {
             "Fields": "string",
             "Meta": "string",
-            "id": "string",
-            "data": "object"
+            "UUId": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -2493,26 +2405,28 @@
         },
         "add": {
           "name": "promoteContentVersion",
-          "descriptionTemplate": "Pass the current hash of the main version of the item (obtained from the `compare` endpoint) along with an optional array of field names of which the values are to be promoted (by default, all fields are selected).",
+          "descriptionTemplate": "Pass the current hash of the main version of the item along with an optional array of field names to be promoted.",
           "method": "POST",
           "path": "/versions/{id}/promote",
           "params": [
-            "id"
+            "mainHash",
+            "fields"
           ],
           "bodyTemplate": {
-            "fields": "{fields}",
-            "mainHash": "{mainHash}"
+            "mainHash": "{mainHash}",
+            "fields": "{fields}"
           },
           "paramTypes": {
-            "id": "string",
-            "fields": "string",
-            "mainHash": "string"
+            "mainHash": "string",
+            "fields": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": false
         },
         "get": {
@@ -2557,39 +2471,39 @@
           "method": "POST",
           "path": "/webhooks",
           "params": [
-            "Fields",
-            "Meta",
             "name",
+            "method",
+            "url",
+            "status",
             "data",
-            "id"
+            "actions",
+            "system-collections"
           ],
           "bodyTemplate": {
-            "actions": "{actions}",
-            "data": "{data}",
-            "method": "{method}",
             "name": "{name}",
-            "status": "{status}",
-            "system-collections": "{system-collections}",
+            "method": "{method}",
             "url": "{url}",
-            "id": "{id}"
+            "status": "{status}",
+            "data": "{data}",
+            "actions": "{actions}",
+            "system-collections": "{system-collections}"
           },
           "paramTypes": {
-            "Fields": "string",
-            "Meta": "string",
-            "actions": "string",
-            "data": "string",
-            "method": "string",
             "name": "string",
-            "status": "string",
-            "system-collections": "string",
+            "method": "string",
             "url": "string",
-            "id": "string"
+            "status": "string",
+            "data": "boolean",
+            "actions": "string",
+            "system-collections": "string"
           },
+          "paramFormats": {},
           "x-defined-response-codes": [
             200,
             401,
             404
           ],
+          "queryParams": [],
           "x-generate-full-story": true
         },
         "update": {
@@ -2598,36 +2512,38 @@
           "method": "PATCH",
           "path": "/webhooks/{id}",
           "params": [
-            "id",
-            "Fields",
-            "Meta"
+            "name",
+            "method",
+            "url",
+            "status",
+            "data",
+            "actions",
+            "system-collections"
           ],
           "bodyTemplate": {
-            "actions": "{actions}",
-            "data": "{data}",
-            "method": "{method}",
             "name": "{name}",
+            "method": "{method}",
+            "url": "{url}",
             "status": "{status}",
-            "system-collections": "{system-collections}",
-            "url": "{url}"
+            "data": "{data}",
+            "actions": "{actions}",
+            "system-collections": "{system-collections}"
           },
           "paramTypes": {
-            "id": "string",
-            "Fields": "string",
-            "Meta": "string",
-            "actions": "string",
-            "data": "boolean",
-            "method": "string",
             "name": "string",
+            "method": "string",
+            "url": "string",
             "status": "string",
-            "system-collections": "string",
-            "url": "string"
+            "data": "boolean",
+            "actions": "string",
+            "system-collections": "string"
           },
           "x-defined-response-codes": [
             200,
             401,
             404
-          ]
+          ],
+          "queryParams": []
         },
         "delete": {
           "name": "deleteWebhook",
@@ -2641,9 +2557,6 @@
           "paramTypes": {
             "id": "string"
           },
-          "x-negative-delete-expected-codes": [
-            404
-          ],
           "x-defined-response-codes": [
             200,
             401,
@@ -2676,7 +2589,8 @@
       "Collections"
     ],
     "Presets": [
-      "Collections"
+      "Collections",
+      "Roles"
     ],
     "Comments": [
       "Collections",
@@ -2686,23 +2600,24 @@
       "Collections"
     ],
     "Permissions": [
-      "Collections"
+      "Collections",
+      "Roles"
     ],
     "Relations": [
       "Collections"
     ],
-    "Roles": [],
-    "Webhooks": [],
-    "Files": [],
-    "Collections": [],
-    "Folders": [],
-    "Flows": [],
-    "Operations": [],
+    "Versions": [],
     "Schema": [],
     "Users": [],
+    "Roles": [],
     "Utilities": [],
-    "Versions": [],
-    "Authentication": []
+    "Operations": [],
+    "Folders": [],
+    "Flows": [],
+    "Files": [],
+    "Webhooks": [],
+    "Authentication": [],
+    "Collections": []
   },
   "original_spec": {
     "openapi": "3.0.1",

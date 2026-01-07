@@ -1,115 +1,144 @@
 {
-  "sut": "banking",
-  "base_url": "http://localhost:8080",
+  "sut_name": "banking",
+  "base_url": "http://localhost:8000",
   "entities": {
-    "Customer": {
-      "displayName": "customer",
-      "params": [],
+    "Accounts": {
       "operations": {
-        "add": {
-          "name": "createCustomer",
-          "method": "POST",
-          "path": "/customers",
-          "descriptionTemplate": "Create customer",
-          "params": [],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "Account": {
-      "displayName": "account",
-      "params": [
-        "accountId"
-      ],
-      "operations": {
-        "add": {
-          "name": "createAccount",
-          "method": "POST",
-          "path": "/accounts",
-          "descriptionTemplate": "Create account",
-          "params": [],
-          "bodyTemplate": {}
-        },
-        "get": {
-          "name": "getAccounts",
+        "list": {
+          "name": "listAccounts",
+          "descriptionTemplate": "Retrieve a list of accounts",
           "method": "GET",
           "path": "/accounts",
-          "descriptionTemplate": "Get accounts",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "add": {
+          "name": "addAccount",
+          "descriptionTemplate": "Create a new account",
+          "method": "POST",
+          "path": "/accounts",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": true
         }
       }
     },
-    "Transaction": {
-      "displayName": "transaction",
-      "params": [
-        "accountId"
-      ],
+    "Transactions": {
       "operations": {
-        "get": {
-          "name": "getTransactions",
+        "list": {
+          "name": "listAccountTransactions",
+          "descriptionTemplate": "Retrieve a list of transactions for a specific account",
           "method": "GET",
           "path": "/accounts/{accountId}/transactions",
-          "descriptionTemplate": "Get transactions for account {accountId}",
           "params": [
             "accountId"
           ],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {
+            "accountId": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
-    "Transfer": {
-      "displayName": "transfer",
-      "params": [],
+    "Cards": {
       "operations": {
         "add": {
-          "name": "createTransfer",
-          "method": "POST",
-          "path": "/transfers",
-          "descriptionTemplate": "Create transfer",
-          "params": [],
-          "bodyTemplate": {}
-        }
-      }
-    },
-    "Card": {
-      "displayName": "card",
-      "params": [],
-      "operations": {
-        "add": {
-          "name": "createCard",
+          "name": "addCard",
+          "descriptionTemplate": "Create a new card",
           "method": "POST",
           "path": "/cards",
-          "descriptionTemplate": "Create card",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": true
         }
       }
     },
-    "Loan": {
-      "displayName": "loan",
-      "params": [],
+    "Customers": {
       "operations": {
         "add": {
-          "name": "createLoan",
+          "name": "addCustomer",
+          "descriptionTemplate": "Create a new customer",
           "method": "POST",
-          "path": "/loans",
-          "descriptionTemplate": "Create loan",
+          "path": "/customers",
           "params": [],
-          "bodyTemplate": {}
-        },
-        "get": {
-          "name": "getLoans",
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": true
+        }
+      }
+    },
+    "Transfers": {
+      "operations": {
+        "add": {
+          "name": "addTransfer",
+          "descriptionTemplate": "Create a new transfer",
+          "method": "POST",
+          "path": "/transfers",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ],
+          "x-generate-full-story": true
+        }
+      }
+    },
+    "Loans": {
+      "operations": {
+        "list": {
+          "name": "listLoans",
+          "descriptionTemplate": "Retrieve a list of loans",
           "method": "GET",
           "path": "/loans",
-          "descriptionTemplate": "Get loans",
           "params": [],
-          "bodyTemplate": {}
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "add": {
+          "name": "addLoan",
+          "descriptionTemplate": "Create a new loan",
+          "method": "POST",
+          "path": "/loans",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            201
+          ],
+          "x-generate-full-story": true
         }
       }
     }
   },
-  "stories": [],
+  "dependencies": {
+    "Accounts": [],
+    "Cards": [],
+    "Customers": [],
+    "Transfers": [],
+    "Loans": []
+  },
   "original_spec": {
     "openapi": "3.0.3",
     "info": {
