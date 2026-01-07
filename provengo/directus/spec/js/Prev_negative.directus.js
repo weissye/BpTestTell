@@ -387,8 +387,23 @@ bthread("fuzz:Items:Meta_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
   let bad_Meta = 12345;
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, collection_valid);
+  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, collection_valid, id_valid);
+});
+bthread("fuzz:Items:id_InvalidType", function () {
+  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
+  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
+  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
+  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
+  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
+  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
+  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
+  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
+  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let bad_id = 12345;
+  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, collection_valid, bad_id);
 });
 bthread("fuzz:Items:collection_Missing", function () {
   let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
@@ -400,8 +415,9 @@ bthread("fuzz:Items:collection_Missing", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
   let missing_collection = undefined;
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, missing_collection);
+  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, missing_collection, id_valid);
 });
 bthread("fuzz:Presets:collection_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -414,8 +430,10 @@ bthread("fuzz:Presets:collection_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -428,7 +446,7 @@ bthread("fuzz:Presets:collection_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_collection = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_collection, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_collection, data_valid, filters_valid, id_valid, keys_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:filters_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -441,8 +459,10 @@ bthread("fuzz:Presets:filters_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -455,7 +475,7 @@ bthread("fuzz:Presets:filters_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_filters = "NOT_AN_ARRAY";
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, bad_filters, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, bad_filters, id_valid, keys_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:id_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -468,8 +488,10 @@ bthread("fuzz:Presets:id_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -482,7 +504,7 @@ bthread("fuzz:Presets:id_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_id = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, bad_id, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, bad_id, keys_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:layout_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -495,8 +517,10 @@ bthread("fuzz:Presets:layout_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -509,7 +533,7 @@ bthread("fuzz:Presets:layout_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_layout = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, bad_layout, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, id_valid, keys_valid, bad_layout, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:layout_options_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -522,8 +546,10 @@ bthread("fuzz:Presets:layout_options_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -536,7 +562,7 @@ bthread("fuzz:Presets:layout_options_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_layout_options = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, bad_layout_options, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, id_valid, keys_valid, layout_valid, bad_layout_options, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:layout_query_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -549,8 +575,10 @@ bthread("fuzz:Presets:layout_query_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -563,7 +591,7 @@ bthread("fuzz:Presets:layout_query_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_layout_query = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, bad_layout_query, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, id_valid, keys_valid, layout_valid, layout_options_valid, bad_layout_query, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:role_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -576,8 +604,10 @@ bthread("fuzz:Presets:role_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -590,7 +620,7 @@ bthread("fuzz:Presets:role_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_role = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, bad_role, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, id_valid, keys_valid, layout_valid, layout_options_valid, layout_query_valid, bad_role, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:search_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -603,8 +633,10 @@ bthread("fuzz:Presets:search_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -617,7 +649,7 @@ bthread("fuzz:Presets:search_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_search = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, bad_search, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, id_valid, keys_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, bad_search, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:title_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -630,8 +662,10 @@ bthread("fuzz:Presets:title_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -644,7 +678,7 @@ bthread("fuzz:Presets:title_InvalidType", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let bad_title = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, bad_title, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, id_valid, keys_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, bad_title, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Presets:id_Missing", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -657,8 +691,10 @@ bthread("fuzz:Presets:id_Missing", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "articles";
+  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let filters_valid = [];
   let id_valid = "155";
+  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
   let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
@@ -671,7 +707,7 @@ bthread("fuzz:Presets:id_Missing", function () {
   let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
   let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
   let missing_id = undefined;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, missing_id, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
+  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, data_valid, filters_valid, missing_id, keys_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
 });
 bthread("fuzz:Comments:collection_InvalidType", function () {
   let collection_valid = "articles";
@@ -935,9 +971,8 @@ bthread("fuzz:Operations:Fields_InvalidType", function () {
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let bad_Fields = 12345;
-  verifyOperationsRejects(bad_Fields, Meta_valid, UUId_valid, data_valid, id_valid, keys_valid);
+  verifyOperationsRejects(bad_Fields, Meta_valid, UUId_valid, data_valid, id_valid);
 });
 bthread("fuzz:Operations:Meta_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -945,9 +980,8 @@ bthread("fuzz:Operations:Meta_InvalidType", function () {
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let bad_Meta = 12345;
-  verifyOperationsRejects(Fields_valid, bad_Meta, UUId_valid, data_valid, id_valid, keys_valid);
+  verifyOperationsRejects(Fields_valid, bad_Meta, UUId_valid, data_valid, id_valid);
 });
 bthread("fuzz:Operations:id_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -955,9 +989,8 @@ bthread("fuzz:Operations:id_InvalidType", function () {
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let bad_id = 12345;
-  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, bad_id, keys_valid);
+  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, bad_id);
 });
 bthread("fuzz:Operations:id_Missing", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -965,28 +998,19 @@ bthread("fuzz:Operations:id_Missing", function () {
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let missing_id = undefined;
-  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, missing_id, keys_valid);
+  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, missing_id);
 });
 bthread("fuzz:Permissions:collection_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -995,26 +1019,18 @@ bthread("fuzz:Permissions:collection_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_collection = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_collection, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, bad_collection, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:comment_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1023,26 +1039,18 @@ bthread("fuzz:Permissions:comment_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_comment = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, bad_comment, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, bad_comment, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:create_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1051,26 +1059,18 @@ bthread("fuzz:Permissions:create_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_create = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, bad_create, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, bad_create, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:_delete_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1079,26 +1079,18 @@ bthread("fuzz:Permissions:_delete_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad__delete = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, bad__delete, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, bad__delete, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:explain_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1107,26 +1099,18 @@ bthread("fuzz:Permissions:explain_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_explain = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, bad_explain, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, bad_explain, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:id_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1135,26 +1119,18 @@ bthread("fuzz:Permissions:id_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_id = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, bad_id, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, bad_id, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:read_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1163,26 +1139,18 @@ bthread("fuzz:Permissions:read_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_read = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, bad_read, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, bad_read, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:read_field_blacklist_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1191,26 +1159,18 @@ bthread("fuzz:Permissions:read_field_blacklist_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_read_field_blacklist = "NOT_AN_ARRAY";
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, bad_read_field_blacklist, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, bad_read_field_blacklist, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:role_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1219,26 +1179,18 @@ bthread("fuzz:Permissions:role_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_role = "INVALID_STRING";
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, bad_role, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, bad_role, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:status_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1247,26 +1199,18 @@ bthread("fuzz:Permissions:status_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_status = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, bad_status, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, bad_status, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:status_blacklist_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1275,26 +1219,18 @@ bthread("fuzz:Permissions:status_blacklist_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_status_blacklist = "NOT_AN_ARRAY";
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, bad_status_blacklist, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, bad_status_blacklist, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:update_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1303,26 +1239,18 @@ bthread("fuzz:Permissions:update_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_update = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, bad_update, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, bad_update, write_field_blacklist_valid);
 });
 bthread("fuzz:Permissions:write_field_blacklist_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1331,26 +1259,18 @@ bthread("fuzz:Permissions:write_field_blacklist_InvalidType", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let bad_write_field_blacklist = "NOT_AN_ARRAY";
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, bad_write_field_blacklist);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, id_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, bad_write_field_blacklist);
 });
 bthread("fuzz:Permissions:id_Missing", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
   let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
   let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let collection_valid = "customers";
   let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
   let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
   let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
   let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "1";
-  let keys_valid = "keys_valid_" + Math.floor(Math.random()*1000);
   let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_valid = [];
   let role_valid = Math.floor(Math.random() * 1000);
@@ -1359,7 +1279,7 @@ bthread("fuzz:Permissions:id_Missing", function () {
   let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_valid = [];
   let missing_id = undefined;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, missing_id, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
+  verifyPermissionsRejects(Fields_valid, Id_valid, Meta_valid, collection_valid, comment_valid, create_valid, _delete_valid, explain_valid, missing_id, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
 });
 bthread("fuzz:Relations:collection_many_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -1649,7 +1569,7 @@ bthread("fuzz:Roles:id_Missing", function () {
 bthread("fuzz:Schema:data_InvalidType", function () {
   let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
+  let force_valid = "force_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
   let bad_data = 12345;
   verifySchemaRejects(Export_valid, bad_data, force_valid, id_valid);
@@ -1657,7 +1577,7 @@ bthread("fuzz:Schema:data_InvalidType", function () {
 bthread("fuzz:Schema:id_InvalidType", function () {
   let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
+  let force_valid = "force_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
   let bad_id = 12345;
   verifySchemaRejects(Export_valid, data_valid, force_valid, bad_id);
@@ -1665,7 +1585,7 @@ bthread("fuzz:Schema:id_InvalidType", function () {
 bthread("fuzz:Schema:id_Missing", function () {
   let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
   let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
+  let force_valid = "force_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
   let missing_id = undefined;
   verifySchemaRejects(Export_valid, data_valid, force_valid, missing_id);
@@ -1679,12 +1599,13 @@ bthread("fuzz:Users:id_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
+  let email_valid = "admin@example.com";
   let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_valid = "/my-project/settings/collections/a";
   let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
   let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
   let bad_id = 12345;
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, bad_id, last_page_valid, password_valid, token_valid);
+  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, email_valid, bad_id, last_page_valid, password_valid, token_valid);
 });
 bthread("fuzz:Users:password_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -1695,12 +1616,13 @@ bthread("fuzz:Users:password_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
+  let email_valid = "admin@example.com";
   let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_valid = "/my-project/settings/collections/a";
   let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
   let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
   let bad_password = 12345;
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, bad_password, token_valid);
+  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, email_valid, id_valid, last_page_valid, bad_password, token_valid);
 });
 bthread("fuzz:Users:token_InvalidType", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -1711,12 +1633,13 @@ bthread("fuzz:Users:token_InvalidType", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
+  let email_valid = "admin@example.com";
   let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_valid = "/my-project/settings/collections/a";
   let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
   let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
   let bad_token = 12345;
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, bad_token);
+  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, email_valid, id_valid, last_page_valid, password_valid, bad_token);
 });
 bthread("fuzz:Users:id_Missing", function () {
   let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
@@ -1727,12 +1650,13 @@ bthread("fuzz:Users:id_Missing", function () {
   let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
   let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
   let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
+  let email_valid = "admin@example.com";
   let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_valid = "/my-project/settings/collections/a";
   let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
   let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
   let missing_id = undefined;
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, missing_id, last_page_valid, password_valid, token_valid);
+  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, email_valid, missing_id, last_page_valid, password_valid, token_valid);
 });
 bthread("fuzz:Utilities:id_InvalidType", function () {
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);

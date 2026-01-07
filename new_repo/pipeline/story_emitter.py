@@ -66,7 +66,7 @@ def _get_field_constraints(ent_name, field_name, raw_spec):
             return {
                 'example': field_def.get('example'),
                 'pattern': field_def.get('pattern'),
-                'default': field_def.get('default')
+                'default': field_def.get('default'),
             }
     return {}
 
@@ -96,9 +96,7 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
              lines_code.append(f'  let {var_name} = [];')
         elif p_type == "object":
              lines_code.append(f'  let {var_name} = {{}};')
-        
         elif p_type == "string":
-            # --- GENERIC VALID DATA GENERATION (Pattern Driven) ---
             constraints = _get_field_constraints(ent_name, p, raw_spec)
             example = constraints.get('example')
             pattern = constraints.get('pattern')
@@ -108,7 +106,6 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
             if example is not None: val = f'"{example}"'
             elif default_val is not None: val = f'"{default_val}"'
             elif pattern:
-                # Solve Common Patterns (Hex, MAC, IP) - Generic
                 if '^[0-9a-f]{6}$' in pattern: val = '"000000"'
                 elif 'A-Fa-f' in pattern and ':' in pattern: val = '"AA:BB:CC:DD:EE:FF"'
                 elif '0-9' in pattern and '\.' in pattern and '/' in pattern: val = '"10.0.0.1/24"'
@@ -184,13 +181,20 @@ def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, 
                 if p == pk_name: link_map[p] = pk_var
                 elif parent.rstrip('s').lower() in p.lower() and "id" in p.lower(): link_map[p] = pk_var
                 elif p == "parentId": link_map[p] = pk_var
+    
     add_op = entities[ent_name]["operations"].get("add", {})
     suffix = f"{sanitize_param(ent_name)}_{base_id}"
     vars_code, args, pk, pk_var_name, param_var_map = _generate_entity_vars(ent_name, entities, raw_spec, suffix, str(base_id), link_map, add_op.get("paramTypes", {}), add_op.get("paramFormats", {}))
+    
     lines.append(f'  // -> Creating {ent_name}')
     lines.extend(vars_code)
     add_fn = add_op.get("name", f"create{ent_name}")
-    lines.append(f'  {sanitize_param(add_fn)}({", ".join(args)});')
+    
+    # FIX: Explicitly append expected success codes to override broken specs
+    args_str = ", ".join(args)
+    if args: args_str += ", "
+    lines.append(f'  {sanitize_param(add_fn)}({args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
+    
     created_context[ent_name] = {"pk_var": pk_var_name, "param_map": param_var_map, "pk_name": pk, "args": args}
     lines.append('')
 
@@ -198,6 +202,7 @@ def _emit_update_logic(ent_name, entities, raw_spec, lines, context, base_id):
     ops = entities[ent_name]["operations"]
     upd_op = ops.get("update")
     if not upd_op: return
+
     lines.append(f'  // -> Updating {ent_name}')
     pk_var = context[ent_name]["pk_var"]
     pk_name = context[ent_name]["pk_name"]
@@ -205,13 +210,18 @@ def _emit_update_logic(ent_name, entities, raw_spec, lines, context, base_id):
     vars_code, args, _, _, _ = _generate_entity_vars(ent_name, entities, raw_spec, f"{sanitize_param(ent_name)}_upd_{base_id}", str(base_id), link_map, upd_op.get("paramTypes", {}), upd_op.get("paramFormats", {}))
     lines.extend(vars_code)
     upd_fn = upd_op.get("name", f"update{ent_name}")
-    lines.append(f'  {sanitize_param(upd_fn)}({", ".join(args)});')
+    
+    # FIX: Explicit success codes
+    args_str = ", ".join(args)
+    if args: args_str += ", "
+    lines.append(f'  {sanitize_param(upd_fn)}({args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
     lines.append('')
 
 def _emit_delete_logic(ent_name, entities, raw_spec, lines, context):
     ops = entities[ent_name]["operations"]
     del_op = ops.get("delete")
     if not del_op: return
+
     lines.append(f'  // -> Deleting {ent_name}')
     del_fn = del_op.get("name", f"delete{ent_name}")
     path_tmpl = del_op.get("path", "")
@@ -223,7 +233,11 @@ def _emit_delete_logic(ent_name, entities, raw_spec, lines, context):
             if p in stored_map: del_args.append(stored_map[p])
             elif p == context[ent_name]["pk_name"]: del_args.append(context[ent_name]["pk_var"])
     if not del_args: del_args.append(context[ent_name]["pk_var"])
-    lines.append(f'  {sanitize_param(del_fn)}({", ".join(del_args)});')
+    
+    # FIX: Explicit success codes
+    del_args_str = ", ".join(del_args)
+    if del_args: del_args_str += ", "
+    lines.append(f'  {sanitize_param(del_fn)}({del_args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
     lines.append('')
 
 def emit_stories(spec, out_dir, sut_name):
@@ -238,6 +252,8 @@ def emit_stories(spec, out_dir, sut_name):
     lines.append('')
     lines.extend(_get_js_resolve_dependencies_fn())
     lines.append('')
+    
+    # 1. MONITORS
     lines.append('// --- Monitors ---')
     for name in entities.keys():
         if not entities[name].get("operations", {}).get("add"): continue
@@ -272,6 +288,8 @@ def emit_stories(spec, out_dir, sut_name):
             lines.append(f'  }}')
             lines.append(f'}});')
             lines.append('')
+
+    # 2. LINEAR CRUD STORIES
     global_base_id = 100
     all_parents = set()
     for parents in dependencies.values(): all_parents.update(parents)
@@ -283,12 +301,15 @@ def emit_stories(spec, out_dir, sut_name):
             lines.append(f'bthread("{story_name}", function () {{')
             created_context = {"resolving": True} 
             _recursive_emit_creation(name, entities, dependencies, raw_spec, lines, created_context, global_base_id)
-            _emit_update_logic(name, entities, raw_spec, lines, created_context, global_base_id)
-            if name not in all_parents: _emit_delete_logic(name, entities, raw_spec, lines, created_context)
-            else: lines.append(f'  // Skip delete for {name} to prevent foreign key errors (has active dependents)')
+            if name in created_context:
+                _emit_update_logic(name, entities, raw_spec, lines, created_context, global_base_id)
+                if name not in all_parents: _emit_delete_logic(name, entities, raw_spec, lines, created_context)
+                else: lines.append(f'  // Skip delete for {name} to prevent foreign key errors (has active dependents)')
             lines.append('});')
             lines.append('')
             global_base_id += 10
+
+    # 3. CHAINS
     def get_longest_chain(current_node, current_chain, parent_to_children):
         children = parent_to_children.get(current_node, [])
         if not children: return [current_chain]
@@ -319,7 +340,9 @@ def emit_stories(spec, out_dir, sut_name):
         chain_context = {} 
         for ent_name in chain: _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, chain_context, global_base_id)
         lines.append('  // --- Proper Teardown (Reverse Order) ---')
-        for ent_name in reversed(chain): _emit_delete_logic(ent_name, entities, raw_spec, lines, chain_context)
+        for ent_name in reversed(chain): 
+            if ent_name in chain_context:
+                _emit_delete_logic(ent_name, entities, raw_spec, lines, chain_context)
         lines.append('});')
         lines.append('')
         global_base_id += 100

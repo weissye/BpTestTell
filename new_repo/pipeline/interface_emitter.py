@@ -96,6 +96,13 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         codes_list = get_response_codes(path_tmpl, method, spec)
         if method == "POST" and 409 not in codes_list: codes_list.append(409)
         if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
+        
+        # FIX: Smart Success Code Injection
+        has_success_defined = any(200 <= c < 300 for c in codes_list)
+        if not has_success_defined and method in ["POST", "PUT", "PATCH", "DELETE"]:
+            for success_code in [200, 201, 204]:
+                if success_code not in codes_list:
+                    codes_list.append(success_code)
             
     codes_str = json.dumps(sorted(codes_list))
     sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params])

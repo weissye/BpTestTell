@@ -89,7 +89,7 @@
       "operations": {
         "add": {
           "name": "passwordReset",
-          "descriptionTemplate": "Reset a Password",
+          "descriptionTemplate": "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password.",
           "method": "POST",
           "path": "/auth/password/reset",
           "params": [
@@ -343,38 +343,32 @@
         },
         "update": {
           "name": "updateItems",
-          "descriptionTemplate": "Update multiple items at the same time.",
+          "descriptionTemplate": "Update Multiple Items",
           "method": "PATCH",
           "path": "/items/{collection}",
           "params": [
-            "Fields",
-            "Limit",
-            "Meta",
-            "Offset",
-            "Sort",
-            "Filter",
-            "Search"
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
           ],
-          "bodyTemplate": {},
           "paramTypes": {
-            "Fields": "string",
-            "Limit": "string",
-            "Meta": "string",
-            "Offset": "string",
-            "Sort": "string",
-            "Filter": "string",
-            "Search": "string"
+            "null": "string"
           },
+          "queryParams": [],
           "x-defined-response-codes": []
         },
         "delete": {
           "name": "deleteItems",
-          "descriptionTemplate": "Delete multiple existing items.",
+          "descriptionTemplate": "Delete Multiple Items",
           "method": "DELETE",
           "path": "/items/{collection}",
           "params": [],
-          "bodyTemplate": {},
           "paramTypes": {},
+          "queryParams": [],
           "x-defined-response-codes": [
             200,
             401
@@ -401,46 +395,6 @@
           "x-defined-response-codes": [
             200,
             401
-          ]
-        },
-        "updateSingle": {
-          "name": "updateItem",
-          "descriptionTemplate": "Update an existing item.",
-          "method": "PATCH",
-          "path": "/items/{collection}/{id}",
-          "params": [
-            "Fields",
-            "Meta"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "Fields": "string",
-            "Meta": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
-        "deleteSingle": {
-          "name": "deleteItem",
-          "descriptionTemplate": "Delete an existing item.",
-          "method": "DELETE",
-          "path": "/items/{collection}/{id}",
-          "params": [
-            "Collection",
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "Collection": "string",
-            "id": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
           ]
         }
       }
@@ -522,63 +476,6 @@
           "x-generate-full-story": true
         },
         "update": {
-          "name": "updatePresets",
-          "descriptionTemplate": "Update multiple presets at the same time.",
-          "method": "PATCH",
-          "path": "/presets",
-          "params": [
-            "keys",
-            "data"
-          ],
-          "bodyTemplate": {
-            "keys": "{keys}",
-            "data": "{data}"
-          },
-          "paramTypes": {
-            "keys": "array",
-            "data": "object"
-          },
-          "x-defined-response-codes": [
-            200,
-            401
-          ],
-          "queryParams": []
-        },
-        "delete": {
-          "name": "deletePresets",
-          "descriptionTemplate": "Delete multiple existing presets.",
-          "method": "DELETE",
-          "path": "/presets",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {},
-          "x-defined-response-codes": [
-            200,
-            401
-          ]
-        },
-        "get": {
-          "name": "getPreset",
-          "descriptionTemplate": "Retrieve a single preset by unique identifier.",
-          "method": "GET",
-          "path": "/presets/{id}",
-          "params": [
-            "Fields",
-            "Meta",
-            "Id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "Fields": "string",
-            "Meta": "string",
-            "Id": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401
-          ]
-        },
-        "updateSingle": {
           "name": "updatePreset",
           "descriptionTemplate": "Update an existing preset.",
           "method": "PATCH",
@@ -622,7 +519,7 @@
           ],
           "queryParams": []
         },
-        "deleteSingle": {
+        "delete": {
           "name": "deletePreset",
           "descriptionTemplate": "Delete an existing preset.",
           "method": "DELETE",
@@ -632,6 +529,27 @@
           ],
           "bodyTemplate": {},
           "paramTypes": {
+            "Id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
+        },
+        "get": {
+          "name": "getPreset",
+          "descriptionTemplate": "Retrieve a single preset by unique identifier.",
+          "method": "GET",
+          "path": "/presets/{id}",
+          "params": [
+            "Fields",
+            "Meta",
+            "Id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
             "Id": "string"
           },
           "x-defined-response-codes": [
@@ -660,14 +578,18 @@
             401
           ]
         },
-        "list": {
-          "name": "getComments",
-          "descriptionTemplate": "List the comments.",
+        "get": {
+          "name": "getComment",
+          "descriptionTemplate": "Retrieve a single comment by unique identifier.",
           "method": "GET",
-          "path": "/comments",
-          "params": [],
+          "path": "/comments/{id}",
+          "params": [
+            "id"
+          ],
           "bodyTemplate": {},
-          "paramTypes": {},
+          "paramTypes": {
+            "id": "string"
+          },
           "x-defined-response-codes": [
             200,
             401
@@ -700,6 +622,19 @@
           ],
           "queryParams": []
         },
+        "list": {
+          "name": "getComments",
+          "descriptionTemplate": "List the comments.",
+          "method": "GET",
+          "path": "/comments",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
+        },
         "add": {
           "name": "createComment",
           "descriptionTemplate": "Create a new comment.",
@@ -727,23 +662,6 @@
           ],
           "queryParams": [],
           "x-generate-full-story": true
-        },
-        "get": {
-          "name": "getComment",
-          "descriptionTemplate": "Retrieve a single comment by unique identifier.",
-          "method": "GET",
-          "path": "/comments/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401
-          ]
         }
       }
     },
@@ -1038,24 +956,6 @@
     },
     "Flows": {
       "operations": {
-        "delete": {
-          "name": "deleteFlow",
-          "descriptionTemplate": "Delete an existing flow",
-          "method": "DELETE",
-          "path": "/flows/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
         "list": {
           "name": "getFlows",
           "descriptionTemplate": "Get all flows.",
@@ -1064,31 +964,6 @@
           "params": [],
           "bodyTemplate": {},
           "paramTypes": {},
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
-        "update": {
-          "name": "updateFlow",
-          "descriptionTemplate": "Update an existing flow",
-          "method": "PATCH",
-          "path": "/flows/{id}",
-          "params": [
-            "id",
-            "Fields",
-            "Meta"
-          ],
-          "bodyTemplate": {
-            "data": "{data}"
-          },
-          "paramTypes": {
-            "id": "string",
-            "Fields": "string",
-            "Meta": "string",
-            "data": "object"
-          },
           "x-defined-response-codes": [
             200,
             401,
@@ -1120,6 +995,49 @@
           ],
           "x-generate-full-story": true
         },
+        "update": {
+          "name": "updateFlow",
+          "descriptionTemplate": "Update an existing flow",
+          "method": "PATCH",
+          "path": "/flows/{id}",
+          "params": [
+            "id",
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "id": "string",
+            "Fields": "string",
+            "Meta": "string",
+            "data": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
+        },
+        "delete": {
+          "name": "deleteFlow",
+          "descriptionTemplate": "Delete an existing flow",
+          "method": "DELETE",
+          "path": "/flows/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
+        },
         "get": {
           "name": "getFlow",
           "descriptionTemplate": "Retrieve a single flow by unique identifier.",
@@ -1142,24 +1060,6 @@
     },
     "Folders": {
       "operations": {
-        "delete": {
-          "name": "deleteFolder",
-          "descriptionTemplate": "Delete an existing folder",
-          "method": "DELETE",
-          "path": "/folders/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ]
-        },
         "list": {
           "name": "getFolders",
           "descriptionTemplate": "List the folders.",
@@ -1177,8 +1077,8 @@
           "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
-            "Limit": "integer",
-            "Offset": "integer",
+            "Limit": "string",
+            "Offset": "string",
             "Sort": "string",
             "Filter": "string",
             "Search": "string",
@@ -1189,30 +1089,6 @@
             401,
             404
           ]
-        },
-        "update": {
-          "name": "updateFolder",
-          "descriptionTemplate": "Update an existing folder",
-          "method": "PATCH",
-          "path": "/folders/{id}",
-          "params": [
-            "name",
-            "parent"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "parent": "{parent}"
-          },
-          "paramTypes": {
-            "name": "string",
-            "parent": "integer"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ],
-          "queryParams": []
         },
         "add": {
           "name": "createFolder",
@@ -1239,6 +1115,48 @@
           ],
           "queryParams": [],
           "x-generate-full-story": true
+        },
+        "update": {
+          "name": "updateFolder",
+          "descriptionTemplate": "Update an existing folder",
+          "method": "PATCH",
+          "path": "/folders/{id}",
+          "params": [
+            "name",
+            "parent"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "parent": "{parent}"
+          },
+          "paramTypes": {
+            "name": "string",
+            "parent": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ],
+          "queryParams": []
+        },
+        "delete": {
+          "name": "deleteFolder",
+          "descriptionTemplate": "Delete an existing folder",
+          "method": "DELETE",
+          "path": "/folders/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
         },
         "get": {
           "name": "getFolder",
@@ -1954,7 +1872,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "string"
           },
@@ -1974,7 +1892,7 @@
             "Fields",
             "Meta"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "id": "string",
             "Fields": "string",
@@ -2025,7 +1943,7 @@
           "params": [
             "Export"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "Export": "string"
           },
@@ -2046,7 +1964,7 @@
           "params": [
             "super_admin_token"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "super_admin_token": "integer"
           },
@@ -2203,27 +2121,6 @@
             401,
             404
           ]
-        },
-        "invite": {
-          "name": "invite",
-          "descriptionTemplate": "Invites one or more users to this project.",
-          "method": "POST",
-          "path": "/users/invite",
-          "params": [
-            "email"
-          ],
-          "bodyTemplate": {
-            "email": "{email}"
-          },
-          "paramTypes": {
-            "email": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ],
-          "queryParams": []
         },
         "get": {
           "name": "getMe",
@@ -2437,7 +2334,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -2457,7 +2354,7 @@
           "method": "GET",
           "path": "/webhooks",
           "params": [],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {},
           "x-defined-response-codes": [
             200,
@@ -2553,7 +2450,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -2571,7 +2468,7 @@
           "params": [
             "id"
           ],
-          "bodyTemplate": null,
+          "bodyTemplate": {},
           "paramTypes": {
             "id": "string"
           },
@@ -2588,16 +2485,15 @@
     "Items": [
       "Collections"
     ],
+    "Fields": [
+      "Collections"
+    ],
     "Presets": [
-      "Collections",
-      "Roles"
+      "Collections"
     ],
     "Comments": [
       "Collections",
       "Items"
-    ],
-    "Fields": [
-      "Collections"
     ],
     "Permissions": [
       "Collections",
@@ -2607,17 +2503,17 @@
       "Collections"
     ],
     "Versions": [],
+    "Webhooks": [],
+    "Files": [],
+    "Flows": [],
+    "Folders": [],
+    "Operations": [],
+    "Roles": [],
     "Schema": [],
     "Users": [],
-    "Roles": [],
     "Utilities": [],
-    "Operations": [],
-    "Folders": [],
-    "Flows": [],
-    "Files": [],
-    "Webhooks": [],
-    "Authentication": [],
-    "Collections": []
+    "Collections": [],
+    "Authentication": []
   },
   "original_spec": {
     "openapi": "3.0.1",

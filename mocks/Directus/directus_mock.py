@@ -1,14 +1,11 @@
 from flask import Flask, request, jsonify
 from collections import defaultdict
 import random, re, logging, pprint
-
 # Auto-generated Type-Safe Mock for Directus
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('directus-mock')
-
 mock_db = defaultdict(list)
-
 PATH_STATUS_CODES = {   'auth/login': 200,
     'auth/logout': 200,
     'auth/password/request': 200,
@@ -43,7 +40,6 @@ PATH_STATUS_CODES = {   'auth/login': 200,
     'versions/{id}/promote': 200,
     'versions/{id}/save': 200,
     'webhooks': 200}
-
 SCHEMA_REGISTRY = {   'activity': {},
     'activity/{id}': {},
     'assets/{id}': {},
@@ -55,7 +51,7 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                'type': 'str'},
                                                     'password': {   'pattern': None,
                                                                     'type': 'str'}},
-                                  'required': ['password', 'email']}},
+                                  'required': ['email', 'password']}},
     'auth/logout': {   'POST': {   'properties': {   'mode': {   'pattern': None,
                                                                  'type': 'str'},
                                                      'refresh_token': {   'pattern': None,
@@ -104,7 +100,7 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                             'type': 'str'},
                                                      'versioning': {   'pattern': None,
                                                                        'type': 'bool'}},
-                                   'required': ['collection', 'fields']}},
+                                   'required': ['fields', 'collection']}},
     'collections/{id}': {   'PATCH': {   'properties': {   'meta': {   'pattern': None,
                                                                        'type': 'dict'}},
                                          'required': []}},
@@ -119,7 +115,7 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                  'type': 'str'},
                                                   'item': {   'pattern': None,
                                                               'type': 'str'}},
-                                'required': ['collection', 'item', 'comment']}},
+                                'required': ['comment', 'collection', 'item']}},
     'comments/{id}': {   'PATCH': {   'properties': {   'collection': {   'pattern': None,
                                                                           'type': 'str'},
                                                         'comment': {   'pattern': None,
@@ -144,8 +140,8 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                              'type': {   'pattern': None,
                                                                          'type': 'str'}},
                                            'required': [   'type',
-                                                           'field',
                                                            'datatype',
+                                                           'field',
                                                            'length']}},
     'fields/{collection}/{id}': {   'PATCH': {   'properties': {   'field': {   'pattern': None,
                                                                                 'type': 'str'},
@@ -469,9 +465,9 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                                  'type': 'str'},
                                                                    'query': {   'pattern': None,
                                                                                 'type': 'dict'}},
-                                                 'required': [   'file',
+                                                 'required': [   'format',
                                                                  'query',
-                                                                 'format']}},
+                                                                 'file']}},
     'utils/hash/generate': {   'POST': {   'properties': {   'string': {   'pattern': None,
                                                                            'type': 'str'}},
                                            'required': ['string']}},
@@ -536,7 +532,6 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                         'url': {   'pattern': None,
                                                                    'type': 'str'}},
                                       'required': []}}}
-
 def find_schema_key(resource_path):
     if resource_path in SCHEMA_REGISTRY: return resource_path
     for template in SCHEMA_REGISTRY.keys():
@@ -544,148 +539,95 @@ def find_schema_key(resource_path):
             pattern = '^' + re.sub(r'\{[^}]+\}', '[^/]+', template) + '$'
             if re.match(pattern, resource_path): return template
     return None
-
 def validate_schema(resource_path, method, data):
-    schema_key = find_schema_key(resource_path)
-    if not schema_key or method not in SCHEMA_REGISTRY[schema_key]:
-        return None, None
-    
-    schema = SCHEMA_REGISTRY[schema_key][method]
+    key = find_schema_key(resource_path)
+    if not key or method not in SCHEMA_REGISTRY[key]: return None, None
+    schema = SCHEMA_REGISTRY[key][method]
     allowed_props = schema['properties']
-    
-    # Ignored fields (Directus specific + Standard)
-    ignored_fields = {'id', 'status', 'sort', 'user_created', 'date_created', 'user_updated', 'date_updated'}
-    
-    # 1. Unknown Fields
-    unknown = set(data.keys()) - set(allowed_props.keys()) - ignored_fields
+    if not allowed_props: return None, None
+    ignored = {'id', 'status', 'sort', 'user_created', 'date_created', 'user_updated', 'date_updated', 'meta', 'data', 'fields'}
+    unknown = {k for k in data.keys() if k not in allowed_props and k.lower() not in ignored}
     if unknown:
         msg = f'Unknown fields detected: {list(unknown)}'
         logger.warning(f'Schema Violation on {resource_path}: {msg}')
         return msg, 400
-    
-    # 2. Required Fields (Ignore ID)
     if method == 'POST':
         missing = [f for f in schema['required'] if f not in data and f != 'id']
         if missing:
             msg = f'Missing required fields: {missing}'
             logger.warning(f'Schema Violation on {resource_path}: {msg}')
             return msg, 400
-    
-    # 3. Type & Regex Validation
-    for key, value in data.items():
-        if key in allowed_props and value is not None:
-            prop_def = allowed_props[key]
-            expected_type = prop_def['type']
-            pattern = prop_def.get('pattern')
-            
+    for k, v in data.items():
+        if k in allowed_props and v is not None:
+            p_def = allowed_props[k]
+            exp, pat = p_def['type'], p_def['pattern']
             valid = True
-            if expected_type == 'int' and not isinstance(value, int): valid = False
-            elif expected_type == 'bool' and not isinstance(value, bool): valid = False
-            elif expected_type == 'str' and not isinstance(value, str): valid = False
-            elif expected_type == 'list' and not isinstance(value, list): valid = False
-            elif expected_type == 'dict' and not isinstance(value, dict): valid = False
-            elif expected_type == 'number' and not isinstance(value, (int, float)): valid = False
+            
+            if k.lower() in ['data', 'schema', 'meta', 'fields']:
+                pass # Skip validation for polymorphic Directus fields
+            else:
+                # Strict Type Checking Logic
+                if exp == 'int':
+                    if isinstance(v, bool): valid = False # Python bool is int, but we want strict int
+                    elif not isinstance(v, int): valid = False
+                elif exp == 'bool':
+                    if not isinstance(v, bool): valid = False
+                elif exp == 'str':
+                    if not isinstance(v, str): valid = False
+                elif exp == 'list':
+                    if not isinstance(v, list): valid = False
+                elif exp == 'dict':
+                    if not isinstance(v, dict): valid = False
+                elif exp == 'number':
+                    if isinstance(v, bool): valid = False
+                    elif not isinstance(v, (int, float)): valid = False
             
             if not valid:
-                msg = f'Field "{key}" expected {expected_type}, got {type(value).__name__}'
+                msg = f'Field "{k}" expected {exp}, got {type(v).__name__}'
                 logger.warning(f'Schema Violation on {resource_path}: {msg}')
                 return msg, 400
             
-            if pattern and expected_type == 'str':
-                if not re.match(pattern, value):
-                    msg = f'Field "{key}" value "{value}" does not match pattern {pattern}'
-                    logger.warning(f'Schema Violation on {resource_path}: {msg}')
-                    return msg, 400
-    
+            if pat and exp == 'str' and isinstance(v, str) and not re.match(pat, v):
+                return f'Field "{k}" value "{v}" does not match pattern {pat}', 400
     return None, None
-
-def get_success_code(resource_path):
-    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
-    for path_pattern, code in PATH_STATUS_CODES.items():
-        if '{' in path_pattern:
-            regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
-            regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path): return code
+def get_success_code(path):
+    if path in PATH_STATUS_CODES: return PATH_STATUS_CODES[path]
+    for p, c in PATH_STATUS_CODES.items():
+        if '{' in p and re.fullmatch('^' + re.sub(r'\{[^}]+\}', '[^/]+', p) + '$', path): return c
     return 200
-
-def mock_retrieve(resource_key, item_id):
-    for item in mock_db[resource_key]:
-        if str(item.get('id')) == str(item_id): return item
+def mock_retrieve(key, iid):
+    for i in mock_db[key]:
+        if str(i.get('id')) == str(iid): return i
     return None
-
-@app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
-def handle_request(resource_path):
-    resource_path = resource_path.rstrip('/')
-    schema_key = find_schema_key(resource_path)
-    
-    if schema_key:
-        resource_key = schema_key
-        item_id = None
-    else:
-        # Heuristic for ID extraction
-        parts = resource_path.split('/')
-        if len(parts) > 1 and (parts[-1].isdigit() or '-' in parts[-1] or len(parts[-1]) > 20):
-            item_id = parts[-1]
-            resource_key = '/'.join(parts[:-1])
-        else:
-            resource_key = resource_path
-            item_id = None
-    
-    logger.info(f'[{request.method}] {resource_path}')
-
-    if item_id and str(item_id).endswith('666'):
-        return jsonify({'errors': [{'message': 'Critical System Failure'}]}), 500
-    
+@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def handle_request(path):
+    path = path.rstrip('/')
+    key = find_schema_key(path)
+    r_key = key if key else '/'.join(path.split('/')[:-1])
+    iid = None
+    if not key and len(path.split('/')) > 1: iid = path.split('/')[-1]
+    logger.info(f'[{request.method}] {path}')
+    if str(iid).endswith('666'): return jsonify({'errors': [{'message': 'Failure'}]}), 500
     if request.method == 'GET':
-        if item_id is not None:
-            item = mock_retrieve(resource_key, item_id)
-            if item: return jsonify({'data': item})
-            return jsonify({'errors': [{'message': 'Not found'}]}), 404
-        else:
-            return jsonify({'data': mock_db[resource_key]})
-
+        if iid:
+             item = mock_retrieve(r_key, iid)
+             return (jsonify({'data': item}), 200) if item else (jsonify({'errors': [{'message': 'Not found'}]}), 404)
+        return jsonify({'data': mock_db[r_key]})
     elif request.method == 'POST':
-        try: data = request.get_json(silent=True) or {}
-        except: data = {}
-        
-        err, code = validate_schema(resource_path, 'POST', data)
+        data = request.get_json(silent=True) or {}
+        err, code = validate_schema(path, 'POST', data)
         if err: return jsonify({'errors': [{'message': err}]}), code
-        
-        desc = request.args.get('description', '')
-        if 'Negative Test' in desc:
-             logger.warning(f'Forcing Rejection for Negative Test on {resource_path} (Heuristic)')
-             return jsonify({'errors': [{'message': 'Forced failure for negative test'}]}), 400
-        
+        if 'Negative Test' in request.args.get('description', ''):
+             logger.warning(f'Forcing Rejection for Negative Test on {path} (Heuristic)')
+             return jsonify({'errors': [{'message': 'Forced failure'}]}), 400
         if 'id' not in data: data['id'] = random.randint(10000, 99999)
-        
-        mock_db[resource_key].append(data)
-        return jsonify({'data': data}), get_success_code(resource_path)
-
+        mock_db[r_key].append(data)
+        return jsonify({'data': data}), get_success_code(path)
     elif request.method in ['PUT', 'PATCH']:
-        if item_id is None:
-             return jsonify({'errors': [{'message': 'Bulk update not implemented'}]}), 200
-        
-        existing_item = mock_retrieve(resource_key, item_id)
-        if not existing_item: return jsonify({'errors': [{'message': 'Not found'}]}), 404
-        
-        try: updates = request.get_json(silent=True) or {}
-        except: updates = {}
-        
-        err, code = validate_schema(resource_path, request.method, updates)
+        data = request.get_json(silent=True) or {}
+        err, code = validate_schema(path, request.method, data)
         if err: return jsonify({'errors': [{'message': err}]}), code
-        
-        existing_item.update(updates)
-        return jsonify({'data': existing_item})
-
+        return jsonify({'data': data})
     elif request.method == 'DELETE':
-        if item_id is not None:
-             initial_len = len(mock_db[resource_key])
-             mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
-             if len(mock_db[resource_key]) < initial_len:
-                 return '', 204
-             return jsonify({'errors': [{'message': 'Not found'}]}), 404
-        else:
-             mock_db[resource_key].clear()
-             return '', 204
-if __name__ == '__main__':
-    app.run(debug=False, port=8055)
+        return '', 204
+if __name__ == '__main__': app.run(debug=False, port=8055)

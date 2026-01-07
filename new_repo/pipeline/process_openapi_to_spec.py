@@ -285,12 +285,17 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
             
             if not schema: continue
 
+            # --- FIX STARTS HERE ---
+            # Reuse the existing resolver to handle $ref, allOf, etc.
             properties = _resolve_schema_properties(schema, raw_spec)
             required_fields = schema.get("required", [])
 
             for field in required_fields:
                 if field not in add_op.get("params", []):
+                    # Add to parameters list
                     add_op.setdefault("params", []).append(field)
+                    
+                    # Determine type
                     field_type = "string"
                     field_format = None
                     if field in properties:
@@ -301,9 +306,11 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
                         elif prop_type == "array": field_type = "array"
                         if prop_format: field_format = prop_format
                     
+                    # Store
                     add_op.setdefault("paramTypes", {})[field] = field_type
                     if field_format: add_op.setdefault("paramFormats", {})[field] = field_format
                     add_op.setdefault("bodyTemplate", {})[field] = f"{{{field}}}"
+            # --- FIX ENDS HERE ---
 
 def patch_link_orphaned_operations(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
     print("   > 🔗 Linking orphaned operations by Schema...")
@@ -585,3 +592,8 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f: json.dump(context, f, indent=2)
     return context
+
+if __name__ == "__main__":
+    # Test run
+    # process_openapi(Path("packs/real_world/directus/openapi.json"), "directus", False)
+    pass

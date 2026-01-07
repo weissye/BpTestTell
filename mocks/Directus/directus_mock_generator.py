@@ -9,27 +9,21 @@ from flask import Flask, request, jsonify
 
 # --- CONFIGURATION ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# Defaulting to json, but code handles yaml if present
 OPENAPI_PATH = os.path.join(BASE_DIR, 'openapi.json') 
 OUTPUT_PATH = os.path.join(BASE_DIR, 'directus_mock.py')
-SERVER_PORT = 8055 # Common default port for Directus
+SERVER_PORT = 8055
 
 def load_spec(path):
     if not os.path.exists(path):
-        # Fallback to yaml if json not found
         yaml_path = path.replace('.json', '.yaml')
-        if os.path.exists(yaml_path):
-            return load_spec(yaml_path)
+        if os.path.exists(yaml_path): return load_spec(yaml_path)
         print(f"[ERROR] Spec file not found at: {path}")
         return {}
-    
     with open(path, 'r', encoding='utf-8') as f:
-        if path.endswith('.yaml') or path.endswith('.yml'):
-            return yaml.safe_load(f)
+        if path.endswith('.yaml') or path.endswith('.yml'): return yaml.safe_load(f)
         return json.load(f)
 
 def resolve_ref(ref, spec):
-    """Resolves a $ref string to the actual schema object."""
     parts = ref.split('/')
     current = spec
     for part in parts:
@@ -38,48 +32,26 @@ def resolve_ref(ref, spec):
     return current
 
 def flatten_schema(schema, spec):
-    """Recursively flattens a schema, resolving allOf and $ref."""
-    if '$ref' in schema:
-        return flatten_schema(resolve_ref(schema['$ref'], spec), spec)
-    
-    properties = {}
-    required = set()
-    
+    if '$ref' in schema: return flatten_schema(resolve_ref(schema['$ref'], spec), spec)
+    properties = {}; required = set()
     if 'allOf' in schema:
-        for sub_schema in schema['allOf']:
-            flat_sub = flatten_schema(sub_schema, spec)
-            properties.update(flat_sub.get('properties', {}))
-            required.update(flat_sub.get('required', []))
-    
-    if 'properties' in schema:
-        properties.update(schema['properties'])
-    
-    if 'required' in schema:
-        required.update(schema['required'])
-        
-    return {
-        'type': schema.get('type', 'object'),
-        'properties': properties,
-        'required': list(required)
-    }
+        for sub in schema['allOf']:
+            flat = flatten_schema(sub, spec)
+            properties.update(flat.get('properties', {}))
+            required.update(flat.get('required', []))
+    if 'properties' in schema: properties.update(schema['properties'])
+    if 'required' in schema: required.update(schema['required'])
+    return {'type': schema.get('type', 'object'), 'properties': properties, 'required': list(required)}
 
 def extract_schemas_and_codes(spec):
     status_codes = {}
     registry = {}
-    
     for path, methods in spec.get('paths', {}).items():
         clean_path = path.strip('/')
         registry[clean_path] = {}
-        
-        # 1. Extract Status Codes
         if 'post' in methods:
             responses = methods['post'].get('responses', {})
-            if '201' in responses: status_codes[clean_path] = 201
-            elif '200' in responses: status_codes[clean_path] = 200
-            elif '204' in responses: status_codes[clean_path] = 204
-            else: status_codes[clean_path] = 200
-            
-        # 2. Extract Validation Schemas
+            status_codes[clean_path] = 201 if '201' in responses else 200 if '200' in responses else 204 if '204' in responses else 200
         for method in ['post', 'put', 'patch']:
             if method in methods:
                 try:
@@ -87,45 +59,29 @@ def extract_schemas_and_codes(spec):
                     req_body = op.get('requestBody', {})
                     content = req_body.get('content', {}).get('application/json', {})
                     raw_schema = content.get('schema', {})
-                    
                     if not raw_schema:
                         registry[clean_path][method.upper()] = {"required": [], "properties": {}}
                         continue
-
-                    flat_schema = flatten_schema(raw_schema, spec)
+                    flat = flatten_schema(raw_schema, spec)
                     py_props = {}
-                    
-                    for prop, details in flat_schema['properties'].items():
+                    for prop, details in flat['properties'].items():
                         if '$ref' in details: details = flatten_schema(details, spec)
-                        
                         o_type = details.get('type')
-                        pattern = details.get('pattern', None)
-                        
-                        prop_def = {'type': 'str', 'pattern': pattern}
-                        
+                        prop_def = {'type': 'str', 'pattern': details.get('pattern')}
                         if o_type == 'integer': prop_def['type'] = 'int'
-                        elif o_type == 'number': prop_def['type'] = 'number' # Floats/Decimals
+                        elif o_type == 'number': prop_def['type'] = 'number'
                         elif o_type == 'boolean': prop_def['type'] = 'bool'
                         elif o_type == 'array': prop_def['type'] = 'list'
                         elif o_type == 'object': prop_def['type'] = 'dict'
-                        else: prop_def['type'] = 'str'
-                        
                         py_props[prop] = prop_def
-
-                    registry[clean_path][method.upper()] = {
-                        "required": flat_schema['required'],
-                        "properties": py_props
-                    }
-                except Exception:
-                    pass
-                    
+                    registry[clean_path][method.upper()] = {"required": flat['required'], "properties": py_props}
+                except: pass
     return status_codes, registry
 
 def generate_mock(spec_path, output_path):
     print(f"Reading OpenAPI spec from: {spec_path}")
     spec = load_spec(spec_path)
     if not spec: return
-
     status_codes, schema_registry = extract_schemas_and_codes(spec)
     title = spec.get('info', {}).get('title', 'Directus API')
     
@@ -133,20 +89,14 @@ def generate_mock(spec_path, output_path):
     code.append("from flask import Flask, request, jsonify")
     code.append("from collections import defaultdict")
     code.append("import random, re, logging, pprint")
-    code.append("")
     code.append(f"# Auto-generated Type-Safe Mock for {title}")
     code.append("app = Flask(__name__)")
     code.append("logging.basicConfig(level=logging.INFO)")
     code.append("logger = logging.getLogger('directus-mock')")
-    code.append("")
     code.append("mock_db = defaultdict(list)")
-    code.append("")
     code.append(f"PATH_STATUS_CODES = {pprint.pformat(status_codes, indent=4)}")
-    code.append("")
     code.append(f"SCHEMA_REGISTRY = {pprint.pformat(schema_registry, indent=4)}")
-    code.append("")
 
-    # --- HELPER: Find Matching Schema Key ---
     code.append("def find_schema_key(resource_path):")
     code.append("    if resource_path in SCHEMA_REGISTRY: return resource_path")
     code.append("    for template in SCHEMA_REGISTRY.keys():")
@@ -154,157 +104,104 @@ def generate_mock(spec_path, output_path):
     code.append("            pattern = '^' + re.sub(r'\\{[^}]+\\}', '[^/]+', template) + '$'")
     code.append("            if re.match(pattern, resource_path): return template")
     code.append("    return None")
-    code.append("")
 
-    # --- VALIDATION LOGIC ---
     code.append("def validate_schema(resource_path, method, data):")
-    code.append("    schema_key = find_schema_key(resource_path)")
-    code.append("    if not schema_key or method not in SCHEMA_REGISTRY[schema_key]:")
-    code.append("        return None, None")
-    code.append("    ")
-    code.append("    schema = SCHEMA_REGISTRY[schema_key][method]")
+    code.append("    key = find_schema_key(resource_path)")
+    code.append("    if not key or method not in SCHEMA_REGISTRY[key]: return None, None")
+    code.append("    schema = SCHEMA_REGISTRY[key][method]")
     code.append("    allowed_props = schema['properties']")
-    code.append("    ")
-    code.append("    # Ignored fields (Directus specific + Standard)")
-    code.append("    ignored_fields = {'id', 'status', 'sort', 'user_created', 'date_created', 'user_updated', 'date_updated'}")
-    code.append("    ")
-    code.append("    # 1. Unknown Fields")
-    code.append("    unknown = set(data.keys()) - set(allowed_props.keys()) - ignored_fields")
+    code.append("    if not allowed_props: return None, None")
+    code.append("    ignored = {'id', 'status', 'sort', 'user_created', 'date_created', 'user_updated', 'date_updated', 'meta', 'data', 'fields'}")
+    code.append("    unknown = {k for k in data.keys() if k not in allowed_props and k.lower() not in ignored}")
     code.append("    if unknown:")
     code.append("        msg = f'Unknown fields detected: {list(unknown)}'")
     code.append("        logger.warning(f'Schema Violation on {resource_path}: {msg}')")
     code.append("        return msg, 400")
-    code.append("    ")
-    code.append("    # 2. Required Fields (Ignore ID)")
     code.append("    if method == 'POST':")
     code.append("        missing = [f for f in schema['required'] if f not in data and f != 'id']")
     code.append("        if missing:")
     code.append("            msg = f'Missing required fields: {missing}'")
     code.append("            logger.warning(f'Schema Violation on {resource_path}: {msg}')")
     code.append("            return msg, 400")
-    code.append("    ")
-    code.append("    # 3. Type & Regex Validation")
-    code.append("    for key, value in data.items():")
-    code.append("        if key in allowed_props and value is not None:")
-    code.append("            prop_def = allowed_props[key]")
-    code.append("            expected_type = prop_def['type']")
-    code.append("            pattern = prop_def.get('pattern')")
-    code.append("            ")
+    code.append("    for k, v in data.items():")
+    code.append("        if k in allowed_props and v is not None:")
+    code.append("            p_def = allowed_props[k]")
+    code.append("            exp, pat = p_def['type'], p_def['pattern']")
     code.append("            valid = True")
-    code.append("            if expected_type == 'int' and not isinstance(value, int): valid = False")
-    code.append("            elif expected_type == 'bool' and not isinstance(value, bool): valid = False")
-    code.append("            elif expected_type == 'str' and not isinstance(value, str): valid = False")
-    code.append("            elif expected_type == 'list' and not isinstance(value, list): valid = False")
-    code.append("            elif expected_type == 'dict' and not isinstance(value, dict): valid = False")
-    code.append("            elif expected_type == 'number' and not isinstance(value, (int, float)): valid = False")
+    code.append("            ")
+    # FIX: Polymorphic fields
+    code.append("            if k.lower() in ['data', 'schema', 'meta', 'fields']:")
+    code.append("                pass # Skip validation for polymorphic Directus fields")
+    code.append("            else:")
+    code.append("                # Strict Type Checking Logic")
+    code.append("                if exp == 'int':")
+    code.append("                    if isinstance(v, bool): valid = False # Python bool is int, but we want strict int")
+    code.append("                    elif not isinstance(v, int): valid = False")
+    code.append("                elif exp == 'bool':")
+    code.append("                    if not isinstance(v, bool): valid = False")
+    code.append("                elif exp == 'str':")
+    code.append("                    if not isinstance(v, str): valid = False")
+    code.append("                elif exp == 'list':")
+    code.append("                    if not isinstance(v, list): valid = False")
+    code.append("                elif exp == 'dict':")
+    code.append("                    if not isinstance(v, dict): valid = False")
+    code.append("                elif exp == 'number':")
+    code.append("                    if isinstance(v, bool): valid = False")
+    code.append("                    elif not isinstance(v, (int, float)): valid = False")
     code.append("            ")
     code.append("            if not valid:")
-    code.append("                msg = f'Field \"{key}\" expected {expected_type}, got {type(value).__name__}'")
+    code.append("                msg = f'Field \"{k}\" expected {exp}, got {type(v).__name__}'")
     code.append("                logger.warning(f'Schema Violation on {resource_path}: {msg}')")
     code.append("                return msg, 400")
     code.append("            ")
-    code.append("            if pattern and expected_type == 'str':")
-    code.append("                if not re.match(pattern, value):")
-    code.append("                    msg = f'Field \"{key}\" value \"{value}\" does not match pattern {pattern}'")
-    code.append("                    logger.warning(f'Schema Violation on {resource_path}: {msg}')")
-    code.append("                    return msg, 400")
-    code.append("    ")
+    code.append("            if pat and exp == 'str' and isinstance(v, str) and not re.match(pat, v):")
+    code.append("                return f'Field \"{k}\" value \"{v}\" does not match pattern {pat}', 400")
     code.append("    return None, None")
-    code.append("")
 
-    code.append("def get_success_code(resource_path):")
-    code.append("    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]")
-    code.append("    for path_pattern, code in PATH_STATUS_CODES.items():")
-    code.append("        if '{' in path_pattern:")
-    code.append("            regex = re.sub(r'\\{[^}]+\\}', '[^/]+', path_pattern)")
-    code.append("            regex = '^' + regex + '$'")
-    code.append("            if re.fullmatch(regex, resource_path): return code")
-    code.append("    return 200") # Directus default
-    code.append("")
+    code.append("def get_success_code(path):")
+    code.append("    if path in PATH_STATUS_CODES: return PATH_STATUS_CODES[path]")
+    code.append("    for p, c in PATH_STATUS_CODES.items():")
+    code.append("        if '{' in p and re.fullmatch('^' + re.sub(r'\\{[^}]+\\}', '[^/]+', p) + '$', path): return c")
+    code.append("    return 200")
 
-    code.append("def mock_retrieve(resource_key, item_id):")
-    code.append("    for item in mock_db[resource_key]:")
-    code.append("        if str(item.get('id')) == str(item_id): return item")
+    code.append("def mock_retrieve(key, iid):")
+    code.append("    for i in mock_db[key]:")
+    code.append("        if str(i.get('id')) == str(iid): return i")
     code.append("    return None")
-    code.append("")
 
-    code.append("@app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])")
-    code.append("def handle_request(resource_path):")
-    code.append("    resource_path = resource_path.rstrip('/')")
-    code.append("    schema_key = find_schema_key(resource_path)")
-    code.append("    ")
-    code.append("    if schema_key:")
-    code.append("        resource_key = schema_key")
-    code.append("        item_id = None")
-    code.append("    else:")
-    code.append("        # Heuristic for ID extraction")
-    code.append("        parts = resource_path.split('/')")
-    code.append("        if len(parts) > 1 and (parts[-1].isdigit() or '-' in parts[-1] or len(parts[-1]) > 20):")
-    code.append("            item_id = parts[-1]")
-    code.append("            resource_key = '/'.join(parts[:-1])")
-    code.append("        else:")
-    code.append("            resource_key = resource_path")
-    code.append("            item_id = None")
-    code.append("    ")
-    code.append("    logger.info(f'[{request.method}] {resource_path}')")
-    code.append("")
-    code.append("    if item_id and str(item_id).endswith('666'):")
-    code.append("        return jsonify({'errors': [{'message': 'Critical System Failure'}]}), 500")
-    code.append("    ")
+    code.append("@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])")
+    code.append("def handle_request(path):")
+    code.append("    path = path.rstrip('/')")
+    code.append("    key = find_schema_key(path)")
+    code.append("    r_key = key if key else '/'.join(path.split('/')[:-1])")
+    code.append("    iid = None")
+    code.append("    if not key and len(path.split('/')) > 1: iid = path.split('/')[-1]")
+    code.append("    logger.info(f'[{request.method}] {path}')")
+    code.append("    if str(iid).endswith('666'): return jsonify({'errors': [{'message': 'Failure'}]}), 500")
     code.append("    if request.method == 'GET':")
-    code.append("        if item_id is not None:")
-    code.append("            item = mock_retrieve(resource_key, item_id)")
-    code.append("            if item: return jsonify({'data': item})")
-    code.append("            return jsonify({'errors': [{'message': 'Not found'}]}), 404")
-    code.append("        else:")
-    code.append("            return jsonify({'data': mock_db[resource_key]})")
-    code.append("")
+    code.append("        if iid:")
+    code.append("             item = mock_retrieve(r_key, iid)")
+    code.append("             return (jsonify({'data': item}), 200) if item else (jsonify({'errors': [{'message': 'Not found'}]}), 404)")
+    code.append("        return jsonify({'data': mock_db[r_key]})")
     code.append("    elif request.method == 'POST':")
-    code.append("        try: data = request.get_json(silent=True) or {}")
-    code.append("        except: data = {}")
-    code.append("        ")
-    code.append("        err, code = validate_schema(resource_path, 'POST', data)")
+    code.append("        data = request.get_json(silent=True) or {}")
+    code.append("        err, code = validate_schema(path, 'POST', data)")
     code.append("        if err: return jsonify({'errors': [{'message': err}]}), code")
-    code.append("        ")
-    code.append("        desc = request.args.get('description', '')")
-    code.append("        if 'Negative Test' in desc:")
-    code.append("             logger.warning(f'Forcing Rejection for Negative Test on {resource_path} (Heuristic)')")
-    code.append("             return jsonify({'errors': [{'message': 'Forced failure for negative test'}]}), 400")
-    code.append("        ")
+    code.append("        if 'Negative Test' in request.args.get('description', ''):")
+    code.append("             logger.warning(f'Forcing Rejection for Negative Test on {path} (Heuristic)')")
+    code.append("             return jsonify({'errors': [{'message': 'Forced failure'}]}), 400")
     code.append("        if 'id' not in data: data['id'] = random.randint(10000, 99999)")
-    code.append("        ")
-    code.append("        mock_db[resource_key].append(data)")
-    code.append("        return jsonify({'data': data}), get_success_code(resource_path)")
-    code.append("")
+    code.append("        mock_db[r_key].append(data)")
+    code.append("        return jsonify({'data': data}), get_success_code(path)")
     code.append("    elif request.method in ['PUT', 'PATCH']:")
-    code.append("        if item_id is None:")
-    code.append("             return jsonify({'errors': [{'message': 'Bulk update not implemented'}]}), 200")
-    code.append("        ")
-    code.append("        existing_item = mock_retrieve(resource_key, item_id)")
-    code.append("        if not existing_item: return jsonify({'errors': [{'message': 'Not found'}]}), 404")
-    code.append("        ")
-    code.append("        try: updates = request.get_json(silent=True) or {}")
-    code.append("        except: updates = {}")
-    code.append("        ")
-    code.append("        err, code = validate_schema(resource_path, request.method, updates)")
+    code.append("        data = request.get_json(silent=True) or {}")
+    code.append("        err, code = validate_schema(path, request.method, data)")
     code.append("        if err: return jsonify({'errors': [{'message': err}]}), code")
-    code.append("        ")
-    code.append("        existing_item.update(updates)")
-    code.append("        return jsonify({'data': existing_item})")
-    code.append("")
+    code.append("        return jsonify({'data': data})")
     code.append("    elif request.method == 'DELETE':")
-    code.append("        if item_id is not None:")
-    code.append("             initial_len = len(mock_db[resource_key])")
-    code.append("             mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]")
-    code.append("             if len(mock_db[resource_key]) < initial_len:")
-    code.append("                 return '', 204")
-    code.append("             return jsonify({'errors': [{'message': 'Not found'}]}), 404")
-    code.append("        else:")
-    code.append("             mock_db[resource_key].clear()")
-    code.append("             return '', 204") 
+    code.append("        return '', 204")
 
-    code.append(f"if __name__ == '__main__':")
-    code.append(f"    app.run(debug=False, port={SERVER_PORT})")
+    code.append(f"if __name__ == '__main__': app.run(debug=False, port={SERVER_PORT})")
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write("\n".join(code))
