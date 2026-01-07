@@ -8,9 +8,9 @@ const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) 
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listChains(chainId) {
+function listChains() {
   var url = "/chains";
-  var reqDescription = "List chains " + chainId;
+  var reqDescription = "List chains {chainId}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -29,8 +29,6 @@ function createChain(active, chainId, description, hqAddress, name, supportEmail
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "chainId": chainId, "description": description, "hqAddress": hqAddress, "name": name, "supportEmail": supportEmail}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -55,19 +53,18 @@ function updateChain(active, chainId, description, hqAddress, name, supportEmail
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "chainId": chainId, "description": description, "hqAddress": hqAddress, "name": name, "supportEmail": supportEmail}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deleteChain(active, chainId, description, hqAddress, name, supportEmail) {
+function deleteChain(chainId) {
   var url = "/chains/" + chainId;
   var reqDescription = "Delete chain " + chainId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingChains(active, chainId, description, hqAddress, name, supportEmail) {
@@ -130,9 +127,9 @@ function matchDeletedChains(active, chainId, description, hqAddress, name, suppo
   });
 }
 
-function listCustomers(customerId) {
+function listCustomers() {
   var url = "/customers";
-  var reqDescription = "List customers " + customerId;
+  var reqDescription = "List customers {customerId}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -153,8 +150,6 @@ function createCustomer(customerId, description, email, fullName, name, phone, p
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerId": customerId, "description": description, "email": email, "fullName": fullName, "name": name, "phone": phone, "preferredGarageId": preferredGarageId, "type": type}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -181,19 +176,18 @@ function updateCustomer(customerId, description, email, fullName, name, phone, p
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerId": customerId, "description": description, "email": email, "fullName": fullName, "name": name, "phone": phone, "preferredGarageId": preferredGarageId, "type": type}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deleteCustomer(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
+function deleteCustomer(customerId) {
   var url = "/customers/" + customerId;
   var reqDescription = "Delete customer " + customerId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingCustomers(customerId, description, email, fullName, name, phone, preferredGarageId, type) {
@@ -260,9 +254,9 @@ function matchDeletedCustomers(customerId, description, email, fullName, name, p
   });
 }
 
-function listGarages(garageId) {
+function listGarages() {
   var url = "/garages";
-  var reqDescription = "List garages " + garageId;
+  var reqDescription = "List garages {garageId}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -286,8 +280,6 @@ function createGarage(active, address, bayCount, capacity, chainId, description,
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "address": address, "bayCount": bayCount, "capacity": capacity, "chainId": chainId, "description": description, "garageId": garageId, "location": location, "name": name, "phone": phone, "servicesOffered": servicesOffered}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -317,19 +309,18 @@ function updateGarage(active, address, bayCount, capacity, chainId, description,
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"active": active, "address": address, "bayCount": bayCount, "capacity": capacity, "chainId": chainId, "description": description, "garageId": garageId, "location": location, "name": name, "phone": phone, "servicesOffered": servicesOffered}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deleteGarage(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
+function deleteGarage(garageId) {
   var url = "/garages/" + garageId;
   var reqDescription = "Delete garage " + garageId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingGarages(active, address, bayCount, capacity, chainId, description, garageId, location, name, phone, servicesOffered) {
@@ -402,9 +393,9 @@ function matchDeletedGarages(active, address, bayCount, capacity, chainId, descr
   });
 }
 
-function listCars(vin) {
+function listCars() {
   var url = "/cars";
-  var reqDescription = "List cars " + vin;
+  var reqDescription = "List cars {vin}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -427,8 +418,6 @@ function createCar(color, description, homeGarageId, licensePlate, make, mileage
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"color": color, "description": description, "homeGarageId": homeGarageId, "licensePlate": licensePlate, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -457,19 +446,18 @@ function updateCar(color, description, homeGarageId, licensePlate, make, mileage
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"color": color, "description": description, "homeGarageId": homeGarageId, "licensePlate": licensePlate, "make": make, "mileage": mileage, "model": model, "ownerCustomerId": ownerCustomerId, "vin": vin, "year": year}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deleteCar(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
+function deleteCar(vin) {
   var url = "/cars/" + vin;
   var reqDescription = "Delete car " + vin;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingCars(color, description, homeGarageId, licensePlate, make, mileage, model, ownerCustomerId, vin, year) {
@@ -540,9 +528,9 @@ function matchDeletedCars(color, description, homeGarageId, licensePlate, make, 
   });
 }
 
-function listPMPlans(pmId) {
+function listPMPlans() {
   var url = "/periodic-maintenance";
-  var reqDescription = "List PM plans " + pmId;
+  var reqDescription = "List PM plans {pmId}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -565,8 +553,6 @@ function createPMPlan(carVin, description, garageId, intervalKm, intervalMonths,
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "description": description, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "schedule": schedule, "status": status, "tasks": tasks}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -595,19 +581,18 @@ function updatePMPlan(carVin, description, garageId, intervalKm, intervalMonths,
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "description": description, "garageId": garageId, "intervalKm": intervalKm, "intervalMonths": intervalMonths, "planType": planType, "pmId": pmId, "schedule": schedule, "status": status, "tasks": tasks}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deletePMPlan(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
+function deletePMPlan(pmId) {
   var url = "/periodic-maintenance/" + pmId;
   var reqDescription = "Delete PM plan " + pmId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingPeriodicMaintenance(carVin, description, garageId, intervalKm, intervalMonths, planType, pmId, schedule, status, tasks) {
@@ -678,9 +663,9 @@ function matchDeletedPeriodicMaintenance(carVin, description, garageId, interval
   });
 }
 
-function listRepairOrders(roId) {
+function listRepairOrders() {
   var url = "/repair-orders";
-  var reqDescription = "List repair orders " + roId;
+  var reqDescription = "List repair orders {roId}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -700,8 +685,6 @@ function createRepairOrder(carVin, complaint, customerId, description, garageId,
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -727,19 +710,18 @@ function updateRepairOrder(carVin, complaint, customerId, description, garageId,
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deleteRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
+function deleteRepairOrder(roId) {
   var url = "/repair-orders/" + roId;
   var reqDescription = "Delete repair order " + roId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function approveRepairOrder(carVin, complaint, customerId, description, garageId, roId, status) {
@@ -750,8 +732,6 @@ function approveRepairOrder(carVin, complaint, customerId, description, garageId
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -764,8 +744,6 @@ function closeRepairOrder(carVin, complaint, customerId, description, garageId, 
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"carVin": carVin, "complaint": complaint, "customerId": customerId, "description": description, "garageId": garageId, "roId": roId, "status": status}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }

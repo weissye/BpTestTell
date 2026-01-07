@@ -34,26 +34,24 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     js_url = f'"{safe_path}"'
     js_desc = f'"{safe_desc}"'
 
-    path_params = set(re.findall(r'\{([^\}]+)\}', path_tmpl))
+    # Extract path params in order
+    ordered_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
+    path_params_set = set(ordered_path_params)
     query_params_list = op_data.get("queryParams", []) 
 
     final_sig_params = []
     
-    if method in ["POST", "PUT", "PATCH", "DELETE"]:
+    # STRICT ARGUMENT ORDERING
+    if method in ["POST", "PUT", "PATCH"]:
         final_sig_params = sig_params
     else:
-        for p in sig_params:
-            if p in path_params or p == primary_key or p == "id":
-                final_sig_params.append(p)
-    
-    for pp in path_params:
-        if pp not in final_sig_params:
-            final_sig_params.append(pp)
+        # For GET/DELETE, force arguments to match URL path order
+        final_sig_params = [p for p in ordered_path_params]
+        # Append query params
+        for qp in query_params_list:
+            if qp not in final_sig_params: final_sig_params.append(qp)
 
-    for qp in query_params_list:
-        if qp not in final_sig_params:
-             final_sig_params.append(qp)
-
+    # URL Construction
     for p in final_sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl:
@@ -75,11 +73,11 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     if method in ["POST", "PUT", "PATCH"]:
         b_lines = ["{"]
-        if "id" in final_sig_params and "id" not in path_params and "id" not in param_types:
+        if "id" in final_sig_params and "id" not in path_params_set and "id" not in param_types:
              b_lines.append(f'    "id": id,')
 
         for p in final_sig_params:
-             if p in path_params or p in query_params_list: continue
+             if p in path_params_set or p in query_params_list: continue
              if p in op_data.get("paramTypes", {}): 
                  sanitized_p = sanitize_param(p)
                  ptype = param_types.get(p, "string").lower()
@@ -105,7 +103,6 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url};')
-    # FIX: Renamed variable to avoid shadowing
     lines.append(f'  var reqDescription = {js_desc};')
     
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
@@ -121,19 +118,17 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
                  payload_parts.append(f'"{p}": {s_p}')
              payload_str = "{" + ", ".join(payload_parts) + "}"
              
-             # FIX: Only emit Done event if status is 2xx
+             # Status check prevents pollution from failed requests
              lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
              lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload_str}) }});')
-             lines.append(f'  }} else {{')
-             lines.append(f'    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");')
              lines.append(f'  }}')
         lines.append('  return res;')
     elif method == "DELETE":
         lines.append(f'  let res = svc.delete(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
-        # FIX: Check status for DELETE too
         lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
         lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
         lines.append(f'  }}')
+        lines.append('  return res;')
     else:
         # GET
         lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
@@ -177,12 +172,10 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
 
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url};')
-    # FIX: Renamed variable
     lines.append(f'  var reqDescription = "Negative Test: Verify Rejection for " + url;')
     lines.append(f'  var body = {body_js};')
     lines.append(f'  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));')
     lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: {{ description: reqDescription }} }});')
-    # Keep distinct event for Negative tests
     lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: " + reqDescription) }});')
     lines.append('}')
     return lines
@@ -207,7 +200,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     lines.append('const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });')
     lines.append('const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };')
     lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
-    # FIX: Updated matcher helper to look for "Positive"
+    # Positive Matcher
     lines.append('function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }')
     lines.append('function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }')
 
@@ -316,7 +309,6 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         desc_tmpl = "Create " + name
         if "add" in ops and isinstance(ops["add"], dict): desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
         
-        # FIX: Regex matches strict Positive event
         regex_start = f"Done: Positive: {desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0]
         if regex_start.endswith('"'): regex_start = regex_start[:-1]
         

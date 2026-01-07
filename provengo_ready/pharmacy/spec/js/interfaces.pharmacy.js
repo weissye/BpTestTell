@@ -8,9 +8,9 @@ const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) 
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listDrugs(id) {
+function listDrugs() {
   var url = "/drugs";
-  var reqDescription = "List drugs " + id;
+  var reqDescription = "List drugs {id}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -25,8 +25,6 @@ function createDrug(id, name) {
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -47,19 +45,18 @@ function updateDrug(id, name) {
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deleteDrug(id, name) {
+function deleteDrug(id) {
   var url = "/drugs/" + id;
   var reqDescription = "Delete drug (idempotent)";
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingDrugs(id, name) {
@@ -115,9 +112,9 @@ function matchDeletedDrugs(id, name) {
   });
 }
 
-function listOrders(id) {
+function listOrders() {
   var url = "/orders";
-  var reqDescription = "List orders " + id;
+  var reqDescription = "List orders {id}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -131,8 +128,6 @@ function createOrder(id) {
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -151,8 +146,6 @@ function updateOrder(id) {
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -164,6 +157,7 @@ function deleteOrder(id) {
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingOrders(id) {
@@ -217,9 +211,9 @@ function matchDeletedOrders(id) {
   });
 }
 
-function listPatients(id) {
+function listPatients() {
   var url = "/patients";
-  var reqDescription = "List patients " + id;
+  var reqDescription = "List patients {id}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -234,8 +228,6 @@ function createPatient(id, name) {
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -256,19 +248,18 @@ function updatePatient(id, name) {
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
 
-function deletePatient(id, name) {
+function deletePatient(id) {
   var url = "/patients/" + id;
   var reqDescription = "Delete patient (idempotent)";
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingPatients(id, name) {
@@ -324,9 +315,9 @@ function matchDeletedPatients(id, name) {
   });
 }
 
-function listInventory(ndc) {
+function listInventory() {
   var url = "/inventory";
-  var reqDescription = "List inventory " + ndc;
+  var reqDescription = "List inventory {ndc}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -340,8 +331,6 @@ function createInventory(ndc) {
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"ndc": ndc}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -360,8 +349,6 @@ function updateInventory(ndc) {
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"ndc": ndc}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -373,6 +360,7 @@ function deleteInventory(ndc) {
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingInventory(ndc) {
@@ -425,9 +413,9 @@ function matchDeletedInventory(ndc) {
   });
 }
 
-function listPrescriptions(id) {
+function listPrescriptions() {
   var url = "/prescriptions";
-  var reqDescription = "List prescriptions " + id;
+  var reqDescription = "List prescriptions {id}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
@@ -441,8 +429,6 @@ function createPrescription(id) {
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -461,8 +447,6 @@ function updatePrescription(id) {
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
-  } else {
-    bp.log.info("DEBUG: Op " + reqDescription + " failed with status " + res.status + ". Skipping Done event.");
   }
   return res;
 }
@@ -474,6 +458,7 @@ function deletePrescription(id) {
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
+  return res;
 }
 
 function tryToAddExistingPrescriptions(id) {

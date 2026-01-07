@@ -260,8 +260,8 @@ bthread("fuzz:Customers:type_Missing", function () {
 bthread("fuzz:Garages:active_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -275,8 +275,8 @@ bthread("fuzz:Garages:active_InvalidType", function () {
 bthread("fuzz:Garages:address_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -290,8 +290,8 @@ bthread("fuzz:Garages:address_InvalidType", function () {
 bthread("fuzz:Garages:bayCount_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -305,8 +305,8 @@ bthread("fuzz:Garages:bayCount_InvalidType", function () {
 bthread("fuzz:Garages:capacity_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -320,8 +320,8 @@ bthread("fuzz:Garages:capacity_InvalidType", function () {
 bthread("fuzz:Garages:chainId_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -335,8 +335,8 @@ bthread("fuzz:Garages:chainId_InvalidType", function () {
 bthread("fuzz:Garages:description_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -350,8 +350,8 @@ bthread("fuzz:Garages:description_InvalidType", function () {
 bthread("fuzz:Garages:garageId_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -365,8 +365,8 @@ bthread("fuzz:Garages:garageId_InvalidType", function () {
 bthread("fuzz:Garages:location_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -380,8 +380,8 @@ bthread("fuzz:Garages:location_InvalidType", function () {
 bthread("fuzz:Garages:name_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -395,8 +395,8 @@ bthread("fuzz:Garages:name_InvalidType", function () {
 bthread("fuzz:Garages:phone_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -410,8 +410,8 @@ bthread("fuzz:Garages:phone_InvalidType", function () {
 bthread("fuzz:Garages:servicesOffered_InvalidType", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -425,8 +425,8 @@ bthread("fuzz:Garages:servicesOffered_InvalidType", function () {
 bthread("fuzz:Garages:active_Missing", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -440,8 +440,8 @@ bthread("fuzz:Garages:active_Missing", function () {
 bthread("fuzz:Garages:address_Missing", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -455,8 +455,8 @@ bthread("fuzz:Garages:address_Missing", function () {
 bthread("fuzz:Garages:chainId_Missing", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -470,8 +470,8 @@ bthread("fuzz:Garages:chainId_Missing", function () {
 bthread("fuzz:Garages:garageId_Missing", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -485,8 +485,8 @@ bthread("fuzz:Garages:garageId_Missing", function () {
 bthread("fuzz:Garages:name_Missing", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -500,8 +500,8 @@ bthread("fuzz:Garages:name_Missing", function () {
 bthread("fuzz:Garages:phone_Missing", function () {
   let active_valid = true;
   let address_valid = {};
-  let bayCount_valid = Math.floor(Math.random() * 1000000);
-  let capacity_valid = Math.floor(Math.random() * 1000000);
+  let bayCount_valid = Math.floor(Math.random() * 1000);
+  let capacity_valid = Math.floor(Math.random() * 1000);
   let chainId_valid = "chainId_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
@@ -518,11 +518,11 @@ bthread("fuzz:Cars:color_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_color = 12345;
   verifyCarsRejects(bad_color, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -532,11 +532,11 @@ bthread("fuzz:Cars:description_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_description = 12345;
   verifyCarsRejects(color_valid, bad_description, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -546,11 +546,11 @@ bthread("fuzz:Cars:homeGarageId_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_homeGarageId = 12345;
   verifyCarsRejects(color_valid, description_valid, bad_homeGarageId, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -560,11 +560,11 @@ bthread("fuzz:Cars:licensePlate_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_licensePlate = 12345;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, bad_licensePlate, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -574,11 +574,11 @@ bthread("fuzz:Cars:make_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_make = 12345;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, bad_make, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -588,11 +588,11 @@ bthread("fuzz:Cars:mileage_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_mileage = "INVALID_STRING";
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, bad_mileage, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -602,11 +602,11 @@ bthread("fuzz:Cars:model_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_model = 12345;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, bad_model, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -616,11 +616,11 @@ bthread("fuzz:Cars:ownerCustomerId_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_ownerCustomerId = 12345;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, bad_ownerCustomerId, vin_valid, year_valid);
 });
@@ -630,11 +630,11 @@ bthread("fuzz:Cars:vin_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_vin = 12345;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, bad_vin, year_valid);
 });
@@ -644,11 +644,11 @@ bthread("fuzz:Cars:year_InvalidType", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let bad_year = "INVALID_STRING";
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, bad_year);
 });
@@ -658,11 +658,11 @@ bthread("fuzz:Cars:make_Missing", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let missing_make = undefined;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, missing_make, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -672,11 +672,11 @@ bthread("fuzz:Cars:mileage_Missing", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let missing_mileage = undefined;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, missing_mileage, model_valid, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -686,11 +686,11 @@ bthread("fuzz:Cars:model_Missing", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let missing_model = undefined;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, missing_model, ownerCustomerId_valid, vin_valid, year_valid);
 });
@@ -700,11 +700,11 @@ bthread("fuzz:Cars:ownerCustomerId_Missing", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let missing_ownerCustomerId = undefined;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, missing_ownerCustomerId, vin_valid, year_valid);
 });
@@ -714,11 +714,11 @@ bthread("fuzz:Cars:vin_Missing", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let missing_vin = undefined;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, missing_vin, year_valid);
 });
@@ -728,11 +728,11 @@ bthread("fuzz:Cars:year_Missing", function () {
   let homeGarageId_valid = "homeGarageId_valid_" + Math.floor(Math.random()*1000);
   let licensePlate_valid = "licensePlate_valid_" + Math.floor(Math.random()*1000);
   let make_valid = "make_valid_" + Math.floor(Math.random()*1000);
-  let mileage_valid = Math.floor(Math.random() * 1000000);
+  let mileage_valid = Math.floor(Math.random() * 1000);
   let model_valid = "model_valid_" + Math.floor(Math.random()*1000);
   let ownerCustomerId_valid = "ownerCustomerId_valid_" + Math.floor(Math.random()*1000);
   let vin_valid = "vin_valid_" + Math.floor(Math.random()*1000);
-  let year_valid = Math.floor(Math.random() * 1000000);
+  let year_valid = Math.floor(Math.random() * 1000);
   let missing_year = undefined;
   verifyCarsRejects(color_valid, description_valid, homeGarageId_valid, licensePlate_valid, make_valid, mileage_valid, model_valid, ownerCustomerId_valid, vin_valid, missing_year);
 });
@@ -740,12 +740,12 @@ bthread("fuzz:PeriodicMaintenance:carVin_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_carVin = 12345;
   verifyPeriodicMaintenanceRejects(bad_carVin, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -754,12 +754,12 @@ bthread("fuzz:PeriodicMaintenance:description_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_description = 12345;
   verifyPeriodicMaintenanceRejects(carVin_valid, bad_description, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -768,12 +768,12 @@ bthread("fuzz:PeriodicMaintenance:garageId_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_garageId = 12345;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, bad_garageId, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -782,12 +782,12 @@ bthread("fuzz:PeriodicMaintenance:intervalKm_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_intervalKm = "INVALID_STRING";
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, bad_intervalKm, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -796,12 +796,12 @@ bthread("fuzz:PeriodicMaintenance:intervalMonths_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_intervalMonths = "INVALID_STRING";
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, bad_intervalMonths, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -810,12 +810,12 @@ bthread("fuzz:PeriodicMaintenance:planType_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_planType = 12345;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, bad_planType, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -824,12 +824,12 @@ bthread("fuzz:PeriodicMaintenance:pmId_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_pmId = 12345;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, bad_pmId, schedule_valid, status_valid, tasks_valid);
@@ -838,12 +838,12 @@ bthread("fuzz:PeriodicMaintenance:schedule_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_schedule = 12345;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, bad_schedule, status_valid, tasks_valid);
@@ -852,12 +852,12 @@ bthread("fuzz:PeriodicMaintenance:status_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_status = 12345;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, bad_status, tasks_valid);
@@ -866,12 +866,12 @@ bthread("fuzz:PeriodicMaintenance:tasks_InvalidType", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let bad_tasks = "NOT_AN_ARRAY";
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, bad_tasks);
@@ -880,12 +880,12 @@ bthread("fuzz:PeriodicMaintenance:carVin_Missing", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let missing_carVin = undefined;
   verifyPeriodicMaintenanceRejects(missing_carVin, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -894,12 +894,12 @@ bthread("fuzz:PeriodicMaintenance:garageId_Missing", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let missing_garageId = undefined;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, missing_garageId, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -908,12 +908,12 @@ bthread("fuzz:PeriodicMaintenance:planType_Missing", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let missing_planType = undefined;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, missing_planType, pmId_valid, schedule_valid, status_valid, tasks_valid);
@@ -922,12 +922,12 @@ bthread("fuzz:PeriodicMaintenance:pmId_Missing", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let missing_pmId = undefined;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, missing_pmId, schedule_valid, status_valid, tasks_valid);
@@ -936,12 +936,12 @@ bthread("fuzz:PeriodicMaintenance:status_Missing", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let missing_status = undefined;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, missing_status, tasks_valid);
@@ -950,12 +950,12 @@ bthread("fuzz:PeriodicMaintenance:tasks_Missing", function () {
   let carVin_valid = "carVin_valid_" + Math.floor(Math.random()*1000);
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
-  let intervalKm_valid = Math.floor(Math.random() * 1000000);
-  let intervalMonths_valid = Math.floor(Math.random() * 1000000);
+  let intervalKm_valid = Math.floor(Math.random() * 1000);
+  let intervalMonths_valid = Math.floor(Math.random() * 1000);
   let planType_valid = "planType_valid_" + Math.floor(Math.random()*1000);
   let pmId_valid = "pmId_valid_" + Math.floor(Math.random()*1000);
   let schedule_valid = {};
-  let status_valid = "open";
+  let status_valid = "active";
   let tasks_valid = [];
   let missing_tasks = undefined;
   verifyPeriodicMaintenanceRejects(carVin_valid, description_valid, garageId_valid, intervalKm_valid, intervalMonths_valid, planType_valid, pmId_valid, schedule_valid, status_valid, missing_tasks);
@@ -967,7 +967,7 @@ bthread("fuzz:RepairOrders:carVin_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_carVin = 12345;
   verifyRepairOrdersRejects(bad_carVin, complaint_valid, customerId_valid, description_valid, garageId_valid, roId_valid, status_valid);
 });
@@ -978,7 +978,7 @@ bthread("fuzz:RepairOrders:complaint_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_complaint = 12345;
   verifyRepairOrdersRejects(carVin_valid, bad_complaint, customerId_valid, description_valid, garageId_valid, roId_valid, status_valid);
 });
@@ -989,7 +989,7 @@ bthread("fuzz:RepairOrders:customerId_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_customerId = 12345;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, bad_customerId, description_valid, garageId_valid, roId_valid, status_valid);
 });
@@ -1000,7 +1000,7 @@ bthread("fuzz:RepairOrders:description_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_description = 12345;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, bad_description, garageId_valid, roId_valid, status_valid);
 });
@@ -1011,7 +1011,7 @@ bthread("fuzz:RepairOrders:garageId_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_garageId = 12345;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, description_valid, bad_garageId, roId_valid, status_valid);
 });
@@ -1022,7 +1022,7 @@ bthread("fuzz:RepairOrders:roId_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_roId = 12345;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, description_valid, garageId_valid, bad_roId, status_valid);
 });
@@ -1033,7 +1033,7 @@ bthread("fuzz:RepairOrders:status_InvalidType", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let bad_status = 12345;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, description_valid, garageId_valid, roId_valid, bad_status);
 });
@@ -1044,7 +1044,7 @@ bthread("fuzz:RepairOrders:carVin_Missing", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let missing_carVin = undefined;
   verifyRepairOrdersRejects(missing_carVin, complaint_valid, customerId_valid, description_valid, garageId_valid, roId_valid, status_valid);
 });
@@ -1055,7 +1055,7 @@ bthread("fuzz:RepairOrders:complaint_Missing", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let missing_complaint = undefined;
   verifyRepairOrdersRejects(carVin_valid, missing_complaint, customerId_valid, description_valid, garageId_valid, roId_valid, status_valid);
 });
@@ -1066,7 +1066,7 @@ bthread("fuzz:RepairOrders:customerId_Missing", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let missing_customerId = undefined;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, missing_customerId, description_valid, garageId_valid, roId_valid, status_valid);
 });
@@ -1077,7 +1077,7 @@ bthread("fuzz:RepairOrders:garageId_Missing", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let missing_garageId = undefined;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, description_valid, missing_garageId, roId_valid, status_valid);
 });
@@ -1088,7 +1088,7 @@ bthread("fuzz:RepairOrders:roId_Missing", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let missing_roId = undefined;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, description_valid, garageId_valid, missing_roId, status_valid);
 });
@@ -1099,7 +1099,7 @@ bthread("fuzz:RepairOrders:status_Missing", function () {
   let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
   let garageId_valid = "garageId_valid_" + Math.floor(Math.random()*1000);
   let roId_valid = "roId_valid_" + Math.floor(Math.random()*1000);
-  let status_valid = "open";
+  let status_valid = "active";
   let missing_status = undefined;
   verifyRepairOrdersRejects(carVin_valid, complaint_valid, customerId_valid, description_valid, garageId_valid, roId_valid, missing_status);
 });
