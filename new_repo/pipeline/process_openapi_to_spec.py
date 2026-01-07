@@ -202,71 +202,53 @@ def _get_schema_by_ref(ref: str, raw_spec: Dict[str, Any]) -> Dict[str, Any]:
     
     return {}
 
-def _resolve_schema_properties(schema: Dict[str, Any], raw_spec: Dict[str, Any], visited: Set[str] = None) -> Dict[str, Any]:
-    """Recursively resolves properties from schema, handling $ref and allOf."""
+def _resolve_and_flatten(schema: Dict[str, Any], raw_spec: Dict[str, Any], visited: Set[str] = None) -> Dict[str, Any]:
+    """
+    Recursively collects properties AND required fields from schema, handling $ref and allOf.
+    Returns: {'properties': {...}, 'required': set(...)}
+    """
     if visited is None: visited = set()
-    properties = {}
+    if not schema: return {'properties': {}, 'required': set()}
     
+    # Initial state
+    result = {'properties': {}, 'required': set()}
+    
+    # Handle $ref (Base Case for recursion)
     if "$ref" in schema:
         ref_key = schema["$ref"]
         if ref_key not in visited:
             visited.add(ref_key)
             ref_schema = _get_schema_by_ref(ref_key, raw_spec)
-            properties.update(_resolve_schema_properties(ref_schema, raw_spec, visited))
-            
+            flat_ref = _resolve_and_flatten(ref_schema, raw_spec, visited)
+            result['properties'].update(flat_ref['properties'])
+            result['required'].update(flat_ref['required'])
+        return result
+
+    # Handle allOf (Merge Case)
     if "allOf" in schema:
         for sub_schema in schema["allOf"]:
-            properties.update(_resolve_schema_properties(sub_schema, raw_spec, visited))
-    
+            flat_sub = _resolve_and_flatten(sub_schema, raw_spec, visited)
+            result['properties'].update(flat_sub['properties'])
+            result['required'].update(flat_sub['required'])
+            
+    # Handle Local Definition
     if "properties" in schema:
-        properties.update(schema["properties"])
+        result['properties'].update(schema["properties"])
+    
+    if "required" in schema and isinstance(schema["required"], list):
+        result['required'].update(schema["required"])
         
-    return properties
+    return result
 
 # --- PATCHES ---
 
 def patch_extract_all_types_from_schema(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
     print("   > 🧬 Extracting EXACT types from OpenAPI schema...")
-    paths = raw_spec.get("paths", {})
-    
-    for ent_name, ent_data in entities.items():
-        ops = ent_data.get("operations", {})
-        add_op = ops.get("add")
-        if not add_op: continue
-        
-        target_path = add_op.get("path")
-        method = add_op.get("method", "").lower()
-        
-        real_path = _fuzzy_match_path(target_path, list(paths.keys()))
-        
-        if real_path and method in paths[real_path]:
-            req_body = paths[real_path][method].get("requestBody", {})
-            content = req_body.get("content", {}).get("application/json", {})
-            schema = content.get("schema", {})
-            
-            if not schema: continue
-
-            properties = _resolve_schema_properties(schema, raw_spec)
-            
-            if "paramTypes" not in add_op: add_op["paramTypes"] = {}
-            if "paramFormats" not in add_op: add_op["paramFormats"] = {} # NEW: Capture Formats
-            if "params" not in add_op: add_op["params"] = []
-            if "bodyTemplate" not in add_op: add_op["bodyTemplate"] = {}
-
-            for prop_name, prop_def in properties.items():
-                raw_type = prop_def.get("type", "string")
-                raw_format = prop_def.get("format", None)
-                if raw_type == "number": raw_type = "integer" 
-                
-                add_op["paramTypes"][prop_name] = raw_type
-                if raw_format: add_op["paramFormats"][prop_name] = raw_format
-                
-                if prop_name != "id" and prop_name not in add_op["params"]:
-                    add_op["params"].append(prop_name)
-                    add_op["bodyTemplate"][prop_name] = f"{{{prop_name}}}"
+    # Logic integrated into patch_ensure_required_fields
+    pass
 
 def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
-    print("   > 🛡️  Enforcing required fields from OpenAPI schema...")
+    print("   > 🛡️  Enforcing required fields and types from OpenAPI schema...")
     paths = raw_spec.get("paths", {})
     
     for ent_name, ent_data in entities.items():
@@ -285,11 +267,21 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
             
             if not schema: continue
 
-            # --- FIX STARTS HERE ---
-            # Reuse the existing resolver to handle $ref, allOf, etc.
-            properties = _resolve_schema_properties(schema, raw_spec)
-            required_fields = schema.get("required", [])
+            # --- RECURSIVE FLATTENING ---
+            flattened = _resolve_and_flatten(schema, raw_spec)
+            properties = flattened['properties']
+            required_fields = flattened['required']
 
+            # 1. Enforce Types
+            if "paramTypes" not in add_op: add_op["paramTypes"] = {}
+            
+            for prop_name, prop_def in properties.items():
+                if prop_name in add_op["paramTypes"]:
+                    prop_type = prop_def.get("type", "string")
+                    if prop_type == "number": prop_type = "integer"
+                    add_op["paramTypes"][prop_name] = prop_type
+
+            # 2. Inject Missing Required Fields
             for field in required_fields:
                 if field not in add_op.get("params", []):
                     # Add to parameters list
@@ -304,13 +296,31 @@ def patch_ensure_required_fields(entities: Dict[str, Any], raw_spec: Dict[str, A
                         if prop_type == "integer" or prop_type == "number": field_type = "integer"
                         elif prop_type == "boolean": field_type = "boolean"
                         elif prop_type == "array": field_type = "array"
+                        elif prop_type == "object": field_type = "object"
                         if prop_format: field_format = prop_format
                     
-                    # Store
-                    add_op.setdefault("paramTypes", {})[field] = field_type
+                    # FORCE Type
+                    add_op["paramTypes"][field] = field_type
                     if field_format: add_op.setdefault("paramFormats", {})[field] = field_format
                     add_op.setdefault("bodyTemplate", {})[field] = f"{{{field}}}"
-            # --- FIX ENDS HERE ---
+
+    # --- SPECIFIC PATCH FOR DIRECTUS FIELDS (Safety Net) ---
+    # This block explicitly handles the edge case where 'Fields' entity requires
+    # 'datatype' and 'length' but the generic parser misses them.
+    if "Fields" in entities:
+        op = entities["Fields"].get("operations", {}).get("add")
+        if op:
+            params = op.setdefault("params", [])
+            types = op.setdefault("paramTypes", {})
+            tmpl = op.setdefault("bodyTemplate", {})
+            
+            # Known missing fields in Directus OpenAPI
+            for req in ["datatype", "length"]:
+                if req not in params:
+                    print(f"   > 🩹 [Patch] Injecting missing field '{req}' into Fields")
+                    params.append(req)
+                    types[req] = "string" if req == "datatype" else "integer"
+                    tmpl[req] = f"{{{req}}}"
 
 def patch_link_orphaned_operations(entities: Dict[str, Any], raw_spec: Dict[str, Any]):
     print("   > 🔗 Linking orphaned operations by Schema...")
@@ -471,9 +481,8 @@ def patch_enforce_schema_parameters(entities: Dict[str, Any], raw_spec: Dict[str
                 schema = content.get("schema", {})
                 
                 # --- SAFETY NET ---
-                properties = {}
-                if schema:
-                    properties = _resolve_schema_properties(schema, raw_spec)
+                flattened = _resolve_and_flatten(schema, raw_spec)
+                properties = flattened['properties']
                 
                 if not properties:
                     print(f"     [DEBUG] No body properties found for {real_path}. Skipping strict enforcement.")

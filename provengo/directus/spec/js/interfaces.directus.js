@@ -1,7 +1,7 @@
 //@provengo summon rest
 // === Auto-generated interfaces for directus ===
 var host = (typeof host !== 'undefined') ? host : 'localhost';
-var port = (typeof port !== 'undefined') ? port : 8000;
+var port = (typeof port !== 'undefined') ? port : 8055;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
