@@ -147,6 +147,18 @@ The core logic resides in `new_repo/pipeline`, where three main scripts orchestr
 
 ---
 
+## 🏗️ SUT Environment Setup
+
+To run a system under test (SUT) in a local environment with a clean state, use the specialized orchestration scripts provided in the root directory.
+
+### Running the Petshop Store SUT
+The Petshop SUT is based on the `openapitools/openapi-petstore` Docker image. To ensure the database is empty and the server is configured to match the generated test code (base path `/v3` and authentication enabled), run:
+
+```powershell
+.\run_sut_only.ps1
+
+---
+
 ## 📂 Project Structure: `provengo` vs `provengo_ready`
 
 * **`provengo/` (The Staging Area):**

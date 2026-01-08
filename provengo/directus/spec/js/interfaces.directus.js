@@ -72,7 +72,7 @@ function matchAnyAssetsAdded() {
 
 function passwordReset(password, provider, redirect, token) {
   var url = "/auth/password/reset";
-  var reqDescription = "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password. " + provider;
+  var reqDescription = "Reset a Password " + provider;
   var body = {
     "password": String(password),
     "token": String(token),
@@ -139,7 +139,7 @@ function verifyAuthenticationDoesNotExist(provider) { verifyAuthenticationDelete
 
 function matchAnyAuthenticationAdded() {
   return bp.EventSet("Any Authentication Added", function(e) {
-      return e.name.startsWith("Done: Positive: The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password.");
+      return e.name.startsWith("Done: Positive: Reset a Password");
   });
 }
 
@@ -292,45 +292,35 @@ function getItems(collection) {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
 }
 
-function createItem(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id) {
+function createItem(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection) {
   var url = "/items/" + collection;
   var reqDescription = "Create a new item. " + collection;
   var body = {
-    "id": id,
     "Meta": String(Meta),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Collection": Collection, "Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "collection": collection, "id": id}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Collection": Collection, "Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "collection": collection}) });
   }
   return res;
 }
 
-function updateItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id) {
+function updateItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection) {
   var url = "/items/" + collection;
-  var reqDescription = "Update multiple items at the same time. " + collection;
-  var body = {
-    "id": id,
-    "Fields": String(Fields),
-    "Filter": String(Filter),
-    "Limit": String(Limit),
-    "Meta": String(Meta),
-    "Offset": String(Offset),
-    "Search": String(Search),
-    "Sort": String(Sort),
-};
+  var reqDescription = "Update Multiple Items " + collection;
+  var body = {};
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Collection": Collection, "Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "collection": collection, "id": id}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Collection": Collection, "Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "collection": collection}) });
   }
   return res;
 }
 
 function deleteItems(collection) {
   var url = "/items/" + collection;
-  var reqDescription = "Delete multiple existing items. " + collection;
+  var reqDescription = "Delete Multiple Items " + collection;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
@@ -344,36 +334,10 @@ function getItems(collection) {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
 }
 
-function updateItem(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id) {
-  var url = "/items/" + collection + "/" + id;
-  var reqDescription = "Update an existing item. " + collection;
-  var body = {
-    "Fields": String(Fields),
-    "Meta": String(Meta),
-};
-  bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
-  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Collection": Collection, "Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "collection": collection, "id": id}) });
-  }
-  return res;
-}
-
-function deleteItem(collection, id) {
-  var url = "/items/" + collection + "/" + id;
-  var reqDescription = "Delete an existing item. " + collection;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
-  return res;
-}
-
-function tryToAddExistingItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id) {
+function tryToAddExistingItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection) {
   var url = "/items/" + collection;
   var reqDescription = "Try Add Existing Items " + collection;
   var body = {
-    "id": id,
     "Meta": String(Meta),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
@@ -381,13 +345,11 @@ function tryToAddExistingItems(Collection, Fields, Filter, Limit, Meta, Offset, 
   return res;
 }
 
-function verifyItemsRejects(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id) {
+function verifyItemsRejects(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection) {
   var url = "/items/" + collection;
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
-    "id": id,
     "Meta": Meta,
-    "id": id,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409], parameters: { description: reqDescription } });
@@ -416,9 +378,9 @@ function matchAnyItemsAdded() {
   });
 }
 
-function matchDeletedItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id) {
+function matchDeletedItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection) {
   return bp.EventSet("Delete Items", function(e) {
-      return e.name.startsWith("Done: Positive: Delete multiple existing items.");
+      return e.name.startsWith("Done: Positive: Delete Multiple Items");
   });
 }
 
@@ -428,7 +390,7 @@ function getPresets() {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
 }
 
-function createPreset(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
+function createPreset(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
   var url = "/presets";
   var reqDescription = "Create a new preset. " + id;
   var body = {
@@ -445,44 +407,12 @@ function createPreset(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sor
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "data": data, "filters": filters, "id": id, "keys": keys, "layout": layout, "layout_options": layout_options, "layout_query": layout_query, "role": role, "search": search, "search_query": search_query, "title": title, "translation": translation, "view_options": view_options, "view_query": view_query, "view_type": view_type}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "filters": filters, "id": id, "layout": layout, "layout_options": layout_options, "layout_query": layout_query, "role": role, "search": search, "search_query": search_query, "title": title, "translation": translation, "view_options": view_options, "view_query": view_query, "view_type": view_type}) });
   }
   return res;
 }
 
-function updatePresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
-  var url = "/presets";
-  var reqDescription = "Update multiple presets at the same time. " + id;
-  var body = {
-    "id": id,
-    "data": data,
-    "keys": keys,
-};
-  bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
-  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "data": data, "filters": filters, "id": id, "keys": keys, "layout": layout, "layout_options": layout_options, "layout_query": layout_query, "role": role, "search": search, "search_query": search_query, "title": title, "translation": translation, "view_options": view_options, "view_query": view_query, "view_type": view_type}) });
-  }
-  return res;
-}
-
-function deletePresets() {
-  var url = "/presets";
-  var reqDescription = "Delete multiple existing presets. {id}";
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
-  return res;
-}
-
-function getPreset(id) {
-  var url = "/presets/" + id;
-  var reqDescription = "Retrieve a single preset by unique identifier.";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
-}
-
-function updatePreset(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
+function updatePreset(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
   var url = "/presets/" + id;
   var reqDescription = "Update an existing preset. " + id;
   var body = {
@@ -499,7 +429,7 @@ function updatePreset(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sor
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "data": data, "filters": filters, "id": id, "keys": keys, "layout": layout, "layout_options": layout_options, "layout_query": layout_query, "role": role, "search": search, "search_query": search_query, "title": title, "translation": translation, "view_options": view_options, "view_query": view_query, "view_type": view_type}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "filters": filters, "id": id, "layout": layout, "layout_options": layout_options, "layout_query": layout_query, "role": role, "search": search, "search_query": search_query, "title": title, "translation": translation, "view_options": view_options, "view_query": view_query, "view_type": view_type}) });
   }
   return res;
 }
@@ -514,7 +444,13 @@ function deletePreset(id) {
   return res;
 }
 
-function tryToAddExistingPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
+function getPreset(id) {
+  var url = "/presets/" + id;
+  var reqDescription = "Retrieve a single preset by unique identifier.";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
+}
+
+function tryToAddExistingPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
   var url = "/presets";
   var reqDescription = "Try Add Existing Presets " + id;
   var body = {
@@ -533,7 +469,7 @@ function tryToAddExistingPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, 
   return res;
 }
 
-function verifyPresetsRejects(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
+function verifyPresetsRejects(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
   var url = "/presets";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -575,9 +511,9 @@ function matchAnyPresetsAdded() {
   });
 }
 
-function matchDeletedPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
+function matchDeletedPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type) {
   return bp.EventSet("Delete Presets", function(e) {
-      return e.name.startsWith("Done: Positive: Delete multiple existing presets.");
+      return e.name.startsWith("Done: Positive: Delete an existing preset.");
   });
 }
 
@@ -591,9 +527,9 @@ function deleteComment(id) {
   return res;
 }
 
-function getComments() {
-  var url = "/comments";
-  var reqDescription = "List the comments. {id}";
+function getComment(id) {
+  var url = "/comments/" + id;
+  var reqDescription = "Retrieve a single comment by unique identifier.";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
 }
 
@@ -613,6 +549,12 @@ function updateComment(collection, comment, id, item) {
   return res;
 }
 
+function getComments() {
+  var url = "/comments";
+  var reqDescription = "List the comments. {id}";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
+}
+
 function createComment(collection, comment, id, item) {
   var url = "/comments";
   var reqDescription = "Create a new comment. " + id;
@@ -628,12 +570,6 @@ function createComment(collection, comment, id, item) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collection": collection, "comment": comment, "id": id, "item": item}) });
   }
   return res;
-}
-
-function getComment(id) {
-  var url = "/comments/" + id;
-  var reqDescription = "Retrieve a single comment by unique identifier.";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401] });
 }
 
 function tryToAddExistingComments(collection, comment, id, item) {
@@ -757,12 +693,14 @@ function getCollectionFields(collection) {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function createField(Sort, collection, field, id, meta, schema, type) {
+function createField(Sort, collection, datatype, field, id, length, meta, schema, type) {
   var url = "/fields/" + collection;
   var reqDescription = "Create a new field in a given collection.";
   var body = {
     "id": id,
+    "datatype": String(datatype),
     "field": String(field),
+    "length": length,
     "meta": meta,
     "schema": schema,
     "type": String(type),
@@ -770,7 +708,7 @@ function createField(Sort, collection, field, id, meta, schema, type) {
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Sort": Sort, "collection": collection, "field": field, "id": id, "meta": meta, "schema": schema, "type": type}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Sort": Sort, "collection": collection, "datatype": datatype, "field": field, "id": id, "length": length, "meta": meta, "schema": schema, "type": type}) });
   }
   return res;
 }
@@ -781,7 +719,7 @@ function getCollectionFields(collection) {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updateField(Sort, collection, field, id, meta, schema, type) {
+function updateField(Sort, collection, datatype, field, id, length, meta, schema, type) {
   var url = "/fields/" + collection + "/" + id;
   var reqDescription = "Update an existing field. " + collection;
   var body = {
@@ -793,7 +731,7 @@ function updateField(Sort, collection, field, id, meta, schema, type) {
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Sort": Sort, "collection": collection, "field": field, "id": id, "meta": meta, "schema": schema, "type": type}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Sort": Sort, "collection": collection, "datatype": datatype, "field": field, "id": id, "length": length, "meta": meta, "schema": schema, "type": type}) });
   }
   return res;
 }
@@ -808,12 +746,14 @@ function deleteField(collection, id) {
   return res;
 }
 
-function tryToAddExistingFields(Sort, collection, field, id, meta, schema, type) {
+function tryToAddExistingFields(Sort, collection, datatype, field, id, length, meta, schema, type) {
   var url = "/fields/" + collection;
   var reqDescription = "Try Add Existing Fields " + collection;
   var body = {
     "id": id,
+    "datatype": String(datatype),
     "field": String(field),
+    "length": length,
     "meta": meta,
     "schema": schema,
     "type": String(type),
@@ -823,13 +763,15 @@ function tryToAddExistingFields(Sort, collection, field, id, meta, schema, type)
   return res;
 }
 
-function verifyFieldsRejects(Sort, collection, field, id, meta, schema, type) {
+function verifyFieldsRejects(Sort, collection, datatype, field, id, length, meta, schema, type) {
   var url = "/fields/" + collection;
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "id": id,
+    "datatype": datatype,
     "field": field,
     "id": id,
+    "length": length,
     "meta": meta,
     "schema": schema,
     "type": type,
@@ -861,7 +803,7 @@ function matchAnyFieldsAdded() {
   });
 }
 
-function matchDeletedFields(Sort, collection, field, id, meta, schema, type) {
+function matchDeletedFields(Sort, collection, datatype, field, id, length, meta, schema, type) {
   return bp.EventSet("Delete Fields", function(e) {
       return e.name.startsWith("Done: Positive: Delete an existing field.");
   });
@@ -975,6 +917,16 @@ function matchDeletedFiles(Fields, Filter, Limit, Meta, Offset, Search, Sort, da
   });
 }
 
+function deleteFlow(id) {
+  var url = "/flows/" + id;
+  var reqDescription = "Delete an existing flow " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+  return res;
+}
+
 function getFlows() {
   var url = "/flows";
   var reqDescription = "Get all flows. {id}";
@@ -1010,16 +962,6 @@ function updateFlow(Fields, Meta, data, id) {
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Meta": Meta, "data": data, "id": id}) });
-  }
-  return res;
-}
-
-function deleteFlow(id) {
-  var url = "/flows/" + id;
-  var reqDescription = "Delete an existing flow " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
   return res;
 }
@@ -1087,6 +1029,16 @@ function matchDeletedFlows(Fields, Meta, data, id) {
   });
 }
 
+function deleteFolder(id) {
+  var url = "/folders/" + id;
+  var reqDescription = "Delete an existing folder " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+  return res;
+}
+
 function getFolders() {
   var url = "/folders";
   var reqDescription = "List the folders. {id}";
@@ -1120,16 +1072,6 @@ function updateFolder(Fields, Filter, Limit, Meta, Offset, Search, Sort, id, nam
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "id": id, "name": name, "parent": parent}) });
-  }
-  return res;
-}
-
-function deleteFolder(id) {
-  var url = "/folders/" + id;
-  var reqDescription = "Delete an existing folder " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
   return res;
 }
@@ -1195,10 +1137,10 @@ function matchDeletedFolders(Fields, Filter, Limit, Meta, Offset, Search, Sort, 
   });
 }
 
-function deleteOperations() {
-  var url = "/operations";
-  var reqDescription = "Delete multiple existing operations. {id}";
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401] });
+function deleteOperation(id) {
+  var url = "/operations/" + id;
+  var reqDescription = "Delete an existing operation " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
@@ -1211,23 +1153,22 @@ function getOperations() {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updateOperations(Fields, Meta, UUId, data, id, keys) {
-  var url = "/operations";
-  var reqDescription = "Update multiple operations at the same time. " + id;
+function updateOperation(Fields, Meta, UUId, data, id) {
+  var url = "/operations/" + id;
+  var reqDescription = "Update an existing operation " + id;
   var body = {
-    "id": id,
-    "data": String(data),
-    "keys": keys,
+    "Fields": Fields,
+    "Meta": Meta,
 };
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
-  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: reqDescription } });
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Meta": Meta, "UUId": UUId, "data": data, "id": id, "keys": keys}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Meta": Meta, "UUId": UUId, "data": data, "id": id}) });
   }
   return res;
 }
 
-function createOperation(Fields, Meta, UUId, data, id, keys) {
+function createOperation(Fields, Meta, UUId, data, id) {
   var url = "/operations";
   var reqDescription = "Create a new operation. " + id;
   var body = {
@@ -1238,7 +1179,7 @@ function createOperation(Fields, Meta, UUId, data, id, keys) {
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Meta": Meta, "UUId": UUId, "data": data, "id": id, "keys": keys}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Meta": Meta, "UUId": UUId, "data": data, "id": id}) });
   }
   return res;
 }
@@ -1249,32 +1190,7 @@ function getOperation(id) {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function deleteOperation(id) {
-  var url = "/operations/" + id;
-  var reqDescription = "Delete an existing operation " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
-  return res;
-}
-
-function updateOperation(Fields, Meta, UUId, data, id, keys) {
-  var url = "/operations/" + id;
-  var reqDescription = "Update an existing operation " + id;
-  var body = {
-    "Fields": Fields,
-    "Meta": Meta,
-};
-  bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
-  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Meta": Meta, "UUId": UUId, "data": data, "id": id, "keys": keys}) });
-  }
-  return res;
-}
-
-function tryToAddExistingOperations(Fields, Meta, UUId, data, id, keys) {
+function tryToAddExistingOperations(Fields, Meta, UUId, data, id) {
   var url = "/operations";
   var reqDescription = "Try Add Existing Operations " + id;
   var body = {
@@ -1287,7 +1203,7 @@ function tryToAddExistingOperations(Fields, Meta, UUId, data, id, keys) {
   return res;
 }
 
-function verifyOperationsRejects(Fields, Meta, UUId, data, id, keys) {
+function verifyOperationsRejects(Fields, Meta, UUId, data, id) {
   var url = "/operations";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -1323,45 +1239,54 @@ function matchAnyOperationsAdded() {
   });
 }
 
-function matchDeletedOperations(Fields, Meta, UUId, data, id, keys) {
+function matchDeletedOperations(Fields, Meta, UUId, data, id) {
   return bp.EventSet("Delete Operations", function(e) {
-      return e.name.startsWith("Done: Positive: Delete multiple existing operations.");
+      return e.name.startsWith("Done: Positive: Delete an existing operation");
   });
 }
 
-function deletePermissions() {
-  var url = "/permissions";
-  var reqDescription = "Delete multiple existing permissions. {id}";
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401] });
+function deletePermission(id) {
+  var url = "/permissions/" + id;
+  var reqDescription = "Delete an existing permission " + id;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
   if (res.status >= 200 && res.status < 300) {
     bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
   }
   return res;
 }
 
-function getPermissions() {
-  var url = "/permissions";
-  var reqDescription = "List all permissions. {id}";
+function getMyPermissions() {
+  var url = "/permissions/me";
+  var reqDescription = "List the permissions that apply to the current user. {id}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function updatePermissions(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
-  var url = "/permissions";
-  var reqDescription = "Update multiple permissions at the same time. " + id;
+function updatePermission(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+  var url = "/permissions/" + id;
+  var reqDescription = "Update an existing permission " + id;
   var body = {
-    "id": id,
-    "data": data,
-    "keys": keys,
+    "collection": collection,
+    "comment": String(comment),
+    "create": String(create),
+    "delete": String(_delete),
+    "explain": String(explain),
+    "read": String(read),
+    "read_field_blacklist": read_field_blacklist,
+    "role": role,
+    "status": status,
+    "status_blacklist": status_blacklist,
+    "update": String(update),
+    "write_field_blacklist": write_field_blacklist,
 };
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
-  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401], parameters: { description: reqDescription } });
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "create": create, "data": data, "delete": _delete, "explain": explain, "id": id, "keys": keys, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Id": Id, "Meta": Meta, "collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
   }
   return res;
 }
 
-function createPermission(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function createPermission(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var reqDescription = "Create a new permission. " + id;
   var body = {
@@ -1382,7 +1307,7 @@ function createPermission(Fields, Filter, Id, Limit, Meta, Offset, Page, Search,
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "create": create, "data": data, "delete": _delete, "explain": explain, "id": id, "keys": keys, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Id": Id, "Meta": Meta, "collection": collection, "comment": comment, "create": create, "delete": _delete, "explain": explain, "id": id, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
   }
   return res;
 }
@@ -1393,48 +1318,7 @@ function getPermission(id) {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function deletePermission(id) {
-  var url = "/permissions/" + id;
-  var reqDescription = "Delete an existing permission " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 401, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
-  return res;
-}
-
-function updatePermission(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
-  var url = "/permissions/" + id;
-  var reqDescription = "Update an existing permission " + id;
-  var body = {
-    "collection": collection,
-    "comment": String(comment),
-    "create": String(create),
-    "delete": String(_delete),
-    "explain": String(explain),
-    "read": String(read),
-    "read_field_blacklist": read_field_blacklist,
-    "role": role,
-    "status": status,
-    "status_blacklist": status_blacklist,
-    "update": String(update),
-    "write_field_blacklist": write_field_blacklist,
-};
-  bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
-  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Id": Id, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Page": Page, "Search": Search, "Sort": Sort, "collection": collection, "comment": comment, "create": create, "data": data, "delete": _delete, "explain": explain, "id": id, "keys": keys, "read": read, "read_field_blacklist": read_field_blacklist, "role": role, "status": status, "status_blacklist": status_blacklist, "update": update, "write_field_blacklist": write_field_blacklist}) });
-  }
-  return res;
-}
-
-function getMyPermissions() {
-  var url = "/permissions/me";
-  var reqDescription = "List the permissions that apply to the current user. {id}";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
-}
-
-function tryToAddExistingPermissions(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function tryToAddExistingPermissions(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var reqDescription = "Try Add Existing Permissions " + id;
   var body = {
@@ -1457,7 +1341,7 @@ function tryToAddExistingPermissions(Fields, Filter, Id, Limit, Meta, Offset, Pa
   return res;
 }
 
-function verifyPermissionsRejects(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function verifyPermissionsRejects(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   var url = "/permissions";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -1503,9 +1387,9 @@ function matchAnyPermissionsAdded() {
   });
 }
 
-function matchDeletedPermissions(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
+function matchDeletedPermissions(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist) {
   return bp.EventSet("Delete Permissions", function(e) {
-      return e.name.startsWith("Done: Positive: Delete multiple existing permissions.");
+      return e.name.startsWith("Done: Positive: Delete an existing permission");
   });
 }
 
@@ -1973,7 +1857,7 @@ function getUsers() {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function acceptInvite(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function acceptInvite(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   var url = "/users/invite/accept";
   var reqDescription = "Accepts and enables an invited user using a JWT invitation token. " + id;
   var body = {
@@ -1984,12 +1868,12 @@ function acceptInvite(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, e
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "email": email, "id": id, "last_page": last_page, "password": password, "token": token}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "id": id, "last_page": last_page, "password": password, "token": token}) });
   }
   return res;
 }
 
-function updateMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function updateMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   var url = "/users/me";
   var reqDescription = "Update the currently authenticated user. " + id;
   var body = {
@@ -1998,7 +1882,7 @@ function updateMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "email": email, "id": id, "last_page": last_page, "password": password, "token": token}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "id": id, "last_page": last_page, "password": password, "token": token}) });
   }
   return res;
 }
@@ -2013,28 +1897,13 @@ function deleteUser(id) {
   return res;
 }
 
-function invite(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
-  var url = "/users/invite";
-  var reqDescription = "Invites one or more users to this project. " + id;
-  var body = {
-    "id": id,
-    "email": String(email),
-};
-  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "email": email, "id": id, "last_page": last_page, "password": password, "token": token}) });
-  }
-  return res;
-}
-
 function getMe() {
   var url = "/users/me";
   var reqDescription = "Retrieve the currently authenticated user. {id}";
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 401, 404] });
 }
 
-function meTfaEnable(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function meTfaEnable(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   var url = "/users/me/tfa/enable";
   var reqDescription = "Enables two-factor authentication for the currently authenticated user. " + id;
   var body = {
@@ -2043,12 +1912,12 @@ function meTfaEnable(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, em
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "email": email, "id": id, "last_page": last_page, "password": password, "token": token}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "id": id, "last_page": last_page, "password": password, "token": token}) });
   }
   return res;
 }
 
-function meTfaDisable(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function meTfaDisable(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   var url = "/users/me/tfa/disable";
   var reqDescription = "Disables two-factor authentication for the currently authenticated user. " + id;
   var body = {
@@ -2057,12 +1926,12 @@ function meTfaDisable(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, e
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "email": email, "id": id, "last_page": last_page, "password": password, "token": token}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "id": id, "last_page": last_page, "password": password, "token": token}) });
   }
   return res;
 }
 
-function updateLastUsedPageMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function updateLastUsedPageMe(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   var url = "/users/me/track/page";
   var reqDescription = "Updates the last used page field of the currently authenticated user. " + id;
   var body = {
@@ -2072,12 +1941,12 @@ function updateLastUsedPageMe(Fields, Filter, Limit, Meta, Offset, Search, Sort,
   bp.log.info("REQ PATCH " + url + " Body: " + JSON.stringify(body));
   let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 401, 404], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "email": email, "id": id, "last_page": last_page, "password": password, "token": token}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Fields": Fields, "Filter": Filter, "Limit": Limit, "Meta": Meta, "Offset": Offset, "Search": Search, "Sort": Sort, "UUId": UUId, "id": id, "last_page": last_page, "password": password, "token": token}) });
   }
   return res;
 }
 
-function verifyUsersRejects(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function verifyUsersRejects(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   var url = "/users/invite/accept";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -2091,9 +1960,9 @@ function verifyUsersRejects(Fields, Filter, Limit, Meta, Offset, Search, Sort, U
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
-function verifyUsersExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function verifyUsersExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   // Fallback: Use list operation to verify existence
-  let res = getUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token);
+  let res = getUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -2106,9 +1975,9 @@ function verifyUsersExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, UU
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDeleted(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function verifyUsersDeleted(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   // Fallback: Use list operation to verify deletion
-  let res = getUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token);
+  let res = getUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token);
   try {
       let listData = res;
       if (typeof listData === "string") listData = JSON.parse(listData);
@@ -2121,7 +1990,7 @@ function verifyUsersDeleted(Fields, Filter, Limit, Meta, Offset, Search, Sort, U
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDoesNotExist(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) { verifyUsersDeleted(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token); }
+function verifyUsersDoesNotExist(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) { verifyUsersDeleted(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token); }
 
 function matchAnyUsersAdded() {
   return bp.EventSet("Any Users Added", function(e) {
@@ -2129,7 +1998,7 @@ function matchAnyUsersAdded() {
   });
 }
 
-function matchDeletedUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token) {
+function matchDeletedUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token) {
   return bp.EventSet("Delete Users", function(e) {
       return e.name.startsWith("Done: Positive: Delete an existing user");
   });

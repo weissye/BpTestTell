@@ -106,9 +106,8 @@ bthread("monitor:Items:exists", function () {
     let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id), function() { verifyItemsExists(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id); });
+    block(matchDeletedItems(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection), function() { verifyItemsExists(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection); });
   }
 });
 
@@ -125,9 +124,8 @@ bthread("monitor:Items:absence", function () {
     let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
     // Block Creation while Verifying Absence
-    block(matchAnyItemsAdded(), function() { verifyItemsDoesNotExist(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection, id); });
+    block(matchAnyItemsAdded(), function() { verifyItemsDoesNotExist(Collection, Fields, Filter, Limit, Meta, Offset, Search, Sort, collection); });
   }
 });
 
@@ -145,10 +143,8 @@ bthread("monitor:Presets:exists", function () {
     let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
-    let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let filters = (e.data.parameters && e.data.parameters["filters"]) ? e.data.parameters["filters"] : e.data["filters"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     let layout = (e.data.parameters && e.data.parameters["layout"]) ? e.data.parameters["layout"] : e.data["layout"];
     let layout_options = (e.data.parameters && e.data.parameters["layout_options"]) ? e.data.parameters["layout_options"] : e.data["layout_options"];
     let layout_query = (e.data.parameters && e.data.parameters["layout_query"]) ? e.data.parameters["layout_query"] : e.data["layout_query"];
@@ -161,7 +157,7 @@ bthread("monitor:Presets:exists", function () {
     let view_query = (e.data.parameters && e.data.parameters["view_query"]) ? e.data.parameters["view_query"] : e.data["view_query"];
     let view_type = (e.data.parameters && e.data.parameters["view_type"]) ? e.data.parameters["view_type"] : e.data["view_type"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type), function() { verifyPresetsExists(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type); });
+    block(matchDeletedPresets(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type), function() { verifyPresetsExists(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type); });
   }
 });
 
@@ -179,10 +175,8 @@ bthread("monitor:Presets:absence", function () {
     let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
-    let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let filters = (e.data.parameters && e.data.parameters["filters"]) ? e.data.parameters["filters"] : e.data["filters"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     let layout = (e.data.parameters && e.data.parameters["layout"]) ? e.data.parameters["layout"] : e.data["layout"];
     let layout_options = (e.data.parameters && e.data.parameters["layout_options"]) ? e.data.parameters["layout_options"] : e.data["layout_options"];
     let layout_query = (e.data.parameters && e.data.parameters["layout_query"]) ? e.data.parameters["layout_query"] : e.data["layout_query"];
@@ -195,7 +189,7 @@ bthread("monitor:Presets:absence", function () {
     let view_query = (e.data.parameters && e.data.parameters["view_query"]) ? e.data.parameters["view_query"] : e.data["view_query"];
     let view_type = (e.data.parameters && e.data.parameters["view_type"]) ? e.data.parameters["view_type"] : e.data["view_type"];
     // Block Creation while Verifying Absence
-    block(matchAnyPresetsAdded(), function() { verifyPresetsDoesNotExist(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, data, filters, id, keys, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type); });
+    block(matchAnyPresetsAdded(), function() { verifyPresetsDoesNotExist(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, filters, id, layout, layout_options, layout_query, role, search, search_query, title, translation, view_options, view_query, view_type); });
   }
 });
 
@@ -231,13 +225,15 @@ bthread("monitor:Fields:exists", function () {
     let e = bp.sync({ waitFor: matchAnyFieldsAdded() });
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
+    let datatype = (e.data.parameters && e.data.parameters["datatype"]) ? e.data.parameters["datatype"] : e.data["datatype"];
     let field = (e.data.parameters && e.data.parameters["field"]) ? e.data.parameters["field"] : e.data["field"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let length = (e.data.parameters && e.data.parameters["length"]) ? e.data.parameters["length"] : e.data["length"];
     let meta = (e.data.parameters && e.data.parameters["meta"]) ? e.data.parameters["meta"] : e.data["meta"];
     let schema = (e.data.parameters && e.data.parameters["schema"]) ? e.data.parameters["schema"] : e.data["schema"];
     let type = (e.data.parameters && e.data.parameters["type"]) ? e.data.parameters["type"] : e.data["type"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedFields(Sort, collection, field, id, meta, schema, type), function() { verifyFieldsExists(Sort, collection, field, id, meta, schema, type); });
+    block(matchDeletedFields(Sort, collection, datatype, field, id, length, meta, schema, type), function() { verifyFieldsExists(Sort, collection, datatype, field, id, length, meta, schema, type); });
   }
 });
 
@@ -247,13 +243,15 @@ bthread("monitor:Fields:absence", function () {
     let e = bp.sync({ waitFor: matchDeletedFields() });
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
+    let datatype = (e.data.parameters && e.data.parameters["datatype"]) ? e.data.parameters["datatype"] : e.data["datatype"];
     let field = (e.data.parameters && e.data.parameters["field"]) ? e.data.parameters["field"] : e.data["field"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let length = (e.data.parameters && e.data.parameters["length"]) ? e.data.parameters["length"] : e.data["length"];
     let meta = (e.data.parameters && e.data.parameters["meta"]) ? e.data.parameters["meta"] : e.data["meta"];
     let schema = (e.data.parameters && e.data.parameters["schema"]) ? e.data.parameters["schema"] : e.data["schema"];
     let type = (e.data.parameters && e.data.parameters["type"]) ? e.data.parameters["type"] : e.data["type"];
     // Block Creation while Verifying Absence
-    block(matchAnyFieldsAdded(), function() { verifyFieldsDoesNotExist(Sort, collection, field, id, meta, schema, type); });
+    block(matchAnyFieldsAdded(), function() { verifyFieldsDoesNotExist(Sort, collection, datatype, field, id, length, meta, schema, type); });
   }
 });
 
@@ -376,9 +374,8 @@ bthread("monitor:Operations:exists", function () {
     let UUId = (e.data.parameters && e.data.parameters["UUId"]) ? e.data.parameters["UUId"] : e.data["UUId"];
     let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedOperations(Fields, Meta, UUId, data, id, keys), function() { verifyOperationsExists(Fields, Meta, UUId, data, id, keys); });
+    block(matchDeletedOperations(Fields, Meta, UUId, data, id), function() { verifyOperationsExists(Fields, Meta, UUId, data, id); });
   }
 });
 
@@ -391,9 +388,8 @@ bthread("monitor:Operations:absence", function () {
     let UUId = (e.data.parameters && e.data.parameters["UUId"]) ? e.data.parameters["UUId"] : e.data["UUId"];
     let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     // Block Creation while Verifying Absence
-    block(matchAnyOperationsAdded(), function() { verifyOperationsDoesNotExist(Fields, Meta, UUId, data, id, keys); });
+    block(matchAnyOperationsAdded(), function() { verifyOperationsDoesNotExist(Fields, Meta, UUId, data, id); });
   }
 });
 
@@ -402,22 +398,14 @@ bthread("monitor:Permissions:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPermissionsAdded() });
     let Fields = (e.data.parameters && e.data.parameters["Fields"]) ? e.data.parameters["Fields"] : e.data["Fields"];
-    let Filter = (e.data.parameters && e.data.parameters["Filter"]) ? e.data.parameters["Filter"] : e.data["Filter"];
     let Id = (e.data.parameters && e.data.parameters["Id"]) ? e.data.parameters["Id"] : e.data["Id"];
-    let Limit = (e.data.parameters && e.data.parameters["Limit"]) ? e.data.parameters["Limit"] : e.data["Limit"];
     let Meta = (e.data.parameters && e.data.parameters["Meta"]) ? e.data.parameters["Meta"] : e.data["Meta"];
-    let Offset = (e.data.parameters && e.data.parameters["Offset"]) ? e.data.parameters["Offset"] : e.data["Offset"];
-    let Page = (e.data.parameters && e.data.parameters["Page"]) ? e.data.parameters["Page"] : e.data["Page"];
-    let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
-    let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
     let comment = (e.data.parameters && e.data.parameters["comment"]) ? e.data.parameters["comment"] : e.data["comment"];
     let create = (e.data.parameters && e.data.parameters["create"]) ? e.data.parameters["create"] : e.data["create"];
-    let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let _delete = (e.data.parameters && e.data.parameters["delete"]) ? e.data.parameters["delete"] : e.data["delete"];
     let explain = (e.data.parameters && e.data.parameters["explain"]) ? e.data.parameters["explain"] : e.data["explain"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     let read = (e.data.parameters && e.data.parameters["read"]) ? e.data.parameters["read"] : e.data["read"];
     let read_field_blacklist = (e.data.parameters && e.data.parameters["read_field_blacklist"]) ? e.data.parameters["read_field_blacklist"] : e.data["read_field_blacklist"];
     let role = (e.data.parameters && e.data.parameters["role"]) ? e.data.parameters["role"] : e.data["role"];
@@ -426,7 +414,7 @@ bthread("monitor:Permissions:exists", function () {
     let update = (e.data.parameters && e.data.parameters["update"]) ? e.data.parameters["update"] : e.data["update"];
     let write_field_blacklist = (e.data.parameters && e.data.parameters["write_field_blacklist"]) ? e.data.parameters["write_field_blacklist"] : e.data["write_field_blacklist"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedPermissions(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist), function() { verifyPermissionsExists(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
+    block(matchDeletedPermissions(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist), function() { verifyPermissionsExists(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
   }
 });
 
@@ -435,22 +423,14 @@ bthread("monitor:Permissions:absence", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchDeletedPermissions() });
     let Fields = (e.data.parameters && e.data.parameters["Fields"]) ? e.data.parameters["Fields"] : e.data["Fields"];
-    let Filter = (e.data.parameters && e.data.parameters["Filter"]) ? e.data.parameters["Filter"] : e.data["Filter"];
     let Id = (e.data.parameters && e.data.parameters["Id"]) ? e.data.parameters["Id"] : e.data["Id"];
-    let Limit = (e.data.parameters && e.data.parameters["Limit"]) ? e.data.parameters["Limit"] : e.data["Limit"];
     let Meta = (e.data.parameters && e.data.parameters["Meta"]) ? e.data.parameters["Meta"] : e.data["Meta"];
-    let Offset = (e.data.parameters && e.data.parameters["Offset"]) ? e.data.parameters["Offset"] : e.data["Offset"];
-    let Page = (e.data.parameters && e.data.parameters["Page"]) ? e.data.parameters["Page"] : e.data["Page"];
-    let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
-    let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
     let comment = (e.data.parameters && e.data.parameters["comment"]) ? e.data.parameters["comment"] : e.data["comment"];
     let create = (e.data.parameters && e.data.parameters["create"]) ? e.data.parameters["create"] : e.data["create"];
-    let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let _delete = (e.data.parameters && e.data.parameters["delete"]) ? e.data.parameters["delete"] : e.data["delete"];
     let explain = (e.data.parameters && e.data.parameters["explain"]) ? e.data.parameters["explain"] : e.data["explain"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     let read = (e.data.parameters && e.data.parameters["read"]) ? e.data.parameters["read"] : e.data["read"];
     let read_field_blacklist = (e.data.parameters && e.data.parameters["read_field_blacklist"]) ? e.data.parameters["read_field_blacklist"] : e.data["read_field_blacklist"];
     let role = (e.data.parameters && e.data.parameters["role"]) ? e.data.parameters["role"] : e.data["role"];
@@ -459,7 +439,7 @@ bthread("monitor:Permissions:absence", function () {
     let update = (e.data.parameters && e.data.parameters["update"]) ? e.data.parameters["update"] : e.data["update"];
     let write_field_blacklist = (e.data.parameters && e.data.parameters["write_field_blacklist"]) ? e.data.parameters["write_field_blacklist"] : e.data["write_field_blacklist"];
     // Block Creation while Verifying Absence
-    block(matchAnyPermissionsAdded(), function() { verifyPermissionsDoesNotExist(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
+    block(matchAnyPermissionsAdded(), function() { verifyPermissionsDoesNotExist(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
   }
 });
 
@@ -583,13 +563,12 @@ bthread("monitor:Users:exists", function () {
     let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let UUId = (e.data.parameters && e.data.parameters["UUId"]) ? e.data.parameters["UUId"] : e.data["UUId"];
-    let email = (e.data.parameters && e.data.parameters["email"]) ? e.data.parameters["email"] : e.data["email"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
     let last_page = (e.data.parameters && e.data.parameters["last_page"]) ? e.data.parameters["last_page"] : e.data["last_page"];
     let password = (e.data.parameters && e.data.parameters["password"]) ? e.data.parameters["password"] : e.data["password"];
     let token = (e.data.parameters && e.data.parameters["token"]) ? e.data.parameters["token"] : e.data["token"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token), function() { verifyUsersExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token); });
+    block(matchDeletedUsers(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token), function() { verifyUsersExists(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token); });
   }
 });
 
@@ -605,13 +584,12 @@ bthread("monitor:Users:absence", function () {
     let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
     let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let UUId = (e.data.parameters && e.data.parameters["UUId"]) ? e.data.parameters["UUId"] : e.data["UUId"];
-    let email = (e.data.parameters && e.data.parameters["email"]) ? e.data.parameters["email"] : e.data["email"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
     let last_page = (e.data.parameters && e.data.parameters["last_page"]) ? e.data.parameters["last_page"] : e.data["last_page"];
     let password = (e.data.parameters && e.data.parameters["password"]) ? e.data.parameters["password"] : e.data["password"];
     let token = (e.data.parameters && e.data.parameters["token"]) ? e.data.parameters["token"] : e.data["token"];
     // Block Creation while Verifying Absence
-    block(matchAnyUsersAdded(), function() { verifyUsersDoesNotExist(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, email, id, last_page, password, token); });
+    block(matchAnyUsersAdded(), function() { verifyUsersDoesNotExist(Fields, Filter, Limit, Meta, Offset, Search, Sort, UUId, id, last_page, password, token); });
   }
 });
 
@@ -776,8 +754,7 @@ bthread("crud:Items:linear:1", function () {
   let Search_Items_120 = "Search_Items_120_" + Math.floor(Math.random()*1000);
   let Sort_Items_120 = "Sort_Items_120_" + Math.floor(Math.random()*1000);
   let collection_Items_120 = "collection_Items_120_" + Math.floor(Math.random()*1000);
-  let id_Items_120 = CollectionsId;
-  createItem(Collection_Items_120, Fields_Items_120, Filter_Items_120, Limit_Items_120, Meta_Items_120, Offset_Items_120, Search_Items_120, Sort_Items_120, collection_Items_120, id_Items_120, { expectedResponseCodes: [200, 201, 204] });
+  createItem(Collection_Items_120, Fields_Items_120, Filter_Items_120, Limit_Items_120, Meta_Items_120, Offset_Items_120, Search_Items_120, Sort_Items_120, collection_Items_120, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Items
   let Collection_Items_upd_120 = "Collection_Items_upd_120_" + Math.floor(Math.random()*1000);
@@ -789,8 +766,7 @@ bthread("crud:Items:linear:1", function () {
   let Search_Items_upd_120 = "Search_Items_upd_120_" + Math.floor(Math.random()*1000);
   let Sort_Items_upd_120 = "Sort_Items_upd_120_" + Math.floor(Math.random()*1000);
   let collection_Items_upd_120 = collection_Items_120;
-  let id_Items_upd_120 = "id_Items_upd_120_" + Math.floor(Math.random()*1000);
-  updateItems(Collection_Items_upd_120, Fields_Items_upd_120, Filter_Items_upd_120, Limit_Items_upd_120, Meta_Items_upd_120, Offset_Items_upd_120, Search_Items_upd_120, Sort_Items_upd_120, collection_Items_upd_120, id_Items_upd_120, { expectedResponseCodes: [200, 201, 204] });
+  updateItems(Collection_Items_upd_120, Fields_Items_upd_120, Filter_Items_upd_120, Limit_Items_upd_120, Meta_Items_upd_120, Offset_Items_upd_120, Search_Items_upd_120, Sort_Items_upd_120, collection_Items_upd_120, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for Items to prevent foreign key errors (has active dependents)
 });
@@ -813,10 +789,8 @@ bthread("crud:Presets:linear:1", function () {
   let Search_Presets_130 = "Search_Presets_130_" + Math.floor(Math.random()*1000);
   let Sort_Presets_130 = "Sort_Presets_130_" + Math.floor(Math.random()*1000);
   let collection_Presets_130 = "articles";
-  let data_Presets_130 = "data_Presets_130_" + Math.floor(Math.random()*1000);
   let filters_Presets_130 = [];
   let id_Presets_130 = CollectionsId;
-  let keys_Presets_130 = "keys_Presets_130_" + Math.floor(Math.random()*1000);
   let layout_Presets_130 = "layout_Presets_130_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_130 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_130 = "{'cards': {'sort': '-published_on'}}";
@@ -828,7 +802,7 @@ bthread("crud:Presets:linear:1", function () {
   let view_options_Presets_130 = "view_options_Presets_130_" + Math.floor(Math.random()*1000);
   let view_query_Presets_130 = "view_query_Presets_130_" + Math.floor(Math.random()*1000);
   let view_type_Presets_130 = "view_type_Presets_130_" + Math.floor(Math.random()*1000);
-  createPreset(Fields_Presets_130, Filter_Presets_130, Id_Presets_130, Limit_Presets_130, Meta_Presets_130, Offset_Presets_130, Page_Presets_130, Search_Presets_130, Sort_Presets_130, collection_Presets_130, data_Presets_130, filters_Presets_130, id_Presets_130, keys_Presets_130, layout_Presets_130, layout_options_Presets_130, layout_query_Presets_130, role_Presets_130, search_Presets_130, search_query_Presets_130, title_Presets_130, translation_Presets_130, view_options_Presets_130, view_query_Presets_130, view_type_Presets_130, { expectedResponseCodes: [200, 201, 204] });
+  createPreset(Fields_Presets_130, Filter_Presets_130, Id_Presets_130, Limit_Presets_130, Meta_Presets_130, Offset_Presets_130, Page_Presets_130, Search_Presets_130, Sort_Presets_130, collection_Presets_130, filters_Presets_130, id_Presets_130, layout_Presets_130, layout_options_Presets_130, layout_query_Presets_130, role_Presets_130, search_Presets_130, search_query_Presets_130, title_Presets_130, translation_Presets_130, view_options_Presets_130, view_query_Presets_130, view_type_Presets_130, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Presets
   let Fields_Presets_upd_130 = "Fields_Presets_upd_130_" + Math.floor(Math.random()*1000);
@@ -841,25 +815,23 @@ bthread("crud:Presets:linear:1", function () {
   let Search_Presets_upd_130 = "Search_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let Sort_Presets_upd_130 = "Sort_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let collection_Presets_upd_130 = "articles";
-  let data_Presets_upd_130 = {};
-  let filters_Presets_upd_130 = "[{'key': '7RwVrquB5dPmfbrI1rcWy', 'field': 'title', 'operator': 'contains', 'value': 'Hello'}]";
+  let filters_Presets_upd_130 = [];
   let id_Presets_upd_130 = id_Presets_130;
-  let keys_Presets_upd_130 = [];
   let layout_Presets_upd_130 = "layout_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_upd_130 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_upd_130 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_upd_130 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let role_Presets_upd_130 = Math.floor(Math.random() * 1000);
   let search_Presets_upd_130 = "search_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let search_query_Presets_upd_130 = "search_query_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let title_Presets_upd_130 = "title_Presets_upd_130_" + Math.floor(Math.random()*1000);
-  let translation_Presets_upd_130 = "translation_Presets_upd_130_" + Math.floor(Math.random()*1000);
+  let translation_Presets_upd_130 = {};
   let view_options_Presets_upd_130 = "view_options_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let view_query_Presets_upd_130 = "view_query_Presets_upd_130_" + Math.floor(Math.random()*1000);
   let view_type_Presets_upd_130 = "view_type_Presets_upd_130_" + Math.floor(Math.random()*1000);
-  updatePresets(Fields_Presets_upd_130, Filter_Presets_upd_130, Id_Presets_upd_130, Limit_Presets_upd_130, Meta_Presets_upd_130, Offset_Presets_upd_130, Page_Presets_upd_130, Search_Presets_upd_130, Sort_Presets_upd_130, collection_Presets_upd_130, data_Presets_upd_130, filters_Presets_upd_130, id_Presets_upd_130, keys_Presets_upd_130, layout_Presets_upd_130, layout_options_Presets_upd_130, layout_query_Presets_upd_130, role_Presets_upd_130, search_Presets_upd_130, search_query_Presets_upd_130, title_Presets_upd_130, translation_Presets_upd_130, view_options_Presets_upd_130, view_query_Presets_upd_130, view_type_Presets_upd_130, { expectedResponseCodes: [200, 201, 204] });
+  updatePreset(Fields_Presets_upd_130, Filter_Presets_upd_130, Id_Presets_upd_130, Limit_Presets_upd_130, Meta_Presets_upd_130, Offset_Presets_upd_130, Page_Presets_upd_130, Search_Presets_upd_130, Sort_Presets_upd_130, collection_Presets_upd_130, filters_Presets_upd_130, id_Presets_upd_130, layout_Presets_upd_130, layout_options_Presets_upd_130, layout_query_Presets_upd_130, role_Presets_upd_130, search_Presets_upd_130, search_query_Presets_upd_130, title_Presets_upd_130, translation_Presets_upd_130, view_options_Presets_upd_130, view_query_Presets_upd_130, view_type_Presets_upd_130, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Presets
-  deletePresets(id_Presets_130, { expectedResponseCodes: [200, 201, 204] });
+  deletePreset(id_Presets_130, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -901,24 +873,30 @@ bthread("crud:Fields:linear:1", function () {
   // -> Creating Fields
   let Sort_Fields_150 = "Sort_Fields_150_" + Math.floor(Math.random()*1000);
   let collection_Fields_150 = "about_us";
+  let datatype_Fields_150 = "datatype_Fields_150_" + Math.floor(Math.random()*1000);
   let field_Fields_150 = "id";
   let id_Fields_150 = CollectionsId;
+  let length_Fields_150 = Math.floor(Math.random() * 1000);
   let meta_Fields_150 = {};
   let schema_Fields_150 = {};
   let type_Fields_150 = "integer";
-  createField(Sort_Fields_150, collection_Fields_150, field_Fields_150, id_Fields_150, meta_Fields_150, schema_Fields_150, type_Fields_150, { expectedResponseCodes: [200, 201, 204] });
+  createField(Sort_Fields_150, collection_Fields_150, datatype_Fields_150, field_Fields_150, id_Fields_150, length_Fields_150, meta_Fields_150, schema_Fields_150, type_Fields_150, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Fields
   let Sort_Fields_upd_150 = "Sort_Fields_upd_150_" + Math.floor(Math.random()*1000);
   let collection_Fields_upd_150 = collection_Fields_150;
+  let datatype_Fields_upd_150 = "datatype_Fields_upd_150_" + Math.floor(Math.random()*1000);
   let field_Fields_upd_150 = "id";
   let id_Fields_upd_150 = "id_Fields_upd_150_" + Math.floor(Math.random()*1000);
+  let length_Fields_upd_150 = "length_Fields_upd_150_" + Math.floor(Math.random()*1000);
   let meta_Fields_upd_150 = {};
   let schema_Fields_upd_150 = {};
   let type_Fields_upd_150 = "integer";
-  updateField(Sort_Fields_upd_150, collection_Fields_upd_150, field_Fields_upd_150, id_Fields_upd_150, meta_Fields_upd_150, schema_Fields_upd_150, type_Fields_upd_150, { expectedResponseCodes: [200, 201, 204] });
+  updateField(Sort_Fields_upd_150, collection_Fields_upd_150, datatype_Fields_upd_150, field_Fields_upd_150, id_Fields_upd_150, length_Fields_upd_150, meta_Fields_upd_150, schema_Fields_upd_150, type_Fields_upd_150, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Fields to prevent foreign key errors (has active dependents)
+  // -> Deleting Fields
+  deleteField(collection_Fields_150, id_Fields_150, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Files:linear:1
@@ -978,7 +956,9 @@ bthread("crud:Flows:linear:1", function () {
   let id_Flows_upd_170 = id_Flows_170;
   updateFlow(Fields_Flows_upd_170, Meta_Flows_upd_170, data_Flows_upd_170, id_Flows_upd_170, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Flows to prevent foreign key errors (has active dependents)
+  // -> Deleting Flows
+  deleteFlow(id_Flows_170, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Folders:linear:1
@@ -1016,31 +996,24 @@ bthread("crud:Folders:linear:1", function () {
 
 // Story: crud:Operations:linear:1
 bthread("crud:Operations:linear:1", function () {
-  let deps = {};
-  deps["Flows"] = matchAnyFlowsAdded();
-  let pkMap = {"Flows": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  let FlowsId = captured["Flows"];
   // -> Creating Operations
   let Fields_Operations_190 = {};
   let Meta_Operations_190 = {};
   let UUId_Operations_190 = "UUId_Operations_190_" + Math.floor(Math.random()*1000);
   let data_Operations_190 = "data_Operations_190_" + Math.floor(Math.random()*1000);
-  let id_Operations_190 = FlowsId;
-  let keys_Operations_190 = "keys_Operations_190_" + Math.floor(Math.random()*1000);
-  createOperation(Fields_Operations_190, Meta_Operations_190, UUId_Operations_190, data_Operations_190, id_Operations_190, keys_Operations_190, { expectedResponseCodes: [200, 201, 204] });
+  let id_Operations_190 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
+  createOperation(Fields_Operations_190, Meta_Operations_190, UUId_Operations_190, data_Operations_190, id_Operations_190, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Operations
-  let Fields_Operations_upd_190 = "Fields_Operations_upd_190_" + Math.floor(Math.random()*1000);
-  let Meta_Operations_upd_190 = "Meta_Operations_upd_190_" + Math.floor(Math.random()*1000);
+  let Fields_Operations_upd_190 = {};
+  let Meta_Operations_upd_190 = {};
   let UUId_Operations_upd_190 = "UUId_Operations_upd_190_" + Math.floor(Math.random()*1000);
   let data_Operations_upd_190 = "data_Operations_upd_190_" + Math.floor(Math.random()*1000);
   let id_Operations_upd_190 = id_Operations_190;
-  let keys_Operations_upd_190 = [];
-  updateOperations(Fields_Operations_upd_190, Meta_Operations_upd_190, UUId_Operations_upd_190, data_Operations_upd_190, id_Operations_upd_190, keys_Operations_upd_190, { expectedResponseCodes: [200, 201, 204] });
+  updateOperation(Fields_Operations_upd_190, Meta_Operations_upd_190, UUId_Operations_upd_190, data_Operations_upd_190, id_Operations_upd_190, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Operations
-  deleteOperations(id_Operations_190, { expectedResponseCodes: [200, 201, 204] });
+  deleteOperation(id_Operations_190, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1055,22 +1028,14 @@ bthread("crud:Permissions:linear:1", function () {
   let RolesId = captured["Roles"];
   // -> Creating Permissions
   let Fields_Permissions_200 = "Fields_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_200 = "Filter_Permissions_200_" + Math.floor(Math.random()*1000);
   let Id_Permissions_200 = "Id_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_200 = "Limit_Permissions_200_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_200 = "Meta_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_200 = "Offset_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_200 = "Page_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_200 = "Search_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_200 = "Sort_Permissions_200_" + Math.floor(Math.random()*1000);
   let collection_Permissions_200 = "customers";
   let comment_Permissions_200 = "comment_Permissions_200_" + Math.floor(Math.random()*1000);
   let create_Permissions_200 = "create_Permissions_200_" + Math.floor(Math.random()*1000);
-  let data_Permissions_200 = "data_Permissions_200_" + Math.floor(Math.random()*1000);
   let _delete_Permissions_200 = "delete_Permissions_200_" + Math.floor(Math.random()*1000);
   let explain_Permissions_200 = "explain_Permissions_200_" + Math.floor(Math.random()*1000);
   let id_Permissions_200 = RolesId;
-  let keys_Permissions_200 = "keys_Permissions_200_" + Math.floor(Math.random()*1000);
   let read_Permissions_200 = "read_Permissions_200_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_200 = [];
   let role_Permissions_200 = Math.floor(Math.random() * 1000);
@@ -1078,37 +1043,29 @@ bthread("crud:Permissions:linear:1", function () {
   let status_blacklist_Permissions_200 = [];
   let update_Permissions_200 = "update_Permissions_200_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_200 = [];
-  createPermission(Fields_Permissions_200, Filter_Permissions_200, Id_Permissions_200, Limit_Permissions_200, Meta_Permissions_200, Offset_Permissions_200, Page_Permissions_200, Search_Permissions_200, Sort_Permissions_200, collection_Permissions_200, comment_Permissions_200, create_Permissions_200, data_Permissions_200, _delete_Permissions_200, explain_Permissions_200, id_Permissions_200, keys_Permissions_200, read_Permissions_200, read_field_blacklist_Permissions_200, role_Permissions_200, status_Permissions_200, status_blacklist_Permissions_200, update_Permissions_200, write_field_blacklist_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
+  createPermission(Fields_Permissions_200, Id_Permissions_200, Meta_Permissions_200, collection_Permissions_200, comment_Permissions_200, create_Permissions_200, _delete_Permissions_200, explain_Permissions_200, id_Permissions_200, read_Permissions_200, read_field_blacklist_Permissions_200, role_Permissions_200, status_Permissions_200, status_blacklist_Permissions_200, update_Permissions_200, write_field_blacklist_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Permissions
   let Fields_Permissions_upd_200 = "Fields_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_upd_200 = "Filter_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let Id_Permissions_upd_200 = "Id_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_upd_200 = "Limit_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_upd_200 = "Meta_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_upd_200 = "Offset_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_upd_200 = "Page_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_upd_200 = "Search_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_upd_200 = "Sort_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_upd_200 = "customers";
+  let collection_Permissions_upd_200 = {};
   let comment_Permissions_upd_200 = "comment_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let create_Permissions_upd_200 = "create_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let data_Permissions_upd_200 = {};
   let _delete_Permissions_upd_200 = "delete_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let explain_Permissions_upd_200 = "explain_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let id_Permissions_upd_200 = id_Permissions_200;
-  let keys_Permissions_upd_200 = [];
   let read_Permissions_upd_200 = "read_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_upd_200 = "read_field_blacklist_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let role_Permissions_upd_200 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let status_Permissions_upd_200 = "active";
-  let status_blacklist_Permissions_upd_200 = "status_blacklist_Permissions_upd_200_" + Math.floor(Math.random()*1000);
+  let read_field_blacklist_Permissions_upd_200 = {};
+  let role_Permissions_upd_200 = {};
+  let status_Permissions_upd_200 = {};
+  let status_blacklist_Permissions_upd_200 = {};
   let update_Permissions_upd_200 = "update_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_upd_200 = "write_field_blacklist_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  updatePermissions(Fields_Permissions_upd_200, Filter_Permissions_upd_200, Id_Permissions_upd_200, Limit_Permissions_upd_200, Meta_Permissions_upd_200, Offset_Permissions_upd_200, Page_Permissions_upd_200, Search_Permissions_upd_200, Sort_Permissions_upd_200, collection_Permissions_upd_200, comment_Permissions_upd_200, create_Permissions_upd_200, data_Permissions_upd_200, _delete_Permissions_upd_200, explain_Permissions_upd_200, id_Permissions_upd_200, keys_Permissions_upd_200, read_Permissions_upd_200, read_field_blacklist_Permissions_upd_200, role_Permissions_upd_200, status_Permissions_upd_200, status_blacklist_Permissions_upd_200, update_Permissions_upd_200, write_field_blacklist_Permissions_upd_200, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_upd_200 = {};
+  updatePermission(Fields_Permissions_upd_200, Id_Permissions_upd_200, Meta_Permissions_upd_200, collection_Permissions_upd_200, comment_Permissions_upd_200, create_Permissions_upd_200, _delete_Permissions_upd_200, explain_Permissions_upd_200, id_Permissions_upd_200, read_Permissions_upd_200, read_field_blacklist_Permissions_upd_200, role_Permissions_upd_200, status_Permissions_upd_200, status_blacklist_Permissions_upd_200, update_Permissions_upd_200, write_field_blacklist_Permissions_upd_200, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Permissions
-  deletePermissions(id_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
+  deletePermission(id_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1116,11 +1073,9 @@ bthread("crud:Permissions:linear:1", function () {
 bthread("crud:Relations:linear:1", function () {
   let deps = {};
   deps["Collections"] = matchAnyCollectionsAdded();
-  deps["Fields"] = matchAnyFieldsAdded();
-  let pkMap = {"Collections": "id", "Fields": "collection"};
+  let pkMap = {"Collections": "id"};
   let captured = resolveDependencies(deps, pkMap);
   let CollectionsId = captured["Collections"];
-  let FieldsId = captured["Fields"];
   // -> Creating Relations
   let Fields_Relations_210 = "Fields_Relations_210_" + Math.floor(Math.random()*1000);
   let Filter_Relations_210 = "Filter_Relations_210_" + Math.floor(Math.random()*1000);
@@ -1205,16 +1160,11 @@ bthread("crud:Roles:linear:1", function () {
 
 // Story: crud:Schema:linear:1
 bthread("crud:Schema:linear:1", function () {
-  let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
-  let pkMap = {"Collections": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
   // -> Creating Schema
   let Export_Schema_230 = "Export_Schema_230_" + Math.floor(Math.random()*1000);
   let data_Schema_230 = "data_Schema_230_" + Math.floor(Math.random()*1000);
   let force_Schema_230 = true;
-  let id_Schema_230 = CollectionsId;
+  let id_Schema_230 = "id_Schema_230_" + Math.floor(Math.random()*1000);
   schemaDiff(Export_Schema_230, data_Schema_230, force_Schema_230, id_Schema_230, { expectedResponseCodes: [200, 201, 204] });
 
 });
@@ -1230,12 +1180,11 @@ bthread("crud:Users:linear:1", function () {
   let Search_Users_240 = "Search_Users_240_" + Math.floor(Math.random()*1000);
   let Sort_Users_240 = "Sort_Users_240_" + Math.floor(Math.random()*1000);
   let UUId_Users_240 = "UUId_Users_240_" + Math.floor(Math.random()*1000);
-  let email_Users_240 = "admin@example.com";
   let id_Users_240 = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_Users_240 = "/my-project/settings/collections/a";
   let password_Users_240 = "password_Users_240_" + Math.floor(Math.random()*1000);
   let token_Users_240 = "token_Users_240_" + Math.floor(Math.random()*1000);
-  acceptInvite(Fields_Users_240, Filter_Users_240, Limit_Users_240, Meta_Users_240, Offset_Users_240, Search_Users_240, Sort_Users_240, UUId_Users_240, email_Users_240, id_Users_240, last_page_Users_240, password_Users_240, token_Users_240, { expectedResponseCodes: [200, 201, 204] });
+  acceptInvite(Fields_Users_240, Filter_Users_240, Limit_Users_240, Meta_Users_240, Offset_Users_240, Search_Users_240, Sort_Users_240, UUId_Users_240, id_Users_240, last_page_Users_240, password_Users_240, token_Users_240, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Users
   let Fields_Users_upd_240 = "Fields_Users_upd_240_" + Math.floor(Math.random()*1000);
@@ -1246,12 +1195,11 @@ bthread("crud:Users:linear:1", function () {
   let Search_Users_upd_240 = "Search_Users_upd_240_" + Math.floor(Math.random()*1000);
   let Sort_Users_upd_240 = "Sort_Users_upd_240_" + Math.floor(Math.random()*1000);
   let UUId_Users_upd_240 = "UUId_Users_upd_240_" + Math.floor(Math.random()*1000);
-  let email_Users_upd_240 = "admin@example.com";
   let id_Users_upd_240 = id_Users_240;
   let last_page_Users_upd_240 = "/my-project/settings/collections/a";
   let password_Users_upd_240 = "password_Users_upd_240_" + Math.floor(Math.random()*1000);
   let token_Users_upd_240 = "token_Users_upd_240_" + Math.floor(Math.random()*1000);
-  updateMe(Fields_Users_upd_240, Filter_Users_upd_240, Limit_Users_upd_240, Meta_Users_upd_240, Offset_Users_upd_240, Search_Users_upd_240, Sort_Users_upd_240, UUId_Users_upd_240, email_Users_upd_240, id_Users_upd_240, last_page_Users_upd_240, password_Users_upd_240, token_Users_upd_240, { expectedResponseCodes: [200, 201, 204] });
+  updateMe(Fields_Users_upd_240, Filter_Users_upd_240, Limit_Users_upd_240, Meta_Users_upd_240, Offset_Users_upd_240, Search_Users_upd_240, Sort_Users_upd_240, UUId_Users_upd_240, id_Users_upd_240, last_page_Users_upd_240, password_Users_upd_240, token_Users_upd_240, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Users
   deleteUser(id_Users_240, { expectedResponseCodes: [200, 201, 204] });
@@ -1408,8 +1356,7 @@ bthread("crud:Items:linear:2", function () {
   let Search_Items_300 = "Search_Items_300_" + Math.floor(Math.random()*1000);
   let Sort_Items_300 = "Sort_Items_300_" + Math.floor(Math.random()*1000);
   let collection_Items_300 = "collection_Items_300_" + Math.floor(Math.random()*1000);
-  let id_Items_300 = CollectionsId;
-  createItem(Collection_Items_300, Fields_Items_300, Filter_Items_300, Limit_Items_300, Meta_Items_300, Offset_Items_300, Search_Items_300, Sort_Items_300, collection_Items_300, id_Items_300, { expectedResponseCodes: [200, 201, 204] });
+  createItem(Collection_Items_300, Fields_Items_300, Filter_Items_300, Limit_Items_300, Meta_Items_300, Offset_Items_300, Search_Items_300, Sort_Items_300, collection_Items_300, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Items
   let Collection_Items_upd_300 = "Collection_Items_upd_300_" + Math.floor(Math.random()*1000);
@@ -1421,8 +1368,7 @@ bthread("crud:Items:linear:2", function () {
   let Search_Items_upd_300 = "Search_Items_upd_300_" + Math.floor(Math.random()*1000);
   let Sort_Items_upd_300 = "Sort_Items_upd_300_" + Math.floor(Math.random()*1000);
   let collection_Items_upd_300 = collection_Items_300;
-  let id_Items_upd_300 = "id_Items_upd_300_" + Math.floor(Math.random()*1000);
-  updateItems(Collection_Items_upd_300, Fields_Items_upd_300, Filter_Items_upd_300, Limit_Items_upd_300, Meta_Items_upd_300, Offset_Items_upd_300, Search_Items_upd_300, Sort_Items_upd_300, collection_Items_upd_300, id_Items_upd_300, { expectedResponseCodes: [200, 201, 204] });
+  updateItems(Collection_Items_upd_300, Fields_Items_upd_300, Filter_Items_upd_300, Limit_Items_upd_300, Meta_Items_upd_300, Offset_Items_upd_300, Search_Items_upd_300, Sort_Items_upd_300, collection_Items_upd_300, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for Items to prevent foreign key errors (has active dependents)
 });
@@ -1445,10 +1391,8 @@ bthread("crud:Presets:linear:2", function () {
   let Search_Presets_310 = "Search_Presets_310_" + Math.floor(Math.random()*1000);
   let Sort_Presets_310 = "Sort_Presets_310_" + Math.floor(Math.random()*1000);
   let collection_Presets_310 = "articles";
-  let data_Presets_310 = "data_Presets_310_" + Math.floor(Math.random()*1000);
   let filters_Presets_310 = [];
   let id_Presets_310 = CollectionsId;
-  let keys_Presets_310 = "keys_Presets_310_" + Math.floor(Math.random()*1000);
   let layout_Presets_310 = "layout_Presets_310_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_310 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_310 = "{'cards': {'sort': '-published_on'}}";
@@ -1460,7 +1404,7 @@ bthread("crud:Presets:linear:2", function () {
   let view_options_Presets_310 = "view_options_Presets_310_" + Math.floor(Math.random()*1000);
   let view_query_Presets_310 = "view_query_Presets_310_" + Math.floor(Math.random()*1000);
   let view_type_Presets_310 = "view_type_Presets_310_" + Math.floor(Math.random()*1000);
-  createPreset(Fields_Presets_310, Filter_Presets_310, Id_Presets_310, Limit_Presets_310, Meta_Presets_310, Offset_Presets_310, Page_Presets_310, Search_Presets_310, Sort_Presets_310, collection_Presets_310, data_Presets_310, filters_Presets_310, id_Presets_310, keys_Presets_310, layout_Presets_310, layout_options_Presets_310, layout_query_Presets_310, role_Presets_310, search_Presets_310, search_query_Presets_310, title_Presets_310, translation_Presets_310, view_options_Presets_310, view_query_Presets_310, view_type_Presets_310, { expectedResponseCodes: [200, 201, 204] });
+  createPreset(Fields_Presets_310, Filter_Presets_310, Id_Presets_310, Limit_Presets_310, Meta_Presets_310, Offset_Presets_310, Page_Presets_310, Search_Presets_310, Sort_Presets_310, collection_Presets_310, filters_Presets_310, id_Presets_310, layout_Presets_310, layout_options_Presets_310, layout_query_Presets_310, role_Presets_310, search_Presets_310, search_query_Presets_310, title_Presets_310, translation_Presets_310, view_options_Presets_310, view_query_Presets_310, view_type_Presets_310, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Presets
   let Fields_Presets_upd_310 = "Fields_Presets_upd_310_" + Math.floor(Math.random()*1000);
@@ -1473,25 +1417,23 @@ bthread("crud:Presets:linear:2", function () {
   let Search_Presets_upd_310 = "Search_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let Sort_Presets_upd_310 = "Sort_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let collection_Presets_upd_310 = "articles";
-  let data_Presets_upd_310 = {};
-  let filters_Presets_upd_310 = "[{'key': '7RwVrquB5dPmfbrI1rcWy', 'field': 'title', 'operator': 'contains', 'value': 'Hello'}]";
+  let filters_Presets_upd_310 = [];
   let id_Presets_upd_310 = id_Presets_310;
-  let keys_Presets_upd_310 = [];
   let layout_Presets_upd_310 = "layout_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_upd_310 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_upd_310 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_upd_310 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let role_Presets_upd_310 = Math.floor(Math.random() * 1000);
   let search_Presets_upd_310 = "search_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let search_query_Presets_upd_310 = "search_query_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let title_Presets_upd_310 = "title_Presets_upd_310_" + Math.floor(Math.random()*1000);
-  let translation_Presets_upd_310 = "translation_Presets_upd_310_" + Math.floor(Math.random()*1000);
+  let translation_Presets_upd_310 = {};
   let view_options_Presets_upd_310 = "view_options_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let view_query_Presets_upd_310 = "view_query_Presets_upd_310_" + Math.floor(Math.random()*1000);
   let view_type_Presets_upd_310 = "view_type_Presets_upd_310_" + Math.floor(Math.random()*1000);
-  updatePresets(Fields_Presets_upd_310, Filter_Presets_upd_310, Id_Presets_upd_310, Limit_Presets_upd_310, Meta_Presets_upd_310, Offset_Presets_upd_310, Page_Presets_upd_310, Search_Presets_upd_310, Sort_Presets_upd_310, collection_Presets_upd_310, data_Presets_upd_310, filters_Presets_upd_310, id_Presets_upd_310, keys_Presets_upd_310, layout_Presets_upd_310, layout_options_Presets_upd_310, layout_query_Presets_upd_310, role_Presets_upd_310, search_Presets_upd_310, search_query_Presets_upd_310, title_Presets_upd_310, translation_Presets_upd_310, view_options_Presets_upd_310, view_query_Presets_upd_310, view_type_Presets_upd_310, { expectedResponseCodes: [200, 201, 204] });
+  updatePreset(Fields_Presets_upd_310, Filter_Presets_upd_310, Id_Presets_upd_310, Limit_Presets_upd_310, Meta_Presets_upd_310, Offset_Presets_upd_310, Page_Presets_upd_310, Search_Presets_upd_310, Sort_Presets_upd_310, collection_Presets_upd_310, filters_Presets_upd_310, id_Presets_upd_310, layout_Presets_upd_310, layout_options_Presets_upd_310, layout_query_Presets_upd_310, role_Presets_upd_310, search_Presets_upd_310, search_query_Presets_upd_310, title_Presets_upd_310, translation_Presets_upd_310, view_options_Presets_upd_310, view_query_Presets_upd_310, view_type_Presets_upd_310, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Presets
-  deletePresets(id_Presets_310, { expectedResponseCodes: [200, 201, 204] });
+  deletePreset(id_Presets_310, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1533,24 +1475,30 @@ bthread("crud:Fields:linear:2", function () {
   // -> Creating Fields
   let Sort_Fields_330 = "Sort_Fields_330_" + Math.floor(Math.random()*1000);
   let collection_Fields_330 = "about_us";
+  let datatype_Fields_330 = "datatype_Fields_330_" + Math.floor(Math.random()*1000);
   let field_Fields_330 = "id";
   let id_Fields_330 = CollectionsId;
+  let length_Fields_330 = Math.floor(Math.random() * 1000);
   let meta_Fields_330 = {};
   let schema_Fields_330 = {};
   let type_Fields_330 = "integer";
-  createField(Sort_Fields_330, collection_Fields_330, field_Fields_330, id_Fields_330, meta_Fields_330, schema_Fields_330, type_Fields_330, { expectedResponseCodes: [200, 201, 204] });
+  createField(Sort_Fields_330, collection_Fields_330, datatype_Fields_330, field_Fields_330, id_Fields_330, length_Fields_330, meta_Fields_330, schema_Fields_330, type_Fields_330, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Fields
   let Sort_Fields_upd_330 = "Sort_Fields_upd_330_" + Math.floor(Math.random()*1000);
   let collection_Fields_upd_330 = collection_Fields_330;
+  let datatype_Fields_upd_330 = "datatype_Fields_upd_330_" + Math.floor(Math.random()*1000);
   let field_Fields_upd_330 = "id";
   let id_Fields_upd_330 = "id_Fields_upd_330_" + Math.floor(Math.random()*1000);
+  let length_Fields_upd_330 = "length_Fields_upd_330_" + Math.floor(Math.random()*1000);
   let meta_Fields_upd_330 = {};
   let schema_Fields_upd_330 = {};
   let type_Fields_upd_330 = "integer";
-  updateField(Sort_Fields_upd_330, collection_Fields_upd_330, field_Fields_upd_330, id_Fields_upd_330, meta_Fields_upd_330, schema_Fields_upd_330, type_Fields_upd_330, { expectedResponseCodes: [200, 201, 204] });
+  updateField(Sort_Fields_upd_330, collection_Fields_upd_330, datatype_Fields_upd_330, field_Fields_upd_330, id_Fields_upd_330, length_Fields_upd_330, meta_Fields_upd_330, schema_Fields_upd_330, type_Fields_upd_330, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Fields to prevent foreign key errors (has active dependents)
+  // -> Deleting Fields
+  deleteField(collection_Fields_330, id_Fields_330, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Files:linear:2
@@ -1610,7 +1558,9 @@ bthread("crud:Flows:linear:2", function () {
   let id_Flows_upd_350 = id_Flows_350;
   updateFlow(Fields_Flows_upd_350, Meta_Flows_upd_350, data_Flows_upd_350, id_Flows_upd_350, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Flows to prevent foreign key errors (has active dependents)
+  // -> Deleting Flows
+  deleteFlow(id_Flows_350, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Folders:linear:2
@@ -1648,31 +1598,24 @@ bthread("crud:Folders:linear:2", function () {
 
 // Story: crud:Operations:linear:2
 bthread("crud:Operations:linear:2", function () {
-  let deps = {};
-  deps["Flows"] = matchAnyFlowsAdded();
-  let pkMap = {"Flows": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  let FlowsId = captured["Flows"];
   // -> Creating Operations
   let Fields_Operations_370 = {};
   let Meta_Operations_370 = {};
   let UUId_Operations_370 = "UUId_Operations_370_" + Math.floor(Math.random()*1000);
   let data_Operations_370 = "data_Operations_370_" + Math.floor(Math.random()*1000);
-  let id_Operations_370 = FlowsId;
-  let keys_Operations_370 = "keys_Operations_370_" + Math.floor(Math.random()*1000);
-  createOperation(Fields_Operations_370, Meta_Operations_370, UUId_Operations_370, data_Operations_370, id_Operations_370, keys_Operations_370, { expectedResponseCodes: [200, 201, 204] });
+  let id_Operations_370 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
+  createOperation(Fields_Operations_370, Meta_Operations_370, UUId_Operations_370, data_Operations_370, id_Operations_370, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Operations
-  let Fields_Operations_upd_370 = "Fields_Operations_upd_370_" + Math.floor(Math.random()*1000);
-  let Meta_Operations_upd_370 = "Meta_Operations_upd_370_" + Math.floor(Math.random()*1000);
+  let Fields_Operations_upd_370 = {};
+  let Meta_Operations_upd_370 = {};
   let UUId_Operations_upd_370 = "UUId_Operations_upd_370_" + Math.floor(Math.random()*1000);
   let data_Operations_upd_370 = "data_Operations_upd_370_" + Math.floor(Math.random()*1000);
   let id_Operations_upd_370 = id_Operations_370;
-  let keys_Operations_upd_370 = [];
-  updateOperations(Fields_Operations_upd_370, Meta_Operations_upd_370, UUId_Operations_upd_370, data_Operations_upd_370, id_Operations_upd_370, keys_Operations_upd_370, { expectedResponseCodes: [200, 201, 204] });
+  updateOperation(Fields_Operations_upd_370, Meta_Operations_upd_370, UUId_Operations_upd_370, data_Operations_upd_370, id_Operations_upd_370, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Operations
-  deleteOperations(id_Operations_370, { expectedResponseCodes: [200, 201, 204] });
+  deleteOperation(id_Operations_370, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1687,22 +1630,14 @@ bthread("crud:Permissions:linear:2", function () {
   let RolesId = captured["Roles"];
   // -> Creating Permissions
   let Fields_Permissions_380 = "Fields_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_380 = "Filter_Permissions_380_" + Math.floor(Math.random()*1000);
   let Id_Permissions_380 = "Id_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_380 = "Limit_Permissions_380_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_380 = "Meta_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_380 = "Offset_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_380 = "Page_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_380 = "Search_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_380 = "Sort_Permissions_380_" + Math.floor(Math.random()*1000);
   let collection_Permissions_380 = "customers";
   let comment_Permissions_380 = "comment_Permissions_380_" + Math.floor(Math.random()*1000);
   let create_Permissions_380 = "create_Permissions_380_" + Math.floor(Math.random()*1000);
-  let data_Permissions_380 = "data_Permissions_380_" + Math.floor(Math.random()*1000);
   let _delete_Permissions_380 = "delete_Permissions_380_" + Math.floor(Math.random()*1000);
   let explain_Permissions_380 = "explain_Permissions_380_" + Math.floor(Math.random()*1000);
   let id_Permissions_380 = RolesId;
-  let keys_Permissions_380 = "keys_Permissions_380_" + Math.floor(Math.random()*1000);
   let read_Permissions_380 = "read_Permissions_380_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_380 = [];
   let role_Permissions_380 = Math.floor(Math.random() * 1000);
@@ -1710,37 +1645,29 @@ bthread("crud:Permissions:linear:2", function () {
   let status_blacklist_Permissions_380 = [];
   let update_Permissions_380 = "update_Permissions_380_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_380 = [];
-  createPermission(Fields_Permissions_380, Filter_Permissions_380, Id_Permissions_380, Limit_Permissions_380, Meta_Permissions_380, Offset_Permissions_380, Page_Permissions_380, Search_Permissions_380, Sort_Permissions_380, collection_Permissions_380, comment_Permissions_380, create_Permissions_380, data_Permissions_380, _delete_Permissions_380, explain_Permissions_380, id_Permissions_380, keys_Permissions_380, read_Permissions_380, read_field_blacklist_Permissions_380, role_Permissions_380, status_Permissions_380, status_blacklist_Permissions_380, update_Permissions_380, write_field_blacklist_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
+  createPermission(Fields_Permissions_380, Id_Permissions_380, Meta_Permissions_380, collection_Permissions_380, comment_Permissions_380, create_Permissions_380, _delete_Permissions_380, explain_Permissions_380, id_Permissions_380, read_Permissions_380, read_field_blacklist_Permissions_380, role_Permissions_380, status_Permissions_380, status_blacklist_Permissions_380, update_Permissions_380, write_field_blacklist_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Permissions
   let Fields_Permissions_upd_380 = "Fields_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_upd_380 = "Filter_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let Id_Permissions_upd_380 = "Id_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_upd_380 = "Limit_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_upd_380 = "Meta_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_upd_380 = "Offset_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_upd_380 = "Page_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_upd_380 = "Search_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_upd_380 = "Sort_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_upd_380 = "customers";
+  let collection_Permissions_upd_380 = {};
   let comment_Permissions_upd_380 = "comment_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let create_Permissions_upd_380 = "create_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let data_Permissions_upd_380 = {};
   let _delete_Permissions_upd_380 = "delete_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let explain_Permissions_upd_380 = "explain_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let id_Permissions_upd_380 = id_Permissions_380;
-  let keys_Permissions_upd_380 = [];
   let read_Permissions_upd_380 = "read_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_upd_380 = "read_field_blacklist_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let role_Permissions_upd_380 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let status_Permissions_upd_380 = "active";
-  let status_blacklist_Permissions_upd_380 = "status_blacklist_Permissions_upd_380_" + Math.floor(Math.random()*1000);
+  let read_field_blacklist_Permissions_upd_380 = {};
+  let role_Permissions_upd_380 = {};
+  let status_Permissions_upd_380 = {};
+  let status_blacklist_Permissions_upd_380 = {};
   let update_Permissions_upd_380 = "update_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_upd_380 = "write_field_blacklist_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  updatePermissions(Fields_Permissions_upd_380, Filter_Permissions_upd_380, Id_Permissions_upd_380, Limit_Permissions_upd_380, Meta_Permissions_upd_380, Offset_Permissions_upd_380, Page_Permissions_upd_380, Search_Permissions_upd_380, Sort_Permissions_upd_380, collection_Permissions_upd_380, comment_Permissions_upd_380, create_Permissions_upd_380, data_Permissions_upd_380, _delete_Permissions_upd_380, explain_Permissions_upd_380, id_Permissions_upd_380, keys_Permissions_upd_380, read_Permissions_upd_380, read_field_blacklist_Permissions_upd_380, role_Permissions_upd_380, status_Permissions_upd_380, status_blacklist_Permissions_upd_380, update_Permissions_upd_380, write_field_blacklist_Permissions_upd_380, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_upd_380 = {};
+  updatePermission(Fields_Permissions_upd_380, Id_Permissions_upd_380, Meta_Permissions_upd_380, collection_Permissions_upd_380, comment_Permissions_upd_380, create_Permissions_upd_380, _delete_Permissions_upd_380, explain_Permissions_upd_380, id_Permissions_upd_380, read_Permissions_upd_380, read_field_blacklist_Permissions_upd_380, role_Permissions_upd_380, status_Permissions_upd_380, status_blacklist_Permissions_upd_380, update_Permissions_upd_380, write_field_blacklist_Permissions_upd_380, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Permissions
-  deletePermissions(id_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
+  deletePermission(id_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1748,11 +1675,9 @@ bthread("crud:Permissions:linear:2", function () {
 bthread("crud:Relations:linear:2", function () {
   let deps = {};
   deps["Collections"] = matchAnyCollectionsAdded();
-  deps["Fields"] = matchAnyFieldsAdded();
-  let pkMap = {"Collections": "id", "Fields": "collection"};
+  let pkMap = {"Collections": "id"};
   let captured = resolveDependencies(deps, pkMap);
   let CollectionsId = captured["Collections"];
-  let FieldsId = captured["Fields"];
   // -> Creating Relations
   let Fields_Relations_390 = "Fields_Relations_390_" + Math.floor(Math.random()*1000);
   let Filter_Relations_390 = "Filter_Relations_390_" + Math.floor(Math.random()*1000);
@@ -1837,16 +1762,11 @@ bthread("crud:Roles:linear:2", function () {
 
 // Story: crud:Schema:linear:2
 bthread("crud:Schema:linear:2", function () {
-  let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
-  let pkMap = {"Collections": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
   // -> Creating Schema
   let Export_Schema_410 = "Export_Schema_410_" + Math.floor(Math.random()*1000);
   let data_Schema_410 = "data_Schema_410_" + Math.floor(Math.random()*1000);
   let force_Schema_410 = true;
-  let id_Schema_410 = CollectionsId;
+  let id_Schema_410 = "id_Schema_410_" + Math.floor(Math.random()*1000);
   schemaDiff(Export_Schema_410, data_Schema_410, force_Schema_410, id_Schema_410, { expectedResponseCodes: [200, 201, 204] });
 
 });
@@ -1862,12 +1782,11 @@ bthread("crud:Users:linear:2", function () {
   let Search_Users_420 = "Search_Users_420_" + Math.floor(Math.random()*1000);
   let Sort_Users_420 = "Sort_Users_420_" + Math.floor(Math.random()*1000);
   let UUId_Users_420 = "UUId_Users_420_" + Math.floor(Math.random()*1000);
-  let email_Users_420 = "admin@example.com";
   let id_Users_420 = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_Users_420 = "/my-project/settings/collections/a";
   let password_Users_420 = "password_Users_420_" + Math.floor(Math.random()*1000);
   let token_Users_420 = "token_Users_420_" + Math.floor(Math.random()*1000);
-  acceptInvite(Fields_Users_420, Filter_Users_420, Limit_Users_420, Meta_Users_420, Offset_Users_420, Search_Users_420, Sort_Users_420, UUId_Users_420, email_Users_420, id_Users_420, last_page_Users_420, password_Users_420, token_Users_420, { expectedResponseCodes: [200, 201, 204] });
+  acceptInvite(Fields_Users_420, Filter_Users_420, Limit_Users_420, Meta_Users_420, Offset_Users_420, Search_Users_420, Sort_Users_420, UUId_Users_420, id_Users_420, last_page_Users_420, password_Users_420, token_Users_420, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Users
   let Fields_Users_upd_420 = "Fields_Users_upd_420_" + Math.floor(Math.random()*1000);
@@ -1878,12 +1797,11 @@ bthread("crud:Users:linear:2", function () {
   let Search_Users_upd_420 = "Search_Users_upd_420_" + Math.floor(Math.random()*1000);
   let Sort_Users_upd_420 = "Sort_Users_upd_420_" + Math.floor(Math.random()*1000);
   let UUId_Users_upd_420 = "UUId_Users_upd_420_" + Math.floor(Math.random()*1000);
-  let email_Users_upd_420 = "admin@example.com";
   let id_Users_upd_420 = id_Users_420;
   let last_page_Users_upd_420 = "/my-project/settings/collections/a";
   let password_Users_upd_420 = "password_Users_upd_420_" + Math.floor(Math.random()*1000);
   let token_Users_upd_420 = "token_Users_upd_420_" + Math.floor(Math.random()*1000);
-  updateMe(Fields_Users_upd_420, Filter_Users_upd_420, Limit_Users_upd_420, Meta_Users_upd_420, Offset_Users_upd_420, Search_Users_upd_420, Sort_Users_upd_420, UUId_Users_upd_420, email_Users_upd_420, id_Users_upd_420, last_page_Users_upd_420, password_Users_upd_420, token_Users_upd_420, { expectedResponseCodes: [200, 201, 204] });
+  updateMe(Fields_Users_upd_420, Filter_Users_upd_420, Limit_Users_upd_420, Meta_Users_upd_420, Offset_Users_upd_420, Search_Users_upd_420, Sort_Users_upd_420, UUId_Users_upd_420, id_Users_upd_420, last_page_Users_upd_420, password_Users_upd_420, token_Users_upd_420, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Users
   deleteUser(id_Users_420, { expectedResponseCodes: [200, 201, 204] });
@@ -2040,8 +1958,7 @@ bthread("crud:Items:linear:3", function () {
   let Search_Items_480 = "Search_Items_480_" + Math.floor(Math.random()*1000);
   let Sort_Items_480 = "Sort_Items_480_" + Math.floor(Math.random()*1000);
   let collection_Items_480 = "collection_Items_480_" + Math.floor(Math.random()*1000);
-  let id_Items_480 = CollectionsId;
-  createItem(Collection_Items_480, Fields_Items_480, Filter_Items_480, Limit_Items_480, Meta_Items_480, Offset_Items_480, Search_Items_480, Sort_Items_480, collection_Items_480, id_Items_480, { expectedResponseCodes: [200, 201, 204] });
+  createItem(Collection_Items_480, Fields_Items_480, Filter_Items_480, Limit_Items_480, Meta_Items_480, Offset_Items_480, Search_Items_480, Sort_Items_480, collection_Items_480, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Items
   let Collection_Items_upd_480 = "Collection_Items_upd_480_" + Math.floor(Math.random()*1000);
@@ -2053,8 +1970,7 @@ bthread("crud:Items:linear:3", function () {
   let Search_Items_upd_480 = "Search_Items_upd_480_" + Math.floor(Math.random()*1000);
   let Sort_Items_upd_480 = "Sort_Items_upd_480_" + Math.floor(Math.random()*1000);
   let collection_Items_upd_480 = collection_Items_480;
-  let id_Items_upd_480 = "id_Items_upd_480_" + Math.floor(Math.random()*1000);
-  updateItems(Collection_Items_upd_480, Fields_Items_upd_480, Filter_Items_upd_480, Limit_Items_upd_480, Meta_Items_upd_480, Offset_Items_upd_480, Search_Items_upd_480, Sort_Items_upd_480, collection_Items_upd_480, id_Items_upd_480, { expectedResponseCodes: [200, 201, 204] });
+  updateItems(Collection_Items_upd_480, Fields_Items_upd_480, Filter_Items_upd_480, Limit_Items_upd_480, Meta_Items_upd_480, Offset_Items_upd_480, Search_Items_upd_480, Sort_Items_upd_480, collection_Items_upd_480, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for Items to prevent foreign key errors (has active dependents)
 });
@@ -2077,10 +1993,8 @@ bthread("crud:Presets:linear:3", function () {
   let Search_Presets_490 = "Search_Presets_490_" + Math.floor(Math.random()*1000);
   let Sort_Presets_490 = "Sort_Presets_490_" + Math.floor(Math.random()*1000);
   let collection_Presets_490 = "articles";
-  let data_Presets_490 = "data_Presets_490_" + Math.floor(Math.random()*1000);
   let filters_Presets_490 = [];
   let id_Presets_490 = CollectionsId;
-  let keys_Presets_490 = "keys_Presets_490_" + Math.floor(Math.random()*1000);
   let layout_Presets_490 = "layout_Presets_490_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_490 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_490 = "{'cards': {'sort': '-published_on'}}";
@@ -2092,7 +2006,7 @@ bthread("crud:Presets:linear:3", function () {
   let view_options_Presets_490 = "view_options_Presets_490_" + Math.floor(Math.random()*1000);
   let view_query_Presets_490 = "view_query_Presets_490_" + Math.floor(Math.random()*1000);
   let view_type_Presets_490 = "view_type_Presets_490_" + Math.floor(Math.random()*1000);
-  createPreset(Fields_Presets_490, Filter_Presets_490, Id_Presets_490, Limit_Presets_490, Meta_Presets_490, Offset_Presets_490, Page_Presets_490, Search_Presets_490, Sort_Presets_490, collection_Presets_490, data_Presets_490, filters_Presets_490, id_Presets_490, keys_Presets_490, layout_Presets_490, layout_options_Presets_490, layout_query_Presets_490, role_Presets_490, search_Presets_490, search_query_Presets_490, title_Presets_490, translation_Presets_490, view_options_Presets_490, view_query_Presets_490, view_type_Presets_490, { expectedResponseCodes: [200, 201, 204] });
+  createPreset(Fields_Presets_490, Filter_Presets_490, Id_Presets_490, Limit_Presets_490, Meta_Presets_490, Offset_Presets_490, Page_Presets_490, Search_Presets_490, Sort_Presets_490, collection_Presets_490, filters_Presets_490, id_Presets_490, layout_Presets_490, layout_options_Presets_490, layout_query_Presets_490, role_Presets_490, search_Presets_490, search_query_Presets_490, title_Presets_490, translation_Presets_490, view_options_Presets_490, view_query_Presets_490, view_type_Presets_490, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Presets
   let Fields_Presets_upd_490 = "Fields_Presets_upd_490_" + Math.floor(Math.random()*1000);
@@ -2105,25 +2019,23 @@ bthread("crud:Presets:linear:3", function () {
   let Search_Presets_upd_490 = "Search_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let Sort_Presets_upd_490 = "Sort_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let collection_Presets_upd_490 = "articles";
-  let data_Presets_upd_490 = {};
-  let filters_Presets_upd_490 = "[{'key': '7RwVrquB5dPmfbrI1rcWy', 'field': 'title', 'operator': 'contains', 'value': 'Hello'}]";
+  let filters_Presets_upd_490 = [];
   let id_Presets_upd_490 = id_Presets_490;
-  let keys_Presets_upd_490 = [];
   let layout_Presets_upd_490 = "layout_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_upd_490 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_upd_490 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_upd_490 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let role_Presets_upd_490 = Math.floor(Math.random() * 1000);
   let search_Presets_upd_490 = "search_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let search_query_Presets_upd_490 = "search_query_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let title_Presets_upd_490 = "title_Presets_upd_490_" + Math.floor(Math.random()*1000);
-  let translation_Presets_upd_490 = "translation_Presets_upd_490_" + Math.floor(Math.random()*1000);
+  let translation_Presets_upd_490 = {};
   let view_options_Presets_upd_490 = "view_options_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let view_query_Presets_upd_490 = "view_query_Presets_upd_490_" + Math.floor(Math.random()*1000);
   let view_type_Presets_upd_490 = "view_type_Presets_upd_490_" + Math.floor(Math.random()*1000);
-  updatePresets(Fields_Presets_upd_490, Filter_Presets_upd_490, Id_Presets_upd_490, Limit_Presets_upd_490, Meta_Presets_upd_490, Offset_Presets_upd_490, Page_Presets_upd_490, Search_Presets_upd_490, Sort_Presets_upd_490, collection_Presets_upd_490, data_Presets_upd_490, filters_Presets_upd_490, id_Presets_upd_490, keys_Presets_upd_490, layout_Presets_upd_490, layout_options_Presets_upd_490, layout_query_Presets_upd_490, role_Presets_upd_490, search_Presets_upd_490, search_query_Presets_upd_490, title_Presets_upd_490, translation_Presets_upd_490, view_options_Presets_upd_490, view_query_Presets_upd_490, view_type_Presets_upd_490, { expectedResponseCodes: [200, 201, 204] });
+  updatePreset(Fields_Presets_upd_490, Filter_Presets_upd_490, Id_Presets_upd_490, Limit_Presets_upd_490, Meta_Presets_upd_490, Offset_Presets_upd_490, Page_Presets_upd_490, Search_Presets_upd_490, Sort_Presets_upd_490, collection_Presets_upd_490, filters_Presets_upd_490, id_Presets_upd_490, layout_Presets_upd_490, layout_options_Presets_upd_490, layout_query_Presets_upd_490, role_Presets_upd_490, search_Presets_upd_490, search_query_Presets_upd_490, title_Presets_upd_490, translation_Presets_upd_490, view_options_Presets_upd_490, view_query_Presets_upd_490, view_type_Presets_upd_490, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Presets
-  deletePresets(id_Presets_490, { expectedResponseCodes: [200, 201, 204] });
+  deletePreset(id_Presets_490, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -2165,24 +2077,30 @@ bthread("crud:Fields:linear:3", function () {
   // -> Creating Fields
   let Sort_Fields_510 = "Sort_Fields_510_" + Math.floor(Math.random()*1000);
   let collection_Fields_510 = "about_us";
+  let datatype_Fields_510 = "datatype_Fields_510_" + Math.floor(Math.random()*1000);
   let field_Fields_510 = "id";
   let id_Fields_510 = CollectionsId;
+  let length_Fields_510 = Math.floor(Math.random() * 1000);
   let meta_Fields_510 = {};
   let schema_Fields_510 = {};
   let type_Fields_510 = "integer";
-  createField(Sort_Fields_510, collection_Fields_510, field_Fields_510, id_Fields_510, meta_Fields_510, schema_Fields_510, type_Fields_510, { expectedResponseCodes: [200, 201, 204] });
+  createField(Sort_Fields_510, collection_Fields_510, datatype_Fields_510, field_Fields_510, id_Fields_510, length_Fields_510, meta_Fields_510, schema_Fields_510, type_Fields_510, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Fields
   let Sort_Fields_upd_510 = "Sort_Fields_upd_510_" + Math.floor(Math.random()*1000);
   let collection_Fields_upd_510 = collection_Fields_510;
+  let datatype_Fields_upd_510 = "datatype_Fields_upd_510_" + Math.floor(Math.random()*1000);
   let field_Fields_upd_510 = "id";
   let id_Fields_upd_510 = "id_Fields_upd_510_" + Math.floor(Math.random()*1000);
+  let length_Fields_upd_510 = "length_Fields_upd_510_" + Math.floor(Math.random()*1000);
   let meta_Fields_upd_510 = {};
   let schema_Fields_upd_510 = {};
   let type_Fields_upd_510 = "integer";
-  updateField(Sort_Fields_upd_510, collection_Fields_upd_510, field_Fields_upd_510, id_Fields_upd_510, meta_Fields_upd_510, schema_Fields_upd_510, type_Fields_upd_510, { expectedResponseCodes: [200, 201, 204] });
+  updateField(Sort_Fields_upd_510, collection_Fields_upd_510, datatype_Fields_upd_510, field_Fields_upd_510, id_Fields_upd_510, length_Fields_upd_510, meta_Fields_upd_510, schema_Fields_upd_510, type_Fields_upd_510, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Fields to prevent foreign key errors (has active dependents)
+  // -> Deleting Fields
+  deleteField(collection_Fields_510, id_Fields_510, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Files:linear:3
@@ -2242,7 +2160,9 @@ bthread("crud:Flows:linear:3", function () {
   let id_Flows_upd_530 = id_Flows_530;
   updateFlow(Fields_Flows_upd_530, Meta_Flows_upd_530, data_Flows_upd_530, id_Flows_upd_530, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Flows to prevent foreign key errors (has active dependents)
+  // -> Deleting Flows
+  deleteFlow(id_Flows_530, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Folders:linear:3
@@ -2280,31 +2200,24 @@ bthread("crud:Folders:linear:3", function () {
 
 // Story: crud:Operations:linear:3
 bthread("crud:Operations:linear:3", function () {
-  let deps = {};
-  deps["Flows"] = matchAnyFlowsAdded();
-  let pkMap = {"Flows": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  let FlowsId = captured["Flows"];
   // -> Creating Operations
   let Fields_Operations_550 = {};
   let Meta_Operations_550 = {};
   let UUId_Operations_550 = "UUId_Operations_550_" + Math.floor(Math.random()*1000);
   let data_Operations_550 = "data_Operations_550_" + Math.floor(Math.random()*1000);
-  let id_Operations_550 = FlowsId;
-  let keys_Operations_550 = "keys_Operations_550_" + Math.floor(Math.random()*1000);
-  createOperation(Fields_Operations_550, Meta_Operations_550, UUId_Operations_550, data_Operations_550, id_Operations_550, keys_Operations_550, { expectedResponseCodes: [200, 201, 204] });
+  let id_Operations_550 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
+  createOperation(Fields_Operations_550, Meta_Operations_550, UUId_Operations_550, data_Operations_550, id_Operations_550, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Operations
-  let Fields_Operations_upd_550 = "Fields_Operations_upd_550_" + Math.floor(Math.random()*1000);
-  let Meta_Operations_upd_550 = "Meta_Operations_upd_550_" + Math.floor(Math.random()*1000);
+  let Fields_Operations_upd_550 = {};
+  let Meta_Operations_upd_550 = {};
   let UUId_Operations_upd_550 = "UUId_Operations_upd_550_" + Math.floor(Math.random()*1000);
   let data_Operations_upd_550 = "data_Operations_upd_550_" + Math.floor(Math.random()*1000);
   let id_Operations_upd_550 = id_Operations_550;
-  let keys_Operations_upd_550 = [];
-  updateOperations(Fields_Operations_upd_550, Meta_Operations_upd_550, UUId_Operations_upd_550, data_Operations_upd_550, id_Operations_upd_550, keys_Operations_upd_550, { expectedResponseCodes: [200, 201, 204] });
+  updateOperation(Fields_Operations_upd_550, Meta_Operations_upd_550, UUId_Operations_upd_550, data_Operations_upd_550, id_Operations_upd_550, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Operations
-  deleteOperations(id_Operations_550, { expectedResponseCodes: [200, 201, 204] });
+  deleteOperation(id_Operations_550, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -2319,22 +2232,14 @@ bthread("crud:Permissions:linear:3", function () {
   let RolesId = captured["Roles"];
   // -> Creating Permissions
   let Fields_Permissions_560 = "Fields_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_560 = "Filter_Permissions_560_" + Math.floor(Math.random()*1000);
   let Id_Permissions_560 = "Id_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_560 = "Limit_Permissions_560_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_560 = "Meta_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_560 = "Offset_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_560 = "Page_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_560 = "Search_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_560 = "Sort_Permissions_560_" + Math.floor(Math.random()*1000);
   let collection_Permissions_560 = "customers";
   let comment_Permissions_560 = "comment_Permissions_560_" + Math.floor(Math.random()*1000);
   let create_Permissions_560 = "create_Permissions_560_" + Math.floor(Math.random()*1000);
-  let data_Permissions_560 = "data_Permissions_560_" + Math.floor(Math.random()*1000);
   let _delete_Permissions_560 = "delete_Permissions_560_" + Math.floor(Math.random()*1000);
   let explain_Permissions_560 = "explain_Permissions_560_" + Math.floor(Math.random()*1000);
   let id_Permissions_560 = RolesId;
-  let keys_Permissions_560 = "keys_Permissions_560_" + Math.floor(Math.random()*1000);
   let read_Permissions_560 = "read_Permissions_560_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_560 = [];
   let role_Permissions_560 = Math.floor(Math.random() * 1000);
@@ -2342,37 +2247,29 @@ bthread("crud:Permissions:linear:3", function () {
   let status_blacklist_Permissions_560 = [];
   let update_Permissions_560 = "update_Permissions_560_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_560 = [];
-  createPermission(Fields_Permissions_560, Filter_Permissions_560, Id_Permissions_560, Limit_Permissions_560, Meta_Permissions_560, Offset_Permissions_560, Page_Permissions_560, Search_Permissions_560, Sort_Permissions_560, collection_Permissions_560, comment_Permissions_560, create_Permissions_560, data_Permissions_560, _delete_Permissions_560, explain_Permissions_560, id_Permissions_560, keys_Permissions_560, read_Permissions_560, read_field_blacklist_Permissions_560, role_Permissions_560, status_Permissions_560, status_blacklist_Permissions_560, update_Permissions_560, write_field_blacklist_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
+  createPermission(Fields_Permissions_560, Id_Permissions_560, Meta_Permissions_560, collection_Permissions_560, comment_Permissions_560, create_Permissions_560, _delete_Permissions_560, explain_Permissions_560, id_Permissions_560, read_Permissions_560, read_field_blacklist_Permissions_560, role_Permissions_560, status_Permissions_560, status_blacklist_Permissions_560, update_Permissions_560, write_field_blacklist_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Permissions
   let Fields_Permissions_upd_560 = "Fields_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_upd_560 = "Filter_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let Id_Permissions_upd_560 = "Id_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_upd_560 = "Limit_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_upd_560 = "Meta_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_upd_560 = "Offset_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_upd_560 = "Page_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_upd_560 = "Search_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_upd_560 = "Sort_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_upd_560 = "customers";
+  let collection_Permissions_upd_560 = {};
   let comment_Permissions_upd_560 = "comment_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let create_Permissions_upd_560 = "create_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let data_Permissions_upd_560 = {};
   let _delete_Permissions_upd_560 = "delete_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let explain_Permissions_upd_560 = "explain_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let id_Permissions_upd_560 = id_Permissions_560;
-  let keys_Permissions_upd_560 = [];
   let read_Permissions_upd_560 = "read_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_upd_560 = "read_field_blacklist_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let role_Permissions_upd_560 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let status_Permissions_upd_560 = "active";
-  let status_blacklist_Permissions_upd_560 = "status_blacklist_Permissions_upd_560_" + Math.floor(Math.random()*1000);
+  let read_field_blacklist_Permissions_upd_560 = {};
+  let role_Permissions_upd_560 = {};
+  let status_Permissions_upd_560 = {};
+  let status_blacklist_Permissions_upd_560 = {};
   let update_Permissions_upd_560 = "update_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_upd_560 = "write_field_blacklist_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  updatePermissions(Fields_Permissions_upd_560, Filter_Permissions_upd_560, Id_Permissions_upd_560, Limit_Permissions_upd_560, Meta_Permissions_upd_560, Offset_Permissions_upd_560, Page_Permissions_upd_560, Search_Permissions_upd_560, Sort_Permissions_upd_560, collection_Permissions_upd_560, comment_Permissions_upd_560, create_Permissions_upd_560, data_Permissions_upd_560, _delete_Permissions_upd_560, explain_Permissions_upd_560, id_Permissions_upd_560, keys_Permissions_upd_560, read_Permissions_upd_560, read_field_blacklist_Permissions_upd_560, role_Permissions_upd_560, status_Permissions_upd_560, status_blacklist_Permissions_upd_560, update_Permissions_upd_560, write_field_blacklist_Permissions_upd_560, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_upd_560 = {};
+  updatePermission(Fields_Permissions_upd_560, Id_Permissions_upd_560, Meta_Permissions_upd_560, collection_Permissions_upd_560, comment_Permissions_upd_560, create_Permissions_upd_560, _delete_Permissions_upd_560, explain_Permissions_upd_560, id_Permissions_upd_560, read_Permissions_upd_560, read_field_blacklist_Permissions_upd_560, role_Permissions_upd_560, status_Permissions_upd_560, status_blacklist_Permissions_upd_560, update_Permissions_upd_560, write_field_blacklist_Permissions_upd_560, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Permissions
-  deletePermissions(id_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
+  deletePermission(id_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -2380,11 +2277,9 @@ bthread("crud:Permissions:linear:3", function () {
 bthread("crud:Relations:linear:3", function () {
   let deps = {};
   deps["Collections"] = matchAnyCollectionsAdded();
-  deps["Fields"] = matchAnyFieldsAdded();
-  let pkMap = {"Collections": "id", "Fields": "collection"};
+  let pkMap = {"Collections": "id"};
   let captured = resolveDependencies(deps, pkMap);
   let CollectionsId = captured["Collections"];
-  let FieldsId = captured["Fields"];
   // -> Creating Relations
   let Fields_Relations_570 = "Fields_Relations_570_" + Math.floor(Math.random()*1000);
   let Filter_Relations_570 = "Filter_Relations_570_" + Math.floor(Math.random()*1000);
@@ -2469,16 +2364,11 @@ bthread("crud:Roles:linear:3", function () {
 
 // Story: crud:Schema:linear:3
 bthread("crud:Schema:linear:3", function () {
-  let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
-  let pkMap = {"Collections": "id"};
-  let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
   // -> Creating Schema
   let Export_Schema_590 = "Export_Schema_590_" + Math.floor(Math.random()*1000);
   let data_Schema_590 = "data_Schema_590_" + Math.floor(Math.random()*1000);
   let force_Schema_590 = true;
-  let id_Schema_590 = CollectionsId;
+  let id_Schema_590 = "id_Schema_590_" + Math.floor(Math.random()*1000);
   schemaDiff(Export_Schema_590, data_Schema_590, force_Schema_590, id_Schema_590, { expectedResponseCodes: [200, 201, 204] });
 
 });
@@ -2494,12 +2384,11 @@ bthread("crud:Users:linear:3", function () {
   let Search_Users_600 = "Search_Users_600_" + Math.floor(Math.random()*1000);
   let Sort_Users_600 = "Sort_Users_600_" + Math.floor(Math.random()*1000);
   let UUId_Users_600 = "UUId_Users_600_" + Math.floor(Math.random()*1000);
-  let email_Users_600 = "admin@example.com";
   let id_Users_600 = "63716273-0f29-4648-8a2a-2af2948f6f78";
   let last_page_Users_600 = "/my-project/settings/collections/a";
   let password_Users_600 = "password_Users_600_" + Math.floor(Math.random()*1000);
   let token_Users_600 = "token_Users_600_" + Math.floor(Math.random()*1000);
-  acceptInvite(Fields_Users_600, Filter_Users_600, Limit_Users_600, Meta_Users_600, Offset_Users_600, Search_Users_600, Sort_Users_600, UUId_Users_600, email_Users_600, id_Users_600, last_page_Users_600, password_Users_600, token_Users_600, { expectedResponseCodes: [200, 201, 204] });
+  acceptInvite(Fields_Users_600, Filter_Users_600, Limit_Users_600, Meta_Users_600, Offset_Users_600, Search_Users_600, Sort_Users_600, UUId_Users_600, id_Users_600, last_page_Users_600, password_Users_600, token_Users_600, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Users
   let Fields_Users_upd_600 = "Fields_Users_upd_600_" + Math.floor(Math.random()*1000);
@@ -2510,12 +2399,11 @@ bthread("crud:Users:linear:3", function () {
   let Search_Users_upd_600 = "Search_Users_upd_600_" + Math.floor(Math.random()*1000);
   let Sort_Users_upd_600 = "Sort_Users_upd_600_" + Math.floor(Math.random()*1000);
   let UUId_Users_upd_600 = "UUId_Users_upd_600_" + Math.floor(Math.random()*1000);
-  let email_Users_upd_600 = "admin@example.com";
   let id_Users_upd_600 = id_Users_600;
   let last_page_Users_upd_600 = "/my-project/settings/collections/a";
   let password_Users_upd_600 = "password_Users_upd_600_" + Math.floor(Math.random()*1000);
   let token_Users_upd_600 = "token_Users_upd_600_" + Math.floor(Math.random()*1000);
-  updateMe(Fields_Users_upd_600, Filter_Users_upd_600, Limit_Users_upd_600, Meta_Users_upd_600, Offset_Users_upd_600, Search_Users_upd_600, Sort_Users_upd_600, UUId_Users_upd_600, email_Users_upd_600, id_Users_upd_600, last_page_Users_upd_600, password_Users_upd_600, token_Users_upd_600, { expectedResponseCodes: [200, 201, 204] });
+  updateMe(Fields_Users_upd_600, Filter_Users_upd_600, Limit_Users_upd_600, Meta_Users_upd_600, Offset_Users_upd_600, Search_Users_upd_600, Sort_Users_upd_600, UUId_Users_upd_600, id_Users_upd_600, last_page_Users_upd_600, password_Users_upd_600, token_Users_upd_600, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Users
   deleteUser(id_Users_600, { expectedResponseCodes: [200, 201, 204] });
@@ -2630,8 +2518,7 @@ bthread("chain:Collections_Items_Comments", function () {
   let Search_Items_640 = "Search_Items_640_" + Math.floor(Math.random()*1000);
   let Sort_Items_640 = "Sort_Items_640_" + Math.floor(Math.random()*1000);
   let collection_Items_640 = "collection_Items_640_" + Math.floor(Math.random()*1000);
-  let id_Items_640 = id_Collections_640;
-  createItem(Collection_Items_640, Fields_Items_640, Filter_Items_640, Limit_Items_640, Meta_Items_640, Offset_Items_640, Search_Items_640, Sort_Items_640, collection_Items_640, id_Items_640, { expectedResponseCodes: [200, 201, 204] });
+  createItem(Collection_Items_640, Fields_Items_640, Filter_Items_640, Limit_Items_640, Meta_Items_640, Offset_Items_640, Search_Items_640, Sort_Items_640, collection_Items_640, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating Comments
   let collection_Comments_640 = collection_Items_640;
@@ -2652,8 +2539,8 @@ bthread("chain:Collections_Items_Comments", function () {
 
 });
 
-// Story: Deep Chain Collections_Presets (Self-Contained)
-bthread("chain:Collections_Presets", function () {
+// Story: Deep Chain Collections_Comments (Self-Contained)
+bthread("chain:Collections_Comments", function () {
   // -> Creating Collections
   let Meta_Collections_740 = "Meta_Collections_740_" + Math.floor(Math.random()*1000);
   let Offset_Collections_740 = "Offset_Collections_740_" + Math.floor(Math.random()*1000);
@@ -2675,45 +2562,36 @@ bthread("chain:Collections_Presets", function () {
   let versioning_Collections_740 = true;
   createCollection(Meta_Collections_740, Offset_Collections_740, archive_app_filter_Collections_740, archive_field_Collections_740, archive_value_Collections_740, collection_Collections_740, display_template_Collections_740, fields_Collections_740, hidden_Collections_740, icon_Collections_740, id_Collections_740, meta_Collections_740, note_Collections_740, singleton_Collections_740, sort_field_Collections_740, translation_Collections_740, unarchive_value_Collections_740, versioning_Collections_740, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Presets
-  let Fields_Presets_740 = "Fields_Presets_740_" + Math.floor(Math.random()*1000);
-  let Filter_Presets_740 = "Filter_Presets_740_" + Math.floor(Math.random()*1000);
-  let Id_Presets_740 = "Id_Presets_740_" + Math.floor(Math.random()*1000);
-  let Limit_Presets_740 = "Limit_Presets_740_" + Math.floor(Math.random()*1000);
-  let Meta_Presets_740 = "Meta_Presets_740_" + Math.floor(Math.random()*1000);
-  let Offset_Presets_740 = "Offset_Presets_740_" + Math.floor(Math.random()*1000);
-  let Page_Presets_740 = "Page_Presets_740_" + Math.floor(Math.random()*1000);
-  let Search_Presets_740 = "Search_Presets_740_" + Math.floor(Math.random()*1000);
-  let Sort_Presets_740 = "Sort_Presets_740_" + Math.floor(Math.random()*1000);
-  let collection_Presets_740 = "articles";
-  let data_Presets_740 = "data_Presets_740_" + Math.floor(Math.random()*1000);
-  let filters_Presets_740 = [];
-  let id_Presets_740 = id_Collections_740;
-  let keys_Presets_740 = "keys_Presets_740_" + Math.floor(Math.random()*1000);
-  let layout_Presets_740 = "layout_Presets_740_" + Math.floor(Math.random()*1000);
-  let layout_options_Presets_740 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_Presets_740 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_740 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
-  let search_Presets_740 = "search_Presets_740_" + Math.floor(Math.random()*1000);
-  let search_query_Presets_740 = "search_query_Presets_740_" + Math.floor(Math.random()*1000);
-  let title_Presets_740 = "title_Presets_740_" + Math.floor(Math.random()*1000);
-  let translation_Presets_740 = "translation_Presets_740_" + Math.floor(Math.random()*1000);
-  let view_options_Presets_740 = "view_options_Presets_740_" + Math.floor(Math.random()*1000);
-  let view_query_Presets_740 = "view_query_Presets_740_" + Math.floor(Math.random()*1000);
-  let view_type_Presets_740 = "view_type_Presets_740_" + Math.floor(Math.random()*1000);
-  createPreset(Fields_Presets_740, Filter_Presets_740, Id_Presets_740, Limit_Presets_740, Meta_Presets_740, Offset_Presets_740, Page_Presets_740, Search_Presets_740, Sort_Presets_740, collection_Presets_740, data_Presets_740, filters_Presets_740, id_Presets_740, keys_Presets_740, layout_Presets_740, layout_options_Presets_740, layout_query_Presets_740, role_Presets_740, search_Presets_740, search_query_Presets_740, title_Presets_740, translation_Presets_740, view_options_Presets_740, view_query_Presets_740, view_type_Presets_740, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Items
+  let Collection_Items_740 = "Collection_Items_740_" + Math.floor(Math.random()*1000);
+  let Fields_Items_740 = "Fields_Items_740_" + Math.floor(Math.random()*1000);
+  let Filter_Items_740 = "Filter_Items_740_" + Math.floor(Math.random()*1000);
+  let Limit_Items_740 = "Limit_Items_740_" + Math.floor(Math.random()*1000);
+  let Meta_Items_740 = "Meta_Items_740_" + Math.floor(Math.random()*1000);
+  let Offset_Items_740 = "Offset_Items_740_" + Math.floor(Math.random()*1000);
+  let Search_Items_740 = "Search_Items_740_" + Math.floor(Math.random()*1000);
+  let Sort_Items_740 = "Sort_Items_740_" + Math.floor(Math.random()*1000);
+  let collection_Items_740 = "collection_Items_740_" + Math.floor(Math.random()*1000);
+  createItem(Collection_Items_740, Fields_Items_740, Filter_Items_740, Limit_Items_740, Meta_Items_740, Offset_Items_740, Search_Items_740, Sort_Items_740, collection_Items_740, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Creating Comments
+  let collection_Comments_740 = collection_Items_740;
+  let comment_Comments_740 = "This is a comment";
+  let id_Comments_740 = id_Collections_740;
+  let item_Comments_740 = "123";
+  createComment(collection_Comments_740, comment_Comments_740, id_Comments_740, item_Comments_740, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Presets
-  deletePresets(id_Presets_740, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Comments
+  deleteComment(id_Comments_740, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Collections
   deleteCollection(id_Collections_740, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
-// Story: Deep Chain Collections_Comments (Self-Contained)
-bthread("chain:Collections_Comments", function () {
+// Story: Deep Chain Collections_Fields (Self-Contained)
+bthread("chain:Collections_Fields", function () {
   // -> Creating Collections
   let Meta_Collections_840 = "Meta_Collections_840_" + Math.floor(Math.random()*1000);
   let Offset_Collections_840 = "Offset_Collections_840_" + Math.floor(Math.random()*1000);
@@ -2735,37 +2613,29 @@ bthread("chain:Collections_Comments", function () {
   let versioning_Collections_840 = true;
   createCollection(Meta_Collections_840, Offset_Collections_840, archive_app_filter_Collections_840, archive_field_Collections_840, archive_value_Collections_840, collection_Collections_840, display_template_Collections_840, fields_Collections_840, hidden_Collections_840, icon_Collections_840, id_Collections_840, meta_Collections_840, note_Collections_840, singleton_Collections_840, sort_field_Collections_840, translation_Collections_840, unarchive_value_Collections_840, versioning_Collections_840, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Items
-  let Collection_Items_840 = "Collection_Items_840_" + Math.floor(Math.random()*1000);
-  let Fields_Items_840 = "Fields_Items_840_" + Math.floor(Math.random()*1000);
-  let Filter_Items_840 = "Filter_Items_840_" + Math.floor(Math.random()*1000);
-  let Limit_Items_840 = "Limit_Items_840_" + Math.floor(Math.random()*1000);
-  let Meta_Items_840 = "Meta_Items_840_" + Math.floor(Math.random()*1000);
-  let Offset_Items_840 = "Offset_Items_840_" + Math.floor(Math.random()*1000);
-  let Search_Items_840 = "Search_Items_840_" + Math.floor(Math.random()*1000);
-  let Sort_Items_840 = "Sort_Items_840_" + Math.floor(Math.random()*1000);
-  let collection_Items_840 = "collection_Items_840_" + Math.floor(Math.random()*1000);
-  let id_Items_840 = id_Collections_840;
-  createItem(Collection_Items_840, Fields_Items_840, Filter_Items_840, Limit_Items_840, Meta_Items_840, Offset_Items_840, Search_Items_840, Sort_Items_840, collection_Items_840, id_Items_840, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Comments
-  let collection_Comments_840 = collection_Items_840;
-  let comment_Comments_840 = "This is a comment";
-  let id_Comments_840 = id_Collections_840;
-  let item_Comments_840 = "123";
-  createComment(collection_Comments_840, comment_Comments_840, id_Comments_840, item_Comments_840, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Fields
+  let Sort_Fields_840 = "Sort_Fields_840_" + Math.floor(Math.random()*1000);
+  let collection_Fields_840 = "about_us";
+  let datatype_Fields_840 = "datatype_Fields_840_" + Math.floor(Math.random()*1000);
+  let field_Fields_840 = "id";
+  let id_Fields_840 = id_Collections_840;
+  let length_Fields_840 = Math.floor(Math.random() * 1000);
+  let meta_Fields_840 = {};
+  let schema_Fields_840 = {};
+  let type_Fields_840 = "integer";
+  createField(Sort_Fields_840, collection_Fields_840, datatype_Fields_840, field_Fields_840, id_Fields_840, length_Fields_840, meta_Fields_840, schema_Fields_840, type_Fields_840, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Comments
-  deleteComment(id_Comments_840, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Fields
+  deleteField(collection_Fields_840, id_Fields_840, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Collections
   deleteCollection(id_Collections_840, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
-// Story: Deep Chain Collections_Fields_Relations (Self-Contained)
-bthread("chain:Collections_Fields_Relations", function () {
+// Story: Deep Chain Collections_Presets (Self-Contained)
+bthread("chain:Collections_Presets", function () {
   // -> Creating Collections
   let Meta_Collections_940 = "Meta_Collections_940_" + Math.floor(Math.random()*1000);
   let Offset_Collections_940 = "Offset_Collections_940_" + Math.floor(Math.random()*1000);
@@ -2787,40 +2657,35 @@ bthread("chain:Collections_Fields_Relations", function () {
   let versioning_Collections_940 = true;
   createCollection(Meta_Collections_940, Offset_Collections_940, archive_app_filter_Collections_940, archive_field_Collections_940, archive_value_Collections_940, collection_Collections_940, display_template_Collections_940, fields_Collections_940, hidden_Collections_940, icon_Collections_940, id_Collections_940, meta_Collections_940, note_Collections_940, singleton_Collections_940, sort_field_Collections_940, translation_Collections_940, unarchive_value_Collections_940, versioning_Collections_940, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Fields
-  let Sort_Fields_940 = "Sort_Fields_940_" + Math.floor(Math.random()*1000);
-  let collection_Fields_940 = "about_us";
-  let field_Fields_940 = "id";
-  let id_Fields_940 = id_Collections_940;
-  let meta_Fields_940 = {};
-  let schema_Fields_940 = {};
-  let type_Fields_940 = "integer";
-  createField(Sort_Fields_940, collection_Fields_940, field_Fields_940, id_Fields_940, meta_Fields_940, schema_Fields_940, type_Fields_940, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Relations
-  let Fields_Relations_940 = "Fields_Relations_940_" + Math.floor(Math.random()*1000);
-  let Filter_Relations_940 = "Filter_Relations_940_" + Math.floor(Math.random()*1000);
-  let Id_Relations_940 = "Id_Relations_940_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_940 = "Limit_Relations_940_" + Math.floor(Math.random()*1000);
-  let Meta_Relations_940 = "Meta_Relations_940_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_940 = "Offset_Relations_940_" + Math.floor(Math.random()*1000);
-  let Page_Relations_940 = "Page_Relations_940_" + Math.floor(Math.random()*1000);
-  let Search_Relations_940 = "Search_Relations_940_" + Math.floor(Math.random()*1000);
-  let Sort_Relations_940 = "Sort_Relations_940_" + Math.floor(Math.random()*1000);
-  let collection_many_Relations_940 = "collection_many_Relations_940_" + Math.floor(Math.random()*1000);
-  let collection_one_Relations_940 = "collection_one_Relations_940_" + Math.floor(Math.random()*1000);
-  let field_many_Relations_940 = "field_many_Relations_940_" + Math.floor(Math.random()*1000);
-  let field_one_Relations_940 = "field_one_Relations_940_" + Math.floor(Math.random()*1000);
-  let id_Relations_940 = id_Collections_940;
-  let junction_field_Relations_940 = "junction_field_Relations_940_" + Math.floor(Math.random()*1000);
-  createRelation(Fields_Relations_940, Filter_Relations_940, Id_Relations_940, Limit_Relations_940, Meta_Relations_940, Offset_Relations_940, Page_Relations_940, Search_Relations_940, Sort_Relations_940, collection_many_Relations_940, collection_one_Relations_940, field_many_Relations_940, field_one_Relations_940, id_Relations_940, junction_field_Relations_940, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Presets
+  let Fields_Presets_940 = "Fields_Presets_940_" + Math.floor(Math.random()*1000);
+  let Filter_Presets_940 = "Filter_Presets_940_" + Math.floor(Math.random()*1000);
+  let Id_Presets_940 = "Id_Presets_940_" + Math.floor(Math.random()*1000);
+  let Limit_Presets_940 = "Limit_Presets_940_" + Math.floor(Math.random()*1000);
+  let Meta_Presets_940 = "Meta_Presets_940_" + Math.floor(Math.random()*1000);
+  let Offset_Presets_940 = "Offset_Presets_940_" + Math.floor(Math.random()*1000);
+  let Page_Presets_940 = "Page_Presets_940_" + Math.floor(Math.random()*1000);
+  let Search_Presets_940 = "Search_Presets_940_" + Math.floor(Math.random()*1000);
+  let Sort_Presets_940 = "Sort_Presets_940_" + Math.floor(Math.random()*1000);
+  let collection_Presets_940 = "articles";
+  let filters_Presets_940 = [];
+  let id_Presets_940 = id_Collections_940;
+  let layout_Presets_940 = "layout_Presets_940_" + Math.floor(Math.random()*1000);
+  let layout_options_Presets_940 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
+  let layout_query_Presets_940 = "{'cards': {'sort': '-published_on'}}";
+  let role_Presets_940 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let search_Presets_940 = "search_Presets_940_" + Math.floor(Math.random()*1000);
+  let search_query_Presets_940 = "search_query_Presets_940_" + Math.floor(Math.random()*1000);
+  let title_Presets_940 = "title_Presets_940_" + Math.floor(Math.random()*1000);
+  let translation_Presets_940 = "translation_Presets_940_" + Math.floor(Math.random()*1000);
+  let view_options_Presets_940 = "view_options_Presets_940_" + Math.floor(Math.random()*1000);
+  let view_query_Presets_940 = "view_query_Presets_940_" + Math.floor(Math.random()*1000);
+  let view_type_Presets_940 = "view_type_Presets_940_" + Math.floor(Math.random()*1000);
+  createPreset(Fields_Presets_940, Filter_Presets_940, Id_Presets_940, Limit_Presets_940, Meta_Presets_940, Offset_Presets_940, Page_Presets_940, Search_Presets_940, Sort_Presets_940, collection_Presets_940, filters_Presets_940, id_Presets_940, layout_Presets_940, layout_options_Presets_940, layout_query_Presets_940, role_Presets_940, search_Presets_940, search_query_Presets_940, title_Presets_940, translation_Presets_940, view_options_Presets_940, view_query_Presets_940, view_type_Presets_940, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Relations
-  deleteRelation(id_Relations_940, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Deleting Fields
-  deleteField(collection_Fields_940, id_Fields_940, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Presets
+  deletePreset(id_Presets_940, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Collections
   deleteCollection(id_Collections_940, { expectedResponseCodes: [200, 201, 204] });
@@ -2870,22 +2735,14 @@ bthread("chain:Collections_Permissions", function () {
 
   // -> Creating Permissions
   let Fields_Permissions_1040 = "Fields_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_1040 = "Filter_Permissions_1040_" + Math.floor(Math.random()*1000);
   let Id_Permissions_1040 = "Id_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_1040 = "Limit_Permissions_1040_" + Math.floor(Math.random()*1000);
   let Meta_Permissions_1040 = "Meta_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_1040 = "Offset_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_1040 = "Page_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_1040 = "Search_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_1040 = "Sort_Permissions_1040_" + Math.floor(Math.random()*1000);
   let collection_Permissions_1040 = "customers";
   let comment_Permissions_1040 = "comment_Permissions_1040_" + Math.floor(Math.random()*1000);
   let create_Permissions_1040 = "create_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let data_Permissions_1040 = "data_Permissions_1040_" + Math.floor(Math.random()*1000);
   let _delete_Permissions_1040 = "delete_Permissions_1040_" + Math.floor(Math.random()*1000);
   let explain_Permissions_1040 = "explain_Permissions_1040_" + Math.floor(Math.random()*1000);
   let id_Permissions_1040 = id_Roles_1040;
-  let keys_Permissions_1040 = "keys_Permissions_1040_" + Math.floor(Math.random()*1000);
   let read_Permissions_1040 = "read_Permissions_1040_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_1040 = [];
   let role_Permissions_1040 = Math.floor(Math.random() * 1000);
@@ -2893,11 +2750,11 @@ bthread("chain:Collections_Permissions", function () {
   let status_blacklist_Permissions_1040 = [];
   let update_Permissions_1040 = "update_Permissions_1040_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_1040 = [];
-  createPermission(Fields_Permissions_1040, Filter_Permissions_1040, Id_Permissions_1040, Limit_Permissions_1040, Meta_Permissions_1040, Offset_Permissions_1040, Page_Permissions_1040, Search_Permissions_1040, Sort_Permissions_1040, collection_Permissions_1040, comment_Permissions_1040, create_Permissions_1040, data_Permissions_1040, _delete_Permissions_1040, explain_Permissions_1040, id_Permissions_1040, keys_Permissions_1040, read_Permissions_1040, read_field_blacklist_Permissions_1040, role_Permissions_1040, status_Permissions_1040, status_blacklist_Permissions_1040, update_Permissions_1040, write_field_blacklist_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
+  createPermission(Fields_Permissions_1040, Id_Permissions_1040, Meta_Permissions_1040, collection_Permissions_1040, comment_Permissions_1040, create_Permissions_1040, _delete_Permissions_1040, explain_Permissions_1040, id_Permissions_1040, read_Permissions_1040, read_field_blacklist_Permissions_1040, role_Permissions_1040, status_Permissions_1040, status_blacklist_Permissions_1040, update_Permissions_1040, write_field_blacklist_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
   // -> Deleting Permissions
-  deletePermissions(id_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
+  deletePermission(id_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Collections
   deleteCollection(id_Collections_1040, { expectedResponseCodes: [200, 201, 204] });
@@ -2927,16 +2784,6 @@ bthread("chain:Collections_Relations", function () {
   let versioning_Collections_1140 = true;
   createCollection(Meta_Collections_1140, Offset_Collections_1140, archive_app_filter_Collections_1140, archive_field_Collections_1140, archive_value_Collections_1140, collection_Collections_1140, display_template_Collections_1140, fields_Collections_1140, hidden_Collections_1140, icon_Collections_1140, id_Collections_1140, meta_Collections_1140, note_Collections_1140, singleton_Collections_1140, sort_field_Collections_1140, translation_Collections_1140, unarchive_value_Collections_1140, versioning_Collections_1140, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Fields
-  let Sort_Fields_1140 = "Sort_Fields_1140_" + Math.floor(Math.random()*1000);
-  let collection_Fields_1140 = "about_us";
-  let field_Fields_1140 = "id";
-  let id_Fields_1140 = id_Collections_1140;
-  let meta_Fields_1140 = {};
-  let schema_Fields_1140 = {};
-  let type_Fields_1140 = "integer";
-  createField(Sort_Fields_1140, collection_Fields_1140, field_Fields_1140, id_Fields_1140, meta_Fields_1140, schema_Fields_1140, type_Fields_1140, { expectedResponseCodes: [200, 201, 204] });
-
   // -> Creating Relations
   let Fields_Relations_1140 = "Fields_Relations_1140_" + Math.floor(Math.random()*1000);
   let Filter_Relations_1140 = "Filter_Relations_1140_" + Math.floor(Math.random()*1000);
@@ -2964,8 +2811,8 @@ bthread("chain:Collections_Relations", function () {
 
 });
 
-// Story: Deep Chain Collections_Schema (Self-Contained)
-bthread("chain:Collections_Schema", function () {
+// Story: Deep Chain Items_Comments (Self-Contained)
+bthread("chain:Items_Comments", function () {
   // -> Creating Collections
   let Meta_Collections_1240 = "Meta_Collections_1240_" + Math.floor(Math.random()*1000);
   let Offset_Collections_1240 = "Offset_Collections_1240_" + Math.floor(Math.random()*1000);
@@ -2987,21 +2834,54 @@ bthread("chain:Collections_Schema", function () {
   let versioning_Collections_1240 = true;
   createCollection(Meta_Collections_1240, Offset_Collections_1240, archive_app_filter_Collections_1240, archive_field_Collections_1240, archive_value_Collections_1240, collection_Collections_1240, display_template_Collections_1240, fields_Collections_1240, hidden_Collections_1240, icon_Collections_1240, id_Collections_1240, meta_Collections_1240, note_Collections_1240, singleton_Collections_1240, sort_field_Collections_1240, translation_Collections_1240, unarchive_value_Collections_1240, versioning_Collections_1240, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Schema
-  let Export_Schema_1240 = "Export_Schema_1240_" + Math.floor(Math.random()*1000);
-  let data_Schema_1240 = "data_Schema_1240_" + Math.floor(Math.random()*1000);
-  let force_Schema_1240 = true;
-  let id_Schema_1240 = id_Collections_1240;
-  schemaDiff(Export_Schema_1240, data_Schema_1240, force_Schema_1240, id_Schema_1240, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Items
+  let Collection_Items_1240 = "Collection_Items_1240_" + Math.floor(Math.random()*1000);
+  let Fields_Items_1240 = "Fields_Items_1240_" + Math.floor(Math.random()*1000);
+  let Filter_Items_1240 = "Filter_Items_1240_" + Math.floor(Math.random()*1000);
+  let Limit_Items_1240 = "Limit_Items_1240_" + Math.floor(Math.random()*1000);
+  let Meta_Items_1240 = "Meta_Items_1240_" + Math.floor(Math.random()*1000);
+  let Offset_Items_1240 = "Offset_Items_1240_" + Math.floor(Math.random()*1000);
+  let Search_Items_1240 = "Search_Items_1240_" + Math.floor(Math.random()*1000);
+  let Sort_Items_1240 = "Sort_Items_1240_" + Math.floor(Math.random()*1000);
+  let collection_Items_1240 = "collection_Items_1240_" + Math.floor(Math.random()*1000);
+  createItem(Collection_Items_1240, Fields_Items_1240, Filter_Items_1240, Limit_Items_1240, Meta_Items_1240, Offset_Items_1240, Search_Items_1240, Sort_Items_1240, collection_Items_1240, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Creating Comments
+  let collection_Comments_1240 = collection_Items_1240;
+  let comment_Comments_1240 = "This is a comment";
+  let id_Comments_1240 = id_Collections_1240;
+  let item_Comments_1240 = "123";
+  createComment(collection_Comments_1240, comment_Comments_1240, id_Comments_1240, item_Comments_1240, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Collections
-  deleteCollection(id_Collections_1240, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Comments
+  deleteComment(id_Comments_1240, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Deleting Items
+  deleteItems(collection_Items_1240, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
-// Story: Deep Chain Items_Comments (Self-Contained)
-bthread("chain:Items_Comments", function () {
+// Story: Deep Chain Roles_Permissions (Self-Contained)
+bthread("chain:Roles_Permissions", function () {
+  // -> Creating Roles
+  let Fields_Roles_1340 = "Fields_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Filter_Roles_1340 = "Filter_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_1340 = "Limit_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Meta_Roles_1340 = "Meta_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_1340 = "Offset_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Page_Roles_1340 = "Page_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Search_Roles_1340 = "Search_Roles_1340_" + Math.floor(Math.random()*1000);
+  let Sort_Roles_1340 = "Sort_Roles_1340_" + Math.floor(Math.random()*1000);
+  let description_Roles_1340 = "Admins have access to all managed data within the system by default";
+  let enforce_tfa_Roles_1340 = true;
+  let external_id_Roles_1340 = "external_id_Roles_1340_" + Math.floor(Math.random()*1000);
+  let id_Roles_1340 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
+  let ip_access_Roles_1340 = [];
+  let module_listing_Roles_1340 = "module_listing_Roles_1340_" + Math.floor(Math.random()*1000);
+  let name_Roles_1340 = "Administrator";
+  createRole(Fields_Roles_1340, Filter_Roles_1340, Limit_Roles_1340, Meta_Roles_1340, Offset_Roles_1340, Page_Roles_1340, Search_Roles_1340, Sort_Roles_1340, description_Roles_1340, enforce_tfa_Roles_1340, external_id_Roles_1340, id_Roles_1340, ip_access_Roles_1340, module_listing_Roles_1340, name_Roles_1340, { expectedResponseCodes: [200, 201, 204] });
+
   // -> Creating Collections
   let Meta_Collections_1340 = "Meta_Collections_1340_" + Math.floor(Math.random()*1000);
   let Offset_Collections_1340 = "Offset_Collections_1340_" + Math.floor(Math.random()*1000);
@@ -3023,195 +2903,30 @@ bthread("chain:Items_Comments", function () {
   let versioning_Collections_1340 = true;
   createCollection(Meta_Collections_1340, Offset_Collections_1340, archive_app_filter_Collections_1340, archive_field_Collections_1340, archive_value_Collections_1340, collection_Collections_1340, display_template_Collections_1340, fields_Collections_1340, hidden_Collections_1340, icon_Collections_1340, id_Collections_1340, meta_Collections_1340, note_Collections_1340, singleton_Collections_1340, sort_field_Collections_1340, translation_Collections_1340, unarchive_value_Collections_1340, versioning_Collections_1340, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Items
-  let Collection_Items_1340 = "Collection_Items_1340_" + Math.floor(Math.random()*1000);
-  let Fields_Items_1340 = "Fields_Items_1340_" + Math.floor(Math.random()*1000);
-  let Filter_Items_1340 = "Filter_Items_1340_" + Math.floor(Math.random()*1000);
-  let Limit_Items_1340 = "Limit_Items_1340_" + Math.floor(Math.random()*1000);
-  let Meta_Items_1340 = "Meta_Items_1340_" + Math.floor(Math.random()*1000);
-  let Offset_Items_1340 = "Offset_Items_1340_" + Math.floor(Math.random()*1000);
-  let Search_Items_1340 = "Search_Items_1340_" + Math.floor(Math.random()*1000);
-  let Sort_Items_1340 = "Sort_Items_1340_" + Math.floor(Math.random()*1000);
-  let collection_Items_1340 = "collection_Items_1340_" + Math.floor(Math.random()*1000);
-  let id_Items_1340 = id_Collections_1340;
-  createItem(Collection_Items_1340, Fields_Items_1340, Filter_Items_1340, Limit_Items_1340, Meta_Items_1340, Offset_Items_1340, Search_Items_1340, Sort_Items_1340, collection_Items_1340, id_Items_1340, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Comments
-  let collection_Comments_1340 = collection_Items_1340;
-  let comment_Comments_1340 = "This is a comment";
-  let id_Comments_1340 = id_Collections_1340;
-  let item_Comments_1340 = "123";
-  createComment(collection_Comments_1340, comment_Comments_1340, id_Comments_1340, item_Comments_1340, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Comments
-  deleteComment(id_Comments_1340, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Deleting Items
-  deleteItems(collection_Items_1340, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: Deep Chain Fields_Relations (Self-Contained)
-bthread("chain:Fields_Relations", function () {
-  // -> Creating Collections
-  let Meta_Collections_1440 = "Meta_Collections_1440_" + Math.floor(Math.random()*1000);
-  let Offset_Collections_1440 = "Offset_Collections_1440_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_Collections_1440 = "archive_app_filter_Collections_1440_" + Math.floor(Math.random()*1000);
-  let archive_field_Collections_1440 = "archive_field_Collections_1440_" + Math.floor(Math.random()*1000);
-  let archive_value_Collections_1440 = "archive_value_Collections_1440_" + Math.floor(Math.random()*1000);
-  let collection_Collections_1440 = "customers";
-  let display_template_Collections_1440 = "display_template_Collections_1440_" + Math.floor(Math.random()*1000);
-  let fields_Collections_1440 = [];
-  let hidden_Collections_1440 = true;
-  let icon_Collections_1440 = "icon_Collections_1440_" + Math.floor(Math.random()*1000);
-  let id_Collections_1440 = "id_Collections_1440_" + Math.floor(Math.random()*1000);
-  let meta_Collections_1440 = "meta_Collections_1440_" + Math.floor(Math.random()*1000);
-  let note_Collections_1440 = "note_Collections_1440_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_1440 = true;
-  let sort_field_Collections_1440 = "sort_field_Collections_1440_" + Math.floor(Math.random()*1000);
-  let translation_Collections_1440 = "translation_Collections_1440_" + Math.floor(Math.random()*1000);
-  let unarchive_value_Collections_1440 = "unarchive_value_Collections_1440_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_1440 = true;
-  createCollection(Meta_Collections_1440, Offset_Collections_1440, archive_app_filter_Collections_1440, archive_field_Collections_1440, archive_value_Collections_1440, collection_Collections_1440, display_template_Collections_1440, fields_Collections_1440, hidden_Collections_1440, icon_Collections_1440, id_Collections_1440, meta_Collections_1440, note_Collections_1440, singleton_Collections_1440, sort_field_Collections_1440, translation_Collections_1440, unarchive_value_Collections_1440, versioning_Collections_1440, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Fields
-  let Sort_Fields_1440 = "Sort_Fields_1440_" + Math.floor(Math.random()*1000);
-  let collection_Fields_1440 = "about_us";
-  let field_Fields_1440 = "id";
-  let id_Fields_1440 = id_Collections_1440;
-  let meta_Fields_1440 = {};
-  let schema_Fields_1440 = {};
-  let type_Fields_1440 = "integer";
-  createField(Sort_Fields_1440, collection_Fields_1440, field_Fields_1440, id_Fields_1440, meta_Fields_1440, schema_Fields_1440, type_Fields_1440, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Relations
-  let Fields_Relations_1440 = "Fields_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Filter_Relations_1440 = "Filter_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Id_Relations_1440 = "Id_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_1440 = "Limit_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Meta_Relations_1440 = "Meta_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_1440 = "Offset_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Page_Relations_1440 = "Page_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Search_Relations_1440 = "Search_Relations_1440_" + Math.floor(Math.random()*1000);
-  let Sort_Relations_1440 = "Sort_Relations_1440_" + Math.floor(Math.random()*1000);
-  let collection_many_Relations_1440 = "collection_many_Relations_1440_" + Math.floor(Math.random()*1000);
-  let collection_one_Relations_1440 = "collection_one_Relations_1440_" + Math.floor(Math.random()*1000);
-  let field_many_Relations_1440 = "field_many_Relations_1440_" + Math.floor(Math.random()*1000);
-  let field_one_Relations_1440 = "field_one_Relations_1440_" + Math.floor(Math.random()*1000);
-  let id_Relations_1440 = id_Collections_1440;
-  let junction_field_Relations_1440 = "junction_field_Relations_1440_" + Math.floor(Math.random()*1000);
-  createRelation(Fields_Relations_1440, Filter_Relations_1440, Id_Relations_1440, Limit_Relations_1440, Meta_Relations_1440, Offset_Relations_1440, Page_Relations_1440, Search_Relations_1440, Sort_Relations_1440, collection_many_Relations_1440, collection_one_Relations_1440, field_many_Relations_1440, field_one_Relations_1440, id_Relations_1440, junction_field_Relations_1440, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Relations
-  deleteRelation(id_Relations_1440, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Deleting Fields
-  deleteField(collection_Fields_1440, id_Fields_1440, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: Deep Chain Flows_Operations (Self-Contained)
-bthread("chain:Flows_Operations", function () {
-  // -> Creating Flows
-  let Fields_Flows_1540 = "Fields_Flows_1540_" + Math.floor(Math.random()*1000);
-  let Meta_Flows_1540 = "Meta_Flows_1540_" + Math.floor(Math.random()*1000);
-  let data_Flows_1540 = {};
-  let id_Flows_1540 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  createFlow(Fields_Flows_1540, Meta_Flows_1540, data_Flows_1540, id_Flows_1540, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Operations
-  let Fields_Operations_1540 = {};
-  let Meta_Operations_1540 = {};
-  let UUId_Operations_1540 = "UUId_Operations_1540_" + Math.floor(Math.random()*1000);
-  let data_Operations_1540 = "data_Operations_1540_" + Math.floor(Math.random()*1000);
-  let id_Operations_1540 = id_Flows_1540;
-  let keys_Operations_1540 = "keys_Operations_1540_" + Math.floor(Math.random()*1000);
-  createOperation(Fields_Operations_1540, Meta_Operations_1540, UUId_Operations_1540, data_Operations_1540, id_Operations_1540, keys_Operations_1540, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Operations
-  deleteOperations(id_Operations_1540, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Deleting Flows
-  deleteFlow(id_Flows_1540, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: Deep Chain Roles_Permissions (Self-Contained)
-bthread("chain:Roles_Permissions", function () {
-  // -> Creating Roles
-  let Fields_Roles_1640 = "Fields_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Filter_Roles_1640 = "Filter_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_1640 = "Limit_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Meta_Roles_1640 = "Meta_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_1640 = "Offset_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Page_Roles_1640 = "Page_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Search_Roles_1640 = "Search_Roles_1640_" + Math.floor(Math.random()*1000);
-  let Sort_Roles_1640 = "Sort_Roles_1640_" + Math.floor(Math.random()*1000);
-  let description_Roles_1640 = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_Roles_1640 = true;
-  let external_id_Roles_1640 = "external_id_Roles_1640_" + Math.floor(Math.random()*1000);
-  let id_Roles_1640 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_Roles_1640 = [];
-  let module_listing_Roles_1640 = "module_listing_Roles_1640_" + Math.floor(Math.random()*1000);
-  let name_Roles_1640 = "Administrator";
-  createRole(Fields_Roles_1640, Filter_Roles_1640, Limit_Roles_1640, Meta_Roles_1640, Offset_Roles_1640, Page_Roles_1640, Search_Roles_1640, Sort_Roles_1640, description_Roles_1640, enforce_tfa_Roles_1640, external_id_Roles_1640, id_Roles_1640, ip_access_Roles_1640, module_listing_Roles_1640, name_Roles_1640, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Collections
-  let Meta_Collections_1640 = "Meta_Collections_1640_" + Math.floor(Math.random()*1000);
-  let Offset_Collections_1640 = "Offset_Collections_1640_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_Collections_1640 = "archive_app_filter_Collections_1640_" + Math.floor(Math.random()*1000);
-  let archive_field_Collections_1640 = "archive_field_Collections_1640_" + Math.floor(Math.random()*1000);
-  let archive_value_Collections_1640 = "archive_value_Collections_1640_" + Math.floor(Math.random()*1000);
-  let collection_Collections_1640 = "customers";
-  let display_template_Collections_1640 = "display_template_Collections_1640_" + Math.floor(Math.random()*1000);
-  let fields_Collections_1640 = [];
-  let hidden_Collections_1640 = true;
-  let icon_Collections_1640 = "icon_Collections_1640_" + Math.floor(Math.random()*1000);
-  let id_Collections_1640 = "id_Collections_1640_" + Math.floor(Math.random()*1000);
-  let meta_Collections_1640 = "meta_Collections_1640_" + Math.floor(Math.random()*1000);
-  let note_Collections_1640 = "note_Collections_1640_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_1640 = true;
-  let sort_field_Collections_1640 = "sort_field_Collections_1640_" + Math.floor(Math.random()*1000);
-  let translation_Collections_1640 = "translation_Collections_1640_" + Math.floor(Math.random()*1000);
-  let unarchive_value_Collections_1640 = "unarchive_value_Collections_1640_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_1640 = true;
-  createCollection(Meta_Collections_1640, Offset_Collections_1640, archive_app_filter_Collections_1640, archive_field_Collections_1640, archive_value_Collections_1640, collection_Collections_1640, display_template_Collections_1640, fields_Collections_1640, hidden_Collections_1640, icon_Collections_1640, id_Collections_1640, meta_Collections_1640, note_Collections_1640, singleton_Collections_1640, sort_field_Collections_1640, translation_Collections_1640, unarchive_value_Collections_1640, versioning_Collections_1640, { expectedResponseCodes: [200, 201, 204] });
-
   // -> Creating Permissions
-  let Fields_Permissions_1640 = "Fields_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Filter_Permissions_1640 = "Filter_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_1640 = "Id_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Limit_Permissions_1640 = "Limit_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_1640 = "Meta_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Offset_Permissions_1640 = "Offset_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Page_Permissions_1640 = "Page_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Search_Permissions_1640 = "Search_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let Sort_Permissions_1640 = "Sort_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_1640 = "customers";
-  let comment_Permissions_1640 = "comment_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let create_Permissions_1640 = "create_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let data_Permissions_1640 = "data_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let _delete_Permissions_1640 = "delete_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let explain_Permissions_1640 = "explain_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let id_Permissions_1640 = id_Roles_1640;
-  let keys_Permissions_1640 = "keys_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let read_Permissions_1640 = "read_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_1640 = [];
-  let role_Permissions_1640 = Math.floor(Math.random() * 1000);
-  let status_Permissions_1640 = "active";
-  let status_blacklist_Permissions_1640 = [];
-  let update_Permissions_1640 = "update_Permissions_1640_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_1640 = [];
-  createPermission(Fields_Permissions_1640, Filter_Permissions_1640, Id_Permissions_1640, Limit_Permissions_1640, Meta_Permissions_1640, Offset_Permissions_1640, Page_Permissions_1640, Search_Permissions_1640, Sort_Permissions_1640, collection_Permissions_1640, comment_Permissions_1640, create_Permissions_1640, data_Permissions_1640, _delete_Permissions_1640, explain_Permissions_1640, id_Permissions_1640, keys_Permissions_1640, read_Permissions_1640, read_field_blacklist_Permissions_1640, role_Permissions_1640, status_Permissions_1640, status_blacklist_Permissions_1640, update_Permissions_1640, write_field_blacklist_Permissions_1640, { expectedResponseCodes: [200, 201, 204] });
+  let Fields_Permissions_1340 = "Fields_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let Id_Permissions_1340 = "Id_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let Meta_Permissions_1340 = "Meta_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let collection_Permissions_1340 = "customers";
+  let comment_Permissions_1340 = "comment_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let create_Permissions_1340 = "create_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let _delete_Permissions_1340 = "delete_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let explain_Permissions_1340 = "explain_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let id_Permissions_1340 = id_Roles_1340;
+  let read_Permissions_1340 = "read_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let read_field_blacklist_Permissions_1340 = [];
+  let role_Permissions_1340 = Math.floor(Math.random() * 1000);
+  let status_Permissions_1340 = "active";
+  let status_blacklist_Permissions_1340 = [];
+  let update_Permissions_1340 = "update_Permissions_1340_" + Math.floor(Math.random()*1000);
+  let write_field_blacklist_Permissions_1340 = [];
+  createPermission(Fields_Permissions_1340, Id_Permissions_1340, Meta_Permissions_1340, collection_Permissions_1340, comment_Permissions_1340, create_Permissions_1340, _delete_Permissions_1340, explain_Permissions_1340, id_Permissions_1340, read_Permissions_1340, read_field_blacklist_Permissions_1340, role_Permissions_1340, status_Permissions_1340, status_blacklist_Permissions_1340, update_Permissions_1340, write_field_blacklist_Permissions_1340, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
   // -> Deleting Permissions
-  deletePermissions(id_Permissions_1640, { expectedResponseCodes: [200, 201, 204] });
+  deletePermission(id_Permissions_1340, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Roles
-  deleteRole(id_Roles_1640, { expectedResponseCodes: [200, 201, 204] });
+  deleteRole(id_Roles_1340, { expectedResponseCodes: [200, 201, 204] });
 
 });

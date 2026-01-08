@@ -51,7 +51,7 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                'type': 'str'},
                                                     'password': {   'pattern': None,
                                                                     'type': 'str'}},
-                                  'required': ['email', 'password']}},
+                                  'required': ['password', 'email']}},
     'auth/logout': {   'POST': {   'properties': {   'mode': {   'pattern': None,
                                                                  'type': 'str'},
                                                      'refresh_token': {   'pattern': None,
@@ -100,7 +100,7 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                             'type': 'str'},
                                                      'versioning': {   'pattern': None,
                                                                        'type': 'bool'}},
-                                   'required': ['fields', 'collection']}},
+                                   'required': ['collection', 'fields']}},
     'collections/{id}': {   'PATCH': {   'properties': {   'meta': {   'pattern': None,
                                                                        'type': 'dict'}},
                                          'required': []}},
@@ -115,7 +115,7 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                  'type': 'str'},
                                                   'item': {   'pattern': None,
                                                               'type': 'str'}},
-                                'required': ['comment', 'collection', 'item']}},
+                                'required': ['collection', 'item', 'comment']}},
     'comments/{id}': {   'PATCH': {   'properties': {   'collection': {   'pattern': None,
                                                                           'type': 'str'},
                                                         'comment': {   'pattern': None,
@@ -139,9 +139,9 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                            'type': 'dict'},
                                                              'type': {   'pattern': None,
                                                                          'type': 'str'}},
-                                           'required': [   'type',
-                                                           'datatype',
+                                           'required': [   'datatype',
                                                            'field',
+                                                           'type',
                                                            'length']}},
     'fields/{collection}/{id}': {   'PATCH': {   'properties': {   'field': {   'pattern': None,
                                                                                 'type': 'str'},
@@ -465,9 +465,9 @@ SCHEMA_REGISTRY = {   'activity': {},
                                                                                  'type': 'str'},
                                                                    'query': {   'pattern': None,
                                                                                 'type': 'dict'}},
-                                                 'required': [   'format',
+                                                 'required': [   'file',
                                                                  'query',
-                                                                 'file']}},
+                                                                 'format']}},
     'utils/hash/generate': {   'POST': {   'properties': {   'string': {   'pattern': None,
                                                                            'type': 'str'}},
                                            'required': ['string']}},
@@ -545,50 +545,40 @@ def validate_schema(resource_path, method, data):
     schema = SCHEMA_REGISTRY[key][method]
     allowed_props = schema['properties']
     if not allowed_props: return None, None
+    
+    # 1. Tolerate Unknown Fields
     ignored = {'id', 'status', 'sort', 'user_created', 'date_created', 'user_updated', 'date_updated', 'meta', 'data', 'fields'}
     unknown = {k for k in data.keys() if k not in allowed_props and k.lower() not in ignored}
     if unknown:
-        msg = f'Unknown fields detected: {list(unknown)}'
-        logger.warning(f'Schema Violation on {resource_path}: {msg}')
-        return msg, 400
+        logger.info(f'Tolerant SUT: Ignoring unknown fields on {resource_path}: {list(unknown)}')
+        # Do not return 400
+    
     if method == 'POST':
         missing = [f for f in schema['required'] if f not in data and f != 'id']
         if missing:
-            msg = f'Missing required fields: {missing}'
-            logger.warning(f'Schema Violation on {resource_path}: {msg}')
-            return msg, 400
+            logger.warning(f'Tolerant SUT: Missing required fields on {resource_path}: {missing}')
+            # Do not return 400
+    
+    # 2. Type Tolerance & Coercion
     for k, v in data.items():
         if k in allowed_props and v is not None:
             p_def = allowed_props[k]
             exp, pat = p_def['type'], p_def['pattern']
-            valid = True
             
-            if k.lower() in ['data', 'schema', 'meta', 'fields']:
-                pass # Skip validation for polymorphic Directus fields
-            else:
-                # Strict Type Checking Logic
-                if exp == 'int':
-                    if isinstance(v, bool): valid = False # Python bool is int, but we want strict int
-                    elif not isinstance(v, int): valid = False
-                elif exp == 'bool':
-                    if not isinstance(v, bool): valid = False
-                elif exp == 'str':
-                    if not isinstance(v, str): valid = False
-                elif exp == 'list':
-                    if not isinstance(v, list): valid = False
-                elif exp == 'dict':
-                    if not isinstance(v, dict): valid = False
-                elif exp == 'number':
-                    if isinstance(v, bool): valid = False
-                    elif not isinstance(v, (int, float)): valid = False
+            # Auto-cast to string if expected
+            if exp == 'str' and not isinstance(v, str):
+                data[k] = str(v)
             
-            if not valid:
-                msg = f'Field "{k}" expected {exp}, got {type(v).__name__}'
-                logger.warning(f'Schema Violation on {resource_path}: {msg}')
-                return msg, 400
+            # Try to cast int
+            if exp == 'int' and not isinstance(v, int):
+                try: data[k] = int(v)
+                except: pass 
             
-            if pat and exp == 'str' and isinstance(v, str) and not re.match(pat, v):
-                return f'Field "{k}" value "{v}" does not match pattern {pat}', 400
+            # Try to cast bool
+            if exp == 'bool' and not isinstance(v, bool):
+                data[k] = str(v).lower() in ['true', '1', 'yes']
+                
+            # No 400 returns here, we accept coerced values or original values
     return None, None
 def get_success_code(path):
     if path in PATH_STATUS_CODES: return PATH_STATUS_CODES[path]

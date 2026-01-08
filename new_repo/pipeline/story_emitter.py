@@ -80,8 +80,11 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
     for p in params:
         safe_p = sanitize_param(p)
         var_name = f"{safe_p}_{suffix}"
+        
+        # Look up type from the aggregated map
         p_type = param_types.get(p, "string").lower()
         p_format = param_formats.get(p, "").lower()
+        
         param_var_map[p] = var_name
         if p == pk: pk_var_name = var_name
 
@@ -148,6 +151,16 @@ def _infer_dependencies(entities, raw_spec):
         if parents: dependencies[child_name] = parents
     return dependencies
 
+# FIX: New helper to aggregate types from ALL operations (Add, Get, Update, Delete)
+# This solves the issue where params like 'orderId' are only defined in 'Delete' but assumed String by 'Add'.
+def _get_merged_param_types(ent):
+    merged_types = {}
+    merged_formats = {}
+    for op in ent.get("operations", {}).values():
+        merged_types.update(op.get("paramTypes", {}))
+        merged_formats.update(op.get("paramFormats", {}))
+    return merged_types, merged_formats
+
 def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, created_context, base_id):
     if ent_name in created_context: return
     all_parents = dependencies.get(ent_name, [])
@@ -184,13 +197,19 @@ def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, 
     
     add_op = entities[ent_name]["operations"].get("add", {})
     suffix = f"{sanitize_param(ent_name)}_{base_id}"
-    vars_code, args, pk, pk_var_name, param_var_map = _generate_entity_vars(ent_name, entities, raw_spec, suffix, str(base_id), link_map, add_op.get("paramTypes", {}), add_op.get("paramFormats", {}))
+    
+    # FIX: Use Merged Types instead of just 'add' types
+    merged_types, merged_formats = _get_merged_param_types(entities[ent_name])
+    
+    vars_code, args, pk, pk_var_name, param_var_map = _generate_entity_vars(
+        ent_name, entities, raw_spec, suffix, str(base_id), 
+        link_map, merged_types, merged_formats
+    )
     
     lines.append(f'  // -> Creating {ent_name}')
     lines.extend(vars_code)
     add_fn = add_op.get("name", f"create{ent_name}")
     
-    # FIX: Explicitly append expected success codes to override broken specs
     args_str = ", ".join(args)
     if args: args_str += ", "
     lines.append(f'  {sanitize_param(add_fn)}({args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
@@ -207,11 +226,17 @@ def _emit_update_logic(ent_name, entities, raw_spec, lines, context, base_id):
     pk_var = context[ent_name]["pk_var"]
     pk_name = context[ent_name]["pk_name"]
     link_map = {pk_name: pk_var} 
-    vars_code, args, _, _, _ = _generate_entity_vars(ent_name, entities, raw_spec, f"{sanitize_param(ent_name)}_upd_{base_id}", str(base_id), link_map, upd_op.get("paramTypes", {}), upd_op.get("paramFormats", {}))
+    
+    # FIX: Use Merged Types
+    merged_types, merged_formats = _get_merged_param_types(entities[ent_name])
+    
+    vars_code, args, _, _, _ = _generate_entity_vars(
+        ent_name, entities, raw_spec, f"{sanitize_param(ent_name)}_upd_{base_id}", 
+        str(base_id), link_map, merged_types, merged_formats
+    )
     lines.extend(vars_code)
     upd_fn = upd_op.get("name", f"update{ent_name}")
     
-    # FIX: Explicit success codes
     args_str = ", ".join(args)
     if args: args_str += ", "
     lines.append(f'  {sanitize_param(upd_fn)}({args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
@@ -234,7 +259,6 @@ def _emit_delete_logic(ent_name, entities, raw_spec, lines, context):
             elif p == context[ent_name]["pk_name"]: del_args.append(context[ent_name]["pk_var"])
     if not del_args: del_args.append(context[ent_name]["pk_var"])
     
-    # FIX: Explicit success codes
     del_args_str = ", ".join(del_args)
     if del_args: del_args_str += ", "
     lines.append(f'  {sanitize_param(del_fn)}({del_args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
@@ -368,22 +392,33 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     for name, ent in entities.items():
         if not ent["operations"].get("add"): continue
         pk, params = collect_entity_params(name, ent, raw_spec)
-        param_types = ent["operations"]["add"].get("paramTypes", {})
-        param_formats = ent["operations"]["add"].get("paramFormats", {})
+        
+        # FIX: Use Merged Types here too
+        merged_types, merged_formats = _get_merged_param_types(ent)
+        
         query_params = ent["operations"]["add"].get("queryParams", [])
         required_fields = _get_required_fields(name, raw_spec)
-        vars_code, valid_args, _, _, _ = _generate_entity_vars(name, entities, raw_spec, "valid", str(base_id), {}, param_types, param_formats)
+        
+        # Pass merged types to generator
+        vars_code, valid_args, _, _, _ = _generate_entity_vars(
+            name, entities, raw_spec, "valid", str(base_id), {}, 
+            merged_types, merged_formats
+        )
+        
         arg_map = dict(zip(params, valid_args))
         for p in params:
             if p in query_params: continue
-            if p not in param_types and p != "id": continue
-            t = param_types.get(p, "string").lower()
+            if p not in merged_types and p != "id": continue
+            t = merged_types.get(p, "string").lower()
+            
+            # Stronger invalid values to force server rejection (retaining previous fix)
             if t in ["integer", "number"]: bad_value = '"INVALID_STRING"'
             elif t == "boolean": bad_value = '"NOT_A_BOOL"'
-            elif t == "string": bad_value = '12345'
+            elif t == "string": bad_value = '["NOT_A_STRING"]' 
             elif t == "array": bad_value = '"NOT_AN_ARRAY"'
             elif t == "object": bad_value = '12345'
             else: bad_value = '123456' 
+            
             story_name = f"fuzz:{name}:{sanitize_param(p)}_InvalidType"
             lines.append(f'bthread("{story_name}", function () {{')
             lines.extend(vars_code)
