@@ -3,22 +3,23 @@
 
 function resolveDependencies(deps, pkMap) {
   let captured = {};
+  bp.log.info("DEBUG: [resolveDependencies] Starting resolution for: " + Object.keys(deps).join(", "));
   while (Object.keys(deps).length > 0) {
     let missingEventSets = Object.values(deps);
     let e = bp.sync({waitFor: missingEventSets});
-    bp.log.info("DEBUG: [resolveDependencies] Caught event: " + e.name);
-    if (e.data) bp.log.info("DEBUG: [resolveDependencies] Data: " + JSON.stringify(e.data));
+    bp.log.info("DEBUG: [resolveDependencies] Caught Event: " + e.name);
     for (let k in deps) {
       if (deps[k].contains(e)) {
-        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));
-        if (!val && pkMap && pkMap[k]) {
-            let mappedKey = pkMap[k];
-            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);
-        }
-        if (val) {
+        // Resolution with common Gitea key-mapping (index <-> number)
+        let val = (e.data && (e.data[k] || e.data.number || (e.data.parameters && e.data.parameters[k])));
+        if (!val && pkMap && pkMap[k]) val = e.data[pkMap[k]];
+        if (val !== undefined && val !== null && val !== "undefined") {
             captured[k] = val;
-            bp.log.info("DEBUG: [resolveDependencies] Resolved " + k + " -> " + val);
+            bp.log.info("DEBUG: [resolveDependencies] SUCCESS: Resolved " + k + " -> " + val);
             delete deps[k];
+        } else {
+            bp.log.warn("DEBUG: [resolveDependencies] MISSING DATA for key: " + k);
+            if(e.data) bp.log.warn("DEBUG: [resolveDependencies] Available keys: " + Object.keys(e.data).join(", "));
         }
       }
     }

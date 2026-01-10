@@ -8,32 +8,35 @@ from new_repo.pipeline.emitter_utils import (
 )
 
 def _get_js_resolve_dependencies_fn():
-    lines = []
-    lines.append('function resolveDependencies(deps, pkMap) {')
-    lines.append('  let captured = {};')
-    lines.append('  while (Object.keys(deps).length > 0) {')
-    lines.append('    let missingEventSets = Object.values(deps);')
-    lines.append('    let e = bp.sync({waitFor: missingEventSets});')
-    lines.append('    bp.log.info("DEBUG: [resolveDependencies] Caught event: " + e.name);')
-    lines.append('    if (e.data) bp.log.info("DEBUG: [resolveDependencies] Data: " + JSON.stringify(e.data));')
-    lines.append('    for (let k in deps) {')
-    lines.append('      if (deps[k].contains(e)) {')
-    lines.append('        let val = (e.data && e.data[k]) || (e.data && e.data.parameters && (e.data.parameters[k] || e.data.parameters.id));')
-    lines.append('        if (!val && pkMap && pkMap[k]) {')
-    lines.append('            let mappedKey = pkMap[k];')
-    lines.append('            val = (e.data && e.data[mappedKey]) || (e.data.parameters && e.data.parameters[mappedKey]);')
-    lines.append('        }')
-    lines.append('        if (val) {')
-    lines.append('            captured[k] = val;')
-    lines.append('            bp.log.info("DEBUG: [resolveDependencies] Resolved " + k + " -> " + val);')
-    lines.append('            delete deps[k];')
-    lines.append('        }')
-    lines.append('      }')
-    lines.append('    }')
-    lines.append('  }')
-    lines.append('  return captured;')
-    lines.append('}')
+    lines = [
+        'function resolveDependencies(deps, pkMap) {',
+        '  let captured = {};',
+        '  bp.log.info("DEBUG: [resolveDependencies] Starting resolution for: " + Object.keys(deps).join(", "));',
+        '  while (Object.keys(deps).length > 0) {',
+        '    let missingEventSets = Object.values(deps);',
+        '    let e = bp.sync({waitFor: missingEventSets});',
+        '    bp.log.info("DEBUG: [resolveDependencies] Caught Event: " + e.name);',
+        '    for (let k in deps) {',
+        '      if (deps[k].contains(e)) {',
+        '        // Resolution with common Gitea key-mapping (index <-> number)',
+        '        let val = (e.data && (e.data[k] || e.data.number || (e.data.parameters && e.data.parameters[k])));',
+        '        if (!val && pkMap && pkMap[k]) val = e.data[pkMap[k]];',
+        '        if (val !== undefined && val !== null && val !== "undefined") {',
+        '            captured[k] = val;',
+        '            bp.log.info("DEBUG: [resolveDependencies] SUCCESS: Resolved " + k + " -> " + val);',
+        '            delete deps[k];',
+        '        } else {',
+        '            bp.log.warn("DEBUG: [resolveDependencies] MISSING DATA for key: " + k);',
+        '            if(e.data) bp.log.warn("DEBUG: [resolveDependencies] Available keys: " + Object.keys(e.data).join(", "));',
+        '        }',
+        '      }',
+        '    }',
+        '  }',
+        '  return captured;',
+        '}'
+    ]
     return lines
+
 
 def _get_field_constraints(ent_name, field_name, raw_spec):
     def resolve(ref):

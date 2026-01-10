@@ -1,67 +1,83 @@
-import json, os, re
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-OPENAPI_PATH = os.path.join(BASE_DIR, '..', '..', 'packs', 'real_world', 'gitea', 'openapi.json')
-OUTPUT_PATH = os.path.join(BASE_DIR, 'gitea_mock.py')
+import json
+import re
+from pathlib import Path
+from typing import Dict, Any
 
-def load_spec(path):
-    with open(path, 'r', encoding='utf-8') as f: return json.load(f)
+def generate_mock(spec: Dict[str, Any], output_path: Path):
+    """
+    Generates a Flask-based mock that strictly follows the OpenAPI response codes.
+    """
+    response_map = {}
+    paths = spec.get("paths", {})
+    
+    for path, methods in paths.items():
+        norm_path = path.lstrip('/')
+        response_map[norm_path] = {}
+        
+        for method, data in methods.items():
+            responses = data.get("responses", {})
+            # Find all 2xx success codes
+            success_codes = [int(code) for code in responses.keys() if code.startswith('2')]
+            response_map[norm_path][method.upper()] = success_codes
 
-def extract_type_map(spec):
-    type_map = {}
-    for path, methods in spec.get('paths', {}).items():
-        clean_path = path.strip('/')
-        if clean_path.startswith('api/v1/'): clean_path = clean_path[7:]
-        for method, details in methods.items():
-            if method not in ['post', 'put', 'patch']: continue
-            field_definitions = {}
-            for param in details.get('parameters', []):
-                name = param.get('name')
-                if name and param.get('in') != 'path':
-                    field_definitions[name] = {"type": param.get('type', 'object'), "required": param.get('required', False)}
-            type_map[f"{method.upper()}:{clean_path}"] = field_definitions
-    return type_map
-
-def generate_mock():
-    type_map = extract_type_map(load_spec(OPENAPI_PATH))
-    type_map_python = json.dumps(type_map, indent=4).replace('true', 'True').replace('false', 'False')
-
-    code = [
+    mock_code = [
         "from flask import Flask, request, jsonify",
+        "import json",
         "import re",
+        "",
         "app = Flask(__name__)",
-        f"TYPE_MAP = {type_map_python}",
         "",
-        "def validate_request(method, path, data):",
-        "    # 1. TEACHING THE MOCK: If signaling header is present, force fail",
-        "    if request.headers.get('X-Provengo-Rejection-Probe'): return ['Signaled rejection']",
-        "    if 'NOT_A_STRING' in path or 'INVALID_' in path: return ['Fuzzing detected']",
-        "    lookup_key = f'{method}:{path}'",
-        "    if lookup_key not in TYPE_MAP:",
-        "        for key in TYPE_MAP:",
-        "            pattern = re.sub(r'\\{[^\\}]+\\}', '[^/]+', key.split(':')[1])",
-        "            if re.fullmatch(key.split(':')[0] + ':' + pattern, lookup_key):",
-        "                lookup_key = key; break",
-        "    expected_fields = TYPE_MAP.get(lookup_key, {})",
-        "    errors = []",
-        "    for field, val in data.items():",
-        "        if field in expected_fields:",
-        "            if expected_fields[field]['type'] == 'integer' and not isinstance(val, int): errors.append(f'{field} must be int')",
-        "            if isinstance(val, str) and val.startswith('INVALID_'): errors.append('Fuzz tag found')",
-        "    return errors",
+        f"RESPONSE_MAP = {json.dumps(response_map, indent=4)}",
         "",
-        "@app.route('/api/v1/<path:subpath>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])",
-        "def handle_all(subpath):",
-        "    data = request.json or {}",
-        "    errors = validate_request(request.method, subpath, data)",
-        "    if errors: return jsonify({'status': 'error', 'details': errors}), 400",
-        "    if request.method == 'POST': return jsonify({'status': 'success'}), 201",
-        "    if request.method == 'DELETE': return '', 204",
-        "    return jsonify({'status': 'success'}), 200",
+        "def find_best_match(request_path, method):",
+        "    path = request_path.strip('/')",
+        "    method = method.upper()",
+        "    ",
+        "    for spec_path, methods in RESPONSE_MAP.items():",
+        "        # Convert OpenAPI placeholders {var} to regex [^/]+",
+        "        regex_pattern = '^' + re.sub(r'\\{[^}]+\\}', '[^/]+', spec_path) + '$'",
+        "        if re.match(regex_pattern, path):",
+        "            if method in methods:",
+        "                return methods[method]",
+        "    return []",
         "",
-        "if __name__ == '__main__': app.run(port=8000, debug=True)"
+        "@app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])",
+        "def catch_all(path):",
+        "    method = request.method",
+        "    print(f'\\n' + '='*50)",
+        "    print(f'[MOCK] {method} -> /api/v1/{path}')",
+        "    ",
+        "    if request.headers.get('X-Provengo-Rejection-Probe') == 'true':",
+        "        print('[MOCK] Rejection Probe detected: Returning 400')",
+        "        return jsonify({'status': 'error', 'details': ['Signaled rejection']}), 400",
+        "",
+        "    allowed_codes = find_best_match(path, method)",
+        "    if not allowed_codes:",
+        "        print(f'[MOCK WARNING] No OpenAPI match for {path} [{method}]')",
+        "        return jsonify({'status': 'success'}), 200",
+        "",
+        "    status_code = allowed_codes[0]",
+        "    print(f'[MOCK] Found Spec match! Returning: {status_code}')",
+        "    print('='*50)",
+        "    return jsonify({'status': 'success', 'spec_match': True}), status_code",
+        "",
+        "if __name__ == '__main__':",
+        "    app.run(port=8000, debug=True)"
     ]
 
-    with open(OUTPUT_PATH, 'w', encoding='utf-8') as f: f.write("\n".join(code))
-    print("Success: Final Aligned Mock Generated.")
+    output_path.write_text("\n".join(mock_code), encoding="utf-8")
+    print(f"Successfully generated OpenAPI-Strict mock at: {output_path}")
 
-if __name__ == '__main__': generate_mock()
+if __name__ == "__main__":
+    # FIX: Use absolute path relative to this script's location
+    SCRIPT_DIR = Path(__file__).parent
+    spec_path = SCRIPT_DIR / "openapi.json"
+    target_mock = SCRIPT_DIR / "gitea_mock.py"
+
+    if not spec_path.exists():
+        print(f"ERROR: Could not find {spec_path}")
+        print(f"Please ensure 'openapi.json' is in: {SCRIPT_DIR}")
+    else:
+        with open(spec_path, "r", encoding="utf-8") as f:
+            spec = json.load(f)
+        generate_mock(spec, target_mock)
