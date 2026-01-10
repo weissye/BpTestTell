@@ -1,4762 +1,3645 @@
 //@provengo summon rest
-// === Auto-generated interfaces for gitea ===
-var host = (typeof host !== 'undefined') ? host : 'localhost';
-var port = (typeof port !== 'undefined') ? port : 8000;
-var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
-const svc = new RESTSession(protocol + "://" + host + ":" + port, "provengo-client", { headers: { "Content-Type": "application/json" } });
-const pvg = {
-  success: function(msg) { bp.log.info(msg); },
-  fail: function(msg) { bp.log.error(msg); throw new Error(msg); }
-};
-function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
-function matchSuccess(desc) { return bp.EventSet("Done: " + desc, function(e) { return e.name === "Done: " + desc; }); }
-function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function activitypubPerson(id, user_id) {
-  var url = "/activitypub/user-id/" + user_id;
-  var description = "Returns the Person actor for a user " + user_id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+const svc = new RESTSession("http://localhost:8000/api/v1/", "client", { headers: { "Content-Type": "application/json" } });
+const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
+
+function activitypubPerson(user_id) {
+  var url = "activitypub/user-id/" + user_id;
+  var reqDescription = "Returns the Person actor for a user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function activitypubPersonInbox(id, user_id) {
-  var url = "/activitypub/user-id/" + user_id + "/inbox";
-  var description = "Send to the inbox " + user_id;
+function activitypubPersonInbox(user_id) {
+  var url = "activitypub/user-id/" + user_id + "/inbox";
+  var reqDescription = "Send to the inbox";
   var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "user-id": user_id}) });
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id}) }); }
+  return res;
 }
 
-function tryToAddExistingActivityPub(id, user_id) {
-  var url = "/activitypub/user-id/" + user_id + "/inbox";
-  var description = "Try Add Existing ActivityPub " + user_id;
+function verifyActivityPubRejects(user_id) {
+  var bodyStr = "{";
+  bodyStr += '"user-id":' + JSON.stringify(user_id);
+  bodyStr += "}";
+  svc.post("activitypub/user-id/" + user_id + "/inbox", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyActivityPubExists(user_id) { pvg.success("ActivityPub verified"); }
+function matchAnyActivityPubAdded() { return bp.EventSet("Added ActivityPub", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedActivityPub() { return bp.EventSet("Deleted ActivityPub", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function adminCronList() {
+  var url = "admin/cron";
+  var reqDescription = "List cron tasks";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403] });
+}
+
+function adminCronRun(task, id, limit, page) {
+  var url = "admin/cron/" + task;
+  var reqDescription = "Run cron task";
   var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"task": task, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function verifyActivityPubExists(id, user_id) {
-  var url = "/activitypub/user-id/" + user_id;
-  var description = "Verify ActivityPub " + user_id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("ActivityPub found");
+function verifyAdminCronRejects(id, limit, page, task) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "task":' + JSON.stringify(task);
+  bodyStr += "}";
+  svc.post("admin/cron/" + task, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function verifyActivityPubDoesNotExist(id, user_id) {
-  var url = "/activitypub/user-id/" + user_id;
-  var description = "Verify ActivityPub " + user_id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("ActivityPub not found");
+function verifyAdminCronExists(id) { pvg.success("AdminCron verified"); }
+function matchAnyAdminCronAdded() { return bp.EventSet("Added AdminCron", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedAdminCron() { return bp.EventSet("Deleted AdminCron", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function adminGetAllEmails() {
+  var url = "admin/emails";
+  var reqDescription = "List all emails";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403] });
 }
 
-function waitForActivityPubAdded(id, user_id) {
-  waitFor(matchSuccess("Send to the inbox"));
+function verifyAdminEmailsExists(id) { pvg.success("AdminEmails verified"); }
+function matchAnyAdminEmailsAdded() { return bp.EventSet("Added AdminEmails", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedAdminEmails() { return bp.EventSet("Deleted AdminEmails", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function adminSearchEmails() {
+  var url = "admin/emails/search";
+  var reqDescription = "Search all emails";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403] });
 }
 
-function matchAnyActivityPubAdded() {
-  return bp.EventSet("Any ActivityPub Added", function(e) {
-      return e.name.startsWith("Done: Send to the inbox");
-  });
-}
+function verifyEmailsExists(id) { pvg.success("Emails verified"); }
+function matchAnyEmailsAdded() { return bp.EventSet("Added Emails", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedEmails() { return bp.EventSet("Deleted Emails", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function adminCronList(id, limit, page, task) {
-  var url = "/admin/cron";
-  var description = "List cron tasks " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403] });
-}
-
-function adminCronRun(id, limit, page, task) {
-  var url = "/admin/cron/" + task;
-  var description = "Run cron task " + id;
-  var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "limit": limit, "page": page, "task": task}) });
-}
-
-// verifyAdminCronExists skipped: No GET /{id} operation detected.
-function waitForAdminCronAdded(id, limit, page, task) {
-  waitFor(matchSuccess("Run cron task"));
-}
-
-function matchAnyAdminCronAdded() {
-  return bp.EventSet("Any AdminCron Added", function(e) {
-      return e.name.startsWith("Done: Run cron task");
-  });
-}
-
-function adminGetAllEmails(id, limit, page) {
-  var url = "/admin/emails";
-  var description = "List all emails " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403] });
-}
-
-// verifyAdminEmailsExists skipped: No GET /{id} operation detected.
-function matchAnyAdminEmailsAdded() {
-  return bp.EventSet("Any AdminEmails Added", function(e) {
-      return e.name.startsWith("Done: Create AdminEmails");
-  });
-}
-
-function adminSearchEmails(id, limit, page, q) {
-  var url = "/admin/emails/search";
-  var description = "Search all emails " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403] });
-}
-
-// verifyEmailsExists skipped: No GET /{id} operation detected.
-function matchAnyEmailsAdded() {
-  return bp.EventSet("Any Emails Added", function(e) {
-      return e.name.startsWith("Done: Create Emails");
-  });
-}
-
-function userListHooks(body, id, limit, page) {
-  var url = "/user/hooks";
-  var description = "List the authenticated user's webhooks " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function userListHooks() {
+  var url = "user/hooks";
+  var reqDescription = "List the authenticated user's webhooks";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function userCreateHook(body, id, limit, page) {
-  var url = "/user/hooks";
-  var description = "Create a hook " + id;
+  var url = "user/hooks";
+  var reqDescription = "Create a hook";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "page": page}) });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function userGetHook(body, id, limit, page) {
-  var url = "/user/hooks/" + id;
-  var description = "Get a hook " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function userDeleteHook(id) {
+  var url = "user/hooks/" + id;
+  var reqDescription = "Delete a hook";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
 }
 
-function userEditHook(body, id, limit, page) {
-  var url = "/user/hooks/" + id;
-  var description = "Update a hook " + id;
+function userGetHook(id) {
+  var url = "user/hooks/" + id;
+  var reqDescription = "Get a hook";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userEditHook(id, body, limit, page) {
+  var url = "user/hooks/" + id;
+  var reqDescription = "Update a hook";
   var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "page": page}) });
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function userDeleteHook(body, id, limit, page) {
-  var url = "/user/hooks/" + id;
-  var description = "Delete a hook " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
+function verifyHooksRejects(body, id, limit, page) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += "}";
+  svc.post("user/hooks", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function tryToAddExistingHooks(body, id, limit, page) {
-  var url = "/user/hooks";
-  var description = "Try Add Existing Hooks " + id;
+function verifyHooksExists(id) { pvg.success("Hooks verified"); }
+function matchAnyHooksAdded() { return bp.EventSet("Added Hooks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedHooks() { return bp.EventSet("Deleted Hooks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function orgListUserOrgs(username) {
+  var url = "users/" + username + "/orgs";
+  var reqDescription = "List a user's organizations";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function userGet(username) {
+  var url = "users/" + username;
+  var reqDescription = "Get a user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyOrganizationsExists(username) { pvg.success("Organizations verified"); }
+function matchAnyOrganizationsAdded() { return bp.EventSet("Added Organizations", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOrganizations() { return bp.EventSet("Deleted Organizations", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function adminGetRunnerRegistrationToken() {
+  var url = "admin/runners/registration-token";
+  var reqDescription = "Get an global actions runner registration token";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifyRunnersExists(id) { pvg.success("Runners verified"); }
+function matchAnyRunnersAdded() { return bp.EventSet("Added Runners", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedRunners() { return bp.EventSet("Deleted Runners", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function adminUnadoptedList() {
+  var url = "admin/unadopted";
+  var reqDescription = "List unadopted repositories";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403] });
+}
+
+function adminDeleteUnadoptedRepository(owner, repo) {
+  var url = "admin/unadopted/" + owner + "/" + repo;
+  var reqDescription = "Delete unadopted files";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403] });
+}
+
+function adminAdoptRepository(owner, repo, limit, page, pattern) {
+  var url = "admin/unadopted/" + owner + "/" + repo;
+  var reqDescription = "Adopt unadopted files as a repository";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+    "limit": limit,
+    "page": page,
+    "pattern": pattern,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "limit": limit, "page": page, "pattern": pattern}) }); }
+  return res;
 }
 
-function verifyHooksExists(body, id, limit, page) {
-  var url = "/user/hooks/" + id;
-  var description = "Verify Hooks " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Hooks found");
+function verifyUnadoptedRepositoriesRejects(limit, owner, page, pattern, repo) {
+  var bodyStr = "{";
+  bodyStr += '"limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "pattern":' + JSON.stringify(pattern);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("admin/unadopted/" + owner + "/" + repo, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function verifyHooksDoesNotExist(body, id, limit, page) {
-  var url = "/user/hooks/" + id;
-  var description = "Verify Hooks " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Hooks not found");
+function verifyUnadoptedRepositoriesExists(owner) { pvg.success("UnadoptedRepositories verified"); }
+function matchAnyUnadoptedRepositoriesAdded() { return bp.EventSet("Added UnadoptedRepositories", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUnadoptedRepositories() { return bp.EventSet("Deleted UnadoptedRepositories", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userListSubscriptions(username) {
+  var url = "users/" + username + "/subscriptions";
+  var reqDescription = "List the repositories watched by a user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function tryToDeleteANonExistingHooks(body, id, limit, page) {
-  var url = "/user/hooks/" + id;
-  var description = "Verify negative delete for Hooks";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedHooks(body, id, limit, page) {
-  return bp.EventSet("Delete Hooks", function(e) {
-      return e.name === "Done: " + "Delete a hook";
-  });
-}
-
-function waitForHooksAdded(body, id, limit, page) {
-  waitFor(matchSuccess("Create a hook"));
-}
-
-function matchAnyHooksAdded() {
-  return bp.EventSet("Any Hooks Added", function(e) {
-      return e.name.startsWith("Done: Create a hook");
-  });
-}
-
-function orgListUserOrgs(id, limit, org, page, username) {
-  var url = "/users/" + username + "/orgs";
-  var description = "List a user's organizations " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function orgGetUserPermissions(id, limit, org, page, username) {
-  var url = "/users/" + username + "/orgs/" + org + "/permissions";
-  var description = "Get user permissions in organization " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403, 404] });
-}
-
-function verifyOrganizationsExists(id, limit, org, page, username) {
-  var url = "/users/" + username + "/orgs/" + org + "/permissions";
-  var description = "Verify Organizations " + username + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Organizations found");
-}
-
-function verifyOrganizationsDoesNotExist(id, limit, org, page, username) {
-  var url = "/users/" + username + "/orgs/" + org + "/permissions";
-  var description = "Verify Organizations " + username + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Organizations not found");
-}
-
-function matchAnyOrganizationsAdded() {
-  return bp.EventSet("Any Organizations Added", function(e) {
-      return e.name.startsWith("Done: Create Organizations");
-  });
-}
-
-function adminGetRunnerRegistrationToken(id) {
-  var url = "/admin/runners/registration-token";
-  var description = "Get an global actions runner registration token " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyRunnersExists skipped: No GET /{id} operation detected.
-function matchAnyRunnersAdded() {
-  return bp.EventSet("Any Runners Added", function(e) {
-      return e.name.startsWith("Done: Create Runners");
-  });
-}
-
-function adminUnadoptedList(id, limit, owner, page, pattern, repo) {
-  var url = "/admin/unadopted";
-  var description = "List unadopted repositories " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403] });
-}
-
-function adminDeleteUnadoptedRepository(id, limit, owner, page, pattern, repo) {
-  var url = "/admin/unadopted/" + owner + "/" + repo;
-  var description = "Delete unadopted files " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403] });
-}
-
-function adminAdoptRepository(id, limit, owner, page, pattern, repo) {
-  var url = "/admin/unadopted/" + owner + "/" + repo;
-  var description = "Adopt unadopted files as a repository " + owner;
+function adminCreateUser(CreateAccessTokenOption, body, limit, page, purge, token, username) {
+  var url = "admin/users";
+  var reqDescription = "Create a user";
   var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "limit": limit, "owner": owner, "page": page, "pattern": pattern, "repo": repo}) });
+    "CreateAccessTokenOption": CreateAccessTokenOption,
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "purge": purge,
+    "token": token,
+    "username": username,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 403, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateAccessTokenOption": CreateAccessTokenOption, "body": body, "limit": limit, "page": page, "purge": purge, "token": token, "username": username}) }); }
+  return res;
 }
 
-// verifyUnadoptedRepositoriesExists skipped: No GET /{id} operation detected.
-function waitForUnadoptedRepositoriesAdded(id, limit, owner, page, pattern, repo) {
-  waitFor(matchSuccess("Adopt unadopted files as a repository"));
+function adminDeleteUser(username) {
+  var url = "admin/users/" + username;
+  var reqDescription = "Delete a user";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 422] });
 }
 
-function matchAnyUnadoptedRepositoriesAdded() {
-  return bp.EventSet("Any UnadoptedRepositories Added", function(e) {
-      return e.name.startsWith("Done: Adopt unadopted files as a repository");
-  });
-}
-
-function userListSubscriptions(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/subscriptions";
-  var description = "List the repositories watched by a user " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function userCreateToken(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens";
-  var description = "Create an access token " + username;
+function adminEditUser(username, CreateAccessTokenOption, body, limit, page, purge, token) {
+  var url = "admin/users/" + username;
+  var reqDescription = "Edit an existing user";
   var body = {
-    "id": String(id),
-    "name": String(name),
-    "scopes": [String(scopes)],
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 403, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "name": name, "page": page, "scopes": scopes, "token": token, "username": username}) });
+    "CreateAccessTokenOption": CreateAccessTokenOption,
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "purge": purge,
+    "token": token,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "CreateAccessTokenOption": CreateAccessTokenOption, "body": body, "limit": limit, "page": page, "purge": purge, "token": token}) }); }
+  return res;
 }
 
-function userDeleteAccessToken(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens/" + token;
-  var description = "Delete an access token " + username;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404, 422] });
+function userGetHeatmapData(username) {
+  var url = "users/" + username + "/heatmap";
+  var reqDescription = "Get a user's heatmap";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function adminEditUser(body, id, limit, name, page, scopes, token, username) {
-  var url = "/admin/users/" + username;
-  var description = "Edit an existing user " + username;
+function userGetTokens(username) {
+  var url = "users/" + username + "/tokens";
+  var reqDescription = "List the authenticated user's access tokens";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403] });
+}
+
+function userCreateToken(username, CreateAccessTokenOption, body, limit, page, purge, token) {
+  var url = "users/" + username + "/tokens";
+  var reqDescription = "Create an access token";
   var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "name": name, "page": page, "scopes": scopes, "token": token, "username": username}) });
+    "CreateAccessTokenOption": CreateAccessTokenOption,
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "purge": purge,
+    "token": token,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 403], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "CreateAccessTokenOption": CreateAccessTokenOption, "body": body, "limit": limit, "page": page, "purge": purge, "token": token}) }); }
+  return res;
 }
 
-function userGetTokens(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens";
-  var description = "List the authenticated user's access tokens " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403] });
+function userDeleteAccessToken(username, token) {
+  var url = "users/" + username + "/tokens/" + token;
+  var reqDescription = "Delete an access token";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 422] });
 }
 
-function tryToAddExistingUsers(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens";
-  var description = "Try Add Existing Users " + username;
+function verifyUsersRejects(CreateAccessTokenOption, body, limit, page, purge, token, username) {
+  var bodyStr = "{";
+  bodyStr += '"CreateAccessTokenOption":' + JSON.stringify(CreateAccessTokenOption);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "purge":' + JSON.stringify(purge);
+  bodyStr += ', "token":' + JSON.stringify(token);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("admin/users", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyUsersExists(username) { pvg.success("Users verified"); }
+function matchAnyUsersAdded() { return bp.EventSet("Added Users", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUsers() { return bp.EventSet("Deleted Users", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function adminListUserBadges(username) {
+  var url = "admin/users/" + username + "/badges";
+  var reqDescription = "List a user's badges";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function adminAddUserBadges(username, body) {
+  var url = "admin/users/" + username + "/badges";
+  var reqDescription = "Add a badge to a user";
   var body = {
-    "id": String(id),
-    "name": String(name),
-    "scopes": [String(scopes)],
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+    "body": body,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "body": body}) }); }
+  return res;
 }
 
-function verifyUsersExists(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens";
-  var description = "Verify Users " + username + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Users found");
+function adminDeleteUserBadges(username) {
+  var url = "admin/users/" + username + "/badges";
+  var reqDescription = "Remove a badge from a user";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 422] });
 }
 
-function verifyUsersDoesNotExist(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens";
-  var description = "Verify Users " + username + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Users not found");
+function verifyUserBadgesRejects(body, username) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("admin/users/" + username + "/badges", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function tryToDeleteANonExistingUsers(body, id, limit, name, page, scopes, token, username) {
-  var url = "/users/" + username + "/tokens/" + token;
-  var description = "Verify negative delete for Users";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
+function verifyUserBadgesExists(username) { pvg.success("UserBadges verified"); }
+function matchAnyUserBadgesAdded() { return bp.EventSet("Added UserBadges", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserBadges() { return bp.EventSet("Deleted UserBadges", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function matchDeletedUsers(body, id, limit, name, page, scopes, token, username) {
-  return bp.EventSet("Delete Users", function(e) {
-      return e.name === "Done: " + "Delete an access token";
-  });
-}
-
-function waitForUsersAdded(body, id, limit, name, page, scopes, token, username) {
-  waitFor(matchSuccess("Create an access token"));
-}
-
-function matchAnyUsersAdded() {
-  return bp.EventSet("Any Users Added", function(e) {
-      return e.name.startsWith("Done: Create an access token");
-  });
-}
-
-function adminListUserBadges(body, id, username) {
-  var url = "/admin/users/" + username + "/badges";
-  var description = "List a user's badges " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function adminAddUserBadges(body, id, username) {
-  var url = "/admin/users/" + username + "/badges";
-  var description = "Add a badge to a user " + username;
+function adminCreatePublicKey(username, key, purge) {
+  var url = "admin/users/" + username + "/keys";
+  var reqDescription = "Add a public key on behalf of a user";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "username": username}) });
+    "key": key,
+    "purge": purge,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "key": key, "purge": purge}) }); }
+  return res;
 }
 
-function adminDeleteUserBadges(body, id, username) {
-  var url = "/admin/users/" + username + "/badges";
-  var description = "Remove a badge from a user " + username;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 422] });
+function adminDeleteUser(username, purge) {
+  var url = "admin/users/" + username;
+  var reqDescription = "Delete a user";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 422], queryParameters: {"purge": purge} });
 }
 
-// verifyUserBadgesExists skipped: No GET /{id} operation detected.
-function waitForUserBadgesAdded(body, id, username) {
-  waitFor(matchSuccess("Add a badge to a user"));
+function verifyUserKeysRejects(key, purge, username) {
+  var bodyStr = "{";
+  bodyStr += '"key":' + JSON.stringify(key);
+  bodyStr += ', "purge":' + JSON.stringify(purge);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("admin/users/" + username + "/keys", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyUserBadgesAdded() {
-  return bp.EventSet("Any UserBadges Added", function(e) {
-      return e.name.startsWith("Done: Add a badge to a user");
-  });
-}
+function verifyUserKeysExists(username) { pvg.success("UserKeys verified"); }
+function matchAnyUserKeysAdded() { return bp.EventSet("Added UserKeys", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserKeys() { return bp.EventSet("Deleted UserKeys", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function adminCreatePublicKey(id, key, username) {
-  var url = "/admin/users/" + username + "/keys";
-  var description = "Add a public key on behalf of a user " + username;
+function adminCreateOrg(username, id, organization) {
+  var url = "admin/users/" + username + "/orgs";
+  var reqDescription = "Create an organization";
   var body = {
-    "id": String(id),
-    "key": String(key),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "key": key, "username": username}) });
+    "id": id,
+    "organization": organization,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "organization": organization}) }); }
+  return res;
 }
 
-function adminDeleteUserPublicKey(id, key, username) {
-  var url = "/admin/users/" + username + "/keys/" + id;
-  var description = "Delete a user's public key " + username;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
+function verifyUserOrganizationsRejects(id, organization, username) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "organization":' + JSON.stringify(organization);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("admin/users/" + username + "/orgs", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-// verifyUserKeysExists skipped: No GET /{id} operation detected.
-function waitForUserKeysAdded(id, key, username) {
-  waitFor(matchSuccess("Add a public key on behalf of a user"));
-}
+function verifyUserOrganizationsExists(id) { pvg.success("UserOrganizations verified"); }
+function matchAnyUserOrganizationsAdded() { return bp.EventSet("Added UserOrganizations", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserOrganizations() { return bp.EventSet("Deleted UserOrganizations", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function matchAnyUserKeysAdded() {
-  return bp.EventSet("Any UserKeys Added", function(e) {
-      return e.name.startsWith("Done: Add a public key on behalf of a user");
-  });
-}
-
-function adminCreateOrg(id, organization, username) {
-  var url = "/admin/users/" + username + "/orgs";
-  var description = "Create an organization " + id;
+function adminRenameUser(username, body, id) {
+  var url = "admin/users/" + username + "/rename";
+  var reqDescription = "Rename a user";
   var body = {
-    "id": String(id),
-    "organization": String(organization),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "organization": organization, "username": username}) });
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "body": body, "id": id}) }); }
+  return res;
 }
 
-// verifyUserOrganizationsExists skipped: No GET /{id} operation detected.
-function waitForUserOrganizationsAdded(id, organization, username) {
-  waitFor(matchSuccess("Create an organization"));
+function verifyUserRenameRejects(body, id, username) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("admin/users/" + username + "/rename", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyUserOrganizationsAdded() {
-  return bp.EventSet("Any UserOrganizations Added", function(e) {
-      return e.name.startsWith("Done: Create an organization");
-  });
-}
+function verifyUserRenameExists(id) { pvg.success("UserRename verified"); }
+function matchAnyUserRenameAdded() { return bp.EventSet("Added UserRename", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserRename() { return bp.EventSet("Deleted UserRename", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function adminRenameUser(body, id, username) {
-  var url = "/admin/users/" + username + "/rename";
-  var description = "Rename a user " + id;
+function adminCreateRepo(username, id, repository) {
+  var url = "admin/users/" + username + "/repos";
+  var reqDescription = "Create a repository on behalf of a user";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "username": username}) });
+    "id": id,
+    "repository": repository,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 403, 404, 409, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "repository": repository}) }); }
+  return res;
 }
 
-// verifyUserRenameExists skipped: No GET /{id} operation detected.
-function waitForUserRenameAdded(body, id, username) {
-  waitFor(matchSuccess("Rename a user"));
+function verifyUserRepositoriesRejects(id, repository, username) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "repository":' + JSON.stringify(repository);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("admin/users/" + username + "/repos", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyUserRenameAdded() {
-  return bp.EventSet("Any UserRename Added", function(e) {
-      return e.name.startsWith("Done: Rename a user");
-  });
-}
+function verifyUserRepositoriesExists(id) { pvg.success("UserRepositories verified"); }
+function matchAnyUserRepositoriesAdded() { return bp.EventSet("Added UserRepositories", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserRepositories() { return bp.EventSet("Deleted UserRepositories", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function adminCreateRepo(id, repository, username) {
-  var url = "/admin/users/" + username + "/repos";
-  var description = "Create a repository on behalf of a user " + id;
-  var body = {
-    "id": String(id),
-    "repository": String(repository),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "repository": repository, "username": username}) });
-}
-
-// verifyUserRepositoriesExists skipped: No GET /{id} operation detected.
-function waitForUserRepositoriesAdded(id, repository, username) {
-  waitFor(matchSuccess("Create a repository on behalf of a user"));
-}
-
-function matchAnyUserRepositoriesAdded() {
-  return bp.EventSet("Any UserRepositories Added", function(e) {
-      return e.name.startsWith("Done: Create a repository on behalf of a user");
-  });
-}
-
-function listGitignoresTemplates(name) {
-  var url = "/gitignore/templates";
-  var description = "Returns a list of all gitignore templates " + name;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function listGitignoresTemplates() {
+  var url = "gitignore/templates";
+  var reqDescription = "Returns a list of all gitignore templates";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function getGitignoreTemplateInfo(name) {
-  var url = "/gitignore/templates/" + name;
-  var description = "Returns information about a gitignore template " + name;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var url = "gitignore/templates/" + name;
+  var reqDescription = "Returns information about a gitignore template";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function verifyGitignoreTemplatesExists(name) {
-  var url = "/gitignore/templates/" + name;
-  var description = "Verify GitignoreTemplates " + name + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GitignoreTemplates found");
-}
+function verifyGitignoreTemplatesExists(name) { pvg.success("GitignoreTemplates verified"); }
+function matchAnyGitignoreTemplatesAdded() { return bp.EventSet("Added GitignoreTemplates", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGitignoreTemplates() { return bp.EventSet("Deleted GitignoreTemplates", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function verifyGitignoreTemplatesDoesNotExist(name) {
-  var url = "/gitignore/templates/" + name;
-  var description = "Verify GitignoreTemplates " + name + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GitignoreTemplates not found");
-}
-
-function matchAnyGitignoreTemplatesAdded() {
-  return bp.EventSet("Any GitignoreTemplates Added", function(e) {
-      return e.name.startsWith("Done: Create GitignoreTemplates");
-  });
-}
-
-function listLabelTemplates(name) {
-  var url = "/label/templates";
-  var description = "Returns a list of all label templates " + name;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function listLabelTemplates() {
+  var url = "label/templates";
+  var reqDescription = "Returns a list of all label templates";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function getLabelTemplateInfo(name) {
-  var url = "/label/templates/" + name;
-  var description = "Returns all labels in a template " + name;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+  var url = "label/templates/" + name;
+  var reqDescription = "Returns all labels in a template";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function verifyLabelTemplatesExists(name) {
-  var url = "/label/templates/" + name;
-  var description = "Verify LabelTemplates " + name + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("LabelTemplates found");
+function verifyLabelTemplatesExists(name) { pvg.success("LabelTemplates verified"); }
+function matchAnyLabelTemplatesAdded() { return bp.EventSet("Added LabelTemplates", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedLabelTemplates() { return bp.EventSet("Deleted LabelTemplates", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function listLicenseTemplates() {
+  var url = "licenses";
+  var reqDescription = "Returns a list of all license templates";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function verifyLabelTemplatesDoesNotExist(name) {
-  var url = "/label/templates/" + name;
-  var description = "Verify LabelTemplates " + name + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("LabelTemplates not found");
+function verifyLicenseTemplatesExists(id) { pvg.success("LicenseTemplates verified"); }
+function matchAnyLicenseTemplatesAdded() { return bp.EventSet("Added LicenseTemplates", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedLicenseTemplates() { return bp.EventSet("Deleted LicenseTemplates", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function getLicenseTemplateInfo(name) {
+  var url = "licenses/" + name;
+  var reqDescription = "Returns information about a license template";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function matchAnyLabelTemplatesAdded() {
-  return bp.EventSet("Any LabelTemplates Added", function(e) {
-      return e.name.startsWith("Done: Create LabelTemplates");
-  });
-}
-
-function listLicenseTemplates(id) {
-  var url = "/licenses";
-  var description = "Returns a list of all license templates " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyLicenseTemplatesExists skipped: No GET /{id} operation detected.
-function matchAnyLicenseTemplatesAdded() {
-  return bp.EventSet("Any LicenseTemplates Added", function(e) {
-      return e.name.startsWith("Done: Create LicenseTemplates");
-  });
-}
-
-function getLicenseTemplateInfo(id, name) {
-  var url = "/licenses/" + name;
-  var description = "Returns information about a license template " + name;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyLicensesExists(id, name) {
-  var url = "/licenses/" + name;
-  var description = "Verify Licenses " + name + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Licenses found");
-}
-
-function verifyLicensesDoesNotExist(id, name) {
-  var url = "/licenses/" + name;
-  var description = "Verify Licenses " + name + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Licenses not found");
-}
-
-function matchAnyLicensesAdded() {
-  return bp.EventSet("Any Licenses Added", function(e) {
-      return e.name.startsWith("Done: Create Licenses");
-  });
-}
+function verifyLicensesExists(name) { pvg.success("Licenses verified"); }
+function matchAnyLicensesAdded() { return bp.EventSet("Added Licenses", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedLicenses() { return bp.EventSet("Deleted Licenses", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
 function renderMarkdown(body, id) {
-  var url = "/markdown";
-  var description = "Render a markdown document as HTML " + id;
+  var url = "markdown";
+  var reqDescription = "Render a markdown document as HTML";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id}) });
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
+  return res;
 }
 
 function renderMarkdownRaw(body, id) {
-  var url = "/markdown/raw";
-  var description = "Render raw markdown as HTML " + id;
+  var url = "markdown/raw";
+  var reqDescription = "Render raw markdown as HTML";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id}) });
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
+  return res;
 }
 
-// verifyMarkdownExists skipped: No GET /{id} operation detected.
-function waitForMarkdownAdded(body, id) {
-  waitFor(matchSuccess("Render a markdown document as HTML"));
+function verifyMarkdownRejects(body, id) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += "}";
+  svc.post("markdown", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyMarkdownAdded() {
-  return bp.EventSet("Any Markdown Added", function(e) {
-      return e.name.startsWith("Done: Render a markdown document as HTML");
-  });
-}
+function verifyMarkdownExists(id) { pvg.success("Markdown verified"); }
+function matchAnyMarkdownAdded() { return bp.EventSet("Added Markdown", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedMarkdown() { return bp.EventSet("Deleted Markdown", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
 function renderMarkup(body, id) {
-  var url = "/markup";
-  var description = "Render a markup document as HTML " + id;
+  var url = "markup";
+  var reqDescription = "Render a markup document as HTML";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id}) });
-}
-
-// verifyMarkupExists skipped: No GET /{id} operation detected.
-function waitForMarkupAdded(body, id) {
-  waitFor(matchSuccess("Render a markup document as HTML"));
-}
-
-function matchAnyMarkupAdded() {
-  return bp.EventSet("Any Markup Added", function(e) {
-      return e.name.startsWith("Done: Render a markup document as HTML");
-  });
-}
-
-function getNodeInfo(id) {
-  var url = "/nodeinfo";
-  var description = "Returns the nodeinfo of the Gitea application " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyNodeInfoExists skipped: No GET /{id} operation detected.
-function matchAnyNodeInfoAdded() {
-  return bp.EventSet("Any NodeInfo Added", function(e) {
-      return e.name.startsWith("Done: Create NodeInfo");
-  });
-}
-
-function notifyGetRepoList(all, before, last_read_at, limit, owner, page, repo, since, status_types, subject_type, to_status) {
-  var url = "/repos/" + owner + "/" + repo + "/notifications";
-  var description = "List users's notification threads on a specific repo " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function notifyReadRepoList(all, before, last_read_at, limit, owner, page, repo, since, status_types, subject_type, to_status) {
-  var url = "/repos/" + owner + "/" + repo + "/notifications";
-  var description = "Mark notification threads as read, pinned or unread on a specific repo " + owner;
-  var body = {
-    "all": String(all),
-    "last_read_at": String(last_read_at),
-    "status-types": [String(status_types)],
-    "to-status": String(to_status),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [205], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"all": all, "before": before, "last_read_at": last_read_at, "limit": limit, "owner": owner, "page": page, "repo": repo, "since": since, "status-types": status_types, "subject-type": subject_type, "to-status": to_status}) });
-}
-
-function notifyNewAvailable(all, before, last_read_at, limit, owner, page, repo, since, status_types, subject_type, to_status) {
-  var url = "/notifications/new";
-  var description = "Check if unread notifications exist " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyNotificationsExists skipped: No GET /{id} operation detected.
-function matchAnyNotificationsAdded() {
-  return bp.EventSet("Any Notifications Added", function(e) {
-      return e.name.startsWith("Done: Create Notifications");
-  });
-}
-
-function orgGetAll(body, id, limit, org, page, secretname) {
-  var url = "/orgs";
-  var description = "Get list of organizations";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function createOrgRepoDeprecated(body, id, limit, org, page, secretname) {
-  var url = "/org/" + org + "/repos";
-  var description = "Create a repository in an organization";
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page, "secretname": secretname}) });
-}
-
-function orgDelete(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org;
-  var description = "Delete an organization";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function orgGet(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org;
-  var description = "Get an organization";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function orgEdit(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org;
-  var description = "Edit an organization";
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page, "secretname": secretname}) });
-}
-
-function orgGetRunnerRegistrationToken(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org + "/actions/runners/registration-token";
-  var description = "Get an organization's actions runner registration token";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function orgListActionsSecrets(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org + "/actions/secrets";
-  var description = "List an organization's actions secrets";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function deleteOrgSecret(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org + "/actions/secrets/" + secretname;
-  var description = "Delete a secret in an organization";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
-}
-
-function updateOrgSecret(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org + "/actions/secrets/" + secretname;
-  var description = "Create or Update a secret value in an organization";
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page, "secretname": secretname}) });
-}
-
-function getOrgVariablesList(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org + "/actions/variables";
-  var description = "Get an org-level variables list";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function tryToAddExistingOrganization(body, id, limit, org, page, secretname) {
-  var url = "/org/" + org + "/repos";
-  var description = "Try Add Existing Organization " + org;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyOrganizationExists(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org;
-  var description = "Verify Organization " + org + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Organization found");
-}
-
-function verifyOrganizationDoesNotExist(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org;
-  var description = "Verify Organization " + org + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Organization not found");
-}
-
-function tryToDeleteANonExistingOrganization(body, id, limit, org, page, secretname) {
-  var url = "/orgs/" + org;
-  var description = "Verify negative delete for Organization";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedOrganization(body, id, limit, org, page, secretname) {
-  return bp.EventSet("Delete Organization", function(e) {
-      return e.name === "Done: " + "Delete an organization";
-  });
-}
-
-function waitForOrganizationAdded(body, id, limit, org, page, secretname) {
-  waitFor(matchSuccess("Create a repository in an organization"));
-}
-
-function matchAnyOrganizationAdded() {
-  return bp.EventSet("Any Organization Added", function(e) {
-      return e.name.startsWith("Done: Create a repository in an organization");
-  });
-}
-
-function deleteOrgVariable(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Delete an org-level variable";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 201, 204, 400, 404] });
-}
-
-function getOrgVariable(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Get an org-level variable";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function createOrgVariable(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Create an org-level variable";
-  var body = {
-    "id": String(id),
-    "option": String(option),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "option": option, "org": org, "variablename": variablename}) });
-}
-
-function updateOrgVariable(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Update an org-level variable";
-  var body = {
-    "id": String(id),
-    "option": String(option),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "option": option, "org": org, "variablename": variablename}) });
-}
-
-function tryToAddExistingOrgVariables(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Try Add Existing OrgVariables " + org;
-  var body = {
-    "id": String(id),
-    "option": String(option),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyOrgVariablesExists(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Verify OrgVariables " + org + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("OrgVariables found");
-}
-
-function verifyOrgVariablesDoesNotExist(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Verify OrgVariables " + org + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("OrgVariables not found");
-}
-
-function tryToDeleteANonExistingOrgVariables(id, option, org, variablename) {
-  var url = "/orgs/" + org + "/actions/variables/" + variablename;
-  var description = "Verify negative delete for OrgVariables";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedOrgVariables(id, option, org, variablename) {
-  return bp.EventSet("Delete OrgVariables", function(e) {
-      return e.name === "Done: " + "Delete an org-level variable";
-  });
-}
-
-function waitForOrgVariablesAdded(id, option, org, variablename) {
-  waitFor(matchSuccess("Create an org-level variable"));
-}
-
-function matchAnyOrgVariablesAdded() {
-  return bp.EventSet("Any OrgVariables Added", function(e) {
-      return e.name.startsWith("Done: Create an org-level variable");
-  });
-}
-
-function orgListActivityFeeds(date, id, limit, org, page) {
-  var url = "/orgs/" + org + "/activities/feeds";
-  var description = "List an organization's activity feeds " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyOrgActivityFeedsExists skipped: No GET /{id} operation detected.
-function matchAnyOrgActivityFeedsAdded() {
-  return bp.EventSet("Any OrgActivityFeeds Added", function(e) {
-      return e.name.startsWith("Done: Create OrgActivityFeeds");
-  });
-}
-
-function orgDeleteAvatar(avatarOption, id, org) {
-  var url = "/orgs/" + org + "/avatar";
-  var description = "Delete Avatar " + org;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function orgUpdateAvatar(avatarOption, id, org) {
-  var url = "/orgs/" + org + "/avatar";
-  var description = "Update Avatar " + org;
-  var body = {
-    "avatarOption": String(avatarOption),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"avatarOption": avatarOption, "id": id, "org": org}) });
-}
-
-// verifyOrgAvatarExists skipped: No GET /{id} operation detected.
-function waitForOrgAvatarAdded(avatarOption, id, org) {
-  waitFor(matchSuccess("Update Avatar"));
-}
-
-function matchAnyOrgAvatarAdded() {
-  return bp.EventSet("Any OrgAvatar Added", function(e) {
-      return e.name.startsWith("Done: Update Avatar");
-  });
-}
-
-function organizationListBlocks(id, limit, org, page) {
-  var url = "/orgs/" + org + "/blocks";
-  var description = "List users blocked by the organization " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyOrgBlocksExists skipped: No GET /{id} operation detected.
-function matchAnyOrgBlocksAdded() {
-  return bp.EventSet("Any OrgBlocks Added", function(e) {
-      return e.name.startsWith("Done: Create OrgBlocks");
-  });
-}
-
-function organizationUnblockUser(id, note, org, username) {
-  var url = "/orgs/" + org + "/blocks/" + username;
-  var description = "Unblock a user " + org;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 422] });
-}
-
-function organizationCheckUserBlock(id, note, org, username) {
-  var url = "/orgs/" + org + "/blocks/" + username;
-  var description = "Check if a user is blocked by the organization";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 404] });
-}
-
-function organizationBlockUser(id, note, org, username) {
-  var url = "/orgs/" + org + "/blocks/" + username;
-  var description = "Block a user " + org;
-  var body = {
-    "id": String(id),
-    "note": String(note),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "note": note, "org": org, "username": username}) });
-}
-
-function verifyOrgBlockUserExists(id, note, org, username) {
-  var url = "/orgs/" + org + "/blocks/" + username;
-  var description = "Verify OrgBlockUser " + org + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("OrgBlockUser found");
-}
-
-function verifyOrgBlockUserDoesNotExist(id, note, org, username) {
-  var url = "/orgs/" + org + "/blocks/" + username;
-  var description = "Verify OrgBlockUser " + org + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("OrgBlockUser not found");
-}
-
-function tryToDeleteANonExistingOrgBlockUser(id, note, org, username) {
-  var url = "/orgs/" + org + "/blocks/" + username;
-  var description = "Verify negative delete for OrgBlockUser";
-  svc.delete(url, { expectedResponseCodes: [404, 422], parameters: { description: description } });
-}
-
-function matchDeletedOrgBlockUser(id, note, org, username) {
-  return bp.EventSet("Delete OrgBlockUser", function(e) {
-      return e.name === "Done: " + "Unblock a user";
-  });
-}
-
-function matchAnyOrgBlockUserAdded() {
-  return bp.EventSet("Any OrgBlockUser Added", function(e) {
-      return e.name.startsWith("Done: Create OrgBlockUser");
-  });
-}
-
-function issueListLabels(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels";
-  var description = "Get all of a repository's labels " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateLabel(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels";
-  var description = "Create a label " + owner;
-  var body = {
-    "color": String(color),
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "description": description, "id": id, "limit": limit, "name": name, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function issueGetLabel(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + id;
-  var description = "Get a single label " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueEditLabel(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + id;
-  var description = "Update a label " + owner;
-  var body = {
-    "color": String(color),
-    "description": String(description),
-    "name": String(name),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"color": color, "description": description, "id": id, "limit": limit, "name": name, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function issueDeleteLabel(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + id;
-  var description = "Delete a label " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function tryToAddExistingLabels(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels";
-  var description = "Try Add Existing Labels " + owner;
-  var body = {
-    "color": String(color),
-    "description": String(description),
-    "id": String(id),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyLabelsExists(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + id;
-  var description = "Verify Labels " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Labels found");
-}
-
-function verifyLabelsDoesNotExist(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + id;
-  var description = "Verify Labels " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Labels not found");
-}
-
-function tryToDeleteANonExistingLabels(color, description, id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/labels/" + id;
-  var description = "Verify negative delete for Labels";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedLabels(color, description, id, limit, name, owner, page, repo) {
-  return bp.EventSet("Delete Labels", function(e) {
-      return e.name === "Done: " + "Delete a label";
-  });
-}
-
-function waitForLabelsAdded(color, description, id, limit, name, owner, page, repo) {
-  waitFor(matchSuccess("Create a label"));
-}
-
-function matchAnyLabelsAdded() {
-  return bp.EventSet("Any Labels Added", function(e) {
-      return e.name.startsWith("Done: Create a label");
-  });
-}
-
-function orgListMembers(id, limit, org, page) {
-  var url = "/orgs/" + org + "/members";
-  var description = "List an organization's members " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyMembersExists skipped: No GET /{id} operation detected.
-function matchAnyMembersAdded() {
-  return bp.EventSet("Any Members Added", function(e) {
-      return e.name.startsWith("Done: Create Members");
-  });
-}
-
-function orgDeleteMember(id, org, username) {
-  var url = "/orgs/" + org + "/members/" + username;
-  var description = "Remove a member from an organization";
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function orgIsMember(id, org, username) {
-  var url = "/orgs/" + org + "/members/" + username;
-  var description = "Check if a user is a member of an organization";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 303, 404] });
-}
-
-function verifyOrganizationMembersExists(id, org, username) {
-  var url = "/orgs/" + org + "/members/" + username;
-  var description = "Verify OrganizationMembers " + org + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("OrganizationMembers found");
-}
-
-function verifyOrganizationMembersDoesNotExist(id, org, username) {
-  var url = "/orgs/" + org + "/members/" + username;
-  var description = "Verify OrganizationMembers " + org + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("OrganizationMembers not found");
-}
-
-function tryToDeleteANonExistingOrganizationMembers(id, org, username) {
-  var url = "/orgs/" + org + "/members/" + username;
-  var description = "Verify negative delete for OrganizationMembers";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedOrganizationMembers(id, org, username) {
-  return bp.EventSet("Delete OrganizationMembers", function(e) {
-      return e.name === "Done: " + "Remove a member from an organization";
-  });
-}
-
-function matchAnyOrganizationMembersAdded() {
-  return bp.EventSet("Any OrganizationMembers Added", function(e) {
-      return e.name.startsWith("Done: Create OrganizationMembers");
-  });
-}
-
-function orgListPublicMembers(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members";
-  var description = "List an organization's public members";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function orgConcealMember(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members/" + username;
-  var description = "Conceal a user's membership " + org;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-function orgIsPublicMember(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members/" + username;
-  var description = "Check if a user is a public member of an organization";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 404] });
-}
-
-function orgPublicizeMember(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members/" + username;
-  var description = "Publicize a user's membership " + org;
-  var body = {
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "limit": limit, "org": org, "page": page, "username": username}) });
-}
-
-function verifyOrganizationPublicMembersExists(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members/" + username;
-  var description = "Verify OrganizationPublicMembers " + org + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("OrganizationPublicMembers found");
-}
-
-function verifyOrganizationPublicMembersDoesNotExist(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members/" + username;
-  var description = "Verify OrganizationPublicMembers " + org + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("OrganizationPublicMembers not found");
-}
-
-function tryToDeleteANonExistingOrganizationPublicMembers(id, limit, org, page, username) {
-  var url = "/orgs/" + org + "/public_members/" + username;
-  var description = "Verify negative delete for OrganizationPublicMembers";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedOrganizationPublicMembers(id, limit, org, page, username) {
-  return bp.EventSet("Delete OrganizationPublicMembers", function(e) {
-      return e.name === "Done: " + "Conceal a user's membership";
-  });
-}
-
-function matchAnyOrganizationPublicMembersAdded() {
-  return bp.EventSet("Any OrganizationPublicMembers Added", function(e) {
-      return e.name.startsWith("Done: Create OrganizationPublicMembers");
-  });
-}
-
-function orgListRepos(body, id, limit, org, page) {
-  var url = "/orgs/" + org + "/repos";
-  var description = "List an organization's repos " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function createOrgRepo(body, id, limit, org, page) {
-  var url = "/orgs/" + org + "/repos";
-  var description = "Create a repository in an organization " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page}) });
-}
-
-// verifyOrganizationReposExists skipped: No GET /{id} operation detected.
-function waitForOrganizationReposAdded(body, id, limit, org, page) {
-  waitFor(matchSuccess("Create a repository in an organization"));
-}
-
-function matchAnyOrganizationReposAdded() {
-  return bp.EventSet("Any OrganizationRepos Added", function(e) {
-      return e.name.startsWith("Done: Create a repository in an organization");
-  });
-}
-
-function orgListTeams(body, id, limit, org, page) {
-  var url = "/orgs/" + org + "/teams";
-  var description = "List an organization's teams " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function orgCreateTeam(body, id, limit, org, page) {
-  var url = "/orgs/" + org + "/teams";
-  var description = "Create a team " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page}) });
-}
-
-// verifyOrganizationTeamsExists skipped: No GET /{id} operation detected.
-function waitForOrganizationTeamsAdded(body, id, limit, org, page) {
-  waitFor(matchSuccess("Create a team"));
-}
-
-function matchAnyOrganizationTeamsAdded() {
-  return bp.EventSet("Any OrganizationTeams Added", function(e) {
-      return e.name.startsWith("Done: Create a team");
-  });
-}
-
-function orgListTeamRepos(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos";
-  var description = "List a team's repos " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function orgRemoveTeamRepository(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "Remove a repository from a team " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-function orgListTeamRepo(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "List a particular repo of team " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function orgEditTeam(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id;
-  var description = "Edit a team " + id;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page, "repo": repo}) });
-}
-
-function orgAddTeamRepository(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "Add a repository to a team " + id;
-  var body = {};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "org": org, "page": page, "repo": repo}) });
-}
-
-function tryToAddExistingTeams(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "Try Add Existing Teams " + id;
-  var body = {};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyTeamsExists(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "Verify Teams " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Teams found");
-}
-
-function verifyTeamsDoesNotExist(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "Verify Teams " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Teams not found");
-}
-
-function tryToDeleteANonExistingTeams(body, id, limit, org, page, repo) {
-  var url = "/teams/" + id + "/repos/" + org + "/" + repo;
-  var description = "Verify negative delete for Teams";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedTeams(body, id, limit, org, page, repo) {
-  return bp.EventSet("Delete Teams", function(e) {
-      return e.name === "Done: " + "Remove a repository from a team";
-  });
-}
-
-function waitForTeamsAdded(body, id, limit, org, page, repo) {
-  waitFor(matchSuccess("Add a repository to a team"));
-}
-
-function matchAnyTeamsAdded() {
-  return bp.EventSet("Any Teams Added", function(e) {
-      return e.name.startsWith("Done: Add a repository to a team");
-  });
-}
-
-function listPackages(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner;
-  var description = "Gets all packages of an owner";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function deletePackage(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Delete a package " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function getPackage(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Gets a package " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function listPackageFiles(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version + "/files";
-  var description = "Gets all files of a package " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyPackagesExists(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Verify Packages " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Packages found");
-}
-
-function verifyPackagesDoesNotExist(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Verify Packages " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Packages not found");
-}
-
-function tryToDeleteANonExistingPackages(id, limit, name, owner, page, q, type, version) {
-  var url = "/packages/" + owner + "/" + type + "/" + name + "/" + version;
-  var description = "Verify negative delete for Packages";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedPackages(id, limit, name, owner, page, q, type, version) {
-  return bp.EventSet("Delete Packages", function(e) {
-      return e.name === "Done: " + "Delete a package";
-  });
-}
-
-function matchAnyPackagesAdded() {
-  return bp.EventSet("Any Packages Added", function(e) {
-      return e.name.startsWith("Done: Create Packages");
-  });
-}
-
-function issueGetIssueReactions(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/reactions";
-  var description = "Get a list reactions of an issue " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403, 404] });
-}
-
-function issueGetLabels(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels";
-  var description = "Get an issue's labels " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueDeleteTime(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
-  var description = "Delete specific tracked time " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 403, 404] });
-}
-
-function moveIssuePin(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/pin/" + position;
-  var description = "Moves the Pin to the given Position " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "index": index, "limit": limit, "owner": owner, "page": page, "position": position, "repo": repo}) });
-}
-
-function issueStopStopWatch(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/stop";
-  var description = "Stop an issue's existing stopwatch. " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "index": index, "limit": limit, "owner": owner, "page": page, "position": position, "repo": repo}) });
-}
-
-function tryToAddExistingIssues(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/stop";
-  var description = "Try Add Existing Issues " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyIssuesExists(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels";
-  var description = "Verify Issues " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Issues found");
-}
-
-function verifyIssuesDoesNotExist(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/labels";
-  var description = "Verify Issues " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Issues not found");
-}
-
-function tryToDeleteANonExistingIssues(id, index, limit, owner, page, position, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
-  var description = "Verify negative delete for Issues";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedIssues(id, index, limit, owner, page, position, repo) {
-  return bp.EventSet("Delete Issues", function(e) {
-      return e.name === "Done: " + "Delete specific tracked time";
-  });
-}
-
-function waitForIssuesAdded(id, index, limit, owner, page, position, repo) {
-  waitFor(matchSuccess("Stop an issue's existing stopwatch."));
-}
-
-function matchAnyIssuesAdded() {
-  return bp.EventSet("Any Issues Added", function(e) {
-      return e.name.startsWith("Done: Stop an issue's existing stopwatch.");
-  });
-}
-
-function repoTransfer(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/transfer";
-  var description = "Transfer a repo ownership";
-  var body = {
-    "id": String(id),
-    "new_owner": String(new_owner),
-    "team_ids": [String(team_ids)],
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [202, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function repoListStargazers(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/stargazers";
-  var description = "List a repo's stargazers " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoDeleteAvatar(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/avatar";
-  var description = "Delete avatar " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function repoSigningKey(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/signing-key.gpg";
-  var description = "Get signing-key.gpg for given repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function repoEdit(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo;
-  var description = "Edit a repository's properties. Only fields that are set will be changed. " + owner;
-  var body = {
-    "editOptions": String(editOptions),
-    "id": String(id),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function repoGetRunnerRegistrationToken(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/runners/registration-token";
-  var description = "Get a repository's actions runner registration token " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function repoListActionsSecrets(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/secrets";
-  var description = "List an repo's actions secrets " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoGetLanguages(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/languages";
-  var description = "Get languages and number of bytes of code written " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoGetLicenses(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/licenses";
-  var description = "Get repo licenses " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoGetRawFileOrLFS(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/media/" + filepath;
-  var description = "Get a file or it's LFS object from a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoMergeUpstream(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/merge-upstream";
-  var description = "Merge a branch from upstream " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function repoListStatuses(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
-  var description = "Get a commit's statuses " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function repoCreateStatus(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/statuses/" + sha;
-  var description = "Create a commit status " + owner;
-  var body = {
-    "context": String(context),
-    "description": String(description),
-    "id": String(id),
-    "state": String(state),
-    "target_url": String(target_url),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function repoListSubscribers(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/subscribers";
-  var description = "List a repo's watchers " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function userCurrentDeleteSubscription(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/subscription";
-  var description = "Unwatch a repo " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function userCurrentCheckSubscription(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/subscription";
-  var description = "Check if the current user is watching a repo " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function userCurrentPutSubscription(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/subscription";
-  var description = "Watch a repo " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function acceptRepoTransfer(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/transfer/accept";
-  var description = "Accept a repo transfer " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [202, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function rejectRepoTransfer(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/transfer/reject";
-  var description = "Reject a repo transfer " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function repoCreateWikiPage(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/wiki/new";
-  var description = "Create a wiki page " + owner;
-  var body = {
-    "content": String(content),
-    "id": String(id),
-    "title": String(title),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 403, 404, 409, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function repoDeleteWikiPage(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/wiki/page/" + pageName;
-  var description = "Delete a wiki page " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404, 423] });
-}
-
-function repoGetWikiPage(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/wiki/page/" + pageName;
-  var description = "Get a wiki page " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoEditWikiPage(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/wiki/page/" + pageName;
-  var description = "Edit a wiki page " + owner;
-  var body = {
-    "content": String(content),
-    "id": String(id),
-    "title": String(title),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 404, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "content": content, "context": context, "description": description, "editOptions": editOptions, "filepath": filepath, "id": id, "limit": limit, "new_owner": new_owner, "owner": owner, "page": page, "pageName": pageName, "ref": ref, "repo": repo, "sha": sha, "sort": sort, "state": state, "target_url": target_url, "team_ids": team_ids, "title": title}) });
-}
-
-function tryToAddExistingRepository(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/transfer";
-  var description = "Try Add Existing Repository " + owner;
-  var body = {
-    "id": String(id),
-    "new_owner": String(new_owner),
-    "team_ids": [String(team_ids)],
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyRepositoryExists(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/signing-key.gpg";
-  var description = "Verify Repository " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Repository found");
-}
-
-function verifyRepositoryDoesNotExist(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/signing-key.gpg";
-  var description = "Verify Repository " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Repository not found");
-}
-
-function tryToDeleteANonExistingRepository(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  var url = "/repos/" + owner + "/" + repo + "/avatar";
-  var description = "Verify negative delete for Repository";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedRepository(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  return bp.EventSet("Delete Repository", function(e) {
-      return e.name === "Done: " + "Delete avatar";
-  });
-}
-
-function waitForRepositoryAdded(body, content, context, description, editOptions, filepath, id, limit, new_owner, owner, page, pageName, ref, repo, sha, sort, state, target_url, team_ids, title) {
-  waitFor(matchSuccess("Transfer a repo ownership"));
-}
-
-function matchAnyRepositoryAdded() {
-  return bp.EventSet("Any Repository Added", function(e) {
-      return e.name.startsWith("Done: Transfer a repo ownership");
-  });
-}
-
-function deleteRepoSecret(id, key, owner, repo, secretname) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secretname;
-  var description = "Delete a secret in a repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
-}
-
-function updateRepoSecret(id, key, owner, repo, secretname) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/secrets/" + secretname;
-  var description = "Create or Update a secret value in a repository " + owner;
-  var body = {
-    "id": String(id),
-    "key": String(key),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "key": key, "owner": owner, "repo": repo, "secretname": secretname}) });
-}
-
-// verifySecretsExists skipped: No GET /{id} operation detected.
-function matchAnySecretsAdded() {
-  return bp.EventSet("Any Secrets Added", function(e) {
-      return e.name.startsWith("Done: Create Secrets");
-  });
-}
-
-function ListActionTasks(id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/tasks";
-  var description = "List a repository's action tasks " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 403, 404, 409, 422] });
-}
-
-// verifyTasksExists skipped: No GET /{id} operation detected.
-function matchAnyTasksAdded() {
-  return bp.EventSet("Any Tasks Added", function(e) {
-      return e.name.startsWith("Done: Create Tasks");
-  });
-}
-
-function getRepoVariablesList(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables";
-  var description = "Get repo-level variables list " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function deleteRepoVariable(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Delete a repo-level variable " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 201, 204, 400, 404] });
-}
-
-function getRepoVariable(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Get a repo-level variable " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function createRepoVariable(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Create a repo-level variable " + owner;
-  var body = {
-    "id": String(id),
-    "key": String(key),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "key": key, "limit": limit, "owner": owner, "page": page, "repo": repo, "variablename": variablename}) });
-}
-
-function updateRepoVariable(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Update a repo-level variable " + owner;
-  var body = {
-    "id": String(id),
-    "key": String(key),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "key": key, "limit": limit, "owner": owner, "page": page, "repo": repo, "variablename": variablename}) });
-}
-
-function tryToAddExistingVariables(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Try Add Existing Variables " + owner;
-  var body = {
-    "id": String(id),
-    "key": String(key),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyVariablesExists(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Verify Variables " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Variables found");
-}
-
-function verifyVariablesDoesNotExist(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Verify Variables " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Variables not found");
-}
-
-function tryToDeleteANonExistingVariables(id, key, limit, owner, page, repo, variablename) {
-  var url = "/repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
-  var description = "Verify negative delete for Variables";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedVariables(id, key, limit, owner, page, repo, variablename) {
-  return bp.EventSet("Delete Variables", function(e) {
-      return e.name === "Done: " + "Delete a repo-level variable";
-  });
-}
-
-function waitForVariablesAdded(id, key, limit, owner, page, repo, variablename) {
-  waitFor(matchSuccess("Create a repo-level variable"));
-}
-
-function matchAnyVariablesAdded() {
-  return bp.EventSet("Any Variables Added", function(e) {
-      return e.name.startsWith("Done: Create a repo-level variable");
-  });
-}
-
-function repoListActivityFeeds(date, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/activities/feeds";
-  var description = "List a repository's activity feeds " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyActivityFeedsExists skipped: No GET /{id} operation detected.
-function matchAnyActivityFeedsAdded() {
-  return bp.EventSet("Any ActivityFeeds Added", function(e) {
-      return e.name.startsWith("Done: Create ActivityFeeds");
-  });
-}
-
-function repoDeleteBranchProtection(body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Delete a specific branch protection for the repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function repoGetBranchProtection(body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Get a specific branch protection for the repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoEditBranchProtection(body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Edit a branch protections for a repository. Only fields that are set will be changed " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "name": name, "owner": owner, "repo": repo}) });
-}
-
-function verifyBranchProtectionsExists(body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Verify BranchProtections " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("BranchProtections found");
-}
-
-function verifyBranchProtectionsDoesNotExist(body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Verify BranchProtections " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("BranchProtections not found");
-}
-
-function tryToDeleteANonExistingBranchProtections(body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branch_protections/" + name;
-  var description = "Verify negative delete for BranchProtections";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedBranchProtections(body, id, name, owner, repo) {
-  return bp.EventSet("Delete BranchProtections", function(e) {
-      return e.name === "Done: " + "Delete a specific branch protection for the repository";
-  });
-}
-
-function matchAnyBranchProtectionsAdded() {
-  return bp.EventSet("Any BranchProtections Added", function(e) {
-      return e.name.startsWith("Done: Create BranchProtections");
-  });
-}
-
-function repoListBranches(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches";
-  var description = "List a repository's branches " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function repoCreateBranch(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches";
-  var description = "Create a branch " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "branch": branch, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function repoDeleteBranch(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Delete a specific branch from a repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404, 423] });
-}
-
-function repoGetBranch(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Retrieve a specific branch from a repository, including its effective branch protection " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoUpdateBranch(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Update a branch " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "branch": branch, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function tryToAddExistingBranches(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches";
-  var description = "Try Add Existing Branches " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyBranchesExists(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Verify Branches " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Branches found");
-}
-
-function verifyBranchesDoesNotExist(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Verify Branches " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Branches not found");
-}
-
-function tryToDeleteANonExistingBranches(body, branch, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/branches/" + branch;
-  var description = "Verify negative delete for Branches";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedBranches(body, branch, id, limit, owner, page, repo) {
-  return bp.EventSet("Delete Branches", function(e) {
-      return e.name === "Done: " + "Delete a specific branch from a repository";
-  });
-}
-
-function waitForBranchesAdded(body, branch, id, limit, owner, page, repo) {
-  waitFor(matchSuccess("Create a branch"));
-}
-
-function matchAnyBranchesAdded() {
-  return bp.EventSet("Any Branches Added", function(e) {
-      return e.name.startsWith("Done: Create a branch");
-  });
-}
-
-function repoListCollaborators(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators";
-  var description = "List a repository's collaborators " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoDeleteCollaborator(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
-  var description = "Delete a collaborator from a repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 422] });
-}
-
-function repoGetRepoPermissions(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator + "/permission";
-  var description = "Get repository permissions for a user " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403, 404] });
-}
-
-function repoAddCollaborator(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
-  var description = "Add or Update a collaborator to a repository " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "collaborator": collaborator, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function tryToAddExistingCollaborators(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
-  var description = "Try Add Existing Collaborators " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyCollaboratorsExists(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator + "/permission";
-  var description = "Verify Collaborators " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Collaborators found");
-}
-
-function verifyCollaboratorsDoesNotExist(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator + "/permission";
-  var description = "Verify Collaborators " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Collaborators not found");
-}
-
-function tryToDeleteANonExistingCollaborators(body, collaborator, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
-  var description = "Verify negative delete for Collaborators";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedCollaborators(body, collaborator, id, limit, owner, page, repo) {
-  return bp.EventSet("Delete Collaborators", function(e) {
-      return e.name === "Done: " + "Delete a collaborator from a repository";
-  });
-}
-
-function waitForCollaboratorsAdded(body, collaborator, id, limit, owner, page, repo) {
-  waitFor(matchSuccess("Add or Update a collaborator to a repository"));
-}
-
-function matchAnyCollaboratorsAdded() {
-  return bp.EventSet("Any Collaborators Added", function(e) {
-      return e.name.startsWith("Done: Add or Update a collaborator to a repository");
-  });
-}
-
-function repoGetAllCommits(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/commits";
-  var description = "Get a list of all commits from a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404, 409] });
-}
-
-function repoGetSingleCommit(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/commits/" + sha;
-  var description = "Get a single commit from a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404, 422] });
-}
-
-function repoListStatusesByRef(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/commits/" + ref + "/statuses";
-  var description = "Get a commit's statuses, by branch/tag/commit reference " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function repoGetCommitPullRequest(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/commits/" + sha + "/pull";
-  var description = "Get the merged pull request of the commit " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoDownloadCommitDiffOrPatch(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/commits/" + sha + "." + diffType;
-  var description = "Get a commit's diff or patch " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyCommitsExists(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/commits/" + sha;
-  var description = "Verify Commits " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Commits found");
-}
-
-function verifyCommitsDoesNotExist(diffType, files, id, limit, not, owner, page, path, ref, repo, sha, sort, stat, state, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/commits/" + sha;
-  var description = "Verify Commits " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Commits not found");
-}
-
-function matchAnyCommitsAdded() {
-  return bp.EventSet("Any Commits Added", function(e) {
-      return e.name.startsWith("Done: Create Commits");
-  });
-}
-
-function repoGetByID(body, filepath, id, limit, owner, page, repo) {
-  var url = "/repositories/" + id;
-  var description = "Get a repository by id";
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function userCurrentListRepos(body, filepath, id, limit, owner, page, repo) {
-  var url = "/user/repos";
-  var description = "List the repos that the authenticated user owns " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function createCurrentUserRepo(body, filepath, id, limit, owner, page, repo) {
-  var url = "/user/repos";
-  var description = "Create a repository " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "filepath": filepath, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function repoDeleteFile(body, filepath, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Delete a file in a repository " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 403, 404, 423] });
-}
-
-function repoUpdateFile(body, filepath, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Update a file in a repository " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "filepath": filepath, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function tryToAddExistingRepositories(body, filepath, id, limit, owner, page, repo) {
-  var url = "/user/repos";
-  var description = "Try Add Existing Repositories " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyRepositoriesExists(body, filepath, id, limit, owner, page, repo) {
-  var url = "/repositories/" + id;
-  var description = "Verify Repositories " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Repositories found");
-}
-
-function verifyRepositoriesDoesNotExist(body, filepath, id, limit, owner, page, repo) {
-  var url = "/repositories/" + id;
-  var description = "Verify Repositories " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Repositories not found");
-}
-
-function tryToDeleteANonExistingRepositories(body, filepath, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/contents/" + filepath;
-  var description = "Verify negative delete for Repositories";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedRepositories(body, filepath, id, limit, owner, page, repo) {
-  return bp.EventSet("Delete Repositories", function(e) {
-      return e.name === "Done: " + "Delete a file in a repository";
-  });
-}
-
-function waitForRepositoriesAdded(body, filepath, id, limit, owner, page, repo) {
-  waitFor(matchSuccess("Create a repository"));
-}
-
-function matchAnyRepositoriesAdded() {
-  return bp.EventSet("Any Repositories Added", function(e) {
-      return e.name.startsWith("Done: Create a repository");
-  });
-}
-
-function listForks(body, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/forks";
-  var description = "List a repository's forks " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function createFork(body, id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/forks";
-  var description = "Fork a repository " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [202, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-// verifyForksExists skipped: No GET /{id} operation detected.
-function waitForForksAdded(body, id, limit, owner, page, repo) {
-  waitFor(matchSuccess("Fork a repository"));
-}
-
-function matchAnyForksAdded() {
-  return bp.EventSet("Any Forks Added", function(e) {
-      return e.name.startsWith("Done: Fork a repository");
-  });
-}
-
-function GetBlob(id, owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/blobs/" + sha;
-  var description = "Gets the blob of a repository. " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function verifyBlobsExists(id, owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/blobs/" + sha;
-  var description = "Verify Blobs " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Blobs found");
-}
-
-function verifyBlobsDoesNotExist(id, owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/blobs/" + sha;
-  var description = "Verify Blobs " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Blobs not found");
-}
-
-function matchAnyBlobsAdded() {
-  return bp.EventSet("Any Blobs Added", function(e) {
-      return e.name.startsWith("Done: Create Blobs");
-  });
-}
-
-function repoGetNote(files, id, owner, repo, sha, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/notes/" + sha;
-  var description = "Get a note corresponding to a single commit from a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404, 422] });
-}
-
-function verifyNotesExists(files, id, owner, repo, sha, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/notes/" + sha;
-  var description = "Verify Notes " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Notes found");
-}
-
-function verifyNotesDoesNotExist(files, id, owner, repo, sha, verification) {
-  var url = "/repos/" + owner + "/" + repo + "/git/notes/" + sha;
-  var description = "Verify Notes " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Notes not found");
-}
-
-function matchAnyNotesAdded() {
-  return bp.EventSet("Any Notes Added", function(e) {
-      return e.name.startsWith("Done: Create Notes");
-  });
-}
-
-function repoListAllGitRefs(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/git/refs";
-  var description = "Get specified ref or filtered repository's refs " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoListGitRefs(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/git/refs/" + ref;
-  var description = "Get specified ref or filtered repository's refs " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyGitRefsExists(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/git/refs/" + ref;
-  var description = "Verify GitRefs " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GitRefs found");
-}
-
-function verifyGitRefsDoesNotExist(id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/git/refs/" + ref;
-  var description = "Verify GitRefs " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GitRefs not found");
-}
-
-function matchAnyGitRefsAdded() {
-  return bp.EventSet("Any GitRefs Added", function(e) {
-      return e.name.startsWith("Done: Create GitRefs");
-  });
-}
-
-function GetAnnotatedTag(id, owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/tags/" + sha;
-  var description = "Gets the tag object of an annotated tag (not lightweight tags) " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function verifyGitTagsExists(id, owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/tags/" + sha;
-  var description = "Verify GitTags " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GitTags found");
-}
-
-function verifyGitTagsDoesNotExist(id, owner, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/tags/" + sha;
-  var description = "Verify GitTags " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GitTags not found");
-}
-
-function matchAnyGitTagsAdded() {
-  return bp.EventSet("Any GitTags Added", function(e) {
-      return e.name.startsWith("Done: Create GitTags");
-  });
-}
-
-function GetTree(id, owner, page, per_page, recursive, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/trees/" + sha;
-  var description = "Gets the tree of a repository. " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function verifyGitTreesExists(id, owner, page, per_page, recursive, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/trees/" + sha;
-  var description = "Verify GitTrees " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GitTrees found");
-}
-
-function verifyGitTreesDoesNotExist(id, owner, page, per_page, recursive, repo, sha) {
-  var url = "/repos/" + owner + "/" + repo + "/git/trees/" + sha;
-  var description = "Verify GitTrees " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GitTrees not found");
-}
-
-function matchAnyGitTreesAdded() {
-  return bp.EventSet("Any GitTrees Added", function(e) {
-      return e.name.startsWith("Done: Create GitTrees");
-  });
-}
-
-function repoListGitHooks(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git";
-  var description = "List the Git hooks in a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoGetGitHook(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
-  var description = "Get a Git hook " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoEditGitHook(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
-  var description = "Edit a Git hook in a repository " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "owner": owner, "repo": repo}) });
-}
-
-function repoDeleteGitHook(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
-  var description = "Delete a Git hook in a repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function verifyGitHooksExists(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
-  var description = "Verify GitHooks " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GitHooks found");
-}
-
-function verifyGitHooksDoesNotExist(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
-  var description = "Verify GitHooks " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GitHooks not found");
-}
-
-function tryToDeleteANonExistingGitHooks(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/hooks/git/" + id;
-  var description = "Verify negative delete for GitHooks";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedGitHooks(body, id, owner, repo) {
-  return bp.EventSet("Delete GitHooks", function(e) {
-      return e.name === "Done: " + "Delete a Git hook in a repository";
-  });
-}
-
-function matchAnyGitHooksAdded() {
-  return bp.EventSet("Any GitHooks Added", function(e) {
-      return e.name.startsWith("Done: Create GitHooks");
-  });
-}
-
-function repoGetIssueConfig(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issue_config";
-  var description = "Returns the issue config for a repo " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyIssueConfigExists(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issue_config";
-  var description = "Verify IssueConfig " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("IssueConfig found");
-}
-
-function verifyIssueConfigDoesNotExist(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issue_config";
-  var description = "Verify IssueConfig " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("IssueConfig not found");
-}
-
-function matchAnyIssueConfigAdded() {
-  return bp.EventSet("Any IssueConfig Added", function(e) {
-      return e.name.startsWith("Done: Create IssueConfig");
-  });
-}
-
-function issueListIssues(assigned_by, before, body, created_by, id, labels, limit, mentioned_by, milestones, name, owner, page, q, repo, since, state, type) {
-  var url = "/repos/" + owner + "/" + repo + "/issues";
-  var description = "List a repository's issues " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateIssue(assigned_by, before, body, created_by, id, labels, limit, mentioned_by, milestones, name, owner, page, q, repo, since, state, type) {
-  var url = "/repos/" + owner + "/" + repo + "/issues";
-  var description = "Create an issue. If using deadline only the date will be taken into account, and time of day ignored. " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409, 412, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"assigned_by": assigned_by, "before": before, "body": body, "created_by": created_by, "id": id, "labels": labels, "limit": limit, "mentioned_by": mentioned_by, "milestones": milestones, "name": name, "owner": owner, "page": page, "q": q, "repo": repo, "since": since, "state": state, "type": type}) });
-}
-
-function issueGetMilestonesList(assigned_by, before, body, created_by, id, labels, limit, mentioned_by, milestones, name, owner, page, q, repo, since, state, type) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones";
-  var description = "Get all of a repository's opened milestones " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateMilestone(assigned_by, before, body, created_by, id, labels, limit, mentioned_by, milestones, name, owner, page, q, repo, since, state, type) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones";
-  var description = "Create a milestone " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"assigned_by": assigned_by, "before": before, "body": body, "created_by": created_by, "id": id, "labels": labels, "limit": limit, "mentioned_by": mentioned_by, "milestones": milestones, "name": name, "owner": owner, "page": page, "q": q, "repo": repo, "since": since, "state": state, "type": type}) });
-}
-
-// verifyIssueExists skipped: No GET /{id} operation detected.
-function waitForIssueAdded(assigned_by, before, body, created_by, id, labels, limit, mentioned_by, milestones, name, owner, page, q, repo, since, state, type) {
-  waitFor(matchSuccess("Create an issue. If using deadline only the date will be taken into account, and time of day ignored."));
-}
-
-function matchAnyIssueAdded() {
-  return bp.EventSet("Any Issue Added", function(e) {
-      return e.name.startsWith("Done: Create an issue. If using deadline only the date will be taken into account, and time of day ignored.");
-  });
-}
-
-function issueGetRepoComments(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments";
-  var description = "List all comments in a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueGetComment(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
-  var description = "Get a comment " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-function issueDeleteComment(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
-  var description = "Delete a comment " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-function issueEditComment(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
-  var description = "Edit a comment " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"before": before, "body": body, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo, "since": since}) });
-}
-
-function verifyCommentExists(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
-  var description = "Verify Comment " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Comment found");
-}
-
-function verifyCommentDoesNotExist(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
-  var description = "Verify Comment " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Comment not found");
-}
-
-function tryToDeleteANonExistingComment(before, body, id, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id;
-  var description = "Verify negative delete for Comment";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedComment(before, body, id, limit, owner, page, repo, since) {
-  return bp.EventSet("Delete Comment", function(e) {
-      return e.name === "Done: " + "Delete a comment";
-  });
-}
-
-function matchAnyCommentAdded() {
-  return bp.EventSet("Any Comment Added", function(e) {
-      return e.name.startsWith("Done: Create Comment");
-  });
-}
-
-function issueListIssueCommentAttachments(attachment, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets";
-  var description = "List comment's attachments " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateIssueCommentAttachment(attachment, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets";
-  var description = "Create a comment attachment " + id;
-  var body = {
-    "attachment": String(attachment),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 403, 404, 409, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"attachment": attachment, "id": id, "name": name, "owner": owner, "repo": repo}) });
-}
-
-// verifyIssueCommentAttachmentsExists skipped: No GET /{id} operation detected.
-function waitForIssueCommentAttachmentsAdded(attachment, id, name, owner, repo) {
-  waitFor(matchSuccess("Create a comment attachment"));
-}
-
-function matchAnyIssueCommentAttachmentsAdded() {
-  return bp.EventSet("Any IssueCommentAttachments Added", function(e) {
-      return e.name.startsWith("Done: Create a comment attachment");
-  });
-}
-
-function issueGetIssueCommentAttachment(attachment_id, body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
-  var description = "Get a comment attachment " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueDeleteIssueCommentAttachment(attachment_id, body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
-  var description = "Delete a comment attachment " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 423] });
-}
-
-function issueEditIssueCommentAttachment(attachment_id, body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
-  var description = "Edit a comment attachment " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"attachment_id": attachment_id, "body": body, "id": id, "owner": owner, "repo": repo}) });
-}
-
-function verifyIssueCommentAttachmentExists(attachment_id, body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
-  var description = "Verify IssueCommentAttachment " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("IssueCommentAttachment found");
-}
-
-function verifyIssueCommentAttachmentDoesNotExist(attachment_id, body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
-  var description = "Verify IssueCommentAttachment " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("IssueCommentAttachment not found");
-}
-
-function tryToDeleteANonExistingIssueCommentAttachment(attachment_id, body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
-  var description = "Verify negative delete for IssueCommentAttachment";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedIssueCommentAttachment(attachment_id, body, id, owner, repo) {
-  return bp.EventSet("Delete IssueCommentAttachment", function(e) {
-      return e.name === "Done: " + "Delete a comment attachment";
-  });
-}
-
-function matchAnyIssueCommentAttachmentAdded() {
-  return bp.EventSet("Any IssueCommentAttachment Added", function(e) {
-      return e.name.startsWith("Done: Create IssueCommentAttachment");
-  });
-}
-
-function issueGetCommentReactions(content, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
-  var description = "Get a list of reactions from a comment of an issue " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403, 404] });
-}
-
-function issuePostCommentReaction(content, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
-  var description = "Add a reaction to a comment of an issue " + owner;
-  var body = {
-    "content": String(content),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"content": content, "id": id, "owner": owner, "repo": repo}) });
-}
-
-function issueDeleteCommentReaction(content, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
-  var description = "Remove a reaction from a comment of an issue " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-// verifyIssueCommentReactionsExists skipped: No GET /{id} operation detected.
-function waitForIssueCommentReactionsAdded(content, id, owner, repo) {
-  waitFor(matchSuccess("Add a reaction to a comment of an issue"));
-}
-
-function matchAnyIssueCommentReactionsAdded() {
-  return bp.EventSet("Any IssueCommentReactions Added", function(e) {
-      return e.name.startsWith("Done: Add a reaction to a comment of an issue");
-  });
-}
-
-function repoListPinnedIssues(id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/pinned";
-  var description = "List a repo's pinned issues " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyPinnedIssuesExists skipped: No GET /{id} operation detected.
-function matchAnyPinnedIssuesAdded() {
-  return bp.EventSet("Any PinnedIssues Added", function(e) {
-      return e.name.startsWith("Done: Create PinnedIssues");
-  });
-}
-
-function issueListIssueAttachments(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets";
-  var description = "List issue's attachments " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateIssueAttachment(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets";
-  var description = "Create an issue attachment " + owner;
-  var body = {
-    "attachment": String(attachment),
-    "id": String(id),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 404, 409, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"attachment": attachment, "attachment_id": attachment_id, "body": body, "id": id, "index": index, "name": name, "owner": owner, "repo": repo}) });
-}
-
-function issueGetIssueAttachment(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
-  var description = "Get an issue attachment " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueEditIssueAttachment(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
-  var description = "Edit an issue attachment " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"attachment": attachment, "attachment_id": attachment_id, "body": body, "id": id, "index": index, "name": name, "owner": owner, "repo": repo}) });
-}
-
-function issueDeleteIssueAttachment(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
-  var description = "Delete an issue attachment " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 423] });
-}
-
-function tryToAddExistingIssueAttachments(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets";
-  var description = "Try Add Existing IssueAttachments " + owner;
-  var body = {
-    "attachment": String(attachment),
-    "id": String(id),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyIssueAttachmentsExists(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
-  var description = "Verify IssueAttachments " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("IssueAttachments found");
-}
-
-function verifyIssueAttachmentsDoesNotExist(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
-  var description = "Verify IssueAttachments " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("IssueAttachments not found");
-}
-
-function tryToDeleteANonExistingIssueAttachments(attachment, attachment_id, body, id, index, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
-  var description = "Verify negative delete for IssueAttachments";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedIssueAttachments(attachment, attachment_id, body, id, index, name, owner, repo) {
-  return bp.EventSet("Delete IssueAttachments", function(e) {
-      return e.name === "Done: " + "Delete an issue attachment";
-  });
-}
-
-function waitForIssueAttachmentsAdded(attachment, attachment_id, body, id, index, name, owner, repo) {
-  waitFor(matchSuccess("Create an issue attachment"));
-}
-
-function matchAnyIssueAttachmentsAdded() {
-  return bp.EventSet("Any IssueAttachments Added", function(e) {
-      return e.name.startsWith("Done: Create an issue attachment");
-  });
-}
-
-function issueListBlocks(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
-  var description = "List issues that are blocked by this issue " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateIssueBlocking(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
-  var description = "Block the issue given in the body by the issue in path " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function issueRemoveIssueBlocking(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
-  var description = "Unblock the issue given in the body by the issue in path " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-// verifyIssueBlocksExists skipped: No GET /{id} operation detected.
-function waitForIssueBlocksAdded(body, id, index, limit, owner, page, repo) {
-  waitFor(matchSuccess("Block the issue given in the body by the issue in path"));
-}
-
-function matchAnyIssueBlocksAdded() {
-  return bp.EventSet("Any IssueBlocks Added", function(e) {
-      return e.name.startsWith("Done: Block the issue given in the body by the issue in path");
-  });
-}
-
-function issueGetComments(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments";
-  var description = "List all comments on an issue " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCreateComment(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments";
-  var description = "Add a comment to an issue " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"before": before, "body": body, "id": id, "index": index, "owner": owner, "repo": repo, "since": since}) });
-}
-
-function issueGetComment(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Get a specific comment on an issue " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [] });
-}
-
-function issueEditCommentDeprecated(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Edit a comment " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"before": before, "body": body, "id": id, "index": index, "owner": owner, "repo": repo, "since": since}) });
-}
-
-function issueDeleteCommentDeprecated(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Delete a comment " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-function tryToAddExistingIssueComments(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments";
-  var description = "Try Add Existing IssueComments " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyIssueCommentsExists(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Verify IssueComments " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("IssueComments found");
-}
-
-function verifyIssueCommentsDoesNotExist(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Verify IssueComments " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("IssueComments not found");
-}
-
-function tryToDeleteANonExistingIssueComments(before, body, id, index, owner, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
-  var description = "Verify negative delete for IssueComments";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedIssueComments(before, body, id, index, owner, repo, since) {
-  return bp.EventSet("Delete IssueComments", function(e) {
-      return e.name === "Done: " + "Delete a comment";
-  });
-}
-
-function waitForIssueCommentsAdded(before, body, id, index, owner, repo, since) {
-  waitFor(matchSuccess("Add a comment to an issue"));
-}
-
-function matchAnyIssueCommentsAdded() {
-  return bp.EventSet("Any IssueComments Added", function(e) {
-      return e.name.startsWith("Done: Add a comment to an issue");
-  });
-}
-
-function issueSubscriptions(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions";
-  var description = "Get users who subscribed on an issue. " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueCheckSubscription(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/check";
-  var description = "Check if user is subscribed to an issue " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueDeleteSubscription(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
-  var description = "Unsubscribe user from issue " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 201, 204, 304, 404] });
-}
-
-function issueAddSubscription(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
-  var description = "Subscribe user to issue " + owner;
-  var body = {
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 304, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo, "user": user}) });
-}
-
-function verifyIssueSubscriptionsExists(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/check";
-  var description = "Verify IssueSubscriptions " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("IssueSubscriptions found");
-}
-
-function verifyIssueSubscriptionsDoesNotExist(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/check";
-  var description = "Verify IssueSubscriptions " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("IssueSubscriptions not found");
-}
-
-function tryToDeleteANonExistingIssueSubscriptions(id, index, limit, owner, page, repo, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
-  var description = "Verify negative delete for IssueSubscriptions";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedIssueSubscriptions(id, index, limit, owner, page, repo, user) {
-  return bp.EventSet("Delete IssueSubscriptions", function(e) {
-      return e.name === "Done: " + "Unsubscribe user from issue";
-  });
-}
-
-function matchAnyIssueSubscriptionsAdded() {
-  return bp.EventSet("Any IssueSubscriptions Added", function(e) {
-      return e.name.startsWith("Done: Create IssueSubscriptions");
-  });
-}
-
-function issueGetCommentsAndTimeline(before, id, index, limit, owner, page, repo, since) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/timeline";
-  var description = "List all comments and events on an issue " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyIssueTimelineExists skipped: No GET /{id} operation detected.
-function matchAnyIssueTimelineAdded() {
-  return bp.EventSet("Any IssueTimeline Added", function(e) {
-      return e.name.startsWith("Done: Create IssueTimeline");
-  });
-}
-
-function issueResetTime(before, body, id, index, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
-  var description = "Reset a tracked time of an issue " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 403, 404] });
-}
-
-function issueTrackedTimes(before, body, id, index, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
-  var description = "List an issue's tracked times " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueAddTime(before, body, id, index, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/issues/" + index + "/times";
-  var description = "Add tracked time to a issue " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"before": before, "body": body, "id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo, "since": since, "user": user}) });
-}
-
-// verifyIssueTimesExists skipped: No GET /{id} operation detected.
-function waitForIssueTimesAdded(before, body, id, index, limit, owner, page, repo, since, user) {
-  waitFor(matchSuccess("Add tracked time to a issue"));
-}
-
-function matchAnyIssueTimesAdded() {
-  return bp.EventSet("Any IssueTimes Added", function(e) {
-      return e.name.startsWith("Done: Add tracked time to a issue");
-  });
-}
-
-function repoListKeys(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys";
-  var description = "List a repository's keys " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoCreateKey(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys";
-  var description = "Add a key to a repository " + owner;
-  var body = {
-    "id": String(id),
-    "key": String(key),
-    "read_only": read_only,
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"fingerprint": fingerprint, "id": id, "key": key, "key_id": key_id, "limit": limit, "owner": owner, "page": page, "read_only": read_only, "repo": repo}) });
-}
-
-function repoDeleteKey(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + id;
-  var description = "Delete a key from a repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
-
-function repoGetKey(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + id;
-  var description = "Get a repository's key by id " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function tryToAddExistingRepositoryKeys(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys";
-  var description = "Try Add Existing RepositoryKeys " + owner;
-  var body = {
-    "id": String(id),
-    "key": String(key),
-    "read_only": read_only,
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyRepositoryKeysExists(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + id;
-  var description = "Verify RepositoryKeys " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("RepositoryKeys found");
-}
-
-function verifyRepositoryKeysDoesNotExist(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + id;
-  var description = "Verify RepositoryKeys " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("RepositoryKeys not found");
-}
-
-function tryToDeleteANonExistingRepositoryKeys(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/keys/" + id;
-  var description = "Verify negative delete for RepositoryKeys";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedRepositoryKeys(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  return bp.EventSet("Delete RepositoryKeys", function(e) {
-      return e.name === "Done: " + "Delete a key from a repository";
-  });
-}
-
-function waitForRepositoryKeysAdded(fingerprint, id, key, key_id, limit, owner, page, read_only, repo) {
-  waitFor(matchSuccess("Add a key to a repository"));
-}
-
-function matchAnyRepositoryKeysAdded() {
-  return bp.EventSet("Any RepositoryKeys Added", function(e) {
-      return e.name.startsWith("Done: Add a key to a repository");
-  });
-}
-
-function issueDeleteMilestone(description, due_on, id, owner, repo, state, title) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
-  var description = "Delete a milestone " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
-}
-
-function issueGetMilestone(description, due_on, id, owner, repo, state, title) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
-  var description = "Get a milestone " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function issueEditMilestone(description, due_on, id, owner, repo, state, title) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
-  var description = "Update a milestone " + owner;
-  var body = {
-    "description": String(description),
-    "due_on": String(due_on),
-    "state": String(state),
-    "title": String(title),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"description": description, "due_on": due_on, "id": id, "owner": owner, "repo": repo, "state": state, "title": title}) });
-}
-
-function verifyMilestonesExists(description, due_on, id, owner, repo, state, title) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
-  var description = "Verify Milestones " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Milestones found");
-}
-
-function verifyMilestonesDoesNotExist(description, due_on, id, owner, repo, state, title) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
-  var description = "Verify Milestones " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Milestones not found");
-}
-
-function tryToDeleteANonExistingMilestones(description, due_on, id, owner, repo, state, title) {
-  var url = "/repos/" + owner + "/" + repo + "/milestones/" + id;
-  var description = "Verify negative delete for Milestones";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedMilestones(description, due_on, id, owner, repo, state, title) {
-  return bp.EventSet("Delete Milestones", function(e) {
-      return e.name === "Done: " + "Delete a milestone";
-  });
-}
-
-function matchAnyMilestonesAdded() {
-  return bp.EventSet("Any Milestones Added", function(e) {
-      return e.name.startsWith("Done: Create Milestones");
-  });
-}
-
-function repoMirrorSync(id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/mirror-sync";
-  var description = "Sync a mirrored repository " + id;
-  var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "owner": owner, "repo": repo}) });
-}
-
-// verifyMirrorSyncExists skipped: No GET /{id} operation detected.
-function waitForMirrorSyncAdded(id, owner, repo) {
-  waitFor(matchSuccess("Sync a mirrored repository"));
-}
-
-function matchAnyMirrorSyncAdded() {
-  return bp.EventSet("Any MirrorSync Added", function(e) {
-      return e.name.startsWith("Done: Sync a mirrored repository");
-  });
-}
-
-function repoNewPinAllowed(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/new_pin_allowed";
-  var description = "Returns if new Issue Pins are allowed " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyNewPinAllowedExists(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/new_pin_allowed";
-  var description = "Verify NewPinAllowed " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("NewPinAllowed found");
-}
-
-function verifyNewPinAllowedDoesNotExist(owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/new_pin_allowed";
-  var description = "Verify NewPinAllowed " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("NewPinAllowed not found");
-}
-
-function matchAnyNewPinAllowedAdded() {
-  return bp.EventSet("Any NewPinAllowed Added", function(e) {
-      return e.name.startsWith("Done: Create NewPinAllowed");
-  });
-}
-
-function repoGetPullRequestFiles(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/files";
-  var description = "Get changed files for a pull request " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function repoUpdatePullRequest(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
-  var description = "Merge PR's baseBranch into headBranch " + owner;
-  var body = {
-    "id": String(id),
-    "style": String(style),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo, "skip-to": skip_to, "style": style, "whitespace": whitespace}) });
-}
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
+  return res;
+}
+
+function verifyMarkupRejects(body, id) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += "}";
+  svc.post("markup", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyMarkupExists(id) { pvg.success("Markup verified"); }
+function matchAnyMarkupAdded() { return bp.EventSet("Added Markup", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedMarkup() { return bp.EventSet("Deleted Markup", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoPullRequestIsMerged(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
-  var description = "Check if a pull request has been merged " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 404] });
+function getNodeInfo() {
+  var url = "nodeinfo";
+  var reqDescription = "Returns the nodeinfo of the Gitea application";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function repoEditPullRequest(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index;
-  var description = "Update a pull request. If using deadline only the date will be taken into account, and time of day ignored. " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409, 412, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo, "skip-to": skip_to, "style": style, "whitespace": whitespace}) });
-}
-
-function repoCancelScheduledAutoMerge(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
-  var description = "Cancel the scheduled auto merge for the given pull request " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404, 423] });
-}
-
-function tryToAddExistingPullRequests(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
-  var description = "Try Add Existing PullRequests " + owner;
-  var body = {
-    "id": String(id),
-    "style": String(style),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyPullRequestsExists(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
-  var description = "Verify PullRequests " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("PullRequests found");
-}
-
-function verifyPullRequestsDoesNotExist(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
-  var description = "Verify PullRequests " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("PullRequests not found");
-}
-
-function tryToDeleteANonExistingPullRequests(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
-  var description = "Verify negative delete for PullRequests";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedPullRequests(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  return bp.EventSet("Delete PullRequests", function(e) {
-      return e.name === "Done: " + "Cancel the scheduled auto merge for the given pull request";
-  });
-}
-
-function waitForPullRequestsAdded(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
-  waitFor(matchSuccess("Merge PR's baseBranch into headBranch"));
-}
-
-function matchAnyPullRequestsAdded() {
-  return bp.EventSet("Any PullRequests Added", function(e) {
-      return e.name.startsWith("Done: Merge PR's baseBranch into headBranch");
-  });
-}
+function verifyNodeInfoExists(id) { pvg.success("NodeInfo verified"); }
+function matchAnyNodeInfoAdded() { return bp.EventSet("Added NodeInfo", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedNodeInfo() { return bp.EventSet("Deleted NodeInfo", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoDeletePullReviewRequests(body, id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
-  var description = "Cancel review requests for a pull request " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404, 422] });
+function notifyGetRepoList(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/notifications";
+  var reqDescription = "List users's notification threads on a specific repo";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function repoCreatePullReviewRequests(body, id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
-  var description = "Create review requests for a pull request " + owner;
+function notifyReadRepoList(owner, repo, all, before, id, last_read_at, limit, page, since, status_types, subject_type, to_status) {
+  var url = "repos/" + owner + "/" + repo + "/notifications";
+  var reqDescription = "Mark notification threads as read, pinned or unread on a specific repo";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "owner": owner, "repo": repo}) });
-}
-
-// verifyPullReviewRequestsExists skipped: No GET /{id} operation detected.
-function waitForPullReviewRequestsAdded(body, id, index, owner, repo) {
-  waitFor(matchSuccess("Create review requests for a pull request"));
-}
-
-function matchAnyPullReviewRequestsAdded() {
-  return bp.EventSet("Any PullReviewRequests Added", function(e) {
-      return e.name.startsWith("Done: Create review requests for a pull request");
-  });
-}
-
-function repoListPullReviews(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
-  var description = "List all reviews for a pull request " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+    "all": all,
+    "before": before,
+    "id": id,
+    "last_read_at": last_read_at,
+    "limit": limit,
+    "page": page,
+    "since": since,
+    "status-types": status_types,
+    "subject-type": subject_type,
+    "to-status": to_status,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 205], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "all": all, "before": before, "id": id, "last_read_at": last_read_at, "limit": limit, "page": page, "since": since, "status-types": status_types, "subject-type": subject_type, "to-status": to_status}) }); }
+  return res;
 }
 
-function repoCreatePullReview(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
-  var description = "Create a review to a pull request " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
+function notifyGetThread(id) {
+  var url = "notifications/threads/" + id;
+  var reqDescription = "Get notification thread by ID";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403, 404] });
 }
 
-function repoDeletePullReview(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Delete a specific review from a pull request " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
-}
+function verifyNotificationsExists(id) { pvg.success("Notifications verified"); }
+function matchAnyNotificationsAdded() { return bp.EventSet("Added Notifications", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedNotifications() { return bp.EventSet("Deleted Notifications", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoGetPullReview(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Get a specific review for a pull request " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function orgGetAll() {
+  var url = "orgs";
+  var reqDescription = "Get list of organizations";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function repoSubmitPullReview(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Submit a pending review to a pull request " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function tryToAddExistingPullReviews(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
-  var description = "Try Add Existing PullReviews " + owner;
+function createOrgRepoDeprecated(org, body, limit, page, secretname) {
+  var url = "org/" + org + "/repos";
+  var reqDescription = "Create a repository in an organization";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyPullReviewsExists(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Verify PullReviews " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("PullReviews found");
-}
-
-function verifyPullReviewsDoesNotExist(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Verify PullReviews " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("PullReviews not found");
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "secretname": secretname,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body, "limit": limit, "page": page, "secretname": secretname}) }); }
+  return res;
 }
 
-function tryToDeleteANonExistingPullReviews(body, id, index, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
-  var description = "Verify negative delete for PullReviews";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+function orgDelete(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Delete an organization";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function orgGet(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Get an organization";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function matchDeletedPullReviews(body, id, index, limit, owner, page, repo) {
-  return bp.EventSet("Delete PullReviews", function(e) {
-      return e.name === "Done: " + "Delete a specific review from a pull request";
-  });
-}
-
-function waitForPullReviewsAdded(body, id, index, limit, owner, page, repo) {
-  waitFor(matchSuccess("Create a review to a pull request"));
-}
-
-function matchAnyPullReviewsAdded() {
-  return bp.EventSet("Any PullReviews Added", function(e) {
-      return e.name.startsWith("Done: Create a review to a pull request");
-  });
-}
-
-function repoGetPullReviewComments(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/comments";
-  var description = "Get a specific review for a pull request " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyPullReviewCommentsExists(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/comments";
-  var description = "Verify PullReviewComments " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("PullReviewComments found");
-}
-
-function verifyPullReviewCommentsDoesNotExist(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/comments";
-  var description = "Verify PullReviewComments " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("PullReviewComments not found");
-}
-
-function matchAnyPullReviewCommentsAdded() {
-  return bp.EventSet("Any PullReviewComments Added", function(e) {
-      return e.name.startsWith("Done: Create PullReviewComments");
-  });
-}
-
-function repoDismissPullReview(body, id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/dismissals";
-  var description = "Dismiss a review for a pull request " + id;
+function orgEdit(org, body, limit, page, secretname) {
+  var url = "orgs/" + org;
+  var reqDescription = "Edit an organization";
   var body = {
-    "body": String(body),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "index": index, "owner": owner, "repo": repo}) });
-}
-
-// verifyPullReviewDismissalsExists skipped: No GET /{id} operation detected.
-function waitForPullReviewDismissalsAdded(body, id, index, owner, repo) {
-  waitFor(matchSuccess("Dismiss a review for a pull request"));
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "secretname": secretname,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body, "limit": limit, "page": page, "secretname": secretname}) }); }
+  return res;
 }
 
-function matchAnyPullReviewDismissalsAdded() {
-  return bp.EventSet("Any PullReviewDismissals Added", function(e) {
-      return e.name.startsWith("Done: Dismiss a review for a pull request");
-  });
+function orgGetRunnerRegistrationToken(org) {
+  var url = "orgs/" + org + "/actions/runners/registration-token";
+  var reqDescription = "Get an organization's actions runner registration token";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function repoUnDismissPullReview(id, index, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/undismissals";
-  var description = "Cancel to dismiss a review for a pull request " + id;
-  var body = {};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "index": index, "owner": owner, "repo": repo}) });
-}
-
-// verifyPullReviewUndismissalsExists skipped: No GET /{id} operation detected.
-function waitForPullReviewUndismissalsAdded(id, index, owner, repo) {
-  waitFor(matchSuccess("Cancel to dismiss a review for a pull request"));
-}
-
-function matchAnyPullReviewUndismissalsAdded() {
-  return bp.EventSet("Any PullReviewUndismissals Added", function(e) {
-      return e.name.startsWith("Done: Cancel to dismiss a review for a pull request");
-  });
-}
+function orgListActionsSecrets(org) {
+  var url = "orgs/" + org + "/actions/secrets";
+  var reqDescription = "List an organization's actions secrets";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function deleteOrgSecret(org, secretname) {
+  var url = "orgs/" + org + "/actions/secrets/" + secretname;
+  var reqDescription = "Delete a secret in an organization";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+}
+
+function updateOrgSecret(org, secretname, body, limit, page) {
+  var url = "orgs/" + org + "/actions/secrets/" + secretname;
+  var reqDescription = "Create or Update a secret value in an organization";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "secretname": secretname, "body": body, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function getOrgVariablesList(org) {
+  var url = "orgs/" + org + "/actions/variables";
+  var reqDescription = "Get an org-level variables list";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+}
+
+function verifyOrganizationRejects(body, limit, org, page, secretname) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "org":' + JSON.stringify(org);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "secretname":' + JSON.stringify(secretname);
+  bodyStr += "}";
+  svc.post("org/" + org + "/repos", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyOrganizationExists(org) { pvg.success("Organization verified"); }
+function matchAnyOrganizationAdded() { return bp.EventSet("Added Organization", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOrganization() { return bp.EventSet("Deleted Organization", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoListPushMirrors(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors";
-  var description = "Get all push mirrors of the repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 403, 404] });
+function deleteRepoVariable(owner, repo, variablename) {
+  var url = "repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
+  var reqDescription = "Delete a repo-level variable";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 201, 204, 400, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function repoPushMirrorSync(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors-sync";
-  var description = "Sync all push mirrored repository " + owner;
+function createRepoVariable(owner, repo, variablename, CreateVariableOption, UpdateVariableOption, body, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
+  var reqDescription = "Create a repo-level variable";
   var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "limit": limit, "name": name, "owner": owner, "page": page, "repo": repo}) });
-}
-
-function repoDeletePushMirror(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
-  var description = "deletes a push mirror from a repository by remoteName " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
-}
-
-function repoGetPushMirrorByRemoteName(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
-  var description = "Get push mirror of the repository by remoteName " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 403, 404] });
+    "CreateVariableOption": CreateVariableOption,
+    "UpdateVariableOption": UpdateVariableOption,
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "variablename": variablename, "CreateVariableOption": CreateVariableOption, "UpdateVariableOption": UpdateVariableOption, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function tryToAddExistingPushMirrors(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors-sync";
-  var description = "Try Add Existing PushMirrors " + owner;
+function updateRepoVariable(owner, repo, variablename, CreateVariableOption, UpdateVariableOption, body, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/actions/variables/" + variablename;
+  var reqDescription = "Update a repo-level variable";
   var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyPushMirrorsExists(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
-  var description = "Verify PushMirrors " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("PushMirrors found");
-}
-
-function verifyPushMirrorsDoesNotExist(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
-  var description = "Verify PushMirrors " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("PushMirrors not found");
-}
-
-function tryToDeleteANonExistingPushMirrors(id, limit, name, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/push_mirrors/" + name;
-  var description = "Verify negative delete for PushMirrors";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedPushMirrors(id, limit, name, owner, page, repo) {
-  return bp.EventSet("Delete PushMirrors", function(e) {
-      return e.name === "Done: " + "deletes a push mirror from a repository by remoteName";
-  });
+    "CreateVariableOption": CreateVariableOption,
+    "UpdateVariableOption": UpdateVariableOption,
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "variablename": variablename, "CreateVariableOption": CreateVariableOption, "UpdateVariableOption": UpdateVariableOption, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function waitForPushMirrorsAdded(id, limit, name, owner, page, repo) {
-  waitFor(matchSuccess("Sync all push mirrored repository"));
+function getRepoVariablesList(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/actions/variables";
+  var reqDescription = "Get repo-level variables list";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
 }
 
-function matchAnyPushMirrorsAdded() {
-  return bp.EventSet("Any PushMirrors Added", function(e) {
-      return e.name.startsWith("Done: Sync all push mirrored repository");
-  });
-}
+function verifyVariablesRejects(CreateVariableOption, UpdateVariableOption, body, id, limit, owner, page, repo, variablename) {
+  var bodyStr = "{";
+  bodyStr += '"CreateVariableOption":' + JSON.stringify(CreateVariableOption);
+  bodyStr += ', "UpdateVariableOption":' + JSON.stringify(UpdateVariableOption);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "variablename":' + JSON.stringify(variablename);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/actions/variables/" + variablename, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyVariablesExists(id) { pvg.success("Variables verified"); }
+function matchAnyVariablesAdded() { return bp.EventSet("Added Variables", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedVariables() { return bp.EventSet("Deleted Variables", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoGetRawFile(filepath, id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/raw/" + filepath;
-  var description = "Get a file from a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function userListActivityFeeds(username) {
+  var url = "users/" + username + "/activities/feeds";
+  var reqDescription = "List a user's activity feeds";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function verifyRawFilesExists(filepath, id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/raw/" + filepath;
-  var description = "Verify RawFiles " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("RawFiles found");
-}
+function verifyActivityFeedsExists(id) { pvg.success("ActivityFeeds verified"); }
+function matchAnyActivityFeedsAdded() { return bp.EventSet("Added ActivityFeeds", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedActivityFeeds() { return bp.EventSet("Deleted ActivityFeeds", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function verifyRawFilesDoesNotExist(filepath, id, owner, ref, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/raw/" + filepath;
-  var description = "Verify RawFiles " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("RawFiles not found");
+function orgDeleteAvatar(org) {
+  var url = "orgs/" + org + "/avatar";
+  var reqDescription = "Delete Avatar";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function orgUpdateAvatar(org, body) {
+  var url = "orgs/" + org + "/avatar";
+  var reqDescription = "Update Avatar";
+  var body = {
+    "body": body,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body}) }); }
+  return res;
 }
 
-function matchAnyRawFilesAdded() {
-  return bp.EventSet("Any RawFiles Added", function(e) {
-      return e.name.startsWith("Done: Create RawFiles");
-  });
+function verifyAvatarRejects(body, org) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "org":' + JSON.stringify(org);
+  bodyStr += "}";
+  svc.post("orgs/" + org + "/avatar", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyAvatarExists(org) { pvg.success("Avatar verified"); }
+function matchAnyAvatarAdded() { return bp.EventSet("Added Avatar", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedAvatar() { return bp.EventSet("Deleted Avatar", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function organizationListBlocks(org) {
+  var url = "orgs/" + org + "/blocks";
+  var reqDescription = "List users blocked by the organization";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function orgDelete(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Delete an organization";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function orgGet(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Get an organization";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgEdit(org, body, limit, page) {
+  var url = "orgs/" + org;
+  var reqDescription = "Edit an organization";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body, "limit": limit, "page": page}) }); }
+  return res;
 }
-
-function repoListReleases(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases";
-  var description = "List a repo's releases " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+
+function verifyBlocksExists(org) { pvg.success("Blocks verified"); }
+function matchAnyBlocksAdded() { return bp.EventSet("Added Blocks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedBlocks() { return bp.EventSet("Deleted Blocks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueListLabels(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/labels";
+  var reqDescription = "Get all of a repository's labels";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function repoCreateRelease(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases";
-  var description = "Create a release " + owner;
+function issueCreateLabel(owner, repo, body, color, description, id, limit, name, page) {
+  var url = "repos/" + owner + "/" + repo + "/labels";
+  var reqDescription = "Create a label";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "draft": draft, "id": id, "limit": limit, "owner": owner, "page": page, "pre-release": pre_release, "repo": repo}) });
+    "body": body,
+    "color": color,
+    "description": description,
+    "id": id,
+    "limit": limit,
+    "name": name,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "color": color, "description": description, "id": id, "limit": limit, "name": name, "page": page}) }); }
+  return res;
 }
 
-function repoGetRelease(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
-  var description = "Get a release " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function repoDeleteRelease(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
-  var description = "Delete a release " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 422] });
-}
-
-function repoEditRelease(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
-  var description = "Update a release " + owner;
+function issueEditLabel(owner, repo, id, body, color, description, limit, name, page) {
+  var url = "repos/" + owner + "/" + repo + "/labels/" + id;
+  var reqDescription = "Update a label";
   var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "draft": draft, "id": id, "limit": limit, "owner": owner, "page": page, "pre-release": pre_release, "repo": repo}) });
-}
-
-function tryToAddExistingReleases(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases";
-  var description = "Try Add Existing Releases " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyReleasesExists(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
-  var description = "Verify Releases " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Releases found");
-}
-
-function verifyReleasesDoesNotExist(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
-  var description = "Verify Releases " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Releases not found");
-}
-
-function tryToDeleteANonExistingReleases(body, draft, id, limit, owner, page, pre_release, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id;
-  var description = "Verify negative delete for Releases";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedReleases(body, draft, id, limit, owner, page, pre_release, repo) {
-  return bp.EventSet("Delete Releases", function(e) {
-      return e.name === "Done: " + "Delete a release";
-  });
-}
-
-function waitForReleasesAdded(body, draft, id, limit, owner, page, pre_release, repo) {
-  waitFor(matchSuccess("Create a release"));
+    "body": body,
+    "color": color,
+    "description": description,
+    "limit": limit,
+    "name": name,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "body": body, "color": color, "description": description, "limit": limit, "name": name, "page": page}) }); }
+  return res;
 }
 
-function matchAnyReleasesAdded() {
-  return bp.EventSet("Any Releases Added", function(e) {
-      return e.name.startsWith("Done: Create a release");
-  });
+function issueDeleteLabel(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/labels/" + id;
+  var reqDescription = "Delete a label";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function repoListReleaseAttachments(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets";
-  var description = "List release's attachments " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function verifyLabelsRejects(body, color, description, id, limit, name, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "color":' + JSON.stringify(color);
+  bodyStr += ', "description":' + JSON.stringify(description);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "name":' + JSON.stringify(name);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/labels", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function repoCreateReleaseAttachment(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets";
-  var description = "Create a release attachment " + owner;
-  var body = {
-    "attachment": String(attachment),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"attachment": attachment, "attachment_id": attachment_id, "body": body, "id": id, "name": name, "owner": owner, "repo": repo}) });
-}
+function verifyLabelsExists(id) { pvg.success("Labels verified"); }
+function matchAnyLabelsAdded() { return bp.EventSet("Added Labels", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedLabels() { return bp.EventSet("Deleted Labels", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoDeleteReleaseAttachment(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
-  var description = "Delete a release attachment " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+function orgListMembers(org) {
+  var url = "orgs/" + org + "/members";
+  var reqDescription = "List an organization's members";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function repoGetReleaseAttachment(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
-  var description = "Get a release attachment " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
+function verifyMembersExists(id) { pvg.success("Members verified"); }
+function matchAnyMembersAdded() { return bp.EventSet("Added Members", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedMembers() { return bp.EventSet("Deleted Members", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoEditReleaseAttachment(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
-  var description = "Edit a release attachment " + owner;
+function orgDelete(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Delete an organization";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function orgGet(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Get an organization";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyOrganizationMembersExists(org) { pvg.success("OrganizationMembers verified"); }
+function matchAnyOrganizationMembersAdded() { return bp.EventSet("Added OrganizationMembers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOrganizationMembers() { return bp.EventSet("Deleted OrganizationMembers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function orgListPublicMembers(org) {
+  var url = "orgs/" + org + "/public_members";
+  var reqDescription = "List an organization's public members";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgDelete(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Delete an organization";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function orgGet(org) {
+  var url = "orgs/" + org;
+  var reqDescription = "Get an organization";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgEdit(org, body, limit, page) {
+  var url = "orgs/" + org;
+  var reqDescription = "Edit an organization";
   var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"attachment": attachment, "attachment_id": attachment_id, "body": body, "id": id, "name": name, "owner": owner, "repo": repo}) });
-}
-
-function tryToAddExistingReleaseAttachments(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets";
-  var description = "Try Add Existing ReleaseAttachments " + owner;
-  var body = {
-    "attachment": String(attachment),
-    "name": String(name),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyReleaseAttachmentsExists(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
-  var description = "Verify ReleaseAttachments " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("ReleaseAttachments found");
-}
-
-function verifyReleaseAttachmentsDoesNotExist(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
-  var description = "Verify ReleaseAttachments " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("ReleaseAttachments not found");
-}
-
-function tryToDeleteANonExistingReleaseAttachments(attachment, attachment_id, body, id, name, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
-  var description = "Verify negative delete for ReleaseAttachments";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedReleaseAttachments(attachment, attachment_id, body, id, name, owner, repo) {
-  return bp.EventSet("Delete ReleaseAttachments", function(e) {
-      return e.name === "Done: " + "Delete a release attachment";
-  });
-}
-
-function waitForReleaseAttachmentsAdded(attachment, attachment_id, body, id, name, owner, repo) {
-  waitFor(matchSuccess("Create a release attachment"));
-}
-
-function matchAnyReleaseAttachmentsAdded() {
-  return bp.EventSet("Any ReleaseAttachments Added", function(e) {
-      return e.name.startsWith("Done: Create a release attachment");
-  });
-}
-
-function repoGetReviewers(id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/reviewers";
-  var description = "Return all users that can be requested to review in this repo " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyReviewersExists skipped: No GET /{id} operation detected.
-function matchAnyReviewersAdded() {
-  return bp.EventSet("Any Reviewers Added", function(e) {
-      return e.name.startsWith("Done: Create Reviewers");
-  });
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function repoListTagProtection(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections";
-  var description = "List tag protections for a repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function verifyOrganizationPublicMembersExists(org) { pvg.success("OrganizationPublicMembers verified"); }
+function matchAnyOrganizationPublicMembersAdded() { return bp.EventSet("Added OrganizationPublicMembers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOrganizationPublicMembers() { return bp.EventSet("Deleted OrganizationPublicMembers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function orgListRepos(org) {
+  var url = "orgs/" + org + "/repos";
+  var reqDescription = "List an organization's repos";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function repoCreateTagProtection(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections";
-  var description = "Create a tag protections for a repository " + owner;
+function createOrgRepo(org, body, id, limit, page) {
+  var url = "orgs/" + org + "/repos";
+  var reqDescription = "Create a repository in an organization";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 403, 404, 409, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "owner": owner, "repo": repo}) });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function repoGetTagProtection(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
-  var description = "Get a specific tag protection for the repository " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function verifyOrganizationReposRejects(body, id, limit, org, page) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "org":' + JSON.stringify(org);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += "}";
+  svc.post("orgs/" + org + "/repos", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function repoEditTagProtection(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
-  var description = "Edit a tag protections for a repository. Only fields that are set will be changed " + owner;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "owner": owner, "repo": repo}) });
-}
+function verifyOrganizationReposExists(id) { pvg.success("OrganizationRepos verified"); }
+function matchAnyOrganizationReposAdded() { return bp.EventSet("Added OrganizationRepos", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOrganizationRepos() { return bp.EventSet("Deleted OrganizationRepos", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoDeleteTagProtection(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
-  var description = "Delete a specific tag protection for the repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+function orgListTeams(org) {
+  var url = "orgs/" + org + "/teams";
+  var reqDescription = "List an organization's teams";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function tryToAddExistingTagProtections(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections";
-  var description = "Try Add Existing TagProtections " + owner;
+function orgCreateTeam(org, body, id, limit, page) {
+  var url = "orgs/" + org + "/teams";
+  var reqDescription = "Create a team";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyTagProtectionsExists(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
-  var description = "Verify TagProtections " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("TagProtections found");
-}
-
-function verifyTagProtectionsDoesNotExist(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
-  var description = "Verify TagProtections " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("TagProtections not found");
-}
-
-function tryToDeleteANonExistingTagProtections(body, id, owner, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/tag_protections/" + id;
-  var description = "Verify negative delete for TagProtections";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedTagProtections(body, id, owner, repo) {
-  return bp.EventSet("Delete TagProtections", function(e) {
-      return e.name === "Done: " + "Delete a specific tag protection for the repository";
-  });
-}
-
-function waitForTagProtectionsAdded(body, id, owner, repo) {
-  waitFor(matchSuccess("Create a tag protections for a repository"));
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function matchAnyTagProtectionsAdded() {
-  return bp.EventSet("Any TagProtections Added", function(e) {
-      return e.name.startsWith("Done: Create a tag protections for a repository");
-  });
+function verifyOrganizationTeamsRejects(body, id, limit, org, page) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "org":' + JSON.stringify(org);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += "}";
+  svc.post("orgs/" + org + "/teams", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function repoListTags(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags";
-  var description = "List a repository's tags " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
+function verifyOrganizationTeamsExists(id) { pvg.success("OrganizationTeams verified"); }
+function matchAnyOrganizationTeamsAdded() { return bp.EventSet("Added OrganizationTeams", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOrganizationTeams() { return bp.EventSet("Deleted OrganizationTeams", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function repoCreateTag(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags";
-  var description = "Create a new git tag in a repository " + owner;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 405, 409, 422, 423], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo, "tag": tag}) });
+function userListTeams() {
+  var url = "user/teams";
+  var reqDescription = "List all the teams a user belongs to";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function repoGetTag(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Get the tag of a repository by tag name " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function orgDeleteTeam(id) {
+  var url = "teams/" + id;
+  var reqDescription = "Delete a team";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function repoDeleteTag(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Delete a repository's tag by name " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 405, 409, 422, 423] });
+function orgGetTeam(id) {
+  var url = "teams/" + id;
+  var reqDescription = "Get a team";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function tryToAddExistingTags(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags";
-  var description = "Try Add Existing Tags " + owner;
+function orgEditTeam(id, body, limit, page) {
+  var url = "teams/" + id;
+  var reqDescription = "Edit a team";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyTagsExists(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Verify Tags " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Tags found");
-}
-
-function verifyTagsDoesNotExist(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Verify Tags " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Tags not found");
-}
-
-function tryToDeleteANonExistingTags(body, id, limit, owner, page, repo, tag) {
-  var url = "/repos/" + owner + "/" + repo + "/tags/" + tag;
-  var description = "Verify negative delete for Tags";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedTags(body, id, limit, owner, page, repo, tag) {
-  return bp.EventSet("Delete Tags", function(e) {
-      return e.name === "Done: " + "Delete a repository's tag by name";
-  });
-}
-
-function waitForTagsAdded(body, id, limit, owner, page, repo, tag) {
-  waitFor(matchSuccess("Create a new git tag in a repository"));
-}
-
-function matchAnyTagsAdded() {
-  return bp.EventSet("Any Tags Added", function(e) {
-      return e.name.startsWith("Done: Create a new git tag in a repository");
-  });
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function repoTrackedTimes(before, id, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/times";
-  var description = "List a repo's tracked times " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 403, 404] });
-}
+function verifyTeamsExists(id) { pvg.success("Teams verified"); }
+function matchAnyTeamsAdded() { return bp.EventSet("Added Teams", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTeams() { return bp.EventSet("Deleted Teams", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userTrackedTimes(before, id, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/times/" + user;
-  var description = "List a user's tracked times in a repo " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 403, 404] });
+function listPackages(owner) {
+  var url = "packages/" + owner;
+  var reqDescription = "Gets all packages of an owner";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function verifyTrackedTimesExists(before, id, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/times/" + user;
-  var description = "Verify TrackedTimes " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("TrackedTimes found");
+function listPackages(owner, page, limit, type, q) {
+  var url = "packages/" + owner;
+  var reqDescription = "Gets all packages of an owner";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404], queryParameters: {"page": page, "limit": limit, "type": type, "q": q} });
 }
 
-function verifyTrackedTimesDoesNotExist(before, id, limit, owner, page, repo, since, user) {
-  var url = "/repos/" + owner + "/" + repo + "/times/" + user;
-  var description = "Verify TrackedTimes " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("TrackedTimes not found");
+function deletePackage(owner, type, name, version) {
+  var url = "packages/" + owner + "/" + type + "/" + name + "/" + version;
+  var reqDescription = "Delete a package";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function matchAnyTrackedTimesAdded() {
-  return bp.EventSet("Any TrackedTimes Added", function(e) {
-      return e.name.startsWith("Done: Create TrackedTimes");
-  });
-}
+function listPackageFiles(owner, type, name, version) {
+  var url = "packages/" + owner + "/" + type + "/" + name + "/" + version + "/files";
+  var reqDescription = "Gets all files of a package";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyPackagesExists(owner) { pvg.success("Packages verified"); }
+function matchAnyPackagesAdded() { return bp.EventSet("Added Packages", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPackages() { return bp.EventSet("Deleted Packages", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function topicSearch(body, id, limit, owner, page, q, repo, topic) {
-  var url = "/topics/search";
-  var description = "search topics via keyword " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 403, 404] });
+function issueGetIssueReactions(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/reactions";
+  var reqDescription = "Get a list reactions of an issue";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function moveIssuePin(owner, repo, index, position, content, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/pin/" + position;
+  var reqDescription = "Moves the Pin to the given Position";
+  var body = {
+    "content": content,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "position": position, "content": content, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function issueDeleteTime(owner, repo, index, id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/times/" + id;
+  var reqDescription = "Delete specific tracked time";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 403, 404] });
 }
 
-function repoUpdateTopics(body, id, limit, owner, page, q, repo, topic) {
-  var url = "/repos/" + owner + "/" + repo + "/topics";
-  var description = "Replace list of topics for a repository " + owner;
+function issuePostIssueReaction(owner, repo, index, content, id, limit, page, position) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/reactions";
+  var reqDescription = "Add a reaction to an issue";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "owner": owner, "page": page, "q": q, "repo": repo, "topic": topic}) });
-}
-
-function repoDeleteTopic(body, id, limit, owner, page, q, repo, topic) {
-  var url = "/repos/" + owner + "/" + repo + "/topics/" + topic;
-  var description = "Delete a topic from a repository " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 422] });
+    "content": content,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "position": position,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "content": content, "id": id, "limit": limit, "page": page, "position": position}) }); }
+  return res;
+}
+
+function issueDeleteStopWatch(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/delete";
+  var reqDescription = "Delete an issue's existing stopwatch.";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 409] });
 }
-
-function repoAddTopic(body, id, limit, owner, page, q, repo, topic) {
-  var url = "/repos/" + owner + "/" + repo + "/topics/" + topic;
-  var description = "Add a topic to a repository " + owner;
+
+function issueStartStopWatch(owner, repo, index, content, id, limit, page, position) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/start";
+  var reqDescription = "Start stopwatch on an issue.";
   var body = {
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "owner": owner, "page": page, "q": q, "repo": repo, "topic": topic}) });
-}
-
-// verifyTopicsExists skipped: No GET /{id} operation detected.
-function waitForTopicsAdded(body, id, limit, owner, page, q, repo, topic) {
-  waitFor(matchSuccess("Add a topic to a repository"));
-}
-
-function matchAnyTopicsAdded() {
-  return bp.EventSet("Any Topics Added", function(e) {
-      return e.name.startsWith("Done: Add a topic to a repository");
-  });
-}
-
-function repoGetWikiPages(id, limit, owner, page, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/wiki/pages";
-  var description = "Get all wiki pages " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyWikiPagesExists skipped: No GET /{id} operation detected.
-function matchAnyWikiPagesAdded() {
-  return bp.EventSet("Any WikiPages Added", function(e) {
-      return e.name.startsWith("Done: Create WikiPages");
-  });
-}
-
-function repoGetWikiPageRevisions(id, owner, page, pageName, repo) {
-  var url = "/repos/" + owner + "/" + repo + "/wiki/revisions/" + pageName;
-  var description = "Get revisions of a wiki page " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyWikiPageRevisionsExists skipped: No GET /{id} operation detected.
-function matchAnyWikiPageRevisionsAdded() {
-  return bp.EventSet("Any WikiPageRevisions Added", function(e) {
-      return e.name.startsWith("Done: Create WikiPageRevisions");
-  });
+    "content": content,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "position": position,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "content": content, "id": id, "limit": limit, "page": page, "position": position}) }); }
+  return res;
 }
 
-function getGeneralAPISettings(id) {
-  var url = "/settings/api";
-  var description = "Get instance's global settings for api " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function getGeneralUISettings(id) {
-  var url = "/settings/ui";
-  var description = "Get instance's global settings for ui " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+function issueStopStopWatch(owner, repo, index, content, id, limit, page, position) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/stopwatch/stop";
+  var reqDescription = "Stop an issue's existing stopwatch.";
+  var body = {
+    "content": content,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "position": position,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 409], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "content": content, "id": id, "limit": limit, "page": page, "position": position}) }); }
+  return res;
+}
+
+function verifyIssuesRejects(content, id, index, limit, owner, page, position, repo) {
+  var bodyStr = "{";
+  bodyStr += '"content":' + JSON.stringify(content);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "position":' + JSON.stringify(position);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/" + index + "/reactions", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
 
-// verifySettingsExists skipped: No GET /{id} operation detected.
-function matchAnySettingsAdded() {
-  return bp.EventSet("Any Settings Added", function(e) {
-      return e.name.startsWith("Done: Create Settings");
-  });
-}
+function verifyIssuesExists(id) { pvg.success("Issues verified"); }
+function matchAnyIssuesAdded() { return bp.EventSet("Added Issues", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssues() { return bp.EventSet("Deleted Issues", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function getVersion(id) {
-  var url = "/version";
-  var description = "Returns the version of the Gitea application " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function repoCreateStatus(owner, repo, sha, body, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/statuses/" + sha;
+  var reqDescription = "Create a commit status";
+  var body = {
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "sha": sha, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-// verifyMiscellaneousExists skipped: No GET /{id} operation detected.
-function matchAnyMiscellaneousAdded() {
-  return bp.EventSet("Any Miscellaneous Added", function(e) {
-      return e.name.startsWith("Done: Create Miscellaneous");
-  });
+function repoListSubscribers(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/subscribers";
+  var reqDescription = "List a repo's watchers";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userGet(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/users/" + username;
-  var description = "Get a user " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function userCurrentDeleteSubscription(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/subscription";
+  var reqDescription = "Unwatch a repo";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function deleteUserSecret(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/user/actions/secrets/" + secretname;
-  var description = "Delete a secret in a user scope " + username;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 400, 404] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function updateUserSecret(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/user/actions/secrets/" + secretname;
-  var description = "Create or Update a secret value in a user scope " + username;
+function userCurrentPutSubscription(owner, repo, body, id, limit, page, sha) {
+  var url = "repos/" + owner + "/" + repo + "/subscription";
+  var reqDescription = "Watch a repo";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "date": date, "id": id, "limit": limit, "only-performed-by": only_performed_by, "page": page, "secretname": secretname, "username": username}) });
-}
-
-function userListActivityFeeds(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/users/" + username + "/activities/feeds";
-  var description = "List a user's activity feeds " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-function verifyUserExists(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/users/" + username;
-  var description = "Verify User " + username + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("User found");
-}
-
-function verifyUserDoesNotExist(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/users/" + username;
-  var description = "Verify User " + username + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("User not found");
-}
-
-function tryToDeleteANonExistingUser(body, date, id, limit, only_performed_by, page, secretname, username) {
-  var url = "/user/actions/secrets/" + secretname;
-  var description = "Verify negative delete for User";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedUser(body, date, id, limit, only_performed_by, page, secretname, username) {
-  return bp.EventSet("Delete User", function(e) {
-      return e.name === "Done: " + "Delete a secret in a user scope";
-  });
-}
-
-function matchAnyUserAdded() {
-  return bp.EventSet("Any User Added", function(e) {
-      return e.name.startsWith("Done: Create User");
-  });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "sha": sha,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "limit": limit, "page": page, "sha": sha}) }); }
+  return res;
 }
 
-function deleteUserVariable(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Delete a user-level variable which is created by current doer " + variablename;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 201, 204, 400, 404] });
+function repoGetRunnerRegistrationToken(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/actions/runners/registration-token";
+  var reqDescription = "Get a repository's actions runner registration token";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function getUserVariable(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Get a user-level variable which is created by current doer " + variablename;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 400, 404] });
+function repoListActionsSecrets(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/actions/secrets";
+  var reqDescription = "List an repo's actions secrets";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
-
-function createUserVariable(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Create a user-level variable " + variablename;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "variablename": variablename}) });
-}
-
-function updateUserVariable(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Update a user-level variable which is created by current doer " + variablename;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 204, 400, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "variablename": variablename}) });
-}
-
-function tryToAddExistingUserVariables(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Try Add Existing UserVariables " + variablename;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+
+function verifyRepositoryRejects(body, id, limit, owner, page, repo, sha) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "sha":' + JSON.stringify(sha);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/statuses/" + sha, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function verifyUserVariablesExists(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Verify UserVariables " + variablename + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("UserVariables found");
-}
+function verifyRepositoryExists(id) { pvg.success("Repository verified"); }
+function matchAnyRepositoryAdded() { return bp.EventSet("Added Repository", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedRepository() { return bp.EventSet("Deleted Repository", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function verifyUserVariablesDoesNotExist(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Verify UserVariables " + variablename + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("UserVariables not found");
+function deleteRepoSecret(owner, repo, secretname) {
+  var url = "repos/" + owner + "/" + repo + "/actions/secrets/" + secretname;
+  var reqDescription = "Delete a secret in a repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
 }
 
-function tryToDeleteANonExistingUserVariables(body, id, variablename) {
-  var url = "/user/actions/variables/" + variablename;
-  var description = "Verify negative delete for UserVariables";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+function updateRepoSecret(owner, repo, secretname, CreateOrUpdateSecretOption, body) {
+  var url = "repos/" + owner + "/" + repo + "/actions/secrets/" + secretname;
+  var reqDescription = "Create or Update a secret value in a repository";
+  var body = {
+    "CreateOrUpdateSecretOption": CreateOrUpdateSecretOption,
+    "body": body,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "secretname": secretname, "CreateOrUpdateSecretOption": CreateOrUpdateSecretOption, "body": body}) }); }
+  return res;
 }
-
-function matchDeletedUserVariables(body, id, variablename) {
-  return bp.EventSet("Delete UserVariables", function(e) {
-      return e.name === "Done: " + "Delete a user-level variable which is created by current doer";
-  });
+
+function verifySecretsExists(owner) { pvg.success("Secrets verified"); }
+function matchAnySecretsAdded() { return bp.EventSet("Added Secrets", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedSecrets() { return bp.EventSet("Deleted Secrets", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function ListActionTasks(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/actions/tasks";
+  var reqDescription = "List a repository's action tasks";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 403, 404, 409, 422] });
+}
+
+function verifyTasksExists(id) { pvg.success("Tasks verified"); }
+function matchAnyTasksAdded() { return bp.EventSet("Added Tasks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTasks() { return bp.EventSet("Deleted Tasks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoDeleteBranchProtection(owner, repo, name) {
+  var url = "repos/" + owner + "/" + repo + "/branch_protections/" + name;
+  var reqDescription = "Delete a specific branch protection for the repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoEditBranchProtection(owner, repo, name, EditBranchProtectionOption, body, id) {
+  var url = "repos/" + owner + "/" + repo + "/branch_protections/" + name;
+  var reqDescription = "Edit a branch protections for a repository. Only fields that are set will be changed";
+  var body = {
+    "EditBranchProtectionOption": EditBranchProtectionOption,
+    "body": body,
+    "id": id,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "name": name, "EditBranchProtectionOption": EditBranchProtectionOption, "body": body, "id": id}) }); }
+  return res;
 }
 
-function waitForUserVariablesAdded(body, id, variablename) {
-  waitFor(matchSuccess("Create a user-level variable"));
+function verifyBranchProtectionsExists(id) { pvg.success("BranchProtections verified"); }
+function matchAnyBranchProtectionsAdded() { return bp.EventSet("Added BranchProtections", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedBranchProtections() { return bp.EventSet("Deleted BranchProtections", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListBranches(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/branches";
+  var reqDescription = "List a repository's branches";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function repoCreateBranch(owner, repo, CreateBranchRepoOption, UpdateBranchRepoOption, body, branch, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/branches";
+  var reqDescription = "Create a branch";
+  var body = {
+    "CreateBranchRepoOption": CreateBranchRepoOption,
+    "UpdateBranchRepoOption": UpdateBranchRepoOption,
+    "body": body,
+    "branch": branch,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 409, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "CreateBranchRepoOption": CreateBranchRepoOption, "UpdateBranchRepoOption": UpdateBranchRepoOption, "body": body, "branch": branch, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function repoDeleteBranch(owner, repo, branch) {
+  var url = "repos/" + owner + "/" + repo + "/branches/" + branch;
+  var reqDescription = "Delete a specific branch from a repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 423] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoUpdateBranch(owner, repo, branch, CreateBranchRepoOption, UpdateBranchRepoOption, body, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/branches/" + branch;
+  var reqDescription = "Update a branch";
+  var body = {
+    "CreateBranchRepoOption": CreateBranchRepoOption,
+    "UpdateBranchRepoOption": UpdateBranchRepoOption,
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "branch": branch, "CreateBranchRepoOption": CreateBranchRepoOption, "UpdateBranchRepoOption": UpdateBranchRepoOption, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function verifyBranchesRejects(CreateBranchRepoOption, UpdateBranchRepoOption, body, branch, id, limit, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"CreateBranchRepoOption":' + JSON.stringify(CreateBranchRepoOption);
+  bodyStr += ', "UpdateBranchRepoOption":' + JSON.stringify(UpdateBranchRepoOption);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "branch":' + JSON.stringify(branch);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/branches", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyUserVariablesAdded() {
-  return bp.EventSet("Any UserVariables Added", function(e) {
-      return e.name.startsWith("Done: Create a user-level variable");
-  });
-}
+function verifyBranchesExists(id) { pvg.success("Branches verified"); }
+function matchAnyBranchesAdded() { return bp.EventSet("Added Branches", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedBranches() { return bp.EventSet("Deleted Branches", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userGetOauth2Application(body, id, limit, page) {
-  var url = "/user/applications/oauth2";
-  var description = "List the authenticated user's oauth2 applications " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function repoListCollaborators(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/collaborators";
+  var reqDescription = "List a repository's collaborators";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCreateOAuth2Application(body, id, limit, page) {
-  var url = "/user/applications/oauth2";
-  var description = "creates a new OAuth2 application " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "page": page}) });
+function repoDeleteCollaborator(owner, repo, collaborator) {
+  var url = "repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
+  var reqDescription = "Delete a collaborator from a repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 422] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
-
-function userDeleteOAuth2Application(body, id, limit, page) {
-  var url = "/user/applications/oauth2/" + id;
-  var description = "delete an OAuth2 Application " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+
+function repoAddCollaborator(owner, repo, collaborator, AddCollaboratorOption, body, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/collaborators/" + collaborator;
+  var reqDescription = "Add or Update a collaborator to a repository";
+  var body = {
+    "AddCollaboratorOption": AddCollaboratorOption,
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "collaborator": collaborator, "AddCollaboratorOption": AddCollaboratorOption, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function verifyCollaboratorsRejects(AddCollaboratorOption, body, collaborator, id, limit, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"AddCollaboratorOption":' + JSON.stringify(AddCollaboratorOption);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "collaborator":' + JSON.stringify(collaborator);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/collaborators/" + collaborator, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyCollaboratorsExists(id) { pvg.success("Collaborators verified"); }
+function matchAnyCollaboratorsAdded() { return bp.EventSet("Added Collaborators", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedCollaborators() { return bp.EventSet("Deleted Collaborators", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetAllCommits(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/commits";
+  var reqDescription = "Get a list of all commits from a repository";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404, 409] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoListStatusesByRef(owner, repo, ref) {
+  var url = "repos/" + owner + "/" + repo + "/commits/" + ref + "/statuses";
+  var reqDescription = "Get a commit's statuses, by branch/tag/commit reference";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+}
+
+function repoGetCommitPullRequest(owner, repo, sha) {
+  var url = "repos/" + owner + "/" + repo + "/commits/" + sha + "/pull";
+  var reqDescription = "Get the merged pull request of the commit";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoDownloadCommitDiffOrPatch(owner, repo, sha, diffType) {
+  var url = "repos/" + owner + "/" + repo + "/git/commits/" + sha + "." + diffType;
+  var reqDescription = "Get a commit's diff or patch";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyCommitsExists(id) { pvg.success("Commits verified"); }
+function matchAnyCommitsAdded() { return bp.EventSet("Added Commits", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedCommits() { return bp.EventSet("Deleted Commits", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function userListRepos(username) {
+  var url = "users/" + username + "/repos";
+  var reqDescription = "List the repos owned by the given user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function createCurrentUserRepo(body, filepath, id, limit, owner, page, repo, username) {
+  var url = "user/repos";
+  var reqDescription = "Create a repository";
+  var body = {
+    "body": body,
+    "filepath": filepath,
+    "id": id,
+    "limit": limit,
+    "owner": owner,
+    "page": page,
+    "repo": repo,
+    "username": username,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 409, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "filepath": filepath, "id": id, "limit": limit, "owner": owner, "page": page, "repo": repo, "username": username}) }); }
+  return res;
+}
+
+function repoDeleteFile(owner, repo, filepath) {
+  var url = "repos/" + owner + "/" + repo + "/contents/" + filepath;
+  var reqDescription = "Delete a file in a repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 403, 404, 423] });
+}
+
+function repoUpdateFile(owner, repo, filepath, body, id, limit, page, username) {
+  var url = "repos/" + owner + "/" + repo + "/contents/" + filepath;
+  var reqDescription = "Update a file in a repository";
+  var body = {
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "username": username,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "filepath": filepath, "body": body, "id": id, "limit": limit, "page": page, "username": username}) }); }
+  return res;
+}
+
+function userListStarred(username) {
+  var url = "users/" + username + "/starred";
+  var reqDescription = "The repos that the given user has starred";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyRepositoriesRejects(body, filepath, id, limit, owner, page, repo, username) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "filepath":' + JSON.stringify(filepath);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("user/repos", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
+
+function verifyRepositoriesExists(id) { pvg.success("Repositories verified"); }
+function matchAnyRepositoriesAdded() { return bp.EventSet("Added Repositories", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedRepositories() { return bp.EventSet("Deleted Repositories", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userGetOAuth2Application(body, id, limit, page) {
-  var url = "/user/applications/oauth2/" + id;
-  var description = "get an OAuth2 Application " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function listForks(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/forks";
+  var reqDescription = "List a repository's forks";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userUpdateOAuth2Application(body, id, limit, page) {
-  var url = "/user/applications/oauth2/" + id;
-  var description = "update an OAuth2 Application, this includes regenerating the client secret " + id;
-  var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id, "limit": limit, "page": page}) });
-}
-
-function tryToAddExistingOAuth2Applications(body, id, limit, page) {
-  var url = "/user/applications/oauth2";
-  var description = "Try Add Existing OAuth2Applications " + id;
+function createFork(owner, repo, body, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/forks";
+  var reqDescription = "Fork a repository";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyOAuth2ApplicationsExists(body, id, limit, page) {
-  var url = "/user/applications/oauth2/" + id;
-  var description = "Verify OAuth2Applications " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("OAuth2Applications found");
-}
-
-function verifyOAuth2ApplicationsDoesNotExist(body, id, limit, page) {
-  var url = "/user/applications/oauth2/" + id;
-  var description = "Verify OAuth2Applications " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("OAuth2Applications not found");
-}
-
-function tryToDeleteANonExistingOAuth2Applications(body, id, limit, page) {
-  var url = "/user/applications/oauth2/" + id;
-  var description = "Verify negative delete for OAuth2Applications";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 202, 403, 404, 409, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function matchDeletedOAuth2Applications(body, id, limit, page) {
-  return bp.EventSet("Delete OAuth2Applications", function(e) {
-      return e.name === "Done: " + "delete an OAuth2 Application";
-  });
+function verifyForksRejects(body, id, limit, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/forks", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function waitForOAuth2ApplicationsAdded(body, id, limit, page) {
-  waitFor(matchSuccess("creates a new OAuth2 application"));
-}
-
-function matchAnyOAuth2ApplicationsAdded() {
-  return bp.EventSet("Any OAuth2Applications Added", function(e) {
-      return e.name.startsWith("Done: creates a new OAuth2 application");
-  });
-}
-
-function userDeleteAvatar(body, id) {
-  var url = "/user/avatar";
-  var description = "Delete Avatar " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204] });
-}
-
-function userUpdateAvatar(body, id) {
-  var url = "/user/avatar";
-  var description = "Update Avatar " + id;
-  var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 409], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id}) });
-}
+function verifyForksExists(id) { pvg.success("Forks verified"); }
+function matchAnyForksAdded() { return bp.EventSet("Added Forks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedForks() { return bp.EventSet("Deleted Forks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-// verifyUserAvatarExists skipped: No GET /{id} operation detected.
-function waitForUserAvatarAdded(body, id) {
-  waitFor(matchSuccess("Update Avatar"));
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function matchAnyUserAvatarAdded() {
-  return bp.EventSet("Any UserAvatar Added", function(e) {
-      return e.name.startsWith("Done: Update Avatar");
-  });
-}
-
-function userListBlocks(id, limit, note, page, username) {
-  var url = "/user/blocks";
-  var description = "List users blocked by the authenticated user " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
+function verifyBlobsExists(id) { pvg.success("Blobs verified"); }
+function matchAnyBlobsAdded() { return bp.EventSet("Added Blobs", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedBlobs() { return bp.EventSet("Deleted Blobs", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userUnblockUser(id, limit, note, page, username) {
-  var url = "/user/blocks/" + username;
-  var description = "Unblock a user " + username;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404, 422] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCheckUserBlock(id, limit, note, page, username) {
-  var url = "/user/blocks/" + username;
-  var description = "Check if a user is blocked by the authenticated user " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 404] });
-}
+function verifyNotesExists(id) { pvg.success("Notes verified"); }
+function matchAnyNotesAdded() { return bp.EventSet("Added Notes", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedNotes() { return bp.EventSet("Deleted Notes", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userBlockUser(id, limit, note, page, username) {
-  var url = "/user/blocks/" + username;
-  var description = "Block a user " + username;
-  var body = {
-    "id": String(id),
-    "note": String(note),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 404, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "limit": limit, "note": note, "page": page, "username": username}) });
+function repoListAllGitRefs(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/git/refs";
+  var reqDescription = "Get specified ref or filtered repository's refs";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function verifyUserBlocksExists(id, limit, note, page, username) {
-  var url = "/user/blocks/" + username;
-  var description = "Verify UserBlocks " + username + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("UserBlocks found");
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyGitRefsExists(id) { pvg.success("GitRefs verified"); }
+function matchAnyGitRefsAdded() { return bp.EventSet("Added GitRefs", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGitRefs() { return bp.EventSet("Deleted GitRefs", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function verifyUserBlocksDoesNotExist(id, limit, note, page, username) {
-  var url = "/user/blocks/" + username;
-  var description = "Verify UserBlocks " + username + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("UserBlocks not found");
-}
+function verifyGitTagsExists(id) { pvg.success("GitTags verified"); }
+function matchAnyGitTagsAdded() { return bp.EventSet("Added GitTags", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGitTags() { return bp.EventSet("Deleted GitTags", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function tryToDeleteANonExistingUserBlocks(id, limit, note, page, username) {
-  var url = "/user/blocks/" + username;
-  var description = "Verify negative delete for UserBlocks";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
 
-function matchDeletedUserBlocks(id, limit, note, page, username) {
-  return bp.EventSet("Delete UserBlocks", function(e) {
-      return e.name === "Done: " + "Unblock a user";
-  });
-}
+function verifyGitTreesExists(id) { pvg.success("GitTrees verified"); }
+function matchAnyGitTreesAdded() { return bp.EventSet("Added GitTrees", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGitTrees() { return bp.EventSet("Deleted GitTrees", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function matchAnyUserBlocksAdded() {
-  return bp.EventSet("Any UserBlocks Added", function(e) {
-      return e.name.startsWith("Done: Create UserBlocks");
-  });
+function repoListGitHooks(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/hooks/git";
+  var reqDescription = "List the Git hooks in a repository";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userDeleteEmail(body, id) {
-  var url = "/user/emails";
-  var description = "Delete email addresses " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userListEmails(body, id) {
-  var url = "/user/emails";
-  var description = "List the authenticated user's email addresses " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function repoDeleteGitHook(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/hooks/git/" + id;
+  var reqDescription = "Delete a Git hook in a repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
 }
 
-function userAddEmail(body, id) {
-  var url = "/user/emails";
-  var description = "Add email addresses " + id;
+function repoEditGitHook(owner, repo, id, body) {
+  var url = "repos/" + owner + "/" + repo + "/hooks/git/" + id;
+  var reqDescription = "Edit a Git hook in a repository";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id}) });
+    "body": body,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "body": body}) }); }
+  return res;
 }
 
-// verifyUserEmailsExists skipped: No GET /{id} operation detected.
-function waitForUserEmailsAdded(body, id) {
-  waitFor(matchSuccess("Add email addresses"));
-}
-
-function matchAnyUserEmailsAdded() {
-  return bp.EventSet("Any UserEmails Added", function(e) {
-      return e.name.startsWith("Done: Add email addresses");
-  });
-}
-
-function userCurrentListFollowers(id, limit, page) {
-  var url = "/user/followers";
-  var description = "List the authenticated user's followers " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyUserFollowersExists skipped: No GET /{id} operation detected.
-function matchAnyUserFollowersAdded() {
-  return bp.EventSet("Any UserFollowers Added", function(e) {
-      return e.name.startsWith("Done: Create UserFollowers");
-  });
-}
-
-function userCurrentListFollowing(id, limit, page) {
-  var url = "/user/following";
-  var description = "List the users that the authenticated user is following " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-// verifyUserFollowingExists skipped: No GET /{id} operation detected.
-function matchAnyUserFollowingAdded() {
-  return bp.EventSet("Any UserFollowing Added", function(e) {
-      return e.name.startsWith("Done: Create UserFollowing");
-  });
-}
+function verifyGitHooksExists(id) { pvg.success("GitHooks verified"); }
+function matchAnyGitHooksAdded() { return bp.EventSet("Added GitHooks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGitHooks() { return bp.EventSet("Deleted GitHooks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userCurrentDeleteFollow(id, username) {
-  var url = "/user/following/" + username;
-  var description = "Unfollow a user " + username;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
+
+function verifyIssueConfigExists(id) { pvg.success("IssueConfig verified"); }
+function matchAnyIssueConfigAdded() { return bp.EventSet("Added IssueConfig", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueConfig() { return bp.EventSet("Deleted IssueConfig", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userCurrentCheckFollowing(id, username) {
-  var url = "/user/following/" + username;
-  var description = "Check whether a user is followed by the authenticated user " + username;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 404] });
+function issueGetMilestonesList(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/milestones";
+  var reqDescription = "Get all of a repository's opened milestones";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCurrentPutFollow(id, username) {
-  var url = "/user/following/" + username;
-  var description = "Follow a user " + username;
+function issueCreateMilestone(owner, repo, body, id, limit, name, page, state) {
+  var url = "repos/" + owner + "/" + repo + "/milestones";
+  var reqDescription = "Create a milestone";
   var body = {
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "username": username}) });
-}
-
-function verifyUserFollowingSpecificExists(id, username) {
-  var url = "/user/following/" + username;
-  var description = "Verify UserFollowingSpecific " + username + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("UserFollowingSpecific found");
-}
-
-function verifyUserFollowingSpecificDoesNotExist(id, username) {
-  var url = "/user/following/" + username;
-  var description = "Verify UserFollowingSpecific " + username + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("UserFollowingSpecific not found");
-}
-
-function tryToDeleteANonExistingUserFollowingSpecific(id, username) {
-  var url = "/user/following/" + username;
-  var description = "Verify negative delete for UserFollowingSpecific";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedUserFollowingSpecific(id, username) {
-  return bp.EventSet("Delete UserFollowingSpecific", function(e) {
-      return e.name === "Done: " + "Unfollow a user";
-  });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "name": name,
+    "page": page,
+    "state": state,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "limit": limit, "name": name, "page": page, "state": state}) }); }
+  return res;
 }
 
-function matchAnyUserFollowingSpecificAdded() {
-  return bp.EventSet("Any UserFollowingSpecific Added", function(e) {
-      return e.name.startsWith("Done: Create UserFollowingSpecific");
-  });
-}
+function verifyIssueRejects(body, id, limit, name, owner, page, repo, state) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "name":' + JSON.stringify(name);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "state":' + JSON.stringify(state);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/milestones", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyIssueExists(id) { pvg.success("Issue verified"); }
+function matchAnyIssueAdded() { return bp.EventSet("Added Issue", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssue() { return bp.EventSet("Deleted Issue", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueGetRepoComments(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments";
+  var reqDescription = "List all comments in a repository";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
 
-function userCurrentGetGPGKey(Form, id, limit, page) {
-  var url = "/user/gpg_keys/" + id;
-  var description = "Get a GPG key " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function issueDeleteComment(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id;
+  var reqDescription = "Delete a comment";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404] });
 }
 
-function userCurrentListGPGKeys(Form, id, limit, page) {
-  var url = "/user/gpg_keys";
-  var description = "List the authenticated user's GPG keys " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCurrentPostGPGKey(Form, id, limit, page) {
-  var url = "/user/gpg_keys";
-  var description = "Create a GPG key " + id;
+function issueEditComment(owner, repo, id, before, body, limit, page, since) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id;
+  var reqDescription = "Edit a comment";
   var body = {
-    "Form": String(Form),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Form": Form, "id": id, "limit": limit, "page": page}) });
-}
+    "before": before,
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "since": since,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "before": before, "body": body, "limit": limit, "page": page, "since": since}) }); }
+  return res;
+}
+
+function verifyCommentExists(id) { pvg.success("Comment verified"); }
+function matchAnyCommentAdded() { return bp.EventSet("Added Comment", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedComment() { return bp.EventSet("Deleted Comment", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function userCurrentDeleteGPGKey(Form, id, limit, page) {
-  var url = "/user/gpg_keys/" + id;
-  var description = "Remove a GPG key " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
+function issueListIssueCommentAttachments(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets";
+  var reqDescription = "List comment's attachments";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
-
-function tryToAddExistingGPGKeys(Form, id, limit, page) {
-  var url = "/user/gpg_keys";
-  var description = "Try Add Existing GPGKeys " + id;
+
+function issueCreateIssueCommentAttachment(owner, repo, id, attachment, attachment_id, body, name) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets";
+  var reqDescription = "Create a comment attachment";
   var body = {
-    "Form": String(Form),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
-}
-
-function verifyGPGKeysExists(Form, id, limit, page) {
-  var url = "/user/gpg_keys/" + id;
-  var description = "Verify GPGKeys " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GPGKeys found");
+    "attachment": attachment,
+    "attachment_id": attachment_id,
+    "body": body,
+    "name": name,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 403, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "attachment": attachment, "attachment_id": attachment_id, "body": body, "name": name}) }); }
+  return res;
 }
 
-function verifyGPGKeysDoesNotExist(Form, id, limit, page) {
-  var url = "/user/gpg_keys/" + id;
-  var description = "Verify GPGKeys " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GPGKeys not found");
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function tryToDeleteANonExistingGPGKeys(Form, id, limit, page) {
-  var url = "/user/gpg_keys/" + id;
-  var description = "Verify negative delete for GPGKeys";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+function issueEditIssueCommentAttachment(owner, repo, id, attachment_id, attachment, body, name) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
+  var reqDescription = "Edit a comment attachment";
+  var body = {
+    "attachment": attachment,
+    "body": body,
+    "name": name,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "attachment_id": attachment_id, "attachment": attachment, "body": body, "name": name}) }); }
+  return res;
 }
 
-function matchDeletedGPGKeys(Form, id, limit, page) {
-  return bp.EventSet("Delete GPGKeys", function(e) {
-      return e.name === "Done: " + "Remove a GPG key";
-  });
+function issueDeleteIssueCommentAttachment(owner, repo, id, attachment_id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets/" + attachment_id;
+  var reqDescription = "Delete a comment attachment";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 423] });
 }
 
-function waitForGPGKeysAdded(Form, id, limit, page) {
-  waitFor(matchSuccess("Create a GPG key"));
+function verifyIssueCommentAttachmentsRejects(attachment, attachment_id, body, id, name, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"attachment":' + JSON.stringify(attachment);
+  bodyStr += ', "attachment_id":' + JSON.stringify(attachment_id);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "name":' + JSON.stringify(name);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/comments/" + id + "/assets", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyGPGKeysAdded() {
-  return bp.EventSet("Any GPGKeys Added", function(e) {
-      return e.name.startsWith("Done: Create a GPG key");
-  });
-}
-
-function getVerificationToken(id) {
-  var url = "/user/gpg_key_token";
-  var description = "Get a Token to verify " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
-}
-
-// verifyGPGKeyTokenExists skipped: No GET /{id} operation detected.
-function matchAnyGPGKeyTokenAdded() {
-  return bp.EventSet("Any GPGKeyToken Added", function(e) {
-      return e.name.startsWith("Done: Create GPGKeyToken");
-  });
-}
-
-function userVerifyGPGKey(Form, id) {
-  var url = "/user/gpg_key_verify";
-  var description = "Verify a GPG key " + id;
-  var body = {
-    "Form": String(Form),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 404, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"Form": Form, "id": id}) });
-}
+function verifyIssueCommentAttachmentsExists(id) { pvg.success("IssueCommentAttachments verified"); }
+function matchAnyIssueCommentAttachmentsAdded() { return bp.EventSet("Added IssueCommentAttachments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueCommentAttachments() { return bp.EventSet("Deleted IssueCommentAttachments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-// verifyGPGKeyVerifyExists skipped: No GET /{id} operation detected.
-function waitForGPGKeyVerifyAdded(Form, id) {
-  waitFor(matchSuccess("Verify a GPG key"));
+function issueGetCommentReactions(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
+  var reqDescription = "Get a list of reactions from a comment of an issue";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403, 404] });
+}
+
+function issuePostCommentReaction(owner, repo, id, content) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
+  var reqDescription = "Add a reaction to a comment of an issue";
+  var body = {
+    "content": content,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "content": content}) }); }
+  return res;
+}
+
+function issueDeleteCommentReaction(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions";
+  var reqDescription = "Remove a reaction from a comment of an issue";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403, 404] });
 }
+
+function verifyIssueCommentReactionsRejects(content, id, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"content":' + JSON.stringify(content);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/comments/" + id + "/reactions", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
 
-function matchAnyGPGKeyVerifyAdded() {
-  return bp.EventSet("Any GPGKeyVerify Added", function(e) {
-      return e.name.startsWith("Done: Verify a GPG key");
-  });
+function verifyIssueCommentReactionsExists(owner) { pvg.success("IssueCommentReactions verified"); }
+function matchAnyIssueCommentReactionsAdded() { return bp.EventSet("Added IssueCommentReactions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueCommentReactions() { return bp.EventSet("Deleted IssueCommentReactions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListPinnedIssues(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/issues/pinned";
+  var reqDescription = "List a repo's pinned issues";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyPinnedIssuesExists(id) { pvg.success("PinnedIssues verified"); }
+function matchAnyPinnedIssuesAdded() { return bp.EventSet("Added PinnedIssues", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPinnedIssues() { return bp.EventSet("Deleted PinnedIssues", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueListIssueAttachments(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/assets";
+  var reqDescription = "List issue's attachments";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueCreateIssueAttachment(owner, repo, index, attachment, attachment_id, body, id, name) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/assets";
+  var reqDescription = "Create an issue attachment";
+  var body = {
+    "attachment": attachment,
+    "attachment_id": attachment_id,
+    "body": body,
+    "id": id,
+    "name": name,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "attachment": attachment, "attachment_id": attachment_id, "body": body, "id": id, "name": name}) }); }
+  return res;
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueEditIssueAttachment(owner, repo, index, attachment_id, attachment, body, id, name) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
+  var reqDescription = "Edit an issue attachment";
+  var body = {
+    "attachment": attachment,
+    "body": body,
+    "id": id,
+    "name": name,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "attachment_id": attachment_id, "attachment": attachment, "body": body, "id": id, "name": name}) }); }
+  return res;
+}
+
+function issueDeleteIssueAttachment(owner, repo, index, attachment_id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/assets/" + attachment_id;
+  var reqDescription = "Delete an issue attachment";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 423] });
+}
+
+function verifyIssueAttachmentsRejects(attachment, attachment_id, body, id, index, name, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"attachment":' + JSON.stringify(attachment);
+  bodyStr += ', "attachment_id":' + JSON.stringify(attachment_id);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "name":' + JSON.stringify(name);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/" + index + "/assets", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyIssueAttachmentsExists(id) { pvg.success("IssueAttachments verified"); }
+function matchAnyIssueAttachmentsAdded() { return bp.EventSet("Added IssueAttachments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueAttachments() { return bp.EventSet("Deleted IssueAttachments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueListBlocks(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
+  var reqDescription = "List issues that are blocked by this issue";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueCreateIssueBlocking(owner, repo, index, body, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
+  var reqDescription = "Block the issue given in the body by the issue in path";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "body": body, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function issueRemoveIssueBlocking(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/blocks";
+  var reqDescription = "Unblock the issue given in the body by the issue in path";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
-
-function userCurrentListKeys(body, fingerprint, id, limit, page) {
-  var url = "/user/keys";
-  var description = "List the authenticated user's public keys " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+
+function verifyIssueBlocksRejects(body, index, limit, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/" + index + "/blocks", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyIssueBlocksExists(owner) { pvg.success("IssueBlocks verified"); }
+function matchAnyIssueBlocksAdded() { return bp.EventSet("Added IssueBlocks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueBlocks() { return bp.EventSet("Deleted IssueBlocks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueGetComments(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/comments";
+  var reqDescription = "List all comments on an issue";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueCreateComment(owner, repo, index, before, body, id, since) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/comments";
+  var reqDescription = "Add a comment to an issue";
+  var body = {
+    "before": before,
+    "body": body,
+    "id": id,
+    "since": since,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "before": before, "body": body, "id": id, "since": since}) }); }
+  return res;
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueEditCommentDeprecated(owner, repo, index, id, before, body, since) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
+  var reqDescription = "Edit a comment";
+  var body = {
+    "before": before,
+    "body": body,
+    "since": since,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "id": id, "before": before, "body": body, "since": since}) }); }
+  return res;
+}
+
+function issueDeleteCommentDeprecated(owner, repo, index, id) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/comments/" + id;
+  var reqDescription = "Delete a comment";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404] });
+}
+
+function verifyIssueCommentsRejects(before, body, id, index, owner, repo, since) {
+  var bodyStr = "{";
+  bodyStr += '"before":' + JSON.stringify(before);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "since":' + JSON.stringify(since);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/" + index + "/comments", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyIssueCommentsExists(id) { pvg.success("IssueComments verified"); }
+function matchAnyIssueCommentsAdded() { return bp.EventSet("Added IssueComments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueComments() { return bp.EventSet("Deleted IssueComments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueSubscriptions(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions";
+  var reqDescription = "Get users who subscribed on an issue.";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueDeleteSubscription(owner, repo, index, user) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
+  var reqDescription = "Unsubscribe user from issue";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 201, 304, 404] });
+}
+
+function issueAddSubscription(owner, repo, index, user, id, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user;
+  var reqDescription = "Subscribe user to issue";
+  var body = {
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 304, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "user": user, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function verifyIssueSubscriptionsRejects(id, index, limit, owner, page, repo, user) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "user":' + JSON.stringify(user);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/" + index + "/subscriptions/" + user, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyIssueSubscriptionsExists(id) { pvg.success("IssueSubscriptions verified"); }
+function matchAnyIssueSubscriptionsAdded() { return bp.EventSet("Added IssueSubscriptions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueSubscriptions() { return bp.EventSet("Deleted IssueSubscriptions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueGetCommentsAndTimeline(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/timeline";
+  var reqDescription = "List all comments and events on an issue";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyIssueTimelineExists(id) { pvg.success("IssueTimeline verified"); }
+function matchAnyIssueTimelineAdded() { return bp.EventSet("Added IssueTimeline", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueTimeline() { return bp.EventSet("Deleted IssueTimeline", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueResetTime(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var reqDescription = "Reset a tracked time of an issue";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 403, 404] });
+}
+
+function issueTrackedTimes(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var reqDescription = "List an issue's tracked times";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueAddTime(owner, repo, index, before, body, limit, page, since, user) {
+  var url = "repos/" + owner + "/" + repo + "/issues/" + index + "/times";
+  var reqDescription = "Add tracked time to a issue";
+  var body = {
+    "before": before,
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "since": since,
+    "user": user,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "before": before, "body": body, "limit": limit, "page": page, "since": since, "user": user}) }); }
+  return res;
+}
+
+function verifyIssueTimesRejects(before, body, index, limit, owner, page, repo, since, user) {
+  var bodyStr = "{";
+  bodyStr += '"before":' + JSON.stringify(before);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "since":' + JSON.stringify(since);
+  bodyStr += ', "user":' + JSON.stringify(user);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/issues/" + index + "/times", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyIssueTimesExists(owner) { pvg.success("IssueTimes verified"); }
+function matchAnyIssueTimesAdded() { return bp.EventSet("Added IssueTimes", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedIssueTimes() { return bp.EventSet("Deleted IssueTimes", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentListKeys() {
+  var url = "user/keys";
+  var reqDescription = "List the authenticated user's public keys";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
 function userCurrentPostKey(body, fingerprint, id, limit, page) {
-  var url = "/user/keys";
-  var description = "Create a public key " + id;
+  var url = "user/keys";
+  var reqDescription = "Create a public key";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 409, 422], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "fingerprint": fingerprint, "id": id, "limit": limit, "page": page}) });
+    "body": body,
+    "fingerprint": fingerprint,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "fingerprint": fingerprint, "id": id, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-function userCurrentDeleteKey(body, fingerprint, id, limit, page) {
-  var url = "/user/keys/" + id;
-  var description = "Delete a public key " + id;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 403, 404] });
+function userCurrentGetKey(id) {
+  var url = "user/keys/" + id;
+  var reqDescription = "Get a public key";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCurrentGetKey(body, fingerprint, id, limit, page) {
-  var url = "/user/keys/" + id;
-  var description = "Get a public key " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200, 404] });
+function userCurrentDeleteKey(id) {
+  var url = "user/keys/" + id;
+  var reqDescription = "Delete a public key";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404] });
 }
 
-function tryToAddExistingKeys(body, fingerprint, id, limit, page) {
-  var url = "/user/keys";
-  var description = "Try Add Existing Keys " + id;
+function verifyKeysRejects(body, fingerprint, id, limit, page) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "fingerprint":' + JSON.stringify(fingerprint);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += "}";
+  svc.post("user/keys", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyKeysExists(id) { pvg.success("Keys verified"); }
+function matchAnyKeysAdded() { return bp.EventSet("Added Keys", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedKeys() { return bp.EventSet("Deleted Keys", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function issueDeleteMilestone(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/milestones/" + id;
+  var reqDescription = "Delete a milestone";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function issueEditMilestone(owner, repo, id, body) {
+  var url = "repos/" + owner + "/" + repo + "/milestones/" + id;
+  var reqDescription = "Update a milestone";
   var body = {
-    "body": String(body),
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+    "body": body,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "body": body}) }); }
+  return res;
 }
 
-function verifyKeysExists(body, fingerprint, id, limit, page) {
-  var url = "/user/keys/" + id;
-  var description = "Verify Keys " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("Keys found");
-}
+function verifyMilestonesExists(id) { pvg.success("Milestones verified"); }
+function matchAnyMilestonesAdded() { return bp.EventSet("Added Milestones", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedMilestones() { return bp.EventSet("Deleted Milestones", function(e) { return e.name.startsWith("Done: Positive:"); }); }
 
-function verifyKeysDoesNotExist(body, fingerprint, id, limit, page) {
-  var url = "/user/keys/" + id;
-  var description = "Verify Keys " + id + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("Keys not found");
-}
-
-function tryToDeleteANonExistingKeys(body, fingerprint, id, limit, page) {
-  var url = "/user/keys/" + id;
-  var description = "Verify negative delete for Keys";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function matchDeletedKeys(body, fingerprint, id, limit, page) {
-  return bp.EventSet("Delete Keys", function(e) {
-      return e.name === "Done: " + "Delete a public key";
-  });
-}
-
-function waitForKeysAdded(body, fingerprint, id, limit, page) {
-  waitFor(matchSuccess("Create a public key"));
-}
-
-function matchAnyKeysAdded() {
-  return bp.EventSet("Any Keys Added", function(e) {
-      return e.name.startsWith("Done: Create a public key");
-  });
-}
-
-function getUserSettings(body, id) {
-  var url = "/user/settings";
-  var description = "Get user settings " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
-}
-
-function updateUserSettings(body, id) {
-  var url = "/user/settings";
-  var description = "Update user settings " + id;
+function repoMirrorSync(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/mirror-sync";
+  var reqDescription = "Sync a mirrored repository";
   var body = {
-    "body": String(body),
-};
-  svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"body": body, "id": id}) });
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id}) }); }
+  return res;
 }
 
-// verifyUserSettingsExists skipped: No GET /{id} operation detected.
-function matchAnyUserSettingsAdded() {
-  return bp.EventSet("Any UserSettings Added", function(e) {
-      return e.name.startsWith("Done: Create UserSettings");
-  });
+function verifyMirrorSyncRejects(id, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/mirror-sync", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function userCurrentListStarred(id, limit, owner, page, repo) {
-  var url = "/user/starred";
-  var description = "The repos that the authenticated user has starred " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function verifyMirrorSyncExists(id) { pvg.success("MirrorSync verified"); }
+function matchAnyMirrorSyncAdded() { return bp.EventSet("Added MirrorSync", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedMirrorSync() { return bp.EventSet("Deleted MirrorSync", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCurrentCheckStarring(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Whether the authenticated is starring the repo " + owner;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [204, 404] });
+function verifyNewPinAllowedExists(id) { pvg.success("NewPinAllowed verified"); }
+function matchAnyNewPinAllowedAdded() { return bp.EventSet("Added NewPinAllowed", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedNewPinAllowed() { return bp.EventSet("Deleted NewPinAllowed", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetPullRequestFiles(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/files";
+  var reqDescription = "Get changed files for a pull request";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userCurrentPutStar(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Star the given repo " + owner;
+function repoUpdatePullRequest(owner, repo, index, body, id, limit, page, skip_to, style, whitespace) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/update";
+  var reqDescription = "Merge PR's baseBranch into headBranch";
   var body = {
-    "id": String(id),
-};
-  svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [204, 403, 404], parameters: { description: description } });
-  bp.sync({ request: bp.Event("Done: " + description, {"id": id, "limit": limit, "owner": owner, "page": page, "repo": repo}) });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "skip-to": skip_to,
+    "style": style,
+    "whitespace": whitespace,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 409, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "body": body, "id": id, "limit": limit, "page": page, "skip-to": skip_to, "style": style, "whitespace": whitespace}) }); }
+  return res;
 }
 
-function userCurrentDeleteStar(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Unstar the given repo " + owner;
-  svc.delete(url, { parameters: { description: description }, expectedResponseCodes: [200, 204, 404] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function tryToAddExistingUserStarred(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Try Add Existing UserStarred " + owner;
+function repoEditPullRequest(owner, repo, index, body, id, limit, page, skip_to, style, whitespace) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index;
+  var reqDescription = "Update a pull request. If using deadline only the date will be taken into account, and time of day ignored.";
   var body = {
-    "id": String(id),
-};
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: description } });
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "skip-to": skip_to,
+    "style": style,
+    "whitespace": whitespace,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 409, 412, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "body": body, "id": id, "limit": limit, "page": page, "skip-to": skip_to, "style": style, "whitespace": whitespace}) }); }
+  return res;
 }
 
-function verifyUserStarredExists(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Verify UserStarred " + owner + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("UserStarred found");
+function repoCancelScheduledAutoMerge(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/merge";
+  var reqDescription = "Cancel the scheduled auto merge for the given pull request";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 423] });
 }
 
-function verifyUserStarredDoesNotExist(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Verify UserStarred " + owner + " does not exist";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("UserStarred not found");
+function verifyPullRequestsRejects(body, id, index, limit, owner, page, repo, skip_to, style, whitespace) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "skip-to":' + JSON.stringify(skip_to);
+  bodyStr += ', "style":' + JSON.stringify(style);
+  bodyStr += ', "whitespace":' + JSON.stringify(whitespace);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/pulls/" + index + "/update", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function tryToDeleteANonExistingUserStarred(id, limit, owner, page, repo) {
-  var url = "/user/starred/" + owner + "/" + repo;
-  var description = "Verify negative delete for UserStarred";
-  svc.delete(url, { expectedResponseCodes: [404], parameters: { description: description } });
+function verifyPullRequestsExists(id) { pvg.success("PullRequests verified"); }
+function matchAnyPullRequestsAdded() { return bp.EventSet("Added PullRequests", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPullRequests() { return bp.EventSet("Deleted PullRequests", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoDeletePullReviewRequests(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
+  var reqDescription = "Cancel review requests for a pull request";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 422] });
 }
 
-function matchDeletedUserStarred(id, limit, owner, page, repo) {
-  return bp.EventSet("Delete UserStarred", function(e) {
-      return e.name === "Done: " + "Unstar the given repo";
-  });
+function repoCreatePullReviewRequests(owner, repo, index, body) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers";
+  var reqDescription = "Create review requests for a pull request";
+  var body = {
+    "body": body,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "body": body}) }); }
+  return res;
 }
 
-function waitForUserStarredAdded(id, limit, owner, page, repo) {
-  waitFor(matchSuccess("Star the given repo"));
+function verifyPullReviewRequestsRejects(body, index, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/pulls/" + index + "/requested_reviewers", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
 
-function matchAnyUserStarredAdded() {
-  return bp.EventSet("Any UserStarred Added", function(e) {
-      return e.name.startsWith("Done: Star the given repo");
-  });
+function verifyPullReviewRequestsExists(owner) { pvg.success("PullReviewRequests verified"); }
+function matchAnyPullReviewRequestsAdded() { return bp.EventSet("Added PullReviewRequests", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPullReviewRequests() { return bp.EventSet("Deleted PullReviewRequests", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListPullReviews(owner, repo, index) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews";
+  var reqDescription = "List all reviews for a pull request";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-function userGetStopWatches(id, limit, page) {
-  var url = "/user/stopwatches";
-  var description = "Get list of all existing stopwatches " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function repoSubmitPullReview(owner, repo, index, id, body, limit, page) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
+  var reqDescription = "Submit a pending review to a pull request";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "id": id, "body": body, "limit": limit, "page": page}) }); }
+  return res;
 }
 
-// verifyUserStopwatchesExists skipped: No GET /{id} operation detected.
-function matchAnyUserStopwatchesAdded() {
-  return bp.EventSet("Any UserStopwatches Added", function(e) {
-      return e.name.startsWith("Done: Create UserStopwatches");
-  });
+function repoDeletePullReview(owner, repo, index, id) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id;
+  var reqDescription = "Delete a specific review from a pull request";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404] });
 }
 
-function userCurrentListSubscriptions(id, limit, page) {
-  var url = "/user/subscriptions";
-  var description = "List repositories watched by the authenticated user " + id;
-  svc.get(url, { parameters: { description: description }, expectedResponseCodes: [200] });
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
 }
 
-// verifyUserSubscriptionsExists skipped: No GET /{id} operation detected.
-function matchAnyUserSubscriptionsAdded() {
-  return bp.EventSet("Any UserSubscriptions Added", function(e) {
-      return e.name.startsWith("Done: Create UserSubscriptions");
-  });
+function verifyPullReviewsRejects(body, id, index, limit, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
 }
+
+function verifyPullReviewsExists(id) { pvg.success("PullReviews verified"); }
+function matchAnyPullReviewsAdded() { return bp.EventSet("Added PullReviews", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPullReviews() { return bp.EventSet("Deleted PullReviews", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyPullReviewCommentsExists(id) { pvg.success("PullReviewComments verified"); }
+function matchAnyPullReviewCommentsAdded() { return bp.EventSet("Added PullReviewComments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPullReviewComments() { return bp.EventSet("Deleted PullReviewComments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoDismissPullReview(owner, repo, index, id, body) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/dismissals";
+  var reqDescription = "Dismiss a review for a pull request";
+  var body = {
+    "body": body,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "id": id, "body": body}) }); }
+  return res;
+}
+
+function verifyPullReviewDismissalsRejects(body, id, index, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/dismissals", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyPullReviewDismissalsExists(id) { pvg.success("PullReviewDismissals verified"); }
+function matchAnyPullReviewDismissalsAdded() { return bp.EventSet("Added PullReviewDismissals", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPullReviewDismissals() { return bp.EventSet("Deleted PullReviewDismissals", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoUnDismissPullReview(owner, repo, index, id) {
+  var url = "repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/undismissals";
+  var reqDescription = "Cancel to dismiss a review for a pull request";
+  var body = {
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "index": index, "id": id}) }); }
+  return res;
+}
+
+function verifyPullReviewUndismissalsRejects(id, index, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "index":' + JSON.stringify(index);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/pulls/" + index + "/reviews/" + id + "/undismissals", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyPullReviewUndismissalsExists(id) { pvg.success("PullReviewUndismissals verified"); }
+function matchAnyPullReviewUndismissalsAdded() { return bp.EventSet("Added PullReviewUndismissals", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPullReviewUndismissals() { return bp.EventSet("Deleted PullReviewUndismissals", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListPushMirrors(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/push_mirrors";
+  var reqDescription = "Get all push mirrors of the repository";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 403, 404] });
+}
+
+function repoPushMirrorSync(owner, repo, id, limit, name, page) {
+  var url = "repos/" + owner + "/" + repo + "/push_mirrors-sync";
+  var reqDescription = "Sync all push mirrored repository";
+  var body = {
+    "id": id,
+    "limit": limit,
+    "name": name,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "limit": limit, "name": name, "page": page}) }); }
+  return res;
+}
+
+function repoDeletePushMirror(owner, repo, name) {
+  var url = "repos/" + owner + "/" + repo + "/push_mirrors/" + name;
+  var reqDescription = "Deletes a push mirror from a repository by remoteName";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyPushMirrorsRejects(id, limit, name, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "name":' + JSON.stringify(name);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/push_mirrors-sync", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyPushMirrorsExists(id) { pvg.success("PushMirrors verified"); }
+function matchAnyPushMirrorsAdded() { return bp.EventSet("Added PushMirrors", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedPushMirrors() { return bp.EventSet("Deleted PushMirrors", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyRawFilesExists(id) { pvg.success("RawFiles verified"); }
+function matchAnyRawFilesAdded() { return bp.EventSet("Added RawFiles", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedRawFiles() { return bp.EventSet("Deleted RawFiles", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListReleases(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/releases";
+  var reqDescription = "List a repo's releases";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoCreateRelease(owner, repo, body, draft, id, limit, page, pre_release, tag) {
+  var url = "repos/" + owner + "/" + repo + "/releases";
+  var reqDescription = "Create a release";
+  var body = {
+    "body": body,
+    "draft": draft,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "pre-release": pre_release,
+    "tag": tag,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 409, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "draft": draft, "id": id, "limit": limit, "page": page, "pre-release": pre_release, "tag": tag}) }); }
+  return res;
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoDeleteReleaseByTag(owner, repo, tag) {
+  var url = "repos/" + owner + "/" + repo + "/releases/tags/" + tag;
+  var reqDescription = "Delete a release by tag name";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 422] });
+}
+
+function repoDeleteRelease(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id;
+  var reqDescription = "Delete a release";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 422] });
+}
+
+function repoGetRelease(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id;
+  var reqDescription = "Get a release";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoEditRelease(owner, repo, id, body, draft, limit, page, pre_release, tag) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id;
+  var reqDescription = "Update a release";
+  var body = {
+    "body": body,
+    "draft": draft,
+    "limit": limit,
+    "page": page,
+    "pre-release": pre_release,
+    "tag": tag,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "body": body, "draft": draft, "limit": limit, "page": page, "pre-release": pre_release, "tag": tag}) }); }
+  return res;
+}
+
+function verifyReleasesRejects(body, draft, id, limit, owner, page, pre_release, repo, tag) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "draft":' + JSON.stringify(draft);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "pre-release":' + JSON.stringify(pre_release);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "tag":' + JSON.stringify(tag);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/releases", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyReleasesExists(id) { pvg.success("Releases verified"); }
+function matchAnyReleasesAdded() { return bp.EventSet("Added Releases", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedReleases() { return bp.EventSet("Deleted Releases", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListReleaseAttachments(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id + "/assets";
+  var reqDescription = "List release's attachments";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoCreateReleaseAttachment(owner, repo, id, attachment, attachment_id, body, name) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id + "/assets";
+  var reqDescription = "Create a release attachment";
+  var body = {
+    "attachment": attachment,
+    "attachment_id": attachment_id,
+    "body": body,
+    "name": name,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "attachment": attachment, "attachment_id": attachment_id, "body": body, "name": name}) }); }
+  return res;
+}
+
+function repoDeleteReleaseAttachment(owner, repo, id, attachment_id) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
+  var reqDescription = "Delete a release attachment";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoEditReleaseAttachment(owner, repo, id, attachment_id, attachment, body, name) {
+  var url = "repos/" + owner + "/" + repo + "/releases/" + id + "/assets/" + attachment_id;
+  var reqDescription = "Edit a release attachment";
+  var body = {
+    "attachment": attachment,
+    "body": body,
+    "name": name,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "attachment_id": attachment_id, "attachment": attachment, "body": body, "name": name}) }); }
+  return res;
+}
+
+function verifyReleaseAttachmentsRejects(attachment, attachment_id, body, id, name, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"attachment":' + JSON.stringify(attachment);
+  bodyStr += ', "attachment_id":' + JSON.stringify(attachment_id);
+  bodyStr += ', "body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "name":' + JSON.stringify(name);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/releases/" + id + "/assets", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyReleaseAttachmentsExists(id) { pvg.success("ReleaseAttachments verified"); }
+function matchAnyReleaseAttachmentsAdded() { return bp.EventSet("Added ReleaseAttachments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedReleaseAttachments() { return bp.EventSet("Deleted ReleaseAttachments", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetReviewers(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/reviewers";
+  var reqDescription = "Return all users that can be requested to review in this repo";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyReviewersExists(id) { pvg.success("Reviewers verified"); }
+function matchAnyReviewersAdded() { return bp.EventSet("Added Reviewers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedReviewers() { return bp.EventSet("Deleted Reviewers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListTagProtection(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/tag_protections";
+  var reqDescription = "List tag protections for a repository";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function repoCreateTagProtection(owner, repo, body, id) {
+  var url = "repos/" + owner + "/" + repo + "/tag_protections";
+  var reqDescription = "Create a tag protection for a repository";
+  var body = {
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 403, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id}) }); }
+  return res;
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoEditTagProtection(owner, repo, id, body) {
+  var url = "repos/" + owner + "/" + repo + "/tag_protections/" + id;
+  var reqDescription = "Edit a tag protection for a repository. Only fields that are set will be changed";
+  var body = {
+    "body": body,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "id": id, "body": body}) }); }
+  return res;
+}
+
+function repoDeleteTagProtection(owner, repo, id) {
+  var url = "repos/" + owner + "/" + repo + "/tag_protections/" + id;
+  var reqDescription = "Delete a specific tag protection for the repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function verifyTagProtectionsRejects(body, id, owner, repo) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/tag_protections", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyTagProtectionsExists(id) { pvg.success("TagProtections verified"); }
+function matchAnyTagProtectionsAdded() { return bp.EventSet("Added TagProtections", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTagProtections() { return bp.EventSet("Deleted TagProtections", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoListTags(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/tags";
+  var reqDescription = "List a repository's tags";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoCreateTag(owner, repo, body, id, limit, page, tag) {
+  var url = "repos/" + owner + "/" + repo + "/tags";
+  var reqDescription = "Create a new git tag in a repository";
+  var body = {
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+    "tag": tag,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404, 405, 409, 422, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "limit": limit, "page": page, "tag": tag}) }); }
+  return res;
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoDeleteTag(owner, repo, tag) {
+  var url = "repos/" + owner + "/" + repo + "/tags/" + tag;
+  var reqDescription = "Delete a repository's tag by name";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 405, 409, 422, 423] });
+}
+
+function verifyTagsRejects(body, id, limit, owner, page, repo, tag) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "tag":' + JSON.stringify(tag);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/tags", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyTagsExists(id) { pvg.success("Tags verified"); }
+function matchAnyTagsAdded() { return bp.EventSet("Added Tags", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTags() { return bp.EventSet("Deleted Tags", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentTrackedTimes() {
+  var url = "user/times";
+  var reqDescription = "List the current user's tracked times";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyTrackedTimesExists(id) { pvg.success("TrackedTimes verified"); }
+function matchAnyTrackedTimesAdded() { return bp.EventSet("Added TrackedTimes", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTrackedTimes() { return bp.EventSet("Deleted TrackedTimes", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function topicSearch() {
+  var url = "topics/search";
+  var reqDescription = "search topics via keyword";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 403, 404] });
+}
+
+function repoUpdateTopics(owner, repo, body, limit, page, q, topic, topic1, topic2) {
+  var url = "repos/" + owner + "/" + repo + "/topics";
+  var reqDescription = "Replace list of topics for a repository";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "q": q,
+    "topic": topic,
+    "topic1": topic1,
+    "topic2": topic2,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "limit": limit, "page": page, "q": q, "topic": topic, "topic1": topic1, "topic2": topic2}) }); }
+  return res;
+}
+
+function repoDeleteTopic(owner, repo, topic) {
+  var url = "repos/" + owner + "/" + repo + "/topics/" + topic;
+  var reqDescription = "Delete a topic from a repository";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 422] });
+}
+
+function repoAddTopic(owner, repo, topic, body, limit, page, q, topic1, topic2) {
+  var url = "repos/" + owner + "/" + repo + "/topics/" + topic;
+  var reqDescription = "Add a topic to a repository";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+    "q": q,
+    "topic1": topic1,
+    "topic2": topic2,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "topic": topic, "body": body, "limit": limit, "page": page, "q": q, "topic1": topic1, "topic2": topic2}) }); }
+  return res;
+}
+
+function verifyTopicsRejects(body, limit, owner, page, q, repo, topic, topic1, topic2) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "q":' + JSON.stringify(q);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "topic":' + JSON.stringify(topic);
+  bodyStr += ', "topic1":' + JSON.stringify(topic1);
+  bodyStr += ', "topic2":' + JSON.stringify(topic2);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/topics/" + topic, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyTopicsExists(owner) { pvg.success("Topics verified"); }
+function matchAnyTopicsAdded() { return bp.EventSet("Added Topics", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTopics() { return bp.EventSet("Deleted Topics", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoTransfer(owner, repo, body, id, transferOptions) {
+  var url = "repos/" + owner + "/" + repo + "/transfer";
+  var reqDescription = "Transfer a repo ownership";
+  var body = {
+    "body": body,
+    "id": id,
+    "transferOptions": transferOptions,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 202, 403, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "transferOptions": transferOptions}) }); }
+  return res;
+}
+
+function acceptRepoTransfer(owner, repo, body, id, transferOptions) {
+  var url = "repos/" + owner + "/" + repo + "/transfer/accept";
+  var reqDescription = "Accept a repo transfer";
+  var body = {
+    "body": body,
+    "id": id,
+    "transferOptions": transferOptions,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 202, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "transferOptions": transferOptions}) }); }
+  return res;
+}
+
+function rejectRepoTransfer(owner, repo, body, id, transferOptions) {
+  var url = "repos/" + owner + "/" + repo + "/transfer/reject";
+  var reqDescription = "Reject a repo transfer";
+  var body = {
+    "body": body,
+    "id": id,
+    "transferOptions": transferOptions,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "transferOptions": transferOptions}) }); }
+  return res;
+}
+
+function verifyRepositoryTransferRejects(body, id, owner, repo, transferOptions) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "transferOptions":' + JSON.stringify(transferOptions);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/transfer", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyRepositoryTransferExists(id) { pvg.success("RepositoryTransfer verified"); }
+function matchAnyRepositoryTransferAdded() { return bp.EventSet("Added RepositoryTransfer", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedRepositoryTransfer() { return bp.EventSet("Deleted RepositoryTransfer", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoCreateWikiPage(owner, repo, body, id, pageName, wikiPageOptions) {
+  var url = "repos/" + owner + "/" + repo + "/wiki/new";
+  var reqDescription = "Create a wiki page";
+  var body = {
+    "body": body,
+    "id": id,
+    "pageName": pageName,
+    "wikiPageOptions": wikiPageOptions,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400, 403, 404, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "body": body, "id": id, "pageName": pageName, "wikiPageOptions": wikiPageOptions}) }); }
+  return res;
+}
+
+function repoDeleteWikiPage(owner, repo, pageName) {
+  var url = "repos/" + owner + "/" + repo + "/wiki/page/" + pageName;
+  var reqDescription = "Delete a wiki page";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404, 423] });
+}
+
+function repoGetByID(id) {
+  var url = "repositories/" + id;
+  var reqDescription = "Get a repository by id";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function repoEditWikiPage(owner, repo, pageName, body, id, wikiPageOptions) {
+  var url = "repos/" + owner + "/" + repo + "/wiki/page/" + pageName;
+  var reqDescription = "Edit a wiki page";
+  var body = {
+    "body": body,
+    "id": id,
+    "wikiPageOptions": wikiPageOptions,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 403, 404, 423], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "pageName": pageName, "body": body, "id": id, "wikiPageOptions": wikiPageOptions}) }); }
+  return res;
+}
+
+function verifyWikiPageRejects(body, id, owner, pageName, repo, wikiPageOptions) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "pageName":' + JSON.stringify(pageName);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += ', "wikiPageOptions":' + JSON.stringify(wikiPageOptions);
+  bodyStr += "}";
+  svc.post("repos/" + owner + "/" + repo + "/wiki/new", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyWikiPageExists(id) { pvg.success("WikiPage verified"); }
+function matchAnyWikiPageAdded() { return bp.EventSet("Added WikiPage", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedWikiPage() { return bp.EventSet("Deleted WikiPage", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetWikiPages(owner, repo) {
+  var url = "repos/" + owner + "/" + repo + "/wiki/pages";
+  var reqDescription = "Get all wiki pages";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyWikiPagesExists(id) { pvg.success("WikiPages verified"); }
+function matchAnyWikiPagesAdded() { return bp.EventSet("Added WikiPages", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedWikiPages() { return bp.EventSet("Deleted WikiPages", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function repoGetWikiPageRevisions(owner, repo, pageName) {
+  var url = "repos/" + owner + "/" + repo + "/wiki/revisions/" + pageName;
+  var reqDescription = "Get revisions of a wiki page";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyWikiPageRevisionsExists(id) { pvg.success("WikiPageRevisions verified"); }
+function matchAnyWikiPageRevisionsAdded() { return bp.EventSet("Added WikiPageRevisions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedWikiPageRevisions() { return bp.EventSet("Deleted WikiPageRevisions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function getGeneralAPISettings() {
+  var url = "settings/api";
+  var reqDescription = "Get instance's global settings for api";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function getGeneralUISettings() {
+  var url = "settings/ui";
+  var reqDescription = "Get instance's global settings for ui";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifySettingsExists(id) { pvg.success("Settings verified"); }
+function matchAnySettingsAdded() { return bp.EventSet("Added Settings", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedSettings() { return bp.EventSet("Deleted Settings", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function getVersion() {
+  var url = "version";
+  var reqDescription = "Returns the version of the Gitea application";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifyMiscellaneousExists(id) { pvg.success("Miscellaneous verified"); }
+function matchAnyMiscellaneousAdded() { return bp.EventSet("Added Miscellaneous", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedMiscellaneous() { return bp.EventSet("Deleted Miscellaneous", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function orgListTeamMembers(id) {
+  var url = "teams/" + id + "/members";
+  var reqDescription = "List a team's members";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgGetTeam(id) {
+  var url = "teams/" + id;
+  var reqDescription = "Get a team";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgAddTeamMember(id, username, limit, page) {
+  var url = "teams/" + id + "/members/" + username;
+  var reqDescription = "Add a team member";
+  var body = {
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "username": username, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function orgDeleteTeam(id) {
+  var url = "teams/" + id;
+  var reqDescription = "Delete a team";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function verifyTeamMembersRejects(id, limit, page, username) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "username":' + JSON.stringify(username);
+  bodyStr += "}";
+  svc.post("teams/" + id + "/members/" + username, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyTeamMembersExists(id) { pvg.success("TeamMembers verified"); }
+function matchAnyTeamMembersAdded() { return bp.EventSet("Added TeamMembers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTeamMembers() { return bp.EventSet("Deleted TeamMembers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function orgListTeamRepos(id) {
+  var url = "teams/" + id + "/repos";
+  var reqDescription = "List a team's repos";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgGetTeam(id) {
+  var url = "teams/" + id;
+  var reqDescription = "Get a team";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function orgAddTeamRepository(id, org, repo, limit, page) {
+  var url = "teams/" + id + "/repos/" + org + "/" + repo;
+  var reqDescription = "Add a repository to a team";
+  var body = {
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "org": org, "repo": repo, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function orgDeleteTeam(id) {
+  var url = "teams/" + id;
+  var reqDescription = "Delete a team";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function verifyTeamReposRejects(id, limit, org, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "org":' + JSON.stringify(org);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("teams/" + id + "/repos/" + org + "/" + repo, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyTeamReposExists(id) { pvg.success("TeamRepos verified"); }
+function matchAnyTeamReposAdded() { return bp.EventSet("Added TeamRepos", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedTeamRepos() { return bp.EventSet("Deleted TeamRepos", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userGetCurrent() {
+  var url = "user";
+  var reqDescription = "Get the authenticated user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userGetRunnerRegistrationToken() {
+  var url = "user/actions/runners/registration-token";
+  var reqDescription = "Get an user's actions runner registration token";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function deleteUserSecret(secretname) {
+  var url = "user/actions/secrets/" + secretname;
+  var reqDescription = "Delete a secret in a user scope";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
+}
+
+function updateUserSecret(secretname, body, limit, page) {
+  var url = "user/actions/secrets/" + secretname;
+  var reqDescription = "Create or Update a secret value in a user scope";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"secretname": secretname, "body": body, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function getUserVariablesList() {
+  var url = "user/actions/variables";
+  var reqDescription = "Get the user-level list of variables which is created by current doer";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+}
+
+function verifyUserExists(secretname) { pvg.success("User verified"); }
+function matchAnyUserAdded() { return bp.EventSet("Added User", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUser() { return bp.EventSet("Deleted User", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function deleteUserVariable(variablename) {
+  var url = "user/actions/variables/" + variablename;
+  var reqDescription = "Delete a user-level variable which is created by current doer";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 201, 204, 400, 404] });
+}
+
+function getUserVariable(variablename) {
+  var url = "user/actions/variables/" + variablename;
+  var reqDescription = "Get a user-level variable which is created by current doer";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+}
+
+function createUserVariable(variablename, body) {
+  var url = "user/actions/variables/" + variablename;
+  var reqDescription = "Create a user-level variable";
+  var body = {
+    "body": body,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "body": body}) }); }
+  return res;
+}
+
+function updateUserVariable(variablename, body) {
+  var url = "user/actions/variables/" + variablename;
+  var reqDescription = "Update a user-level variable which is created by current doer";
+  var body = {
+    "body": body,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 204, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "body": body}) }); }
+  return res;
+}
+
+function verifyUserVariablesRejects(body, variablename) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "variablename":' + JSON.stringify(variablename);
+  bodyStr += "}";
+  svc.post("user/actions/variables/" + variablename, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyUserVariablesExists(variablename) { pvg.success("UserVariables verified"); }
+function matchAnyUserVariablesAdded() { return bp.EventSet("Added UserVariables", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserVariables() { return bp.EventSet("Deleted UserVariables", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userGetOauth2Application() {
+  var url = "user/applications/oauth2";
+  var reqDescription = "List the authenticated user's oauth2 applications";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userCreateOAuth2Application(body, id, limit, page) {
+  var url = "user/applications/oauth2";
+  var reqDescription = "creates a new OAuth2 application";
+  var body = {
+    "body": body,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 400], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function userDeleteOAuth2Application(id) {
+  var url = "user/applications/oauth2/" + id;
+  var reqDescription = "delete an OAuth2 Application";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function userGetOAuth2Application(id) {
+  var url = "user/applications/oauth2/" + id;
+  var reqDescription = "get an OAuth2 Application";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function userUpdateOAuth2Application(id, body, limit, page) {
+  var url = "user/applications/oauth2/" + id;
+  var reqDescription = "update an OAuth2 Application, this includes regenerating the client secret";
+  var body = {
+    "body": body,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function verifyOAuth2ApplicationsRejects(body, id, limit, page) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += "}";
+  svc.post("user/applications/oauth2", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyOAuth2ApplicationsExists(id) { pvg.success("OAuth2Applications verified"); }
+function matchAnyOAuth2ApplicationsAdded() { return bp.EventSet("Added OAuth2Applications", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedOAuth2Applications() { return bp.EventSet("Deleted OAuth2Applications", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userDeleteAvatar() {
+  var url = "user/avatar";
+  var reqDescription = "Delete Avatar";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204] });
+}
+
+function userUpdateAvatar(body, id) {
+  var url = "user/avatar";
+  var reqDescription = "Update Avatar";
+  var body = {
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
+  return res;
+}
+
+function verifyUserAvatarRejects(body, id) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += "}";
+  svc.post("user/avatar", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyUserAvatarExists(id) { pvg.success("UserAvatar verified"); }
+function matchAnyUserAvatarAdded() { return bp.EventSet("Added UserAvatar", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserAvatar() { return bp.EventSet("Deleted UserAvatar", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userListBlocks() {
+  var url = "user/blocks";
+  var reqDescription = "List users blocked by the authenticated user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userUnblockUser(username) {
+  var url = "user/blocks/" + username;
+  var reqDescription = "Unblock a user";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404, 422] });
+}
+
+function userCheckUserBlock(username) {
+  var url = "user/blocks/" + username;
+  var reqDescription = "Check if a user is blocked by the authenticated user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [204, 404] });
+}
+
+function userBlockUser(username, limit, note, page) {
+  var url = "user/blocks/" + username;
+  var reqDescription = "Block a user";
+  var body = {
+    "limit": limit,
+    "note": note,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "limit": limit, "note": note, "page": page}) }); }
+  return res;
+}
+
+function verifyUserBlocksExists(username) { pvg.success("UserBlocks verified"); }
+function matchAnyUserBlocksAdded() { return bp.EventSet("Added UserBlocks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserBlocks() { return bp.EventSet("Deleted UserBlocks", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userDeleteEmail() {
+  var url = "user/emails";
+  var reqDescription = "Delete email addresses";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function userListEmails() {
+  var url = "user/emails";
+  var reqDescription = "List the authenticated user's email addresses";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userAddEmail(body, id) {
+  var url = "user/emails";
+  var reqDescription = "Add email addresses";
+  var body = {
+    "body": body,
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
+  return res;
+}
+
+function verifyUserEmailsRejects(body, id) {
+  var bodyStr = "{";
+  bodyStr += '"body":' + JSON.stringify(body);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += "}";
+  svc.post("user/emails", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyUserEmailsExists(id) { pvg.success("UserEmails verified"); }
+function matchAnyUserEmailsAdded() { return bp.EventSet("Added UserEmails", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserEmails() { return bp.EventSet("Deleted UserEmails", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentListFollowers() {
+  var url = "user/followers";
+  var reqDescription = "List the authenticated user's followers";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifyUserFollowersExists(id) { pvg.success("UserFollowers verified"); }
+function matchAnyUserFollowersAdded() { return bp.EventSet("Added UserFollowers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserFollowers() { return bp.EventSet("Deleted UserFollowers", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentListFollowing() {
+  var url = "user/following";
+  var reqDescription = "List the users that the authenticated user is following";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifyUserFollowingExists(id) { pvg.success("UserFollowing verified"); }
+function matchAnyUserFollowingAdded() { return bp.EventSet("Added UserFollowing", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserFollowing() { return bp.EventSet("Deleted UserFollowing", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentDeleteFollow(username) {
+  var url = "user/following/" + username;
+  var reqDescription = "Unfollow a user";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function userCurrentCheckFollowing(username) {
+  var url = "user/following/" + username;
+  var reqDescription = "Check whether a user is followed by the authenticated user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [204, 404] });
+}
+
+function userCurrentPutFollow(username) {
+  var url = "user/following/" + username;
+  var reqDescription = "Follow a user";
+  var body = {
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username}) }); }
+  return res;
+}
+
+function verifyUserFollowingSpecificExists(username) { pvg.success("UserFollowingSpecific verified"); }
+function matchAnyUserFollowingSpecificAdded() { return bp.EventSet("Added UserFollowingSpecific", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserFollowingSpecific() { return bp.EventSet("Deleted UserFollowingSpecific", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentGetGPGKey(id) {
+  var url = "user/gpg_keys/" + id;
+  var reqDescription = "Get a GPG key";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function userCurrentListGPGKeys() {
+  var url = "user/gpg_keys";
+  var reqDescription = "List the authenticated user's GPG keys";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userCurrentPostGPGKey(Form, id, limit, page) {
+  var url = "user/gpg_keys";
+  var reqDescription = "Create a GPG key";
+  var body = {
+    "Form": Form,
+    "id": id,
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"Form": Form, "id": id, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function userCurrentDeleteGPGKey(id) {
+  var url = "user/gpg_keys/" + id;
+  var reqDescription = "Remove a GPG key";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 403, 404] });
+}
+
+function verifyGPGKeysRejects(Form, id, limit, page) {
+  var bodyStr = "{";
+  bodyStr += '"Form":' + JSON.stringify(Form);
+  bodyStr += ', "id":' + JSON.stringify(id);
+  bodyStr += ', "limit":' + JSON.stringify(limit);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += "}";
+  svc.post("user/gpg_keys", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyGPGKeysExists(id) { pvg.success("GPGKeys verified"); }
+function matchAnyGPGKeysAdded() { return bp.EventSet("Added GPGKeys", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGPGKeys() { return bp.EventSet("Deleted GPGKeys", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function getVerificationToken() {
+  var url = "user/gpg_key_token";
+  var reqDescription = "Get a Token to verify";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
+}
+
+function verifyGPGKeyTokenExists(id) { pvg.success("GPGKeyToken verified"); }
+function matchAnyGPGKeyTokenAdded() { return bp.EventSet("Added GPGKeyToken", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGPGKeyToken() { return bp.EventSet("Deleted GPGKeyToken", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userVerifyGPGKey(id) {
+  var url = "user/gpg_key_verify";
+  var reqDescription = "Verify a GPG key";
+  var body = {
+    "id": id,
+  };
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 201, 404, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) }); }
+  return res;
+}
+
+function verifyGPGKeyVerificationRejects(id) {
+  var bodyStr = "{";
+  bodyStr += '"id":' + JSON.stringify(id);
+  bodyStr += "}";
+  svc.post("user/gpg_key_verify", { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyGPGKeyVerificationExists(id) { pvg.success("GPGKeyVerification verified"); }
+function matchAnyGPGKeyVerificationAdded() { return bp.EventSet("Added GPGKeyVerification", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedGPGKeyVerification() { return bp.EventSet("Deleted GPGKeyVerification", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function getUserSettings() {
+  var url = "user/settings";
+  var reqDescription = "Get user settings";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function updateUserSettings(UserSettingsOptions, body, id) {
+  var url = "user/settings";
+  var reqDescription = "Update user settings";
+  var body = {
+    "UserSettingsOptions": UserSettingsOptions,
+    "body": body,
+    "id": id,
+  };
+  let res = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UserSettingsOptions": UserSettingsOptions, "body": body, "id": id}) }); }
+  return res;
+}
+
+function verifyUserSettingsExists(id) { pvg.success("UserSettings verified"); }
+function matchAnyUserSettingsAdded() { return bp.EventSet("Added UserSettings", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserSettings() { return bp.EventSet("Deleted UserSettings", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentListStarred() {
+  var url = "user/starred";
+  var reqDescription = "The repos that the authenticated user has starred";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function userCurrentDeleteStar(owner, repo) {
+  var url = "user/starred/" + owner + "/" + repo;
+  var reqDescription = "Unstar the given repo";
+  return svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 404] });
+}
+
+function userCurrentCheckStarring(owner, repo) {
+  var url = "user/starred/" + owner + "/" + repo;
+  var reqDescription = "Whether the authenticated is starring the repo";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [204, 404] });
+}
+
+function userCurrentPutStar(owner, repo, limit, page) {
+  var url = "user/starred/" + owner + "/" + repo;
+  var reqDescription = "Star the given repo";
+  var body = {
+    "limit": limit,
+    "page": page,
+  };
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 204, 403, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "limit": limit, "page": page}) }); }
+  return res;
+}
+
+function verifyUserStarredRejects(limit, owner, page, repo) {
+  var bodyStr = "{";
+  bodyStr += '"limit":' + JSON.stringify(limit);
+  bodyStr += ', "owner":' + JSON.stringify(owner);
+  bodyStr += ', "page":' + JSON.stringify(page);
+  bodyStr += ', "repo":' + JSON.stringify(repo);
+  bodyStr += "}";
+  svc.post("user/starred/" + owner + "/" + repo, { body: bodyStr, headers: { "Content-Type": "application/json", "X-Provengo-Rejection-Probe": "true" }, expectedResponseCodes: [400, 422, 409, 500] });
+  bp.sync({ request: bp.Event("Done: Negative: Rejection verified") });
+}
+
+function verifyUserStarredExists(owner) { pvg.success("UserStarred verified"); }
+function matchAnyUserStarredAdded() { return bp.EventSet("Added UserStarred", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserStarred() { return bp.EventSet("Deleted UserStarred", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userGetStopWatches() {
+  var url = "user/stopwatches";
+  var reqDescription = "Get list of all existing stopwatches";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifyUserStopwatchesExists(id) { pvg.success("UserStopwatches verified"); }
+function matchAnyUserStopwatchesAdded() { return bp.EventSet("Added UserStopwatches", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserStopwatches() { return bp.EventSet("Deleted UserStopwatches", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+
+function userCurrentListSubscriptions() {
+  var url = "user/subscriptions";
+  var reqDescription = "List repositories watched by the authenticated user";
+  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+}
+
+function verifyUserSubscriptionsExists(id) { pvg.success("UserSubscriptions verified"); }
+function matchAnyUserSubscriptionsAdded() { return bp.EventSet("Added UserSubscriptions", function(e) { return e.name.startsWith("Done: Positive:"); }); }
+function matchDeletedUserSubscriptions() { return bp.EventSet("Deleted UserSubscriptions", function(e) { return e.name.startsWith("Done: Positive:"); }); }

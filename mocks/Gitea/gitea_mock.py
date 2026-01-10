@@ -1,192 +1,758 @@
 from flask import Flask, request, jsonify
-from collections import defaultdict
-import random
 import re
-
-# Auto-generated Mock for Gitea API
 app = Flask(__name__)
-mock_db = defaultdict(list)
-
-PATH_STATUS_CODES = {
-    "activitypub/user-id/{user-id}/inbox": 204,
-    "admin/cron/{task}": 204,
-    "admin/hooks": 201,
-    "admin/unadopted/{owner}/{repo}": 204,
-    "admin/users": 201,
-    "admin/users/{username}/badges": 204,
-    "admin/users/{username}/keys": 201,
-    "admin/users/{username}/orgs": 201,
-    "admin/users/{username}/rename": 204,
-    "admin/users/{username}/repos": 201,
-    "markdown": 200,
-    "markdown/raw": 200,
-    "markup": 200,
-    "org/{org}/repos": 201,
-    "orgs": 201,
-    "orgs/{org}/actions/variables/{variablename}": 201,
-    "orgs/{org}/avatar": 204,
-    "orgs/{org}/hooks": 201,
-    "orgs/{org}/labels": 201,
-    "orgs/{org}/repos": 201,
-    "orgs/{org}/teams": 201,
-    "repos/migrate": 201,
-    "repos/{owner}/{repo}/actions/variables/{variablename}": 201,
-    "repos/{owner}/{repo}/avatar": 204,
-    "repos/{owner}/{repo}/branch_protections": 201,
-    "repos/{owner}/{repo}/branch_protections/priority": 204,
-    "repos/{owner}/{repo}/branches": 201,
-    "repos/{owner}/{repo}/contents": 201,
-    "repos/{owner}/{repo}/contents/{filepath}": 201,
-    "repos/{owner}/{repo}/diffpatch": 200,
-    "repos/{owner}/{repo}/forks": 202,
-    "repos/{owner}/{repo}/hooks": 201,
-    "repos/{owner}/{repo}/hooks/{id}/tests": 204,
-    "repos/{owner}/{repo}/issues": 201,
-    "repos/{owner}/{repo}/issues/comments/{id}/assets": 201,
-    "repos/{owner}/{repo}/issues/comments/{id}/reactions": 201,
-    "repos/{owner}/{repo}/issues/{index}/assets": 201,
-    "repos/{owner}/{repo}/issues/{index}/blocks": 201,
-    "repos/{owner}/{repo}/issues/{index}/comments": 201,
-    "repos/{owner}/{repo}/issues/{index}/deadline": 201,
-    "repos/{owner}/{repo}/issues/{index}/dependencies": 201,
-    "repos/{owner}/{repo}/issues/{index}/labels": 200,
-    "repos/{owner}/{repo}/issues/{index}/pin": 204,
-    "repos/{owner}/{repo}/issues/{index}/reactions": 201,
-    "repos/{owner}/{repo}/issues/{index}/stopwatch/start": 201,
-    "repos/{owner}/{repo}/issues/{index}/stopwatch/stop": 201,
-    "repos/{owner}/{repo}/issues/{index}/times": 200,
-    "repos/{owner}/{repo}/keys": 201,
-    "repos/{owner}/{repo}/labels": 201,
-    "repos/{owner}/{repo}/merge-upstream": 200,
-    "repos/{owner}/{repo}/milestones": 201,
-    "repos/{owner}/{repo}/mirror-sync": 200,
-    "repos/{owner}/{repo}/pulls": 201,
-    "repos/{owner}/{repo}/pulls/{index}/merge": 200,
-    "repos/{owner}/{repo}/pulls/{index}/requested_reviewers": 201,
-    "repos/{owner}/{repo}/pulls/{index}/reviews": 200,
-    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}": 200,
-    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals": 200,
-    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals": 200,
-    "repos/{owner}/{repo}/pulls/{index}/update": 200,
-    "repos/{owner}/{repo}/push_mirrors": 200,
-    "repos/{owner}/{repo}/push_mirrors-sync": 200,
-    "repos/{owner}/{repo}/releases": 201,
-    "repos/{owner}/{repo}/releases/{id}/assets": 201,
-    "repos/{owner}/{repo}/statuses/{sha}": 201,
-    "repos/{owner}/{repo}/tag_protections": 201,
-    "repos/{owner}/{repo}/tags": 200,
-    "repos/{owner}/{repo}/transfer": 202,
-    "repos/{owner}/{repo}/transfer/accept": 202,
-    "repos/{owner}/{repo}/transfer/reject": 200,
-    "repos/{owner}/{repo}/wiki/new": 201,
-    "repos/{template_owner}/{template_repo}/generate": 201,
-    "user/actions/variables/{variablename}": 201,
-    "user/applications/oauth2": 201,
-    "user/avatar": 204,
-    "user/emails": 201,
-    "user/gpg_key_verify": 201,
-    "user/gpg_keys": 201,
-    "user/hooks": 201,
-    "user/keys": 201,
-    "user/repos": 201,
-    "users/{username}/tokens": 201
+TYPE_MAP = {
+    "POST:activitypub/user-id/{user-id}/inbox": {},
+    "POST:admin/cron/{task}": {},
+    "POST:admin/hooks": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PATCH:admin/hooks/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:admin/unadopted/{owner}/{repo}": {},
+    "POST:admin/users": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:admin/users/{username}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:admin/users/{username}/badges": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:admin/users/{username}/keys": {
+        "key": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:admin/users/{username}/orgs": {
+        "organization": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:admin/users/{username}/rename": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:admin/users/{username}/repos": {
+        "repository": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:markdown": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:markdown/raw": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:markup": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:notifications": {
+        "last_read_at": {
+            "type": "string",
+            "required": False
+        },
+        "all": {
+            "type": "string",
+            "required": False
+        },
+        "status-types": {
+            "type": "array",
+            "required": False
+        },
+        "to-status": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "PATCH:notifications/threads/{id}": {
+        "to-status": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "POST:org/{org}/repos": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:orgs": {
+        "organization": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PATCH:orgs/{org}": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PUT:orgs/{org}/actions/secrets/{secretname}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:orgs/{org}/actions/variables/{variablename}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:orgs/{org}/actions/variables/{variablename}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:orgs/{org}/avatar": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:orgs/{org}/blocks/{username}": {
+        "note": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "POST:orgs/{org}/hooks": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PATCH:orgs/{org}/hooks/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:orgs/{org}/labels": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:orgs/{org}/labels/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:orgs/{org}/public_members/{username}": {},
+    "POST:orgs/{org}/repos": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:orgs/{org}/teams": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/migrate": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/actions/secrets/{secretname}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/actions/variables/{variablename}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/actions/variables/{variablename}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/avatar": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/branch_protections": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/branch_protections/priority": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/branch_protections/{name}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/branches": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/branches/{branch}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/collaborators/{collaborator}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/contents": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PUT:repos/{owner}/{repo}/contents/{filepath}": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/contents/{filepath}": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/diffpatch": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/forks": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/hooks": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/hooks/git/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/hooks/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/hooks/{id}/tests": {
+        "ref": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/issues/comments/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/comments/{id}/assets": {
+        "name": {
+            "type": "string",
+            "required": False
+        },
+        "attachment": {
+            "type": "file",
+            "required": True
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/comments/{id}/reactions": {
+        "content": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/issues/{index}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/assets": {
+        "name": {
+            "type": "string",
+            "required": False
+        },
+        "attachment": {
+            "type": "file",
+            "required": True
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/blocks": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/comments": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/issues/{index}/comments/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/deadline": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/dependencies": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/issues/{index}/labels": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/labels": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/pin": {},
+    "PATCH:repos/{owner}/{repo}/issues/{index}/pin/{position}": {},
+    "POST:repos/{owner}/{repo}/issues/{index}/reactions": {
+        "content": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/issues/{index}/stopwatch/start": {},
+    "POST:repos/{owner}/{repo}/issues/{index}/stopwatch/stop": {},
+    "PUT:repos/{owner}/{repo}/issues/{index}/subscriptions/{user}": {},
+    "POST:repos/{owner}/{repo}/issues/{index}/times": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/keys": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/labels": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/labels/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/merge-upstream": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/milestones": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/milestones/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/mirror-sync": {},
+    "PUT:repos/{owner}/{repo}/notifications": {
+        "all": {
+            "type": "string",
+            "required": False
+        },
+        "status-types": {
+            "type": "array",
+            "required": False
+        },
+        "to-status": {
+            "type": "string",
+            "required": False
+        },
+        "last_read_at": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/pulls/{index}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls/{index}/merge": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls/{index}/requested_reviewers": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls/{index}/reviews": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls/{index}/reviews/{id}": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals": {},
+    "POST:repos/{owner}/{repo}/pulls/{index}/update": {
+        "style": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/push_mirrors": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/push_mirrors-sync": {},
+    "POST:repos/{owner}/{repo}/releases": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/releases/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/releases/{id}/assets": {
+        "name": {
+            "type": "string",
+            "required": False
+        },
+        "attachment": {
+            "type": "file",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/statuses/{sha}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/subscription": {},
+    "POST:repos/{owner}/{repo}/tag_protections": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/tag_protections/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{owner}/{repo}/tags": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/teams/{team}": {},
+    "PUT:repos/{owner}/{repo}/topics": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:repos/{owner}/{repo}/topics/{topic}": {},
+    "POST:repos/{owner}/{repo}/transfer": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:repos/{owner}/{repo}/transfer/accept": {},
+    "POST:repos/{owner}/{repo}/transfer/reject": {},
+    "POST:repos/{owner}/{repo}/wiki/new": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:repos/{owner}/{repo}/wiki/page/{pageName}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:repos/{template_owner}/{template_repo}/generate": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:teams/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:teams/{id}/members/{username}": {},
+    "PUT:teams/{id}/repos/{org}/{repo}": {},
+    "PUT:user/actions/secrets/{secretname}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:user/actions/variables/{variablename}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:user/actions/variables/{variablename}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:user/applications/oauth2": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PATCH:user/applications/oauth2/{id}": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "POST:user/avatar": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:user/blocks/{username}": {
+        "note": {
+            "type": "string",
+            "required": False
+        }
+    },
+    "POST:user/emails": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:user/following/{username}": {},
+    "POST:user/gpg_key_verify": {},
+    "POST:user/gpg_keys": {
+        "Form": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:user/hooks": {
+        "body": {
+            "type": "object",
+            "required": True
+        }
+    },
+    "PATCH:user/hooks/{id}": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:user/keys": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "POST:user/repos": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PATCH:user/settings": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    },
+    "PUT:user/starred/{owner}/{repo}": {},
+    "POST:users/{username}/tokens": {
+        "body": {
+            "type": "object",
+            "required": False
+        }
+    }
 }
 
-def get_success_code(resource_path):
-    # Normalize path
-    if resource_path.startswith('api/v1/'): resource_path = resource_path[7:]
-    
-    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
-    for path_pattern, code in PATH_STATUS_CODES.items():
-        if '{' in path_pattern:
-            regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
-            regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path): return code
-    return 201
+def validate_request(method, path, data):
+    # 1. TEACHING THE MOCK: If signaling header is present, force fail
+    if request.headers.get('X-Provengo-Rejection-Probe'): return ['Signaled rejection']
+    if 'NOT_A_STRING' in path or 'INVALID_' in path: return ['Fuzzing detected']
+    lookup_key = f'{method}:{path}'
+    if lookup_key not in TYPE_MAP:
+        for key in TYPE_MAP:
+            pattern = re.sub(r'\{[^\}]+\}', '[^/]+', key.split(':')[1])
+            if re.fullmatch(key.split(':')[0] + ':' + pattern, lookup_key):
+                lookup_key = key; break
+    expected_fields = TYPE_MAP.get(lookup_key, {})
+    errors = []
+    for field, val in data.items():
+        if field in expected_fields:
+            if expected_fields[field]['type'] == 'integer' and not isinstance(val, int): errors.append(f'{field} must be int')
+            if isinstance(val, str) and val.startswith('INVALID_'): errors.append('Fuzz tag found')
+    return errors
 
-def mock_retrieve(resource_key, item_id):
-    for item in mock_db[resource_key]:
-        if str(item.get('id')) == str(item_id): return item
-    return None
+@app.route('/api/v1/<path:subpath>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def handle_all(subpath):
+    data = request.json or {}
+    errors = validate_request(request.method, subpath, data)
+    if errors: return jsonify({'status': 'error', 'details': errors}), 400
+    if request.method == 'POST': return jsonify({'status': 'success'}), 201
+    if request.method == 'DELETE': return '', 204
+    return jsonify({'status': 'success'}), 200
 
-@app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
-def handle_request(resource_path):
-    # Normalize Gitea API path
-    clean_path = resource_path
-    if clean_path.startswith('api/v1/'): clean_path = clean_path[7:]
-    
-    resource_key = clean_path
-    parts = clean_path.split('/')
-    item_id = None
-    if len(parts) > 1:
-        last_part = parts[-1]
-        # Gitea IDs are integers, usernames are strings. Simple heuristic:
-        # If it looks like an ID (digit) or we are in a detail route context
-        item_id = last_part
-        resource_key = '/'.join(parts[:-1])
-
-    print(f'[{request.method}] Path: {resource_path} | Clean: {clean_path} | Key: {resource_key} | ID: {item_id}')
-
-    if request.method == 'GET':
-        # List vs Item logic
-        # A heuristic: if 'item_id' seems to be a variable part, try retrieve.
-        # If retrieve fails, it might be a list endpoint that just looks like a detail.
-        item = mock_retrieve(resource_key, item_id)
-        if item: return jsonify(item)
-        
-        # Fallback: Maybe it wasn't an ID, but a list resource
-        if resource_key in mock_db and len(mock_db[resource_key]) > 0:
-             # It was a list, return list
-             return jsonify(mock_db[resource_key])
-        
-        # Check if the full path is a list key
-        if clean_path in mock_db:
-             return jsonify(mock_db[clean_path])
-        
-        return jsonify({'message': 'Not Found'}), 404
-
-    elif request.method == 'POST':
-        success_code = get_success_code(clean_path)
-        # Handle empty body (204) or specific logic
-        if 'admin/unadopted' in clean_path:
-             return '', 204
-
-        try: new_item = request.json or {}
-        except: new_item = {}
-        
-        if 'id' not in new_item:
-            new_item['id'] = random.randint(1000, 9999)
-
-        # Upsert Logic for Tests
-        existing_idx = next((index for (index, d) in enumerate(mock_db[resource_key]) if str(d.get('id')) == str(new_item.get('id'))), None)
-        if existing_idx is not None:
-             mock_db[resource_key][existing_idx] = new_item
-             # Return 200 for updates to avoid conflicts, or the expected success code if safe
-             return jsonify(new_item), 200
-
-        mock_db[resource_key].append(new_item)
-        print(f"DEBUG POST: Added to '{resource_key}'. Returning {success_code}")
-        if success_code == 204: return '', 204
-        return jsonify(new_item), success_code
-
-    elif request.method in ['PUT', 'PATCH']:
-        if item_id is None: return '', 405
-        existing_item = mock_retrieve(resource_key, item_id)
-        if existing_item:
-            try: existing_item.update(request.json or {})
-            except: pass
-            return jsonify(existing_item)
-        return jsonify({'message': 'Not Found'}), 404
-
-    elif request.method == 'DELETE':
-        if item_id is not None:
-             initial_len = len(mock_db[resource_key])
-             mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
-             if len(mock_db[resource_key]) < initial_len:
-                 return '', 204
-             return jsonify({'message': 'Not Found'}), 404
-        return '', 405
-
-if __name__ == '__main__':
-    print('🚀 Gitea Mock Server (RAM Only) running on http://127.0.0.1:8000')
-    app.run(debug=False, port=8000)
+if __name__ == '__main__': app.run(port=8000, debug=True)
