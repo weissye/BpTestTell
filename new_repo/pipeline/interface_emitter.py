@@ -37,20 +37,27 @@ def _is_valid_js_identifier(name: str) -> bool:
     """Validates that a string is a safe JavaScript identifier."""
     if not name or not isinstance(name, str):
         return False
+    # Filter out ellipsis or empty whitespace strings
     if "..." in name or "…" in name or name.strip() == "":
         return False
+    # Standard JS Identifier regex
     return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
-    """Generates a standard Provengo REST operation function."""
+    """
+    Generates a standard Provengo REST operation function.
+    Handles recursive URL placeholder replacement, body 
+    templating, and success event synchronization.
+    """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl:
-        return []
+        return [] 
 
     lines = []
     method = (method_override or op_data.get("method", "GET")).upper()
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
     
+    # Ensure primary key is represented in the description for traceability
     if primary_key in sig_params and primary_key not in desc_tmpl:
          desc_tmpl = f"{desc_tmpl} {{{primary_key}}}"
     
@@ -58,6 +65,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         desc_tmpl = f"{method} {fn_name}"
     
     def escape_js_str(s):
+        """Internal helper to escape strings for JS output."""
         return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '')
 
     safe_path = escape_js_str(path_tmpl)
@@ -68,12 +76,14 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     ordered_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
     path_params_set = set(ordered_path_params)
-    query_params_list = op_data.get("queryParams", [])
+    query_params_list = op_data.get("queryParams", []) 
 
+    # Signature logic: POST/PUT use full params, others use path/query only
     final_sig_params = []
     if method in ["POST", "PUT", "PATCH"]:
         final_sig_params = sig_params
     else:
+        # GET/DELETE operations primarily rely on URL path and query parameters
         final_sig_params = [p for p in ordered_path_params]
         for qp in query_params_list:
             if qp not in final_sig_params:
@@ -81,9 +91,12 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params])
     safe_fn_name = sanitize_param(fn_name)
+    
+    # EMIT: Function Body
     lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
 
-    # PATCH: Gitea Object Resolver
+    # FIX 1 & 2: Gitea Object Resolver (Injected locally within function)
+    # This prevents [object Object] by extracting IDs or Logins from Gitea objects
     lines.append('  const resolve = (v) => {')
     lines.append('    if (v === undefined || v === null) return "undefined";')
     lines.append('    if (typeof v === "object") {')
@@ -93,7 +106,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     lines.append('    return v;')
     lines.append('  };')
 
-    # Dynamic URL Construction
+    # Dynamic URL Construction with Resolve Protection
     for p in final_sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in js_url:
@@ -101,14 +114,26 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         if f'{{{p}}}' in js_desc:
             js_desc = js_desc.replace(f'{{{p}}}', f'" + resolve({safe_p}) + "')
         
+    # Python Syntax Fix: Extract string cleaning from f-string expressions
     clean_url_str = js_url.replace(' + ""', '').replace('"" + ', '')
     clean_desc_str = js_desc.replace(' + ""', '').replace('"" + ', '')
 
     param_types = op_data.get("paramTypes", {})
     body_js = "{}"
 
+    # Generate Query Parameter Objects with Resolve Protection
+    query_js_parts = []
+    for p in final_sig_params:
+        if p in query_params_list:
+            safe_p = sanitize_param(p)
+            query_js_parts.append(f'    "{p}": resolve({safe_p})')
+    
+    query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
+
+    # Request Body Logic with Resolve Protection
     if method in ["POST", "PUT", "PATCH"]:
         b_lines = ["{"]
+        # Defensive ID generation for new resources
         if "id" in final_sig_params and "id" not in path_params_set and "id" not in param_types:
              b_lines.append(f'    "id": resolve({sanitize_param("id")}),')
         elif "id" not in final_sig_params and "create" in fn_name.lower():
@@ -118,28 +143,25 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
              if p in path_params_set or p in query_params_list or p == "id":
                  continue
              
-             sanitized_p = sanitize_param(p)
-             ptype = param_types.get(p, "string").lower()
-             is_primitive = ptype in ["object", "array", "integer", "number", "boolean"]
-             cast = "" if is_primitive else "String"
-             
-             if cast:
-                 b_lines.append(f'    "{p}": {cast}(resolve({sanitized_p})),')
-             else:
+             if p in op_data.get("paramTypes", {}) or p in sig_params: 
+                 sanitized_p = sanitize_param(p)
+                 # FIX 2: Every body field is wrapped in resolve() for object safety
                  b_lines.append(f'    "{p}": resolve({sanitized_p}),')
         
         b_lines.append("}")
         object_body = "\n".join(b_lines) if len(b_lines) > 2 else "{}"
         body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
 
+    if "..." in body_js:
+        body_js = "{}"
+
+    # Determine response codes
     codes_list = codes_override if codes_override else get_response_codes(path_tmpl, method, spec)
     codes_str = json.dumps(sorted(codes_list))
     
     lines.append(f'  var url = {clean_url_str};')
     lines.append(f'  var reqDescription = {clean_desc_str};')
     
-    query_js_parts = [f'"{p}": resolve({sanitize_param(p)})' for p in final_sig_params if p in query_params_list]
-    query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
 
     if method in ["POST", "PUT", "PATCH"]:
@@ -148,6 +170,8 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: reqDescription }}{qp_arg} }});')
         
         if not codes_override:
+             # FIX 3: Server-Generated Data Capture
+             # Merges res.data to capture IDs generated by complex Gitea flows
              payload_parts = [f'"{p}": resolve({sanitize_param(p)})' for p in final_sig_params]
              payload_str = "{" + ", ".join(payload_parts) + "}"
              lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
@@ -162,6 +186,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
         lines.append(f'  }}')
         lines.append('  return res;')
+        
     else:
         lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
     
@@ -169,89 +194,163 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     return lines
 
 def _generate_js_matchers(name, ops):
+    """
+    GUARANTEED MATCHER POLICY:
+    Every entity gets Add and Delete matchers.
+    """
     lines = []
     safe_entity_name = sanitize_param(name)
-    creation_op = ops.get("add") or next((o for o in ops.values() if isinstance(o, dict) and o.get("method") == "POST"), None)
+    
+    creation_op = ops.get("add")
+    if not creation_op:
+        for op_key, op_val in ops.items():
+            if isinstance(op_val, dict) and op_val.get("method") == "POST":
+                creation_op = op_val
+                break
 
+    # EMIT: Add Matcher
     lines.append(f'function matchAny{safe_entity_name}Added() {{')
     if creation_op:
         desc_tmpl = creation_op.get("descriptionTemplate", f"Add {name}")
         prefix = ("Done: Positive: " + desc_tmpl).split("{")[0].strip().rstrip('"')
-        lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{ return e.name.startsWith("{prefix}"); }});')
+        lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{')
+        lines.append(f'    return e.name.startsWith("{prefix}");')
+        lines.append('  });')
     else:
         lines.append('  return bp.EventSet("None", function(e){ return false; });')
     lines.append('}\n')
 
+    # EMIT: Delete Matcher
     delete_op = ops.get("delete")
     lines.append(f'function matchDeleted{safe_entity_name}() {{')
     if delete_op:
         desc_tmpl = delete_op.get("descriptionTemplate", f"Delete {name}")
         prefix = ("Done: Positive: " + desc_tmpl).split("{")[0].strip().rstrip('"')
-        lines.append(f'  return bp.EventSet("Deleted {name}", function(e) {{ return e.name.startsWith("{prefix}"); }});')
+        lines.append(f'  return bp.EventSet("Deleted {name}", function(e) {{')
+        lines.append(f'    return e.name.startsWith("{prefix}");')
+        lines.append('  });')
     else:
         lines.append('  return bp.EventSet("None", function(e){ return false; });')
     lines.append('}\n')
+    
     return lines
 
 def _generate_reject_operation(op_data, fn_name, sig_params):
+    """
+    Negative testing functions with Gitea Resolver protection.
+    """
     path_tmpl = op_data.get("path", "")
-    if not path_tmpl: return [] 
-    lines = [f'function {sanitize_param(fn_name)}({", ".join([sanitize_param(p) for p in sig_params])}) {{']
+    if not path_tmpl:
+        return [] 
+    
+    lines = []
+    safe_path = path_tmpl.replace('"', '\\"')
+    js_url = f'"{safe_path}"'
+    
+    lines.append(f'function {sanitize_param(fn_name)}({", ".join([sanitize_param(p) for p in sig_params])}) {{')
+    
+    # Injected Resolver
     lines.append('  const resolve = (v) => (v && typeof v === "object") ? (v.id || v.name || v.login || v.username || "undefined") : v;')
-    js_url = f'"{path_tmpl}"'
+    
+    path_params = set()
     for p in sig_params:
-        if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + resolve({sanitize_param(p)}) + "')
-    lines.append(f'  var url = {js_url.replace(" + \"\"", "").replace("\"\" + ", "")};')
-    lines.append('  var body = {};')
+        if f'{{{p}}}' in path_tmpl:
+            path_params.add(p)
+            js_url = js_url.replace(f'{{{p}}}', f'" + resolve({sanitize_param(p)}) + "')
+    
+    b_lines = ["{"]
+    param_types = op_data.get("paramTypes", {})
     for p in sig_params:
-         if f'{{{p}}}' not in path_tmpl: lines.append(f'  body["{p}"] = resolve({sanitize_param(p)});')
-    lines.append('  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500] });')
+         if p not in path_params and (p in param_types or p == "id"):
+              b_lines.append(f'    "{p}": resolve({sanitize_param(p)}),')
+    b_lines.append("}")
+    
+    body_js = f"[{' '.join(b_lines)}]" if op_data.get("is_array", False) else ' '.join(b_lines)
+
+    # Syntax Patch: Extract concatenation from f-string
+    final_reject_url = js_url.replace(' + ""', '').replace('"" + ', '')
+    lines.append(f'  var url = {final_reject_url};')
+    lines.append(f'  var body = {body_js};')
+    lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500] }});')
     lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: Rejection verified for " + url) }});')
     lines.append('}\n')
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
+    """
+    Master emission entry point with FIX 5: BasePath Concatenation.
+    """
     sut_name_safe = sanitize_param(sut_name)
     file_path = out_dir / f"interfaces.{sut_name_safe}.js"
     ensure_dir(file_path.parent)
+    
+    # URL RESOLVER
     base_url_raw = spec.get("base_url", "http://localhost:8000")
     u = urlparse(base_url_raw)
     raw_spec, entities = get_raw_spec(spec), spec.get("entities", {})
+    
     lines = ['//@provengo summon rest', f'// === Auto-generated interfaces for {sut_name} ===']
-    auth_header = ', "api_key": "special-key"' if sut_name == "PetshopStore" else ""
+    
+    # FIX 5: BasePath Concatenation
+    # Handles specs where the base path is not provided in the server root
+    raw_base = raw_spec.get("basePath", "") or raw_spec.get("servers", [{}])[0].get("url", "")
+    final_path = u.path.rstrip("/")
+    if "/api/v1" in raw_base and "/api/v1" not in final_path:
+        final_path = final_path + "/api/v1"
+    
     port_str = f":{u.port}" if u.port else ""
-    service_root = f"{u.scheme}://{u.hostname}{port_str}{u.path}"
+    service_root = f"{u.scheme}://{u.hostname}{port_str}{final_path}"
+    
+    auth_header = ', "api_key": "special-key"' if sut_name == "PetshopStore" else ""
     lines.append(f'const svc = new RESTSession("{service_root.rstrip("/")}", "client", {{ headers: {{ "Content-Type": "application/json"{auth_header} }} }});')
     lines.append('const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };')
     lines.append('function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }')
 
+    # Main Entity Loop
     for name, ent in entities.items():
         pk, sig = collect_entity_params(name, ent, raw_spec)
         sig = [p for p in sig if _is_valid_js_identifier(sanitize_param(p))]
         ops = ent.get("operations", {})
+
         for op_type, op_data in ops.items():
-            if op_type not in ["verifyExists", "verifyDoesntExist"]:
-                lines.extend(_generate_js_operation(op_data, op_data.get("name", f"{op_type}{name}"), sig, pk, spec, raw_spec))
+            if op_type in ["verifyExists", "verifyDoesntExist"]:
+                continue
+            lines.extend(_generate_js_operation(op_data, op_data.get("name", f"{op_type}{name}"), sig, pk, spec, raw_spec))
+
         if "add" in ops:
              lines.extend(_generate_reject_operation(ops["add"], f"verify{sanitize_param(name)}Rejects", sig))
 
+        # FIX 4: Verifier Key-Mapping
+        # Existence and Absence verification stubs now handle Gitea's id/index/number flexibility
         get_op = ops.get("get")
         lines.append(f'function verify{sanitize_param(name)}Exists({sanitize_param(pk)}) {{')
+        lines.append(f'  let finalId = {sanitize_param(pk)} || "undefined";')
+        
         if get_op and "{" in get_op.get("path", ""):
             path_code = f'"{get_op["path"]}"'
             for param in re.findall(r'\{([^\}]+)\}', get_op["path"]):
-                path_code = path_code.replace('{' + param + '}', f'" + {sanitize_param(param)} + "')
-            lines.append(f'  svc.get({path_code.replace(" + \"\"", "").replace("\"\" + ", "")}, {{ expectedResponseCodes: [200] }});')
+                # Map the incoming ID parameter to any path placeholder
+                path_code = path_code.replace('{' + param + '}', f'" + finalId + "')
+            
+            final_exists_path = path_code.replace(' + ""', '').replace('"" + ', '')
+            lines.append(f'  svc.get({final_exists_path}, {{ expectedResponseCodes: [200] }});')
         lines.append(f'  pvg.success("{name} existence verified");\n}}')
         
         lines.append(f'function verify{sanitize_param(name)}DoesNotExist({sanitize_param(pk)}) {{')
+        lines.append(f'  let finalId = {sanitize_param(pk)} || "undefined";')
         if get_op and "{" in get_op.get("path", ""):
             path_code = f'"{get_op["path"]}"'
             for param in re.findall(r'\{([^\}]+)\}', get_op["path"]):
-                path_code = path_code.replace('{' + param + '}', f'" + {sanitize_param(param)} + "')
-            lines.append(f'  svc.get({path_code.replace(" + \"\"", "").replace("\"\" + ", "")}, {{ expectedResponseCodes: [404] }});')
+                path_code = path_code.replace('{' + param + '}', f'" + finalId + "')
+            
+            final_exists_path_neg = path_code.replace(' + ""', '').replace('"" + ', '')
+            lines.append(f'  svc.get({final_exists_path_neg}, {{ expectedResponseCodes: [404] }});')
         lines.append(f'  pvg.success("{name} absence verified");\n}}')
+
+        # Life-cycle Matchers
         lines.extend(_generate_js_matchers(name, ops))
 
+    # FINAL STEP: Persistent write to disk
     file_path.write_text("\n".join(lines), encoding="utf-8")
+    
 # End of 333-Line Architectural Edition

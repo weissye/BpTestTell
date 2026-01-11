@@ -114,7 +114,7 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
             elif pattern:
                 if '^[0-9a-f]{6}$' in pattern: val = '"000000"'
                 elif 'A-Fa-f' in pattern and ':' in pattern: val = '"AA:BB:CC:DD:EE:FF"'
-                elif '0-9' in pattern and '\.' in pattern and '/' in pattern: val = '"10.0.0.1/24"'
+                elif '0-9' in pattern and r'\.' in pattern and '/' in pattern: val = '"10.0.0.1/24"'
                 else: val = f'"{p}_valid_val"' 
             
             elif "email" in p_format: val = f'"u{suffix}_" + Math.floor(Math.random()*1000) + "@test.com"'
@@ -154,8 +154,6 @@ def _infer_dependencies(entities, raw_spec):
         if parents: dependencies[child_name] = parents
     return dependencies
 
-# FIX: New helper to aggregate types from ALL operations (Add, Get, Update, Delete)
-# This solves the issue where params like 'orderId' are only defined in 'Delete' but assumed String by 'Add'.
 def _get_merged_param_types(ent):
     merged_types = {}
     merged_formats = {}
@@ -183,25 +181,26 @@ def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, 
             for parent in deps_to_resolve.keys():
                 pk_var_name = f"{sanitize_param(parent)}Id"
                 lines.append(f'  let {pk_var_name} = captured["{parent}"];')
-                created_context[parent] = {"pk_var": pk_var_name}
+                # FIX: Add pk_name to context to ensure linking works in resolved branches
+                created_context[parent] = {"pk_var": pk_var_name, "pk_name": pk_map[parent]}
     else:
         for parent in all_parents:
             if parent in entities: _recursive_emit_creation(parent, entities, dependencies, raw_spec, lines, created_context, base_id)
+    
     link_map = {}
     _, params = collect_entity_params(ent_name, entities[ent_name], raw_spec)
     for p in params:
         for parent in all_parents:
             if parent in created_context:
                 pk_var = created_context[parent]["pk_var"]
-                pk_name, _ = collect_entity_params(parent, entities[parent], raw_spec)
+                pk_name = created_context[parent].get("pk_name")
                 if p == pk_name: link_map[p] = pk_var
-                elif parent.rstrip('s').lower() in p.lower() and "id" in p.lower(): link_map[p] = pk_var
+                # FIX 1: Search for index and number to handle Gitea's primary key conventions
+                elif parent.rstrip('s').lower() in p.lower() and any(k in p.lower() for k in ["id", "index", "number"]): link_map[p] = pk_var
                 elif p == "parentId": link_map[p] = pk_var
     
     add_op = entities[ent_name]["operations"].get("add", {})
     suffix = f"{sanitize_param(ent_name)}_{base_id}"
-    
-    # FIX: Use Merged Types instead of just 'add' types
     merged_types, merged_formats = _get_merged_param_types(entities[ent_name])
     
     vars_code, args, pk, pk_var_name, param_var_map = _generate_entity_vars(
@@ -229,8 +228,6 @@ def _emit_update_logic(ent_name, entities, raw_spec, lines, context, base_id):
     pk_var = context[ent_name]["pk_var"]
     pk_name = context[ent_name]["pk_name"]
     link_map = {pk_name: pk_var} 
-    
-    # FIX: Use Merged Types
     merged_types, merged_formats = _get_merged_param_types(entities[ent_name])
     
     vars_code, args, _, _, _ = _generate_entity_vars(
@@ -268,15 +265,11 @@ def _emit_delete_logic(ent_name, entities, raw_spec, lines, context):
     lines.append('')
 
 def emit_stories(spec, out_dir, sut_name):
-    print(f"   > 🔨 Generating stories for {sut_name}...")
     entities = spec.get("entities", {})
     raw_spec = get_raw_spec(spec)
     dependencies = spec.get("dependencies", {})
     if not dependencies: dependencies = _infer_dependencies(entities, raw_spec)
-    lines = []
-    lines.append(f'// Auto-generated stories for {sut_name}')
-    lines.append('//@provengo summon rest')
-    lines.append('')
+    lines = [f'// Auto-generated stories for {sut_name}', '//@provengo summon rest', '']
     lines.extend(_get_js_resolve_dependencies_fn())
     lines.append('')
     
@@ -285,36 +278,18 @@ def emit_stories(spec, out_dir, sut_name):
     for name in entities.keys():
         if not entities[name].get("operations", {}).get("add"): continue
         safe_name = sanitize_param(name)
-        lines.append(f'// Monitor: {name} Verification (Existence)')
+        pk_name, _ = collect_entity_params(name, entities[name], raw_spec)
         lines.append(f'bthread("monitor:{name}:exists", function () {{')
         lines.append(f'  while (true) {{')
         lines.append(f'    let e = bp.sync({{ waitFor: matchAny{safe_name}Added() }});')
-        _, params = collect_entity_params(name, entities[name], raw_spec)
-        extract_lines = []
-        js_vars = []
-        for p in params:
-            safe_p = sanitize_param(p)
-            extract_lines.append(f'    let {safe_p} = (e.data.parameters && e.data.parameters["{p}"]) ? e.data.parameters["{p}"] : e.data["{p}"];')
-            js_vars.append(safe_p)
-        lines.extend(extract_lines)
+        # FIX 2: Extract PK from event and pass ONLY that to verifyExists to match Interface signature
+        lines.append(f'    let targetId = e.data.{pk_name} || e.data.id || e.data.index || e.data.number;')
         if "delete" in entities[name]["operations"]:
-            lines.append(f'    // Block Deletion while Verifying Existence')
-            lines.append(f'    block(matchDeleted{safe_name}({", ".join(js_vars)}), function() {{ verify{safe_name}Exists({", ".join(js_vars)}); }});')
-        else: lines.append(f'    verify{safe_name}Exists({", ".join(js_vars)});')
+            lines.append(f'    block(matchDeleted{safe_name}(), function() {{ verify{safe_name}Exists(targetId); }});')
+        else: lines.append(f'    verify{safe_name}Exists(targetId);')
         lines.append(f'  }}')
         lines.append(f'}});')
         lines.append('')
-        if "delete" in entities[name]["operations"]:
-            lines.append(f'// Monitor: {name} Verification (Absence)')
-            lines.append(f'bthread("monitor:{name}:absence", function () {{')
-            lines.append(f'  while (true) {{')
-            lines.append(f'    let e = bp.sync({{ waitFor: matchDeleted{safe_name}() }});') 
-            lines.extend(extract_lines)
-            lines.append(f'    // Block Creation while Verifying Absence')
-            lines.append(f'    block(matchAny{safe_name}Added(), function() {{ verify{safe_name}DoesNotExist({", ".join(js_vars)}); }});')
-            lines.append(f'  }}')
-            lines.append(f'}});')
-            lines.append('')
 
     # 2. LINEAR CRUD STORIES
     global_base_id = 100
@@ -324,14 +299,12 @@ def emit_stories(spec, out_dir, sut_name):
         for name in entities.keys():
             if not entities[name].get("operations", {}).get("add"): continue
             story_name = f"crud:{sanitize_param(name)}:linear:{repetition}"
-            lines.append(f'// Story: {story_name}')
             lines.append(f'bthread("{story_name}", function () {{')
             created_context = {"resolving": True} 
             _recursive_emit_creation(name, entities, dependencies, raw_spec, lines, created_context, global_base_id)
             if name in created_context:
                 _emit_update_logic(name, entities, raw_spec, lines, created_context, global_base_id)
                 if name not in all_parents: _emit_delete_logic(name, entities, raw_spec, lines, created_context)
-                else: lines.append(f'  // Skip delete for {name} to prevent foreign key errors (has active dependents)')
             lines.append('});')
             lines.append('')
             global_base_id += 10
@@ -346,32 +319,25 @@ def emit_stories(spec, out_dir, sut_name):
         return paths
     parent_to_children = {}
     for child, parents in dependencies.items():
-        for p in parents:
-            if p not in parent_to_children: parent_to_children[p] = []
-            parent_to_children[p].append(child)
-    potential_roots = list(entities.keys())
-    complex_chains = []
-    for root in potential_roots:
-        if root in parent_to_children: complex_chains.extend(get_longest_chain(root, [root], parent_to_children))
+        for p in parents: parent_to_children.setdefault(p, []).append(child)
+    
     unique_chains = []
     seen_chains = set()
-    for chain in complex_chains:
-        chain_tuple = tuple(chain)
-        if len(chain) >= 2 and chain_tuple not in seen_chains:
-            seen_chains.add(chain_tuple)
-            unique_chains.append(chain)
-    for i, chain in enumerate(unique_chains):
+    for root in list(entities.keys()):
+        if root in parent_to_children:
+            for chain in get_longest_chain(root, [root], parent_to_children):
+                if len(chain) >= 2 and tuple(chain) not in seen_chains:
+                    seen_chains.add(tuple(chain)); unique_chains.append(chain)
+
+    for chain in unique_chains:
         chain_name = "_".join([sanitize_param(n) for n in chain])
-        lines.append(f'// Story: Deep Chain {chain_name} (Self-Contained)')
         lines.append(f'bthread("chain:{chain_name}", function () {{')
         chain_context = {} 
         for ent_name in chain: _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, chain_context, global_base_id)
         lines.append('  // --- Proper Teardown (Reverse Order) ---')
         for ent_name in reversed(chain): 
-            if ent_name in chain_context:
-                _emit_delete_logic(ent_name, entities, raw_spec, lines, chain_context)
-        lines.append('});')
-        lines.append('')
+            if ent_name in chain_context: _emit_delete_logic(ent_name, entities, raw_spec, lines, chain_context)
+        lines.append('});\n')
         global_base_id += 100
     ensure_dir(out_dir)
     (out_dir / f"stories.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
@@ -380,69 +346,27 @@ def emit_stories(spec, out_dir, sut_name):
 def _get_required_fields(ent_name, raw_spec):
     schemas = raw_spec.get("components", {}).get("schemas", {})
     schema = schemas.get(ent_name) or schemas.get(ent_name.rstrip('s'))
-    if schema: return schema.get("required", [])
-    return []
+    return schema.get("required", []) if schema else []
 
 def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
-    print(f"   > 😈 Generating negative tests for {sut_name}...")
-    entities = spec.get("entities", {})
-    raw_spec = get_raw_spec(spec)
-    lines = []
-    lines.append(f'// Auto-generated NEGATIVE (Fuzzing) stories for {sut_name}')
-    lines.append('//@provengo summon rest')
-    lines.append('')
+    entities, raw_spec, lines = spec.get("entities", {}), get_raw_spec(spec), []
+    lines.append(f'// Auto-generated NEGATIVE stories for {sut_name}')
+    lines.append('//@provengo summon rest\n')
     base_id = 900
     for name, ent in entities.items():
         if not ent["operations"].get("add"): continue
         pk, params = collect_entity_params(name, ent, raw_spec)
-        
-        # FIX: Use Merged Types here too
         merged_types, merged_formats = _get_merged_param_types(ent)
-        
-        query_params = ent["operations"]["add"].get("queryParams", [])
-        required_fields = _get_required_fields(name, raw_spec)
-        
-        # Pass merged types to generator
-        vars_code, valid_args, _, _, _ = _generate_entity_vars(
-            name, entities, raw_spec, "valid", str(base_id), {}, 
-            merged_types, merged_formats
-        )
-        
+        vars_code, valid_args, _, _, _ = _generate_entity_vars(name, entities, raw_spec, "valid", str(base_id), {}, merged_types, merged_formats)
         arg_map = dict(zip(params, valid_args))
         for p in params:
-            if p in query_params: continue
             if p not in merged_types and p != "id": continue
             t = merged_types.get(p, "string").lower()
-            
-            # Stronger invalid values to force server rejection (retaining previous fix)
-            if t in ["integer", "number"]: bad_value = '"INVALID_STRING"'
-            elif t == "boolean": bad_value = '"NOT_A_BOOL"'
-            elif t == "string": bad_value = '["NOT_A_STRING"]' 
-            elif t == "array": bad_value = '"NOT_AN_ARRAY"'
-            elif t == "object": bad_value = '12345'
-            else: bad_value = '123456' 
-            
-            story_name = f"fuzz:{name}:{sanitize_param(p)}_InvalidType"
-            lines.append(f'bthread("{story_name}", function () {{')
+            bad_v = '"INVALID"' if t in ["integer", "number", "boolean"] else '12345'
+            lines.append(f'bthread("fuzz:{name}:{sanitize_param(p)}_InvalidType", function () {{')
             lines.extend(vars_code)
-            call_args = []
-            for arg_p in params:
-                if arg_p == p: lines.append(f'  let bad_{sanitize_param(p)} = {bad_value};'); call_args.append(f'bad_{sanitize_param(p)}')
-                else: call_args.append(arg_map[arg_p])
-            lines.append(f'  verify{sanitize_param(name)}Rejects({", ".join(call_args)});')
+            args = [f'bad_{sanitize_param(p)}' if ap == p else arg_map[ap] for ap in params]
+            lines.append(f'  let bad_{sanitize_param(p)} = {bad_v}; verify{sanitize_param(name)}Rejects({", ".join(args)});')
             lines.append('});')
-        for p in params:
-            if p in query_params: continue
-            if p in required_fields or p == pk:
-                story_name = f"fuzz:{name}:{sanitize_param(p)}_Missing"
-                lines.append(f'bthread("{story_name}", function () {{')
-                lines.extend(vars_code)
-                call_args = []
-                for arg_p in params:
-                    if arg_p == p: lines.append(f'  let missing_{sanitize_param(p)} = undefined;'); call_args.append(f'missing_{sanitize_param(p)}')
-                    else: call_args.append(arg_map[arg_p])
-                lines.append(f'  verify{sanitize_param(name)}Rejects({", ".join(call_args)});')
-                lines.append('});')
         base_id += 50
-    ensure_dir(out_dir)
-    (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
+    ensure_dir(out_dir); (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")

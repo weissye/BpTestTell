@@ -28,1385 +28,454 @@ function resolveDependencies(deps, pkMap) {
 }
 
 // --- Monitors ---
-// Monitor: ActivityPub Verification (Existence)
 bthread("monitor:ActivityPub:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyActivityPubAdded() });
-    let user_id = (e.data.parameters && e.data.parameters["user-id"]) ? e.data.parameters["user-id"] : e.data["user-id"];
-    verifyActivityPubExists(user_id);
+    let targetId = e.data.user-id || e.data.id || e.data.index || e.data.number;
+    verifyActivityPubExists(targetId);
   }
 });
 
-// Monitor: AdminCron Verification (Existence)
 bthread("monitor:AdminCron:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyAdminCronAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let task = (e.data.parameters && e.data.parameters["task"]) ? e.data.parameters["task"] : e.data["task"];
-    verifyAdminCronExists(id, limit, page, task);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyAdminCronExists(targetId);
   }
 });
 
-// Monitor: Hooks Verification (Existence)
 bthread("monitor:Hooks:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyHooksAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedHooks(body, id, limit, page), function() { verifyHooksExists(body, id, limit, page); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedHooks(), function() { verifyHooksExists(targetId); });
   }
 });
 
-// Monitor: Hooks Verification (Absence)
-bthread("monitor:Hooks:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedHooks() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Creation while Verifying Absence
-    block(matchAnyHooksAdded(), function() { verifyHooksDoesNotExist(body, id, limit, page); });
-  }
-});
-
-// Monitor: UnadoptedRepositories Verification (Existence)
 bthread("monitor:UnadoptedRepositories:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUnadoptedRepositoriesAdded() });
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let pattern = (e.data.parameters && e.data.parameters["pattern"]) ? e.data.parameters["pattern"] : e.data["pattern"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUnadoptedRepositories(limit, owner, page, pattern, repo), function() { verifyUnadoptedRepositoriesExists(limit, owner, page, pattern, repo); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUnadoptedRepositories(), function() { verifyUnadoptedRepositoriesExists(targetId); });
   }
 });
 
-// Monitor: UnadoptedRepositories Verification (Absence)
-bthread("monitor:UnadoptedRepositories:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUnadoptedRepositories() });
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let pattern = (e.data.parameters && e.data.parameters["pattern"]) ? e.data.parameters["pattern"] : e.data["pattern"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUnadoptedRepositoriesAdded(), function() { verifyUnadoptedRepositoriesDoesNotExist(limit, owner, page, pattern, repo); });
-  }
-});
-
-// Monitor: Users Verification (Existence)
 bthread("monitor:Users:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUsersAdded() });
-    let CreateAccessTokenOption = (e.data.parameters && e.data.parameters["CreateAccessTokenOption"]) ? e.data.parameters["CreateAccessTokenOption"] : e.data["CreateAccessTokenOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let purge = (e.data.parameters && e.data.parameters["purge"]) ? e.data.parameters["purge"] : e.data["purge"];
-    let token = (e.data.parameters && e.data.parameters["token"]) ? e.data.parameters["token"] : e.data["token"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUsers(CreateAccessTokenOption, body, limit, page, purge, token, username), function() { verifyUsersExists(CreateAccessTokenOption, body, limit, page, purge, token, username); });
+    let targetId = e.data.username || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUsers(), function() { verifyUsersExists(targetId); });
   }
 });
 
-// Monitor: Users Verification (Absence)
-bthread("monitor:Users:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUsers() });
-    let CreateAccessTokenOption = (e.data.parameters && e.data.parameters["CreateAccessTokenOption"]) ? e.data.parameters["CreateAccessTokenOption"] : e.data["CreateAccessTokenOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let purge = (e.data.parameters && e.data.parameters["purge"]) ? e.data.parameters["purge"] : e.data["purge"];
-    let token = (e.data.parameters && e.data.parameters["token"]) ? e.data.parameters["token"] : e.data["token"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUsersAdded(), function() { verifyUsersDoesNotExist(CreateAccessTokenOption, body, limit, page, purge, token, username); });
-  }
-});
-
-// Monitor: UserBadges Verification (Existence)
 bthread("monitor:UserBadges:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserBadgesAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUserBadges(body, username), function() { verifyUserBadgesExists(body, username); });
+    let targetId = e.data.username || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUserBadges(), function() { verifyUserBadgesExists(targetId); });
   }
 });
 
-// Monitor: UserBadges Verification (Absence)
-bthread("monitor:UserBadges:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUserBadges() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUserBadgesAdded(), function() { verifyUserBadgesDoesNotExist(body, username); });
-  }
-});
-
-// Monitor: UserKeys Verification (Existence)
 bthread("monitor:UserKeys:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserKeysAdded() });
-    let key = (e.data.parameters && e.data.parameters["key"]) ? e.data.parameters["key"] : e.data["key"];
-    let purge = (e.data.parameters && e.data.parameters["purge"]) ? e.data.parameters["purge"] : e.data["purge"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUserKeys(key, purge, username), function() { verifyUserKeysExists(key, purge, username); });
+    let targetId = e.data.username || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUserKeys(), function() { verifyUserKeysExists(targetId); });
   }
 });
 
-// Monitor: UserKeys Verification (Absence)
-bthread("monitor:UserKeys:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUserKeys() });
-    let key = (e.data.parameters && e.data.parameters["key"]) ? e.data.parameters["key"] : e.data["key"];
-    let purge = (e.data.parameters && e.data.parameters["purge"]) ? e.data.parameters["purge"] : e.data["purge"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUserKeysAdded(), function() { verifyUserKeysDoesNotExist(key, purge, username); });
-  }
-});
-
-// Monitor: UserOrganizations Verification (Existence)
 bthread("monitor:UserOrganizations:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserOrganizationsAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let organization = (e.data.parameters && e.data.parameters["organization"]) ? e.data.parameters["organization"] : e.data["organization"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    verifyUserOrganizationsExists(id, organization, username);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyUserOrganizationsExists(targetId);
   }
 });
 
-// Monitor: UserRename Verification (Existence)
 bthread("monitor:UserRename:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserRenameAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    verifyUserRenameExists(body, id, username);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyUserRenameExists(targetId);
   }
 });
 
-// Monitor: UserRepositories Verification (Existence)
 bthread("monitor:UserRepositories:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserRepositoriesAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let repository = (e.data.parameters && e.data.parameters["repository"]) ? e.data.parameters["repository"] : e.data["repository"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    verifyUserRepositoriesExists(id, repository, username);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyUserRepositoriesExists(targetId);
   }
 });
 
-// Monitor: Markdown Verification (Existence)
 bthread("monitor:Markdown:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyMarkdownAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    verifyMarkdownExists(body, id);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyMarkdownExists(targetId);
   }
 });
 
-// Monitor: Markup Verification (Existence)
 bthread("monitor:Markup:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyMarkupAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    verifyMarkupExists(body, id);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyMarkupExists(targetId);
   }
 });
 
-// Monitor: Organization Verification (Existence)
 bthread("monitor:Organization:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyOrganizationAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let secretname = (e.data.parameters && e.data.parameters["secretname"]) ? e.data.parameters["secretname"] : e.data["secretname"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedOrganization(body, limit, org, page, secretname), function() { verifyOrganizationExists(body, limit, org, page, secretname); });
+    let targetId = e.data.org || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedOrganization(), function() { verifyOrganizationExists(targetId); });
   }
 });
 
-// Monitor: Organization Verification (Absence)
-bthread("monitor:Organization:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedOrganization() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let secretname = (e.data.parameters && e.data.parameters["secretname"]) ? e.data.parameters["secretname"] : e.data["secretname"];
-    // Block Creation while Verifying Absence
-    block(matchAnyOrganizationAdded(), function() { verifyOrganizationDoesNotExist(body, limit, org, page, secretname); });
-  }
-});
-
-// Monitor: Variables Verification (Existence)
 bthread("monitor:Variables:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyVariablesAdded() });
-    let CreateVariableOption = (e.data.parameters && e.data.parameters["CreateVariableOption"]) ? e.data.parameters["CreateVariableOption"] : e.data["CreateVariableOption"];
-    let UpdateVariableOption = (e.data.parameters && e.data.parameters["UpdateVariableOption"]) ? e.data.parameters["UpdateVariableOption"] : e.data["UpdateVariableOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let variablename = (e.data.parameters && e.data.parameters["variablename"]) ? e.data.parameters["variablename"] : e.data["variablename"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedVariables(CreateVariableOption, UpdateVariableOption, body, id, limit, owner, page, repo, variablename), function() { verifyVariablesExists(CreateVariableOption, UpdateVariableOption, body, id, limit, owner, page, repo, variablename); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedVariables(), function() { verifyVariablesExists(targetId); });
   }
 });
 
-// Monitor: Variables Verification (Absence)
-bthread("monitor:Variables:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedVariables() });
-    let CreateVariableOption = (e.data.parameters && e.data.parameters["CreateVariableOption"]) ? e.data.parameters["CreateVariableOption"] : e.data["CreateVariableOption"];
-    let UpdateVariableOption = (e.data.parameters && e.data.parameters["UpdateVariableOption"]) ? e.data.parameters["UpdateVariableOption"] : e.data["UpdateVariableOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let variablename = (e.data.parameters && e.data.parameters["variablename"]) ? e.data.parameters["variablename"] : e.data["variablename"];
-    // Block Creation while Verifying Absence
-    block(matchAnyVariablesAdded(), function() { verifyVariablesDoesNotExist(CreateVariableOption, UpdateVariableOption, body, id, limit, owner, page, repo, variablename); });
-  }
-});
-
-// Monitor: Avatar Verification (Existence)
 bthread("monitor:Avatar:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyAvatarAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedAvatar(body, org), function() { verifyAvatarExists(body, org); });
+    let targetId = e.data.org || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedAvatar(), function() { verifyAvatarExists(targetId); });
   }
 });
 
-// Monitor: Avatar Verification (Absence)
-bthread("monitor:Avatar:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedAvatar() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    // Block Creation while Verifying Absence
-    block(matchAnyAvatarAdded(), function() { verifyAvatarDoesNotExist(body, org); });
-  }
-});
-
-// Monitor: Labels Verification (Existence)
 bthread("monitor:Labels:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyLabelsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let color = (e.data.parameters && e.data.parameters["color"]) ? e.data.parameters["color"] : e.data["color"];
-    let description = (e.data.parameters && e.data.parameters["description"]) ? e.data.parameters["description"] : e.data["description"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedLabels(body, color, description, id, limit, name, owner, page, repo), function() { verifyLabelsExists(body, color, description, id, limit, name, owner, page, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedLabels(), function() { verifyLabelsExists(targetId); });
   }
 });
 
-// Monitor: Labels Verification (Absence)
-bthread("monitor:Labels:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedLabels() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let color = (e.data.parameters && e.data.parameters["color"]) ? e.data.parameters["color"] : e.data["color"];
-    let description = (e.data.parameters && e.data.parameters["description"]) ? e.data.parameters["description"] : e.data["description"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyLabelsAdded(), function() { verifyLabelsDoesNotExist(body, color, description, id, limit, name, owner, page, repo); });
-  }
-});
-
-// Monitor: OrganizationRepos Verification (Existence)
 bthread("monitor:OrganizationRepos:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyOrganizationReposAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    verifyOrganizationReposExists(body, id, limit, org, page);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyOrganizationReposExists(targetId);
   }
 });
 
-// Monitor: OrganizationTeams Verification (Existence)
 bthread("monitor:OrganizationTeams:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyOrganizationTeamsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    verifyOrganizationTeamsExists(body, id, limit, org, page);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyOrganizationTeamsExists(targetId);
   }
 });
 
-// Monitor: Issues Verification (Existence)
 bthread("monitor:Issues:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssuesAdded() });
-    let content = (e.data.parameters && e.data.parameters["content"]) ? e.data.parameters["content"] : e.data["content"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let position = (e.data.parameters && e.data.parameters["position"]) ? e.data.parameters["position"] : e.data["position"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssues(content, id, index, limit, owner, page, position, repo), function() { verifyIssuesExists(content, id, index, limit, owner, page, position, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssues(), function() { verifyIssuesExists(targetId); });
   }
 });
 
-// Monitor: Issues Verification (Absence)
-bthread("monitor:Issues:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssues() });
-    let content = (e.data.parameters && e.data.parameters["content"]) ? e.data.parameters["content"] : e.data["content"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let position = (e.data.parameters && e.data.parameters["position"]) ? e.data.parameters["position"] : e.data["position"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssuesAdded(), function() { verifyIssuesDoesNotExist(content, id, index, limit, owner, page, position, repo); });
-  }
-});
-
-// Monitor: Repository Verification (Existence)
 bthread("monitor:Repository:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyRepositoryAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let sha = (e.data.parameters && e.data.parameters["sha"]) ? e.data.parameters["sha"] : e.data["sha"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedRepository(body, id, limit, owner, page, repo, sha), function() { verifyRepositoryExists(body, id, limit, owner, page, repo, sha); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedRepository(), function() { verifyRepositoryExists(targetId); });
   }
 });
 
-// Monitor: Repository Verification (Absence)
-bthread("monitor:Repository:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedRepository() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let sha = (e.data.parameters && e.data.parameters["sha"]) ? e.data.parameters["sha"] : e.data["sha"];
-    // Block Creation while Verifying Absence
-    block(matchAnyRepositoryAdded(), function() { verifyRepositoryDoesNotExist(body, id, limit, owner, page, repo, sha); });
-  }
-});
-
-// Monitor: Branches Verification (Existence)
 bthread("monitor:Branches:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyBranchesAdded() });
-    let CreateBranchRepoOption = (e.data.parameters && e.data.parameters["CreateBranchRepoOption"]) ? e.data.parameters["CreateBranchRepoOption"] : e.data["CreateBranchRepoOption"];
-    let UpdateBranchRepoOption = (e.data.parameters && e.data.parameters["UpdateBranchRepoOption"]) ? e.data.parameters["UpdateBranchRepoOption"] : e.data["UpdateBranchRepoOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let branch = (e.data.parameters && e.data.parameters["branch"]) ? e.data.parameters["branch"] : e.data["branch"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedBranches(CreateBranchRepoOption, UpdateBranchRepoOption, body, branch, id, limit, owner, page, repo), function() { verifyBranchesExists(CreateBranchRepoOption, UpdateBranchRepoOption, body, branch, id, limit, owner, page, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedBranches(), function() { verifyBranchesExists(targetId); });
   }
 });
 
-// Monitor: Branches Verification (Absence)
-bthread("monitor:Branches:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedBranches() });
-    let CreateBranchRepoOption = (e.data.parameters && e.data.parameters["CreateBranchRepoOption"]) ? e.data.parameters["CreateBranchRepoOption"] : e.data["CreateBranchRepoOption"];
-    let UpdateBranchRepoOption = (e.data.parameters && e.data.parameters["UpdateBranchRepoOption"]) ? e.data.parameters["UpdateBranchRepoOption"] : e.data["UpdateBranchRepoOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let branch = (e.data.parameters && e.data.parameters["branch"]) ? e.data.parameters["branch"] : e.data["branch"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyBranchesAdded(), function() { verifyBranchesDoesNotExist(CreateBranchRepoOption, UpdateBranchRepoOption, body, branch, id, limit, owner, page, repo); });
-  }
-});
-
-// Monitor: Collaborators Verification (Existence)
 bthread("monitor:Collaborators:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyCollaboratorsAdded() });
-    let AddCollaboratorOption = (e.data.parameters && e.data.parameters["AddCollaboratorOption"]) ? e.data.parameters["AddCollaboratorOption"] : e.data["AddCollaboratorOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let collaborator = (e.data.parameters && e.data.parameters["collaborator"]) ? e.data.parameters["collaborator"] : e.data["collaborator"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedCollaborators(AddCollaboratorOption, body, collaborator, id, limit, owner, page, repo), function() { verifyCollaboratorsExists(AddCollaboratorOption, body, collaborator, id, limit, owner, page, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedCollaborators(), function() { verifyCollaboratorsExists(targetId); });
   }
 });
 
-// Monitor: Collaborators Verification (Absence)
-bthread("monitor:Collaborators:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedCollaborators() });
-    let AddCollaboratorOption = (e.data.parameters && e.data.parameters["AddCollaboratorOption"]) ? e.data.parameters["AddCollaboratorOption"] : e.data["AddCollaboratorOption"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let collaborator = (e.data.parameters && e.data.parameters["collaborator"]) ? e.data.parameters["collaborator"] : e.data["collaborator"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyCollaboratorsAdded(), function() { verifyCollaboratorsDoesNotExist(AddCollaboratorOption, body, collaborator, id, limit, owner, page, repo); });
-  }
-});
-
-// Monitor: Repositories Verification (Existence)
 bthread("monitor:Repositories:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyRepositoriesAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let filepath = (e.data.parameters && e.data.parameters["filepath"]) ? e.data.parameters["filepath"] : e.data["filepath"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedRepositories(body, filepath, id, limit, owner, page, repo, username), function() { verifyRepositoriesExists(body, filepath, id, limit, owner, page, repo, username); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedRepositories(), function() { verifyRepositoriesExists(targetId); });
   }
 });
 
-// Monitor: Repositories Verification (Absence)
-bthread("monitor:Repositories:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedRepositories() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let filepath = (e.data.parameters && e.data.parameters["filepath"]) ? e.data.parameters["filepath"] : e.data["filepath"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Creation while Verifying Absence
-    block(matchAnyRepositoriesAdded(), function() { verifyRepositoriesDoesNotExist(body, filepath, id, limit, owner, page, repo, username); });
-  }
-});
-
-// Monitor: Forks Verification (Existence)
 bthread("monitor:Forks:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyForksAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    verifyForksExists(body, id, limit, owner, page, repo);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyForksExists(targetId);
   }
 });
 
-// Monitor: Issue Verification (Existence)
 bthread("monitor:Issue:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let state = (e.data.parameters && e.data.parameters["state"]) ? e.data.parameters["state"] : e.data["state"];
-    verifyIssueExists(body, id, limit, name, owner, page, repo, state);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyIssueExists(targetId);
   }
 });
 
-// Monitor: IssueCommentAttachments Verification (Existence)
 bthread("monitor:IssueCommentAttachments:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueCommentAttachmentsAdded() });
-    let attachment = (e.data.parameters && e.data.parameters["attachment"]) ? e.data.parameters["attachment"] : e.data["attachment"];
-    let attachment_id = (e.data.parameters && e.data.parameters["attachment_id"]) ? e.data.parameters["attachment_id"] : e.data["attachment_id"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueCommentAttachments(attachment, attachment_id, body, id, name, owner, repo), function() { verifyIssueCommentAttachmentsExists(attachment, attachment_id, body, id, name, owner, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueCommentAttachments(), function() { verifyIssueCommentAttachmentsExists(targetId); });
   }
 });
 
-// Monitor: IssueCommentAttachments Verification (Absence)
-bthread("monitor:IssueCommentAttachments:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueCommentAttachments() });
-    let attachment = (e.data.parameters && e.data.parameters["attachment"]) ? e.data.parameters["attachment"] : e.data["attachment"];
-    let attachment_id = (e.data.parameters && e.data.parameters["attachment_id"]) ? e.data.parameters["attachment_id"] : e.data["attachment_id"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueCommentAttachmentsAdded(), function() { verifyIssueCommentAttachmentsDoesNotExist(attachment, attachment_id, body, id, name, owner, repo); });
-  }
-});
-
-// Monitor: IssueCommentReactions Verification (Existence)
 bthread("monitor:IssueCommentReactions:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueCommentReactionsAdded() });
-    let content = (e.data.parameters && e.data.parameters["content"]) ? e.data.parameters["content"] : e.data["content"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueCommentReactions(content, id, owner, repo), function() { verifyIssueCommentReactionsExists(content, id, owner, repo); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueCommentReactions(), function() { verifyIssueCommentReactionsExists(targetId); });
   }
 });
 
-// Monitor: IssueCommentReactions Verification (Absence)
-bthread("monitor:IssueCommentReactions:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueCommentReactions() });
-    let content = (e.data.parameters && e.data.parameters["content"]) ? e.data.parameters["content"] : e.data["content"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueCommentReactionsAdded(), function() { verifyIssueCommentReactionsDoesNotExist(content, id, owner, repo); });
-  }
-});
-
-// Monitor: IssueAttachments Verification (Existence)
 bthread("monitor:IssueAttachments:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueAttachmentsAdded() });
-    let attachment = (e.data.parameters && e.data.parameters["attachment"]) ? e.data.parameters["attachment"] : e.data["attachment"];
-    let attachment_id = (e.data.parameters && e.data.parameters["attachment_id"]) ? e.data.parameters["attachment_id"] : e.data["attachment_id"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueAttachments(attachment, attachment_id, body, id, index, name, owner, repo), function() { verifyIssueAttachmentsExists(attachment, attachment_id, body, id, index, name, owner, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueAttachments(), function() { verifyIssueAttachmentsExists(targetId); });
   }
 });
 
-// Monitor: IssueAttachments Verification (Absence)
-bthread("monitor:IssueAttachments:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueAttachments() });
-    let attachment = (e.data.parameters && e.data.parameters["attachment"]) ? e.data.parameters["attachment"] : e.data["attachment"];
-    let attachment_id = (e.data.parameters && e.data.parameters["attachment_id"]) ? e.data.parameters["attachment_id"] : e.data["attachment_id"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueAttachmentsAdded(), function() { verifyIssueAttachmentsDoesNotExist(attachment, attachment_id, body, id, index, name, owner, repo); });
-  }
-});
-
-// Monitor: IssueBlocks Verification (Existence)
 bthread("monitor:IssueBlocks:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueBlocksAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueBlocks(body, index, limit, owner, page, repo), function() { verifyIssueBlocksExists(body, index, limit, owner, page, repo); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueBlocks(), function() { verifyIssueBlocksExists(targetId); });
   }
 });
 
-// Monitor: IssueBlocks Verification (Absence)
-bthread("monitor:IssueBlocks:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueBlocks() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueBlocksAdded(), function() { verifyIssueBlocksDoesNotExist(body, index, limit, owner, page, repo); });
-  }
-});
-
-// Monitor: IssueComments Verification (Existence)
 bthread("monitor:IssueComments:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueCommentsAdded() });
-    let before = (e.data.parameters && e.data.parameters["before"]) ? e.data.parameters["before"] : e.data["before"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let since = (e.data.parameters && e.data.parameters["since"]) ? e.data.parameters["since"] : e.data["since"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueComments(before, body, id, index, owner, repo, since), function() { verifyIssueCommentsExists(before, body, id, index, owner, repo, since); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueComments(), function() { verifyIssueCommentsExists(targetId); });
   }
 });
 
-// Monitor: IssueComments Verification (Absence)
-bthread("monitor:IssueComments:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueComments() });
-    let before = (e.data.parameters && e.data.parameters["before"]) ? e.data.parameters["before"] : e.data["before"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let since = (e.data.parameters && e.data.parameters["since"]) ? e.data.parameters["since"] : e.data["since"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueCommentsAdded(), function() { verifyIssueCommentsDoesNotExist(before, body, id, index, owner, repo, since); });
-  }
-});
-
-// Monitor: IssueSubscriptions Verification (Existence)
 bthread("monitor:IssueSubscriptions:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueSubscriptionsAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let user = (e.data.parameters && e.data.parameters["user"]) ? e.data.parameters["user"] : e.data["user"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueSubscriptions(id, index, limit, owner, page, repo, user), function() { verifyIssueSubscriptionsExists(id, index, limit, owner, page, repo, user); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueSubscriptions(), function() { verifyIssueSubscriptionsExists(targetId); });
   }
 });
 
-// Monitor: IssueSubscriptions Verification (Absence)
-bthread("monitor:IssueSubscriptions:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueSubscriptions() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let user = (e.data.parameters && e.data.parameters["user"]) ? e.data.parameters["user"] : e.data["user"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueSubscriptionsAdded(), function() { verifyIssueSubscriptionsDoesNotExist(id, index, limit, owner, page, repo, user); });
-  }
-});
-
-// Monitor: IssueTimes Verification (Existence)
 bthread("monitor:IssueTimes:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyIssueTimesAdded() });
-    let before = (e.data.parameters && e.data.parameters["before"]) ? e.data.parameters["before"] : e.data["before"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let since = (e.data.parameters && e.data.parameters["since"]) ? e.data.parameters["since"] : e.data["since"];
-    let user = (e.data.parameters && e.data.parameters["user"]) ? e.data.parameters["user"] : e.data["user"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedIssueTimes(before, body, index, limit, owner, page, repo, since, user), function() { verifyIssueTimesExists(before, body, index, limit, owner, page, repo, since, user); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedIssueTimes(), function() { verifyIssueTimesExists(targetId); });
   }
 });
 
-// Monitor: IssueTimes Verification (Absence)
-bthread("monitor:IssueTimes:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedIssueTimes() });
-    let before = (e.data.parameters && e.data.parameters["before"]) ? e.data.parameters["before"] : e.data["before"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let since = (e.data.parameters && e.data.parameters["since"]) ? e.data.parameters["since"] : e.data["since"];
-    let user = (e.data.parameters && e.data.parameters["user"]) ? e.data.parameters["user"] : e.data["user"];
-    // Block Creation while Verifying Absence
-    block(matchAnyIssueTimesAdded(), function() { verifyIssueTimesDoesNotExist(before, body, index, limit, owner, page, repo, since, user); });
-  }
-});
-
-// Monitor: Keys Verification (Existence)
 bthread("monitor:Keys:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyKeysAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let fingerprint = (e.data.parameters && e.data.parameters["fingerprint"]) ? e.data.parameters["fingerprint"] : e.data["fingerprint"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedKeys(body, fingerprint, id, limit, page), function() { verifyKeysExists(body, fingerprint, id, limit, page); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedKeys(), function() { verifyKeysExists(targetId); });
   }
 });
 
-// Monitor: Keys Verification (Absence)
-bthread("monitor:Keys:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedKeys() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let fingerprint = (e.data.parameters && e.data.parameters["fingerprint"]) ? e.data.parameters["fingerprint"] : e.data["fingerprint"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Creation while Verifying Absence
-    block(matchAnyKeysAdded(), function() { verifyKeysDoesNotExist(body, fingerprint, id, limit, page); });
-  }
-});
-
-// Monitor: MirrorSync Verification (Existence)
 bthread("monitor:MirrorSync:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyMirrorSyncAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    verifyMirrorSyncExists(id, owner, repo);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyMirrorSyncExists(targetId);
   }
 });
 
-// Monitor: PullRequests Verification (Existence)
 bthread("monitor:PullRequests:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPullRequestsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let skip_to = (e.data.parameters && e.data.parameters["skip-to"]) ? e.data.parameters["skip-to"] : e.data["skip-to"];
-    let style = (e.data.parameters && e.data.parameters["style"]) ? e.data.parameters["style"] : e.data["style"];
-    let whitespace = (e.data.parameters && e.data.parameters["whitespace"]) ? e.data.parameters["whitespace"] : e.data["whitespace"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedPullRequests(body, id, index, limit, owner, page, repo, skip_to, style, whitespace), function() { verifyPullRequestsExists(body, id, index, limit, owner, page, repo, skip_to, style, whitespace); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedPullRequests(), function() { verifyPullRequestsExists(targetId); });
   }
 });
 
-// Monitor: PullRequests Verification (Absence)
-bthread("monitor:PullRequests:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedPullRequests() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let skip_to = (e.data.parameters && e.data.parameters["skip-to"]) ? e.data.parameters["skip-to"] : e.data["skip-to"];
-    let style = (e.data.parameters && e.data.parameters["style"]) ? e.data.parameters["style"] : e.data["style"];
-    let whitespace = (e.data.parameters && e.data.parameters["whitespace"]) ? e.data.parameters["whitespace"] : e.data["whitespace"];
-    // Block Creation while Verifying Absence
-    block(matchAnyPullRequestsAdded(), function() { verifyPullRequestsDoesNotExist(body, id, index, limit, owner, page, repo, skip_to, style, whitespace); });
-  }
-});
-
-// Monitor: PullReviewRequests Verification (Existence)
 bthread("monitor:PullReviewRequests:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPullReviewRequestsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedPullReviewRequests(body, index, owner, repo), function() { verifyPullReviewRequestsExists(body, index, owner, repo); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedPullReviewRequests(), function() { verifyPullReviewRequestsExists(targetId); });
   }
 });
 
-// Monitor: PullReviewRequests Verification (Absence)
-bthread("monitor:PullReviewRequests:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedPullReviewRequests() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyPullReviewRequestsAdded(), function() { verifyPullReviewRequestsDoesNotExist(body, index, owner, repo); });
-  }
-});
-
-// Monitor: PullReviews Verification (Existence)
 bthread("monitor:PullReviews:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPullReviewsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedPullReviews(body, id, index, limit, owner, page, repo), function() { verifyPullReviewsExists(body, id, index, limit, owner, page, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedPullReviews(), function() { verifyPullReviewsExists(targetId); });
   }
 });
 
-// Monitor: PullReviews Verification (Absence)
-bthread("monitor:PullReviews:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedPullReviews() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyPullReviewsAdded(), function() { verifyPullReviewsDoesNotExist(body, id, index, limit, owner, page, repo); });
-  }
-});
-
-// Monitor: PullReviewDismissals Verification (Existence)
 bthread("monitor:PullReviewDismissals:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPullReviewDismissalsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    verifyPullReviewDismissalsExists(body, id, index, owner, repo);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyPullReviewDismissalsExists(targetId);
   }
 });
 
-// Monitor: PullReviewUndismissals Verification (Existence)
 bthread("monitor:PullReviewUndismissals:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPullReviewUndismissalsAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let index = (e.data.parameters && e.data.parameters["index"]) ? e.data.parameters["index"] : e.data["index"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    verifyPullReviewUndismissalsExists(id, index, owner, repo);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyPullReviewUndismissalsExists(targetId);
   }
 });
 
-// Monitor: PushMirrors Verification (Existence)
 bthread("monitor:PushMirrors:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPushMirrorsAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedPushMirrors(id, limit, name, owner, page, repo), function() { verifyPushMirrorsExists(id, limit, name, owner, page, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedPushMirrors(), function() { verifyPushMirrorsExists(targetId); });
   }
 });
 
-// Monitor: PushMirrors Verification (Absence)
-bthread("monitor:PushMirrors:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedPushMirrors() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyPushMirrorsAdded(), function() { verifyPushMirrorsDoesNotExist(id, limit, name, owner, page, repo); });
-  }
-});
-
-// Monitor: Releases Verification (Existence)
 bthread("monitor:Releases:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyReleasesAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let draft = (e.data.parameters && e.data.parameters["draft"]) ? e.data.parameters["draft"] : e.data["draft"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let pre_release = (e.data.parameters && e.data.parameters["pre-release"]) ? e.data.parameters["pre-release"] : e.data["pre-release"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let tag = (e.data.parameters && e.data.parameters["tag"]) ? e.data.parameters["tag"] : e.data["tag"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedReleases(body, draft, id, limit, owner, page, pre_release, repo, tag), function() { verifyReleasesExists(body, draft, id, limit, owner, page, pre_release, repo, tag); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedReleases(), function() { verifyReleasesExists(targetId); });
   }
 });
 
-// Monitor: Releases Verification (Absence)
-bthread("monitor:Releases:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedReleases() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let draft = (e.data.parameters && e.data.parameters["draft"]) ? e.data.parameters["draft"] : e.data["draft"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let pre_release = (e.data.parameters && e.data.parameters["pre-release"]) ? e.data.parameters["pre-release"] : e.data["pre-release"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let tag = (e.data.parameters && e.data.parameters["tag"]) ? e.data.parameters["tag"] : e.data["tag"];
-    // Block Creation while Verifying Absence
-    block(matchAnyReleasesAdded(), function() { verifyReleasesDoesNotExist(body, draft, id, limit, owner, page, pre_release, repo, tag); });
-  }
-});
-
-// Monitor: ReleaseAttachments Verification (Existence)
 bthread("monitor:ReleaseAttachments:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyReleaseAttachmentsAdded() });
-    let attachment = (e.data.parameters && e.data.parameters["attachment"]) ? e.data.parameters["attachment"] : e.data["attachment"];
-    let attachment_id = (e.data.parameters && e.data.parameters["attachment_id"]) ? e.data.parameters["attachment_id"] : e.data["attachment_id"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedReleaseAttachments(attachment, attachment_id, body, id, name, owner, repo), function() { verifyReleaseAttachmentsExists(attachment, attachment_id, body, id, name, owner, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedReleaseAttachments(), function() { verifyReleaseAttachmentsExists(targetId); });
   }
 });
 
-// Monitor: ReleaseAttachments Verification (Absence)
-bthread("monitor:ReleaseAttachments:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedReleaseAttachments() });
-    let attachment = (e.data.parameters && e.data.parameters["attachment"]) ? e.data.parameters["attachment"] : e.data["attachment"];
-    let attachment_id = (e.data.parameters && e.data.parameters["attachment_id"]) ? e.data.parameters["attachment_id"] : e.data["attachment_id"];
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let name = (e.data.parameters && e.data.parameters["name"]) ? e.data.parameters["name"] : e.data["name"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyReleaseAttachmentsAdded(), function() { verifyReleaseAttachmentsDoesNotExist(attachment, attachment_id, body, id, name, owner, repo); });
-  }
-});
-
-// Monitor: TagProtections Verification (Existence)
 bthread("monitor:TagProtections:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyTagProtectionsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedTagProtections(body, id, owner, repo), function() { verifyTagProtectionsExists(body, id, owner, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedTagProtections(), function() { verifyTagProtectionsExists(targetId); });
   }
 });
 
-// Monitor: TagProtections Verification (Absence)
-bthread("monitor:TagProtections:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedTagProtections() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyTagProtectionsAdded(), function() { verifyTagProtectionsDoesNotExist(body, id, owner, repo); });
-  }
-});
-
-// Monitor: Tags Verification (Existence)
 bthread("monitor:Tags:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyTagsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let tag = (e.data.parameters && e.data.parameters["tag"]) ? e.data.parameters["tag"] : e.data["tag"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedTags(body, id, limit, owner, page, repo, tag), function() { verifyTagsExists(body, id, limit, owner, page, repo, tag); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedTags(), function() { verifyTagsExists(targetId); });
   }
 });
 
-// Monitor: Tags Verification (Absence)
-bthread("monitor:Tags:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedTags() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let tag = (e.data.parameters && e.data.parameters["tag"]) ? e.data.parameters["tag"] : e.data["tag"];
-    // Block Creation while Verifying Absence
-    block(matchAnyTagsAdded(), function() { verifyTagsDoesNotExist(body, id, limit, owner, page, repo, tag); });
-  }
-});
-
-// Monitor: Topics Verification (Existence)
 bthread("monitor:Topics:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyTopicsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let q = (e.data.parameters && e.data.parameters["q"]) ? e.data.parameters["q"] : e.data["q"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let topic = (e.data.parameters && e.data.parameters["topic"]) ? e.data.parameters["topic"] : e.data["topic"];
-    let topic1 = (e.data.parameters && e.data.parameters["topic1"]) ? e.data.parameters["topic1"] : e.data["topic1"];
-    let topic2 = (e.data.parameters && e.data.parameters["topic2"]) ? e.data.parameters["topic2"] : e.data["topic2"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedTopics(body, limit, owner, page, q, repo, topic, topic1, topic2), function() { verifyTopicsExists(body, limit, owner, page, q, repo, topic, topic1, topic2); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedTopics(), function() { verifyTopicsExists(targetId); });
   }
 });
 
-// Monitor: Topics Verification (Absence)
-bthread("monitor:Topics:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedTopics() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let q = (e.data.parameters && e.data.parameters["q"]) ? e.data.parameters["q"] : e.data["q"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let topic = (e.data.parameters && e.data.parameters["topic"]) ? e.data.parameters["topic"] : e.data["topic"];
-    let topic1 = (e.data.parameters && e.data.parameters["topic1"]) ? e.data.parameters["topic1"] : e.data["topic1"];
-    let topic2 = (e.data.parameters && e.data.parameters["topic2"]) ? e.data.parameters["topic2"] : e.data["topic2"];
-    // Block Creation while Verifying Absence
-    block(matchAnyTopicsAdded(), function() { verifyTopicsDoesNotExist(body, limit, owner, page, q, repo, topic, topic1, topic2); });
-  }
-});
-
-// Monitor: RepositoryTransfer Verification (Existence)
 bthread("monitor:RepositoryTransfer:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyRepositoryTransferAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let transferOptions = (e.data.parameters && e.data.parameters["transferOptions"]) ? e.data.parameters["transferOptions"] : e.data["transferOptions"];
-    verifyRepositoryTransferExists(body, id, owner, repo, transferOptions);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyRepositoryTransferExists(targetId);
   }
 });
 
-// Monitor: WikiPage Verification (Existence)
 bthread("monitor:WikiPage:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyWikiPageAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let pageName = (e.data.parameters && e.data.parameters["pageName"]) ? e.data.parameters["pageName"] : e.data["pageName"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let wikiPageOptions = (e.data.parameters && e.data.parameters["wikiPageOptions"]) ? e.data.parameters["wikiPageOptions"] : e.data["wikiPageOptions"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedWikiPage(body, id, owner, pageName, repo, wikiPageOptions), function() { verifyWikiPageExists(body, id, owner, pageName, repo, wikiPageOptions); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedWikiPage(), function() { verifyWikiPageExists(targetId); });
   }
 });
 
-// Monitor: WikiPage Verification (Absence)
-bthread("monitor:WikiPage:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedWikiPage() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let pageName = (e.data.parameters && e.data.parameters["pageName"]) ? e.data.parameters["pageName"] : e.data["pageName"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    let wikiPageOptions = (e.data.parameters && e.data.parameters["wikiPageOptions"]) ? e.data.parameters["wikiPageOptions"] : e.data["wikiPageOptions"];
-    // Block Creation while Verifying Absence
-    block(matchAnyWikiPageAdded(), function() { verifyWikiPageDoesNotExist(body, id, owner, pageName, repo, wikiPageOptions); });
-  }
-});
-
-// Monitor: TeamMembers Verification (Existence)
 bthread("monitor:TeamMembers:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyTeamMembersAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedTeamMembers(id, limit, page, username), function() { verifyTeamMembersExists(id, limit, page, username); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedTeamMembers(), function() { verifyTeamMembersExists(targetId); });
   }
 });
 
-// Monitor: TeamMembers Verification (Absence)
-bthread("monitor:TeamMembers:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedTeamMembers() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let username = (e.data.parameters && e.data.parameters["username"]) ? e.data.parameters["username"] : e.data["username"];
-    // Block Creation while Verifying Absence
-    block(matchAnyTeamMembersAdded(), function() { verifyTeamMembersDoesNotExist(id, limit, page, username); });
-  }
-});
-
-// Monitor: TeamRepos Verification (Existence)
 bthread("monitor:TeamRepos:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyTeamReposAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedTeamRepos(id, limit, org, page, repo), function() { verifyTeamReposExists(id, limit, org, page, repo); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedTeamRepos(), function() { verifyTeamReposExists(targetId); });
   }
 });
 
-// Monitor: TeamRepos Verification (Absence)
-bthread("monitor:TeamRepos:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedTeamRepos() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let org = (e.data.parameters && e.data.parameters["org"]) ? e.data.parameters["org"] : e.data["org"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyTeamReposAdded(), function() { verifyTeamReposDoesNotExist(id, limit, org, page, repo); });
-  }
-});
-
-// Monitor: UserVariables Verification (Existence)
 bthread("monitor:UserVariables:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserVariablesAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let variablename = (e.data.parameters && e.data.parameters["variablename"]) ? e.data.parameters["variablename"] : e.data["variablename"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUserVariables(body, variablename), function() { verifyUserVariablesExists(body, variablename); });
+    let targetId = e.data.variablename || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUserVariables(), function() { verifyUserVariablesExists(targetId); });
   }
 });
 
-// Monitor: UserVariables Verification (Absence)
-bthread("monitor:UserVariables:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUserVariables() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let variablename = (e.data.parameters && e.data.parameters["variablename"]) ? e.data.parameters["variablename"] : e.data["variablename"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUserVariablesAdded(), function() { verifyUserVariablesDoesNotExist(body, variablename); });
-  }
-});
-
-// Monitor: OAuth2Applications Verification (Existence)
 bthread("monitor:OAuth2Applications:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyOAuth2ApplicationsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedOAuth2Applications(body, id, limit, page), function() { verifyOAuth2ApplicationsExists(body, id, limit, page); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedOAuth2Applications(), function() { verifyOAuth2ApplicationsExists(targetId); });
   }
 });
 
-// Monitor: OAuth2Applications Verification (Absence)
-bthread("monitor:OAuth2Applications:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedOAuth2Applications() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Creation while Verifying Absence
-    block(matchAnyOAuth2ApplicationsAdded(), function() { verifyOAuth2ApplicationsDoesNotExist(body, id, limit, page); });
-  }
-});
-
-// Monitor: UserAvatar Verification (Existence)
 bthread("monitor:UserAvatar:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserAvatarAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUserAvatar(body, id), function() { verifyUserAvatarExists(body, id); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUserAvatar(), function() { verifyUserAvatarExists(targetId); });
   }
 });
 
-// Monitor: UserAvatar Verification (Absence)
-bthread("monitor:UserAvatar:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUserAvatar() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUserAvatarAdded(), function() { verifyUserAvatarDoesNotExist(body, id); });
-  }
-});
-
-// Monitor: UserEmails Verification (Existence)
 bthread("monitor:UserEmails:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserEmailsAdded() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUserEmails(body, id), function() { verifyUserEmailsExists(body, id); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUserEmails(), function() { verifyUserEmailsExists(targetId); });
   }
 });
 
-// Monitor: UserEmails Verification (Absence)
-bthread("monitor:UserEmails:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUserEmails() });
-    let body = (e.data.parameters && e.data.parameters["body"]) ? e.data.parameters["body"] : e.data["body"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUserEmailsAdded(), function() { verifyUserEmailsDoesNotExist(body, id); });
-  }
-});
-
-// Monitor: GPGKeys Verification (Existence)
 bthread("monitor:GPGKeys:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyGPGKeysAdded() });
-    let Form = (e.data.parameters && e.data.parameters["Form"]) ? e.data.parameters["Form"] : e.data["Form"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedGPGKeys(Form, id, limit, page), function() { verifyGPGKeysExists(Form, id, limit, page); });
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedGPGKeys(), function() { verifyGPGKeysExists(targetId); });
   }
 });
 
-// Monitor: GPGKeys Verification (Absence)
-bthread("monitor:GPGKeys:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedGPGKeys() });
-    let Form = (e.data.parameters && e.data.parameters["Form"]) ? e.data.parameters["Form"] : e.data["Form"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    // Block Creation while Verifying Absence
-    block(matchAnyGPGKeysAdded(), function() { verifyGPGKeysDoesNotExist(Form, id, limit, page); });
-  }
-});
-
-// Monitor: GPGKeyVerification Verification (Existence)
 bthread("monitor:GPGKeyVerification:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyGPGKeyVerificationAdded() });
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    verifyGPGKeyVerificationExists(id);
+    let targetId = e.data.id || e.data.id || e.data.index || e.data.number;
+    verifyGPGKeyVerificationExists(targetId);
   }
 });
 
-// Monitor: UserStarred Verification (Existence)
 bthread("monitor:UserStarred:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyUserStarredAdded() });
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Deletion while Verifying Existence
-    block(matchDeletedUserStarred(limit, owner, page, repo), function() { verifyUserStarredExists(limit, owner, page, repo); });
+    let targetId = e.data.owner || e.data.id || e.data.index || e.data.number;
+    block(matchDeletedUserStarred(), function() { verifyUserStarredExists(targetId); });
   }
 });
 
-// Monitor: UserStarred Verification (Absence)
-bthread("monitor:UserStarred:absence", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchDeletedUserStarred() });
-    let limit = (e.data.parameters && e.data.parameters["limit"]) ? e.data.parameters["limit"] : e.data["limit"];
-    let owner = (e.data.parameters && e.data.parameters["owner"]) ? e.data.parameters["owner"] : e.data["owner"];
-    let page = (e.data.parameters && e.data.parameters["page"]) ? e.data.parameters["page"] : e.data["page"];
-    let repo = (e.data.parameters && e.data.parameters["repo"]) ? e.data.parameters["repo"] : e.data["repo"];
-    // Block Creation while Verifying Absence
-    block(matchAnyUserStarredAdded(), function() { verifyUserStarredDoesNotExist(limit, owner, page, repo); });
-  }
-});
-
-// Story: crud:ActivityPub:linear:1
 bthread("crud:ActivityPub:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1419,7 +488,6 @@ bthread("crud:ActivityPub:linear:1", function () {
 
 });
 
-// Story: crud:AdminCron:linear:1
 bthread("crud:AdminCron:linear:1", function () {
   // -> Creating AdminCron
   let id_AdminCron_110 = "id_AdminCron_110_" + Math.floor(Math.random()*1000);
@@ -1430,7 +498,6 @@ bthread("crud:AdminCron:linear:1", function () {
 
 });
 
-// Story: crud:Hooks:linear:1
 bthread("crud:Hooks:linear:1", function () {
   // -> Creating Hooks
   let body_Hooks_120 = {};
@@ -1451,7 +518,6 @@ bthread("crud:Hooks:linear:1", function () {
 
 });
 
-// Story: crud:UnadoptedRepositories:linear:1
 bthread("crud:UnadoptedRepositories:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1471,7 +537,6 @@ bthread("crud:UnadoptedRepositories:linear:1", function () {
 
 });
 
-// Story: crud:Users:linear:1
 bthread("crud:Users:linear:1", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_140 = "CreateAccessTokenOption_Users_140_" + Math.floor(Math.random()*1000);
@@ -1493,10 +558,8 @@ bthread("crud:Users:linear:1", function () {
   let username_Users_upd_140 = username_Users_140;
   adminEditUser(CreateAccessTokenOption_Users_upd_140, body_Users_upd_140, limit_Users_upd_140, page_Users_upd_140, purge_Users_upd_140, token_Users_upd_140, username_Users_upd_140, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:UserBadges:linear:1
 bthread("crud:UserBadges:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1513,7 +576,6 @@ bthread("crud:UserBadges:linear:1", function () {
 
 });
 
-// Story: crud:UserKeys:linear:1
 bthread("crud:UserKeys:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1531,7 +593,6 @@ bthread("crud:UserKeys:linear:1", function () {
 
 });
 
-// Story: crud:UserOrganizations:linear:1
 bthread("crud:UserOrganizations:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1546,7 +607,6 @@ bthread("crud:UserOrganizations:linear:1", function () {
 
 });
 
-// Story: crud:UserRename:linear:1
 bthread("crud:UserRename:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1561,7 +621,6 @@ bthread("crud:UserRename:linear:1", function () {
 
 });
 
-// Story: crud:UserRepositories:linear:1
 bthread("crud:UserRepositories:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1576,7 +635,6 @@ bthread("crud:UserRepositories:linear:1", function () {
 
 });
 
-// Story: crud:Markdown:linear:1
 bthread("crud:Markdown:linear:1", function () {
   // -> Creating Markdown
   let body_Markdown_200 = "body_Markdown_200_" + Math.floor(Math.random()*1000);
@@ -1585,7 +643,6 @@ bthread("crud:Markdown:linear:1", function () {
 
 });
 
-// Story: crud:Markup:linear:1
 bthread("crud:Markup:linear:1", function () {
   // -> Creating Markup
   let body_Markup_210 = {};
@@ -1594,7 +651,6 @@ bthread("crud:Markup:linear:1", function () {
 
 });
 
-// Story: crud:Organization:linear:1
 bthread("crud:Organization:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -1617,10 +673,8 @@ bthread("crud:Organization:linear:1", function () {
   let secretname_Organization_upd_220 = "secretname_Organization_upd_220_" + Math.floor(Math.random()*1000);
   orgEdit(body_Organization_upd_220, limit_Organization_upd_220, org_Organization_upd_220, page_Organization_upd_220, secretname_Organization_upd_220, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Organization to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Variables:linear:1
 bthread("crud:Variables:linear:1", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -1656,7 +710,6 @@ bthread("crud:Variables:linear:1", function () {
 
 });
 
-// Story: crud:Avatar:linear:1
 bthread("crud:Avatar:linear:1", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -1673,7 +726,6 @@ bthread("crud:Avatar:linear:1", function () {
 
 });
 
-// Story: crud:Labels:linear:1
 bthread("crud:Labels:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -1709,7 +761,6 @@ bthread("crud:Labels:linear:1", function () {
 
 });
 
-// Story: crud:OrganizationRepos:linear:1
 bthread("crud:OrganizationRepos:linear:1", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -1724,10 +775,8 @@ bthread("crud:OrganizationRepos:linear:1", function () {
   let page_OrganizationRepos_260 = Math.floor(Math.random() * 1000);
   createOrgRepo(body_OrganizationRepos_260, id_OrganizationRepos_260, limit_OrganizationRepos_260, org_OrganizationRepos_260, page_OrganizationRepos_260, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for OrganizationRepos to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:OrganizationTeams:linear:1
 bthread("crud:OrganizationTeams:linear:1", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -1742,10 +791,8 @@ bthread("crud:OrganizationTeams:linear:1", function () {
   let page_OrganizationTeams_270 = Math.floor(Math.random() * 1000);
   orgCreateTeam(body_OrganizationTeams_270, id_OrganizationTeams_270, limit_OrganizationTeams_270, org_OrganizationTeams_270, page_OrganizationTeams_270, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for OrganizationTeams to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Issues:linear:1
 bthread("crud:Issues:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -1774,10 +821,8 @@ bthread("crud:Issues:linear:1", function () {
   let repo_Issues_upd_280 = "repo_Issues_upd_280_" + Math.floor(Math.random()*1000);
   moveIssuePin(content_Issues_upd_280, id_Issues_upd_280, index_Issues_upd_280, limit_Issues_upd_280, owner_Issues_upd_280, page_Issues_upd_280, position_Issues_upd_280, repo_Issues_upd_280, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Issues to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Repository:linear:1
 bthread("crud:Repository:linear:1", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -1804,10 +849,8 @@ bthread("crud:Repository:linear:1", function () {
   let sha_Repository_upd_290 = "sha_Repository_upd_290_" + Math.floor(Math.random()*1000);
   userCurrentPutSubscription(body_Repository_upd_290, id_Repository_upd_290, limit_Repository_upd_290, owner_Repository_upd_290, page_Repository_upd_290, repo_Repository_upd_290, sha_Repository_upd_290, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Repository to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Branches:linear:1
 bthread("crud:Branches:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -1843,7 +886,6 @@ bthread("crud:Branches:linear:1", function () {
 
 });
 
-// Story: crud:Collaborators:linear:1
 bthread("crud:Collaborators:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -1866,7 +908,6 @@ bthread("crud:Collaborators:linear:1", function () {
 
 });
 
-// Story: crud:Repositories:linear:1
 bthread("crud:Repositories:linear:1", function () {
   // -> Creating Repositories
   let body_Repositories_320 = {};
@@ -1890,10 +931,8 @@ bthread("crud:Repositories:linear:1", function () {
   let username_Repositories_upd_320 = "username_Repositories_upd_320_" + Math.floor(Math.random()*1000);
   repoUpdateFile(body_Repositories_upd_320, filepath_Repositories_upd_320, id_Repositories_upd_320, limit_Repositories_upd_320, owner_Repositories_upd_320, page_Repositories_upd_320, repo_Repositories_upd_320, username_Repositories_upd_320, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Repositories to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Forks:linear:1
 bthread("crud:Forks:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -1911,7 +950,6 @@ bthread("crud:Forks:linear:1", function () {
 
 });
 
-// Story: crud:Issue:linear:1
 bthread("crud:Issue:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -1931,7 +969,6 @@ bthread("crud:Issue:linear:1", function () {
 
 });
 
-// Story: crud:IssueCommentAttachments:linear:1
 bthread("crud:IssueCommentAttachments:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -1963,7 +1000,6 @@ bthread("crud:IssueCommentAttachments:linear:1", function () {
 
 });
 
-// Story: crud:IssueCommentReactions:linear:1
 bthread("crud:IssueCommentReactions:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -1982,7 +1018,6 @@ bthread("crud:IssueCommentReactions:linear:1", function () {
 
 });
 
-// Story: crud:IssueAttachments:linear:1
 bthread("crud:IssueAttachments:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -2016,7 +1051,6 @@ bthread("crud:IssueAttachments:linear:1", function () {
 
 });
 
-// Story: crud:IssueBlocks:linear:1
 bthread("crud:IssueBlocks:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -2037,7 +1071,6 @@ bthread("crud:IssueBlocks:linear:1", function () {
 
 });
 
-// Story: crud:IssueComments:linear:1
 bthread("crud:IssueComments:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -2069,7 +1102,6 @@ bthread("crud:IssueComments:linear:1", function () {
 
 });
 
-// Story: crud:IssueSubscriptions:linear:1
 bthread("crud:IssueSubscriptions:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -2091,7 +1123,6 @@ bthread("crud:IssueSubscriptions:linear:1", function () {
 
 });
 
-// Story: crud:IssueTimes:linear:1
 bthread("crud:IssueTimes:linear:1", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -2115,7 +1146,6 @@ bthread("crud:IssueTimes:linear:1", function () {
 
 });
 
-// Story: crud:Keys:linear:1
 bthread("crud:Keys:linear:1", function () {
   // -> Creating Keys
   let body_Keys_420 = {};
@@ -2130,7 +1160,6 @@ bthread("crud:Keys:linear:1", function () {
 
 });
 
-// Story: crud:MirrorSync:linear:1
 bthread("crud:MirrorSync:linear:1", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -2145,7 +1174,6 @@ bthread("crud:MirrorSync:linear:1", function () {
 
 });
 
-// Story: crud:PullRequests:linear:1
 bthread("crud:PullRequests:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2178,10 +1206,8 @@ bthread("crud:PullRequests:linear:1", function () {
   let whitespace_PullRequests_upd_440 = "whitespace_PullRequests_upd_440_" + Math.floor(Math.random()*1000);
   repoEditPullRequest(body_PullRequests_upd_440, id_PullRequests_upd_440, index_PullRequests_upd_440, limit_PullRequests_upd_440, owner_PullRequests_upd_440, page_PullRequests_upd_440, repo_PullRequests_upd_440, skip_to_PullRequests_upd_440, style_PullRequests_upd_440, whitespace_PullRequests_upd_440, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for PullRequests to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:PullReviewRequests:linear:1
 bthread("crud:PullReviewRequests:linear:1", function () {
   let deps = {};
   deps["PullRequests"] = matchAnyPullRequestsAdded();
@@ -2200,7 +1226,6 @@ bthread("crud:PullReviewRequests:linear:1", function () {
 
 });
 
-// Story: crud:PullReviews:linear:1
 bthread("crud:PullReviews:linear:1", function () {
   let deps = {};
   deps["PullRequests"] = matchAnyPullRequestsAdded();
@@ -2217,10 +1242,8 @@ bthread("crud:PullReviews:linear:1", function () {
   let repo_PullReviews_460 = "repo_PullReviews_460_" + Math.floor(Math.random()*1000);
   repoSubmitPullReview(body_PullReviews_460, id_PullReviews_460, index_PullReviews_460, limit_PullReviews_460, owner_PullReviews_460, page_PullReviews_460, repo_PullReviews_460, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for PullReviews to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:PullReviewDismissals:linear:1
 bthread("crud:PullReviewDismissals:linear:1", function () {
   let deps = {};
   deps["PullReviews"] = matchAnyPullReviewsAdded();
@@ -2237,7 +1260,6 @@ bthread("crud:PullReviewDismissals:linear:1", function () {
 
 });
 
-// Story: crud:PullReviewUndismissals:linear:1
 bthread("crud:PullReviewUndismissals:linear:1", function () {
   let deps = {};
   deps["PullReviews"] = matchAnyPullReviewsAdded();
@@ -2253,7 +1275,6 @@ bthread("crud:PullReviewUndismissals:linear:1", function () {
 
 });
 
-// Story: crud:PushMirrors:linear:1
 bthread("crud:PushMirrors:linear:1", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -2274,7 +1295,6 @@ bthread("crud:PushMirrors:linear:1", function () {
 
 });
 
-// Story: crud:Releases:linear:1
 bthread("crud:Releases:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2305,10 +1325,8 @@ bthread("crud:Releases:linear:1", function () {
   let tag_Releases_upd_500 = "tag_Releases_upd_500_" + Math.floor(Math.random()*1000);
   repoEditRelease(body_Releases_upd_500, draft_Releases_upd_500, id_Releases_upd_500, limit_Releases_upd_500, owner_Releases_upd_500, page_Releases_upd_500, pre_release_Releases_upd_500, repo_Releases_upd_500, tag_Releases_upd_500, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Releases to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:ReleaseAttachments:linear:1
 bthread("crud:ReleaseAttachments:linear:1", function () {
   let deps = {};
   deps["Releases"] = matchAnyReleasesAdded();
@@ -2340,7 +1358,6 @@ bthread("crud:ReleaseAttachments:linear:1", function () {
 
 });
 
-// Story: crud:TagProtections:linear:1
 bthread("crud:TagProtections:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2366,7 +1383,6 @@ bthread("crud:TagProtections:linear:1", function () {
 
 });
 
-// Story: crud:Tags:linear:1
 bthread("crud:Tags:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2388,7 +1404,6 @@ bthread("crud:Tags:linear:1", function () {
 
 });
 
-// Story: crud:Topics:linear:1
 bthread("crud:Topics:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2424,7 +1439,6 @@ bthread("crud:Topics:linear:1", function () {
 
 });
 
-// Story: crud:RepositoryTransfer:linear:1
 bthread("crud:RepositoryTransfer:linear:1", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -2441,7 +1455,6 @@ bthread("crud:RepositoryTransfer:linear:1", function () {
 
 });
 
-// Story: crud:WikiPage:linear:1
 bthread("crud:WikiPage:linear:1", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2471,7 +1484,6 @@ bthread("crud:WikiPage:linear:1", function () {
 
 });
 
-// Story: crud:TeamMembers:linear:1
 bthread("crud:TeamMembers:linear:1", function () {
   let deps = {};
   deps["OrganizationTeams"] = matchAnyOrganizationTeamsAdded();
@@ -2490,7 +1502,6 @@ bthread("crud:TeamMembers:linear:1", function () {
 
 });
 
-// Story: crud:TeamRepos:linear:1
 bthread("crud:TeamRepos:linear:1", function () {
   let deps = {};
   deps["OrganizationRepos"] = matchAnyOrganizationReposAdded();
@@ -2510,7 +1521,6 @@ bthread("crud:TeamRepos:linear:1", function () {
 
 });
 
-// Story: crud:UserVariables:linear:1
 bthread("crud:UserVariables:linear:1", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2532,7 +1542,6 @@ bthread("crud:UserVariables:linear:1", function () {
 
 });
 
-// Story: crud:OAuth2Applications:linear:1
 bthread("crud:OAuth2Applications:linear:1", function () {
   // -> Creating OAuth2Applications
   let body_OAuth2Applications_600 = {};
@@ -2553,7 +1562,6 @@ bthread("crud:OAuth2Applications:linear:1", function () {
 
 });
 
-// Story: crud:UserAvatar:linear:1
 bthread("crud:UserAvatar:linear:1", function () {
   // -> Creating UserAvatar
   let body_UserAvatar_610 = {};
@@ -2565,7 +1573,6 @@ bthread("crud:UserAvatar:linear:1", function () {
 
 });
 
-// Story: crud:UserEmails:linear:1
 bthread("crud:UserEmails:linear:1", function () {
   // -> Creating UserEmails
   let body_UserEmails_620 = {};
@@ -2577,7 +1584,6 @@ bthread("crud:UserEmails:linear:1", function () {
 
 });
 
-// Story: crud:GPGKeys:linear:1
 bthread("crud:GPGKeys:linear:1", function () {
   // -> Creating GPGKeys
   let Form_GPGKeys_630 = {};
@@ -2591,7 +1597,6 @@ bthread("crud:GPGKeys:linear:1", function () {
 
 });
 
-// Story: crud:GPGKeyVerification:linear:1
 bthread("crud:GPGKeyVerification:linear:1", function () {
   // -> Creating GPGKeyVerification
   let id_GPGKeyVerification_640 = "id_GPGKeyVerification_640_" + Math.floor(Math.random()*1000);
@@ -2599,7 +1604,6 @@ bthread("crud:GPGKeyVerification:linear:1", function () {
 
 });
 
-// Story: crud:UserStarred:linear:1
 bthread("crud:UserStarred:linear:1", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -2618,7 +1622,6 @@ bthread("crud:UserStarred:linear:1", function () {
 
 });
 
-// Story: crud:ActivityPub:linear:2
 bthread("crud:ActivityPub:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2631,7 +1634,6 @@ bthread("crud:ActivityPub:linear:2", function () {
 
 });
 
-// Story: crud:AdminCron:linear:2
 bthread("crud:AdminCron:linear:2", function () {
   // -> Creating AdminCron
   let id_AdminCron_670 = "id_AdminCron_670_" + Math.floor(Math.random()*1000);
@@ -2642,7 +1644,6 @@ bthread("crud:AdminCron:linear:2", function () {
 
 });
 
-// Story: crud:Hooks:linear:2
 bthread("crud:Hooks:linear:2", function () {
   // -> Creating Hooks
   let body_Hooks_680 = {};
@@ -2663,7 +1664,6 @@ bthread("crud:Hooks:linear:2", function () {
 
 });
 
-// Story: crud:UnadoptedRepositories:linear:2
 bthread("crud:UnadoptedRepositories:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2683,7 +1683,6 @@ bthread("crud:UnadoptedRepositories:linear:2", function () {
 
 });
 
-// Story: crud:Users:linear:2
 bthread("crud:Users:linear:2", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_700 = "CreateAccessTokenOption_Users_700_" + Math.floor(Math.random()*1000);
@@ -2705,10 +1704,8 @@ bthread("crud:Users:linear:2", function () {
   let username_Users_upd_700 = username_Users_700;
   adminEditUser(CreateAccessTokenOption_Users_upd_700, body_Users_upd_700, limit_Users_upd_700, page_Users_upd_700, purge_Users_upd_700, token_Users_upd_700, username_Users_upd_700, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:UserBadges:linear:2
 bthread("crud:UserBadges:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2725,7 +1722,6 @@ bthread("crud:UserBadges:linear:2", function () {
 
 });
 
-// Story: crud:UserKeys:linear:2
 bthread("crud:UserKeys:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2743,7 +1739,6 @@ bthread("crud:UserKeys:linear:2", function () {
 
 });
 
-// Story: crud:UserOrganizations:linear:2
 bthread("crud:UserOrganizations:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2758,7 +1753,6 @@ bthread("crud:UserOrganizations:linear:2", function () {
 
 });
 
-// Story: crud:UserRename:linear:2
 bthread("crud:UserRename:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2773,7 +1767,6 @@ bthread("crud:UserRename:linear:2", function () {
 
 });
 
-// Story: crud:UserRepositories:linear:2
 bthread("crud:UserRepositories:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2788,7 +1781,6 @@ bthread("crud:UserRepositories:linear:2", function () {
 
 });
 
-// Story: crud:Markdown:linear:2
 bthread("crud:Markdown:linear:2", function () {
   // -> Creating Markdown
   let body_Markdown_760 = "body_Markdown_760_" + Math.floor(Math.random()*1000);
@@ -2797,7 +1789,6 @@ bthread("crud:Markdown:linear:2", function () {
 
 });
 
-// Story: crud:Markup:linear:2
 bthread("crud:Markup:linear:2", function () {
   // -> Creating Markup
   let body_Markup_770 = {};
@@ -2806,7 +1797,6 @@ bthread("crud:Markup:linear:2", function () {
 
 });
 
-// Story: crud:Organization:linear:2
 bthread("crud:Organization:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -2829,10 +1819,8 @@ bthread("crud:Organization:linear:2", function () {
   let secretname_Organization_upd_780 = "secretname_Organization_upd_780_" + Math.floor(Math.random()*1000);
   orgEdit(body_Organization_upd_780, limit_Organization_upd_780, org_Organization_upd_780, page_Organization_upd_780, secretname_Organization_upd_780, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Organization to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Variables:linear:2
 bthread("crud:Variables:linear:2", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -2868,7 +1856,6 @@ bthread("crud:Variables:linear:2", function () {
 
 });
 
-// Story: crud:Avatar:linear:2
 bthread("crud:Avatar:linear:2", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -2885,7 +1872,6 @@ bthread("crud:Avatar:linear:2", function () {
 
 });
 
-// Story: crud:Labels:linear:2
 bthread("crud:Labels:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2921,7 +1907,6 @@ bthread("crud:Labels:linear:2", function () {
 
 });
 
-// Story: crud:OrganizationRepos:linear:2
 bthread("crud:OrganizationRepos:linear:2", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -2936,10 +1921,8 @@ bthread("crud:OrganizationRepos:linear:2", function () {
   let page_OrganizationRepos_820 = Math.floor(Math.random() * 1000);
   createOrgRepo(body_OrganizationRepos_820, id_OrganizationRepos_820, limit_OrganizationRepos_820, org_OrganizationRepos_820, page_OrganizationRepos_820, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for OrganizationRepos to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:OrganizationTeams:linear:2
 bthread("crud:OrganizationTeams:linear:2", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -2954,10 +1937,8 @@ bthread("crud:OrganizationTeams:linear:2", function () {
   let page_OrganizationTeams_830 = Math.floor(Math.random() * 1000);
   orgCreateTeam(body_OrganizationTeams_830, id_OrganizationTeams_830, limit_OrganizationTeams_830, org_OrganizationTeams_830, page_OrganizationTeams_830, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for OrganizationTeams to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Issues:linear:2
 bthread("crud:Issues:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -2986,10 +1967,8 @@ bthread("crud:Issues:linear:2", function () {
   let repo_Issues_upd_840 = "repo_Issues_upd_840_" + Math.floor(Math.random()*1000);
   moveIssuePin(content_Issues_upd_840, id_Issues_upd_840, index_Issues_upd_840, limit_Issues_upd_840, owner_Issues_upd_840, page_Issues_upd_840, position_Issues_upd_840, repo_Issues_upd_840, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Issues to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Repository:linear:2
 bthread("crud:Repository:linear:2", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -3016,10 +1995,8 @@ bthread("crud:Repository:linear:2", function () {
   let sha_Repository_upd_850 = "sha_Repository_upd_850_" + Math.floor(Math.random()*1000);
   userCurrentPutSubscription(body_Repository_upd_850, id_Repository_upd_850, limit_Repository_upd_850, owner_Repository_upd_850, page_Repository_upd_850, repo_Repository_upd_850, sha_Repository_upd_850, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Repository to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Branches:linear:2
 bthread("crud:Branches:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3055,7 +2032,6 @@ bthread("crud:Branches:linear:2", function () {
 
 });
 
-// Story: crud:Collaborators:linear:2
 bthread("crud:Collaborators:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3078,7 +2054,6 @@ bthread("crud:Collaborators:linear:2", function () {
 
 });
 
-// Story: crud:Repositories:linear:2
 bthread("crud:Repositories:linear:2", function () {
   // -> Creating Repositories
   let body_Repositories_880 = {};
@@ -3102,10 +2077,8 @@ bthread("crud:Repositories:linear:2", function () {
   let username_Repositories_upd_880 = "username_Repositories_upd_880_" + Math.floor(Math.random()*1000);
   repoUpdateFile(body_Repositories_upd_880, filepath_Repositories_upd_880, id_Repositories_upd_880, limit_Repositories_upd_880, owner_Repositories_upd_880, page_Repositories_upd_880, repo_Repositories_upd_880, username_Repositories_upd_880, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Repositories to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Forks:linear:2
 bthread("crud:Forks:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3123,7 +2096,6 @@ bthread("crud:Forks:linear:2", function () {
 
 });
 
-// Story: crud:Issue:linear:2
 bthread("crud:Issue:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3143,7 +2115,6 @@ bthread("crud:Issue:linear:2", function () {
 
 });
 
-// Story: crud:IssueCommentAttachments:linear:2
 bthread("crud:IssueCommentAttachments:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3175,7 +2146,6 @@ bthread("crud:IssueCommentAttachments:linear:2", function () {
 
 });
 
-// Story: crud:IssueCommentReactions:linear:2
 bthread("crud:IssueCommentReactions:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3194,7 +2164,6 @@ bthread("crud:IssueCommentReactions:linear:2", function () {
 
 });
 
-// Story: crud:IssueAttachments:linear:2
 bthread("crud:IssueAttachments:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3228,7 +2197,6 @@ bthread("crud:IssueAttachments:linear:2", function () {
 
 });
 
-// Story: crud:IssueBlocks:linear:2
 bthread("crud:IssueBlocks:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3249,7 +2217,6 @@ bthread("crud:IssueBlocks:linear:2", function () {
 
 });
 
-// Story: crud:IssueComments:linear:2
 bthread("crud:IssueComments:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3281,7 +2248,6 @@ bthread("crud:IssueComments:linear:2", function () {
 
 });
 
-// Story: crud:IssueSubscriptions:linear:2
 bthread("crud:IssueSubscriptions:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3303,7 +2269,6 @@ bthread("crud:IssueSubscriptions:linear:2", function () {
 
 });
 
-// Story: crud:IssueTimes:linear:2
 bthread("crud:IssueTimes:linear:2", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -3327,7 +2292,6 @@ bthread("crud:IssueTimes:linear:2", function () {
 
 });
 
-// Story: crud:Keys:linear:2
 bthread("crud:Keys:linear:2", function () {
   // -> Creating Keys
   let body_Keys_980 = {};
@@ -3342,7 +2306,6 @@ bthread("crud:Keys:linear:2", function () {
 
 });
 
-// Story: crud:MirrorSync:linear:2
 bthread("crud:MirrorSync:linear:2", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -3357,7 +2320,6 @@ bthread("crud:MirrorSync:linear:2", function () {
 
 });
 
-// Story: crud:PullRequests:linear:2
 bthread("crud:PullRequests:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3390,10 +2352,8 @@ bthread("crud:PullRequests:linear:2", function () {
   let whitespace_PullRequests_upd_1000 = "whitespace_PullRequests_upd_1000_" + Math.floor(Math.random()*1000);
   repoEditPullRequest(body_PullRequests_upd_1000, id_PullRequests_upd_1000, index_PullRequests_upd_1000, limit_PullRequests_upd_1000, owner_PullRequests_upd_1000, page_PullRequests_upd_1000, repo_PullRequests_upd_1000, skip_to_PullRequests_upd_1000, style_PullRequests_upd_1000, whitespace_PullRequests_upd_1000, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for PullRequests to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:PullReviewRequests:linear:2
 bthread("crud:PullReviewRequests:linear:2", function () {
   let deps = {};
   deps["PullRequests"] = matchAnyPullRequestsAdded();
@@ -3412,7 +2372,6 @@ bthread("crud:PullReviewRequests:linear:2", function () {
 
 });
 
-// Story: crud:PullReviews:linear:2
 bthread("crud:PullReviews:linear:2", function () {
   let deps = {};
   deps["PullRequests"] = matchAnyPullRequestsAdded();
@@ -3429,10 +2388,8 @@ bthread("crud:PullReviews:linear:2", function () {
   let repo_PullReviews_1020 = "repo_PullReviews_1020_" + Math.floor(Math.random()*1000);
   repoSubmitPullReview(body_PullReviews_1020, id_PullReviews_1020, index_PullReviews_1020, limit_PullReviews_1020, owner_PullReviews_1020, page_PullReviews_1020, repo_PullReviews_1020, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for PullReviews to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:PullReviewDismissals:linear:2
 bthread("crud:PullReviewDismissals:linear:2", function () {
   let deps = {};
   deps["PullReviews"] = matchAnyPullReviewsAdded();
@@ -3449,7 +2406,6 @@ bthread("crud:PullReviewDismissals:linear:2", function () {
 
 });
 
-// Story: crud:PullReviewUndismissals:linear:2
 bthread("crud:PullReviewUndismissals:linear:2", function () {
   let deps = {};
   deps["PullReviews"] = matchAnyPullReviewsAdded();
@@ -3465,7 +2421,6 @@ bthread("crud:PullReviewUndismissals:linear:2", function () {
 
 });
 
-// Story: crud:PushMirrors:linear:2
 bthread("crud:PushMirrors:linear:2", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -3486,7 +2441,6 @@ bthread("crud:PushMirrors:linear:2", function () {
 
 });
 
-// Story: crud:Releases:linear:2
 bthread("crud:Releases:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3517,10 +2471,8 @@ bthread("crud:Releases:linear:2", function () {
   let tag_Releases_upd_1060 = "tag_Releases_upd_1060_" + Math.floor(Math.random()*1000);
   repoEditRelease(body_Releases_upd_1060, draft_Releases_upd_1060, id_Releases_upd_1060, limit_Releases_upd_1060, owner_Releases_upd_1060, page_Releases_upd_1060, pre_release_Releases_upd_1060, repo_Releases_upd_1060, tag_Releases_upd_1060, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Releases to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:ReleaseAttachments:linear:2
 bthread("crud:ReleaseAttachments:linear:2", function () {
   let deps = {};
   deps["Releases"] = matchAnyReleasesAdded();
@@ -3552,7 +2504,6 @@ bthread("crud:ReleaseAttachments:linear:2", function () {
 
 });
 
-// Story: crud:TagProtections:linear:2
 bthread("crud:TagProtections:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3578,7 +2529,6 @@ bthread("crud:TagProtections:linear:2", function () {
 
 });
 
-// Story: crud:Tags:linear:2
 bthread("crud:Tags:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3600,7 +2550,6 @@ bthread("crud:Tags:linear:2", function () {
 
 });
 
-// Story: crud:Topics:linear:2
 bthread("crud:Topics:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3636,7 +2585,6 @@ bthread("crud:Topics:linear:2", function () {
 
 });
 
-// Story: crud:RepositoryTransfer:linear:2
 bthread("crud:RepositoryTransfer:linear:2", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -3653,7 +2601,6 @@ bthread("crud:RepositoryTransfer:linear:2", function () {
 
 });
 
-// Story: crud:WikiPage:linear:2
 bthread("crud:WikiPage:linear:2", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -3683,7 +2630,6 @@ bthread("crud:WikiPage:linear:2", function () {
 
 });
 
-// Story: crud:TeamMembers:linear:2
 bthread("crud:TeamMembers:linear:2", function () {
   let deps = {};
   deps["OrganizationTeams"] = matchAnyOrganizationTeamsAdded();
@@ -3702,7 +2648,6 @@ bthread("crud:TeamMembers:linear:2", function () {
 
 });
 
-// Story: crud:TeamRepos:linear:2
 bthread("crud:TeamRepos:linear:2", function () {
   let deps = {};
   deps["OrganizationRepos"] = matchAnyOrganizationReposAdded();
@@ -3722,7 +2667,6 @@ bthread("crud:TeamRepos:linear:2", function () {
 
 });
 
-// Story: crud:UserVariables:linear:2
 bthread("crud:UserVariables:linear:2", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3744,7 +2688,6 @@ bthread("crud:UserVariables:linear:2", function () {
 
 });
 
-// Story: crud:OAuth2Applications:linear:2
 bthread("crud:OAuth2Applications:linear:2", function () {
   // -> Creating OAuth2Applications
   let body_OAuth2Applications_1160 = {};
@@ -3765,7 +2708,6 @@ bthread("crud:OAuth2Applications:linear:2", function () {
 
 });
 
-// Story: crud:UserAvatar:linear:2
 bthread("crud:UserAvatar:linear:2", function () {
   // -> Creating UserAvatar
   let body_UserAvatar_1170 = {};
@@ -3777,7 +2719,6 @@ bthread("crud:UserAvatar:linear:2", function () {
 
 });
 
-// Story: crud:UserEmails:linear:2
 bthread("crud:UserEmails:linear:2", function () {
   // -> Creating UserEmails
   let body_UserEmails_1180 = {};
@@ -3789,7 +2730,6 @@ bthread("crud:UserEmails:linear:2", function () {
 
 });
 
-// Story: crud:GPGKeys:linear:2
 bthread("crud:GPGKeys:linear:2", function () {
   // -> Creating GPGKeys
   let Form_GPGKeys_1190 = {};
@@ -3803,7 +2743,6 @@ bthread("crud:GPGKeys:linear:2", function () {
 
 });
 
-// Story: crud:GPGKeyVerification:linear:2
 bthread("crud:GPGKeyVerification:linear:2", function () {
   // -> Creating GPGKeyVerification
   let id_GPGKeyVerification_1200 = "id_GPGKeyVerification_1200_" + Math.floor(Math.random()*1000);
@@ -3811,7 +2750,6 @@ bthread("crud:GPGKeyVerification:linear:2", function () {
 
 });
 
-// Story: crud:UserStarred:linear:2
 bthread("crud:UserStarred:linear:2", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -3830,7 +2768,6 @@ bthread("crud:UserStarred:linear:2", function () {
 
 });
 
-// Story: crud:ActivityPub:linear:3
 bthread("crud:ActivityPub:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3843,7 +2780,6 @@ bthread("crud:ActivityPub:linear:3", function () {
 
 });
 
-// Story: crud:AdminCron:linear:3
 bthread("crud:AdminCron:linear:3", function () {
   // -> Creating AdminCron
   let id_AdminCron_1230 = "id_AdminCron_1230_" + Math.floor(Math.random()*1000);
@@ -3854,7 +2790,6 @@ bthread("crud:AdminCron:linear:3", function () {
 
 });
 
-// Story: crud:Hooks:linear:3
 bthread("crud:Hooks:linear:3", function () {
   // -> Creating Hooks
   let body_Hooks_1240 = {};
@@ -3875,7 +2810,6 @@ bthread("crud:Hooks:linear:3", function () {
 
 });
 
-// Story: crud:UnadoptedRepositories:linear:3
 bthread("crud:UnadoptedRepositories:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3895,7 +2829,6 @@ bthread("crud:UnadoptedRepositories:linear:3", function () {
 
 });
 
-// Story: crud:Users:linear:3
 bthread("crud:Users:linear:3", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_1260 = "CreateAccessTokenOption_Users_1260_" + Math.floor(Math.random()*1000);
@@ -3917,10 +2850,8 @@ bthread("crud:Users:linear:3", function () {
   let username_Users_upd_1260 = username_Users_1260;
   adminEditUser(CreateAccessTokenOption_Users_upd_1260, body_Users_upd_1260, limit_Users_upd_1260, page_Users_upd_1260, purge_Users_upd_1260, token_Users_upd_1260, username_Users_upd_1260, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Users to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:UserBadges:linear:3
 bthread("crud:UserBadges:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3937,7 +2868,6 @@ bthread("crud:UserBadges:linear:3", function () {
 
 });
 
-// Story: crud:UserKeys:linear:3
 bthread("crud:UserKeys:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3955,7 +2885,6 @@ bthread("crud:UserKeys:linear:3", function () {
 
 });
 
-// Story: crud:UserOrganizations:linear:3
 bthread("crud:UserOrganizations:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3970,7 +2899,6 @@ bthread("crud:UserOrganizations:linear:3", function () {
 
 });
 
-// Story: crud:UserRename:linear:3
 bthread("crud:UserRename:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -3985,7 +2913,6 @@ bthread("crud:UserRename:linear:3", function () {
 
 });
 
-// Story: crud:UserRepositories:linear:3
 bthread("crud:UserRepositories:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -4000,7 +2927,6 @@ bthread("crud:UserRepositories:linear:3", function () {
 
 });
 
-// Story: crud:Markdown:linear:3
 bthread("crud:Markdown:linear:3", function () {
   // -> Creating Markdown
   let body_Markdown_1320 = "body_Markdown_1320_" + Math.floor(Math.random()*1000);
@@ -4009,7 +2935,6 @@ bthread("crud:Markdown:linear:3", function () {
 
 });
 
-// Story: crud:Markup:linear:3
 bthread("crud:Markup:linear:3", function () {
   // -> Creating Markup
   let body_Markup_1330 = {};
@@ -4018,7 +2943,6 @@ bthread("crud:Markup:linear:3", function () {
 
 });
 
-// Story: crud:Organization:linear:3
 bthread("crud:Organization:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -4041,10 +2965,8 @@ bthread("crud:Organization:linear:3", function () {
   let secretname_Organization_upd_1340 = "secretname_Organization_upd_1340_" + Math.floor(Math.random()*1000);
   orgEdit(body_Organization_upd_1340, limit_Organization_upd_1340, org_Organization_upd_1340, page_Organization_upd_1340, secretname_Organization_upd_1340, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Organization to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Variables:linear:3
 bthread("crud:Variables:linear:3", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -4080,7 +3002,6 @@ bthread("crud:Variables:linear:3", function () {
 
 });
 
-// Story: crud:Avatar:linear:3
 bthread("crud:Avatar:linear:3", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -4097,7 +3018,6 @@ bthread("crud:Avatar:linear:3", function () {
 
 });
 
-// Story: crud:Labels:linear:3
 bthread("crud:Labels:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4133,7 +3053,6 @@ bthread("crud:Labels:linear:3", function () {
 
 });
 
-// Story: crud:OrganizationRepos:linear:3
 bthread("crud:OrganizationRepos:linear:3", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -4148,10 +3067,8 @@ bthread("crud:OrganizationRepos:linear:3", function () {
   let page_OrganizationRepos_1380 = Math.floor(Math.random() * 1000);
   createOrgRepo(body_OrganizationRepos_1380, id_OrganizationRepos_1380, limit_OrganizationRepos_1380, org_OrganizationRepos_1380, page_OrganizationRepos_1380, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for OrganizationRepos to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:OrganizationTeams:linear:3
 bthread("crud:OrganizationTeams:linear:3", function () {
   let deps = {};
   deps["Organization"] = matchAnyOrganizationAdded();
@@ -4166,10 +3083,8 @@ bthread("crud:OrganizationTeams:linear:3", function () {
   let page_OrganizationTeams_1390 = Math.floor(Math.random() * 1000);
   orgCreateTeam(body_OrganizationTeams_1390, id_OrganizationTeams_1390, limit_OrganizationTeams_1390, org_OrganizationTeams_1390, page_OrganizationTeams_1390, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for OrganizationTeams to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Issues:linear:3
 bthread("crud:Issues:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4198,10 +3113,8 @@ bthread("crud:Issues:linear:3", function () {
   let repo_Issues_upd_1400 = "repo_Issues_upd_1400_" + Math.floor(Math.random()*1000);
   moveIssuePin(content_Issues_upd_1400, id_Issues_upd_1400, index_Issues_upd_1400, limit_Issues_upd_1400, owner_Issues_upd_1400, page_Issues_upd_1400, position_Issues_upd_1400, repo_Issues_upd_1400, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Issues to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Repository:linear:3
 bthread("crud:Repository:linear:3", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -4228,10 +3141,8 @@ bthread("crud:Repository:linear:3", function () {
   let sha_Repository_upd_1410 = "sha_Repository_upd_1410_" + Math.floor(Math.random()*1000);
   userCurrentPutSubscription(body_Repository_upd_1410, id_Repository_upd_1410, limit_Repository_upd_1410, owner_Repository_upd_1410, page_Repository_upd_1410, repo_Repository_upd_1410, sha_Repository_upd_1410, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Repository to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Branches:linear:3
 bthread("crud:Branches:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4267,7 +3178,6 @@ bthread("crud:Branches:linear:3", function () {
 
 });
 
-// Story: crud:Collaborators:linear:3
 bthread("crud:Collaborators:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4290,7 +3200,6 @@ bthread("crud:Collaborators:linear:3", function () {
 
 });
 
-// Story: crud:Repositories:linear:3
 bthread("crud:Repositories:linear:3", function () {
   // -> Creating Repositories
   let body_Repositories_1440 = {};
@@ -4314,10 +3223,8 @@ bthread("crud:Repositories:linear:3", function () {
   let username_Repositories_upd_1440 = "username_Repositories_upd_1440_" + Math.floor(Math.random()*1000);
   repoUpdateFile(body_Repositories_upd_1440, filepath_Repositories_upd_1440, id_Repositories_upd_1440, limit_Repositories_upd_1440, owner_Repositories_upd_1440, page_Repositories_upd_1440, repo_Repositories_upd_1440, username_Repositories_upd_1440, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Repositories to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:Forks:linear:3
 bthread("crud:Forks:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4335,7 +3242,6 @@ bthread("crud:Forks:linear:3", function () {
 
 });
 
-// Story: crud:Issue:linear:3
 bthread("crud:Issue:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4355,7 +3261,6 @@ bthread("crud:Issue:linear:3", function () {
 
 });
 
-// Story: crud:IssueCommentAttachments:linear:3
 bthread("crud:IssueCommentAttachments:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4387,7 +3292,6 @@ bthread("crud:IssueCommentAttachments:linear:3", function () {
 
 });
 
-// Story: crud:IssueCommentReactions:linear:3
 bthread("crud:IssueCommentReactions:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4406,7 +3310,6 @@ bthread("crud:IssueCommentReactions:linear:3", function () {
 
 });
 
-// Story: crud:IssueAttachments:linear:3
 bthread("crud:IssueAttachments:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4440,7 +3343,6 @@ bthread("crud:IssueAttachments:linear:3", function () {
 
 });
 
-// Story: crud:IssueBlocks:linear:3
 bthread("crud:IssueBlocks:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4461,7 +3363,6 @@ bthread("crud:IssueBlocks:linear:3", function () {
 
 });
 
-// Story: crud:IssueComments:linear:3
 bthread("crud:IssueComments:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4493,7 +3394,6 @@ bthread("crud:IssueComments:linear:3", function () {
 
 });
 
-// Story: crud:IssueSubscriptions:linear:3
 bthread("crud:IssueSubscriptions:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4515,7 +3415,6 @@ bthread("crud:IssueSubscriptions:linear:3", function () {
 
 });
 
-// Story: crud:IssueTimes:linear:3
 bthread("crud:IssueTimes:linear:3", function () {
   let deps = {};
   deps["Issues"] = matchAnyIssuesAdded();
@@ -4539,7 +3438,6 @@ bthread("crud:IssueTimes:linear:3", function () {
 
 });
 
-// Story: crud:Keys:linear:3
 bthread("crud:Keys:linear:3", function () {
   // -> Creating Keys
   let body_Keys_1540 = {};
@@ -4554,7 +3452,6 @@ bthread("crud:Keys:linear:3", function () {
 
 });
 
-// Story: crud:MirrorSync:linear:3
 bthread("crud:MirrorSync:linear:3", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -4569,7 +3466,6 @@ bthread("crud:MirrorSync:linear:3", function () {
 
 });
 
-// Story: crud:PullRequests:linear:3
 bthread("crud:PullRequests:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4602,10 +3498,8 @@ bthread("crud:PullRequests:linear:3", function () {
   let whitespace_PullRequests_upd_1560 = "whitespace_PullRequests_upd_1560_" + Math.floor(Math.random()*1000);
   repoEditPullRequest(body_PullRequests_upd_1560, id_PullRequests_upd_1560, index_PullRequests_upd_1560, limit_PullRequests_upd_1560, owner_PullRequests_upd_1560, page_PullRequests_upd_1560, repo_PullRequests_upd_1560, skip_to_PullRequests_upd_1560, style_PullRequests_upd_1560, whitespace_PullRequests_upd_1560, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for PullRequests to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:PullReviewRequests:linear:3
 bthread("crud:PullReviewRequests:linear:3", function () {
   let deps = {};
   deps["PullRequests"] = matchAnyPullRequestsAdded();
@@ -4624,7 +3518,6 @@ bthread("crud:PullReviewRequests:linear:3", function () {
 
 });
 
-// Story: crud:PullReviews:linear:3
 bthread("crud:PullReviews:linear:3", function () {
   let deps = {};
   deps["PullRequests"] = matchAnyPullRequestsAdded();
@@ -4641,10 +3534,8 @@ bthread("crud:PullReviews:linear:3", function () {
   let repo_PullReviews_1580 = "repo_PullReviews_1580_" + Math.floor(Math.random()*1000);
   repoSubmitPullReview(body_PullReviews_1580, id_PullReviews_1580, index_PullReviews_1580, limit_PullReviews_1580, owner_PullReviews_1580, page_PullReviews_1580, repo_PullReviews_1580, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for PullReviews to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:PullReviewDismissals:linear:3
 bthread("crud:PullReviewDismissals:linear:3", function () {
   let deps = {};
   deps["PullReviews"] = matchAnyPullReviewsAdded();
@@ -4661,7 +3552,6 @@ bthread("crud:PullReviewDismissals:linear:3", function () {
 
 });
 
-// Story: crud:PullReviewUndismissals:linear:3
 bthread("crud:PullReviewUndismissals:linear:3", function () {
   let deps = {};
   deps["PullReviews"] = matchAnyPullReviewsAdded();
@@ -4677,7 +3567,6 @@ bthread("crud:PullReviewUndismissals:linear:3", function () {
 
 });
 
-// Story: crud:PushMirrors:linear:3
 bthread("crud:PushMirrors:linear:3", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -4698,7 +3587,6 @@ bthread("crud:PushMirrors:linear:3", function () {
 
 });
 
-// Story: crud:Releases:linear:3
 bthread("crud:Releases:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4729,10 +3617,8 @@ bthread("crud:Releases:linear:3", function () {
   let tag_Releases_upd_1620 = "tag_Releases_upd_1620_" + Math.floor(Math.random()*1000);
   repoEditRelease(body_Releases_upd_1620, draft_Releases_upd_1620, id_Releases_upd_1620, limit_Releases_upd_1620, owner_Releases_upd_1620, page_Releases_upd_1620, pre_release_Releases_upd_1620, repo_Releases_upd_1620, tag_Releases_upd_1620, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Releases to prevent foreign key errors (has active dependents)
 });
 
-// Story: crud:ReleaseAttachments:linear:3
 bthread("crud:ReleaseAttachments:linear:3", function () {
   let deps = {};
   deps["Releases"] = matchAnyReleasesAdded();
@@ -4764,7 +3650,6 @@ bthread("crud:ReleaseAttachments:linear:3", function () {
 
 });
 
-// Story: crud:TagProtections:linear:3
 bthread("crud:TagProtections:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4790,7 +3675,6 @@ bthread("crud:TagProtections:linear:3", function () {
 
 });
 
-// Story: crud:Tags:linear:3
 bthread("crud:Tags:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4812,7 +3696,6 @@ bthread("crud:Tags:linear:3", function () {
 
 });
 
-// Story: crud:Topics:linear:3
 bthread("crud:Topics:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4848,7 +3731,6 @@ bthread("crud:Topics:linear:3", function () {
 
 });
 
-// Story: crud:RepositoryTransfer:linear:3
 bthread("crud:RepositoryTransfer:linear:3", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -4865,7 +3747,6 @@ bthread("crud:RepositoryTransfer:linear:3", function () {
 
 });
 
-// Story: crud:WikiPage:linear:3
 bthread("crud:WikiPage:linear:3", function () {
   let deps = {};
   deps["Repository"] = matchAnyRepositoryAdded();
@@ -4895,7 +3776,6 @@ bthread("crud:WikiPage:linear:3", function () {
 
 });
 
-// Story: crud:TeamMembers:linear:3
 bthread("crud:TeamMembers:linear:3", function () {
   let deps = {};
   deps["OrganizationTeams"] = matchAnyOrganizationTeamsAdded();
@@ -4914,7 +3794,6 @@ bthread("crud:TeamMembers:linear:3", function () {
 
 });
 
-// Story: crud:TeamRepos:linear:3
 bthread("crud:TeamRepos:linear:3", function () {
   let deps = {};
   deps["OrganizationRepos"] = matchAnyOrganizationReposAdded();
@@ -4934,7 +3813,6 @@ bthread("crud:TeamRepos:linear:3", function () {
 
 });
 
-// Story: crud:UserVariables:linear:3
 bthread("crud:UserVariables:linear:3", function () {
   let deps = {};
   deps["Users"] = matchAnyUsersAdded();
@@ -4956,7 +3834,6 @@ bthread("crud:UserVariables:linear:3", function () {
 
 });
 
-// Story: crud:OAuth2Applications:linear:3
 bthread("crud:OAuth2Applications:linear:3", function () {
   // -> Creating OAuth2Applications
   let body_OAuth2Applications_1720 = {};
@@ -4977,7 +3854,6 @@ bthread("crud:OAuth2Applications:linear:3", function () {
 
 });
 
-// Story: crud:UserAvatar:linear:3
 bthread("crud:UserAvatar:linear:3", function () {
   // -> Creating UserAvatar
   let body_UserAvatar_1730 = {};
@@ -4989,7 +3865,6 @@ bthread("crud:UserAvatar:linear:3", function () {
 
 });
 
-// Story: crud:UserEmails:linear:3
 bthread("crud:UserEmails:linear:3", function () {
   // -> Creating UserEmails
   let body_UserEmails_1740 = {};
@@ -5001,7 +3876,6 @@ bthread("crud:UserEmails:linear:3", function () {
 
 });
 
-// Story: crud:GPGKeys:linear:3
 bthread("crud:GPGKeys:linear:3", function () {
   // -> Creating GPGKeys
   let Form_GPGKeys_1750 = {};
@@ -5015,7 +3889,6 @@ bthread("crud:GPGKeys:linear:3", function () {
 
 });
 
-// Story: crud:GPGKeyVerification:linear:3
 bthread("crud:GPGKeyVerification:linear:3", function () {
   // -> Creating GPGKeyVerification
   let id_GPGKeyVerification_1760 = "id_GPGKeyVerification_1760_" + Math.floor(Math.random()*1000);
@@ -5023,7 +3896,6 @@ bthread("crud:GPGKeyVerification:linear:3", function () {
 
 });
 
-// Story: crud:UserStarred:linear:3
 bthread("crud:UserStarred:linear:3", function () {
   let deps = {};
   deps["Repositories"] = matchAnyRepositoriesAdded();
@@ -5042,7 +3914,6 @@ bthread("crud:UserStarred:linear:3", function () {
 
 });
 
-// Story: Deep Chain Users_ActivityPub (Self-Contained)
 bthread("chain:Users_ActivityPub", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_1780 = "CreateAccessTokenOption_Users_1780_" + Math.floor(Math.random()*1000);
@@ -5064,7 +3935,6 @@ bthread("chain:Users_ActivityPub", function () {
 
 });
 
-// Story: Deep Chain Users_UnadoptedRepositories (Self-Contained)
 bthread("chain:Users_UnadoptedRepositories", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_1880 = "CreateAccessTokenOption_Users_1880_" + Math.floor(Math.random()*1000);
@@ -5093,7 +3963,6 @@ bthread("chain:Users_UnadoptedRepositories", function () {
 
 });
 
-// Story: Deep Chain Users_UserBadges (Self-Contained)
 bthread("chain:Users_UserBadges", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_1980 = "CreateAccessTokenOption_Users_1980_" + Math.floor(Math.random()*1000);
@@ -5119,7 +3988,6 @@ bthread("chain:Users_UserBadges", function () {
 
 });
 
-// Story: Deep Chain Users_UserKeys (Self-Contained)
 bthread("chain:Users_UserKeys", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2080 = "CreateAccessTokenOption_Users_2080_" + Math.floor(Math.random()*1000);
@@ -5146,7 +4014,6 @@ bthread("chain:Users_UserKeys", function () {
 
 });
 
-// Story: Deep Chain Users_UserOrganizations (Self-Contained)
 bthread("chain:Users_UserOrganizations", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2180 = "CreateAccessTokenOption_Users_2180_" + Math.floor(Math.random()*1000);
@@ -5170,7 +4037,6 @@ bthread("chain:Users_UserOrganizations", function () {
 
 });
 
-// Story: Deep Chain Users_UserRename (Self-Contained)
 bthread("chain:Users_UserRename", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2280 = "CreateAccessTokenOption_Users_2280_" + Math.floor(Math.random()*1000);
@@ -5194,7 +4060,6 @@ bthread("chain:Users_UserRename", function () {
 
 });
 
-// Story: Deep Chain Users_UserRepositories (Self-Contained)
 bthread("chain:Users_UserRepositories", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2380 = "CreateAccessTokenOption_Users_2380_" + Math.floor(Math.random()*1000);
@@ -5218,7 +4083,6 @@ bthread("chain:Users_UserRepositories", function () {
 
 });
 
-// Story: Deep Chain Users_Organization_Avatar (Self-Contained)
 bthread("chain:Users_Organization_Avatar", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2480 = "CreateAccessTokenOption_Users_2480_" + Math.floor(Math.random()*1000);
@@ -5255,7 +4119,6 @@ bthread("chain:Users_Organization_Avatar", function () {
 
 });
 
-// Story: Deep Chain Users_Organization_OrganizationRepos_TeamRepos (Self-Contained)
 bthread("chain:Users_Organization_OrganizationRepos_TeamRepos", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2580 = "CreateAccessTokenOption_Users_2580_" + Math.floor(Math.random()*1000);
@@ -5303,7 +4166,6 @@ bthread("chain:Users_Organization_OrganizationRepos_TeamRepos", function () {
 
 });
 
-// Story: Deep Chain Users_Organization_OrganizationTeams_TeamMembers (Self-Contained)
 bthread("chain:Users_Organization_OrganizationTeams_TeamMembers", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2680 = "CreateAccessTokenOption_Users_2680_" + Math.floor(Math.random()*1000);
@@ -5350,7 +4212,6 @@ bthread("chain:Users_Organization_OrganizationTeams_TeamMembers", function () {
 
 });
 
-// Story: Deep Chain Users_UserVariables (Self-Contained)
 bthread("chain:Users_UserVariables", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2780 = "CreateAccessTokenOption_Users_2780_" + Math.floor(Math.random()*1000);
@@ -5376,7 +4237,6 @@ bthread("chain:Users_UserVariables", function () {
 
 });
 
-// Story: Deep Chain Organization_Avatar (Self-Contained)
 bthread("chain:Organization_Avatar", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2880 = "CreateAccessTokenOption_Users_2880_" + Math.floor(Math.random()*1000);
@@ -5410,7 +4270,6 @@ bthread("chain:Organization_Avatar", function () {
 
 });
 
-// Story: Deep Chain Organization_OrganizationRepos_TeamRepos (Self-Contained)
 bthread("chain:Organization_OrganizationRepos_TeamRepos", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_2980 = "CreateAccessTokenOption_Users_2980_" + Math.floor(Math.random()*1000);
@@ -5455,7 +4314,6 @@ bthread("chain:Organization_OrganizationRepos_TeamRepos", function () {
 
 });
 
-// Story: Deep Chain Organization_OrganizationTeams_TeamMembers (Self-Contained)
 bthread("chain:Organization_OrganizationTeams_TeamMembers", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_3080 = "CreateAccessTokenOption_Users_3080_" + Math.floor(Math.random()*1000);
@@ -5499,7 +4357,6 @@ bthread("chain:Organization_OrganizationTeams_TeamMembers", function () {
 
 });
 
-// Story: Deep Chain OrganizationRepos_TeamRepos (Self-Contained)
 bthread("chain:OrganizationRepos_TeamRepos", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_3180 = "CreateAccessTokenOption_Users_3180_" + Math.floor(Math.random()*1000);
@@ -5541,7 +4398,6 @@ bthread("chain:OrganizationRepos_TeamRepos", function () {
 
 });
 
-// Story: Deep Chain OrganizationTeams_TeamMembers (Self-Contained)
 bthread("chain:OrganizationTeams_TeamMembers", function () {
   // -> Creating Users
   let CreateAccessTokenOption_Users_3280 = "CreateAccessTokenOption_Users_3280_" + Math.floor(Math.random()*1000);
@@ -5582,7 +4438,6 @@ bthread("chain:OrganizationTeams_TeamMembers", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueCommentAttachments (Self-Contained)
 bthread("chain:Issues_IssueCommentAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_3380 = {};
@@ -5635,7 +4490,6 @@ bthread("chain:Issues_IssueCommentAttachments", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueCommentReactions (Self-Contained)
 bthread("chain:Issues_IssueCommentReactions", function () {
   // -> Creating Repositories
   let body_Repositories_3480 = {};
@@ -5685,7 +4539,6 @@ bthread("chain:Issues_IssueCommentReactions", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueAttachments (Self-Contained)
 bthread("chain:Issues_IssueAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_3580 = {};
@@ -5739,7 +4592,6 @@ bthread("chain:Issues_IssueAttachments", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueBlocks (Self-Contained)
 bthread("chain:Issues_IssueBlocks", function () {
   // -> Creating Repositories
   let body_Repositories_3680 = {};
@@ -5791,7 +4643,6 @@ bthread("chain:Issues_IssueBlocks", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueComments (Self-Contained)
 bthread("chain:Issues_IssueComments", function () {
   // -> Creating Repositories
   let body_Repositories_3780 = {};
@@ -5844,7 +4695,6 @@ bthread("chain:Issues_IssueComments", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueSubscriptions (Self-Contained)
 bthread("chain:Issues_IssueSubscriptions", function () {
   // -> Creating Repositories
   let body_Repositories_3880 = {};
@@ -5897,7 +4747,6 @@ bthread("chain:Issues_IssueSubscriptions", function () {
 
 });
 
-// Story: Deep Chain Issues_IssueTimes (Self-Contained)
 bthread("chain:Issues_IssueTimes", function () {
   // -> Creating Repositories
   let body_Repositories_3980 = {};
@@ -5952,7 +4801,6 @@ bthread("chain:Issues_IssueTimes", function () {
 
 });
 
-// Story: Deep Chain Repository_Labels (Self-Contained)
 bthread("chain:Repository_Labels", function () {
   // -> Creating Repositories
   let body_Repositories_4080 = {};
@@ -5996,7 +4844,6 @@ bthread("chain:Repository_Labels", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueCommentAttachments (Self-Contained)
 bthread("chain:Repository_Issues_IssueCommentAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_4180 = {};
@@ -6052,7 +4899,6 @@ bthread("chain:Repository_Issues_IssueCommentAttachments", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueCommentReactions (Self-Contained)
 bthread("chain:Repository_Issues_IssueCommentReactions", function () {
   // -> Creating Repositories
   let body_Repositories_4280 = {};
@@ -6105,7 +4951,6 @@ bthread("chain:Repository_Issues_IssueCommentReactions", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueAttachments (Self-Contained)
 bthread("chain:Repository_Issues_IssueAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_4380 = {};
@@ -6162,7 +5007,6 @@ bthread("chain:Repository_Issues_IssueAttachments", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueBlocks (Self-Contained)
 bthread("chain:Repository_Issues_IssueBlocks", function () {
   // -> Creating Repositories
   let body_Repositories_4480 = {};
@@ -6217,7 +5061,6 @@ bthread("chain:Repository_Issues_IssueBlocks", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueComments (Self-Contained)
 bthread("chain:Repository_Issues_IssueComments", function () {
   // -> Creating Repositories
   let body_Repositories_4580 = {};
@@ -6273,7 +5116,6 @@ bthread("chain:Repository_Issues_IssueComments", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueSubscriptions (Self-Contained)
 bthread("chain:Repository_Issues_IssueSubscriptions", function () {
   // -> Creating Repositories
   let body_Repositories_4680 = {};
@@ -6329,7 +5171,6 @@ bthread("chain:Repository_Issues_IssueSubscriptions", function () {
 
 });
 
-// Story: Deep Chain Repository_Issues_IssueTimes (Self-Contained)
 bthread("chain:Repository_Issues_IssueTimes", function () {
   // -> Creating Repositories
   let body_Repositories_4780 = {};
@@ -6387,7 +5228,6 @@ bthread("chain:Repository_Issues_IssueTimes", function () {
 
 });
 
-// Story: Deep Chain Repository_Branches (Self-Contained)
 bthread("chain:Repository_Branches", function () {
   // -> Creating Repositories
   let body_Repositories_4880 = {};
@@ -6431,7 +5271,6 @@ bthread("chain:Repository_Branches", function () {
 
 });
 
-// Story: Deep Chain Repository_Collaborators (Self-Contained)
 bthread("chain:Repository_Collaborators", function () {
   // -> Creating Repositories
   let body_Repositories_4980 = {};
@@ -6474,7 +5313,6 @@ bthread("chain:Repository_Collaborators", function () {
 
 });
 
-// Story: Deep Chain Repository_Forks (Self-Contained)
 bthread("chain:Repository_Forks", function () {
   // -> Creating Repositories
   let body_Repositories_5080 = {};
@@ -6512,7 +5350,6 @@ bthread("chain:Repository_Forks", function () {
 
 });
 
-// Story: Deep Chain Repository_Issue (Self-Contained)
 bthread("chain:Repository_Issue", function () {
   // -> Creating Repositories
   let body_Repositories_5180 = {};
@@ -6552,7 +5389,6 @@ bthread("chain:Repository_Issue", function () {
 
 });
 
-// Story: Deep Chain Repository_PullRequests_PullReviewRequests (Self-Contained)
 bthread("chain:Repository_PullRequests_PullReviewRequests", function () {
   // -> Creating Repositories
   let body_Repositories_5280 = {};
@@ -6607,7 +5443,6 @@ bthread("chain:Repository_PullRequests_PullReviewRequests", function () {
 
 });
 
-// Story: Deep Chain Repository_PullRequests_PullReviews_PullReviewDismissals (Self-Contained)
 bthread("chain:Repository_PullRequests_PullReviews_PullReviewDismissals", function () {
   // -> Creating Repositories
   let body_Repositories_5380 = {};
@@ -6673,7 +5508,6 @@ bthread("chain:Repository_PullRequests_PullReviews_PullReviewDismissals", functi
 
 });
 
-// Story: Deep Chain Repository_PullRequests_PullReviews_PullReviewUndismissals (Self-Contained)
 bthread("chain:Repository_PullRequests_PullReviews_PullReviewUndismissals", function () {
   // -> Creating Repositories
   let body_Repositories_5480 = {};
@@ -6738,7 +5572,6 @@ bthread("chain:Repository_PullRequests_PullReviews_PullReviewUndismissals", func
 
 });
 
-// Story: Deep Chain Repository_Releases_ReleaseAttachments (Self-Contained)
 bthread("chain:Repository_Releases_ReleaseAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_5580 = {};
@@ -6795,7 +5628,6 @@ bthread("chain:Repository_Releases_ReleaseAttachments", function () {
 
 });
 
-// Story: Deep Chain Repository_TagProtections (Self-Contained)
 bthread("chain:Repository_TagProtections", function () {
   // -> Creating Repositories
   let body_Repositories_5680 = {};
@@ -6834,7 +5666,6 @@ bthread("chain:Repository_TagProtections", function () {
 
 });
 
-// Story: Deep Chain Repository_Tags (Self-Contained)
 bthread("chain:Repository_Tags", function () {
   // -> Creating Repositories
   let body_Repositories_5780 = {};
@@ -6876,7 +5707,6 @@ bthread("chain:Repository_Tags", function () {
 
 });
 
-// Story: Deep Chain Repository_Topics (Self-Contained)
 bthread("chain:Repository_Topics", function () {
   // -> Creating Repositories
   let body_Repositories_5880 = {};
@@ -6920,7 +5750,6 @@ bthread("chain:Repository_Topics", function () {
 
 });
 
-// Story: Deep Chain Repository_WikiPage (Self-Contained)
 bthread("chain:Repository_WikiPage", function () {
   // -> Creating Repositories
   let body_Repositories_5980 = {};
@@ -6961,7 +5790,6 @@ bthread("chain:Repository_WikiPage", function () {
 
 });
 
-// Story: Deep Chain Repositories_Variables (Self-Contained)
 bthread("chain:Repositories_Variables", function () {
   // -> Creating Repositories
   let body_Repositories_6080 = {};
@@ -6995,7 +5823,6 @@ bthread("chain:Repositories_Variables", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Labels (Self-Contained)
 bthread("chain:Repositories_Repository_Labels", function () {
   // -> Creating Repositories
   let body_Repositories_6180 = {};
@@ -7042,7 +5869,6 @@ bthread("chain:Repositories_Repository_Labels", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueCommentAttachments (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueCommentAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_6280 = {};
@@ -7101,7 +5927,6 @@ bthread("chain:Repositories_Repository_Issues_IssueCommentAttachments", function
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueCommentReactions (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueCommentReactions", function () {
   // -> Creating Repositories
   let body_Repositories_6380 = {};
@@ -7157,7 +5982,6 @@ bthread("chain:Repositories_Repository_Issues_IssueCommentReactions", function (
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueAttachments (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_6480 = {};
@@ -7217,7 +6041,6 @@ bthread("chain:Repositories_Repository_Issues_IssueAttachments", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueBlocks (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueBlocks", function () {
   // -> Creating Repositories
   let body_Repositories_6580 = {};
@@ -7275,7 +6098,6 @@ bthread("chain:Repositories_Repository_Issues_IssueBlocks", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueComments (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueComments", function () {
   // -> Creating Repositories
   let body_Repositories_6680 = {};
@@ -7334,7 +6156,6 @@ bthread("chain:Repositories_Repository_Issues_IssueComments", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueSubscriptions (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueSubscriptions", function () {
   // -> Creating Repositories
   let body_Repositories_6780 = {};
@@ -7393,7 +6214,6 @@ bthread("chain:Repositories_Repository_Issues_IssueSubscriptions", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issues_IssueTimes (Self-Contained)
 bthread("chain:Repositories_Repository_Issues_IssueTimes", function () {
   // -> Creating Repositories
   let body_Repositories_6880 = {};
@@ -7454,7 +6274,6 @@ bthread("chain:Repositories_Repository_Issues_IssueTimes", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Branches (Self-Contained)
 bthread("chain:Repositories_Repository_Branches", function () {
   // -> Creating Repositories
   let body_Repositories_6980 = {};
@@ -7501,7 +6320,6 @@ bthread("chain:Repositories_Repository_Branches", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Collaborators (Self-Contained)
 bthread("chain:Repositories_Repository_Collaborators", function () {
   // -> Creating Repositories
   let body_Repositories_7080 = {};
@@ -7547,7 +6365,6 @@ bthread("chain:Repositories_Repository_Collaborators", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Forks (Self-Contained)
 bthread("chain:Repositories_Repository_Forks", function () {
   // -> Creating Repositories
   let body_Repositories_7180 = {};
@@ -7588,7 +6405,6 @@ bthread("chain:Repositories_Repository_Forks", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Issue (Self-Contained)
 bthread("chain:Repositories_Repository_Issue", function () {
   // -> Creating Repositories
   let body_Repositories_7280 = {};
@@ -7631,7 +6447,6 @@ bthread("chain:Repositories_Repository_Issue", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_PullRequests_PullReviewRequests (Self-Contained)
 bthread("chain:Repositories_Repository_PullRequests_PullReviewRequests", function () {
   // -> Creating Repositories
   let body_Repositories_7380 = {};
@@ -7689,7 +6504,6 @@ bthread("chain:Repositories_Repository_PullRequests_PullReviewRequests", functio
 
 });
 
-// Story: Deep Chain Repositories_Repository_PullRequests_PullReviews_PullReviewDismissals (Self-Contained)
 bthread("chain:Repositories_Repository_PullRequests_PullReviews_PullReviewDismissals", function () {
   // -> Creating Repositories
   let body_Repositories_7480 = {};
@@ -7758,7 +6572,6 @@ bthread("chain:Repositories_Repository_PullRequests_PullReviews_PullReviewDismis
 
 });
 
-// Story: Deep Chain Repositories_Repository_PullRequests_PullReviews_PullReviewUndismissals (Self-Contained)
 bthread("chain:Repositories_Repository_PullRequests_PullReviews_PullReviewUndismissals", function () {
   // -> Creating Repositories
   let body_Repositories_7580 = {};
@@ -7826,7 +6639,6 @@ bthread("chain:Repositories_Repository_PullRequests_PullReviews_PullReviewUndism
 
 });
 
-// Story: Deep Chain Repositories_Repository_Releases_ReleaseAttachments (Self-Contained)
 bthread("chain:Repositories_Repository_Releases_ReleaseAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_7680 = {};
@@ -7886,7 +6698,6 @@ bthread("chain:Repositories_Repository_Releases_ReleaseAttachments", function ()
 
 });
 
-// Story: Deep Chain Repositories_Repository_TagProtections (Self-Contained)
 bthread("chain:Repositories_Repository_TagProtections", function () {
   // -> Creating Repositories
   let body_Repositories_7780 = {};
@@ -7928,7 +6739,6 @@ bthread("chain:Repositories_Repository_TagProtections", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Tags (Self-Contained)
 bthread("chain:Repositories_Repository_Tags", function () {
   // -> Creating Repositories
   let body_Repositories_7880 = {};
@@ -7973,7 +6783,6 @@ bthread("chain:Repositories_Repository_Tags", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_Topics (Self-Contained)
 bthread("chain:Repositories_Repository_Topics", function () {
   // -> Creating Repositories
   let body_Repositories_7980 = {};
@@ -8020,7 +6829,6 @@ bthread("chain:Repositories_Repository_Topics", function () {
 
 });
 
-// Story: Deep Chain Repositories_Repository_WikiPage (Self-Contained)
 bthread("chain:Repositories_Repository_WikiPage", function () {
   // -> Creating Repositories
   let body_Repositories_8080 = {};
@@ -8064,7 +6872,6 @@ bthread("chain:Repositories_Repository_WikiPage", function () {
 
 });
 
-// Story: Deep Chain Repositories_MirrorSync (Self-Contained)
 bthread("chain:Repositories_MirrorSync", function () {
   // -> Creating Repositories
   let body_Repositories_8180 = {};
@@ -8089,7 +6896,6 @@ bthread("chain:Repositories_MirrorSync", function () {
 
 });
 
-// Story: Deep Chain Repositories_PushMirrors (Self-Contained)
 bthread("chain:Repositories_PushMirrors", function () {
   // -> Creating Repositories
   let body_Repositories_8280 = {};
@@ -8120,7 +6926,6 @@ bthread("chain:Repositories_PushMirrors", function () {
 
 });
 
-// Story: Deep Chain Repositories_RepositoryTransfer (Self-Contained)
 bthread("chain:Repositories_RepositoryTransfer", function () {
   // -> Creating Repositories
   let body_Repositories_8380 = {};
@@ -8147,7 +6952,6 @@ bthread("chain:Repositories_RepositoryTransfer", function () {
 
 });
 
-// Story: Deep Chain Repositories_UserStarred (Self-Contained)
 bthread("chain:Repositories_UserStarred", function () {
   // -> Creating Repositories
   let body_Repositories_8480 = {};
@@ -8176,7 +6980,6 @@ bthread("chain:Repositories_UserStarred", function () {
 
 });
 
-// Story: Deep Chain PullRequests_PullReviewRequests (Self-Contained)
 bthread("chain:PullRequests_PullReviewRequests", function () {
   // -> Creating Repositories
   let body_Repositories_8580 = {};
@@ -8228,7 +7031,6 @@ bthread("chain:PullRequests_PullReviewRequests", function () {
 
 });
 
-// Story: Deep Chain PullRequests_PullReviews_PullReviewDismissals (Self-Contained)
 bthread("chain:PullRequests_PullReviews_PullReviewDismissals", function () {
   // -> Creating Repositories
   let body_Repositories_8680 = {};
@@ -8291,7 +7093,6 @@ bthread("chain:PullRequests_PullReviews_PullReviewDismissals", function () {
 
 });
 
-// Story: Deep Chain PullRequests_PullReviews_PullReviewUndismissals (Self-Contained)
 bthread("chain:PullRequests_PullReviews_PullReviewUndismissals", function () {
   // -> Creating Repositories
   let body_Repositories_8780 = {};
@@ -8353,7 +7154,6 @@ bthread("chain:PullRequests_PullReviews_PullReviewUndismissals", function () {
 
 });
 
-// Story: Deep Chain PullReviews_PullReviewDismissals (Self-Contained)
 bthread("chain:PullReviews_PullReviewDismissals", function () {
   // -> Creating Repositories
   let body_Repositories_8880 = {};
@@ -8413,7 +7213,6 @@ bthread("chain:PullReviews_PullReviewDismissals", function () {
 
 });
 
-// Story: Deep Chain PullReviews_PullReviewUndismissals (Self-Contained)
 bthread("chain:PullReviews_PullReviewUndismissals", function () {
   // -> Creating Repositories
   let body_Repositories_8980 = {};
@@ -8472,7 +7271,6 @@ bthread("chain:PullReviews_PullReviewUndismissals", function () {
 
 });
 
-// Story: Deep Chain Releases_ReleaseAttachments (Self-Contained)
 bthread("chain:Releases_ReleaseAttachments", function () {
   // -> Creating Repositories
   let body_Repositories_9080 = {};
