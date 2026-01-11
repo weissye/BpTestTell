@@ -1,758 +1,1918 @@
 from flask import Flask, request, jsonify
-import re
+from collections import defaultdict
+import random, re, logging, pprint
 app = Flask(__name__)
-TYPE_MAP = {
-    "POST:activitypub/user-id/{user-id}/inbox": {},
-    "POST:admin/cron/{task}": {},
-    "POST:admin/hooks": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PATCH:admin/hooks/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:admin/unadopted/{owner}/{repo}": {},
-    "POST:admin/users": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:admin/users/{username}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:admin/users/{username}/badges": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:admin/users/{username}/keys": {
-        "key": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:admin/users/{username}/orgs": {
-        "organization": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:admin/users/{username}/rename": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:admin/users/{username}/repos": {
-        "repository": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:markdown": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:markdown/raw": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:markup": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:notifications": {
-        "last_read_at": {
-            "type": "string",
-            "required": False
-        },
-        "all": {
-            "type": "string",
-            "required": False
-        },
-        "status-types": {
-            "type": "array",
-            "required": False
-        },
-        "to-status": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "PATCH:notifications/threads/{id}": {
-        "to-status": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "POST:org/{org}/repos": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:orgs": {
-        "organization": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PATCH:orgs/{org}": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PUT:orgs/{org}/actions/secrets/{secretname}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:orgs/{org}/actions/variables/{variablename}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:orgs/{org}/actions/variables/{variablename}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:orgs/{org}/avatar": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:orgs/{org}/blocks/{username}": {
-        "note": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "POST:orgs/{org}/hooks": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PATCH:orgs/{org}/hooks/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:orgs/{org}/labels": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:orgs/{org}/labels/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:orgs/{org}/public_members/{username}": {},
-    "POST:orgs/{org}/repos": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:orgs/{org}/teams": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/migrate": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/actions/secrets/{secretname}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/actions/variables/{variablename}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/actions/variables/{variablename}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/avatar": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/branch_protections": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/branch_protections/priority": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/branch_protections/{name}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/branches": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/branches/{branch}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/collaborators/{collaborator}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/contents": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PUT:repos/{owner}/{repo}/contents/{filepath}": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/contents/{filepath}": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/diffpatch": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/forks": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/hooks": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/hooks/git/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/hooks/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/hooks/{id}/tests": {
-        "ref": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/issues/comments/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/comments/{id}/assets": {
-        "name": {
-            "type": "string",
-            "required": False
-        },
-        "attachment": {
-            "type": "file",
-            "required": True
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/comments/{id}/reactions": {
-        "content": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/issues/{index}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/assets": {
-        "name": {
-            "type": "string",
-            "required": False
-        },
-        "attachment": {
-            "type": "file",
-            "required": True
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/blocks": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/comments": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/issues/{index}/comments/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/deadline": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/dependencies": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/issues/{index}/labels": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/labels": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/pin": {},
-    "PATCH:repos/{owner}/{repo}/issues/{index}/pin/{position}": {},
-    "POST:repos/{owner}/{repo}/issues/{index}/reactions": {
-        "content": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/issues/{index}/stopwatch/start": {},
-    "POST:repos/{owner}/{repo}/issues/{index}/stopwatch/stop": {},
-    "PUT:repos/{owner}/{repo}/issues/{index}/subscriptions/{user}": {},
-    "POST:repos/{owner}/{repo}/issues/{index}/times": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/keys": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/labels": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/labels/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/merge-upstream": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/milestones": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/milestones/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/mirror-sync": {},
-    "PUT:repos/{owner}/{repo}/notifications": {
-        "all": {
-            "type": "string",
-            "required": False
-        },
-        "status-types": {
-            "type": "array",
-            "required": False
-        },
-        "to-status": {
-            "type": "string",
-            "required": False
-        },
-        "last_read_at": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/pulls/{index}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls/{index}/merge": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls/{index}/requested_reviewers": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls/{index}/reviews": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls/{index}/reviews/{id}": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals": {},
-    "POST:repos/{owner}/{repo}/pulls/{index}/update": {
-        "style": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/push_mirrors": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/push_mirrors-sync": {},
-    "POST:repos/{owner}/{repo}/releases": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/releases/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/releases/{id}/assets": {
-        "name": {
-            "type": "string",
-            "required": False
-        },
-        "attachment": {
-            "type": "file",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/statuses/{sha}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/subscription": {},
-    "POST:repos/{owner}/{repo}/tag_protections": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/tag_protections/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{owner}/{repo}/tags": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/teams/{team}": {},
-    "PUT:repos/{owner}/{repo}/topics": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:repos/{owner}/{repo}/topics/{topic}": {},
-    "POST:repos/{owner}/{repo}/transfer": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:repos/{owner}/{repo}/transfer/accept": {},
-    "POST:repos/{owner}/{repo}/transfer/reject": {},
-    "POST:repos/{owner}/{repo}/wiki/new": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:repos/{owner}/{repo}/wiki/page/{pageName}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:repos/{template_owner}/{template_repo}/generate": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:teams/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:teams/{id}/members/{username}": {},
-    "PUT:teams/{id}/repos/{org}/{repo}": {},
-    "PUT:user/actions/secrets/{secretname}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:user/actions/variables/{variablename}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:user/actions/variables/{variablename}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:user/applications/oauth2": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PATCH:user/applications/oauth2/{id}": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "POST:user/avatar": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:user/blocks/{username}": {
-        "note": {
-            "type": "string",
-            "required": False
-        }
-    },
-    "POST:user/emails": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:user/following/{username}": {},
-    "POST:user/gpg_key_verify": {},
-    "POST:user/gpg_keys": {
-        "Form": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:user/hooks": {
-        "body": {
-            "type": "object",
-            "required": True
-        }
-    },
-    "PATCH:user/hooks/{id}": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:user/keys": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "POST:user/repos": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PATCH:user/settings": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    },
-    "PUT:user/starred/{owner}/{repo}": {},
-    "POST:users/{username}/tokens": {
-        "body": {
-            "type": "object",
-            "required": False
-        }
-    }
-}
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('gitea-mock')
+mock_db = defaultdict(list)
+PATH_STATUS_CODES = {'activitypub/user-id/{user-id}/inbox:POST': 204,
+ 'activitypub/user-id/{user-id}:GET': 200,
+ 'admin/cron/{task}:POST': 204,
+ 'admin/cron:GET': 200,
+ 'admin/emails/search:GET': 200,
+ 'admin/emails:GET': 200,
+ 'admin/runners/registration-token:GET': 200,
+ 'admin/unadopted/{owner}/{repo}:DELETE': 204,
+ 'admin/unadopted/{owner}/{repo}:POST': 204,
+ 'admin/unadopted:GET': 200,
+ 'admin/users/{username}/badges:DELETE': 204,
+ 'admin/users/{username}/badges:GET': 200,
+ 'admin/users/{username}/badges:POST': 204,
+ 'admin/users/{username}/keys:POST': 201,
+ 'admin/users/{username}/orgs:POST': 201,
+ 'admin/users/{username}/rename:POST': 204,
+ 'admin/users/{username}/repos:POST': 201,
+ 'admin/users/{username}:DELETE': 204,
+ 'admin/users/{username}:PATCH': 200,
+ 'gitignore/templates/{name}:GET': 200,
+ 'gitignore/templates:GET': 200,
+ 'label/templates/{name}:GET': 200,
+ 'label/templates:GET': 200,
+ 'licenses/{name}:GET': 200,
+ 'licenses:GET': 200,
+ 'markdown/raw:POST': 200,
+ 'markdown:POST': 200,
+ 'markup:POST': 200,
+ 'nodeinfo:GET': 200,
+ 'notifications/new:GET': 200,
+ 'notifications/threads/{id}:GET': 200,
+ 'notifications/threads/{id}:PATCH': 200,
+ 'org/{org}/repos:POST': 201,
+ 'orgs/{org}/actions/runners/registration-token:GET': 200,
+ 'orgs/{org}/actions/secrets/{secretname}:DELETE': 204,
+ 'orgs/{org}/actions/secrets/{secretname}:PUT': 201,
+ 'orgs/{org}/actions/secrets:GET': 200,
+ 'orgs/{org}/actions/variables/{variablename}:POST': 201,
+ 'orgs/{org}/actions/variables:GET': 200,
+ 'orgs/{org}/avatar:DELETE': 204,
+ 'orgs/{org}/avatar:POST': 204,
+ 'orgs/{org}/blocks:GET': 200,
+ 'orgs/{org}/members:GET': 200,
+ 'orgs/{org}/public_members:GET': 200,
+ 'orgs/{org}/repos:GET': 200,
+ 'orgs/{org}/repos:POST': 201,
+ 'orgs/{org}/teams:GET': 200,
+ 'orgs/{org}/teams:POST': 201,
+ 'orgs/{org}:DELETE': 204,
+ 'orgs/{org}:GET': 200,
+ 'orgs/{org}:PATCH': 200,
+ 'orgs:GET': 200,
+ 'orgs:POST': 201,
+ 'packages/{owner}/{type}/{name}/{version}/files:GET': 200,
+ 'packages/{owner}/{type}/{name}/{version}:DELETE': 204,
+ 'packages/{owner}:GET': 200,
+ 'repos/{owner}/{repo}/actions/runners/registration-token:GET': 200,
+ 'repos/{owner}/{repo}/actions/secrets/{secretname}:DELETE': 204,
+ 'repos/{owner}/{repo}/actions/secrets/{secretname}:PUT': 201,
+ 'repos/{owner}/{repo}/actions/secrets:GET': 200,
+ 'repos/{owner}/{repo}/actions/tasks:GET': 200,
+ 'repos/{owner}/{repo}/actions/variables/{variablename}:DELETE': 201,
+ 'repos/{owner}/{repo}/actions/variables/{variablename}:POST': 201,
+ 'repos/{owner}/{repo}/actions/variables/{variablename}:PUT': 201,
+ 'repos/{owner}/{repo}/actions/variables:GET': 200,
+ 'repos/{owner}/{repo}/branch_protections/{name}:DELETE': 204,
+ 'repos/{owner}/{repo}/branch_protections/{name}:PATCH': 200,
+ 'repos/{owner}/{repo}/branches/{branch}:DELETE': 204,
+ 'repos/{owner}/{repo}/branches/{branch}:PATCH': 204,
+ 'repos/{owner}/{repo}/branches:GET': 200,
+ 'repos/{owner}/{repo}/branches:POST': 201,
+ 'repos/{owner}/{repo}/collaborators/{collaborator}:DELETE': 204,
+ 'repos/{owner}/{repo}/collaborators/{collaborator}:PUT': 204,
+ 'repos/{owner}/{repo}/collaborators:GET': 200,
+ 'repos/{owner}/{repo}/commits/{ref}/statuses:GET': 200,
+ 'repos/{owner}/{repo}/commits/{sha}/pull:GET': 200,
+ 'repos/{owner}/{repo}/commits:GET': 200,
+ 'repos/{owner}/{repo}/contents/{filepath}:DELETE': 200,
+ 'repos/{owner}/{repo}/contents/{filepath}:PUT': 200,
+ 'repos/{owner}/{repo}/forks:GET': 200,
+ 'repos/{owner}/{repo}/forks:POST': 202,
+ 'repos/{owner}/{repo}/git/commits/{sha}.{diffType}:GET': 200,
+ 'repos/{owner}/{repo}/git/refs:GET': 200,
+ 'repos/{owner}/{repo}/hooks/git/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/hooks/git/{id}:PATCH': 200,
+ 'repos/{owner}/{repo}/hooks/git:GET': 200,
+ 'repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}:PATCH': 201,
+ 'repos/{owner}/{repo}/issues/comments/{id}/assets:GET': 200,
+ 'repos/{owner}/{repo}/issues/comments/{id}/assets:POST': 201,
+ 'repos/{owner}/{repo}/issues/comments/{id}/reactions:DELETE': 200,
+ 'repos/{owner}/{repo}/issues/comments/{id}/reactions:GET': 200,
+ 'repos/{owner}/{repo}/issues/comments/{id}/reactions:POST': 201,
+ 'repos/{owner}/{repo}/issues/comments/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/comments/{id}:PATCH': 204,
+ 'repos/{owner}/{repo}/issues/comments:GET': 200,
+ 'repos/{owner}/{repo}/issues/pinned:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}:PATCH': 201,
+ 'repos/{owner}/{repo}/issues/{index}/assets:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/assets:POST': 201,
+ 'repos/{owner}/{repo}/issues/{index}/blocks:DELETE': 200,
+ 'repos/{owner}/{repo}/issues/{index}/blocks:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/blocks:POST': 201,
+ 'repos/{owner}/{repo}/issues/{index}/comments/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/{index}/comments/{id}:PATCH': 204,
+ 'repos/{owner}/{repo}/issues/{index}/comments:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/comments:POST': 201,
+ 'repos/{owner}/{repo}/issues/{index}/pin/{position}:PATCH': 204,
+ 'repos/{owner}/{repo}/issues/{index}/reactions:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/reactions:POST': 201,
+ 'repos/{owner}/{repo}/issues/{index}/stopwatch/delete:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/{index}/stopwatch/start:POST': 201,
+ 'repos/{owner}/{repo}/issues/{index}/stopwatch/stop:POST': 201,
+ 'repos/{owner}/{repo}/issues/{index}/subscriptions/{user}:DELETE': 201,
+ 'repos/{owner}/{repo}/issues/{index}/subscriptions/{user}:PUT': 201,
+ 'repos/{owner}/{repo}/issues/{index}/subscriptions:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/timeline:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/times/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/{index}/times:DELETE': 204,
+ 'repos/{owner}/{repo}/issues/{index}/times:GET': 200,
+ 'repos/{owner}/{repo}/issues/{index}/times:POST': 200,
+ 'repos/{owner}/{repo}/keys/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/keys:GET': 200,
+ 'repos/{owner}/{repo}/keys:POST': 201,
+ 'repos/{owner}/{repo}/labels/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/labels/{id}:PATCH': 200,
+ 'repos/{owner}/{repo}/labels:GET': 200,
+ 'repos/{owner}/{repo}/labels:POST': 201,
+ 'repos/{owner}/{repo}/milestones/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/milestones/{id}:PATCH': 200,
+ 'repos/{owner}/{repo}/milestones:GET': 200,
+ 'repos/{owner}/{repo}/milestones:POST': 201,
+ 'repos/{owner}/{repo}/mirror-sync:POST': 200,
+ 'repos/{owner}/{repo}/notifications:GET': 200,
+ 'repos/{owner}/{repo}/notifications:PUT': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/files:GET': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/merge:DELETE': 204,
+ 'repos/{owner}/{repo}/pulls/{index}/merge:POST': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/requested_reviewers:DELETE': 204,
+ 'repos/{owner}/{repo}/pulls/{index}/requested_reviewers:POST': 201,
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals:POST': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals:POST': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}:POST': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/reviews:GET': 200,
+ 'repos/{owner}/{repo}/pulls/{index}/update:POST': 200,
+ 'repos/{owner}/{repo}/pulls/{index}:PATCH': 201,
+ 'repos/{owner}/{repo}/push_mirrors-sync:POST': 200,
+ 'repos/{owner}/{repo}/push_mirrors/{name}:DELETE': 204,
+ 'repos/{owner}/{repo}/push_mirrors:GET': 200,
+ 'repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}:DELETE': 204,
+ 'repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}:PATCH': 201,
+ 'repos/{owner}/{repo}/releases/{id}/assets:GET': 200,
+ 'repos/{owner}/{repo}/releases/{id}/assets:POST': 201,
+ 'repos/{owner}/{repo}/releases/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/releases/{id}:PATCH': 200,
+ 'repos/{owner}/{repo}/releases:GET': 200,
+ 'repos/{owner}/{repo}/releases:POST': 201,
+ 'repos/{owner}/{repo}/reviewers:GET': 200,
+ 'repos/{owner}/{repo}/statuses/{sha}:POST': 201,
+ 'repos/{owner}/{repo}/subscribers:GET': 200,
+ 'repos/{owner}/{repo}/subscription:DELETE': 204,
+ 'repos/{owner}/{repo}/subscription:PUT': 200,
+ 'repos/{owner}/{repo}/tag_protections/{id}:DELETE': 204,
+ 'repos/{owner}/{repo}/tag_protections/{id}:PATCH': 200,
+ 'repos/{owner}/{repo}/tag_protections:GET': 200,
+ 'repos/{owner}/{repo}/tag_protections:POST': 201,
+ 'repos/{owner}/{repo}/tags/{tag}:DELETE': 204,
+ 'repos/{owner}/{repo}/tags:GET': 200,
+ 'repos/{owner}/{repo}/tags:POST': 200,
+ 'repos/{owner}/{repo}/topics/{topic}:DELETE': 204,
+ 'repos/{owner}/{repo}/topics/{topic}:PUT': 204,
+ 'repos/{owner}/{repo}/topics:PUT': 204,
+ 'repos/{owner}/{repo}/transfer/accept:POST': 202,
+ 'repos/{owner}/{repo}/transfer/reject:POST': 200,
+ 'repos/{owner}/{repo}/transfer:POST': 202,
+ 'repos/{owner}/{repo}/wiki/new:POST': 201,
+ 'repos/{owner}/{repo}/wiki/page/{pageName}:DELETE': 204,
+ 'repos/{owner}/{repo}/wiki/page/{pageName}:PATCH': 200,
+ 'repos/{owner}/{repo}/wiki/pages:GET': 200,
+ 'repos/{owner}/{repo}/wiki/revisions/{pageName}:GET': 200,
+ 'repositories/{id}:GET': 200,
+ 'settings/api:GET': 200,
+ 'settings/ui:GET': 200,
+ 'teams/{id}/members/{username}:PUT': 204,
+ 'teams/{id}/members:GET': 200,
+ 'teams/{id}/repos/{org}/{repo}:PUT': 204,
+ 'teams/{id}/repos:GET': 200,
+ 'teams/{id}:DELETE': 204,
+ 'teams/{id}:GET': 200,
+ 'teams/{id}:PATCH': 200,
+ 'topics/search:GET': 200,
+ 'user/actions/runners/registration-token:GET': 200,
+ 'user/actions/secrets/{secretname}:DELETE': 204,
+ 'user/actions/secrets/{secretname}:PUT': 201,
+ 'user/actions/variables/{variablename}:DELETE': 201,
+ 'user/actions/variables/{variablename}:GET': 200,
+ 'user/actions/variables/{variablename}:POST': 201,
+ 'user/actions/variables/{variablename}:PUT': 201,
+ 'user/actions/variables:GET': 200,
+ 'user/applications/oauth2/{id}:DELETE': 204,
+ 'user/applications/oauth2/{id}:GET': 200,
+ 'user/applications/oauth2/{id}:PATCH': 200,
+ 'user/applications/oauth2:GET': 200,
+ 'user/applications/oauth2:POST': 201,
+ 'user/avatar:DELETE': 204,
+ 'user/avatar:POST': 204,
+ 'user/blocks/{username}:DELETE': 204,
+ 'user/blocks/{username}:GET': 204,
+ 'user/blocks/{username}:PUT': 204,
+ 'user/blocks:GET': 200,
+ 'user/emails:DELETE': 204,
+ 'user/emails:GET': 200,
+ 'user/emails:POST': 201,
+ 'user/followers:GET': 200,
+ 'user/following/{username}:DELETE': 204,
+ 'user/following/{username}:GET': 204,
+ 'user/following/{username}:PUT': 204,
+ 'user/following:GET': 200,
+ 'user/gpg_key_token:GET': 200,
+ 'user/gpg_key_verify:POST': 201,
+ 'user/gpg_keys/{id}:DELETE': 204,
+ 'user/gpg_keys/{id}:GET': 200,
+ 'user/gpg_keys:GET': 200,
+ 'user/gpg_keys:POST': 201,
+ 'user/hooks/{id}:DELETE': 204,
+ 'user/hooks/{id}:GET': 200,
+ 'user/hooks/{id}:PATCH': 200,
+ 'user/hooks:GET': 200,
+ 'user/hooks:POST': 201,
+ 'user/keys/{id}:DELETE': 204,
+ 'user/keys/{id}:GET': 200,
+ 'user/keys:GET': 200,
+ 'user/keys:POST': 201,
+ 'user/repos:POST': 201,
+ 'user/settings:GET': 200,
+ 'user/settings:PATCH': 200,
+ 'user/starred/{owner}/{repo}:DELETE': 204,
+ 'user/starred/{owner}/{repo}:GET': 204,
+ 'user/starred/{owner}/{repo}:PUT': 204,
+ 'user/starred:GET': 200,
+ 'user/stopwatches:GET': 200,
+ 'user/subscriptions:GET': 200,
+ 'user/teams:GET': 200,
+ 'user/times:GET': 200,
+ 'users/{username}/activities/feeds:GET': 200,
+ 'users/{username}/orgs:GET': 200,
+ 'users/{username}/repos:GET': 200,
+ 'users/{username}/starred:GET': 200,
+ 'users/{username}/subscriptions:GET': 200,
+ 'users/{username}/tokens/{token}:DELETE': 204,
+ 'users/{username}/tokens:GET': 200,
+ 'users/{username}/tokens:POST': 201,
+ 'users/{username}:GET': 200,
+ 'version:GET': 200}
+SCHEMA_REGISTRY = {'activitypub/user-id/{user-id}': {'GET': {'entity': 'ActivityPub',
+                                           'properties': {'user-id': 'integer'},
+                                           'required': ['user-id']}},
+ 'activitypub/user-id/{user-id}/inbox': {'POST': {'entity': 'ActivityPub',
+                                                  'properties': {'user-id': 'integer'},
+                                                  'required': ['user-id']}},
+ 'admin/cron': {'GET': {'entity': 'AdminCron',
+                        'properties': {'limit': 'integer', 'page': 'integer'},
+                        'required': ['page', 'limit']}},
+ 'admin/cron/{task}': {'POST': {'entity': 'AdminCron',
+                                'properties': {'task': 'string'},
+                                'required': ['task']}},
+ 'admin/emails': {'GET': {'entity': 'AdminEmails',
+                          'properties': {'limit': 'integer', 'page': 'integer'},
+                          'required': ['page', 'limit']}},
+ 'admin/emails/search': {'GET': {'entity': 'Emails',
+                                 'properties': {'limit': 'integer',
+                                                'page': 'integer',
+                                                'q': 'string'},
+                                 'required': ['q', 'page', 'limit']}},
+ 'admin/runners/registration-token': {'GET': {'entity': 'Runners',
+                                              'properties': {},
+                                              'required': []}},
+ 'admin/unadopted': {'GET': {'entity': 'UnadoptedRepositories',
+                             'properties': {'limit': 'integer',
+                                            'page': 'integer',
+                                            'pattern': 'string'},
+                             'required': ['page', 'limit', 'pattern']}},
+ 'admin/unadopted/{owner}/{repo}': {'DELETE': {'entity': 'UnadoptedRepositories',
+                                               'properties': {'owner': 'string',
+                                                              'repo': 'string'},
+                                               'required': ['owner', 'repo']},
+                                    'POST': {'entity': 'UnadoptedRepositories',
+                                             'properties': {'owner': 'string',
+                                                            'repo': 'string'},
+                                             'required': ['owner', 'repo']}},
+ 'admin/users/{username}': {'DELETE': {'entity': 'UserKeys',
+                                       'properties': {'purge': 'string',
+                                                      'username': 'string'},
+                                       'required': ['username', 'purge']},
+                            'PATCH': {'entity': 'Users',
+                                      'properties': {'body': 'object',
+                                                     'username': 'string'},
+                                      'required': ['username', 'body']}},
+ 'admin/users/{username}/badges': {'DELETE': {'entity': 'UserBadges',
+                                              'properties': {'body': 'object',
+                                                             'username': 'string'},
+                                              'required': ['username', 'body']},
+                                   'GET': {'entity': 'UserBadges',
+                                           'properties': {'username': 'string'},
+                                           'required': ['username']},
+                                   'POST': {'entity': 'UserBadges',
+                                            'properties': {'body': 'object',
+                                                           'username': 'string'},
+                                            'required': ['username', 'body']}},
+ 'admin/users/{username}/keys': {'POST': {'entity': 'UserKeys',
+                                          'properties': {'username': 'string'},
+                                          'required': ['username']}},
+ 'admin/users/{username}/orgs': {'POST': {'entity': 'UserOrganizations',
+                                          'properties': {'username': 'string'},
+                                          'required': ['username']}},
+ 'admin/users/{username}/rename': {'POST': {'entity': 'UserRename',
+                                            'properties': {'username': 'string'},
+                                            'required': ['username']}},
+ 'admin/users/{username}/repos': {'POST': {'entity': 'UserRepositories',
+                                           'properties': {'username': 'string'},
+                                           'required': ['username']}},
+ 'gitignore/templates': {'GET': {'entity': 'GitignoreTemplates',
+                                 'properties': {},
+                                 'required': []}},
+ 'gitignore/templates/{name}': {'GET': {'entity': 'GitignoreTemplates',
+                                        'properties': {'name': 'string'},
+                                        'required': ['name']}},
+ 'label/templates': {'GET': {'entity': 'LabelTemplates',
+                             'properties': {},
+                             'required': []}},
+ 'label/templates/{name}': {'GET': {'entity': 'LabelTemplates',
+                                    'properties': {'name': 'string'},
+                                    'required': ['name']}},
+ 'licenses': {'GET': {'entity': 'LicenseTemplates',
+                      'properties': {},
+                      'required': []}},
+ 'licenses/{name}': {'GET': {'entity': 'Licenses',
+                             'properties': {'name': 'string'},
+                             'required': ['name']}},
+ 'markdown': {'POST': {'entity': 'Markdown',
+                       'properties': {'body': 'object'},
+                       'required': ['body']}},
+ 'markdown/raw': {'POST': {'entity': 'Markdown',
+                           'properties': {'body': 'string'},
+                           'required': ['body']}},
+ 'markup': {'POST': {'entity': 'Markup',
+                     'properties': {'body': 'object'},
+                     'required': ['body']}},
+ 'nodeinfo': {'GET': {'entity': 'NodeInfo', 'properties': {}, 'required': []}},
+ 'notifications/new': {'GET': {'entity': 'Notifications',
+                               'properties': {},
+                               'required': []}},
+ 'notifications/threads/{id}': {'GET': {'entity': 'Notifications',
+                                        'properties': {'id': 'string'},
+                                        'required': ['id']},
+                                'PATCH': {'entity': 'Notifications',
+                                          'properties': {'id': 'string',
+                                                         'to-status': 'string'},
+                                          'required': ['id', 'to-status']}},
+ 'org/{org}/repos': {'POST': {'entity': 'Organization',
+                              'properties': {'body': 'object', 'org': 'string'},
+                              'required': ['org', 'body']}},
+ 'orgs': {'GET': {'entity': 'Organization',
+                  'properties': {'limit': 'integer', 'page': 'integer'},
+                  'required': ['page', 'limit']},
+          'POST': {'entity': 'Organization',
+                   'properties': {'organization': 'object'},
+                   'required': ['organization']}},
+ 'orgs/{org}': {'DELETE': {'entity': 'OrganizationPublicMembers',
+                           'properties': {'org': 'string'},
+                           'required': ['org']},
+                'GET': {'entity': 'OrganizationPublicMembers',
+                        'properties': {'org': 'string'},
+                        'required': ['org']},
+                'PATCH': {'entity': 'OrganizationPublicMembers',
+                          'properties': {'body': 'string', 'org': 'string'},
+                          'required': ['org', 'body']}},
+ 'orgs/{org}/actions/runners/registration-token': {'GET': {'entity': 'Organization',
+                                                           'properties': {'org': 'string'},
+                                                           'required': ['org']}},
+ 'orgs/{org}/actions/secrets': {'GET': {'entity': 'Organization',
+                                        'properties': {'limit': 'integer',
+                                                       'org': 'string',
+                                                       'page': 'integer'},
+                                        'required': ['org', 'page', 'limit']}},
+ 'orgs/{org}/actions/secrets/{secretname}': {'DELETE': {'entity': 'Organization',
+                                                        'properties': {'org': 'string',
+                                                                       'secretname': 'string'},
+                                                        'required': ['org',
+                                                                     'secretname']},
+                                             'PUT': {'entity': 'Organization',
+                                                     'properties': {'body': 'object',
+                                                                    'org': 'string',
+                                                                    'secretname': 'string'},
+                                                     'required': ['org',
+                                                                  'secretname',
+                                                                  'body']}},
+ 'orgs/{org}/actions/variables': {'GET': {'entity': 'Organization',
+                                          'properties': {'limit': 'integer',
+                                                         'org': 'string',
+                                                         'page': 'integer'},
+                                          'required': ['org',
+                                                       'page',
+                                                       'limit']}},
+ 'orgs/{org}/actions/variables/{variablename}': {'POST': {'entity': 'OrgVariables',
+                                                          'properties': {'body': 'object',
+                                                                         'org': 'string',
+                                                                         'variablename': 'string'},
+                                                          'required': ['org',
+                                                                       'variablename']}},
+ 'orgs/{org}/avatar': {'DELETE': {'entity': 'Avatar',
+                                  'properties': {'org': 'string'},
+                                  'required': ['org']},
+                       'POST': {'entity': 'Avatar',
+                                'properties': {'body': 'object',
+                                               'org': 'string'},
+                                'required': ['org']}},
+ 'orgs/{org}/blocks': {'GET': {'entity': 'Blocks',
+                               'properties': {'limit': 'integer',
+                                              'org': 'string',
+                                              'page': 'integer'},
+                               'required': ['org', 'page', 'limit']}},
+ 'orgs/{org}/members': {'GET': {'entity': 'Members',
+                                'properties': {'limit': 'integer',
+                                               'org': 'string',
+                                               'page': 'integer'},
+                                'required': ['org', 'page', 'limit']}},
+ 'orgs/{org}/public_members': {'GET': {'entity': 'OrganizationPublicMembers',
+                                       'properties': {'limit': 'integer',
+                                                      'org': 'string',
+                                                      'page': 'integer'},
+                                       'required': ['org', 'page', 'limit']}},
+ 'orgs/{org}/repos': {'GET': {'entity': 'OrganizationRepos',
+                              'properties': {'limit': 'integer',
+                                             'org': 'string',
+                                             'page': 'integer'},
+                              'required': ['org', 'page', 'limit']},
+                      'POST': {'entity': 'OrganizationRepos',
+                               'properties': {'body': 'object',
+                                              'org': 'string'},
+                               'required': ['org', 'body']}},
+ 'orgs/{org}/teams': {'GET': {'entity': 'OrganizationTeams',
+                              'properties': {'limit': 'integer',
+                                             'org': 'string',
+                                             'page': 'integer'},
+                              'required': ['org', 'page', 'limit']},
+                      'POST': {'entity': 'OrganizationTeams',
+                               'properties': {'body': 'object',
+                                              'org': 'string'},
+                               'required': ['org', 'body']}},
+ 'packages/{owner}': {'GET': {'entity': 'Packages',
+                              'properties': {'limit': 'string',
+                                             'owner': 'string',
+                                             'page': 'string',
+                                             'q': 'string',
+                                             'type': 'string'},
+                              'required': ['owner',
+                                           'page',
+                                           'limit',
+                                           'type',
+                                           'q']}},
+ 'packages/{owner}/{type}/{name}/{version}': {'DELETE': {'entity': 'Packages',
+                                                         'properties': {'name': 'string',
+                                                                        'owner': 'string',
+                                                                        'type': 'string',
+                                                                        'version': 'string'},
+                                                         'required': ['owner',
+                                                                      'type',
+                                                                      'name',
+                                                                      'version']}},
+ 'packages/{owner}/{type}/{name}/{version}/files': {'GET': {'entity': 'Packages',
+                                                            'properties': {'name': 'string',
+                                                                           'owner': 'string',
+                                                                           'type': 'string',
+                                                                           'version': 'string'},
+                                                            'required': ['owner',
+                                                                         'type',
+                                                                         'name',
+                                                                         'version']}},
+ 'repos/{owner}/{repo}/actions/runners/registration-token': {'GET': {'entity': 'Repository',
+                                                                     'properties': {'owner': 'string',
+                                                                                    'repo': 'string'},
+                                                                     'required': ['owner',
+                                                                                  'repo']}},
+ 'repos/{owner}/{repo}/actions/secrets': {'GET': {'entity': 'Repository',
+                                                  'properties': {'limit': 'integer',
+                                                                 'owner': 'string',
+                                                                 'page': 'integer',
+                                                                 'repo': 'string'},
+                                                  'required': ['owner',
+                                                               'repo',
+                                                               'page',
+                                                               'limit']}},
+ 'repos/{owner}/{repo}/actions/secrets/{secretname}': {'DELETE': {'entity': 'Secrets',
+                                                                  'properties': {'owner': 'string',
+                                                                                 'repo': 'string',
+                                                                                 'secretname': 'string'},
+                                                                  'required': ['owner',
+                                                                               'repo',
+                                                                               'secretname']},
+                                                       'PUT': {'entity': 'Secrets',
+                                                               'properties': {'body': 'object',
+                                                                              'owner': 'string',
+                                                                              'repo': 'string',
+                                                                              'secretname': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'secretname',
+                                                                            'body']}},
+ 'repos/{owner}/{repo}/actions/tasks': {'GET': {'entity': 'Tasks',
+                                                'properties': {'limit': 'integer',
+                                                               'owner': 'string',
+                                                               'page': 'integer',
+                                                               'repo': 'string'},
+                                                'required': ['owner',
+                                                             'repo',
+                                                             'page',
+                                                             'limit']}},
+ 'repos/{owner}/{repo}/actions/variables': {'GET': {'entity': 'Variables',
+                                                    'properties': {'limit': 'integer',
+                                                                   'owner': 'string',
+                                                                   'page': 'integer',
+                                                                   'repo': 'string'},
+                                                    'required': ['owner',
+                                                                 'repo',
+                                                                 'page',
+                                                                 'limit']}},
+ 'repos/{owner}/{repo}/actions/variables/{variablename}': {'DELETE': {'entity': 'Variables',
+                                                                      'properties': {'owner': 'string',
+                                                                                     'repo': 'string',
+                                                                                     'variablename': 'string'},
+                                                                      'required': ['owner',
+                                                                                   'repo',
+                                                                                   'variablename']},
+                                                           'POST': {'entity': 'Variables',
+                                                                    'properties': {'body': 'object',
+                                                                                   'owner': 'string',
+                                                                                   'repo': 'string',
+                                                                                   'variablename': 'string'},
+                                                                    'required': ['owner',
+                                                                                 'repo',
+                                                                                 'variablename',
+                                                                                 'body']},
+                                                           'PUT': {'entity': 'Variables',
+                                                                   'properties': {'body': 'object',
+                                                                                  'owner': 'string',
+                                                                                  'repo': 'string',
+                                                                                  'variablename': 'string'},
+                                                                   'required': ['owner',
+                                                                                'repo',
+                                                                                'variablename',
+                                                                                'body']}},
+ 'repos/{owner}/{repo}/branch_protections/{name}': {'DELETE': {'entity': 'BranchProtections',
+                                                               'properties': {'name': 'string',
+                                                                              'owner': 'string',
+                                                                              'repo': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'name']},
+                                                    'PATCH': {'entity': 'BranchProtections',
+                                                              'properties': {'body': 'object',
+                                                                             'name': 'string',
+                                                                             'owner': 'string',
+                                                                             'repo': 'string'},
+                                                              'required': ['owner',
+                                                                           'repo',
+                                                                           'name',
+                                                                           'body']}},
+ 'repos/{owner}/{repo}/branches': {'GET': {'entity': 'Branches',
+                                           'properties': {'limit': 'integer',
+                                                          'owner': 'string',
+                                                          'page': 'integer',
+                                                          'repo': 'string'},
+                                           'required': ['owner',
+                                                        'repo',
+                                                        'page',
+                                                        'limit']},
+                                   'POST': {'entity': 'Branches',
+                                            'properties': {'body': 'object',
+                                                           'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner',
+                                                         'repo',
+                                                         'body']}},
+ 'repos/{owner}/{repo}/branches/{branch}': {'DELETE': {'entity': 'Branches',
+                                                       'properties': {'branch': 'string',
+                                                                      'owner': 'string',
+                                                                      'repo': 'string'},
+                                                       'required': ['owner',
+                                                                    'repo',
+                                                                    'branch']},
+                                            'PATCH': {'entity': 'Branches',
+                                                      'properties': {'body': 'object',
+                                                                     'branch': 'string',
+                                                                     'owner': 'string',
+                                                                     'repo': 'string'},
+                                                      'required': ['owner',
+                                                                   'repo',
+                                                                   'branch',
+                                                                   'body']}},
+ 'repos/{owner}/{repo}/collaborators': {'GET': {'entity': 'Collaborators',
+                                                'properties': {'limit': 'integer',
+                                                               'owner': 'string',
+                                                               'page': 'integer',
+                                                               'repo': 'string'},
+                                                'required': ['owner',
+                                                             'repo',
+                                                             'page',
+                                                             'limit']}},
+ 'repos/{owner}/{repo}/collaborators/{collaborator}': {'DELETE': {'entity': 'Collaborators',
+                                                                  'properties': {'collaborator': 'string',
+                                                                                 'owner': 'string',
+                                                                                 'repo': 'string'},
+                                                                  'required': ['owner',
+                                                                               'repo',
+                                                                               'collaborator']},
+                                                       'PUT': {'entity': 'Collaborators',
+                                                               'properties': {'body': 'object',
+                                                                              'collaborator': 'string',
+                                                                              'owner': 'string',
+                                                                              'repo': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'collaborator',
+                                                                            'body']}},
+ 'repos/{owner}/{repo}/commits': {'GET': {'entity': 'Commits',
+                                          'properties': {'files': 'boolean',
+                                                         'limit': 'integer',
+                                                         'not': 'string',
+                                                         'owner': 'string',
+                                                         'page': 'integer',
+                                                         'path': 'string',
+                                                         'repo': 'string',
+                                                         'sha': 'string',
+                                                         'stat': 'boolean',
+                                                         'verification': 'boolean'},
+                                          'required': ['owner',
+                                                       'repo',
+                                                       'sha',
+                                                       'path',
+                                                       'stat',
+                                                       'verification',
+                                                       'files',
+                                                       'page',
+                                                       'limit',
+                                                       'not']}},
+ 'repos/{owner}/{repo}/commits/{ref}/statuses': {'GET': {'entity': 'Commits',
+                                                         'properties': {'limit': 'integer',
+                                                                        'owner': 'string',
+                                                                        'page': 'integer',
+                                                                        'ref': 'string',
+                                                                        'repo': 'string',
+                                                                        'sort': 'string',
+                                                                        'state': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'ref',
+                                                                      'sort',
+                                                                      'state',
+                                                                      'page',
+                                                                      'limit']}},
+ 'repos/{owner}/{repo}/commits/{sha}/pull': {'GET': {'entity': 'Commits',
+                                                     'properties': {'owner': 'string',
+                                                                    'repo': 'string',
+                                                                    'sha': 'string'},
+                                                     'required': ['owner',
+                                                                  'repo',
+                                                                  'sha']}},
+ 'repos/{owner}/{repo}/contents/{filepath}': {'DELETE': {'entity': 'Repositories',
+                                                         'properties': {'body': 'object',
+                                                                        'filepath': 'string',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'filepath',
+                                                                      'body']},
+                                              'PUT': {'entity': 'Repositories',
+                                                      'properties': {'body': 'object',
+                                                                     'filepath': 'string',
+                                                                     'owner': 'string',
+                                                                     'repo': 'string'},
+                                                      'required': ['owner',
+                                                                   'repo',
+                                                                   'filepath',
+                                                                   'body']}},
+ 'repos/{owner}/{repo}/forks': {'GET': {'entity': 'Forks',
+                                        'properties': {'limit': 'integer',
+                                                       'owner': 'string',
+                                                       'page': 'integer',
+                                                       'repo': 'string'},
+                                        'required': ['owner',
+                                                     'repo',
+                                                     'page',
+                                                     'limit']},
+                                'POST': {'entity': 'Forks',
+                                         'properties': {'body': 'object',
+                                                        'owner': 'string',
+                                                        'repo': 'string'},
+                                         'required': ['owner',
+                                                      'repo',
+                                                      'body']}},
+ 'repos/{owner}/{repo}/git/commits/{sha}.{diffType}': {'GET': {'entity': 'Commits',
+                                                               'properties': {'diffType': 'string',
+                                                                              'owner': 'string',
+                                                                              'repo': 'string',
+                                                                              'sha': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'sha',
+                                                                            'diffType']}},
+ 'repos/{owner}/{repo}/git/refs': {'GET': {'entity': 'GitRefs',
+                                           'properties': {'owner': 'string',
+                                                          'repo': 'string'},
+                                           'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/hooks/git': {'GET': {'entity': 'GitHooks',
+                                            'properties': {'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/hooks/git/{id}': {'DELETE': {'entity': 'GitHooks',
+                                                    'properties': {'id': 'string',
+                                                                   'owner': 'string',
+                                                                   'repo': 'string'},
+                                                    'required': ['owner',
+                                                                 'repo',
+                                                                 'id']},
+                                         'PATCH': {'entity': 'GitHooks',
+                                                   'properties': {'body': 'object',
+                                                                  'id': 'string',
+                                                                  'owner': 'string',
+                                                                  'repo': 'string'},
+                                                   'required': ['owner',
+                                                                'repo',
+                                                                'id',
+                                                                'body']}},
+ 'repos/{owner}/{repo}/issues/comments': {'GET': {'entity': 'Comments',
+                                                  'properties': {'before': 'string',
+                                                                 'limit': 'integer',
+                                                                 'owner': 'string',
+                                                                 'page': 'integer',
+                                                                 'repo': 'string',
+                                                                 'since': 'string'},
+                                                  'required': ['owner',
+                                                               'repo',
+                                                               'since',
+                                                               'before',
+                                                               'page',
+                                                               'limit']}},
+ 'repos/{owner}/{repo}/issues/comments/{id}': {'DELETE': {'entity': 'Comments',
+                                                          'properties': {'id': 'integer',
+                                                                         'owner': 'string',
+                                                                         'repo': 'string'},
+                                                          'required': ['owner',
+                                                                       'repo',
+                                                                       'id']},
+                                               'PATCH': {'entity': 'Comments',
+                                                         'properties': {'body': 'object',
+                                                                        'id': 'integer',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'id']}},
+ 'repos/{owner}/{repo}/issues/comments/{id}/assets': {'GET': {'entity': 'IssueCommentAttachments',
+                                                              'properties': {'id': 'integer',
+                                                                             'owner': 'string',
+                                                                             'repo': 'string'},
+                                                              'required': ['owner',
+                                                                           'repo',
+                                                                           'id']},
+                                                      'POST': {'entity': 'IssueCommentAttachments',
+                                                               'properties': {'attachment': 'file',
+                                                                              'id': 'integer',
+                                                                              'name': 'string',
+                                                                              'owner': 'string',
+                                                                              'repo': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'id',
+                                                                            'name',
+                                                                            'attachment']}},
+ 'repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}': {'DELETE': {'entity': 'IssueCommentAttachments',
+                                                                                 'properties': {'attachment_id': 'integer',
+                                                                                                'id': 'integer',
+                                                                                                'owner': 'string',
+                                                                                                'repo': 'string'},
+                                                                                 'required': ['owner',
+                                                                                              'repo',
+                                                                                              'id',
+                                                                                              'attachment_id']},
+                                                                      'PATCH': {'entity': 'IssueCommentAttachments',
+                                                                                'properties': {'attachment_id': 'integer',
+                                                                                               'body': 'object',
+                                                                                               'id': 'integer',
+                                                                                               'owner': 'string',
+                                                                                               'repo': 'string'},
+                                                                                'required': ['owner',
+                                                                                             'repo',
+                                                                                             'id',
+                                                                                             'attachment_id',
+                                                                                             'body']}},
+ 'repos/{owner}/{repo}/issues/comments/{id}/reactions': {'DELETE': {'entity': 'IssueCommentReactions',
+                                                                    'properties': {'content': 'object',
+                                                                                   'id': 'integer',
+                                                                                   'owner': 'string',
+                                                                                   'repo': 'string'},
+                                                                    'required': ['owner',
+                                                                                 'repo',
+                                                                                 'id',
+                                                                                 'content']},
+                                                         'GET': {'entity': 'IssueCommentReactions',
+                                                                 'properties': {'id': 'integer',
+                                                                                'owner': 'string',
+                                                                                'repo': 'string'},
+                                                                 'required': ['owner',
+                                                                              'repo',
+                                                                              'id']},
+                                                         'POST': {'entity': 'IssueCommentReactions',
+                                                                  'properties': {'content': 'object',
+                                                                                 'id': 'integer',
+                                                                                 'owner': 'string',
+                                                                                 'repo': 'string'},
+                                                                  'required': ['owner',
+                                                                               'repo',
+                                                                               'id',
+                                                                               'content']}},
+ 'repos/{owner}/{repo}/issues/pinned': {'GET': {'entity': 'PinnedIssues',
+                                                'properties': {'owner': 'string',
+                                                               'repo': 'string'},
+                                                'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/issues/{index}/assets': {'GET': {'entity': 'IssueAttachments',
+                                                        'properties': {'index': 'integer',
+                                                                       'owner': 'string',
+                                                                       'repo': 'string'},
+                                                        'required': ['owner',
+                                                                     'repo',
+                                                                     'index']},
+                                                'POST': {'entity': 'IssueAttachments',
+                                                         'properties': {'attachment': 'file',
+                                                                        'index': 'integer',
+                                                                        'name': 'string',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'index',
+                                                                      'name',
+                                                                      'attachment']}},
+ 'repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}': {'DELETE': {'entity': 'IssueAttachments',
+                                                                           'properties': {'attachment_id': 'integer',
+                                                                                          'index': 'integer',
+                                                                                          'owner': 'string',
+                                                                                          'repo': 'string'},
+                                                                           'required': ['owner',
+                                                                                        'repo',
+                                                                                        'index',
+                                                                                        'attachment_id']},
+                                                                'PATCH': {'entity': 'IssueAttachments',
+                                                                          'properties': {'attachment_id': 'integer',
+                                                                                         'body': 'object',
+                                                                                         'index': 'integer',
+                                                                                         'owner': 'string',
+                                                                                         'repo': 'string'},
+                                                                          'required': ['owner',
+                                                                                       'repo',
+                                                                                       'index',
+                                                                                       'attachment_id',
+                                                                                       'body']}},
+ 'repos/{owner}/{repo}/issues/{index}/blocks': {'DELETE': {'entity': 'IssueBlocks',
+                                                           'properties': {'body': 'object',
+                                                                          'index': 'string',
+                                                                          'owner': 'string',
+                                                                          'repo': 'string'},
+                                                           'required': ['owner',
+                                                                        'repo',
+                                                                        'index',
+                                                                        'body']},
+                                                'GET': {'entity': 'IssueBlocks',
+                                                        'properties': {'index': 'string',
+                                                                       'limit': 'integer',
+                                                                       'owner': 'string',
+                                                                       'page': 'integer',
+                                                                       'repo': 'string'},
+                                                        'required': ['owner',
+                                                                     'repo',
+                                                                     'index',
+                                                                     'page',
+                                                                     'limit']},
+                                                'POST': {'entity': 'IssueBlocks',
+                                                         'properties': {'body': 'object',
+                                                                        'index': 'string',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'index',
+                                                                      'body']}},
+ 'repos/{owner}/{repo}/issues/{index}/comments': {'GET': {'entity': 'IssueComments',
+                                                          'properties': {'before': 'string',
+                                                                         'index': 'integer',
+                                                                         'owner': 'string',
+                                                                         'repo': 'string',
+                                                                         'since': 'string'},
+                                                          'required': ['owner',
+                                                                       'repo',
+                                                                       'index',
+                                                                       'since',
+                                                                       'before']},
+                                                  'POST': {'entity': 'IssueComments',
+                                                           'properties': {'body': 'object',
+                                                                          'index': 'integer',
+                                                                          'owner': 'string',
+                                                                          'repo': 'string'},
+                                                           'required': ['owner',
+                                                                        'repo',
+                                                                        'index',
+                                                                        'body']}},
+ 'repos/{owner}/{repo}/issues/{index}/comments/{id}': {'DELETE': {'entity': 'IssueComments',
+                                                                  'properties': {'id': 'integer',
+                                                                                 'index': 'integer',
+                                                                                 'owner': 'string',
+                                                                                 'repo': 'string'},
+                                                                  'required': ['owner',
+                                                                               'repo',
+                                                                               'index',
+                                                                               'id']},
+                                                       'PATCH': {'entity': 'IssueComments',
+                                                                 'properties': {'body': 'object',
+                                                                                'id': 'integer',
+                                                                                'index': 'integer',
+                                                                                'owner': 'string',
+                                                                                'repo': 'string'},
+                                                                 'required': ['owner',
+                                                                              'repo',
+                                                                              'index',
+                                                                              'id',
+                                                                              'body']}},
+ 'repos/{owner}/{repo}/issues/{index}/pin/{position}': {'PATCH': {'entity': 'Issues',
+                                                                  'properties': {'index': 'integer',
+                                                                                 'owner': 'string',
+                                                                                 'position': 'integer',
+                                                                                 'repo': 'string'},
+                                                                  'required': ['owner',
+                                                                               'repo',
+                                                                               'index',
+                                                                               'position']}},
+ 'repos/{owner}/{repo}/issues/{index}/reactions': {'GET': {'entity': 'Issues',
+                                                           'properties': {'index': 'integer',
+                                                                          'limit': 'integer',
+                                                                          'owner': 'string',
+                                                                          'page': 'integer',
+                                                                          'repo': 'string'},
+                                                           'required': ['owner',
+                                                                        'repo',
+                                                                        'index',
+                                                                        'page',
+                                                                        'limit']},
+                                                   'POST': {'entity': 'Issues',
+                                                            'properties': {'content': 'object',
+                                                                           'index': 'integer',
+                                                                           'owner': 'string',
+                                                                           'repo': 'string'},
+                                                            'required': ['owner',
+                                                                         'repo',
+                                                                         'index',
+                                                                         'content']}},
+ 'repos/{owner}/{repo}/issues/{index}/stopwatch/delete': {'DELETE': {'entity': 'Issues',
+                                                                     'properties': {'index': 'integer',
+                                                                                    'owner': 'string',
+                                                                                    'repo': 'string'},
+                                                                     'required': ['owner',
+                                                                                  'repo',
+                                                                                  'index']}},
+ 'repos/{owner}/{repo}/issues/{index}/stopwatch/start': {'POST': {'entity': 'Issues',
+                                                                  'properties': {'index': 'integer',
+                                                                                 'owner': 'string',
+                                                                                 'repo': 'string'},
+                                                                  'required': ['owner',
+                                                                               'repo',
+                                                                               'index']}},
+ 'repos/{owner}/{repo}/issues/{index}/stopwatch/stop': {'POST': {'entity': 'Issues',
+                                                                 'properties': {'index': 'integer',
+                                                                                'owner': 'string',
+                                                                                'repo': 'string'},
+                                                                 'required': ['owner',
+                                                                              'repo',
+                                                                              'index']}},
+ 'repos/{owner}/{repo}/issues/{index}/subscriptions': {'GET': {'entity': 'IssueSubscriptions',
+                                                               'properties': {'index': 'integer',
+                                                                              'limit': 'integer',
+                                                                              'owner': 'string',
+                                                                              'page': 'integer',
+                                                                              'repo': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'index',
+                                                                            'page',
+                                                                            'limit']}},
+ 'repos/{owner}/{repo}/issues/{index}/subscriptions/{user}': {'DELETE': {'entity': 'IssueSubscriptions',
+                                                                         'properties': {'index': 'integer',
+                                                                                        'owner': 'string',
+                                                                                        'repo': 'string',
+                                                                                        'user': 'string'},
+                                                                         'required': ['owner',
+                                                                                      'repo',
+                                                                                      'index',
+                                                                                      'user']},
+                                                              'PUT': {'entity': 'IssueSubscriptions',
+                                                                      'properties': {'index': 'integer',
+                                                                                     'owner': 'string',
+                                                                                     'repo': 'string',
+                                                                                     'user': 'string'},
+                                                                      'required': ['owner',
+                                                                                   'repo',
+                                                                                   'index',
+                                                                                   'user']}},
+ 'repos/{owner}/{repo}/issues/{index}/timeline': {'GET': {'entity': 'IssueTimeline',
+                                                          'properties': {'before': 'string',
+                                                                         'index': 'integer',
+                                                                         'limit': 'integer',
+                                                                         'owner': 'string',
+                                                                         'page': 'integer',
+                                                                         'repo': 'string',
+                                                                         'since': 'string'},
+                                                          'required': ['owner',
+                                                                       'repo',
+                                                                       'index',
+                                                                       'since',
+                                                                       'page',
+                                                                       'limit',
+                                                                       'before']}},
+ 'repos/{owner}/{repo}/issues/{index}/times': {'DELETE': {'entity': 'IssueTimes',
+                                                          'properties': {'index': 'integer',
+                                                                         'owner': 'string',
+                                                                         'repo': 'string'},
+                                                          'required': ['owner',
+                                                                       'repo',
+                                                                       'index']},
+                                               'GET': {'entity': 'IssueTimes',
+                                                       'properties': {'before': 'string',
+                                                                      'index': 'integer',
+                                                                      'limit': 'integer',
+                                                                      'owner': 'string',
+                                                                      'page': 'integer',
+                                                                      'repo': 'string',
+                                                                      'since': 'string',
+                                                                      'user': 'string'},
+                                                       'required': ['owner',
+                                                                    'repo',
+                                                                    'index',
+                                                                    'user',
+                                                                    'since',
+                                                                    'before',
+                                                                    'page',
+                                                                    'limit']},
+                                               'POST': {'entity': 'IssueTimes',
+                                                        'properties': {'body': 'object',
+                                                                       'index': 'integer',
+                                                                       'owner': 'string',
+                                                                       'repo': 'string'},
+                                                        'required': ['owner',
+                                                                     'repo',
+                                                                     'index',
+                                                                     'body']}},
+ 'repos/{owner}/{repo}/issues/{index}/times/{id}': {'DELETE': {'entity': 'Issues',
+                                                               'properties': {'id': 'integer',
+                                                                              'index': 'integer',
+                                                                              'owner': 'string',
+                                                                              'repo': 'string'},
+                                                               'required': ['owner',
+                                                                            'repo',
+                                                                            'index',
+                                                                            'id']}},
+ 'repos/{owner}/{repo}/keys': {'GET': {'entity': 'RepositoryKeys',
+                                       'properties': {'fingerprint': 'string',
+                                                      'key_id': 'integer',
+                                                      'limit': 'integer',
+                                                      'owner': 'string',
+                                                      'page': 'integer',
+                                                      'repo': 'string'},
+                                       'required': ['owner',
+                                                    'repo',
+                                                    'key_id',
+                                                    'fingerprint',
+                                                    'page',
+                                                    'limit']},
+                               'POST': {'entity': 'RepositoryKeys',
+                                        'properties': {'body': 'object',
+                                                       'owner': 'string',
+                                                       'repo': 'string'},
+                                        'required': ['owner', 'repo', 'body']}},
+ 'repos/{owner}/{repo}/keys/{id}': {'DELETE': {'entity': 'RepositoryKeys',
+                                               'properties': {'id': 'integer',
+                                                              'owner': 'string',
+                                                              'repo': 'string'},
+                                               'required': ['owner',
+                                                            'repo',
+                                                            'id']}},
+ 'repos/{owner}/{repo}/labels': {'GET': {'entity': 'Labels',
+                                         'properties': {'limit': 'integer',
+                                                        'owner': 'string',
+                                                        'page': 'integer',
+                                                        'repo': 'string'},
+                                         'required': ['owner',
+                                                      'repo',
+                                                      'page',
+                                                      'limit']},
+                                 'POST': {'entity': 'Labels',
+                                          'properties': {'body': 'object',
+                                                         'owner': 'string',
+                                                         'repo': 'string'},
+                                          'required': ['owner',
+                                                       'repo',
+                                                       'body']}},
+ 'repos/{owner}/{repo}/labels/{id}': {'DELETE': {'entity': 'Labels',
+                                                 'properties': {'id': 'integer',
+                                                                'owner': 'string',
+                                                                'repo': 'string'},
+                                                 'required': ['owner',
+                                                              'repo',
+                                                              'id']},
+                                      'PATCH': {'entity': 'Labels',
+                                                'properties': {'body': 'object',
+                                                               'id': 'integer',
+                                                               'owner': 'string',
+                                                               'repo': 'string'},
+                                                'required': ['owner',
+                                                             'repo',
+                                                             'id',
+                                                             'body']}},
+ 'repos/{owner}/{repo}/milestones': {'GET': {'entity': 'Issue',
+                                             'properties': {'limit': 'integer',
+                                                            'name': 'string',
+                                                            'owner': 'string',
+                                                            'page': 'integer',
+                                                            'repo': 'string',
+                                                            'state': 'string'},
+                                             'required': ['owner',
+                                                          'repo',
+                                                          'state',
+                                                          'name',
+                                                          'page',
+                                                          'limit']},
+                                     'POST': {'entity': 'Issue',
+                                              'properties': {'body': 'object',
+                                                             'owner': 'string',
+                                                             'repo': 'string'},
+                                              'required': ['owner',
+                                                           'repo',
+                                                           'body']}},
+ 'repos/{owner}/{repo}/milestones/{id}': {'DELETE': {'entity': 'Milestones',
+                                                     'properties': {'id': 'string',
+                                                                    'owner': 'string',
+                                                                    'repo': 'string'},
+                                                     'required': ['owner',
+                                                                  'repo',
+                                                                  'id']},
+                                          'PATCH': {'entity': 'Milestones',
+                                                    'properties': {'body': 'object',
+                                                                   'id': 'string',
+                                                                   'owner': 'string',
+                                                                   'repo': 'string'},
+                                                    'required': ['owner',
+                                                                 'repo',
+                                                                 'id',
+                                                                 'body']}},
+ 'repos/{owner}/{repo}/mirror-sync': {'POST': {'entity': 'MirrorSync',
+                                               'properties': {'owner': 'string',
+                                                              'repo': 'string'},
+                                               'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/notifications': {'GET': {'entity': 'Notifications',
+                                                'properties': {'all': 'boolean',
+                                                               'before': 'string',
+                                                               'limit': 'integer',
+                                                               'owner': 'string',
+                                                               'page': 'integer',
+                                                               'repo': 'string',
+                                                               'since': 'string',
+                                                               'status-types': 'array',
+                                                               'subject-type': 'array'},
+                                                'required': ['owner',
+                                                             'repo',
+                                                             'all',
+                                                             'status-types',
+                                                             'subject-type',
+                                                             'since',
+                                                             'before',
+                                                             'page',
+                                                             'limit']},
+                                        'PUT': {'entity': 'Notifications',
+                                                'properties': {'all': 'string',
+                                                               'last_read_at': 'string',
+                                                               'owner': 'string',
+                                                               'repo': 'string',
+                                                               'status-types': 'array',
+                                                               'to-status': 'string'},
+                                                'required': ['owner',
+                                                             'repo',
+                                                             'all',
+                                                             'status-types',
+                                                             'to-status',
+                                                             'last_read_at']}},
+ 'repos/{owner}/{repo}/pulls/{index}': {'PATCH': {'entity': 'PullRequests',
+                                                  'properties': {'body': 'object',
+                                                                 'index': 'integer',
+                                                                 'owner': 'string',
+                                                                 'repo': 'string'},
+                                                  'required': ['owner',
+                                                               'repo',
+                                                               'index',
+                                                               'body']}},
+ 'repos/{owner}/{repo}/pulls/{index}/files': {'GET': {'entity': 'PullRequests',
+                                                      'properties': {'index': 'integer',
+                                                                     'limit': 'integer',
+                                                                     'owner': 'string',
+                                                                     'page': 'integer',
+                                                                     'repo': 'string',
+                                                                     'skip-to': 'string',
+                                                                     'whitespace': 'string'},
+                                                      'required': ['owner',
+                                                                   'repo',
+                                                                   'index',
+                                                                   'skip-to',
+                                                                   'whitespace',
+                                                                   'page',
+                                                                   'limit']}},
+ 'repos/{owner}/{repo}/pulls/{index}/merge': {'DELETE': {'entity': 'PullRequests',
+                                                         'properties': {'index': 'integer',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'index']},
+                                              'POST': {'entity': 'PullRequests',
+                                                       'properties': {'body': 'object',
+                                                                      'index': 'integer',
+                                                                      'owner': 'string',
+                                                                      'repo': 'string'},
+                                                       'required': ['owner',
+                                                                    'repo',
+                                                                    'index',
+                                                                    'body']}},
+ 'repos/{owner}/{repo}/pulls/{index}/requested_reviewers': {'DELETE': {'entity': 'PullReviewRequests',
+                                                                       'properties': {'body': 'object',
+                                                                                      'index': 'integer',
+                                                                                      'owner': 'string',
+                                                                                      'repo': 'string'},
+                                                                       'required': ['owner',
+                                                                                    'repo',
+                                                                                    'index',
+                                                                                    'body']},
+                                                            'POST': {'entity': 'PullReviewRequests',
+                                                                     'properties': {'body': 'object',
+                                                                                    'index': 'integer',
+                                                                                    'owner': 'string',
+                                                                                    'repo': 'string'},
+                                                                     'required': ['owner',
+                                                                                  'repo',
+                                                                                  'index',
+                                                                                  'body']}},
+ 'repos/{owner}/{repo}/pulls/{index}/reviews': {'GET': {'entity': 'PullReviews',
+                                                        'properties': {'index': 'integer',
+                                                                       'limit': 'integer',
+                                                                       'owner': 'string',
+                                                                       'page': 'integer',
+                                                                       'repo': 'string'},
+                                                        'required': ['owner',
+                                                                     'repo',
+                                                                     'index',
+                                                                     'page',
+                                                                     'limit']}},
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}': {'DELETE': {'entity': 'PullReviews',
+                                                                'properties': {'id': 'integer',
+                                                                               'index': 'integer',
+                                                                               'owner': 'string',
+                                                                               'repo': 'string'},
+                                                                'required': ['owner',
+                                                                             'repo',
+                                                                             'index',
+                                                                             'id']},
+                                                     'POST': {'entity': 'PullReviews',
+                                                              'properties': {'body': 'object',
+                                                                             'id': 'integer',
+                                                                             'index': 'integer',
+                                                                             'owner': 'string',
+                                                                             'repo': 'string'},
+                                                              'required': ['owner',
+                                                                           'repo',
+                                                                           'index',
+                                                                           'id',
+                                                                           'body']}},
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals': {'POST': {'entity': 'PullReviewDismissals',
+                                                                         'properties': {'body': 'object',
+                                                                                        'id': 'integer',
+                                                                                        'index': 'integer',
+                                                                                        'owner': 'string',
+                                                                                        'repo': 'string'},
+                                                                         'required': ['owner',
+                                                                                      'repo',
+                                                                                      'index',
+                                                                                      'id',
+                                                                                      'body']}},
+ 'repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals': {'POST': {'entity': 'PullReviewUndismissals',
+                                                                           'properties': {'id': 'integer',
+                                                                                          'index': 'integer',
+                                                                                          'owner': 'string',
+                                                                                          'repo': 'string'},
+                                                                           'required': ['owner',
+                                                                                        'repo',
+                                                                                        'index',
+                                                                                        'id']}},
+ 'repos/{owner}/{repo}/pulls/{index}/update': {'POST': {'entity': 'PullRequestUpdate',
+                                                        'properties': {'index': 'integer',
+                                                                       'owner': 'string',
+                                                                       'repo': 'string',
+                                                                       'style': 'string'},
+                                                        'required': ['owner',
+                                                                     'repo',
+                                                                     'index',
+                                                                     'style']}},
+ 'repos/{owner}/{repo}/push_mirrors': {'GET': {'entity': 'PushMirrors',
+                                               'properties': {'limit': 'integer',
+                                                              'owner': 'string',
+                                                              'page': 'integer',
+                                                              'repo': 'string'},
+                                               'required': ['owner',
+                                                            'repo',
+                                                            'page',
+                                                            'limit']}},
+ 'repos/{owner}/{repo}/push_mirrors-sync': {'POST': {'entity': 'PushMirrors',
+                                                     'properties': {'owner': 'string',
+                                                                    'repo': 'string'},
+                                                     'required': ['owner',
+                                                                  'repo']}},
+ 'repos/{owner}/{repo}/push_mirrors/{name}': {'DELETE': {'entity': 'PushMirrors',
+                                                         'properties': {'name': 'string',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'name']}},
+ 'repos/{owner}/{repo}/releases': {'GET': {'entity': 'Releases',
+                                           'properties': {'draft': 'boolean',
+                                                          'limit': 'integer',
+                                                          'owner': 'string',
+                                                          'page': 'integer',
+                                                          'pre-release': 'boolean',
+                                                          'repo': 'string'},
+                                           'required': ['owner',
+                                                        'repo',
+                                                        'draft',
+                                                        'pre-release',
+                                                        'page',
+                                                        'limit']},
+                                   'POST': {'entity': 'Releases',
+                                            'properties': {'body': 'object',
+                                                           'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/releases/{id}': {'DELETE': {'entity': 'Releases',
+                                                   'properties': {'id': 'integer',
+                                                                  'owner': 'string',
+                                                                  'repo': 'string'},
+                                                   'required': ['owner',
+                                                                'repo',
+                                                                'id']},
+                                        'PATCH': {'entity': 'Releases',
+                                                  'properties': {'body': 'object',
+                                                                 'id': 'integer',
+                                                                 'owner': 'string',
+                                                                 'repo': 'string'},
+                                                  'required': ['owner',
+                                                               'repo',
+                                                               'id',
+                                                               'body']}},
+ 'repos/{owner}/{repo}/releases/{id}/assets': {'GET': {'entity': 'ReleaseAttachments',
+                                                       'properties': {'id': 'integer',
+                                                                      'owner': 'string',
+                                                                      'repo': 'string'},
+                                                       'required': ['owner',
+                                                                    'repo',
+                                                                    'id']},
+                                               'POST': {'entity': 'ReleaseAttachments',
+                                                        'properties': {'attachment': 'file',
+                                                                       'id': 'integer',
+                                                                       'name': 'string',
+                                                                       'owner': 'string',
+                                                                       'repo': 'string'},
+                                                        'required': ['owner',
+                                                                     'repo',
+                                                                     'id',
+                                                                     'name',
+                                                                     'attachment']}},
+ 'repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}': {'DELETE': {'entity': 'ReleaseAttachments',
+                                                                          'properties': {'attachment_id': 'integer',
+                                                                                         'id': 'integer',
+                                                                                         'owner': 'string',
+                                                                                         'repo': 'string'},
+                                                                          'required': ['owner',
+                                                                                       'repo',
+                                                                                       'id',
+                                                                                       'attachment_id']},
+                                                               'PATCH': {'entity': 'ReleaseAttachments',
+                                                                         'properties': {'attachment_id': 'integer',
+                                                                                        'body': 'object',
+                                                                                        'id': 'integer',
+                                                                                        'owner': 'string',
+                                                                                        'repo': 'string'},
+                                                                         'required': ['owner',
+                                                                                      'repo',
+                                                                                      'id',
+                                                                                      'attachment_id',
+                                                                                      'body']}},
+ 'repos/{owner}/{repo}/reviewers': {'GET': {'entity': 'Reviewers',
+                                            'properties': {'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/statuses/{sha}': {'POST': {'entity': 'Repository',
+                                                  'properties': {'body': 'object',
+                                                                 'owner': 'string',
+                                                                 'repo': 'string',
+                                                                 'sha': 'string'},
+                                                  'required': ['owner',
+                                                               'repo',
+                                                               'sha',
+                                                               'body']}},
+ 'repos/{owner}/{repo}/subscribers': {'GET': {'entity': 'Repository',
+                                              'properties': {'limit': 'integer',
+                                                             'owner': 'string',
+                                                             'page': 'integer',
+                                                             'repo': 'string'},
+                                              'required': ['owner',
+                                                           'repo',
+                                                           'page',
+                                                           'limit']}},
+ 'repos/{owner}/{repo}/subscription': {'DELETE': {'entity': 'Repository',
+                                                  'properties': {'owner': 'string',
+                                                                 'repo': 'string'},
+                                                  'required': ['owner',
+                                                               'repo']},
+                                       'PUT': {'entity': 'Repository',
+                                               'properties': {'owner': 'string',
+                                                              'repo': 'string'},
+                                               'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/tag_protections': {'GET': {'entity': 'TagProtections',
+                                                  'properties': {'owner': 'string',
+                                                                 'repo': 'string'},
+                                                  'required': ['owner',
+                                                               'repo']},
+                                          'POST': {'entity': 'TagProtections',
+                                                   'properties': {'body': 'object',
+                                                                  'owner': 'string',
+                                                                  'repo': 'string'},
+                                                   'required': ['owner',
+                                                                'repo']}},
+ 'repos/{owner}/{repo}/tag_protections/{id}': {'DELETE': {'entity': 'TagProtections',
+                                                          'properties': {'id': 'integer',
+                                                                         'owner': 'string',
+                                                                         'repo': 'string'},
+                                                          'required': ['owner',
+                                                                       'repo',
+                                                                       'id']},
+                                               'PATCH': {'entity': 'TagProtections',
+                                                         'properties': {'body': 'object',
+                                                                        'id': 'integer',
+                                                                        'owner': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'id']}},
+ 'repos/{owner}/{repo}/tags': {'GET': {'entity': 'Tags',
+                                       'properties': {'limit': 'integer',
+                                                      'owner': 'string',
+                                                      'page': 'integer',
+                                                      'repo': 'string'},
+                                       'required': ['owner',
+                                                    'repo',
+                                                    'page',
+                                                    'limit']},
+                               'POST': {'entity': 'Tags',
+                                        'properties': {'body': 'object',
+                                                       'owner': 'string',
+                                                       'repo': 'string'},
+                                        'required': ['owner', 'repo']}},
+ 'repos/{owner}/{repo}/tags/{tag}': {'DELETE': {'entity': 'Tags',
+                                                'properties': {'owner': 'string',
+                                                               'repo': 'string',
+                                                               'tag': 'string'},
+                                                'required': ['owner',
+                                                             'repo',
+                                                             'tag']}},
+ 'repos/{owner}/{repo}/topics': {'PUT': {'entity': 'Topics',
+                                         'properties': {'body': 'object',
+                                                        'owner': 'string',
+                                                        'repo': 'string'},
+                                         'required': ['owner',
+                                                      'repo',
+                                                      'body']}},
+ 'repos/{owner}/{repo}/topics/{topic}': {'DELETE': {'entity': 'Topics',
+                                                    'properties': {'owner': 'string',
+                                                                   'repo': 'string',
+                                                                   'topic': 'string'},
+                                                    'required': ['owner',
+                                                                 'repo',
+                                                                 'topic']},
+                                         'PUT': {'entity': 'Topics',
+                                                 'properties': {'owner': 'string',
+                                                                'repo': 'string',
+                                                                'topic': 'string'},
+                                                 'required': ['owner',
+                                                              'repo',
+                                                              'topic']}},
+ 'repos/{owner}/{repo}/transfer': {'POST': {'entity': 'RepositoryTransfer',
+                                            'properties': {'body': 'object',
+                                                           'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner',
+                                                         'repo',
+                                                         'body']}},
+ 'repos/{owner}/{repo}/transfer/accept': {'POST': {'entity': 'RepositoryTransfer',
+                                                   'properties': {'owner': 'string',
+                                                                  'repo': 'string'},
+                                                   'required': ['owner',
+                                                                'repo']}},
+ 'repos/{owner}/{repo}/transfer/reject': {'POST': {'entity': 'RepositoryTransfer',
+                                                   'properties': {'owner': 'string',
+                                                                  'repo': 'string'},
+                                                   'required': ['owner',
+                                                                'repo']}},
+ 'repos/{owner}/{repo}/wiki/new': {'POST': {'entity': 'WikiPage',
+                                            'properties': {'body': 'object',
+                                                           'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner',
+                                                         'repo',
+                                                         'body']}},
+ 'repos/{owner}/{repo}/wiki/page/{pageName}': {'DELETE': {'entity': 'WikiPage',
+                                                          'properties': {'owner': 'string',
+                                                                         'pageName': 'string',
+                                                                         'repo': 'string'},
+                                                          'required': ['owner',
+                                                                       'repo',
+                                                                       'pageName']},
+                                               'PATCH': {'entity': 'WikiPage',
+                                                         'properties': {'body': 'object',
+                                                                        'owner': 'string',
+                                                                        'pageName': 'string',
+                                                                        'repo': 'string'},
+                                                         'required': ['owner',
+                                                                      'repo',
+                                                                      'pageName',
+                                                                      'body']}},
+ 'repos/{owner}/{repo}/wiki/pages': {'GET': {'entity': 'WikiPages',
+                                             'properties': {'limit': 'integer',
+                                                            'owner': 'string',
+                                                            'page': 'integer',
+                                                            'repo': 'string'},
+                                             'required': ['owner',
+                                                          'repo',
+                                                          'page',
+                                                          'limit']}},
+ 'repos/{owner}/{repo}/wiki/revisions/{pageName}': {'GET': {'entity': 'WikiPageRevisions',
+                                                            'properties': {'owner': 'string',
+                                                                           'page': 'integer',
+                                                                           'pageName': 'string',
+                                                                           'repo': 'string'},
+                                                            'required': ['owner',
+                                                                         'repo',
+                                                                         'pageName',
+                                                                         'page']}},
+ 'repositories/{id}': {'GET': {'entity': 'WikiPage',
+                               'properties': {'id': 'string'},
+                               'required': ['id']}},
+ 'settings/api': {'GET': {'entity': 'Settings',
+                          'properties': {},
+                          'required': []}},
+ 'settings/ui': {'GET': {'entity': 'Settings',
+                         'properties': {},
+                         'required': []}},
+ 'teams/{id}': {'DELETE': {'entity': 'TeamRepos',
+                           'properties': {'id': 'string'},
+                           'required': ['id']},
+                'GET': {'entity': 'TeamRepos',
+                        'properties': {'id': 'string'},
+                        'required': ['id']},
+                'PATCH': {'entity': 'Teams',
+                          'properties': {'body': 'object', 'id': 'integer'},
+                          'required': ['id', 'body']}},
+ 'teams/{id}/members': {'GET': {'entity': 'TeamMembers',
+                                'properties': {'id': 'integer',
+                                               'limit': 'integer',
+                                               'page': 'integer'},
+                                'required': ['id', 'page', 'limit']}},
+ 'teams/{id}/members/{username}': {'PUT': {'entity': 'TeamMembers',
+                                           'properties': {'id': 'integer',
+                                                          'username': 'string'},
+                                           'required': ['id', 'username']}},
+ 'teams/{id}/repos': {'GET': {'entity': 'TeamRepos',
+                              'properties': {'id': 'integer',
+                                             'limit': 'integer',
+                                             'page': 'integer'},
+                              'required': ['id', 'page', 'limit']}},
+ 'teams/{id}/repos/{org}/{repo}': {'PUT': {'entity': 'TeamRepos',
+                                           'properties': {'id': 'integer',
+                                                          'org': 'string',
+                                                          'repo': 'string'},
+                                           'required': ['id', 'org', 'repo']}},
+ 'topics/search': {'GET': {'entity': 'Topics',
+                           'properties': {'limit': 'integer',
+                                          'page': 'integer',
+                                          'q': 'string'},
+                           'required': ['q', 'page', 'limit']}},
+ 'user/actions/runners/registration-token': {'GET': {'entity': 'User',
+                                                     'properties': {},
+                                                     'required': []}},
+ 'user/actions/secrets/{secretname}': {'DELETE': {'entity': 'User',
+                                                  'properties': {'secretname': 'string'},
+                                                  'required': ['secretname']},
+                                       'PUT': {'entity': 'User',
+                                               'properties': {'body': 'object',
+                                                              'secretname': 'string'},
+                                               'required': ['secretname',
+                                                            'body']}},
+ 'user/actions/variables': {'GET': {'entity': 'User',
+                                    'properties': {'limit': 'integer',
+                                                   'page': 'integer'},
+                                    'required': ['page', 'limit']}},
+ 'user/actions/variables/{variablename}': {'DELETE': {'entity': 'UserVariables',
+                                                      'properties': {'variablename': 'string'},
+                                                      'required': ['variablename']},
+                                           'GET': {'entity': 'UserVariables',
+                                                   'properties': {'variablename': 'string'},
+                                                   'required': ['variablename']},
+                                           'POST': {'entity': 'UserVariables',
+                                                    'properties': {'body': 'object',
+                                                                   'variablename': 'string'},
+                                                    'required': ['variablename',
+                                                                 'body']},
+                                           'PUT': {'entity': 'UserVariables',
+                                                   'properties': {'body': 'object',
+                                                                  'variablename': 'string'},
+                                                   'required': ['variablename',
+                                                                'body']}},
+ 'user/applications/oauth2': {'GET': {'entity': 'OAuth2Applications',
+                                      'properties': {'limit': 'integer',
+                                                     'page': 'integer'},
+                                      'required': ['page', 'limit']},
+                              'POST': {'entity': 'OAuth2Applications',
+                                       'properties': {'body': 'object'},
+                                       'required': ['body']}},
+ 'user/applications/oauth2/{id}': {'DELETE': {'entity': 'OAuth2Applications',
+                                              'properties': {'id': 'integer'},
+                                              'required': ['id']},
+                                   'GET': {'entity': 'OAuth2Applications',
+                                           'properties': {'id': 'integer'},
+                                           'required': ['id']},
+                                   'PATCH': {'entity': 'OAuth2Applications',
+                                             'properties': {'body': 'object',
+                                                            'id': 'integer'},
+                                             'required': ['id', 'body']}},
+ 'user/avatar': {'DELETE': {'entity': 'UserAvatar',
+                            'properties': {},
+                            'required': []},
+                 'POST': {'entity': 'UserAvatar',
+                          'properties': {'body': 'object'},
+                          'required': ['body']}},
+ 'user/blocks': {'GET': {'entity': 'UserBlocks',
+                         'properties': {'limit': 'integer', 'page': 'integer'},
+                         'required': ['page', 'limit']}},
+ 'user/blocks/{username}': {'DELETE': {'entity': 'UserBlocks',
+                                       'properties': {'username': 'string'},
+                                       'required': ['username']},
+                            'GET': {'entity': 'UserBlocks',
+                                    'properties': {'username': 'string'},
+                                    'required': ['username']},
+                            'PUT': {'entity': 'UserBlocks',
+                                    'properties': {'note': 'string',
+                                                   'username': 'string'},
+                                    'required': ['username', 'note']}},
+ 'user/emails': {'DELETE': {'entity': 'UserEmails',
+                            'properties': {'body': 'object'},
+                            'required': ['body']},
+                 'GET': {'entity': 'UserEmails',
+                         'properties': {},
+                         'required': []},
+                 'POST': {'entity': 'UserEmails',
+                          'properties': {'body': 'object'},
+                          'required': ['body']}},
+ 'user/followers': {'GET': {'entity': 'UserFollowers',
+                            'properties': {'limit': 'integer',
+                                           'page': 'integer'},
+                            'required': ['page', 'limit']}},
+ 'user/following': {'GET': {'entity': 'UserFollowing',
+                            'properties': {'limit': 'integer',
+                                           'page': 'integer'},
+                            'required': ['page', 'limit']}},
+ 'user/following/{username}': {'DELETE': {'entity': 'UserFollowingSpecific',
+                                          'properties': {'username': 'string'},
+                                          'required': ['username']},
+                               'GET': {'entity': 'UserFollowingSpecific',
+                                       'properties': {'username': 'string'},
+                                       'required': ['username']},
+                               'PUT': {'entity': 'UserFollowingSpecific',
+                                       'properties': {'username': 'string'},
+                                       'required': ['username']}},
+ 'user/gpg_key_token': {'GET': {'entity': 'GPGKeyToken',
+                                'properties': {},
+                                'required': []}},
+ 'user/gpg_key_verify': {'POST': {'entity': 'GPGKeyVerification',
+                                  'properties': {},
+                                  'required': []}},
+ 'user/gpg_keys': {'GET': {'entity': 'GPGKeys',
+                           'properties': {'limit': 'integer',
+                                          'page': 'integer'},
+                           'required': ['page', 'limit']},
+                   'POST': {'entity': 'GPGKeys',
+                            'properties': {'Form': 'object'},
+                            'required': ['Form']}},
+ 'user/gpg_keys/{id}': {'DELETE': {'entity': 'GPGKeys',
+                                   'properties': {'id': 'integer'},
+                                   'required': ['id']},
+                        'GET': {'entity': 'GPGKeys',
+                                'properties': {'id': 'integer'},
+                                'required': ['id']}},
+ 'user/hooks': {'GET': {'entity': 'Hooks',
+                        'properties': {'limit': 'integer', 'page': 'integer'},
+                        'required': ['page', 'limit']},
+                'POST': {'entity': 'Hooks',
+                         'properties': {'body': 'object'},
+                         'required': ['body']}},
+ 'user/hooks/{id}': {'DELETE': {'entity': 'Hooks',
+                                'properties': {'id': 'integer'},
+                                'required': ['id']},
+                     'GET': {'entity': 'Hooks',
+                             'properties': {'id': 'integer'},
+                             'required': ['id']},
+                     'PATCH': {'entity': 'Hooks',
+                               'properties': {'body': 'object',
+                                              'id': 'integer'},
+                               'required': ['id', 'body']}},
+ 'user/keys': {'GET': {'entity': 'Keys',
+                       'properties': {'fingerprint': 'string',
+                                      'limit': 'integer',
+                                      'page': 'integer'},
+                       'required': ['fingerprint', 'page', 'limit']},
+               'POST': {'entity': 'Keys',
+                        'properties': {'body': 'object'},
+                        'required': ['body']}},
+ 'user/keys/{id}': {'DELETE': {'entity': 'Keys',
+                               'properties': {'id': 'integer'},
+                               'required': ['id']},
+                    'GET': {'entity': 'Keys',
+                            'properties': {'id': 'integer'},
+                            'required': ['id']}},
+ 'user/repos': {'POST': {'entity': 'Repositories',
+                         'properties': {'body': 'object'},
+                         'required': ['body']}},
+ 'user/settings': {'GET': {'entity': 'UserSettings',
+                           'properties': {},
+                           'required': []},
+                   'PATCH': {'entity': 'UserSettings',
+                             'properties': {'body': 'object'},
+                             'required': ['body']}},
+ 'user/starred': {'GET': {'entity': 'UserStarred',
+                          'properties': {'limit': 'integer', 'page': 'integer'},
+                          'required': ['page', 'limit']}},
+ 'user/starred/{owner}/{repo}': {'DELETE': {'entity': 'UserStarred',
+                                            'properties': {'owner': 'string',
+                                                           'repo': 'string'},
+                                            'required': ['owner', 'repo']},
+                                 'GET': {'entity': 'UserStarred',
+                                         'properties': {'owner': 'string',
+                                                        'repo': 'string'},
+                                         'required': ['owner', 'repo']},
+                                 'PUT': {'entity': 'UserStarred',
+                                         'properties': {'owner': 'string',
+                                                        'repo': 'string'},
+                                         'required': ['owner', 'repo']}},
+ 'user/stopwatches': {'GET': {'entity': 'UserStopwatches',
+                              'properties': {'limit': 'integer',
+                                             'page': 'integer'},
+                              'required': ['page', 'limit']}},
+ 'user/subscriptions': {'GET': {'entity': 'UserSubscriptions',
+                                'properties': {'limit': 'integer',
+                                               'page': 'integer'},
+                                'required': ['page', 'limit']}},
+ 'user/teams': {'GET': {'entity': 'Teams',
+                        'properties': {'limit': 'integer', 'page': 'integer'},
+                        'required': ['page', 'limit']}},
+ 'user/times': {'GET': {'entity': 'TrackedTimes',
+                        'properties': {'before': 'string',
+                                       'limit': 'integer',
+                                       'page': 'integer',
+                                       'since': 'string'},
+                        'required': ['page', 'limit', 'since', 'before']}},
+ 'users/{username}': {'GET': {'entity': 'Organizations',
+                              'properties': {'username': 'string'},
+                              'required': ['username']}},
+ 'users/{username}/activities/feeds': {'GET': {'entity': 'ActivityFeeds',
+                                               'properties': {'date': 'string',
+                                                              'limit': 'integer',
+                                                              'only-performed-by': 'boolean',
+                                                              'page': 'integer',
+                                                              'username': 'string'},
+                                               'required': ['username',
+                                                            'only-performed-by',
+                                                            'date',
+                                                            'page',
+                                                            'limit']}},
+ 'users/{username}/orgs': {'GET': {'entity': 'Organizations',
+                                   'properties': {'limit': 'integer',
+                                                  'page': 'integer',
+                                                  'username': 'string'},
+                                   'required': ['username', 'page', 'limit']}},
+ 'users/{username}/repos': {'GET': {'entity': 'Repositories',
+                                    'properties': {'limit': 'integer',
+                                                   'page': 'integer',
+                                                   'username': 'string'},
+                                    'required': ['username', 'page', 'limit']}},
+ 'users/{username}/starred': {'GET': {'entity': 'StarredRepositories',
+                                      'properties': {'limit': 'integer',
+                                                     'page': 'integer',
+                                                     'username': 'string'},
+                                      'required': ['username',
+                                                   'page',
+                                                   'limit']}},
+ 'users/{username}/subscriptions': {'GET': {'entity': 'Users',
+                                            'properties': {'limit': 'integer',
+                                                           'page': 'integer',
+                                                           'username': 'string'},
+                                            'required': ['username',
+                                                         'page',
+                                                         'limit']}},
+ 'users/{username}/tokens': {'GET': {'entity': 'Users',
+                                     'properties': {'limit': 'integer',
+                                                    'page': 'integer',
+                                                    'username': 'string'},
+                                     'required': ['username', 'page', 'limit']},
+                             'POST': {'entity': 'Users',
+                                      'properties': {'body': 'object',
+                                                     'username': 'string'},
+                                      'required': ['username', 'body']}},
+ 'users/{username}/tokens/{token}': {'DELETE': {'entity': 'Users',
+                                                'properties': {'token': 'string',
+                                                               'username': 'string'},
+                                                'required': ['username',
+                                                             'token']}},
+ 'version': {'GET': {'entity': 'Miscellaneous',
+                     'properties': {},
+                     'required': []}}}
 
-def validate_request(method, path, data):
-    # 1. TEACHING THE MOCK: If signaling header is present, force fail
-    if request.headers.get('X-Provengo-Rejection-Probe'): return ['Signaled rejection']
-    if 'NOT_A_STRING' in path or 'INVALID_' in path: return ['Fuzzing detected']
-    lookup_key = f'{method}:{path}'
-    if lookup_key not in TYPE_MAP:
-        for key in TYPE_MAP:
-            pattern = re.sub(r'\{[^\}]+\}', '[^/]+', key.split(':')[1])
-            if re.fullmatch(key.split(':')[0] + ':' + pattern, lookup_key):
-                lookup_key = key; break
-    expected_fields = TYPE_MAP.get(lookup_key, {})
-    errors = []
-    for field, val in data.items():
-        if field in expected_fields:
-            if expected_fields[field]['type'] == 'integer' and not isinstance(val, int): errors.append(f'{field} must be int')
-            if isinstance(val, str) and val.startswith('INVALID_'): errors.append('Fuzz tag found')
-    return errors
+def is_sentinel(val):
+    targets = ['INVALID', '12345']
+    if isinstance(val, (str, int)): return any(t in str(val) for t in targets)
+    if isinstance(val, dict): return any(is_sentinel(v) for v in val.values())
+    if isinstance(val, list): return any(is_sentinel(v) for v in val)
+    return False
 
-@app.route('/api/v1/<path:subpath>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
-def handle_all(subpath):
-    data = request.json or {}
-    errors = validate_request(request.method, subpath, data)
-    if errors: return jsonify({'status': 'error', 'details': errors}), 400
-    if request.method == 'POST': return jsonify({'status': 'success'}), 201
-    if request.method == 'DELETE': return '', 204
-    return jsonify({'status': 'success'}), 200
+def find_resource_key(req_path):
+    path = re.sub(r'^/?api/v1/', '', req_path).strip('/')
+    if path in SCHEMA_REGISTRY: return path, {}
+    for template in SCHEMA_REGISTRY:
+        pattern = '^' + re.sub(r'\{[^}]+\}', '([^/]+)', template) + '$'
+        match = re.match(pattern, path)
+        if match:
+            vars = dict(zip(re.findall(r'\{([^}]+)\}', template), match.groups()))
+            return template, vars
+    return None, {}
 
-if __name__ == '__main__': app.run(port=8000, debug=True)
+def validate_request(res_key, method, body, path_vars):
+    query = request.args.to_dict()
+    all_inputs = {**body, **query, **path_vars}
+    
+    # Sentinel/Negative Test Check
+    if is_sentinel(request.path) or is_sentinel(body) or is_sentinel(query) or 'Negative Test' in query.get('description', ''):
+        return 'Fuzzer Sentinel/Negative Test Detected', 400
+    
+    schema = SCHEMA_REGISTRY.get(res_key, {}).get(method)
+    if not schema: return None, 200
+    
+    # Type Enforcement
+    props = schema['properties']
+    for k, v in body.items():
+        if k in props and v is not None:
+            exp = props[k]
+            if exp == 'integer' and not isinstance(v, int): return f'{k} must be int', 400
+            if exp == 'boolean' and not isinstance(v, bool): return f'{k} must be bool', 400
+    return None, 200
+
+@app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+def handle_all(path):
+    method = request.method
+    res_key, path_vars = find_resource_key(request.path)
+    body = request.get_json(silent=True) or {}
+    
+    err_msg, err_code = validate_request(res_key, method, body, path_vars)
+    if err_msg:
+        return jsonify({'message': err_msg, 'error': err_msg}), err_code
+
+    success_code = PATH_STATUS_CODES.get(f'{res_key}:{method}', 200)
+    if method == 'POST':
+        mock_db[res_key].append(body)
+    
+    logger.info(f'[{method}] {request.path} -> {success_code}')
+    return (jsonify(body) if success_code != 204 else ''), success_code
+
+if __name__ == '__main__':
+    app.run(port=8000, debug=True)

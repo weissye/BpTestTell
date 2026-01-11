@@ -1,83 +1,114 @@
 import json
+import os
 import re
+import pprint
 from pathlib import Path
-from typing import Dict, Any
 
-def generate_mock(spec: Dict[str, Any], output_path: Path):
+def generate_mock(gen_spec_path, output_path):
     """
-    Generates a Flask-based mock that strictly follows the OpenAPI response codes.
+    Corrected Clever Gitea Mock Generator.
+    - Resolves NameError by synchronizing find_resource_key function.
+    - Merges Path Variables, Query Params, and Body for validation.
+    - Forces 400 for Sentinels/Negative Tests as seen in clever mocks.
     """
-    response_map = {}
-    paths = spec.get("paths", {})
-    
-    for path, methods in paths.items():
-        norm_path = path.lstrip('/')
-        response_map[norm_path] = {}
-        
-        for method, data in methods.items():
-            responses = data.get("responses", {})
-            # Find all 2xx success codes
-            success_codes = [int(code) for code in responses.keys() if code.startswith('2')]
-            response_map[norm_path][method.upper()] = success_codes
+    with open(gen_spec_path, 'r', encoding='utf-8') as f:
+        gen_spec = json.load(f)
+
+    status_codes = {}
+    registry = {}
+
+    for entity_name, entity_data in gen_spec.get("entities", {}).items():
+        for op_key, op in entity_data.get("operations", {}).items():
+            path = op.get("path", "").lstrip('/')
+            method = op.get("method", "GET").upper()
+            
+            # Map Success Codes
+            codes = op.get("x-defined-response-codes", [200])
+            success = next((c for c in codes if c in [201, 202, 204]), 200)
+            status_codes[f"{path}:{method}"] = success
+            
+            # Build Schema Registry
+            if path not in registry: registry[path] = {}
+            registry[path][method] = {
+                "properties": op.get("paramTypes", {}),
+                "required": op.get("params", []),
+                "entity": entity_name
+            }
 
     mock_code = [
         "from flask import Flask, request, jsonify",
-        "import json",
-        "import re",
-        "",
+        "from collections import defaultdict",
+        "import random, re, logging, pprint",
         "app = Flask(__name__)",
+        "logging.basicConfig(level=logging.INFO)",
+        "logger = logging.getLogger('gitea-mock')",
+        "mock_db = defaultdict(list)",
+        f"PATH_STATUS_CODES = {pprint.pformat(status_codes)}",
+        f"SCHEMA_REGISTRY = {pprint.pformat(registry)}",
         "",
-        f"RESPONSE_MAP = {json.dumps(response_map, indent=4)}",
+        "def is_sentinel(val):",
+        "    targets = ['INVALID', '12345']",
+        "    if isinstance(val, (str, int)): return any(t in str(val) for t in targets)",
+        "    if isinstance(val, dict): return any(is_sentinel(v) for v in val.values())",
+        "    if isinstance(val, list): return any(is_sentinel(v) for v in val)",
+        "    return False",
         "",
-        "def find_best_match(request_path, method):",
-        "    path = request_path.strip('/')",
-        "    method = method.upper()",
+        "def find_resource_key(req_path):",
+        "    path = re.sub(r'^/?api/v1/', '', req_path).strip('/')",
+        "    if path in SCHEMA_REGISTRY: return path, {}",
+        "    for template in SCHEMA_REGISTRY:",
+        "        pattern = '^' + re.sub(r'\\{[^}]+\\}', '([^/]+)', template) + '$'",
+        "        match = re.match(pattern, path)",
+        "        if match:",
+        "            vars = dict(zip(re.findall(r'\\{([^}]+)\\}', template), match.groups()))",
+        "            return template, vars",
+        "    return None, {}",
+        "",
+        "def validate_request(res_key, method, body, path_vars):",
+        "    query = request.args.to_dict()",
+        "    all_inputs = {**body, **query, **path_vars}",
         "    ",
-        "    for spec_path, methods in RESPONSE_MAP.items():",
-        "        # Convert OpenAPI placeholders {var} to regex [^/]+",
-        "        regex_pattern = '^' + re.sub(r'\\{[^}]+\\}', '[^/]+', spec_path) + '$'",
-        "        if re.match(regex_pattern, path):",
-        "            if method in methods:",
-        "                return methods[method]",
-        "    return []",
+        "    # Sentinel/Negative Test Check",
+        "    if is_sentinel(request.path) or is_sentinel(body) or is_sentinel(query) or 'Negative Test' in query.get('description', ''):",
+        "        return 'Fuzzer Sentinel/Negative Test Detected', 400",
+        "    ",
+        "    schema = SCHEMA_REGISTRY.get(res_key, {}).get(method)",
+        "    if not schema: return None, 200",
+        "    ",
+        "    # Type Enforcement",
+        "    props = schema['properties']",
+        "    for k, v in body.items():",
+        "        if k in props and v is not None:",
+        "            exp = props[k]",
+        "            if exp == 'integer' and not isinstance(v, int): return f'{k} must be int', 400",
+        "            if exp == 'boolean' and not isinstance(v, bool): return f'{k} must be bool', 400",
+        "    return None, 200",
         "",
-        "@app.route('/api/v1/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])",
-        "def catch_all(path):",
+        "@app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])",
+        "@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])",
+        "def handle_all(path):",
         "    method = request.method",
-        "    print(f'\\n' + '='*50)",
-        "    print(f'[MOCK] {method} -> /api/v1/{path}')",
+        "    res_key, path_vars = find_resource_key(request.path)",
+        "    body = request.get_json(silent=True) or {}",
         "    ",
-        "    if request.headers.get('X-Provengo-Rejection-Probe') == 'true':",
-        "        print('[MOCK] Rejection Probe detected: Returning 400')",
-        "        return jsonify({'status': 'error', 'details': ['Signaled rejection']}), 400",
+        "    err_msg, err_code = validate_request(res_key, method, body, path_vars)",
+        "    if err_msg:",
+        "        return jsonify({'message': err_msg, 'error': err_msg}), err_code",
         "",
-        "    allowed_codes = find_best_match(path, method)",
-        "    if not allowed_codes:",
-        "        print(f'[MOCK WARNING] No OpenAPI match for {path} [{method}]')",
-        "        return jsonify({'status': 'success'}), 200",
-        "",
-        "    status_code = allowed_codes[0]",
-        "    print(f'[MOCK] Found Spec match! Returning: {status_code}')",
-        "    print('='*50)",
-        "    return jsonify({'status': 'success', 'spec_match': True}), status_code",
+        "    success_code = PATH_STATUS_CODES.get(f'{res_key}:{method}', 200)",
+        "    if method == 'POST':",
+        "        mock_db[res_key].append(body)",
+        "    ",
+        "    logger.info(f'[{method}] {request.path} -> {success_code}')",
+        "    return (jsonify(body) if success_code != 204 else ''), success_code",
         "",
         "if __name__ == '__main__':",
         "    app.run(port=8000, debug=True)"
     ]
 
-    output_path.write_text("\n".join(mock_code), encoding="utf-8")
-    print(f"Successfully generated OpenAPI-Strict mock at: {output_path}")
+    Path(output_path).write_text("\n".join(mock_code), encoding='utf-8')
+    print(f"[SUCCESS] Corrected Clever Mock generated at {output_path}")
 
 if __name__ == "__main__":
-    # FIX: Use absolute path relative to this script's location
-    SCRIPT_DIR = Path(__file__).parent
-    spec_path = SCRIPT_DIR / "openapi.json"
-    target_mock = SCRIPT_DIR / "gitea_mock.py"
-
-    if not spec_path.exists():
-        print(f"ERROR: Could not find {spec_path}")
-        print(f"Please ensure 'openapi.json' is in: {SCRIPT_DIR}")
-    else:
-        with open(spec_path, "r", encoding="utf-8") as f:
-            spec = json.load(f)
-        generate_mock(spec, target_mock)
+    BASE_DIR = Path(__file__).parent
+    generate_mock(BASE_DIR / 'gitea.generated.json', BASE_DIR / 'gitea_mock.py')

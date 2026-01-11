@@ -30,3 +30,8 @@ scenario.generator.metadata: addMetadata  # Name of scenario metadata function.
 #       parent: large-suite
 #       output:
 #          offline: true
+# In your config.yml or REST actuator settings:
+base_url: "http://localhost:3000/api/v1"
+default_headers:
+  Authorization: "token a28a532db27f7993e013b419a18dd06da81ccaba"
+  Content-Type: "application/json"

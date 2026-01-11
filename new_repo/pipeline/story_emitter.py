@@ -200,6 +200,9 @@ def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, 
                 elif p == "parentId": link_map[p] = pk_var
     
     add_op = entities[ent_name]["operations"].get("add", {})
+    # FIX A: Skip generation if the interface emitter skipped it due to missing path
+    if not add_op.get("path"): return 
+
     suffix = f"{sanitize_param(ent_name)}_{base_id}"
     merged_types, merged_formats = _get_merged_param_types(entities[ent_name])
     
@@ -210,7 +213,7 @@ def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, 
     
     lines.append(f'  // -> Creating {ent_name}')
     lines.extend(vars_code)
-    add_fn = add_op.get("name", f"create{ent_name}")
+    add_fn = add_op.get("name", f"add{ent_name}")
     
     args_str = ", ".join(args)
     if args: args_str += ", "
@@ -282,8 +285,8 @@ def emit_stories(spec, out_dir, sut_name):
         lines.append(f'bthread("monitor:{name}:exists", function () {{')
         lines.append(f'  while (true) {{')
         lines.append(f'    let e = bp.sync({{ waitFor: matchAny{safe_name}Added() }});')
-        # FIX 2: Extract PK from event and pass ONLY that to verifyExists to match Interface signature
-        lines.append(f'    let targetId = e.data.{pk_name} || e.data.id || e.data.index || e.data.number;')
+        # FIX 2: Extract PK with bracket notation (for hyphens) and ternary checks (for 0 values)
+        lines.append(f'    let targetId = (e.data["{pk_name}"] !== undefined) ? e.data["{pk_name}"] : (e.data["id"] !== undefined ? e.data["id"] : (e.data["index"] !== undefined ? e.data["index"] : e.data["number"]));')
         if "delete" in entities[name]["operations"]:
             lines.append(f'    block(matchDeleted{safe_name}(), function() {{ verify{safe_name}Exists(targetId); }});')
         else: lines.append(f'    verify{safe_name}Exists(targetId);')
@@ -297,7 +300,9 @@ def emit_stories(spec, out_dir, sut_name):
     for parents in dependencies.values(): all_parents.update(parents)
     for repetition in range(1, 4): 
         for name in entities.keys():
-            if not entities[name].get("operations", {}).get("add"): continue
+            add_op = entities[name].get("operations", {}).get("add")
+            # FIX B: Skip if interface emitter will skip the function due to missing path
+            if not add_op or not add_op.get("path"): continue 
             story_name = f"crud:{sanitize_param(name)}:linear:{repetition}"
             lines.append(f'bthread("{story_name}", function () {{')
             created_context = {"resolving": True} 
