@@ -234,20 +234,19 @@ def _generate_js_matchers(name, ops, primary_key):
         lines.append('')
 
     # 2. DELETE MATCHER
+# 2. DELETE MATCHER
     if "delete" in ops:
          del_desc_tmpl = ops["delete"].get("descriptionTemplate", f"Delete {name}")
-         del_regex_start = f"Done: Positive: {del_desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0]
-         if del_regex_start.endswith('"'): del_regex_start = del_regex_start[:-1]
+         del_regex_start = f"Done: Positive: {del_desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0].strip().rstrip('"')
          
-         del_params = ops["delete"].get("params", [])
-         sig_args = [primary_key] if primary_key in del_params else del_params
-         sig_args_str = ", ".join([sanitize_param(p) for p in sig_args])
+         # FIX: Ensure the variable name in the () matches the one in the body
+         safe_pk = sanitize_param(primary_key)
          
-         lines.append(f'function matchDeleted{safe_entity_name}({sig_args_str}) {{')
-         lines.append(f'  return bp.EventSet("Deleted {name} " + {primary_key}, function(e) {{')
-         lines.append(f'      return e.name.startsWith("{del_regex_start}") && e.name.includes({primary_key});')
-         lines.append(f'  }});')
-         lines.append('}')
+         lines.append(f'function matchDeleted{safe_entity_name}({safe_pk}) {{')
+         lines.append(f'  return bp.EventSet("Deleted {name} " + {safe_pk}, function(e) {{')
+         lines.append(f'      return e.name.startsWith("{del_regex_start}") && e.name.includes({safe_pk});')
+         lines.append('  });')
+         lines.append('}')         
          lines.append('')
 
     return lines

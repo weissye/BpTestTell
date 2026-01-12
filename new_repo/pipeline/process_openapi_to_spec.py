@@ -505,7 +505,8 @@ def patch_enforce_schema_parameters(entities: Dict[str, Any], raw_spec: Dict[str
                 schema = content.get("schema", {})
                 
                 # ARCHITECTURAL FIX: Check for Array Type here too
-                if schema.get("type") == "array":
+                # ADDED 'schema and' to the line below
+                if schema and schema.get("type") == "array":
                     add_op = ops.get("add")
                     if add_op: add_op["is_array"] = True
                     schema = schema.get("items", {})
