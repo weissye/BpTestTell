@@ -1,7 +1,7 @@
 ﻿//@provengo summon rest
 // === Auto-generated interfaces for gitea ===
-const svc = new RESTSession("http://localhost:3000/api/v1", "client", { headers: { "Content-Type": "application/json", "Authorization": "token 99a68ff757d0567c08dc1a8ad91e4e07dbc1882d" } });
-const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
+const svc = new RESTSession("http://localhost:3000/api/v1", "client", { headers: { "Content-Type": "application/json", "Authorization": "token d97c5f80d0924a55495c2db5b39a4200dbb45c5e" } });
+const pvg = { success: function(msg) { }, fail: function(msg) { throw new Error(msg); } };
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
 function activitypubPerson(user_id) {
   const resolve = (v, pName) => {
@@ -12962,5 +12962,4 @@ function matchAnyStarredRepositoriesAdded() {
 function matchDeletedStarredRepositories() {
   return bp.EventSet("None", function(e){ return false; });
 }
-
 

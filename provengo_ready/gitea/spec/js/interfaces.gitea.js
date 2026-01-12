@@ -1,7 +1,7 @@
 //@provengo summon rest
 // === Auto-generated interfaces for gitea ===
 const svc = new RESTSession("http://localhost:3000/api/v1", "client", { headers: { "Content-Type": "application/json", "Authorization": "token __GITEA_TOKEN__" } });
-const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
+const pvg = { success: function(msg) { }, fail: function(msg) { throw new Error(msg); } };
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
 function activitypubPerson(user_id) {
   const resolve = (v, pName) => {

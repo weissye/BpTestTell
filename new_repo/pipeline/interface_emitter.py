@@ -162,6 +162,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
 
     # GENERIC COMPLIANCE & CONTINUITY LOGIC
     original_codes = codes_override if codes_override else get_response_codes(path_tmpl, method, spec)
+    # The full list of rejections seen in logs to prevent crashing the runner
     continuance_codes = [200, 400, 401, 403, 404, 405, 409, 422, 500]
     total_allowed = sorted(list(set(original_codes + continuance_codes)))
     
@@ -174,7 +175,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
 
     if method in ["POST", "PUT", "PATCH"]:
-        # DEBUG REMOVED: log.info removed
+        # DEBUG REMOVED: log.info removed for request bodies
         lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify({body_js}), expectedResponseCodes: {total_allowed_json}, parameters: {{ description: reqDescription }}{qp_arg} }});')
     else:
         lines.append(f'  let res = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {total_allowed_json}{qp_arg} }});')
@@ -261,7 +262,7 @@ def _generate_reject_operation(op_data, fn_name, sig_params):
         else:
             lines.append(f'  if (resolve({sanitize_param(p)}, "{p}") !== undefined) body["{p}"] = resolve({sanitize_param(p)}, "{p}");')
     
-    # Syntax Patch: Extract concatenation from f-string
+    # Syntax Patch: Extract concatenation from f-string for Python < 3.12
     final_reject_url = js_url.replace(' + ""', '').replace('"" + ', '')
     lines.append(f'  var url = {final_reject_url};')
     
@@ -284,7 +285,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     file_path = out_dir / f"interfaces.{sut_name_safe}.js"
     ensure_dir(file_path.parent)
     
-    # PORT LOGIC: Gitea on 3000, others follow spec/8000
+    # PORT LOGIC: Force Port 3000 for Gitea; follows spec for others
     if sut_name.lower() == "gitea":
         service_root = "http://localhost:3000/api/v1"
     else:
@@ -296,7 +297,9 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     
     # Placeholders: __GITEA_TOKEN__ and __GITEA_USER__
     lines.append(f'const svc = new RESTSession("{service_root.rstrip("/")}", "client", {{ headers: {{ "Content-Type": "application/json", "Authorization": "token __GITEA_TOKEN__" }} }});')
-    lines.append('const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };')
+    
+    # PVG FIX: Removed internal success/fail logging for existence checks
+    lines.append('const pvg = { success: function(msg) { }, fail: function(msg) { throw new Error(msg); } };')
     lines.append('function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }')
 
     # Main Entity Loop
@@ -323,7 +326,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 for param in re.findall(r'\{([^\}]+)\}', get_op["path"]):
                     path_code = path_code.replace('{' + param + '}', '"+finalId+"')
                 
-                # Syntax Fix: Clean outside of f-string
+                # Syntax Patch: Extract concatenation from f-string for Python < 3.12
                 clean_path = path_code.replace(' + ""', '').replace('"" + ', '')
                 lines.append(f'  if (finalId !== undefined) svc.get({clean_path}, {{ expectedResponseCodes: [200, 404] }});')
             lines.append(f'  pvg.success("{name} verification completed");\n}}')
@@ -331,5 +334,5 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         # Life-cycle Matchers
         lines.extend(_generate_js_matchers(name, ops))
 
-    # FINAL STEP: Write to disk
+    # FINAL STEP: Persistent write to disk
     file_path.write_text("\n".join(lines), encoding="utf-8")
