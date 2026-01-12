@@ -1,0 +1,268 @@
+//! Helper functions for loading a corpus from disk. See module documentation of
+//! the `input` submodule for information on serialization.
+pub mod dependency_graph;
+
+use std::{
+    collections::hash_map::DefaultHasher,
+    convert::TryInto,
+    fs::{self, File, create_dir_all},
+    hash::{Hash, Hasher},
+    io::Write,
+    path::{Path, PathBuf},
+};
+
+use anyhow::Context;
+use libafl::{
+    HasMetadata,
+    corpus::{
+        Corpus, InMemoryOnDiskCorpus, MapCorpusMinimizer, SchedulerTestcaseMetadata, Testcase,
+    },
+    events::{Event, EventFirer, EventWithStats, ExecStats},
+    executors::ExitKind,
+    observers::MapObserver,
+    schedulers::testcase_score::LenTimeMulTestcasePenalty,
+    state::HasCorpus,
+};
+use libafl_bolts::{AsIter, Named, current_time};
+use openapiv3::OpenAPI;
+
+use self::dependency_graph::DependencyGraph;
+use crate::{
+    initial_corpus::dependency_graph::initial_corpus_from_api,
+    input::{OpenApiInput, OpenApiRequest},
+    types::{EventManagerType, ExecutorType, FuzzerType, OpenApiFuzzerStateType},
+};
+
+/// Loads an `OpenApiInput` from a yaml file.
+pub fn load_starting_corpus(
+    corpus_dir: &Path,
+) -> Result<Vec<OpenApiInput>, Box<dyn std::error::Error>> {
+    let mut corpus_vec = vec![];
+    for file in fs::read_dir(corpus_dir)? {
+        let file = file?;
+        let file_name = file.file_name();
+        let file_name_str = file_name
+            .to_str()
+            .expect("Invalid utf-8 encountered in filenames in the corpus directory");
+        match file_name_str.starts_with('.') {
+            true => log::debug!("File {file_name_str} is ignored as it starts with a '.'"),
+            false => {
+                let file = file.path();
+                match serde_yaml::from_reader(std::fs::File::open(&file)?) {
+                    Ok(input) => corpus_vec.push(input),
+                    Err(err) => log::warn!("File {file_name_str} could not be parsed: {err:?}"),
+                }
+            }
+        }
+    }
+    if corpus_vec.is_empty() {
+        return Err("Zero seeds loaded from corpus directory.".into());
+    };
+    Ok(corpus_vec)
+}
+
+pub fn minimize_corpus<'a, C, O, T>(
+    mgr: &mut EventManagerType,
+    minimizer: MapCorpusMinimizer<
+        C,
+        ExecutorType<'a>,
+        OpenApiInput,
+        O,
+        OpenApiFuzzerStateType,
+        T,
+        LenTimeMulTestcasePenalty,
+    >,
+    state: &mut OpenApiFuzzerStateType,
+    fuzzer: &mut FuzzerType<'a>,
+    executor: &mut ExecutorType<'a>,
+) -> anyhow::Result<()>
+where
+    C: Named + AsRef<O>,
+    for<'b> O: MapObserver<Entry = T> + AsIter<'b, Item = T>,
+    T: Copy + Hash + Eq,
+{
+    log::info!("Start corpus minimization");
+    log::info!("Size before {}", state.corpus().count());
+    minimizer.minimize(fuzzer, executor, mgr, state)?;
+    log::info!("Size after {}", state.corpus().count());
+    let corpus_size = state.corpus().count();
+    mgr.fire(
+        state,
+        EventWithStats::new(
+            Event::NewTestcase {
+                input: OpenApiInput(vec![]),
+                observers_buf: None,
+                exit_kind: ExitKind::Ok,
+                corpus_size,
+                client_config: mgr.configuration(),
+                forward_id: None,
+            },
+            ExecStats::new(current_time(), 0),
+        ),
+    )
+    .context("Firing event after corpus minimization")?;
+    Ok(())
+}
+
+/// Generates a corpus and writes it to the path specified at `corpus_dir`.
+/// Additionally, if `report_path` is specified, the dependency graph (i.e.
+/// the dependencies between parameters of the requests in each series generated
+/// as the initial corpus) used to generate the initial corpus is then written
+/// to the `report_path`.
+pub fn generate_corpus_to_files(api: &OpenAPI, corpus_dir: &Path, report_path: Option<&Path>) {
+    let inputs = initial_corpus_from_api(api);
+    log::debug!("Writing corpus to file...");
+    if let Err(e) = write_corpus_to_files(&inputs, corpus_dir) {
+        log::warn!("Error writing corpus to file: {e}");
+    } else {
+        log::info!("Wrote generated corpus to {corpus_dir:?}");
+    }
+    if let Some(report_path) = report_path {
+        // The dependency graph was already generated while creating it from the API
+        // but it is cheap to build, so we can afford to do it again for reporting.
+        let dependency_graph = DependencyGraph::new(api);
+        let _ = dependency_graph.write_report(report_path);
+        let _ = write_corpus_report(&inputs, report_path);
+    }
+}
+
+pub fn write_corpus_to_files(
+    corpus: &[OpenApiInput],
+    corpus_dir: &Path,
+) -> Result<(), anyhow::Error> {
+    fs::create_dir_all(corpus_dir)?;
+    for (input_name, input) in corpus.iter().enumerate() {
+        let file_path = corpus_dir.join(input_name.to_string());
+        let file = std::fs::OpenOptions::new()
+            .truncate(true)
+            .write(true)
+            .create(true)
+            .open(file_path)?;
+        serde_yaml::to_writer(file, input)?;
+    }
+    Ok(())
+}
+
+/// Loads an `OpenApiInput` from a yaml file and prints its contents.
+pub fn print_starting_corpus(filename: &Path) {
+    match load_starting_corpus(filename) {
+        Ok(res) => log::debug!("{res:?}"),
+        Err(err) => log::error!("Error: {err}"),
+    }
+}
+
+pub fn initialize_corpus(
+    api: &OpenAPI,
+    initial_corpus_path: Option<&Path>,
+    report_path: &Option<&Path>,
+) -> InMemoryOnDiskCorpus<OpenApiInput> {
+    let mut corpus = InMemoryOnDiskCorpus::new(PathBuf::from("./queue")).unwrap();
+    match initial_corpus_path {
+        Some(initial_corpus_path) => {
+            log::info!("Filling corpus from file: {initial_corpus_path:?}");
+            match fill_corpus_from_file(&mut corpus, initial_corpus_path) {
+                Ok(_) => return corpus,
+                Err(err) => log::error!(
+                    "Error loading initial corpus, will generate random inputs instead: {err}"
+                ),
+            }
+        }
+        None => {
+            log::info!("No corpus supplied, generating one based on the API");
+        }
+    }
+    fill_corpus_from_api(&mut corpus, api, report_path);
+    corpus
+}
+
+fn write_corpus_report(input_vector: &[OpenApiInput], report_path: &Path) -> std::io::Result<()> {
+    let corpus_path = report_path.join("corpus");
+    create_dir_all(&corpus_path)?;
+    let corpus_file = corpus_path.join("corpus_graphs.md");
+    let mut file = File::create(corpus_file)?;
+    writeln!(
+        file,
+        "# Corpus graph based on OpenAPI spec generated inputs\n"
+    )?;
+    writeln!(
+        file,
+        "This markdown document can be rendered using a Mermaid plugin. It demonstrates the generated sequences of API requests.\n"
+    )?;
+    writeln!(file, "```mermaid")?;
+    writeln!(file, "graph LR;")?;
+
+    writeln!(file, "  %% Inputs")?;
+    let mut input_vector_indices = (0..input_vector.len()).collect::<Vec<_>>();
+    input_vector_indices.sort_by_key(|k| input_vector[*k].0.len());
+    for index in input_vector_indices {
+        let input = &input_vector[index];
+        writeln!(file, "  subgraph input_{index};")?;
+        writeln!(file, "    direction LR;")?;
+        for request in &input.0 {
+            let mut hasher = DefaultHasher::new();
+            request.to_string().hash(&mut hasher);
+            writeln!(
+                file,
+                "    {}(\"{} {}\");",
+                hasher.finish(),
+                request.method,
+                request.path,
+            )?;
+        }
+        for edge in input.0.windows(2) {
+            let [request_in, request_out]: &[OpenApiRequest; 2] = edge.try_into().unwrap();
+            let mut hasher_in = DefaultHasher::new();
+            request_in.to_string().hash(&mut hasher_in);
+            let mut hasher_out = DefaultHasher::new();
+            request_out.to_string().hash(&mut hasher_out);
+            writeln!(
+                file,
+                "    {} --> {};",
+                hasher_in.finish(),
+                hasher_out.finish(),
+            )?;
+        }
+        writeln!(file, "  end;")?;
+    }
+
+    writeln!(file, "```")?;
+
+    Ok(())
+}
+
+fn fill_corpus_from_file(
+    corpus: &mut InMemoryOnDiskCorpus<OpenApiInput>,
+    initial_corpus_path: &Path,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let inputs = load_starting_corpus(initial_corpus_path)?;
+    print_starting_corpus(initial_corpus_path);
+    for input in inputs {
+        let mut testcase = Testcase::new(input);
+        testcase.add_metadata(SchedulerTestcaseMetadata::new(0));
+        match corpus.add(testcase) {
+            Ok(_) => (),
+            Err(e) => log::warn!("Could not add testcase to corpus, omitting. {e:?}"),
+        }
+    }
+    Ok(())
+}
+
+fn fill_corpus_from_api(
+    corpus: &mut InMemoryOnDiskCorpus<OpenApiInput>,
+    api: &OpenAPI,
+    report_path: &Option<&Path>,
+) {
+    let inputs = initial_corpus_from_api(api);
+    if let Some(report_path) = report_path {
+        // The dependency graph was already generated while creating it from the API
+        // but it is cheap to build, so we can afford to do it again for reporting.
+        let dependency_graph = DependencyGraph::new(api);
+        let _ = dependency_graph.write_report(report_path);
+        let _ = write_corpus_report(&inputs, report_path);
+    }
+    for input in inputs {
+        let mut testcase = Testcase::new(input);
+        testcase.add_metadata(SchedulerTestcaseMetadata::new(0));
+        let _ = corpus.add(testcase);
+    }
+}

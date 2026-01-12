@@ -1,0 +1,21 @@
+services:
+  grafana-dashboard:
+    image: grafana/grafana-enterprise
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=frser-sqlite-datasource
+    volumes:
+      # This maps the entire reports folder to the datasources folder in the container
+      - type: bind
+        source: C:/work/Yeshayahu/BpTestTell/WuppieFuzz/reports/grafana
+        target: /var/lib/grafana/datasources
+      - type: bind
+        source: ./provisioning/dashboards
+        target: /var/lib/grafana/dashboards
+      - type: bind
+        source: ./grafana.ini
+        target: /etc/grafana/grafana.ini
+      - type: bind
+        source: ./provisioning
+        target: /etc/grafana/provisioning

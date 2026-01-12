@@ -1,0 +1,59 @@
+name: Generate SBOM on Dependabot PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  build-and-commit-sbom:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # More disk space please
+      - name: Reclaim disk space
+        uses: mathio/gha-cleanup@ce9480b80d151ff36572df0d3c54aef2653e6054 # v1.0.0
+        with:
+          remove-browsers: true
+          verbose: true
+
+      - name: Checkout code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: true
+
+      - name: Install Rust
+        uses: moonrepo/setup-rust@ede6de059f8046a5e236c94046823e2af11ca670 # v1.2.2
+        with:
+          channel: stable
+
+      - name: Build project
+        run: cargo build --release
+
+      - name: Commit SBOM.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch
+          git checkout "$GITHUB_HEAD_REF"
+          git pull
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Uncommitted changes found after build!"
+            git status
+            git add SBOM.txt
+            git commit -m "Add SBOM.txt after build"
+            git push origin HEAD:"$GITHUB_HEAD_REF"
+          else
+            echo "No uncommitted changes found."
+          fi
+          
+
