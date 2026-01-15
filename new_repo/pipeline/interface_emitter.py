@@ -248,7 +248,15 @@ def _generate_js_matchers(name, ops, primary_key):
          lines.append('  });')
          lines.append('}')         
          lines.append('')
-
+         
+         # --- ADDITIVE: Generic "Any Deleted" Matcher ---
+         lines.append(f'function matchAny{safe_entity_name}Deleted() {{')
+         lines.append(f'  return bp.EventSet("Any {name} Deleted", function(e) {{')
+         lines.append(f'      return e.name.startsWith("{del_regex_start}");')
+         lines.append('  }});')
+         lines.append('}')         
+         lines.append('')
+         
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):

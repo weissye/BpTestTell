@@ -8,11 +8,18 @@ bthread("fuzz:Books:id_InvalidType", function () {
   let bad_id = "INVALID_STRING";
   verifyBooksRejects(bad_id, q_valid, title_valid);
 });
+bthread("fuzz:Books:q_InvalidType", function () {
+  let id_valid = Math.floor(Math.random() * 1000);
+  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
+  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
+  let bad_q = ["NOT_A_STRING"];
+  verifyBooksRejects(id_valid, bad_q, title_valid);
+});
 bthread("fuzz:Books:title_InvalidType", function () {
   let id_valid = Math.floor(Math.random() * 1000);
   let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
   let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let bad_title = 12345;
+  let bad_title = ["NOT_A_STRING"];
   verifyBooksRejects(id_valid, q_valid, bad_title);
 });
 bthread("fuzz:Books:id_Missing", function () {
@@ -51,8 +58,15 @@ bthread("fuzz:Users:name_InvalidType", function () {
   let id_valid = Math.floor(Math.random() * 1000);
   let name_valid = "name_valid_" + Math.floor(Math.random()*1000);
   let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let bad_name = 12345;
+  let bad_name = ["NOT_A_STRING"];
   verifyUsersRejects(id_valid, bad_name, q_valid);
+});
+bthread("fuzz:Users:q_InvalidType", function () {
+  let id_valid = Math.floor(Math.random() * 1000);
+  let name_valid = "name_valid_" + Math.floor(Math.random()*1000);
+  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
+  let bad_q = ["NOT_A_STRING"];
+  verifyUsersRejects(id_valid, name_valid, bad_q);
 });
 bthread("fuzz:Users:id_Missing", function () {
   let id_valid = Math.floor(Math.random() * 1000);

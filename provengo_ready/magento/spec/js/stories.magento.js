@@ -31,6 +31,8 @@ function resolveDependencies(deps, pkMap) {
 bthread("monitor:Customers:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyCustomersAdded() });
+    let customerAccountManagementV1InitiatePasswordResetPutBody = (e.data.parameters && e.data.parameters["customerAccountManagementV1InitiatePasswordResetPutBody"]) ? e.data.parameters["customerAccountManagementV1InitiatePasswordResetPutBody"] : e.data["customerAccountManagementV1InitiatePasswordResetPutBody"];
+    let customerAccountManagementV1ResetPasswordPostBody = (e.data.parameters && e.data.parameters["customerAccountManagementV1ResetPasswordPostBody"]) ? e.data.parameters["customerAccountManagementV1ResetPasswordPostBody"] : e.data["customerAccountManagementV1ResetPasswordPostBody"];
     let customerId = (e.data.parameters && e.data.parameters["customerId"]) ? e.data.parameters["customerId"] : e.data["customerId"];
     let email = (e.data.parameters && e.data.parameters["email"]) ? e.data.parameters["email"] : e.data["email"];
     let newPassword = (e.data.parameters && e.data.parameters["newPassword"]) ? e.data.parameters["newPassword"] : e.data["newPassword"];
@@ -38,7 +40,7 @@ bthread("monitor:Customers:exists", function () {
     let resetToken = (e.data.parameters && e.data.parameters["resetToken"]) ? e.data.parameters["resetToken"] : e.data["resetToken"];
     let template = (e.data.parameters && e.data.parameters["template"]) ? e.data.parameters["template"] : e.data["template"];
     let websiteId = (e.data.parameters && e.data.parameters["websiteId"]) ? e.data.parameters["websiteId"] : e.data["websiteId"];
-    verifyCustomersExists(customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId);
+    verifyCustomersExists(customerAccountManagementV1InitiatePasswordResetPutBody, customerAccountManagementV1ResetPasswordPostBody, customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId);
   }
 });
 
@@ -46,8 +48,13 @@ bthread("monitor:Customers:exists", function () {
 bthread("monitor:GuestCarts:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyGuestCartsAdded() });
+    let additionalData = (e.data.parameters && e.data.parameters["additionalData"]) ? e.data.parameters["additionalData"] : e.data["additionalData"];
+    let addressInformation = (e.data.parameters && e.data.parameters["addressInformation"]) ? e.data.parameters["addressInformation"] : e.data["addressInformation"];
     let cartId = (e.data.parameters && e.data.parameters["cartId"]) ? e.data.parameters["cartId"] : e.data["cartId"];
-    verifyGuestCartsExists(cartId);
+    let paymentMethod = (e.data.parameters && e.data.parameters["paymentMethod"]) ? e.data.parameters["paymentMethod"] : e.data["paymentMethod"];
+    let shippingCarrierCode = (e.data.parameters && e.data.parameters["shippingCarrierCode"]) ? e.data.parameters["shippingCarrierCode"] : e.data["shippingCarrierCode"];
+    let shippingMethodCode = (e.data.parameters && e.data.parameters["shippingMethodCode"]) ? e.data.parameters["shippingMethodCode"] : e.data["shippingMethodCode"];
+    verifyGuestCartsExists(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode);
   }
 });
 
@@ -94,20 +101,6 @@ bthread("monitor:GuestCartsBillingAddress:exists", function () {
     let cartId = (e.data.parameters && e.data.parameters["cartId"]) ? e.data.parameters["cartId"] : e.data["cartId"];
     let useForShipping = (e.data.parameters && e.data.parameters["useForShipping"]) ? e.data.parameters["useForShipping"] : e.data["useForShipping"];
     verifyGuestCartsBillingAddressExists(address, cartId, useForShipping);
-  }
-});
-
-// Monitor: GuestCartTotals Verification (Existence)
-bthread("monitor:GuestCartTotals:exists", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyGuestCartTotalsAdded() });
-    let additionalData = (e.data.parameters && e.data.parameters["additionalData"]) ? e.data.parameters["additionalData"] : e.data["additionalData"];
-    let addressInformation = (e.data.parameters && e.data.parameters["addressInformation"]) ? e.data.parameters["addressInformation"] : e.data["addressInformation"];
-    let cartId = (e.data.parameters && e.data.parameters["cartId"]) ? e.data.parameters["cartId"] : e.data["cartId"];
-    let paymentMethod = (e.data.parameters && e.data.parameters["paymentMethod"]) ? e.data.parameters["paymentMethod"] : e.data["paymentMethod"];
-    let shippingCarrierCode = (e.data.parameters && e.data.parameters["shippingCarrierCode"]) ? e.data.parameters["shippingCarrierCode"] : e.data["shippingCarrierCode"];
-    let shippingMethodCode = (e.data.parameters && e.data.parameters["shippingMethodCode"]) ? e.data.parameters["shippingMethodCode"] : e.data["shippingMethodCode"];
-    verifyGuestCartTotalsExists(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode);
   }
 });
 
@@ -225,17 +218,6 @@ bthread("monitor:GuestCartCollectionPoint:absence", function () {
   }
 });
 
-// Monitor: GuestCartCollectionPointSelect Verification (Existence)
-bthread("monitor:GuestCartCollectionPointSelect:exists", function () {
-  while (true) {
-    let e = bp.sync({ waitFor: matchAnyGuestCartCollectionPointSelectAdded() });
-    let cartId = (e.data.parameters && e.data.parameters["cartId"]) ? e.data.parameters["cartId"] : e.data["cartId"];
-    let entityId = (e.data.parameters && e.data.parameters["entityId"]) ? e.data.parameters["entityId"] : e.data["entityId"];
-    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
-    verifyGuestCartCollectionPointSelectExists(cartId, entityId, id);
-  }
-});
-
 // Monitor: GuestCartDeliveryOption Verification (Existence)
 bthread("monitor:GuestCartDeliveryOption:exists", function () {
   while (true) {
@@ -244,6 +226,17 @@ bthread("monitor:GuestCartDeliveryOption:exists", function () {
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
     let selectedOption = (e.data.parameters && e.data.parameters["selectedOption"]) ? e.data.parameters["selectedOption"] : e.data["selectedOption"];
     verifyGuestCartDeliveryOptionExists(cartId, id, selectedOption);
+  }
+});
+
+// Monitor: GuestCartCollectionPointSelect Verification (Existence)
+bthread("monitor:GuestCartCollectionPointSelect:exists", function () {
+  while (true) {
+    let e = bp.sync({ waitFor: matchAnyGuestCartCollectionPointSelectAdded() });
+    let cartId = (e.data.parameters && e.data.parameters["cartId"]) ? e.data.parameters["cartId"] : e.data["cartId"];
+    let entityId = (e.data.parameters && e.data.parameters["entityId"]) ? e.data.parameters["entityId"] : e.data["entityId"];
+    let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    verifyGuestCartCollectionPointSelectExists(cartId, entityId, id);
   }
 });
 
@@ -283,6 +276,8 @@ bthread("monitor:GuestCartDeliveryPickupLocation:exists", function () {
 // Story: crud:Customers:linear:1
 bthread("crud:Customers:linear:1", function () {
   // -> Creating Customers
+  let customerAccountManagementV1InitiatePasswordResetPutBody_Customers_100 = {};
+  let customerAccountManagementV1ResetPasswordPostBody_Customers_100 = {};
   let customerId_Customers_100 = Math.floor(Math.random() * 1000);
   let email_Customers_100 = "email_Customers_100_" + Math.floor(Math.random()*1000);
   let newPassword_Customers_100 = "newPassword_Customers_100_" + Math.floor(Math.random()*1000);
@@ -290,9 +285,11 @@ bthread("crud:Customers:linear:1", function () {
   let resetToken_Customers_100 = "resetToken_Customers_100_" + Math.floor(Math.random()*1000);
   let template_Customers_100 = "template_Customers_100_" + Math.floor(Math.random()*1000);
   let websiteId_Customers_100 = Math.floor(Math.random() * 1000);
-  customerAccountManagementV1ResetPasswordPost(customerId_Customers_100, email_Customers_100, newPassword_Customers_100, resetPasswordLinkToken_Customers_100, resetToken_Customers_100, template_Customers_100, websiteId_Customers_100, { expectedResponseCodes: [200, 201, 204] });
+  customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_Customers_100, customerAccountManagementV1ResetPasswordPostBody_Customers_100, customerId_Customers_100, email_Customers_100, newPassword_Customers_100, resetPasswordLinkToken_Customers_100, resetToken_Customers_100, template_Customers_100, websiteId_Customers_100, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Customers
+  let customerAccountManagementV1InitiatePasswordResetPutBody_Customers_upd_100 = {};
+  let customerAccountManagementV1ResetPasswordPostBody_Customers_upd_100 = {};
   let customerId_Customers_upd_100 = customerId_Customers_100;
   let email_Customers_upd_100 = "email_Customers_upd_100_" + Math.floor(Math.random()*1000);
   let newPassword_Customers_upd_100 = "newPassword_Customers_upd_100_" + Math.floor(Math.random()*1000);
@@ -300,15 +297,29 @@ bthread("crud:Customers:linear:1", function () {
   let resetToken_Customers_upd_100 = "resetToken_Customers_upd_100_" + Math.floor(Math.random()*1000);
   let template_Customers_upd_100 = "template_Customers_upd_100_" + Math.floor(Math.random()*1000);
   let websiteId_Customers_upd_100 = Math.floor(Math.random() * 1000);
-  customerAccountManagementV1InitiatePasswordResetPut(customerId_Customers_upd_100, email_Customers_upd_100, newPassword_Customers_upd_100, resetPasswordLinkToken_Customers_upd_100, resetToken_Customers_upd_100, template_Customers_upd_100, websiteId_Customers_upd_100, { expectedResponseCodes: [200, 201, 204] });
+  customerAccountManagementV1InitiatePasswordResetPut(customerAccountManagementV1InitiatePasswordResetPutBody_Customers_upd_100, customerAccountManagementV1ResetPasswordPostBody_Customers_upd_100, customerId_Customers_upd_100, email_Customers_upd_100, newPassword_Customers_upd_100, resetPasswordLinkToken_Customers_upd_100, resetToken_Customers_upd_100, template_Customers_upd_100, websiteId_Customers_upd_100, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:GuestCarts:linear:1
 bthread("crud:GuestCarts:linear:1", function () {
   // -> Creating GuestCarts
+  let additionalData_GuestCarts_110 = {};
+  let addressInformation_GuestCarts_110 = {};
   let cartId_GuestCarts_110 = "cartId_GuestCarts_110_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_110, { expectedResponseCodes: [200, 201, 204] });
+  let paymentMethod_GuestCarts_110 = {};
+  let shippingCarrierCode_GuestCarts_110 = "shippingCarrierCode_GuestCarts_110_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_110 = "shippingMethodCode_GuestCarts_110_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_110, addressInformation_GuestCarts_110, cartId_GuestCarts_110, paymentMethod_GuestCarts_110, shippingCarrierCode_GuestCarts_110, shippingMethodCode_GuestCarts_110, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Updating GuestCarts
+  let additionalData_GuestCarts_upd_110 = {};
+  let addressInformation_GuestCarts_upd_110 = {};
+  let cartId_GuestCarts_upd_110 = cartId_GuestCarts_110;
+  let paymentMethod_GuestCarts_upd_110 = {};
+  let shippingCarrierCode_GuestCarts_upd_110 = "shippingCarrierCode_GuestCarts_upd_110_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_upd_110 = "shippingMethodCode_GuestCarts_upd_110_" + Math.floor(Math.random()*1000);
+  quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData_GuestCarts_upd_110, addressInformation_GuestCarts_upd_110, cartId_GuestCarts_upd_110, paymentMethod_GuestCarts_upd_110, shippingCarrierCode_GuestCarts_upd_110, shippingMethodCode_GuestCarts_upd_110, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for GuestCarts to prevent foreign key errors (has active dependents)
 });
@@ -367,40 +378,13 @@ bthread("crud:GuestCartsBillingAddress:linear:1", function () {
 
 });
 
-// Story: crud:GuestCartTotals:linear:1
-bthread("crud:GuestCartTotals:linear:1", function () {
-  let deps = {};
-  deps["GuestCarts"] = matchAnyGuestCartsAdded();
-  let pkMap = {"GuestCarts": "cartId"};
-  let captured = resolveDependencies(deps, pkMap);
-  let GuestCartsId = captured["GuestCarts"];
-  // -> Creating GuestCartTotals
-  let additionalData_GuestCartTotals_150 = "additionalData_GuestCartTotals_150_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_150 = {};
-  let cartId_GuestCartTotals_150 = GuestCartsId;
-  let paymentMethod_GuestCartTotals_150 = "paymentMethod_GuestCartTotals_150_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_150 = "shippingCarrierCode_GuestCartTotals_150_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_150 = "shippingMethodCode_GuestCartTotals_150_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCartTotals_150, addressInformation_GuestCartTotals_150, cartId_GuestCartTotals_150, paymentMethod_GuestCartTotals_150, shippingCarrierCode_GuestCartTotals_150, shippingMethodCode_GuestCartTotals_150, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Updating GuestCartTotals
-  let additionalData_GuestCartTotals_upd_150 = "additionalData_GuestCartTotals_upd_150_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_upd_150 = {};
-  let cartId_GuestCartTotals_upd_150 = cartId_GuestCartTotals_150;
-  let paymentMethod_GuestCartTotals_upd_150 = "paymentMethod_GuestCartTotals_upd_150_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_upd_150 = "shippingCarrierCode_GuestCartTotals_upd_150_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_upd_150 = "shippingMethodCode_GuestCartTotals_upd_150_" + Math.floor(Math.random()*1000);
-  quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData_GuestCartTotals_upd_150, addressInformation_GuestCartTotals_upd_150, cartId_GuestCartTotals_upd_150, paymentMethod_GuestCartTotals_upd_150, shippingCarrierCode_GuestCartTotals_upd_150, shippingMethodCode_GuestCartTotals_upd_150, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
 // Story: crud:AdminToken:linear:1
 bthread("crud:AdminToken:linear:1", function () {
   // -> Creating AdminToken
-  let id_AdminToken_160 = "id_AdminToken_160_" + Math.floor(Math.random()*1000);
-  let password_AdminToken_160 = "password_AdminToken_160_" + Math.floor(Math.random()*1000);
-  let username_AdminToken_160 = "username_AdminToken_160_" + Math.floor(Math.random()*1000);
-  integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id_AdminToken_160, password_AdminToken_160, username_AdminToken_160, { expectedResponseCodes: [200, 201, 204] });
+  let id_AdminToken_150 = "id_AdminToken_150_" + Math.floor(Math.random()*1000);
+  let password_AdminToken_150 = "password_AdminToken_150_" + Math.floor(Math.random()*1000);
+  let username_AdminToken_150 = "username_AdminToken_150_" + Math.floor(Math.random()*1000);
+  integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id_AdminToken_150, password_AdminToken_150, username_AdminToken_150, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -412,9 +396,9 @@ bthread("crud:GuestCartsPaymentInformation:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsPaymentInformation
-  let addressInformation_GuestCartsPaymentInformation_170 = {};
-  let cartId_GuestCartsPaymentInformation_170 = GuestCartsId;
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_170, cartId_GuestCartsPaymentInformation_170, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsPaymentInformation_160 = {};
+  let cartId_GuestCartsPaymentInformation_160 = GuestCartsId;
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_160, cartId_GuestCartsPaymentInformation_160, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -426,12 +410,12 @@ bthread("crud:GuestCartsSetPaymentInformation:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsSetPaymentInformation
-  let billingAddress_GuestCartsSetPaymentInformation_180 = {};
-  let cartId_GuestCartsSetPaymentInformation_180 = GuestCartsId;
-  let email_GuestCartsSetPaymentInformation_180 = "email_GuestCartsSetPaymentInformation_180_" + Math.floor(Math.random()*1000);
-  let id_GuestCartsSetPaymentInformation_180 = "id_GuestCartsSetPaymentInformation_180_" + Math.floor(Math.random()*1000);
-  let paymentMethod_GuestCartsSetPaymentInformation_180 = {};
-  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_180, cartId_GuestCartsSetPaymentInformation_180, email_GuestCartsSetPaymentInformation_180, id_GuestCartsSetPaymentInformation_180, paymentMethod_GuestCartsSetPaymentInformation_180, { expectedResponseCodes: [200, 201, 204] });
+  let billingAddress_GuestCartsSetPaymentInformation_170 = {};
+  let cartId_GuestCartsSetPaymentInformation_170 = GuestCartsId;
+  let email_GuestCartsSetPaymentInformation_170 = "email_GuestCartsSetPaymentInformation_170_" + Math.floor(Math.random()*1000);
+  let id_GuestCartsSetPaymentInformation_170 = "id_GuestCartsSetPaymentInformation_170_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCartsSetPaymentInformation_170 = {};
+  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_170, cartId_GuestCartsSetPaymentInformation_170, email_GuestCartsSetPaymentInformation_170, id_GuestCartsSetPaymentInformation_170, paymentMethod_GuestCartsSetPaymentInformation_170, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -443,10 +427,10 @@ bthread("crud:GuestCartsShippingInformation:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsShippingInformation
-  let addressInformation_GuestCartsShippingInformation_190 = {};
-  let cartId_GuestCartsShippingInformation_190 = GuestCartsId;
-  let id_GuestCartsShippingInformation_190 = "id_GuestCartsShippingInformation_190_" + Math.floor(Math.random()*1000);
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_190, cartId_GuestCartsShippingInformation_190, id_GuestCartsShippingInformation_190, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsShippingInformation_180 = {};
+  let cartId_GuestCartsShippingInformation_180 = GuestCartsId;
+  let id_GuestCartsShippingInformation_180 = "id_GuestCartsShippingInformation_180_" + Math.floor(Math.random()*1000);
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_180, cartId_GuestCartsShippingInformation_180, id_GuestCartsShippingInformation_180, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -458,20 +442,20 @@ bthread("crud:GuestCartsTotalsInformation:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsTotalsInformation
-  let addressInformation_GuestCartsTotalsInformation_200 = {};
-  let cartId_GuestCartsTotalsInformation_200 = GuestCartsId;
-  let id_GuestCartsTotalsInformation_200 = "id_GuestCartsTotalsInformation_200_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_200, cartId_GuestCartsTotalsInformation_200, id_GuestCartsTotalsInformation_200, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsTotalsInformation_190 = {};
+  let cartId_GuestCartsTotalsInformation_190 = GuestCartsId;
+  let id_GuestCartsTotalsInformation_190 = "id_GuestCartsTotalsInformation_190_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_190, cartId_GuestCartsTotalsInformation_190, id_GuestCartsTotalsInformation_190, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:CustomerToken:linear:1
 bthread("crud:CustomerToken:linear:1", function () {
   // -> Creating CustomerToken
-  let id_CustomerToken_210 = "id_CustomerToken_210_" + Math.floor(Math.random()*1000);
-  let password_CustomerToken_210 = "password_CustomerToken_210_" + Math.floor(Math.random()*1000);
-  let username_CustomerToken_210 = "username_CustomerToken_210_" + Math.floor(Math.random()*1000);
-  integrationCustomerTokenServiceV1CreateCustomerAccessTokenPost(id_CustomerToken_210, password_CustomerToken_210, username_CustomerToken_210, { expectedResponseCodes: [200, 201, 204] });
+  let id_CustomerToken_200 = "id_CustomerToken_200_" + Math.floor(Math.random()*1000);
+  let password_CustomerToken_200 = "password_CustomerToken_200_" + Math.floor(Math.random()*1000);
+  let username_CustomerToken_200 = "username_CustomerToken_200_" + Math.floor(Math.random()*1000);
+  integrationCustomerTokenServiceV1CreateCustomerAccessTokenPost(id_CustomerToken_200, password_CustomerToken_200, username_CustomerToken_200, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -483,9 +467,9 @@ bthread("crud:GuestCartGiftMessage:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartGiftMessage
-  let cartId_GuestCartGiftMessage_220 = GuestCartsId;
-  let giftMessage_GuestCartGiftMessage_220 = {};
-  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_220, giftMessage_GuestCartGiftMessage_220, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartGiftMessage_210 = GuestCartsId;
+  let giftMessage_GuestCartGiftMessage_210 = {};
+  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_210, giftMessage_GuestCartGiftMessage_210, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -497,10 +481,10 @@ bthread("crud:GuestItemGiftMessage:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestItemGiftMessage
-  let cartId_GuestItemGiftMessage_230 = GuestCartsId;
-  let giftMessage_GuestItemGiftMessage_230 = {};
-  let itemId_GuestItemGiftMessage_230 = Math.floor(Math.random() * 1000);
-  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_230, giftMessage_GuestItemGiftMessage_230, itemId_GuestItemGiftMessage_230, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestItemGiftMessage_220 = GuestCartsId;
+  let giftMessage_GuestItemGiftMessage_220 = {};
+  let itemId_GuestItemGiftMessage_220 = Math.floor(Math.random() * 1000);
+  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_220, giftMessage_GuestItemGiftMessage_220, itemId_GuestItemGiftMessage_220, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -512,21 +496,36 @@ bthread("crud:GuestCartCollectionPoint:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_240 = GuestCartsId;
-  let collectionPointId_GuestCartCollectionPoint_240 = "collectionPointId_GuestCartCollectionPoint_240_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_240 = "countryId_GuestCartCollectionPoint_240_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_240 = "postcode_GuestCartCollectionPoint_240_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_240, collectionPointId_GuestCartCollectionPoint_240, countryId_GuestCartCollectionPoint_240, postcode_GuestCartCollectionPoint_240, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_230 = GuestCartsId;
+  let collectionPointId_GuestCartCollectionPoint_230 = "collectionPointId_GuestCartCollectionPoint_230_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_230 = "countryId_GuestCartCollectionPoint_230_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_230 = "postcode_GuestCartCollectionPoint_230_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_230, collectionPointId_GuestCartCollectionPoint_230, countryId_GuestCartCollectionPoint_230, postcode_GuestCartCollectionPoint_230, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_upd_240 = cartId_GuestCartCollectionPoint_240;
-  let collectionPointId_GuestCartCollectionPoint_upd_240 = "collectionPointId_GuestCartCollectionPoint_upd_240_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_upd_240 = "countryId_GuestCartCollectionPoint_upd_240_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_upd_240 = "postcode_GuestCartCollectionPoint_upd_240_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SaveSearchRequestPut(cartId_GuestCartCollectionPoint_upd_240, collectionPointId_GuestCartCollectionPoint_upd_240, countryId_GuestCartCollectionPoint_upd_240, postcode_GuestCartCollectionPoint_upd_240, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_upd_230 = cartId_GuestCartCollectionPoint_230;
+  let collectionPointId_GuestCartCollectionPoint_upd_230 = "collectionPointId_GuestCartCollectionPoint_upd_230_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_upd_230 = "countryId_GuestCartCollectionPoint_upd_230_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_upd_230 = "postcode_GuestCartCollectionPoint_upd_230_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SaveSearchRequestPut(cartId_GuestCartCollectionPoint_upd_230, collectionPointId_GuestCartCollectionPoint_upd_230, countryId_GuestCartCollectionPoint_upd_230, postcode_GuestCartCollectionPoint_upd_230, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting GuestCartCollectionPoint
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_240, { expectedResponseCodes: [200, 201, 204] });
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_230, { expectedResponseCodes: [200, 201, 204] });
+
+});
+
+// Story: crud:GuestCartDeliveryOption:linear:1
+bthread("crud:GuestCartDeliveryOption:linear:1", function () {
+  let deps = {};
+  deps["GuestCarts"] = matchAnyGuestCartsAdded();
+  let pkMap = {"GuestCarts": "cartId"};
+  let captured = resolveDependencies(deps, pkMap);
+  let GuestCartsId = captured["GuestCarts"];
+  // -> Creating GuestCartDeliveryOption
+  let cartId_GuestCartDeliveryOption_240 = GuestCartsId;
+  let id_GuestCartDeliveryOption_240 = "id_GuestCartDeliveryOption_240_" + Math.floor(Math.random()*1000);
+  let selectedOption_GuestCartDeliveryOption_240 = "selectedOption_GuestCartDeliveryOption_240_" + Math.floor(Math.random()*1000);
+  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_240, id_GuestCartDeliveryOption_240, selectedOption_GuestCartDeliveryOption_240, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -545,21 +544,6 @@ bthread("crud:GuestCartCollectionPointSelect:linear:1", function () {
 
 });
 
-// Story: crud:GuestCartDeliveryOption:linear:1
-bthread("crud:GuestCartDeliveryOption:linear:1", function () {
-  let deps = {};
-  deps["GuestCarts"] = matchAnyGuestCartsAdded();
-  let pkMap = {"GuestCarts": "cartId"};
-  let captured = resolveDependencies(deps, pkMap);
-  let GuestCartsId = captured["GuestCarts"];
-  // -> Creating GuestCartDeliveryOption
-  let cartId_GuestCartDeliveryOption_260 = GuestCartsId;
-  let id_GuestCartDeliveryOption_260 = "id_GuestCartDeliveryOption_260_" + Math.floor(Math.random()*1000);
-  let selectedOption_GuestCartDeliveryOption_260 = "selectedOption_GuestCartDeliveryOption_260_" + Math.floor(Math.random()*1000);
-  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_260, id_GuestCartDeliveryOption_260, selectedOption_GuestCartDeliveryOption_260, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
 // Story: crud:GuestCartCheckoutFields:linear:1
 bthread("crud:GuestCartCheckoutFields:linear:1", function () {
   let deps = {};
@@ -568,10 +552,10 @@ bthread("crud:GuestCartCheckoutFields:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartCheckoutFields
-  let cartId_GuestCartCheckoutFields_270 = GuestCartsId;
-  let id_GuestCartCheckoutFields_270 = "id_GuestCartCheckoutFields_270_" + Math.floor(Math.random()*1000);
-  let serviceSelection_GuestCartCheckoutFields_270 = [];
-  saveCheckoutFields(cartId_GuestCartCheckoutFields_270, id_GuestCartCheckoutFields_270, serviceSelection_GuestCartCheckoutFields_270, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCheckoutFields_260 = GuestCartsId;
+  let id_GuestCartCheckoutFields_260 = "id_GuestCartCheckoutFields_260_" + Math.floor(Math.random()*1000);
+  let serviceSelection_GuestCartCheckoutFields_260 = [];
+  saveCheckoutFields(cartId_GuestCartCheckoutFields_260, id_GuestCartCheckoutFields_260, serviceSelection_GuestCartCheckoutFields_260, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -583,10 +567,10 @@ bthread("crud:GuestCartPickupLocation:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartPickupLocation
-  let cartId_GuestCartPickupLocation_280 = GuestCartsId;
-  let id_GuestCartPickupLocation_280 = "id_GuestCartPickupLocation_280_" + Math.floor(Math.random()*1000);
-  let pickupLocationId_GuestCartPickupLocation_280 = "pickupLocationId_GuestCartPickupLocation_280_" + Math.floor(Math.random()*1000);
-  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_280, id_GuestCartPickupLocation_280, pickupLocationId_GuestCartPickupLocation_280, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartPickupLocation_270 = GuestCartsId;
+  let id_GuestCartPickupLocation_270 = "id_GuestCartPickupLocation_270_" + Math.floor(Math.random()*1000);
+  let pickupLocationId_GuestCartPickupLocation_270 = "pickupLocationId_GuestCartPickupLocation_270_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_270, id_GuestCartPickupLocation_270, pickupLocationId_GuestCartPickupLocation_270, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -598,42 +582,60 @@ bthread("crud:GuestCartDeliveryPickupLocation:linear:1", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartDeliveryPickupLocation
-  let cartId_GuestCartDeliveryPickupLocation_290 = GuestCartsId;
-  let entityId_GuestCartDeliveryPickupLocation_290 = Math.floor(Math.random() * 1000);
-  let id_GuestCartDeliveryPickupLocation_290 = "id_GuestCartDeliveryPickupLocation_290_" + Math.floor(Math.random()*1000);
-  selectPickupLocation(cartId_GuestCartDeliveryPickupLocation_290, entityId_GuestCartDeliveryPickupLocation_290, id_GuestCartDeliveryPickupLocation_290, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryPickupLocation_280 = GuestCartsId;
+  let entityId_GuestCartDeliveryPickupLocation_280 = Math.floor(Math.random() * 1000);
+  let id_GuestCartDeliveryPickupLocation_280 = "id_GuestCartDeliveryPickupLocation_280_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForDelivery(cartId_GuestCartDeliveryPickupLocation_280, entityId_GuestCartDeliveryPickupLocation_280, id_GuestCartDeliveryPickupLocation_280, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:Customers:linear:2
 bthread("crud:Customers:linear:2", function () {
   // -> Creating Customers
-  let customerId_Customers_300 = Math.floor(Math.random() * 1000);
-  let email_Customers_300 = "email_Customers_300_" + Math.floor(Math.random()*1000);
-  let newPassword_Customers_300 = "newPassword_Customers_300_" + Math.floor(Math.random()*1000);
-  let resetPasswordLinkToken_Customers_300 = "resetPasswordLinkToken_Customers_300_" + Math.floor(Math.random()*1000);
-  let resetToken_Customers_300 = "resetToken_Customers_300_" + Math.floor(Math.random()*1000);
-  let template_Customers_300 = "template_Customers_300_" + Math.floor(Math.random()*1000);
-  let websiteId_Customers_300 = Math.floor(Math.random() * 1000);
-  customerAccountManagementV1ResetPasswordPost(customerId_Customers_300, email_Customers_300, newPassword_Customers_300, resetPasswordLinkToken_Customers_300, resetToken_Customers_300, template_Customers_300, websiteId_Customers_300, { expectedResponseCodes: [200, 201, 204] });
+  let customerAccountManagementV1InitiatePasswordResetPutBody_Customers_290 = {};
+  let customerAccountManagementV1ResetPasswordPostBody_Customers_290 = {};
+  let customerId_Customers_290 = Math.floor(Math.random() * 1000);
+  let email_Customers_290 = "email_Customers_290_" + Math.floor(Math.random()*1000);
+  let newPassword_Customers_290 = "newPassword_Customers_290_" + Math.floor(Math.random()*1000);
+  let resetPasswordLinkToken_Customers_290 = "resetPasswordLinkToken_Customers_290_" + Math.floor(Math.random()*1000);
+  let resetToken_Customers_290 = "resetToken_Customers_290_" + Math.floor(Math.random()*1000);
+  let template_Customers_290 = "template_Customers_290_" + Math.floor(Math.random()*1000);
+  let websiteId_Customers_290 = Math.floor(Math.random() * 1000);
+  customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_Customers_290, customerAccountManagementV1ResetPasswordPostBody_Customers_290, customerId_Customers_290, email_Customers_290, newPassword_Customers_290, resetPasswordLinkToken_Customers_290, resetToken_Customers_290, template_Customers_290, websiteId_Customers_290, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Customers
-  let customerId_Customers_upd_300 = customerId_Customers_300;
-  let email_Customers_upd_300 = "email_Customers_upd_300_" + Math.floor(Math.random()*1000);
-  let newPassword_Customers_upd_300 = "newPassword_Customers_upd_300_" + Math.floor(Math.random()*1000);
-  let resetPasswordLinkToken_Customers_upd_300 = "resetPasswordLinkToken_Customers_upd_300_" + Math.floor(Math.random()*1000);
-  let resetToken_Customers_upd_300 = "resetToken_Customers_upd_300_" + Math.floor(Math.random()*1000);
-  let template_Customers_upd_300 = "template_Customers_upd_300_" + Math.floor(Math.random()*1000);
-  let websiteId_Customers_upd_300 = Math.floor(Math.random() * 1000);
-  customerAccountManagementV1InitiatePasswordResetPut(customerId_Customers_upd_300, email_Customers_upd_300, newPassword_Customers_upd_300, resetPasswordLinkToken_Customers_upd_300, resetToken_Customers_upd_300, template_Customers_upd_300, websiteId_Customers_upd_300, { expectedResponseCodes: [200, 201, 204] });
+  let customerAccountManagementV1InitiatePasswordResetPutBody_Customers_upd_290 = {};
+  let customerAccountManagementV1ResetPasswordPostBody_Customers_upd_290 = {};
+  let customerId_Customers_upd_290 = customerId_Customers_290;
+  let email_Customers_upd_290 = "email_Customers_upd_290_" + Math.floor(Math.random()*1000);
+  let newPassword_Customers_upd_290 = "newPassword_Customers_upd_290_" + Math.floor(Math.random()*1000);
+  let resetPasswordLinkToken_Customers_upd_290 = "resetPasswordLinkToken_Customers_upd_290_" + Math.floor(Math.random()*1000);
+  let resetToken_Customers_upd_290 = "resetToken_Customers_upd_290_" + Math.floor(Math.random()*1000);
+  let template_Customers_upd_290 = "template_Customers_upd_290_" + Math.floor(Math.random()*1000);
+  let websiteId_Customers_upd_290 = Math.floor(Math.random() * 1000);
+  customerAccountManagementV1InitiatePasswordResetPut(customerAccountManagementV1InitiatePasswordResetPutBody_Customers_upd_290, customerAccountManagementV1ResetPasswordPostBody_Customers_upd_290, customerId_Customers_upd_290, email_Customers_upd_290, newPassword_Customers_upd_290, resetPasswordLinkToken_Customers_upd_290, resetToken_Customers_upd_290, template_Customers_upd_290, websiteId_Customers_upd_290, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:GuestCarts:linear:2
 bthread("crud:GuestCarts:linear:2", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_310 = "cartId_GuestCarts_310_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_310, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_300 = {};
+  let addressInformation_GuestCarts_300 = {};
+  let cartId_GuestCarts_300 = "cartId_GuestCarts_300_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_300 = {};
+  let shippingCarrierCode_GuestCarts_300 = "shippingCarrierCode_GuestCarts_300_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_300 = "shippingMethodCode_GuestCarts_300_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_300, addressInformation_GuestCarts_300, cartId_GuestCarts_300, paymentMethod_GuestCarts_300, shippingCarrierCode_GuestCarts_300, shippingMethodCode_GuestCarts_300, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Updating GuestCarts
+  let additionalData_GuestCarts_upd_300 = {};
+  let addressInformation_GuestCarts_upd_300 = {};
+  let cartId_GuestCarts_upd_300 = cartId_GuestCarts_300;
+  let paymentMethod_GuestCarts_upd_300 = {};
+  let shippingCarrierCode_GuestCarts_upd_300 = "shippingCarrierCode_GuestCarts_upd_300_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_upd_300 = "shippingMethodCode_GuestCarts_upd_300_" + Math.floor(Math.random()*1000);
+  quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData_GuestCarts_upd_300, addressInformation_GuestCarts_upd_300, cartId_GuestCarts_upd_300, paymentMethod_GuestCarts_upd_300, shippingCarrierCode_GuestCarts_upd_300, shippingMethodCode_GuestCarts_upd_300, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for GuestCarts to prevent foreign key errors (has active dependents)
 });
@@ -646,10 +648,10 @@ bthread("crud:GuestCartsEstimateShippingMethods:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsEstimateShippingMethods
-  let address_GuestCartsEstimateShippingMethods_320 = "address_GuestCartsEstimateShippingMethods_320_" + Math.floor(Math.random()*1000);
-  let cartId_GuestCartsEstimateShippingMethods_320 = GuestCartsId;
-  let id_GuestCartsEstimateShippingMethods_320 = "id_GuestCartsEstimateShippingMethods_320_" + Math.floor(Math.random()*1000);
-  estimateShippingMethods(address_GuestCartsEstimateShippingMethods_320, cartId_GuestCartsEstimateShippingMethods_320, id_GuestCartsEstimateShippingMethods_320, { expectedResponseCodes: [200, 201, 204] });
+  let address_GuestCartsEstimateShippingMethods_310 = "address_GuestCartsEstimateShippingMethods_310_" + Math.floor(Math.random()*1000);
+  let cartId_GuestCartsEstimateShippingMethods_310 = GuestCartsId;
+  let id_GuestCartsEstimateShippingMethods_310 = "id_GuestCartsEstimateShippingMethods_310_" + Math.floor(Math.random()*1000);
+  estimateShippingMethods(address_GuestCartsEstimateShippingMethods_310, cartId_GuestCartsEstimateShippingMethods_310, id_GuestCartsEstimateShippingMethods_310, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -661,19 +663,19 @@ bthread("crud:GuestCartsItems:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsItems
-  let cartId_GuestCartsItems_330 = GuestCartsId;
-  let cartItem_GuestCartsItems_330 = "cartItem_GuestCartsItems_330_" + Math.floor(Math.random()*1000);
-  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_330 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_330_" + Math.floor(Math.random()*1000);
-  addOrUpdateCartItem(cartId_GuestCartsItems_330, cartItem_GuestCartsItems_330, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_330, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartsItems_320 = GuestCartsId;
+  let cartItem_GuestCartsItems_320 = "cartItem_GuestCartsItems_320_" + Math.floor(Math.random()*1000);
+  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_320 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_320_" + Math.floor(Math.random()*1000);
+  addOrUpdateCartItem(cartId_GuestCartsItems_320, cartItem_GuestCartsItems_320, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_320, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating GuestCartsItems
-  let cartId_GuestCartsItems_upd_330 = cartId_GuestCartsItems_330;
-  let cartItem_GuestCartsItems_upd_330 = "cartItem_GuestCartsItems_upd_330_" + Math.floor(Math.random()*1000);
-  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_330 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_330_" + Math.floor(Math.random()*1000);
-  quoteGuestCartManagementV1PlaceOrderPut(cartId_GuestCartsItems_upd_330, cartItem_GuestCartsItems_upd_330, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_330, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartsItems_upd_320 = cartId_GuestCartsItems_320;
+  let cartItem_GuestCartsItems_upd_320 = "cartItem_GuestCartsItems_upd_320_" + Math.floor(Math.random()*1000);
+  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_320 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_320_" + Math.floor(Math.random()*1000);
+  quoteGuestCartManagementV1PlaceOrderPut(cartId_GuestCartsItems_upd_320, cartItem_GuestCartsItems_upd_320, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_320, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting GuestCartsItems
-  quoteGuestCouponManagementV1RemoveDelete(cartId_GuestCartsItems_330, { expectedResponseCodes: [200, 201, 204] });
+  quoteGuestCouponManagementV1RemoveDelete(cartId_GuestCartsItems_320, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -685,47 +687,20 @@ bthread("crud:GuestCartsBillingAddress:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsBillingAddress
-  let address_GuestCartsBillingAddress_340 = {};
-  let cartId_GuestCartsBillingAddress_340 = GuestCartsId;
-  let useForShipping_GuestCartsBillingAddress_340 = true;
-  quoteGuestBillingAddressManagementV1AssignPost(address_GuestCartsBillingAddress_340, cartId_GuestCartsBillingAddress_340, useForShipping_GuestCartsBillingAddress_340, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: crud:GuestCartTotals:linear:2
-bthread("crud:GuestCartTotals:linear:2", function () {
-  let deps = {};
-  deps["GuestCarts"] = matchAnyGuestCartsAdded();
-  let pkMap = {"GuestCarts": "cartId"};
-  let captured = resolveDependencies(deps, pkMap);
-  let GuestCartsId = captured["GuestCarts"];
-  // -> Creating GuestCartTotals
-  let additionalData_GuestCartTotals_350 = "additionalData_GuestCartTotals_350_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_350 = {};
-  let cartId_GuestCartTotals_350 = GuestCartsId;
-  let paymentMethod_GuestCartTotals_350 = "paymentMethod_GuestCartTotals_350_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_350 = "shippingCarrierCode_GuestCartTotals_350_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_350 = "shippingMethodCode_GuestCartTotals_350_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCartTotals_350, addressInformation_GuestCartTotals_350, cartId_GuestCartTotals_350, paymentMethod_GuestCartTotals_350, shippingCarrierCode_GuestCartTotals_350, shippingMethodCode_GuestCartTotals_350, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Updating GuestCartTotals
-  let additionalData_GuestCartTotals_upd_350 = "additionalData_GuestCartTotals_upd_350_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_upd_350 = {};
-  let cartId_GuestCartTotals_upd_350 = cartId_GuestCartTotals_350;
-  let paymentMethod_GuestCartTotals_upd_350 = "paymentMethod_GuestCartTotals_upd_350_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_upd_350 = "shippingCarrierCode_GuestCartTotals_upd_350_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_upd_350 = "shippingMethodCode_GuestCartTotals_upd_350_" + Math.floor(Math.random()*1000);
-  quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData_GuestCartTotals_upd_350, addressInformation_GuestCartTotals_upd_350, cartId_GuestCartTotals_upd_350, paymentMethod_GuestCartTotals_upd_350, shippingCarrierCode_GuestCartTotals_upd_350, shippingMethodCode_GuestCartTotals_upd_350, { expectedResponseCodes: [200, 201, 204] });
+  let address_GuestCartsBillingAddress_330 = {};
+  let cartId_GuestCartsBillingAddress_330 = GuestCartsId;
+  let useForShipping_GuestCartsBillingAddress_330 = true;
+  quoteGuestBillingAddressManagementV1AssignPost(address_GuestCartsBillingAddress_330, cartId_GuestCartsBillingAddress_330, useForShipping_GuestCartsBillingAddress_330, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:AdminToken:linear:2
 bthread("crud:AdminToken:linear:2", function () {
   // -> Creating AdminToken
-  let id_AdminToken_360 = "id_AdminToken_360_" + Math.floor(Math.random()*1000);
-  let password_AdminToken_360 = "password_AdminToken_360_" + Math.floor(Math.random()*1000);
-  let username_AdminToken_360 = "username_AdminToken_360_" + Math.floor(Math.random()*1000);
-  integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id_AdminToken_360, password_AdminToken_360, username_AdminToken_360, { expectedResponseCodes: [200, 201, 204] });
+  let id_AdminToken_340 = "id_AdminToken_340_" + Math.floor(Math.random()*1000);
+  let password_AdminToken_340 = "password_AdminToken_340_" + Math.floor(Math.random()*1000);
+  let username_AdminToken_340 = "username_AdminToken_340_" + Math.floor(Math.random()*1000);
+  integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id_AdminToken_340, password_AdminToken_340, username_AdminToken_340, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -737,9 +712,9 @@ bthread("crud:GuestCartsPaymentInformation:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsPaymentInformation
-  let addressInformation_GuestCartsPaymentInformation_370 = {};
-  let cartId_GuestCartsPaymentInformation_370 = GuestCartsId;
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_370, cartId_GuestCartsPaymentInformation_370, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsPaymentInformation_350 = {};
+  let cartId_GuestCartsPaymentInformation_350 = GuestCartsId;
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_350, cartId_GuestCartsPaymentInformation_350, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -751,12 +726,12 @@ bthread("crud:GuestCartsSetPaymentInformation:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsSetPaymentInformation
-  let billingAddress_GuestCartsSetPaymentInformation_380 = {};
-  let cartId_GuestCartsSetPaymentInformation_380 = GuestCartsId;
-  let email_GuestCartsSetPaymentInformation_380 = "email_GuestCartsSetPaymentInformation_380_" + Math.floor(Math.random()*1000);
-  let id_GuestCartsSetPaymentInformation_380 = "id_GuestCartsSetPaymentInformation_380_" + Math.floor(Math.random()*1000);
-  let paymentMethod_GuestCartsSetPaymentInformation_380 = {};
-  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_380, cartId_GuestCartsSetPaymentInformation_380, email_GuestCartsSetPaymentInformation_380, id_GuestCartsSetPaymentInformation_380, paymentMethod_GuestCartsSetPaymentInformation_380, { expectedResponseCodes: [200, 201, 204] });
+  let billingAddress_GuestCartsSetPaymentInformation_360 = {};
+  let cartId_GuestCartsSetPaymentInformation_360 = GuestCartsId;
+  let email_GuestCartsSetPaymentInformation_360 = "email_GuestCartsSetPaymentInformation_360_" + Math.floor(Math.random()*1000);
+  let id_GuestCartsSetPaymentInformation_360 = "id_GuestCartsSetPaymentInformation_360_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCartsSetPaymentInformation_360 = {};
+  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_360, cartId_GuestCartsSetPaymentInformation_360, email_GuestCartsSetPaymentInformation_360, id_GuestCartsSetPaymentInformation_360, paymentMethod_GuestCartsSetPaymentInformation_360, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -768,10 +743,10 @@ bthread("crud:GuestCartsShippingInformation:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsShippingInformation
-  let addressInformation_GuestCartsShippingInformation_390 = {};
-  let cartId_GuestCartsShippingInformation_390 = GuestCartsId;
-  let id_GuestCartsShippingInformation_390 = "id_GuestCartsShippingInformation_390_" + Math.floor(Math.random()*1000);
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_390, cartId_GuestCartsShippingInformation_390, id_GuestCartsShippingInformation_390, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsShippingInformation_370 = {};
+  let cartId_GuestCartsShippingInformation_370 = GuestCartsId;
+  let id_GuestCartsShippingInformation_370 = "id_GuestCartsShippingInformation_370_" + Math.floor(Math.random()*1000);
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_370, cartId_GuestCartsShippingInformation_370, id_GuestCartsShippingInformation_370, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -783,20 +758,20 @@ bthread("crud:GuestCartsTotalsInformation:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsTotalsInformation
-  let addressInformation_GuestCartsTotalsInformation_400 = {};
-  let cartId_GuestCartsTotalsInformation_400 = GuestCartsId;
-  let id_GuestCartsTotalsInformation_400 = "id_GuestCartsTotalsInformation_400_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_400, cartId_GuestCartsTotalsInformation_400, id_GuestCartsTotalsInformation_400, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsTotalsInformation_380 = {};
+  let cartId_GuestCartsTotalsInformation_380 = GuestCartsId;
+  let id_GuestCartsTotalsInformation_380 = "id_GuestCartsTotalsInformation_380_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_380, cartId_GuestCartsTotalsInformation_380, id_GuestCartsTotalsInformation_380, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:CustomerToken:linear:2
 bthread("crud:CustomerToken:linear:2", function () {
   // -> Creating CustomerToken
-  let id_CustomerToken_410 = "id_CustomerToken_410_" + Math.floor(Math.random()*1000);
-  let password_CustomerToken_410 = "password_CustomerToken_410_" + Math.floor(Math.random()*1000);
-  let username_CustomerToken_410 = "username_CustomerToken_410_" + Math.floor(Math.random()*1000);
-  integrationCustomerTokenServiceV1CreateCustomerAccessTokenPost(id_CustomerToken_410, password_CustomerToken_410, username_CustomerToken_410, { expectedResponseCodes: [200, 201, 204] });
+  let id_CustomerToken_390 = "id_CustomerToken_390_" + Math.floor(Math.random()*1000);
+  let password_CustomerToken_390 = "password_CustomerToken_390_" + Math.floor(Math.random()*1000);
+  let username_CustomerToken_390 = "username_CustomerToken_390_" + Math.floor(Math.random()*1000);
+  integrationCustomerTokenServiceV1CreateCustomerAccessTokenPost(id_CustomerToken_390, password_CustomerToken_390, username_CustomerToken_390, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -808,9 +783,9 @@ bthread("crud:GuestCartGiftMessage:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartGiftMessage
-  let cartId_GuestCartGiftMessage_420 = GuestCartsId;
-  let giftMessage_GuestCartGiftMessage_420 = {};
-  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_420, giftMessage_GuestCartGiftMessage_420, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartGiftMessage_400 = GuestCartsId;
+  let giftMessage_GuestCartGiftMessage_400 = {};
+  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_400, giftMessage_GuestCartGiftMessage_400, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -822,10 +797,10 @@ bthread("crud:GuestItemGiftMessage:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestItemGiftMessage
-  let cartId_GuestItemGiftMessage_430 = GuestCartsId;
-  let giftMessage_GuestItemGiftMessage_430 = {};
-  let itemId_GuestItemGiftMessage_430 = Math.floor(Math.random() * 1000);
-  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_430, giftMessage_GuestItemGiftMessage_430, itemId_GuestItemGiftMessage_430, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestItemGiftMessage_410 = GuestCartsId;
+  let giftMessage_GuestItemGiftMessage_410 = {};
+  let itemId_GuestItemGiftMessage_410 = Math.floor(Math.random() * 1000);
+  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_410, giftMessage_GuestItemGiftMessage_410, itemId_GuestItemGiftMessage_410, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -837,36 +812,21 @@ bthread("crud:GuestCartCollectionPoint:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_440 = GuestCartsId;
-  let collectionPointId_GuestCartCollectionPoint_440 = "collectionPointId_GuestCartCollectionPoint_440_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_440 = "countryId_GuestCartCollectionPoint_440_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_440 = "postcode_GuestCartCollectionPoint_440_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_440, collectionPointId_GuestCartCollectionPoint_440, countryId_GuestCartCollectionPoint_440, postcode_GuestCartCollectionPoint_440, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_420 = GuestCartsId;
+  let collectionPointId_GuestCartCollectionPoint_420 = "collectionPointId_GuestCartCollectionPoint_420_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_420 = "countryId_GuestCartCollectionPoint_420_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_420 = "postcode_GuestCartCollectionPoint_420_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_420, collectionPointId_GuestCartCollectionPoint_420, countryId_GuestCartCollectionPoint_420, postcode_GuestCartCollectionPoint_420, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_upd_440 = cartId_GuestCartCollectionPoint_440;
-  let collectionPointId_GuestCartCollectionPoint_upd_440 = "collectionPointId_GuestCartCollectionPoint_upd_440_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_upd_440 = "countryId_GuestCartCollectionPoint_upd_440_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_upd_440 = "postcode_GuestCartCollectionPoint_upd_440_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SaveSearchRequestPut(cartId_GuestCartCollectionPoint_upd_440, collectionPointId_GuestCartCollectionPoint_upd_440, countryId_GuestCartCollectionPoint_upd_440, postcode_GuestCartCollectionPoint_upd_440, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_upd_420 = cartId_GuestCartCollectionPoint_420;
+  let collectionPointId_GuestCartCollectionPoint_upd_420 = "collectionPointId_GuestCartCollectionPoint_upd_420_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_upd_420 = "countryId_GuestCartCollectionPoint_upd_420_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_upd_420 = "postcode_GuestCartCollectionPoint_upd_420_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SaveSearchRequestPut(cartId_GuestCartCollectionPoint_upd_420, collectionPointId_GuestCartCollectionPoint_upd_420, countryId_GuestCartCollectionPoint_upd_420, postcode_GuestCartCollectionPoint_upd_420, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting GuestCartCollectionPoint
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_440, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: crud:GuestCartCollectionPointSelect:linear:2
-bthread("crud:GuestCartCollectionPointSelect:linear:2", function () {
-  let deps = {};
-  deps["GuestCarts"] = matchAnyGuestCartsAdded();
-  let pkMap = {"GuestCarts": "cartId"};
-  let captured = resolveDependencies(deps, pkMap);
-  let GuestCartsId = captured["GuestCarts"];
-  // -> Creating GuestCartCollectionPointSelect
-  let cartId_GuestCartCollectionPointSelect_450 = GuestCartsId;
-  let entityId_GuestCartCollectionPointSelect_450 = Math.floor(Math.random() * 1000);
-  let id_GuestCartCollectionPointSelect_450 = "id_GuestCartCollectionPointSelect_450_" + Math.floor(Math.random()*1000);
-  temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPointSelect_450, entityId_GuestCartCollectionPointSelect_450, id_GuestCartCollectionPointSelect_450, { expectedResponseCodes: [200, 201, 204] });
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_420, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -878,10 +838,25 @@ bthread("crud:GuestCartDeliveryOption:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartDeliveryOption
-  let cartId_GuestCartDeliveryOption_460 = GuestCartsId;
-  let id_GuestCartDeliveryOption_460 = "id_GuestCartDeliveryOption_460_" + Math.floor(Math.random()*1000);
-  let selectedOption_GuestCartDeliveryOption_460 = "selectedOption_GuestCartDeliveryOption_460_" + Math.floor(Math.random()*1000);
-  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_460, id_GuestCartDeliveryOption_460, selectedOption_GuestCartDeliveryOption_460, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryOption_430 = GuestCartsId;
+  let id_GuestCartDeliveryOption_430 = "id_GuestCartDeliveryOption_430_" + Math.floor(Math.random()*1000);
+  let selectedOption_GuestCartDeliveryOption_430 = "selectedOption_GuestCartDeliveryOption_430_" + Math.floor(Math.random()*1000);
+  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_430, id_GuestCartDeliveryOption_430, selectedOption_GuestCartDeliveryOption_430, { expectedResponseCodes: [200, 201, 204] });
+
+});
+
+// Story: crud:GuestCartCollectionPointSelect:linear:2
+bthread("crud:GuestCartCollectionPointSelect:linear:2", function () {
+  let deps = {};
+  deps["GuestCarts"] = matchAnyGuestCartsAdded();
+  let pkMap = {"GuestCarts": "cartId"};
+  let captured = resolveDependencies(deps, pkMap);
+  let GuestCartsId = captured["GuestCarts"];
+  // -> Creating GuestCartCollectionPointSelect
+  let cartId_GuestCartCollectionPointSelect_440 = GuestCartsId;
+  let entityId_GuestCartCollectionPointSelect_440 = Math.floor(Math.random() * 1000);
+  let id_GuestCartCollectionPointSelect_440 = "id_GuestCartCollectionPointSelect_440_" + Math.floor(Math.random()*1000);
+  temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPointSelect_440, entityId_GuestCartCollectionPointSelect_440, id_GuestCartCollectionPointSelect_440, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -893,10 +868,10 @@ bthread("crud:GuestCartCheckoutFields:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartCheckoutFields
-  let cartId_GuestCartCheckoutFields_470 = GuestCartsId;
-  let id_GuestCartCheckoutFields_470 = "id_GuestCartCheckoutFields_470_" + Math.floor(Math.random()*1000);
-  let serviceSelection_GuestCartCheckoutFields_470 = [];
-  saveCheckoutFields(cartId_GuestCartCheckoutFields_470, id_GuestCartCheckoutFields_470, serviceSelection_GuestCartCheckoutFields_470, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCheckoutFields_450 = GuestCartsId;
+  let id_GuestCartCheckoutFields_450 = "id_GuestCartCheckoutFields_450_" + Math.floor(Math.random()*1000);
+  let serviceSelection_GuestCartCheckoutFields_450 = [];
+  saveCheckoutFields(cartId_GuestCartCheckoutFields_450, id_GuestCartCheckoutFields_450, serviceSelection_GuestCartCheckoutFields_450, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -908,10 +883,10 @@ bthread("crud:GuestCartPickupLocation:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartPickupLocation
-  let cartId_GuestCartPickupLocation_480 = GuestCartsId;
-  let id_GuestCartPickupLocation_480 = "id_GuestCartPickupLocation_480_" + Math.floor(Math.random()*1000);
-  let pickupLocationId_GuestCartPickupLocation_480 = "pickupLocationId_GuestCartPickupLocation_480_" + Math.floor(Math.random()*1000);
-  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_480, id_GuestCartPickupLocation_480, pickupLocationId_GuestCartPickupLocation_480, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartPickupLocation_460 = GuestCartsId;
+  let id_GuestCartPickupLocation_460 = "id_GuestCartPickupLocation_460_" + Math.floor(Math.random()*1000);
+  let pickupLocationId_GuestCartPickupLocation_460 = "pickupLocationId_GuestCartPickupLocation_460_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_460, id_GuestCartPickupLocation_460, pickupLocationId_GuestCartPickupLocation_460, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -923,42 +898,60 @@ bthread("crud:GuestCartDeliveryPickupLocation:linear:2", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartDeliveryPickupLocation
-  let cartId_GuestCartDeliveryPickupLocation_490 = GuestCartsId;
-  let entityId_GuestCartDeliveryPickupLocation_490 = Math.floor(Math.random() * 1000);
-  let id_GuestCartDeliveryPickupLocation_490 = "id_GuestCartDeliveryPickupLocation_490_" + Math.floor(Math.random()*1000);
-  selectPickupLocation(cartId_GuestCartDeliveryPickupLocation_490, entityId_GuestCartDeliveryPickupLocation_490, id_GuestCartDeliveryPickupLocation_490, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryPickupLocation_470 = GuestCartsId;
+  let entityId_GuestCartDeliveryPickupLocation_470 = Math.floor(Math.random() * 1000);
+  let id_GuestCartDeliveryPickupLocation_470 = "id_GuestCartDeliveryPickupLocation_470_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForDelivery(cartId_GuestCartDeliveryPickupLocation_470, entityId_GuestCartDeliveryPickupLocation_470, id_GuestCartDeliveryPickupLocation_470, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:Customers:linear:3
 bthread("crud:Customers:linear:3", function () {
   // -> Creating Customers
-  let customerId_Customers_500 = Math.floor(Math.random() * 1000);
-  let email_Customers_500 = "email_Customers_500_" + Math.floor(Math.random()*1000);
-  let newPassword_Customers_500 = "newPassword_Customers_500_" + Math.floor(Math.random()*1000);
-  let resetPasswordLinkToken_Customers_500 = "resetPasswordLinkToken_Customers_500_" + Math.floor(Math.random()*1000);
-  let resetToken_Customers_500 = "resetToken_Customers_500_" + Math.floor(Math.random()*1000);
-  let template_Customers_500 = "template_Customers_500_" + Math.floor(Math.random()*1000);
-  let websiteId_Customers_500 = Math.floor(Math.random() * 1000);
-  customerAccountManagementV1ResetPasswordPost(customerId_Customers_500, email_Customers_500, newPassword_Customers_500, resetPasswordLinkToken_Customers_500, resetToken_Customers_500, template_Customers_500, websiteId_Customers_500, { expectedResponseCodes: [200, 201, 204] });
+  let customerAccountManagementV1InitiatePasswordResetPutBody_Customers_480 = {};
+  let customerAccountManagementV1ResetPasswordPostBody_Customers_480 = {};
+  let customerId_Customers_480 = Math.floor(Math.random() * 1000);
+  let email_Customers_480 = "email_Customers_480_" + Math.floor(Math.random()*1000);
+  let newPassword_Customers_480 = "newPassword_Customers_480_" + Math.floor(Math.random()*1000);
+  let resetPasswordLinkToken_Customers_480 = "resetPasswordLinkToken_Customers_480_" + Math.floor(Math.random()*1000);
+  let resetToken_Customers_480 = "resetToken_Customers_480_" + Math.floor(Math.random()*1000);
+  let template_Customers_480 = "template_Customers_480_" + Math.floor(Math.random()*1000);
+  let websiteId_Customers_480 = Math.floor(Math.random() * 1000);
+  customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_Customers_480, customerAccountManagementV1ResetPasswordPostBody_Customers_480, customerId_Customers_480, email_Customers_480, newPassword_Customers_480, resetPasswordLinkToken_Customers_480, resetToken_Customers_480, template_Customers_480, websiteId_Customers_480, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Customers
-  let customerId_Customers_upd_500 = customerId_Customers_500;
-  let email_Customers_upd_500 = "email_Customers_upd_500_" + Math.floor(Math.random()*1000);
-  let newPassword_Customers_upd_500 = "newPassword_Customers_upd_500_" + Math.floor(Math.random()*1000);
-  let resetPasswordLinkToken_Customers_upd_500 = "resetPasswordLinkToken_Customers_upd_500_" + Math.floor(Math.random()*1000);
-  let resetToken_Customers_upd_500 = "resetToken_Customers_upd_500_" + Math.floor(Math.random()*1000);
-  let template_Customers_upd_500 = "template_Customers_upd_500_" + Math.floor(Math.random()*1000);
-  let websiteId_Customers_upd_500 = Math.floor(Math.random() * 1000);
-  customerAccountManagementV1InitiatePasswordResetPut(customerId_Customers_upd_500, email_Customers_upd_500, newPassword_Customers_upd_500, resetPasswordLinkToken_Customers_upd_500, resetToken_Customers_upd_500, template_Customers_upd_500, websiteId_Customers_upd_500, { expectedResponseCodes: [200, 201, 204] });
+  let customerAccountManagementV1InitiatePasswordResetPutBody_Customers_upd_480 = {};
+  let customerAccountManagementV1ResetPasswordPostBody_Customers_upd_480 = {};
+  let customerId_Customers_upd_480 = customerId_Customers_480;
+  let email_Customers_upd_480 = "email_Customers_upd_480_" + Math.floor(Math.random()*1000);
+  let newPassword_Customers_upd_480 = "newPassword_Customers_upd_480_" + Math.floor(Math.random()*1000);
+  let resetPasswordLinkToken_Customers_upd_480 = "resetPasswordLinkToken_Customers_upd_480_" + Math.floor(Math.random()*1000);
+  let resetToken_Customers_upd_480 = "resetToken_Customers_upd_480_" + Math.floor(Math.random()*1000);
+  let template_Customers_upd_480 = "template_Customers_upd_480_" + Math.floor(Math.random()*1000);
+  let websiteId_Customers_upd_480 = Math.floor(Math.random() * 1000);
+  customerAccountManagementV1InitiatePasswordResetPut(customerAccountManagementV1InitiatePasswordResetPutBody_Customers_upd_480, customerAccountManagementV1ResetPasswordPostBody_Customers_upd_480, customerId_Customers_upd_480, email_Customers_upd_480, newPassword_Customers_upd_480, resetPasswordLinkToken_Customers_upd_480, resetToken_Customers_upd_480, template_Customers_upd_480, websiteId_Customers_upd_480, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:GuestCarts:linear:3
 bthread("crud:GuestCarts:linear:3", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_510 = "cartId_GuestCarts_510_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_510, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_490 = {};
+  let addressInformation_GuestCarts_490 = {};
+  let cartId_GuestCarts_490 = "cartId_GuestCarts_490_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_490 = {};
+  let shippingCarrierCode_GuestCarts_490 = "shippingCarrierCode_GuestCarts_490_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_490 = "shippingMethodCode_GuestCarts_490_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_490, addressInformation_GuestCarts_490, cartId_GuestCarts_490, paymentMethod_GuestCarts_490, shippingCarrierCode_GuestCarts_490, shippingMethodCode_GuestCarts_490, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Updating GuestCarts
+  let additionalData_GuestCarts_upd_490 = {};
+  let addressInformation_GuestCarts_upd_490 = {};
+  let cartId_GuestCarts_upd_490 = cartId_GuestCarts_490;
+  let paymentMethod_GuestCarts_upd_490 = {};
+  let shippingCarrierCode_GuestCarts_upd_490 = "shippingCarrierCode_GuestCarts_upd_490_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_upd_490 = "shippingMethodCode_GuestCarts_upd_490_" + Math.floor(Math.random()*1000);
+  quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData_GuestCarts_upd_490, addressInformation_GuestCarts_upd_490, cartId_GuestCarts_upd_490, paymentMethod_GuestCarts_upd_490, shippingCarrierCode_GuestCarts_upd_490, shippingMethodCode_GuestCarts_upd_490, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for GuestCarts to prevent foreign key errors (has active dependents)
 });
@@ -971,10 +964,10 @@ bthread("crud:GuestCartsEstimateShippingMethods:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsEstimateShippingMethods
-  let address_GuestCartsEstimateShippingMethods_520 = "address_GuestCartsEstimateShippingMethods_520_" + Math.floor(Math.random()*1000);
-  let cartId_GuestCartsEstimateShippingMethods_520 = GuestCartsId;
-  let id_GuestCartsEstimateShippingMethods_520 = "id_GuestCartsEstimateShippingMethods_520_" + Math.floor(Math.random()*1000);
-  estimateShippingMethods(address_GuestCartsEstimateShippingMethods_520, cartId_GuestCartsEstimateShippingMethods_520, id_GuestCartsEstimateShippingMethods_520, { expectedResponseCodes: [200, 201, 204] });
+  let address_GuestCartsEstimateShippingMethods_500 = "address_GuestCartsEstimateShippingMethods_500_" + Math.floor(Math.random()*1000);
+  let cartId_GuestCartsEstimateShippingMethods_500 = GuestCartsId;
+  let id_GuestCartsEstimateShippingMethods_500 = "id_GuestCartsEstimateShippingMethods_500_" + Math.floor(Math.random()*1000);
+  estimateShippingMethods(address_GuestCartsEstimateShippingMethods_500, cartId_GuestCartsEstimateShippingMethods_500, id_GuestCartsEstimateShippingMethods_500, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -986,19 +979,19 @@ bthread("crud:GuestCartsItems:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsItems
-  let cartId_GuestCartsItems_530 = GuestCartsId;
-  let cartItem_GuestCartsItems_530 = "cartItem_GuestCartsItems_530_" + Math.floor(Math.random()*1000);
-  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_530 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_530_" + Math.floor(Math.random()*1000);
-  addOrUpdateCartItem(cartId_GuestCartsItems_530, cartItem_GuestCartsItems_530, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_530, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartsItems_510 = GuestCartsId;
+  let cartItem_GuestCartsItems_510 = "cartItem_GuestCartsItems_510_" + Math.floor(Math.random()*1000);
+  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_510 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_510_" + Math.floor(Math.random()*1000);
+  addOrUpdateCartItem(cartId_GuestCartsItems_510, cartItem_GuestCartsItems_510, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_510, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating GuestCartsItems
-  let cartId_GuestCartsItems_upd_530 = cartId_GuestCartsItems_530;
-  let cartItem_GuestCartsItems_upd_530 = "cartItem_GuestCartsItems_upd_530_" + Math.floor(Math.random()*1000);
-  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_530 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_530_" + Math.floor(Math.random()*1000);
-  quoteGuestCartManagementV1PlaceOrderPut(cartId_GuestCartsItems_upd_530, cartItem_GuestCartsItems_upd_530, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_530, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartsItems_upd_510 = cartId_GuestCartsItems_510;
+  let cartItem_GuestCartsItems_upd_510 = "cartItem_GuestCartsItems_upd_510_" + Math.floor(Math.random()*1000);
+  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_510 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_510_" + Math.floor(Math.random()*1000);
+  quoteGuestCartManagementV1PlaceOrderPut(cartId_GuestCartsItems_upd_510, cartItem_GuestCartsItems_upd_510, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_upd_510, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting GuestCartsItems
-  quoteGuestCouponManagementV1RemoveDelete(cartId_GuestCartsItems_530, { expectedResponseCodes: [200, 201, 204] });
+  quoteGuestCouponManagementV1RemoveDelete(cartId_GuestCartsItems_510, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1010,47 +1003,20 @@ bthread("crud:GuestCartsBillingAddress:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsBillingAddress
-  let address_GuestCartsBillingAddress_540 = {};
-  let cartId_GuestCartsBillingAddress_540 = GuestCartsId;
-  let useForShipping_GuestCartsBillingAddress_540 = true;
-  quoteGuestBillingAddressManagementV1AssignPost(address_GuestCartsBillingAddress_540, cartId_GuestCartsBillingAddress_540, useForShipping_GuestCartsBillingAddress_540, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: crud:GuestCartTotals:linear:3
-bthread("crud:GuestCartTotals:linear:3", function () {
-  let deps = {};
-  deps["GuestCarts"] = matchAnyGuestCartsAdded();
-  let pkMap = {"GuestCarts": "cartId"};
-  let captured = resolveDependencies(deps, pkMap);
-  let GuestCartsId = captured["GuestCarts"];
-  // -> Creating GuestCartTotals
-  let additionalData_GuestCartTotals_550 = "additionalData_GuestCartTotals_550_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_550 = {};
-  let cartId_GuestCartTotals_550 = GuestCartsId;
-  let paymentMethod_GuestCartTotals_550 = "paymentMethod_GuestCartTotals_550_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_550 = "shippingCarrierCode_GuestCartTotals_550_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_550 = "shippingMethodCode_GuestCartTotals_550_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCartTotals_550, addressInformation_GuestCartTotals_550, cartId_GuestCartTotals_550, paymentMethod_GuestCartTotals_550, shippingCarrierCode_GuestCartTotals_550, shippingMethodCode_GuestCartTotals_550, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Updating GuestCartTotals
-  let additionalData_GuestCartTotals_upd_550 = "additionalData_GuestCartTotals_upd_550_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_upd_550 = {};
-  let cartId_GuestCartTotals_upd_550 = cartId_GuestCartTotals_550;
-  let paymentMethod_GuestCartTotals_upd_550 = "paymentMethod_GuestCartTotals_upd_550_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_upd_550 = "shippingCarrierCode_GuestCartTotals_upd_550_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_upd_550 = "shippingMethodCode_GuestCartTotals_upd_550_" + Math.floor(Math.random()*1000);
-  quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData_GuestCartTotals_upd_550, addressInformation_GuestCartTotals_upd_550, cartId_GuestCartTotals_upd_550, paymentMethod_GuestCartTotals_upd_550, shippingCarrierCode_GuestCartTotals_upd_550, shippingMethodCode_GuestCartTotals_upd_550, { expectedResponseCodes: [200, 201, 204] });
+  let address_GuestCartsBillingAddress_520 = {};
+  let cartId_GuestCartsBillingAddress_520 = GuestCartsId;
+  let useForShipping_GuestCartsBillingAddress_520 = true;
+  quoteGuestBillingAddressManagementV1AssignPost(address_GuestCartsBillingAddress_520, cartId_GuestCartsBillingAddress_520, useForShipping_GuestCartsBillingAddress_520, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:AdminToken:linear:3
 bthread("crud:AdminToken:linear:3", function () {
   // -> Creating AdminToken
-  let id_AdminToken_560 = "id_AdminToken_560_" + Math.floor(Math.random()*1000);
-  let password_AdminToken_560 = "password_AdminToken_560_" + Math.floor(Math.random()*1000);
-  let username_AdminToken_560 = "username_AdminToken_560_" + Math.floor(Math.random()*1000);
-  integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id_AdminToken_560, password_AdminToken_560, username_AdminToken_560, { expectedResponseCodes: [200, 201, 204] });
+  let id_AdminToken_530 = "id_AdminToken_530_" + Math.floor(Math.random()*1000);
+  let password_AdminToken_530 = "password_AdminToken_530_" + Math.floor(Math.random()*1000);
+  let username_AdminToken_530 = "username_AdminToken_530_" + Math.floor(Math.random()*1000);
+  integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id_AdminToken_530, password_AdminToken_530, username_AdminToken_530, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1062,9 +1028,9 @@ bthread("crud:GuestCartsPaymentInformation:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsPaymentInformation
-  let addressInformation_GuestCartsPaymentInformation_570 = {};
-  let cartId_GuestCartsPaymentInformation_570 = GuestCartsId;
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_570, cartId_GuestCartsPaymentInformation_570, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsPaymentInformation_540 = {};
+  let cartId_GuestCartsPaymentInformation_540 = GuestCartsId;
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_540, cartId_GuestCartsPaymentInformation_540, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1076,12 +1042,12 @@ bthread("crud:GuestCartsSetPaymentInformation:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsSetPaymentInformation
-  let billingAddress_GuestCartsSetPaymentInformation_580 = {};
-  let cartId_GuestCartsSetPaymentInformation_580 = GuestCartsId;
-  let email_GuestCartsSetPaymentInformation_580 = "email_GuestCartsSetPaymentInformation_580_" + Math.floor(Math.random()*1000);
-  let id_GuestCartsSetPaymentInformation_580 = "id_GuestCartsSetPaymentInformation_580_" + Math.floor(Math.random()*1000);
-  let paymentMethod_GuestCartsSetPaymentInformation_580 = {};
-  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_580, cartId_GuestCartsSetPaymentInformation_580, email_GuestCartsSetPaymentInformation_580, id_GuestCartsSetPaymentInformation_580, paymentMethod_GuestCartsSetPaymentInformation_580, { expectedResponseCodes: [200, 201, 204] });
+  let billingAddress_GuestCartsSetPaymentInformation_550 = {};
+  let cartId_GuestCartsSetPaymentInformation_550 = GuestCartsId;
+  let email_GuestCartsSetPaymentInformation_550 = "email_GuestCartsSetPaymentInformation_550_" + Math.floor(Math.random()*1000);
+  let id_GuestCartsSetPaymentInformation_550 = "id_GuestCartsSetPaymentInformation_550_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCartsSetPaymentInformation_550 = {};
+  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_550, cartId_GuestCartsSetPaymentInformation_550, email_GuestCartsSetPaymentInformation_550, id_GuestCartsSetPaymentInformation_550, paymentMethod_GuestCartsSetPaymentInformation_550, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1093,10 +1059,10 @@ bthread("crud:GuestCartsShippingInformation:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsShippingInformation
-  let addressInformation_GuestCartsShippingInformation_590 = {};
-  let cartId_GuestCartsShippingInformation_590 = GuestCartsId;
-  let id_GuestCartsShippingInformation_590 = "id_GuestCartsShippingInformation_590_" + Math.floor(Math.random()*1000);
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_590, cartId_GuestCartsShippingInformation_590, id_GuestCartsShippingInformation_590, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsShippingInformation_560 = {};
+  let cartId_GuestCartsShippingInformation_560 = GuestCartsId;
+  let id_GuestCartsShippingInformation_560 = "id_GuestCartsShippingInformation_560_" + Math.floor(Math.random()*1000);
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_560, cartId_GuestCartsShippingInformation_560, id_GuestCartsShippingInformation_560, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1108,20 +1074,20 @@ bthread("crud:GuestCartsTotalsInformation:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartsTotalsInformation
-  let addressInformation_GuestCartsTotalsInformation_600 = {};
-  let cartId_GuestCartsTotalsInformation_600 = GuestCartsId;
-  let id_GuestCartsTotalsInformation_600 = "id_GuestCartsTotalsInformation_600_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_600, cartId_GuestCartsTotalsInformation_600, id_GuestCartsTotalsInformation_600, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsTotalsInformation_570 = {};
+  let cartId_GuestCartsTotalsInformation_570 = GuestCartsId;
+  let id_GuestCartsTotalsInformation_570 = "id_GuestCartsTotalsInformation_570_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_570, cartId_GuestCartsTotalsInformation_570, id_GuestCartsTotalsInformation_570, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:CustomerToken:linear:3
 bthread("crud:CustomerToken:linear:3", function () {
   // -> Creating CustomerToken
-  let id_CustomerToken_610 = "id_CustomerToken_610_" + Math.floor(Math.random()*1000);
-  let password_CustomerToken_610 = "password_CustomerToken_610_" + Math.floor(Math.random()*1000);
-  let username_CustomerToken_610 = "username_CustomerToken_610_" + Math.floor(Math.random()*1000);
-  integrationCustomerTokenServiceV1CreateCustomerAccessTokenPost(id_CustomerToken_610, password_CustomerToken_610, username_CustomerToken_610, { expectedResponseCodes: [200, 201, 204] });
+  let id_CustomerToken_580 = "id_CustomerToken_580_" + Math.floor(Math.random()*1000);
+  let password_CustomerToken_580 = "password_CustomerToken_580_" + Math.floor(Math.random()*1000);
+  let username_CustomerToken_580 = "username_CustomerToken_580_" + Math.floor(Math.random()*1000);
+  integrationCustomerTokenServiceV1CreateCustomerAccessTokenPost(id_CustomerToken_580, password_CustomerToken_580, username_CustomerToken_580, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1133,9 +1099,9 @@ bthread("crud:GuestCartGiftMessage:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartGiftMessage
-  let cartId_GuestCartGiftMessage_620 = GuestCartsId;
-  let giftMessage_GuestCartGiftMessage_620 = {};
-  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_620, giftMessage_GuestCartGiftMessage_620, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartGiftMessage_590 = GuestCartsId;
+  let giftMessage_GuestCartGiftMessage_590 = {};
+  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_590, giftMessage_GuestCartGiftMessage_590, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1147,10 +1113,10 @@ bthread("crud:GuestItemGiftMessage:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestItemGiftMessage
-  let cartId_GuestItemGiftMessage_630 = GuestCartsId;
-  let giftMessage_GuestItemGiftMessage_630 = {};
-  let itemId_GuestItemGiftMessage_630 = Math.floor(Math.random() * 1000);
-  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_630, giftMessage_GuestItemGiftMessage_630, itemId_GuestItemGiftMessage_630, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestItemGiftMessage_600 = GuestCartsId;
+  let giftMessage_GuestItemGiftMessage_600 = {};
+  let itemId_GuestItemGiftMessage_600 = Math.floor(Math.random() * 1000);
+  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_600, giftMessage_GuestItemGiftMessage_600, itemId_GuestItemGiftMessage_600, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1162,36 +1128,21 @@ bthread("crud:GuestCartCollectionPoint:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_640 = GuestCartsId;
-  let collectionPointId_GuestCartCollectionPoint_640 = "collectionPointId_GuestCartCollectionPoint_640_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_640 = "countryId_GuestCartCollectionPoint_640_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_640 = "postcode_GuestCartCollectionPoint_640_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_640, collectionPointId_GuestCartCollectionPoint_640, countryId_GuestCartCollectionPoint_640, postcode_GuestCartCollectionPoint_640, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_610 = GuestCartsId;
+  let collectionPointId_GuestCartCollectionPoint_610 = "collectionPointId_GuestCartCollectionPoint_610_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_610 = "countryId_GuestCartCollectionPoint_610_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_610 = "postcode_GuestCartCollectionPoint_610_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_610, collectionPointId_GuestCartCollectionPoint_610, countryId_GuestCartCollectionPoint_610, postcode_GuestCartCollectionPoint_610, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_upd_640 = cartId_GuestCartCollectionPoint_640;
-  let collectionPointId_GuestCartCollectionPoint_upd_640 = "collectionPointId_GuestCartCollectionPoint_upd_640_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_upd_640 = "countryId_GuestCartCollectionPoint_upd_640_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_upd_640 = "postcode_GuestCartCollectionPoint_upd_640_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SaveSearchRequestPut(cartId_GuestCartCollectionPoint_upd_640, collectionPointId_GuestCartCollectionPoint_upd_640, countryId_GuestCartCollectionPoint_upd_640, postcode_GuestCartCollectionPoint_upd_640, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_upd_610 = cartId_GuestCartCollectionPoint_610;
+  let collectionPointId_GuestCartCollectionPoint_upd_610 = "collectionPointId_GuestCartCollectionPoint_upd_610_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_upd_610 = "countryId_GuestCartCollectionPoint_upd_610_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_upd_610 = "postcode_GuestCartCollectionPoint_upd_610_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SaveSearchRequestPut(cartId_GuestCartCollectionPoint_upd_610, collectionPointId_GuestCartCollectionPoint_upd_610, countryId_GuestCartCollectionPoint_upd_610, postcode_GuestCartCollectionPoint_upd_610, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting GuestCartCollectionPoint
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_640, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: crud:GuestCartCollectionPointSelect:linear:3
-bthread("crud:GuestCartCollectionPointSelect:linear:3", function () {
-  let deps = {};
-  deps["GuestCarts"] = matchAnyGuestCartsAdded();
-  let pkMap = {"GuestCarts": "cartId"};
-  let captured = resolveDependencies(deps, pkMap);
-  let GuestCartsId = captured["GuestCarts"];
-  // -> Creating GuestCartCollectionPointSelect
-  let cartId_GuestCartCollectionPointSelect_650 = GuestCartsId;
-  let entityId_GuestCartCollectionPointSelect_650 = Math.floor(Math.random() * 1000);
-  let id_GuestCartCollectionPointSelect_650 = "id_GuestCartCollectionPointSelect_650_" + Math.floor(Math.random()*1000);
-  temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPointSelect_650, entityId_GuestCartCollectionPointSelect_650, id_GuestCartCollectionPointSelect_650, { expectedResponseCodes: [200, 201, 204] });
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_610, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1203,10 +1154,25 @@ bthread("crud:GuestCartDeliveryOption:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartDeliveryOption
-  let cartId_GuestCartDeliveryOption_660 = GuestCartsId;
-  let id_GuestCartDeliveryOption_660 = "id_GuestCartDeliveryOption_660_" + Math.floor(Math.random()*1000);
-  let selectedOption_GuestCartDeliveryOption_660 = "selectedOption_GuestCartDeliveryOption_660_" + Math.floor(Math.random()*1000);
-  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_660, id_GuestCartDeliveryOption_660, selectedOption_GuestCartDeliveryOption_660, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryOption_620 = GuestCartsId;
+  let id_GuestCartDeliveryOption_620 = "id_GuestCartDeliveryOption_620_" + Math.floor(Math.random()*1000);
+  let selectedOption_GuestCartDeliveryOption_620 = "selectedOption_GuestCartDeliveryOption_620_" + Math.floor(Math.random()*1000);
+  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_620, id_GuestCartDeliveryOption_620, selectedOption_GuestCartDeliveryOption_620, { expectedResponseCodes: [200, 201, 204] });
+
+});
+
+// Story: crud:GuestCartCollectionPointSelect:linear:3
+bthread("crud:GuestCartCollectionPointSelect:linear:3", function () {
+  let deps = {};
+  deps["GuestCarts"] = matchAnyGuestCartsAdded();
+  let pkMap = {"GuestCarts": "cartId"};
+  let captured = resolveDependencies(deps, pkMap);
+  let GuestCartsId = captured["GuestCarts"];
+  // -> Creating GuestCartCollectionPointSelect
+  let cartId_GuestCartCollectionPointSelect_630 = GuestCartsId;
+  let entityId_GuestCartCollectionPointSelect_630 = Math.floor(Math.random() * 1000);
+  let id_GuestCartCollectionPointSelect_630 = "id_GuestCartCollectionPointSelect_630_" + Math.floor(Math.random()*1000);
+  temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPointSelect_630, entityId_GuestCartCollectionPointSelect_630, id_GuestCartCollectionPointSelect_630, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1218,10 +1184,10 @@ bthread("crud:GuestCartCheckoutFields:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartCheckoutFields
-  let cartId_GuestCartCheckoutFields_670 = GuestCartsId;
-  let id_GuestCartCheckoutFields_670 = "id_GuestCartCheckoutFields_670_" + Math.floor(Math.random()*1000);
-  let serviceSelection_GuestCartCheckoutFields_670 = [];
-  saveCheckoutFields(cartId_GuestCartCheckoutFields_670, id_GuestCartCheckoutFields_670, serviceSelection_GuestCartCheckoutFields_670, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCheckoutFields_640 = GuestCartsId;
+  let id_GuestCartCheckoutFields_640 = "id_GuestCartCheckoutFields_640_" + Math.floor(Math.random()*1000);
+  let serviceSelection_GuestCartCheckoutFields_640 = [];
+  saveCheckoutFields(cartId_GuestCartCheckoutFields_640, id_GuestCartCheckoutFields_640, serviceSelection_GuestCartCheckoutFields_640, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1233,10 +1199,10 @@ bthread("crud:GuestCartPickupLocation:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartPickupLocation
-  let cartId_GuestCartPickupLocation_680 = GuestCartsId;
-  let id_GuestCartPickupLocation_680 = "id_GuestCartPickupLocation_680_" + Math.floor(Math.random()*1000);
-  let pickupLocationId_GuestCartPickupLocation_680 = "pickupLocationId_GuestCartPickupLocation_680_" + Math.floor(Math.random()*1000);
-  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_680, id_GuestCartPickupLocation_680, pickupLocationId_GuestCartPickupLocation_680, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartPickupLocation_650 = GuestCartsId;
+  let id_GuestCartPickupLocation_650 = "id_GuestCartPickupLocation_650_" + Math.floor(Math.random()*1000);
+  let pickupLocationId_GuestCartPickupLocation_650 = "pickupLocationId_GuestCartPickupLocation_650_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_650, id_GuestCartPickupLocation_650, pickupLocationId_GuestCartPickupLocation_650, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1248,24 +1214,29 @@ bthread("crud:GuestCartDeliveryPickupLocation:linear:3", function () {
   let captured = resolveDependencies(deps, pkMap);
   let GuestCartsId = captured["GuestCarts"];
   // -> Creating GuestCartDeliveryPickupLocation
-  let cartId_GuestCartDeliveryPickupLocation_690 = GuestCartsId;
-  let entityId_GuestCartDeliveryPickupLocation_690 = Math.floor(Math.random() * 1000);
-  let id_GuestCartDeliveryPickupLocation_690 = "id_GuestCartDeliveryPickupLocation_690_" + Math.floor(Math.random()*1000);
-  selectPickupLocation(cartId_GuestCartDeliveryPickupLocation_690, entityId_GuestCartDeliveryPickupLocation_690, id_GuestCartDeliveryPickupLocation_690, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryPickupLocation_660 = GuestCartsId;
+  let entityId_GuestCartDeliveryPickupLocation_660 = Math.floor(Math.random() * 1000);
+  let id_GuestCartDeliveryPickupLocation_660 = "id_GuestCartDeliveryPickupLocation_660_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForDelivery(cartId_GuestCartDeliveryPickupLocation_660, entityId_GuestCartDeliveryPickupLocation_660, id_GuestCartDeliveryPickupLocation_660, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: Deep Chain GuestCarts_GuestCartsEstimateShippingMethods (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsEstimateShippingMethods", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_700 = "cartId_GuestCarts_700_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_700, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_670 = {};
+  let addressInformation_GuestCarts_670 = {};
+  let cartId_GuestCarts_670 = "cartId_GuestCarts_670_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_670 = {};
+  let shippingCarrierCode_GuestCarts_670 = "shippingCarrierCode_GuestCarts_670_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_670 = "shippingMethodCode_GuestCarts_670_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_670, addressInformation_GuestCarts_670, cartId_GuestCarts_670, paymentMethod_GuestCarts_670, shippingCarrierCode_GuestCarts_670, shippingMethodCode_GuestCarts_670, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsEstimateShippingMethods
-  let address_GuestCartsEstimateShippingMethods_700 = "address_GuestCartsEstimateShippingMethods_700_" + Math.floor(Math.random()*1000);
-  let cartId_GuestCartsEstimateShippingMethods_700 = cartId_GuestCarts_700;
-  let id_GuestCartsEstimateShippingMethods_700 = "id_GuestCartsEstimateShippingMethods_700_" + Math.floor(Math.random()*1000);
-  estimateShippingMethods(address_GuestCartsEstimateShippingMethods_700, cartId_GuestCartsEstimateShippingMethods_700, id_GuestCartsEstimateShippingMethods_700, { expectedResponseCodes: [200, 201, 204] });
+  let address_GuestCartsEstimateShippingMethods_670 = "address_GuestCartsEstimateShippingMethods_670_" + Math.floor(Math.random()*1000);
+  let cartId_GuestCartsEstimateShippingMethods_670 = cartId_GuestCarts_670;
+  let id_GuestCartsEstimateShippingMethods_670 = "id_GuestCartsEstimateShippingMethods_670_" + Math.floor(Math.random()*1000);
+  estimateShippingMethods(address_GuestCartsEstimateShippingMethods_670, cartId_GuestCartsEstimateShippingMethods_670, id_GuestCartsEstimateShippingMethods_670, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1273,50 +1244,42 @@ bthread("chain:GuestCarts_GuestCartsEstimateShippingMethods", function () {
 // Story: Deep Chain GuestCarts_GuestCartsItems (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsItems", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_800 = "cartId_GuestCarts_800_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_800, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_770 = {};
+  let addressInformation_GuestCarts_770 = {};
+  let cartId_GuestCarts_770 = "cartId_GuestCarts_770_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_770 = {};
+  let shippingCarrierCode_GuestCarts_770 = "shippingCarrierCode_GuestCarts_770_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_770 = "shippingMethodCode_GuestCarts_770_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_770, addressInformation_GuestCarts_770, cartId_GuestCarts_770, paymentMethod_GuestCarts_770, shippingCarrierCode_GuestCarts_770, shippingMethodCode_GuestCarts_770, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsItems
-  let cartId_GuestCartsItems_800 = cartId_GuestCarts_800;
-  let cartItem_GuestCartsItems_800 = "cartItem_GuestCartsItems_800_" + Math.floor(Math.random()*1000);
-  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_800 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_800_" + Math.floor(Math.random()*1000);
-  addOrUpdateCartItem(cartId_GuestCartsItems_800, cartItem_GuestCartsItems_800, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_800, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartsItems_770 = cartId_GuestCarts_770;
+  let cartItem_GuestCartsItems_770 = "cartItem_GuestCartsItems_770_" + Math.floor(Math.random()*1000);
+  let quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_770 = "quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_770_" + Math.floor(Math.random()*1000);
+  addOrUpdateCartItem(cartId_GuestCartsItems_770, cartItem_GuestCartsItems_770, quoteGuestCartManagementV1PlaceOrderPutBody_GuestCartsItems_770, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
   // -> Deleting GuestCartsItems
-  quoteGuestCouponManagementV1RemoveDelete(cartId_GuestCartsItems_800, { expectedResponseCodes: [200, 201, 204] });
+  quoteGuestCouponManagementV1RemoveDelete(cartId_GuestCartsItems_770, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: Deep Chain GuestCarts_GuestCartsBillingAddress (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsBillingAddress", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_900 = "cartId_GuestCarts_900_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_900, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_870 = {};
+  let addressInformation_GuestCarts_870 = {};
+  let cartId_GuestCarts_870 = "cartId_GuestCarts_870_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_870 = {};
+  let shippingCarrierCode_GuestCarts_870 = "shippingCarrierCode_GuestCarts_870_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_870 = "shippingMethodCode_GuestCarts_870_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_870, addressInformation_GuestCarts_870, cartId_GuestCarts_870, paymentMethod_GuestCarts_870, shippingCarrierCode_GuestCarts_870, shippingMethodCode_GuestCarts_870, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsBillingAddress
-  let address_GuestCartsBillingAddress_900 = {};
-  let cartId_GuestCartsBillingAddress_900 = cartId_GuestCarts_900;
-  let useForShipping_GuestCartsBillingAddress_900 = true;
-  quoteGuestBillingAddressManagementV1AssignPost(address_GuestCartsBillingAddress_900, cartId_GuestCartsBillingAddress_900, useForShipping_GuestCartsBillingAddress_900, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
-});
-
-// Story: Deep Chain GuestCarts_GuestCartTotals (Self-Contained)
-bthread("chain:GuestCarts_GuestCartTotals", function () {
-  // -> Creating GuestCarts
-  let cartId_GuestCarts_1000 = "cartId_GuestCarts_1000_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1000, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating GuestCartTotals
-  let additionalData_GuestCartTotals_1000 = "additionalData_GuestCartTotals_1000_" + Math.floor(Math.random()*1000);
-  let addressInformation_GuestCartTotals_1000 = {};
-  let cartId_GuestCartTotals_1000 = cartId_GuestCarts_1000;
-  let paymentMethod_GuestCartTotals_1000 = "paymentMethod_GuestCartTotals_1000_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_GuestCartTotals_1000 = "shippingCarrierCode_GuestCartTotals_1000_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_GuestCartTotals_1000 = "shippingMethodCode_GuestCartTotals_1000_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCartTotals_1000, addressInformation_GuestCartTotals_1000, cartId_GuestCartTotals_1000, paymentMethod_GuestCartTotals_1000, shippingCarrierCode_GuestCartTotals_1000, shippingMethodCode_GuestCartTotals_1000, { expectedResponseCodes: [200, 201, 204] });
+  let address_GuestCartsBillingAddress_870 = {};
+  let cartId_GuestCartsBillingAddress_870 = cartId_GuestCarts_870;
+  let useForShipping_GuestCartsBillingAddress_870 = true;
+  quoteGuestBillingAddressManagementV1AssignPost(address_GuestCartsBillingAddress_870, cartId_GuestCartsBillingAddress_870, useForShipping_GuestCartsBillingAddress_870, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1324,13 +1287,18 @@ bthread("chain:GuestCarts_GuestCartTotals", function () {
 // Story: Deep Chain GuestCarts_GuestCartsPaymentInformation (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsPaymentInformation", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1100 = "cartId_GuestCarts_1100_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1100, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_970 = {};
+  let addressInformation_GuestCarts_970 = {};
+  let cartId_GuestCarts_970 = "cartId_GuestCarts_970_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_970 = {};
+  let shippingCarrierCode_GuestCarts_970 = "shippingCarrierCode_GuestCarts_970_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_970 = "shippingMethodCode_GuestCarts_970_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_970, addressInformation_GuestCarts_970, cartId_GuestCarts_970, paymentMethod_GuestCarts_970, shippingCarrierCode_GuestCarts_970, shippingMethodCode_GuestCarts_970, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsPaymentInformation
-  let addressInformation_GuestCartsPaymentInformation_1100 = {};
-  let cartId_GuestCartsPaymentInformation_1100 = cartId_GuestCarts_1100;
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_1100, cartId_GuestCartsPaymentInformation_1100, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsPaymentInformation_970 = {};
+  let cartId_GuestCartsPaymentInformation_970 = cartId_GuestCarts_970;
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsPaymentInformation_970, cartId_GuestCartsPaymentInformation_970, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1338,16 +1306,21 @@ bthread("chain:GuestCarts_GuestCartsPaymentInformation", function () {
 // Story: Deep Chain GuestCarts_GuestCartsSetPaymentInformation (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsSetPaymentInformation", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1200 = "cartId_GuestCarts_1200_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1200, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1070 = {};
+  let addressInformation_GuestCarts_1070 = {};
+  let cartId_GuestCarts_1070 = "cartId_GuestCarts_1070_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1070 = {};
+  let shippingCarrierCode_GuestCarts_1070 = "shippingCarrierCode_GuestCarts_1070_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1070 = "shippingMethodCode_GuestCarts_1070_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1070, addressInformation_GuestCarts_1070, cartId_GuestCarts_1070, paymentMethod_GuestCarts_1070, shippingCarrierCode_GuestCarts_1070, shippingMethodCode_GuestCarts_1070, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsSetPaymentInformation
-  let billingAddress_GuestCartsSetPaymentInformation_1200 = {};
-  let cartId_GuestCartsSetPaymentInformation_1200 = cartId_GuestCarts_1200;
-  let email_GuestCartsSetPaymentInformation_1200 = "email_GuestCartsSetPaymentInformation_1200_" + Math.floor(Math.random()*1000);
-  let id_GuestCartsSetPaymentInformation_1200 = "id_GuestCartsSetPaymentInformation_1200_" + Math.floor(Math.random()*1000);
-  let paymentMethod_GuestCartsSetPaymentInformation_1200 = {};
-  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_1200, cartId_GuestCartsSetPaymentInformation_1200, email_GuestCartsSetPaymentInformation_1200, id_GuestCartsSetPaymentInformation_1200, paymentMethod_GuestCartsSetPaymentInformation_1200, { expectedResponseCodes: [200, 201, 204] });
+  let billingAddress_GuestCartsSetPaymentInformation_1070 = {};
+  let cartId_GuestCartsSetPaymentInformation_1070 = cartId_GuestCarts_1070;
+  let email_GuestCartsSetPaymentInformation_1070 = "email_GuestCartsSetPaymentInformation_1070_" + Math.floor(Math.random()*1000);
+  let id_GuestCartsSetPaymentInformation_1070 = "id_GuestCartsSetPaymentInformation_1070_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCartsSetPaymentInformation_1070 = {};
+  checkoutGuestPaymentInformationManagementV1SavePaymentInformationPost(billingAddress_GuestCartsSetPaymentInformation_1070, cartId_GuestCartsSetPaymentInformation_1070, email_GuestCartsSetPaymentInformation_1070, id_GuestCartsSetPaymentInformation_1070, paymentMethod_GuestCartsSetPaymentInformation_1070, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1355,14 +1328,19 @@ bthread("chain:GuestCarts_GuestCartsSetPaymentInformation", function () {
 // Story: Deep Chain GuestCarts_GuestCartsShippingInformation (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsShippingInformation", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1300 = "cartId_GuestCarts_1300_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1300, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1170 = {};
+  let addressInformation_GuestCarts_1170 = {};
+  let cartId_GuestCarts_1170 = "cartId_GuestCarts_1170_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1170 = {};
+  let shippingCarrierCode_GuestCarts_1170 = "shippingCarrierCode_GuestCarts_1170_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1170 = "shippingMethodCode_GuestCarts_1170_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1170, addressInformation_GuestCarts_1170, cartId_GuestCarts_1170, paymentMethod_GuestCarts_1170, shippingCarrierCode_GuestCarts_1170, shippingMethodCode_GuestCarts_1170, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsShippingInformation
-  let addressInformation_GuestCartsShippingInformation_1300 = {};
-  let cartId_GuestCartsShippingInformation_1300 = cartId_GuestCarts_1300;
-  let id_GuestCartsShippingInformation_1300 = "id_GuestCartsShippingInformation_1300_" + Math.floor(Math.random()*1000);
-  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_1300, cartId_GuestCartsShippingInformation_1300, id_GuestCartsShippingInformation_1300, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsShippingInformation_1170 = {};
+  let cartId_GuestCartsShippingInformation_1170 = cartId_GuestCarts_1170;
+  let id_GuestCartsShippingInformation_1170 = "id_GuestCartsShippingInformation_1170_" + Math.floor(Math.random()*1000);
+  checkoutGuestShippingInformationManagementV1SaveAddressInformationPost(addressInformation_GuestCartsShippingInformation_1170, cartId_GuestCartsShippingInformation_1170, id_GuestCartsShippingInformation_1170, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1370,14 +1348,19 @@ bthread("chain:GuestCarts_GuestCartsShippingInformation", function () {
 // Story: Deep Chain GuestCarts_GuestCartsTotalsInformation (Self-Contained)
 bthread("chain:GuestCarts_GuestCartsTotalsInformation", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1400 = "cartId_GuestCarts_1400_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1400, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1270 = {};
+  let addressInformation_GuestCarts_1270 = {};
+  let cartId_GuestCarts_1270 = "cartId_GuestCarts_1270_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1270 = {};
+  let shippingCarrierCode_GuestCarts_1270 = "shippingCarrierCode_GuestCarts_1270_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1270 = "shippingMethodCode_GuestCarts_1270_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1270, addressInformation_GuestCarts_1270, cartId_GuestCarts_1270, paymentMethod_GuestCarts_1270, shippingCarrierCode_GuestCarts_1270, shippingMethodCode_GuestCarts_1270, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartsTotalsInformation
-  let addressInformation_GuestCartsTotalsInformation_1400 = {};
-  let cartId_GuestCartsTotalsInformation_1400 = cartId_GuestCarts_1400;
-  let id_GuestCartsTotalsInformation_1400 = "id_GuestCartsTotalsInformation_1400_" + Math.floor(Math.random()*1000);
-  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_1400, cartId_GuestCartsTotalsInformation_1400, id_GuestCartsTotalsInformation_1400, { expectedResponseCodes: [200, 201, 204] });
+  let addressInformation_GuestCartsTotalsInformation_1270 = {};
+  let cartId_GuestCartsTotalsInformation_1270 = cartId_GuestCarts_1270;
+  let id_GuestCartsTotalsInformation_1270 = "id_GuestCartsTotalsInformation_1270_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(addressInformation_GuestCartsTotalsInformation_1270, cartId_GuestCartsTotalsInformation_1270, id_GuestCartsTotalsInformation_1270, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1385,13 +1368,18 @@ bthread("chain:GuestCarts_GuestCartsTotalsInformation", function () {
 // Story: Deep Chain GuestCarts_GuestCartGiftMessage (Self-Contained)
 bthread("chain:GuestCarts_GuestCartGiftMessage", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1500 = "cartId_GuestCarts_1500_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1500, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1370 = {};
+  let addressInformation_GuestCarts_1370 = {};
+  let cartId_GuestCarts_1370 = "cartId_GuestCarts_1370_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1370 = {};
+  let shippingCarrierCode_GuestCarts_1370 = "shippingCarrierCode_GuestCarts_1370_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1370 = "shippingMethodCode_GuestCarts_1370_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1370, addressInformation_GuestCarts_1370, cartId_GuestCarts_1370, paymentMethod_GuestCarts_1370, shippingCarrierCode_GuestCarts_1370, shippingMethodCode_GuestCarts_1370, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartGiftMessage
-  let cartId_GuestCartGiftMessage_1500 = cartId_GuestCarts_1500;
-  let giftMessage_GuestCartGiftMessage_1500 = {};
-  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_1500, giftMessage_GuestCartGiftMessage_1500, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartGiftMessage_1370 = cartId_GuestCarts_1370;
+  let giftMessage_GuestCartGiftMessage_1370 = {};
+  giftMessageGuestCartRepositoryV1SavePost(cartId_GuestCartGiftMessage_1370, giftMessage_GuestCartGiftMessage_1370, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1399,14 +1387,19 @@ bthread("chain:GuestCarts_GuestCartGiftMessage", function () {
 // Story: Deep Chain GuestCarts_GuestItemGiftMessage (Self-Contained)
 bthread("chain:GuestCarts_GuestItemGiftMessage", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1600 = "cartId_GuestCarts_1600_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1600, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1470 = {};
+  let addressInformation_GuestCarts_1470 = {};
+  let cartId_GuestCarts_1470 = "cartId_GuestCarts_1470_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1470 = {};
+  let shippingCarrierCode_GuestCarts_1470 = "shippingCarrierCode_GuestCarts_1470_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1470 = "shippingMethodCode_GuestCarts_1470_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1470, addressInformation_GuestCarts_1470, cartId_GuestCarts_1470, paymentMethod_GuestCarts_1470, shippingCarrierCode_GuestCarts_1470, shippingMethodCode_GuestCarts_1470, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestItemGiftMessage
-  let cartId_GuestItemGiftMessage_1600 = cartId_GuestCarts_1600;
-  let giftMessage_GuestItemGiftMessage_1600 = {};
-  let itemId_GuestItemGiftMessage_1600 = Math.floor(Math.random() * 1000);
-  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_1600, giftMessage_GuestItemGiftMessage_1600, itemId_GuestItemGiftMessage_1600, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestItemGiftMessage_1470 = cartId_GuestCarts_1470;
+  let giftMessage_GuestItemGiftMessage_1470 = {};
+  let itemId_GuestItemGiftMessage_1470 = Math.floor(Math.random() * 1000);
+  giftMessageGuestItemRepositoryV1SavePost(cartId_GuestItemGiftMessage_1470, giftMessage_GuestItemGiftMessage_1470, itemId_GuestItemGiftMessage_1470, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1414,48 +1407,63 @@ bthread("chain:GuestCarts_GuestItemGiftMessage", function () {
 // Story: Deep Chain GuestCarts_GuestCartCollectionPoint (Self-Contained)
 bthread("chain:GuestCarts_GuestCartCollectionPoint", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1700 = "cartId_GuestCarts_1700_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1700, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1570 = {};
+  let addressInformation_GuestCarts_1570 = {};
+  let cartId_GuestCarts_1570 = "cartId_GuestCarts_1570_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1570 = {};
+  let shippingCarrierCode_GuestCarts_1570 = "shippingCarrierCode_GuestCarts_1570_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1570 = "shippingMethodCode_GuestCarts_1570_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1570, addressInformation_GuestCarts_1570, cartId_GuestCarts_1570, paymentMethod_GuestCarts_1570, shippingCarrierCode_GuestCarts_1570, shippingMethodCode_GuestCarts_1570, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartCollectionPoint
-  let cartId_GuestCartCollectionPoint_1700 = cartId_GuestCarts_1700;
-  let collectionPointId_GuestCartCollectionPoint_1700 = "collectionPointId_GuestCartCollectionPoint_1700_" + Math.floor(Math.random()*1000);
-  let countryId_GuestCartCollectionPoint_1700 = "countryId_GuestCartCollectionPoint_1700_" + Math.floor(Math.random()*1000);
-  let postcode_GuestCartCollectionPoint_1700 = "postcode_GuestCartCollectionPoint_1700_" + Math.floor(Math.random()*1000);
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_1700, collectionPointId_GuestCartCollectionPoint_1700, countryId_GuestCartCollectionPoint_1700, postcode_GuestCartCollectionPoint_1700, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCollectionPoint_1570 = cartId_GuestCarts_1570;
+  let collectionPointId_GuestCartCollectionPoint_1570 = "collectionPointId_GuestCartCollectionPoint_1570_" + Math.floor(Math.random()*1000);
+  let countryId_GuestCartCollectionPoint_1570 = "countryId_GuestCartCollectionPoint_1570_" + Math.floor(Math.random()*1000);
+  let postcode_GuestCartCollectionPoint_1570 = "postcode_GuestCartCollectionPoint_1570_" + Math.floor(Math.random()*1000);
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPoint_1570, collectionPointId_GuestCartCollectionPoint_1570, countryId_GuestCartCollectionPoint_1570, postcode_GuestCartCollectionPoint_1570, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
   // -> Deleting GuestCartCollectionPoint
-  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_1700, { expectedResponseCodes: [200, 201, 204] });
+  temandoShippingCheckoutGuestCartCollectionPointManagementV1DeleteSearchRequestDelete(cartId_GuestCartCollectionPoint_1570, { expectedResponseCodes: [200, 201, 204] });
 
-});
-
-// Story: Deep Chain GuestCarts_GuestCartCollectionPointSelect (Self-Contained)
-bthread("chain:GuestCarts_GuestCartCollectionPointSelect", function () {
-  // -> Creating GuestCarts
-  let cartId_GuestCarts_1800 = "cartId_GuestCarts_1800_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1800, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating GuestCartCollectionPointSelect
-  let cartId_GuestCartCollectionPointSelect_1800 = cartId_GuestCarts_1800;
-  let entityId_GuestCartCollectionPointSelect_1800 = Math.floor(Math.random() * 1000);
-  let id_GuestCartCollectionPointSelect_1800 = "id_GuestCartCollectionPointSelect_1800_" + Math.floor(Math.random()*1000);
-  temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPointSelect_1800, entityId_GuestCartCollectionPointSelect_1800, id_GuestCartCollectionPointSelect_1800, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
 });
 
 // Story: Deep Chain GuestCarts_GuestCartDeliveryOption (Self-Contained)
 bthread("chain:GuestCarts_GuestCartDeliveryOption", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_1900 = "cartId_GuestCarts_1900_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_1900, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1670 = {};
+  let addressInformation_GuestCarts_1670 = {};
+  let cartId_GuestCarts_1670 = "cartId_GuestCarts_1670_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1670 = {};
+  let shippingCarrierCode_GuestCarts_1670 = "shippingCarrierCode_GuestCarts_1670_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1670 = "shippingMethodCode_GuestCarts_1670_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1670, addressInformation_GuestCarts_1670, cartId_GuestCarts_1670, paymentMethod_GuestCarts_1670, shippingCarrierCode_GuestCarts_1670, shippingMethodCode_GuestCarts_1670, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartDeliveryOption
-  let cartId_GuestCartDeliveryOption_1900 = cartId_GuestCarts_1900;
-  let id_GuestCartDeliveryOption_1900 = "id_GuestCartDeliveryOption_1900_" + Math.floor(Math.random()*1000);
-  let selectedOption_GuestCartDeliveryOption_1900 = "selectedOption_GuestCartDeliveryOption_1900_" + Math.floor(Math.random()*1000);
-  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_1900, id_GuestCartDeliveryOption_1900, selectedOption_GuestCartDeliveryOption_1900, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryOption_1670 = cartId_GuestCarts_1670;
+  let id_GuestCartDeliveryOption_1670 = "id_GuestCartDeliveryOption_1670_" + Math.floor(Math.random()*1000);
+  let selectedOption_GuestCartDeliveryOption_1670 = "selectedOption_GuestCartDeliveryOption_1670_" + Math.floor(Math.random()*1000);
+  temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId_GuestCartDeliveryOption_1670, id_GuestCartDeliveryOption_1670, selectedOption_GuestCartDeliveryOption_1670, { expectedResponseCodes: [200, 201, 204] });
+
+  // --- Proper Teardown (Reverse Order) ---
+});
+
+// Story: Deep Chain GuestCarts_GuestCartCollectionPointSelect (Self-Contained)
+bthread("chain:GuestCarts_GuestCartCollectionPointSelect", function () {
+  // -> Creating GuestCarts
+  let additionalData_GuestCarts_1770 = {};
+  let addressInformation_GuestCarts_1770 = {};
+  let cartId_GuestCarts_1770 = "cartId_GuestCarts_1770_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1770 = {};
+  let shippingCarrierCode_GuestCarts_1770 = "shippingCarrierCode_GuestCarts_1770_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1770 = "shippingMethodCode_GuestCarts_1770_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1770, addressInformation_GuestCarts_1770, cartId_GuestCarts_1770, paymentMethod_GuestCarts_1770, shippingCarrierCode_GuestCarts_1770, shippingMethodCode_GuestCarts_1770, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Creating GuestCartCollectionPointSelect
+  let cartId_GuestCartCollectionPointSelect_1770 = cartId_GuestCarts_1770;
+  let entityId_GuestCartCollectionPointSelect_1770 = Math.floor(Math.random() * 1000);
+  let id_GuestCartCollectionPointSelect_1770 = "id_GuestCartCollectionPointSelect_1770_" + Math.floor(Math.random()*1000);
+  temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId_GuestCartCollectionPointSelect_1770, entityId_GuestCartCollectionPointSelect_1770, id_GuestCartCollectionPointSelect_1770, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1463,14 +1471,19 @@ bthread("chain:GuestCarts_GuestCartDeliveryOption", function () {
 // Story: Deep Chain GuestCarts_GuestCartCheckoutFields (Self-Contained)
 bthread("chain:GuestCarts_GuestCartCheckoutFields", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_2000 = "cartId_GuestCarts_2000_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_2000, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1870 = {};
+  let addressInformation_GuestCarts_1870 = {};
+  let cartId_GuestCarts_1870 = "cartId_GuestCarts_1870_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1870 = {};
+  let shippingCarrierCode_GuestCarts_1870 = "shippingCarrierCode_GuestCarts_1870_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1870 = "shippingMethodCode_GuestCarts_1870_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1870, addressInformation_GuestCarts_1870, cartId_GuestCarts_1870, paymentMethod_GuestCarts_1870, shippingCarrierCode_GuestCarts_1870, shippingMethodCode_GuestCarts_1870, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartCheckoutFields
-  let cartId_GuestCartCheckoutFields_2000 = cartId_GuestCarts_2000;
-  let id_GuestCartCheckoutFields_2000 = "id_GuestCartCheckoutFields_2000_" + Math.floor(Math.random()*1000);
-  let serviceSelection_GuestCartCheckoutFields_2000 = [];
-  saveCheckoutFields(cartId_GuestCartCheckoutFields_2000, id_GuestCartCheckoutFields_2000, serviceSelection_GuestCartCheckoutFields_2000, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartCheckoutFields_1870 = cartId_GuestCarts_1870;
+  let id_GuestCartCheckoutFields_1870 = "id_GuestCartCheckoutFields_1870_" + Math.floor(Math.random()*1000);
+  let serviceSelection_GuestCartCheckoutFields_1870 = [];
+  saveCheckoutFields(cartId_GuestCartCheckoutFields_1870, id_GuestCartCheckoutFields_1870, serviceSelection_GuestCartCheckoutFields_1870, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1478,14 +1491,19 @@ bthread("chain:GuestCarts_GuestCartCheckoutFields", function () {
 // Story: Deep Chain GuestCarts_GuestCartPickupLocation (Self-Contained)
 bthread("chain:GuestCarts_GuestCartPickupLocation", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_2100 = "cartId_GuestCarts_2100_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_2100, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_1970 = {};
+  let addressInformation_GuestCarts_1970 = {};
+  let cartId_GuestCarts_1970 = "cartId_GuestCarts_1970_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_1970 = {};
+  let shippingCarrierCode_GuestCarts_1970 = "shippingCarrierCode_GuestCarts_1970_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_1970 = "shippingMethodCode_GuestCarts_1970_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_1970, addressInformation_GuestCarts_1970, cartId_GuestCarts_1970, paymentMethod_GuestCarts_1970, shippingCarrierCode_GuestCarts_1970, shippingMethodCode_GuestCarts_1970, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartPickupLocation
-  let cartId_GuestCartPickupLocation_2100 = cartId_GuestCarts_2100;
-  let id_GuestCartPickupLocation_2100 = "id_GuestCartPickupLocation_2100_" + Math.floor(Math.random()*1000);
-  let pickupLocationId_GuestCartPickupLocation_2100 = "pickupLocationId_GuestCartPickupLocation_2100_" + Math.floor(Math.random()*1000);
-  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_2100, id_GuestCartPickupLocation_2100, pickupLocationId_GuestCartPickupLocation_2100, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartPickupLocation_1970 = cartId_GuestCarts_1970;
+  let id_GuestCartPickupLocation_1970 = "id_GuestCartPickupLocation_1970_" + Math.floor(Math.random()*1000);
+  let pickupLocationId_GuestCartPickupLocation_1970 = "pickupLocationId_GuestCartPickupLocation_1970_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForCheckout(cartId_GuestCartPickupLocation_1970, id_GuestCartPickupLocation_1970, pickupLocationId_GuestCartPickupLocation_1970, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
@@ -1493,14 +1511,77 @@ bthread("chain:GuestCarts_GuestCartPickupLocation", function () {
 // Story: Deep Chain GuestCarts_GuestCartDeliveryPickupLocation (Self-Contained)
 bthread("chain:GuestCarts_GuestCartDeliveryPickupLocation", function () {
   // -> Creating GuestCarts
-  let cartId_GuestCarts_2200 = "cartId_GuestCarts_2200_" + Math.floor(Math.random()*1000);
-  createEmptyCart(cartId_GuestCarts_2200, { expectedResponseCodes: [200, 201, 204] });
+  let additionalData_GuestCarts_2070 = {};
+  let addressInformation_GuestCarts_2070 = {};
+  let cartId_GuestCarts_2070 = "cartId_GuestCarts_2070_" + Math.floor(Math.random()*1000);
+  let paymentMethod_GuestCarts_2070 = {};
+  let shippingCarrierCode_GuestCarts_2070 = "shippingCarrierCode_GuestCarts_2070_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_GuestCarts_2070 = "shippingMethodCode_GuestCarts_2070_" + Math.floor(Math.random()*1000);
+  checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData_GuestCarts_2070, addressInformation_GuestCarts_2070, cartId_GuestCarts_2070, paymentMethod_GuestCarts_2070, shippingCarrierCode_GuestCarts_2070, shippingMethodCode_GuestCarts_2070, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating GuestCartDeliveryPickupLocation
-  let cartId_GuestCartDeliveryPickupLocation_2200 = cartId_GuestCarts_2200;
-  let entityId_GuestCartDeliveryPickupLocation_2200 = Math.floor(Math.random() * 1000);
-  let id_GuestCartDeliveryPickupLocation_2200 = "id_GuestCartDeliveryPickupLocation_2200_" + Math.floor(Math.random()*1000);
-  selectPickupLocation(cartId_GuestCartDeliveryPickupLocation_2200, entityId_GuestCartDeliveryPickupLocation_2200, id_GuestCartDeliveryPickupLocation_2200, { expectedResponseCodes: [200, 201, 204] });
+  let cartId_GuestCartDeliveryPickupLocation_2070 = cartId_GuestCarts_2070;
+  let entityId_GuestCartDeliveryPickupLocation_2070 = Math.floor(Math.random() * 1000);
+  let id_GuestCartDeliveryPickupLocation_2070 = "id_GuestCartDeliveryPickupLocation_2070_" + Math.floor(Math.random()*1000);
+  selectPickupLocationForDelivery(cartId_GuestCartDeliveryPickupLocation_2070, entityId_GuestCartDeliveryPickupLocation_2070, id_GuestCartDeliveryPickupLocation_2070, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
 });
+
+// --- Hyper-Story Version 1: Global Coordination for magento ---
+bthread("hyper:magento:orchestration:1", function () {
+  bthread("Persona_Customer_1", function() {
+  }});
+
+  bthread("Persona_Admin_1", function() {
+  }});
+
+  bthread("Persona_Guest_1", function() {
+  }});
+
+  bthread("Persona_Supplier_1", function() {
+  }});
+
+  // Seeding Phase: Populating the Master Entities
+}});
+// --- Hyper-Story Version 2: Global Coordination for magento ---
+bthread("hyper:magento:orchestration:2", function () {
+  bthread("Persona_Customer_2", function() {
+  }});
+
+  bthread("Persona_Admin_2", function() {
+  }});
+
+  bthread("Persona_Guest_2", function() {
+  }});
+
+  bthread("Persona_Supplier_2", function() {
+  }});
+
+  // Seeding Phase: Populating the Master Entities
+}});
+// --- Hyper-Story Version 3: Global Coordination for magento ---
+bthread("hyper:magento:orchestration:3", function () {
+  bthread("Persona_Customer_3", function() {
+  }});
+
+  bthread("Persona_Admin_3", function() {
+  }});
+
+  bthread("Persona_Guest_3", function() {
+  }});
+
+  bthread("Persona_Supplier_3", function() {
+  }});
+
+  // Seeding Phase: Populating the Master Entities
+}});
+// --- Hyper-Negative Story Version 1: Reactive State-Violation ---
+bthread("hyper:magento:negative_orchestration:1", function () {
+}});
+// --- Hyper-Negative Story Version 2: Reactive State-Violation ---
+bthread("hyper:magento:negative_orchestration:2", function () {
+}});
+// --- Hyper-Negative Story Version 3: Reactive State-Violation ---
+bthread("hyper:magento:negative_orchestration:3", function () {
+}});

@@ -35,7 +35,6 @@
             "id": "integer",
             "title": "string"
           },
-          "paramFormats": {},
           "x-defined-response-codes": [
             201
           ],
@@ -116,7 +115,6 @@
             "userId": "integer",
             "bookId": "integer"
           },
-          "paramFormats": {},
           "x-defined-response-codes": [
             201,
             400
@@ -178,7 +176,6 @@
             "id": "integer",
             "name": "string"
           },
-          "paramFormats": {},
           "x-defined-response-codes": [
             201
           ],
@@ -237,7 +234,6 @@
             "userId": "integer",
             "bookId": "integer"
           },
-          "paramFormats": {},
           "x-defined-response-codes": [
             201
           ],
@@ -271,6 +267,52 @@
     "Holds": [
       "Users",
       "Books"
+    ]
+  },
+  "system_architecture": {
+    "master_entities": [
+      "Books",
+      "Users"
+    ],
+    "personas": {
+      "Library Staff": [
+        "Books - add",
+        "Books - delete",
+        "Loans - add",
+        "Loans - delete",
+        "Users - add",
+        "Users - delete",
+        "Holds - add",
+        "Holds - delete"
+      ],
+      "Members": [
+        "Books - list",
+        "Loans - list",
+        "Users - list",
+        "Holds - list"
+      ]
+    },
+    "negative_patterns": [
+      {
+        "type": "PostDelete",
+        "entity": "Books",
+        "action": "delete"
+      },
+      {
+        "type": "PostDelete",
+        "entity": "Loans",
+        "action": "delete"
+      },
+      {
+        "type": "PostDelete",
+        "entity": "Users",
+        "action": "delete"
+      },
+      {
+        "type": "PostDelete",
+        "entity": "Holds",
+        "action": "delete"
+      }
     ]
   },
   "original_spec": {

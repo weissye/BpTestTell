@@ -66,6 +66,30 @@ Input: {summary}
 Output JSON: {"EntityName": true/false}
 """
 
+# --- process_openapi_to_spec.py ---
+
+ARCHITECTURE_PROMPT = """
+Analyze the following API Entities and Operations:
+{summary}
+
+Your task is to identify the 'Master Entities' (the core objects like Books, Users) and 'Actor Personas' (who uses the system).
+
+Rules:
+1. **Master Entity**: The primary resource that links most other operations.
+2. **Actor Personas**: Group operations by the 'Tag' or logical player.
+3. **DO NOT** use placeholders like 'EntityName' or 'PersonaName'. Use ONLY the names found in the summary above.
+
+Output JSON: 
+{
+  "master_entities": ["RealEntityName"],
+  "personas": {
+    "RealPersonaName": ["RealOperationName"] 
+  },
+  "negative_patterns": [
+    {"type": "PostDelete", "entity": "RealEntityName", "action": "RealOperationName"}
+  ]
+}
+"""
 # --- UTILS ---
 
 def get_cache_path(content_hash: str) -> Path:
@@ -658,11 +682,27 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
     
     print(f"   > 🌍 Base URL detected: {base_url}")
 
+# --- ADDITIVE: Architecture Analysis ---
+    print(f"   > 🏛️  Analyzing system architecture for {sut_name}...")
+    arch_summary = {name: list(ent["operations"].keys()) for name, ent in all_entities.items()}
+    try:
+        arch_res = client.chat.completions.create(
+            model=MODEL_NAME, 
+            response_format={"type": "json_object"}, 
+            messages=[{"role": "user", "content": ARCHITECTURE_PROMPT.replace("{summary}", json.dumps(arch_summary))}]
+        )
+        system_architecture = json.loads(arch_res.choices[0].message.content)
+    except Exception as e:
+        print(f"   ⚠️  Architecture analysis failed: {e}")
+        system_architecture = {"master_entities": [], "personas": {}, "negative_patterns": []}
+
+    # Update context to include architecture
     context = {
         "sut_name": sut_name,
         "base_url": base_url, 
         "entities": all_entities,
         "dependencies": dependencies,
+        "system_architecture": system_architecture, # <--- Essential for Hyper-Stories
         "original_spec": raw_spec
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)

@@ -9,10 +9,11 @@ const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) 
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function customerAccountManagementV1ResetPasswordPost(customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
+function customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody, customerAccountManagementV1ResetPasswordPostBody, customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
   var url = "/V1/customers/resetPassword";
   var reqDescription = "Reset customer password. " + customerId;
   var body = {
+    "customerAccountManagementV1ResetPasswordPostBody": customerAccountManagementV1ResetPasswordPostBody,
     "email": String(email),
     "newPassword": String(newPassword),
     "resetToken": String(resetToken),
@@ -20,15 +21,16 @@ function customerAccountManagementV1ResetPasswordPost(customerId, email, newPass
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409, 500], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerId": customerId, "email": email, "newPassword": newPassword, "resetPasswordLinkToken": resetPasswordLinkToken, "resetToken": resetToken, "template": template, "websiteId": websiteId}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerAccountManagementV1InitiatePasswordResetPutBody": customerAccountManagementV1InitiatePasswordResetPutBody, "customerAccountManagementV1ResetPasswordPostBody": customerAccountManagementV1ResetPasswordPostBody, "customerId": customerId, "email": email, "newPassword": newPassword, "resetPasswordLinkToken": resetPasswordLinkToken, "resetToken": resetToken, "template": template, "websiteId": websiteId}) });
   }
   return res;
 }
 
-function customerAccountManagementV1InitiatePasswordResetPut(customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
+function customerAccountManagementV1InitiatePasswordResetPut(customerAccountManagementV1InitiatePasswordResetPutBody, customerAccountManagementV1ResetPasswordPostBody, customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
   var url = "/V1/customers/password";
   var reqDescription = "Send an email to the customer with a password reset link. " + customerId;
   var body = {
+    "customerAccountManagementV1InitiatePasswordResetPutBody": customerAccountManagementV1InitiatePasswordResetPutBody,
     "email": String(email),
     "template": String(template),
     "websiteId": websiteId,
@@ -36,7 +38,7 @@ function customerAccountManagementV1InitiatePasswordResetPut(customerId, email, 
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 500], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerId": customerId, "email": email, "newPassword": newPassword, "resetPasswordLinkToken": resetPasswordLinkToken, "resetToken": resetToken, "template": template, "websiteId": websiteId}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"customerAccountManagementV1InitiatePasswordResetPutBody": customerAccountManagementV1InitiatePasswordResetPutBody, "customerAccountManagementV1ResetPasswordPostBody": customerAccountManagementV1ResetPasswordPostBody, "customerId": customerId, "email": email, "newPassword": newPassword, "resetPasswordLinkToken": resetPasswordLinkToken, "resetToken": resetToken, "template": template, "websiteId": websiteId}) });
   }
   return res;
 }
@@ -47,10 +49,11 @@ function customerAccountManagementV1ValidateResetPasswordLinkTokenGet(customerId
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 500] });
 }
 
-function tryToAddExistingCustomers(customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
+function tryToAddExistingCustomers(customerAccountManagementV1InitiatePasswordResetPutBody, customerAccountManagementV1ResetPasswordPostBody, customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
   var url = "/V1/customers/resetPassword";
   var reqDescription = "Try Add Existing Customers " + customerId;
   var body = {
+    "customerAccountManagementV1ResetPasswordPostBody": customerAccountManagementV1ResetPasswordPostBody,
     "email": String(email),
     "newPassword": String(newPassword),
     "resetToken": String(resetToken),
@@ -60,10 +63,11 @@ function tryToAddExistingCustomers(customerId, email, newPassword, resetPassword
   return res;
 }
 
-function verifyCustomersRejects(customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
+function verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody, customerAccountManagementV1ResetPasswordPostBody, customerId, email, newPassword, resetPasswordLinkToken, resetToken, template, websiteId) {
   var url = "/V1/customers/resetPassword";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
+    "customerAccountManagementV1ResetPasswordPostBody": customerAccountManagementV1ResetPasswordPostBody,
     "email": email,
     "newPassword": newPassword,
     "resetToken": resetToken,
@@ -195,53 +199,74 @@ function verifySearchDeleted(id, searchCriteria_currentPage_, searchCriteria_fil
 
 function verifySearchDoesNotExist(id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_requestName_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_) { verifySearchDeleted(id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_requestName_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_); }
 
-function quoteGuestCartRepositoryV1GetGet(cartId) {
-  var url = "/V1/guest-carts/" + cartId;
-  var reqDescription = "Enable a guest user to return information for a specified cart. " + cartId;
+function quoteGuestCartTotalRepositoryV1GetGet(cartId) {
+  var url = "/V1/guest-carts/" + cartId + "/totals";
+  var reqDescription = "Return quote totals data for a specified cart. " + cartId;
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400] });
 }
 
-function createEmptyCart(cartId) {
-  var url = "/V1/guest-carts";
-  var reqDescription = "Enable an customer or guest user to create an empty cart and quote for an anonymous customer. " + cartId;
+function checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
+  var url = "/V1/guest-carts/" + cartId + "/totals-information";
+  var reqDescription = "Calculate quote totals based on address and shipping method. " + cartId;
   var body = {
-    "id": Math.floor(Math.random() * 10000),
+    "addressInformation": addressInformation,
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: reqDescription } });
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409], parameters: { description: reqDescription } });
   if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"cartId": cartId}) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalData": additionalData, "addressInformation": addressInformation, "cartId": cartId, "paymentMethod": paymentMethod, "shippingCarrierCode": shippingCarrierCode, "shippingMethodCode": shippingMethodCode}) });
   }
   return res;
 }
 
-function tryToAddExistingGuestCarts(cartId) {
-  var url = "/V1/guest-carts";
+function quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
+  var url = "/V1/guest-carts/" + cartId + "/collect-totals";
+  var reqDescription = "Set shipping/billing methods and additional data for cart and collect totals for guest. " + cartId;
+  var body = {
+    "additionalData": additionalData,
+    "paymentMethod": paymentMethod,
+    "shippingCarrierCode": String(shippingCarrierCode),
+    "shippingMethodCode": String(shippingMethodCode),
+};
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalData": additionalData, "addressInformation": addressInformation, "cartId": cartId, "paymentMethod": paymentMethod, "shippingCarrierCode": shippingCarrierCode, "shippingMethodCode": shippingMethodCode}) });
+  }
+  return res;
+}
+
+function tryToAddExistingGuestCarts(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
+  var url = "/V1/guest-carts/" + cartId + "/totals-information";
   var reqDescription = "Try Add Existing GuestCarts " + cartId;
-  var body = {};
+  var body = {
+    "addressInformation": addressInformation,
+};
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
 }
 
-function verifyGuestCartsRejects(cartId) {
-  var url = "/V1/guest-carts";
+function verifyGuestCartsRejects(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
+  var url = "/V1/guest-carts/" + cartId + "/totals-information";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
-  var body = {};
+  var body = {
+    "addressInformation": addressInformation,
+};
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
 }
 
 function verifyGuestCartsExists(cartId) {
-  var url = "/V1/guest-carts/" + cartId;
+  var url = "/V1/guest-carts/" + cartId + "/totals";
   var description = "Verify GuestCarts " + cartId + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
   pvg.success("GuestCarts found");
 }
 
 function verifyGuestCartsDeleted(cartId) {
-  var url = "/V1/guest-carts/" + cartId;
+  var url = "/V1/guest-carts/" + cartId + "/totals";
   var description = "Verify GuestCarts " + cartId + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
   pvg.success("GuestCarts correctly deleted (404)");
@@ -251,7 +276,7 @@ function verifyGuestCartsDoesNotExist(cartId) { verifyGuestCartsDeleted(cartId);
 
 function matchAnyGuestcartsAdded() {
   return bp.EventSet("Any GuestCarts Added", function(e) {
-      return e.name.startsWith("Done: Positive: Enable an customer or guest user to create an empty cart and quote for an anonymous customer.");
+      return e.name.startsWith("Done: Positive: Calculate quote totals based on address and shipping method.");
   });
 }
 
@@ -349,6 +374,12 @@ function matchDeletedGuestcartsitems(cartId) {
       return e.name.startsWith("Done: Positive:") && e.name.includes(cartId);
   });
 }
+
+function matchAnyGuestcartsitemsDeleted() {
+  return bp.EventSet("Any GuestCartsItems Deleted", function(e) {
+      return e.name.startsWith("Done: Positive:");
+  }});
+}}
 
 function placeOrder(cartId, paymentMethod) {
   var url = "/V1/guest-carts/" + cartId + "/order";
@@ -473,6 +504,12 @@ function matchDeletedGuestcartscoupons(cartId) {
   });
 }
 
+function matchAnyGuestcartscouponsDeleted() {
+  return bp.EventSet("Any GuestCartsCoupons Deleted", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a coupon from a specified cart.");
+  }});
+}}
+
 function quoteGuestPaymentMethodManagementV1GetListGet(cartId) {
   var url = "/V1/guest-carts/" + cartId + "/payment-methods";
   var reqDescription = "List available payment methods for a specified shopping cart. {id}";
@@ -515,101 +552,13 @@ function verifyGuestCartsSelectedPaymentMethodDeleted(cartId) {
 
 function verifyGuestCartsSelectedPaymentMethodDoesNotExist(cartId) { verifyGuestCartsSelectedPaymentMethodDeleted(cartId); }
 
-function quoteGuestCartTotalManagementV1CollectTotalsPut(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
-  var url = "/V1/guest-carts/" + cartId + "/collect-totals";
-  var reqDescription = "Set shipping/billing methods and additional data for cart and collect totals for guest. " + cartId;
-  var body = {};
-  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalData": additionalData, "addressInformation": addressInformation, "cartId": cartId, "paymentMethod": paymentMethod, "shippingCarrierCode": shippingCarrierCode, "shippingMethodCode": shippingMethodCode}) });
-  }
-  return res;
-}
-
-function quoteGuestCartTotalRepositoryV1GetGet(cartId) {
-  var url = "/V1/guest-carts/" + cartId + "/totals";
-  var reqDescription = "Return quote totals data for a specified cart. " + cartId;
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400] });
-}
-
-function checkoutGuestTotalsInformationManagementV1CalculatePost(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
-  var url = "/V1/guest-carts/" + cartId + "/totals-information";
-  var reqDescription = "Calculate quote totals based on address and shipping method. " + cartId;
-  var body = {
-    "addressInformation": addressInformation,
-};
-  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalData": additionalData, "addressInformation": addressInformation, "cartId": cartId, "paymentMethod": paymentMethod, "shippingCarrierCode": shippingCarrierCode, "shippingMethodCode": shippingMethodCode}) });
-  }
-  return res;
-}
-
-function tryToAddExistingGuestCartTotals(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
-  var url = "/V1/guest-carts/" + cartId + "/totals-information";
-  var reqDescription = "Try Add Existing GuestCartTotals " + cartId;
-  var body = {
-    "addressInformation": addressInformation,
-};
-  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
-  return res;
-}
-
-function verifyGuestCartTotalsRejects(additionalData, addressInformation, cartId, paymentMethod, shippingCarrierCode, shippingMethodCode) {
-  var url = "/V1/guest-carts/" + cartId + "/totals-information";
-  var reqDescription = "Negative Test: Verify Rejection for " + url;
-  var body = {
-    "addressInformation": addressInformation,
-};
-  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
-  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
-}
-
-function verifyGuestCartTotalsExists(cartId) {
-  var url = "/V1/guest-carts/" + cartId + "/totals";
-  var description = "Verify GuestCartTotals " + cartId + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-  pvg.success("GuestCartTotals found");
-}
-
-function verifyGuestCartTotalsDeleted(cartId) {
-  var url = "/V1/guest-carts/" + cartId + "/totals";
-  var description = "Verify GuestCartTotals " + cartId + " deleted";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-  pvg.success("GuestCartTotals correctly deleted (404)");
-}
-
-function verifyGuestCartTotalsDoesNotExist(cartId) { verifyGuestCartTotalsDeleted(cartId); }
-
-function matchAnyGuestcarttotalsAdded() {
-  return bp.EventSet("Any GuestCartTotals Added", function(e) {
-      return e.name.startsWith("Done: Positive: Calculate quote totals based on address and shipping method.");
-  });
-}
-
-function quoteGuestCartManagementV1PlaceOrderPut(cartId, quoteGuestCartManagementV1PlaceOrderPutBody) {
-  var url = "/V1/guest-carts/" + cartId + "/order";
-  var reqDescription = " " + cartId;
-  var body = {
-    "quoteGuestCartManagementV1PlaceOrderPutBody": String(quoteGuestCartManagementV1PlaceOrderPutBody),
-};
-  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"cartId": cartId, "quoteGuestCartManagementV1PlaceOrderPutBody": quoteGuestCartManagementV1PlaceOrderPutBody}) });
-  }
-  return res;
-}
-
 function integrationAdminTokenServiceV1CreateAdminAccessTokenPost(id, password, username) {
   var url = "/V1/integration/admin/token";
   var reqDescription = "Create access token for admin given the admin credentials. " + id;
   var body = {
     "id": id,
+    "password": String(password),
+    "username": String(username),
 };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409, 500], parameters: { description: reqDescription } });
@@ -625,6 +574,8 @@ function verifyAdminTokenRejects(id, password, username) {
   var body = {
     "id": id,
     "id": id,
+    "password": password,
+    "username": username,
 };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
@@ -643,7 +594,7 @@ function catalogProductRenderListV1GetListGet() {
   return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
 }
 
-function verifyProductRenderInfoExists(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId) {
+function verifyProductsRenderInfoExists(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId) {
   let res = catalogProductRenderListV1GetListGet(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId);
   try {
       let listData = res;
@@ -651,13 +602,13 @@ function verifyProductRenderInfoExists(currencyCode, id, searchCriteria_currentP
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
-          if (found) pvg.success("ProductRenderInfo found in list");
-          else pvg.fail("ProductRenderInfo NOT found in list");
+          if (found) pvg.success("ProductsRenderInfo found in list");
+          else pvg.fail("ProductsRenderInfo NOT found in list");
       }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyProductRenderInfoDeleted(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId) {
+function verifyProductsRenderInfoDeleted(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId) {
   let res = catalogProductRenderListV1GetListGet(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId);
   try {
       let listData = res;
@@ -665,13 +616,13 @@ function verifyProductRenderInfoDeleted(currencyCode, id, searchCriteria_current
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
-          if (!found) pvg.success("ProductRenderInfo correctly not found in list");
-          else pvg.fail("ProductRenderInfo still found in list (deletion failed)");
+          if (!found) pvg.success("ProductsRenderInfo correctly not found in list");
+          else pvg.fail("ProductsRenderInfo still found in list (deletion failed)");
       }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyProductRenderInfoDoesNotExist(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId) { verifyProductRenderInfoDeleted(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId); }
+function verifyProductsRenderInfoDoesNotExist(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId) { verifyProductsRenderInfoDeleted(currencyCode, id, searchCriteria_currentPage_, searchCriteria_filterGroups__0__filters__0__conditionType_, searchCriteria_filterGroups__0__filters__0__field_, searchCriteria_filterGroups__0__filters__0__value_, searchCriteria_pageSize_, searchCriteria_sortOrders__0__direction_, searchCriteria_sortOrders__0__field_, storeId); }
 
 function checkoutGuestPaymentInformationManagementV1GetPaymentInformationGet(cartId) {
   var url = "/V1/guest-carts/" + cartId + "/payment-information";
@@ -923,6 +874,12 @@ function matchDeletedAmazonorderreference(id) {
   });
 }
 
+function matchAnyAmazonorderreferenceDeleted() {
+  return bp.EventSet("Any AmazonOrderReference Deleted", function(e) {
+      return e.name.startsWith("Done: Positive:");
+  }});
+}}
+
 function giftMessageGuestCartRepositoryV1GetGet(cartId) {
   var url = "/V1/guest-carts/" + cartId + "/gift-message";
   var reqDescription = "Return the gift message for a specified order. " + cartId;
@@ -1119,39 +1076,11 @@ function matchDeletedGuestcartcollectionpoint(cartId) {
   });
 }
 
-function temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId, entityId, id) {
-  var url = "/V1/guest-carts/" + cartId + "/collection-point/select";
-  var reqDescription = " " + id;
-  var body = {
-    "id": id,
-    "entityId": entityId,
-};
-  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409, 500], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"cartId": cartId, "entityId": entityId, "id": id}) });
-  }
-  return res;
-}
-
-function verifyGuestCartCollectionPointSelectRejects(cartId, entityId, id) {
-  var url = "/V1/guest-carts/" + cartId + "/collection-point/select";
-  var reqDescription = "Negative Test: Verify Rejection for " + url;
-  var body = {
-    "id": id,
-    "entityId": entityId,
-    "id": id,
-};
-  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
-  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
-}
-
-function matchAnyGuestcartcollectionpointselectAdded() {
-  return bp.EventSet("Any GuestCartCollectionPointSelect Added", function(e) {
-      return e.name.startsWith("Done: Positive: ");
-  });
-}
+function matchAnyGuestcartcollectionpointDeleted() {
+  return bp.EventSet("Any GuestCartCollectionPoint Deleted", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a customer's search for collection points.");
+  }});
+}}
 
 function temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId, id, selectedOption) {
   var url = "/V1/guest-carts/" + cartId + "/delivery-option";
@@ -1184,6 +1113,40 @@ function verifyGuestCartDeliveryOptionRejects(cartId, id, selectedOption) {
 function matchAnyGuestcartdeliveryoptionAdded() {
   return bp.EventSet("Any GuestCartDeliveryOption Added", function(e) {
       return e.name.startsWith("Done: Positive: Handle selected delivery option.");
+  });
+}
+
+function temandoShippingDeliveryGuestCartCollectionPointManagementV1SelectCollectionPointPost(cartId, entityId, id) {
+  var url = "/V1/guest-carts/" + cartId + "/collection-point/select";
+  var reqDescription = " " + id;
+  var body = {
+    "id": id,
+    "entityId": entityId,
+};
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409, 500], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) {
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"cartId": cartId, "entityId": entityId, "id": id}) });
+  }
+  return res;
+}
+
+function verifyGuestCartCollectionPointSelectRejects(cartId, entityId, id) {
+  var url = "/V1/guest-carts/" + cartId + "/collection-point/select";
+  var reqDescription = "Negative Test: Verify Rejection for " + url;
+  var body = {
+    "id": id,
+    "entityId": entityId,
+    "id": id,
+};
+  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
+  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
+  bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function matchAnyGuestcartcollectionpointselectAdded() {
+  return bp.EventSet("Any GuestCartCollectionPointSelect Added", function(e) {
+      return e.name.startsWith("Done: Positive: ");
   });
 }
 
@@ -1255,7 +1218,7 @@ function matchAnyGuestcartpickuplocationAdded() {
   });
 }
 
-function selectPickupLocation(cartId, entityId, id) {
+function selectPickupLocationForDelivery(cartId, entityId, id) {
   var url = "/V1/guest-carts/" + cartId + "/pickup-location/select";
   var reqDescription = " " + id;
   var body = {

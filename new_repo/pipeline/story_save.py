@@ -7,30 +7,6 @@ from new_repo.pipeline.emitter_utils import (
     collect_entity_params
 )
 
-
-def _resolve_entity_name(name, entities):
-    """Bridges naming gaps (e.g., 'Book' -> 'Books')."""
-    if not name: return None
-    if name in entities: return name
-    if name + "s" in entities: return name + "s"
-    if name.endswith("s") and name[:-1] in entities: return name[:-1]
-    # Case-insensitive fallback
-    for key in entities.keys():
-        if key.lower() == name.lower(): return key
-    return None
-
-def _get_merged_param_types(ent_data):
-    """Merges parameter types from ALL operations for a consistent seeding."""
-    merged_types = {}
-    merged_formats = {}
-    for op in ent_data.get("operations", {}).values():
-        if isinstance(op, dict):
-            t = op.get("paramTypes") or op.get("types") or {}
-            f = op.get("paramFormats") or op.get("formats") or {}
-            merged_types.update(t if isinstance(t, dict) else {})
-            merged_formats.update(f if isinstance(f, dict) else {})
-    return merged_types, merged_formats
-
 def _get_js_resolve_dependencies_fn():
     lines = []
     lines.append('function resolveDependencies(deps, pkMap) {')
@@ -177,6 +153,14 @@ def _infer_dependencies(entities, raw_spec):
 
 # FIX: New helper to aggregate types from ALL operations (Add, Get, Update, Delete)
 # This solves the issue where params like 'orderId' are only defined in 'Delete' but assumed String by 'Add'.
+def _get_merged_param_types(ent):
+    merged_types = {}
+    merged_formats = {}
+    for op in ent.get("operations", {}).values():
+        merged_types.update(op.get("paramTypes", {}))
+        merged_formats.update(op.get("paramFormats", {}))
+    return merged_types, merged_formats
+
 def _recursive_emit_creation(ent_name, entities, dependencies, raw_spec, lines, created_context, base_id):
     if ent_name in created_context: return
     all_parents = dependencies.get(ent_name, [])
@@ -469,16 +453,21 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     
 # --- ADDITIVE: Robust Hyper-Orchestration Emitter ---
 
+def _resolve_entity_name(name, entities):
+    """Handles singular/plural mismatches between LLM and Spec."""
+    if name in entities: return name
+    if name + "s" in entities: return name + "s"
+    if name.rstrip('s') in entities: return name.rstrip('s')
+    return None
+
+# --- story_emitter.py ---
 
 def _generate_hyper_coordinated_stories(spec, sut_name):
     entities = spec.get("entities", {})
     raw_spec = spec.get("original_spec", {})
     arch = spec.get("system_architecture", {})
     
-    # DEBUG PRINT: See what the LLM architecture provided
-    print(f"\n[DEBUG] --- Starting Hyper-Story Generation for {sut_name} ---")
-    print(f"[DEBUG] Architecture Master Entities: {arch.get('master_entities')}")
-    
+    # Resolving master names (e.g., 'Book' -> 'Books')
     masters = [m for m in [_resolve_entity_name(n, entities) for n in arch.get("master_entities", [])] if m]
     personas = arch.get("personas", {})
     
@@ -495,42 +484,38 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
                 lines.append(f'    let event_{m} = waitFor(matchAny{safe_m}Added());')
                 lines.append(f'    let sharedId = event_{m}.data.id || event_{m}.data.sku || event_{m}.data.cartId;')
                 
+                # --- FUZZY RESOLUTION PLAN ---
+                ent_ops = entities[m].get("operations", {})
                 for action_key in p_actions[:2]:
-                    ent_ops = entities[m].get("operations", {})
-                    # Robust lookup with fallback
+                    # 1. Try exact match (e.g., 'Borrow')
+                    # 2. Try 'update' or 'get'
+                    # 3. Fallback: Use the FIRST operation available so the thread isn't empty!
                     op_data = ent_ops.get(action_key.lower()) or ent_ops.get("update") or ent_ops.get("get")
+                    if not op_data and ent_ops:
+                        op_data = list(ent_ops.values())[0] 
                     
                     if op_data:
                         lines.append(f'    {sanitize_param(op_data["name"])}(sharedId);')
                         has_activity = True
-                    else:
-                        print(f"[DEBUG] ! Persona '{p_name}' action '{action_key}' not found for entity '{m}'")
             
             if not has_activity: 
-                lines.append('    // No automated actions found for this persona.')
+                lines.append('    // Note: Persona skip - no entities resolved.')
             lines.append('  }});')
 
+        # SEEDING PHASE (Generating the shared world)
         lines.append('\n  // Seeding Phase')
         for m in masters:
             add_op = entities[m]["operations"].get("add")
-            if not add_op:
-                print(f"[DEBUG] ! Skipping seeding for '{m}' (No 'add' operation in spec)")
-                continue
-            
-            fn_name = sanitize_param(add_op.get("name"))
-            lines.append(f'  for (let i=0; i<5; i++) {{')
+            if not add_op: continue
             m_types, m_formats = _get_merged_param_types(entities[m])
-            # Explicitly generate 5 blocks of code in Python to populate the JS loop
+            # Use Python loop to generate 5 unique seed instances
             for i in range(5):
                 v_code, args, _, _, _ = _generate_entity_vars(m, entities, raw_spec, f"seed_{iteration}", str(i), {}, m_types, m_formats)
-                for v_line in v_code: lines.append("    " + v_line)
-                lines.append(f'    {fn_name}({", ".join(args)}{", " if args else ""}{{ expectedResponseCodes: [200, 201] }});')
-            lines.append(f'  }}')
+                for v_line in v_code: lines.append("  " + v_line)
+                lines.append(f'  {sanitize_param(add_op["name"])}({", ".join(args)}{", " if args else ""}{{ expectedResponseCodes: [200, 201] }});')
         
         lines.append('}});')
         output_lines.append("\n".join(lines))
-    
-    print(f"[DEBUG] --- Hyper-Story Generation Complete ---\n")
     return "\n".join(output_lines)
 
 
@@ -543,28 +528,22 @@ def _generate_hyper_negative_stories(spec, sut_name):
     for iteration in range(1, 4):
         lines = [f'// --- Hyper-Negative Story Version {iteration}: Reactive State-Violation ---']
         lines.append(f'bthread("hyper:{sut_name}:negative_orchestration:{iteration}", function () {{')
-        
         for pat in patterns:
             m = _resolve_entity_name(pat.get("entity"), entities)
             if not m: continue
             
             action_key = pat.get("action")
             safe_m = sanitize_param(m).capitalize()
-            # Resolve real API function for the negative action
-            ent_ops = entities[m].get("operations", {})
-            op_data = ent_ops.get(action_key.lower()) or ent_ops.get("get") or ent_ops.get("update")
-            
-            if op_data:
-                fn_name = sanitize_param(op_data.get("name"))
-                if pat.get("type") == "PostDelete":
-                    lines.append(f'  bthread("Hyper_Neg_PostDelete_{m}_{iteration}", function() {{')
-                    lines.append(f'    let e = waitFor(matchAny{safe_m}Deleted());')
-                    lines.append(f'    let deadId = e.data.id || e.data.sku || e.data.cartId;')
-                    lines.append(f'    {fn_name}(deadId); // Attempt action on deleted resource')
-                    lines.append('  }});')
-            else:
-                print(f"[DEBUG] ! Negative pattern failed: Could not find API call for {action_key} on {m}")
-        
+            op_data = entities[m].get("operations", {}).get(action_key.lower()) or entities[m].get("operations", {}).get("get")
+            if not op_data: continue
+            fn_name = sanitize_param(op_data.get("name"))
+
+            if pat.get("type") == "PostDelete":
+                lines.append(f'  bthread("Hyper_Neg_PostDelete_{m}_{iteration}", function() {{')
+                lines.append(f'    let e = waitFor(matchAny{safe_m}Deleted());')
+                lines.append(f'    let deadId = e.data.id || e.data.sku || e.data.cartId;')
+                lines.append(f'    {fn_name}(deadId);')
+                lines.append('  }});')
         lines.append('}});')
         output_lines.append("\n".join(lines))
     return "\n".join(output_lines)

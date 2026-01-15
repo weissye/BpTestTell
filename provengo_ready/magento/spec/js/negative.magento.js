@@ -1,7 +1,35 @@
 // Auto-generated NEGATIVE (Fuzzing) stories for magento
 //@provengo summon rest
 
+bthread("fuzz:Customers:customerAccountManagementV1InitiatePasswordResetPutBody_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
+  let customerId_valid = Math.floor(Math.random() * 1000);
+  let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
+  let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
+  let resetPasswordLinkToken_valid = "resetPasswordLinkToken_valid_" + Math.floor(Math.random()*1000);
+  let resetToken_valid = "resetToken_valid_" + Math.floor(Math.random()*1000);
+  let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
+  let websiteId_valid = Math.floor(Math.random() * 1000);
+  let bad_customerAccountManagementV1InitiatePasswordResetPutBody = 12345;
+  verifyCustomersRejects(bad_customerAccountManagementV1InitiatePasswordResetPutBody, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+});
+bthread("fuzz:Customers:customerAccountManagementV1ResetPasswordPostBody_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
+  let customerId_valid = Math.floor(Math.random() * 1000);
+  let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
+  let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
+  let resetPasswordLinkToken_valid = "resetPasswordLinkToken_valid_" + Math.floor(Math.random()*1000);
+  let resetToken_valid = "resetToken_valid_" + Math.floor(Math.random()*1000);
+  let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
+  let websiteId_valid = Math.floor(Math.random() * 1000);
+  let bad_customerAccountManagementV1ResetPasswordPostBody = 12345;
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, bad_customerAccountManagementV1ResetPasswordPostBody, customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+});
 bthread("fuzz:Customers:customerId_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -10,9 +38,11 @@ bthread("fuzz:Customers:customerId_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_customerId = "INVALID_STRING";
-  verifyCustomersRejects(bad_customerId, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, bad_customerId, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
 });
 bthread("fuzz:Customers:email_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -21,9 +51,11 @@ bthread("fuzz:Customers:email_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_email = ["NOT_A_STRING"];
-  verifyCustomersRejects(customerId_valid, bad_email, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, bad_email, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
 });
 bthread("fuzz:Customers:newPassword_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -32,9 +64,11 @@ bthread("fuzz:Customers:newPassword_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_newPassword = ["NOT_A_STRING"];
-  verifyCustomersRejects(customerId_valid, email_valid, bad_newPassword, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, email_valid, bad_newPassword, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
 });
 bthread("fuzz:Customers:resetPasswordLinkToken_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -43,9 +77,11 @@ bthread("fuzz:Customers:resetPasswordLinkToken_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_resetPasswordLinkToken = ["NOT_A_STRING"];
-  verifyCustomersRejects(customerId_valid, email_valid, newPassword_valid, bad_resetPasswordLinkToken, resetToken_valid, template_valid, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, email_valid, newPassword_valid, bad_resetPasswordLinkToken, resetToken_valid, template_valid, websiteId_valid);
 });
 bthread("fuzz:Customers:resetToken_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -54,9 +90,11 @@ bthread("fuzz:Customers:resetToken_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_resetToken = ["NOT_A_STRING"];
-  verifyCustomersRejects(customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, bad_resetToken, template_valid, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, bad_resetToken, template_valid, websiteId_valid);
 });
 bthread("fuzz:Customers:template_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -65,9 +103,11 @@ bthread("fuzz:Customers:template_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_template = ["NOT_A_STRING"];
-  verifyCustomersRejects(customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, bad_template, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, bad_template, websiteId_valid);
 });
 bthread("fuzz:Customers:websiteId_InvalidType", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -76,9 +116,11 @@ bthread("fuzz:Customers:websiteId_InvalidType", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let bad_websiteId = "INVALID_STRING";
-  verifyCustomersRejects(customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, bad_websiteId);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, customerId_valid, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, bad_websiteId);
 });
 bthread("fuzz:Customers:customerId_Missing", function () {
+  let customerAccountManagementV1InitiatePasswordResetPutBody_valid = {};
+  let customerAccountManagementV1ResetPasswordPostBody_valid = {};
   let customerId_valid = Math.floor(Math.random() * 1000);
   let email_valid = "email_valid_" + Math.floor(Math.random()*1000);
   let newPassword_valid = "newPassword_valid_" + Math.floor(Math.random()*1000);
@@ -87,17 +129,77 @@ bthread("fuzz:Customers:customerId_Missing", function () {
   let template_valid = "template_valid_" + Math.floor(Math.random()*1000);
   let websiteId_valid = Math.floor(Math.random() * 1000);
   let missing_customerId = undefined;
-  verifyCustomersRejects(missing_customerId, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+  verifyCustomersRejects(customerAccountManagementV1InitiatePasswordResetPutBody_valid, customerAccountManagementV1ResetPasswordPostBody_valid, missing_customerId, email_valid, newPassword_valid, resetPasswordLinkToken_valid, resetToken_valid, template_valid, websiteId_valid);
+});
+bthread("fuzz:GuestCarts:additionalData_InvalidType", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
+  let bad_additionalData = 12345;
+  verifyGuestCartsRejects(bad_additionalData, addressInformation_valid, cartId_valid, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
+});
+bthread("fuzz:GuestCarts:addressInformation_InvalidType", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
+  let bad_addressInformation = 12345;
+  verifyGuestCartsRejects(additionalData_valid, bad_addressInformation, cartId_valid, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
 });
 bthread("fuzz:GuestCarts:cartId_InvalidType", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
   let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
   let bad_cartId = ["NOT_A_STRING"];
-  verifyGuestCartsRejects(bad_cartId);
+  verifyGuestCartsRejects(additionalData_valid, addressInformation_valid, bad_cartId, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
+});
+bthread("fuzz:GuestCarts:paymentMethod_InvalidType", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
+  let bad_paymentMethod = 12345;
+  verifyGuestCartsRejects(additionalData_valid, addressInformation_valid, cartId_valid, bad_paymentMethod, shippingCarrierCode_valid, shippingMethodCode_valid);
+});
+bthread("fuzz:GuestCarts:shippingCarrierCode_InvalidType", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
+  let bad_shippingCarrierCode = ["NOT_A_STRING"];
+  verifyGuestCartsRejects(additionalData_valid, addressInformation_valid, cartId_valid, paymentMethod_valid, bad_shippingCarrierCode, shippingMethodCode_valid);
+});
+bthread("fuzz:GuestCarts:shippingMethodCode_InvalidType", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
+  let bad_shippingMethodCode = ["NOT_A_STRING"];
+  verifyGuestCartsRejects(additionalData_valid, addressInformation_valid, cartId_valid, paymentMethod_valid, shippingCarrierCode_valid, bad_shippingMethodCode);
 });
 bthread("fuzz:GuestCarts:cartId_Missing", function () {
+  let additionalData_valid = {};
+  let addressInformation_valid = {};
   let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let paymentMethod_valid = {};
+  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
+  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
   let missing_cartId = undefined;
-  verifyGuestCartsRejects(missing_cartId);
+  verifyGuestCartsRejects(additionalData_valid, addressInformation_valid, missing_cartId, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
 });
 bthread("fuzz:GuestCartsEstimateShippingMethods:cartId_InvalidType", function () {
   let address_valid = "address_valid_" + Math.floor(Math.random()*1000);
@@ -169,42 +271,26 @@ bthread("fuzz:GuestCartsBillingAddress:cartId_Missing", function () {
   let missing_cartId = undefined;
   verifyGuestCartsBillingAddressRejects(address_valid, missing_cartId, useForShipping_valid);
 });
-bthread("fuzz:GuestCartTotals:addressInformation_InvalidType", function () {
-  let additionalData_valid = "additionalData_valid_" + Math.floor(Math.random()*1000);
-  let addressInformation_valid = {};
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let paymentMethod_valid = "paymentMethod_valid_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
-  let bad_addressInformation = 12345;
-  verifyGuestCartTotalsRejects(additionalData_valid, bad_addressInformation, cartId_valid, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
-});
-bthread("fuzz:GuestCartTotals:cartId_InvalidType", function () {
-  let additionalData_valid = "additionalData_valid_" + Math.floor(Math.random()*1000);
-  let addressInformation_valid = {};
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let paymentMethod_valid = "paymentMethod_valid_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
-  let bad_cartId = ["NOT_A_STRING"];
-  verifyGuestCartTotalsRejects(additionalData_valid, addressInformation_valid, bad_cartId, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
-});
-bthread("fuzz:GuestCartTotals:cartId_Missing", function () {
-  let additionalData_valid = "additionalData_valid_" + Math.floor(Math.random()*1000);
-  let addressInformation_valid = {};
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let paymentMethod_valid = "paymentMethod_valid_" + Math.floor(Math.random()*1000);
-  let shippingCarrierCode_valid = "shippingCarrierCode_valid_" + Math.floor(Math.random()*1000);
-  let shippingMethodCode_valid = "shippingMethodCode_valid_" + Math.floor(Math.random()*1000);
-  let missing_cartId = undefined;
-  verifyGuestCartTotalsRejects(additionalData_valid, addressInformation_valid, missing_cartId, paymentMethod_valid, shippingCarrierCode_valid, shippingMethodCode_valid);
-});
 bthread("fuzz:AdminToken:id_InvalidType", function () {
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
   let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
   let username_valid = "username_valid_" + Math.floor(Math.random()*1000);
   let bad_id = ["NOT_A_STRING"];
   verifyAdminTokenRejects(bad_id, password_valid, username_valid);
+});
+bthread("fuzz:AdminToken:password_InvalidType", function () {
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
+  let username_valid = "username_valid_" + Math.floor(Math.random()*1000);
+  let bad_password = ["NOT_A_STRING"];
+  verifyAdminTokenRejects(id_valid, bad_password, username_valid);
+});
+bthread("fuzz:AdminToken:username_InvalidType", function () {
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
+  let username_valid = "username_valid_" + Math.floor(Math.random()*1000);
+  let bad_username = ["NOT_A_STRING"];
+  verifyAdminTokenRejects(id_valid, password_valid, bad_username);
 });
 bthread("fuzz:AdminToken:id_Missing", function () {
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
@@ -455,34 +541,6 @@ bthread("fuzz:GuestCartCollectionPoint:cartId_Missing", function () {
   let missing_cartId = undefined;
   verifyGuestCartCollectionPointRejects(missing_cartId, collectionPointId_valid, countryId_valid, postcode_valid);
 });
-bthread("fuzz:GuestCartCollectionPointSelect:cartId_InvalidType", function () {
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let entityId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let bad_cartId = ["NOT_A_STRING"];
-  verifyGuestCartCollectionPointSelectRejects(bad_cartId, entityId_valid, id_valid);
-});
-bthread("fuzz:GuestCartCollectionPointSelect:entityId_InvalidType", function () {
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let entityId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let bad_entityId = "INVALID_STRING";
-  verifyGuestCartCollectionPointSelectRejects(cartId_valid, bad_entityId, id_valid);
-});
-bthread("fuzz:GuestCartCollectionPointSelect:id_InvalidType", function () {
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let entityId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyGuestCartCollectionPointSelectRejects(cartId_valid, entityId_valid, bad_id);
-});
-bthread("fuzz:GuestCartCollectionPointSelect:id_Missing", function () {
-  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
-  let entityId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyGuestCartCollectionPointSelectRejects(cartId_valid, entityId_valid, missing_id);
-});
 bthread("fuzz:GuestCartDeliveryOption:cartId_InvalidType", function () {
   let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
   let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
@@ -510,6 +568,34 @@ bthread("fuzz:GuestCartDeliveryOption:id_Missing", function () {
   let selectedOption_valid = "selectedOption_valid_" + Math.floor(Math.random()*1000);
   let missing_id = undefined;
   verifyGuestCartDeliveryOptionRejects(cartId_valid, missing_id, selectedOption_valid);
+});
+bthread("fuzz:GuestCartCollectionPointSelect:cartId_InvalidType", function () {
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let entityId_valid = Math.floor(Math.random() * 1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let bad_cartId = ["NOT_A_STRING"];
+  verifyGuestCartCollectionPointSelectRejects(bad_cartId, entityId_valid, id_valid);
+});
+bthread("fuzz:GuestCartCollectionPointSelect:entityId_InvalidType", function () {
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let entityId_valid = Math.floor(Math.random() * 1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let bad_entityId = "INVALID_STRING";
+  verifyGuestCartCollectionPointSelectRejects(cartId_valid, bad_entityId, id_valid);
+});
+bthread("fuzz:GuestCartCollectionPointSelect:id_InvalidType", function () {
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let entityId_valid = Math.floor(Math.random() * 1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let bad_id = ["NOT_A_STRING"];
+  verifyGuestCartCollectionPointSelectRejects(cartId_valid, entityId_valid, bad_id);
+});
+bthread("fuzz:GuestCartCollectionPointSelect:id_Missing", function () {
+  let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);
+  let entityId_valid = Math.floor(Math.random() * 1000);
+  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
+  let missing_id = undefined;
+  verifyGuestCartCollectionPointSelectRejects(cartId_valid, entityId_valid, missing_id);
 });
 bthread("fuzz:GuestCartCheckoutFields:cartId_InvalidType", function () {
   let cartId_valid = "cartId_valid_" + Math.floor(Math.random()*1000);

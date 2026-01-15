@@ -9,13 +9,16 @@
           "descriptionTemplate": "Reset customer password.",
           "method": "POST",
           "path": "/V1/customers/resetPassword",
-          "params": [],
+          "params": [
+            "customerAccountManagementV1ResetPasswordPostBody"
+          ],
           "bodyTemplate": {
             "email": "{email}",
             "newPassword": "{newPassword}",
             "resetToken": "{resetToken}"
           },
           "paramTypes": {
+            "customerAccountManagementV1ResetPasswordPostBody": "object",
             "email": "string",
             "newPassword": "string",
             "resetToken": "string"
@@ -31,13 +34,16 @@
           "descriptionTemplate": "Send an email to the customer with a password reset link.",
           "method": "PUT",
           "path": "/V1/customers/password",
-          "params": [],
+          "params": [
+            "customerAccountManagementV1InitiatePasswordResetPutBody"
+          ],
           "bodyTemplate": {
             "email": "{email}",
             "template": "{template}",
             "websiteId": "{websiteId}"
           },
           "paramTypes": {
+            "customerAccountManagementV1InitiatePasswordResetPutBody": "object",
             "email": "string",
             "template": "string",
             "websiteId": "integer"
@@ -155,10 +161,10 @@
     "GuestCarts": {
       "operations": {
         "get": {
-          "name": "quoteGuestCartRepositoryV1GetGet",
-          "descriptionTemplate": "Enable a guest user to return information for a specified cart.",
+          "name": "quoteGuestCartTotalRepositoryV1GetGet",
+          "descriptionTemplate": "Return quote totals data for a specified cart.",
           "method": "GET",
-          "path": "/V1/guest-carts/{cartId}",
+          "path": "/V1/guest-carts/{cartId}/totals",
           "params": [
             "cartId"
           ],
@@ -172,18 +178,49 @@
           ]
         },
         "add": {
-          "name": "createEmptyCart",
-          "descriptionTemplate": "Enable an customer or guest user to create an empty cart and quote for an anonymous customer.",
+          "name": "checkoutGuestTotalsInformationManagementV1CalculatePost",
+          "descriptionTemplate": "Calculate quote totals based on address and shipping method.",
           "method": "POST",
-          "path": "/V1/guest-carts",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {},
-          "x-defined-response-codes": [
-            200,
-            400
+          "path": "/V1/guest-carts/{cartId}/totals-information",
+          "params": [
+            "cartId"
           ],
-          "x-generate-full-story": true
+          "bodyTemplate": {
+            "addressInformation": "{addressInformation}"
+          },
+          "paramTypes": {
+            "cartId": "string",
+            "addressInformation": "object"
+          },
+          "x-defined-response-codes": [
+            200
+          ],
+          "x-generate-full-story": false
+        },
+        "update": {
+          "name": "quoteGuestCartTotalManagementV1CollectTotalsPut",
+          "descriptionTemplate": "Set shipping/billing methods and additional data for cart and collect totals for guest.",
+          "method": "PUT",
+          "path": "/V1/guest-carts/{cartId}/collect-totals",
+          "params": [
+            "cartId"
+          ],
+          "bodyTemplate": {
+            "additionalData": "{additionalData}",
+            "paymentMethod": "{paymentMethod}",
+            "shippingCarrierCode": "{shippingCarrierCode}",
+            "shippingMethodCode": "{shippingMethodCode}"
+          },
+          "paramTypes": {
+            "cartId": "string",
+            "additionalData": "object",
+            "paymentMethod": "object",
+            "shippingCarrierCode": "string",
+            "shippingMethodCode": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     },
@@ -247,7 +284,7 @@
             200,
             400
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         },
         "delete": {
           "name": "quoteGuestCouponManagementV1RemoveDelete",
@@ -371,7 +408,7 @@
             200,
             400
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         }
       }
     },
@@ -475,91 +512,6 @@
         }
       }
     },
-    "GuestCartTotals": {
-      "operations": {
-        "update": {
-          "name": "quoteGuestCartTotalManagementV1CollectTotalsPut",
-          "descriptionTemplate": "Set shipping/billing methods and additional data for cart and collect totals for guest.",
-          "method": "PUT",
-          "path": "/V1/guest-carts/{cartId}/collect-totals",
-          "params": [
-            "cartId"
-          ],
-          "bodyTemplate": {
-            "additionalData": "{additionalData}",
-            "paymentMethod": "{paymentMethod}",
-            "shippingCarrierCode": "{shippingCarrierCode}",
-            "shippingMethodCode": "{shippingMethodCode}"
-          },
-          "paramTypes": {
-            "cartId": "string"
-          },
-          "x-defined-response-codes": [
-            200
-          ]
-        },
-        "get": {
-          "name": "quoteGuestCartTotalRepositoryV1GetGet",
-          "descriptionTemplate": "Return quote totals data for a specified cart.",
-          "method": "GET",
-          "path": "/V1/guest-carts/{cartId}/totals",
-          "params": [
-            "cartId"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "cartId": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            400
-          ]
-        },
-        "add": {
-          "name": "checkoutGuestTotalsInformationManagementV1CalculatePost",
-          "descriptionTemplate": "Calculate quote totals based on address and shipping method.",
-          "method": "POST",
-          "path": "/V1/guest-carts/{cartId}/totals-information",
-          "params": [
-            "cartId"
-          ],
-          "bodyTemplate": {
-            "addressInformation": "{addressInformation}"
-          },
-          "paramTypes": {
-            "cartId": "string",
-            "addressInformation": "object"
-          },
-          "x-defined-response-codes": [
-            200
-          ],
-          "x-generate-full-story": false
-        }
-      }
-    },
-    "GuestCartCoupons": {
-      "operations": {
-        "update": {
-          "name": "quoteGuestCartManagementV1PlaceOrderPut",
-          "descriptionTemplate": "",
-          "method": "PUT",
-          "path": "/V1/guest-carts/{cartId}/order",
-          "params": [
-            "cartId",
-            "quoteGuestCartManagementV1PlaceOrderPutBody"
-          ],
-          "paramTypes": {
-            "cartId": "string",
-            "quoteGuestCartManagementV1PlaceOrderPutBody": "string"
-          },
-          "queryParams": [],
-          "x-defined-response-codes": [
-            200,
-            400
-          ]
-        }
-      }
-    },
     "AdminToken": {
       "operations": {
         "add": {
@@ -569,10 +521,13 @@
           "path": "/V1/integration/admin/token",
           "params": [],
           "bodyTemplate": {
-            "password": "{password}",
-            "username": "{username}"
+            "username": "{username}",
+            "password": "{password}"
           },
-          "paramTypes": {},
+          "paramTypes": {
+            "username": "string",
+            "password": "string"
+          },
           "x-defined-response-codes": [
             200,
             400,
@@ -582,7 +537,7 @@
         }
       }
     },
-    "ProductRenderInfo": {
+    "ProductsRenderInfo": {
       "operations": {
         "list": {
           "name": "catalogProductRenderListV1GetListGet",
@@ -654,7 +609,7 @@
           "x-defined-response-codes": [
             200
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         }
       }
     },
@@ -707,7 +662,7 @@
           "x-defined-response-codes": [
             200
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         }
       }
     },
@@ -856,7 +811,7 @@
             200,
             400
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         }
       }
     },
@@ -900,7 +855,7 @@
             200,
             400
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         }
       }
     },
@@ -984,6 +939,30 @@
         }
       }
     },
+    "GuestCartDeliveryOption": {
+      "operations": {
+        "add": {
+          "name": "temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost",
+          "descriptionTemplate": "Handle selected delivery option.",
+          "method": "POST",
+          "path": "/V1/guest-carts/{cartId}/delivery-option",
+          "params": [
+            "cartId"
+          ],
+          "bodyTemplate": {
+            "selectedOption": "{selectedOption}"
+          },
+          "paramTypes": {
+            "cartId": "string",
+            "selectedOption": "string"
+          },
+          "x-defined-response-codes": [
+            500
+          ],
+          "x-generate-full-story": false
+        }
+      }
+    },
     "GuestCartCollectionPointSelect": {
       "operations": {
         "add": {
@@ -1009,30 +988,6 @@
         }
       }
     },
-    "GuestCartDeliveryOption": {
-      "operations": {
-        "add": {
-          "name": "temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost",
-          "descriptionTemplate": "Handle selected delivery option.",
-          "method": "POST",
-          "path": "/V1/guest-carts/{cartId}/delivery-option",
-          "params": [
-            "cartId"
-          ],
-          "bodyTemplate": {
-            "selectedOption": "{selectedOption}"
-          },
-          "paramTypes": {
-            "cartId": "string",
-            "selectedOption": "string"
-          },
-          "x-defined-response-codes": [
-            500
-          ],
-          "x-generate-full-story": true
-        }
-      }
-    },
     "GuestCartCheckoutFields": {
       "operations": {
         "add": {
@@ -1053,7 +1008,7 @@
           "x-defined-response-codes": [
             400
           ],
-          "x-generate-full-story": true
+          "x-generate-full-story": false
         }
       }
     },
@@ -1085,7 +1040,7 @@
     "GuestCartDeliveryPickupLocation": {
       "operations": {
         "add": {
-          "name": "selectPickupLocation",
+          "name": "selectPickupLocationForDelivery",
           "descriptionTemplate": "",
           "method": "POST",
           "path": "/V1/guest-carts/{cartId}/pickup-location/select",
@@ -1118,9 +1073,6 @@
     "GuestCartsBillingAddress": [
       "GuestCarts"
     ],
-    "GuestCartTotals": [
-      "GuestCarts"
-    ],
     "GuestCartsPaymentInformation": [
       "GuestCarts"
     ],
@@ -1142,10 +1094,10 @@
     "GuestCartCollectionPoint": [
       "GuestCarts"
     ],
-    "GuestCartCollectionPointSelect": [
+    "GuestCartDeliveryOption": [
       "GuestCarts"
     ],
-    "GuestCartDeliveryOption": [
+    "GuestCartCollectionPointSelect": [
       "GuestCarts"
     ],
     "GuestCartCheckoutFields": [
@@ -1156,6 +1108,51 @@
     ],
     "GuestCartDeliveryPickupLocation": [
       "GuestCarts"
+    ]
+  },
+  "system_architecture": {
+    "master_entities": [
+      "Order",
+      "Product",
+      "Customer"
+    ],
+    "personas": {
+      "Customer": [
+        "AddToCart",
+        "Checkout",
+        "ViewOrder"
+      ],
+      "Admin": [
+        "AddProduct",
+        "UpdateProduct",
+        "DeleteProduct",
+        "ManageOrders"
+      ],
+      "Guest": [
+        "BrowseProducts",
+        "ViewProductDetails"
+      ],
+      "Supplier": [
+        "AddInventory",
+        "UpdateInventory"
+      ]
+    },
+    "negative_patterns": [
+      {
+        "type": "PostDelete",
+        "entity": "Product",
+        "action": "UpdateProduct"
+      },
+      {
+        "type": "PostDelete",
+        "entity": "Order",
+        "action": "ViewOrder"
+      },
+      {
+        "type": "DoubleAction",
+        "entity": "Product",
+        "action": "AddProduct"
+      }
     ]
   },
   "original_spec": {
