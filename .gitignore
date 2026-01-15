@@ -58,3 +58,9 @@ RestlerResults/
 RestlerResults/
 
 *.out
+
+# Exclude crash and queue directories anywhere in the tree
+./WuppieFuzz/crashes/
+./WuppieFuzz/queue/
+**/crashes/
+**/queue/

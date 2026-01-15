@@ -1,0 +1,32 @@
+﻿services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: magento-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=magento
+      - MYSQL_PASSWORD=password
+
+  elasticsearch:
+    image: elasticsearch:7.17.10
+    container_name: magento-search
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  magento:
+    image: alexcheng/magento2:latest
+    container_name: magento-app
+    ports:
+      - "80:80"
+    environment:
+      - MAGENTO_URL=http://localhost
+      - MAGENTO_DB_HOST=mariadb
+      - MAGENTO_DB_NAME=magento
+      - MAGENTO_DB_USER=magento
+      - MAGENTO_DB_PASSWORD=password
+    depends_on:
+      - mariadb
+      - elasticsearch
