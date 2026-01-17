@@ -103,7 +103,7 @@ function matchAnyBooksDeleted() {
   return bp.EventSet("Any Books Deleted", function(e) {
       return e.name.startsWith("Done: Positive: Delete a book");
   }});
-}}
+}
 
 function listLoans() {
   var url = "/loans";
@@ -195,7 +195,7 @@ function matchAnyLoansDeleted() {
   return bp.EventSet("Any Loans Deleted", function(e) {
       return e.name.startsWith("Done: Positive: Delete a loan by composite id");
   }});
-}}
+}
 
 function listUsers() {
   var url = "/users";
@@ -288,7 +288,7 @@ function matchAnyUsersDeleted() {
   return bp.EventSet("Any Users Deleted", function(e) {
       return e.name.startsWith("Done: Positive: Delete a user");
   }});
-}}
+}
 
 function listHolds() {
   var url = "/holds";
@@ -382,4 +382,4 @@ function matchAnyHoldsDeleted() {
   return bp.EventSet("Any Holds Deleted", function(e) {
       return e.name.startsWith("Done: Positive: Delete a hold");
   }});
-}}
+}

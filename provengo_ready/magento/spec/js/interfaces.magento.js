@@ -379,7 +379,7 @@ function matchAnyGuestcartsitemsDeleted() {
   return bp.EventSet("Any GuestCartsItems Deleted", function(e) {
       return e.name.startsWith("Done: Positive:");
   }});
-}}
+}
 
 function placeOrder(cartId, paymentMethod) {
   var url = "/V1/guest-carts/" + cartId + "/order";
@@ -508,7 +508,7 @@ function matchAnyGuestcartscouponsDeleted() {
   return bp.EventSet("Any GuestCartsCoupons Deleted", function(e) {
       return e.name.startsWith("Done: Positive: Delete a coupon from a specified cart.");
   }});
-}}
+}
 
 function quoteGuestPaymentMethodManagementV1GetListGet(cartId) {
   var url = "/V1/guest-carts/" + cartId + "/payment-methods";
@@ -878,7 +878,7 @@ function matchAnyAmazonorderreferenceDeleted() {
   return bp.EventSet("Any AmazonOrderReference Deleted", function(e) {
       return e.name.startsWith("Done: Positive:");
   }});
-}}
+}
 
 function giftMessageGuestCartRepositoryV1GetGet(cartId) {
   var url = "/V1/guest-carts/" + cartId + "/gift-message";
@@ -1080,7 +1080,7 @@ function matchAnyGuestcartcollectionpointDeleted() {
   return bp.EventSet("Any GuestCartCollectionPoint Deleted", function(e) {
       return e.name.startsWith("Done: Positive: Delete a customer's search for collection points.");
   }});
-}}
+}
 
 function temandoShippingQuoteGuestCartDeliveryOptionManagementV1SavePost(cartId, id, selectedOption) {
   var url = "/V1/guest-carts/" + cartId + "/delivery-option";

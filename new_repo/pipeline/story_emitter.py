@@ -14,22 +14,43 @@ def _resolve_entity_name(name, entities):
     if name in entities: return name
     if name + "s" in entities: return name + "s"
     if name.endswith("s") and name[:-1] in entities: return name[:-1]
-    # Case-insensitive fallback
     for key in entities.keys():
         if key.lower() == name.lower(): return key
     return None
 
 def _get_merged_param_types(ent_data):
-    """Merges parameter types from ALL operations for a consistent seeding."""
-    merged_types = {}
-    merged_formats = {}
+    """Unified Helper with Debug: Merges parameter types across all operations."""
+    merged_types, merged_formats = {}, {}
     for op in ent_data.get("operations", {}).values():
         if isinstance(op, dict):
             t = op.get("paramTypes") or op.get("types") or {}
             f = op.get("paramFormats") or op.get("formats") or {}
             merged_types.update(t if isinstance(t, dict) else {})
             merged_formats.update(f if isinstance(f, dict) else {})
+    
+    if merged_types:
+        print(f"   [DEBUG] Merged Types found: {list(merged_types.keys())}") # DEBUG PRINT
     return merged_types, merged_formats
+
+def _generate_entity_vars(name, entities, raw_spec, prefix, suffix, deps, merged_types, merged_formats):
+    """Unified Helper with Debug: Generates real JS variables."""
+    pk, params = collect_entity_params(name, entities[name], raw_spec)
+    print(f"   [DEBUG] _generate_entity_vars for '{name}': Params: {params}") # DEBUG PRINT
+    
+    lines, args, arg_map = [], [], {}
+    for p in params:
+        safe_p = sanitize_param(p)
+        var_name = f"{safe_p}_{prefix}_{suffix}"
+        p_type = str(merged_types.get(p, "string")).lower()
+        if p in deps: val = f"captured_{suffix}['{p}']"
+        elif p == pk or "id" in p.lower():
+            val = f"Math.floor(Math.random() * 1000)" if p_type in ["integer", "number"] else f"\"{safe_p}_{suffix}_\" + Math.floor(Math.random()*1000)"
+        elif p_type in ["integer", "number"]: val = "Math.floor(Math.random() * 1000)"
+        else: val = f"\"{safe_p}_{suffix}_\" + Math.floor(Math.random()*1000)"
+        lines.append(f"  let {var_name} = {val};")
+        args.append(var_name); arg_map[p] = var_name
+    return lines, args, arg_map, pk, params
+
 
 def _get_js_resolve_dependencies_fn():
     lines = []
@@ -475,14 +496,13 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
     raw_spec = spec.get("original_spec", {})
     arch = spec.get("system_architecture", {})
     
-    # DEBUG PRINT: See what the LLM architecture provided
-    print(f"\n[DEBUG] --- Starting Hyper-Story Generation for {sut_name} ---")
-    print(f"[DEBUG] Architecture Master Entities: {arch.get('master_entities')}")
-    
+    print(f"\n[DEBUG] --- Hyper-Story Resolution: {sut_name} ---")
     masters = [m for m in [_resolve_entity_name(n, entities) for n in arch.get("master_entities", [])] if m]
-    personas = arch.get("personas", {})
+    print(f"[DEBUG] Masters Resolved: {masters}")
     
+    personas = arch.get("personas", {})
     output_lines = []
+
     for iteration in range(1, 4):
         lines = [f'// --- Hyper-Story Version {iteration}: Global Coordination for {sut_name} ---']
         lines.append(f'bthread("hyper:{sut_name}:orchestration:{iteration}", function () {{')
@@ -493,78 +513,82 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
             for m in masters:
                 safe_m = sanitize_param(m).capitalize()
                 lines.append(f'    let event_{m} = waitFor(matchAny{safe_m}Added());')
-                lines.append(f'    let sharedId = event_{m}.data.id || event_{m}.data.sku || event_{m}.data.cartId;')
+                lines.append(f'    let sharedId = event_{m}.data.id || event_{m}.data.sku;')
                 
-                for action_key in p_actions[:2]:
+                for action_raw in p_actions:
+                    # SMART PARSING: Handle "Books - add" prefix
+                    target_act = action_raw
+                    if " - " in action_raw:
+                        ent_part, act_part = action_raw.split(" - ", 1)
+                        if _resolve_entity_name(ent_part, entities) != m:
+                            continue # Skip: this action belongs to a different entity
+                        target_act = act_part
+
                     ent_ops = entities[m].get("operations", {})
-                    # Robust lookup with fallback
-                    op_data = ent_ops.get(action_key.lower()) or ent_ops.get("update") or ent_ops.get("get")
+                    op_data = ent_ops.get(target_act.lower()) or ent_ops.get("get") or ent_ops.get("update")
                     
                     if op_data:
-                        lines.append(f'    {sanitize_param(op_data["name"])}(sharedId);')
+                        fn_name = sanitize_param(op_data["name"])
+                        print(f"   [DEBUG] Persona '{p_name}' action '{action_raw}' -> Mapped to {fn_name}")
+                        lines.append(f'    {fn_name}(sharedId);')
                         has_activity = True
-                    else:
-                        print(f"[DEBUG] ! Persona '{p_name}' action '{action_key}' not found for entity '{m}'")
             
             if not has_activity: 
-                lines.append('    // No automated actions found for this persona.')
+                print(f"   [DEBUG] ! WARNING: Persona '{p_name}' has NO valid actions mapped.")
+                lines.append('    // No valid API actions found.')
             lines.append('  }});')
 
         lines.append('\n  // Seeding Phase')
         for m in masters:
             add_op = entities[m]["operations"].get("add")
             if not add_op:
-                print(f"[DEBUG] ! Skipping seeding for '{m}' (No 'add' operation in spec)")
+                print(f"   [DEBUG] ! Skipping seeding for '{m}' (No 'add' operation)")
                 continue
             
             fn_name = sanitize_param(add_op.get("name"))
-            lines.append(f'  for (let i=0; i<5; i++) {{')
+            print(f"   [DEBUG] Generating seeding calls for {m}")
             m_types, m_formats = _get_merged_param_types(entities[m])
-            # Explicitly generate 5 blocks of code in Python to populate the JS loop
+            
             for i in range(5):
+                # FIX: Added 'str(i)' to ensure unique JS variable names like 'title_seed_1_0', 'title_seed_1_1'
                 v_code, args, _, _, _ = _generate_entity_vars(m, entities, raw_spec, f"seed_{iteration}", str(i), {}, m_types, m_formats)
                 for v_line in v_code: lines.append("    " + v_line)
-                lines.append(f'    {fn_name}({", ".join(args)}{", " if args else ""}{{ expectedResponseCodes: [200, 201] }});')
-            lines.append(f'  }}')
-        
+                args_str = ", ".join(args) + (", " if args else "")
+                lines.append(f'    {fn_name}({args_str}{{ expectedResponseCodes: [200, 201] }});')
+                        
         lines.append('}});')
         output_lines.append("\n".join(lines))
-    
-    print(f"[DEBUG] --- Hyper-Story Generation Complete ---\n")
     return "\n".join(output_lines)
-
 
 def _generate_hyper_negative_stories(spec, sut_name):
     entities = spec.get("entities", {})
     arch = spec.get("system_architecture", {})
     patterns = arch.get("negative_patterns", [])
     
+    print(f"\n[DEBUG] --- Hyper-Negative Resolution ---")
     output_lines = []
     for iteration in range(1, 4):
-        lines = [f'// --- Hyper-Negative Story Version {iteration}: Reactive State-Violation ---']
+        lines = [f'// --- Hyper-Negative Story Version {iteration} ---']
         lines.append(f'bthread("hyper:{sut_name}:negative_orchestration:{iteration}", function () {{')
         
         for pat in patterns:
             m = _resolve_entity_name(pat.get("entity"), entities)
-            if not m: continue
+            if not m:
+                print(f"   [DEBUG] ! Skipping negative pattern for entity: {pat.get('entity')} (Not found)")
+                continue
             
-            action_key = pat.get("action")
             safe_m = sanitize_param(m).capitalize()
-            # Resolve real API function for the negative action
-            ent_ops = entities[m].get("operations", {})
-            op_data = ent_ops.get(action_key.lower()) or ent_ops.get("get") or ent_ops.get("update")
+            op_data = entities[m]["operations"].get("get") or entities[m]["operations"].get("update")
             
             if op_data:
-                fn_name = sanitize_param(op_data.get("name"))
+                fn_name = sanitize_param(op_data["name"])
+                print(f"   [DEBUG] Pattern '{pat.get('type')}' on {m} -> Mapped to {fn_name}")
                 if pat.get("type") == "PostDelete":
                     lines.append(f'  bthread("Hyper_Neg_PostDelete_{m}_{iteration}", function() {{')
                     lines.append(f'    let e = waitFor(matchAny{safe_m}Deleted());')
-                    lines.append(f'    let deadId = e.data.id || e.data.sku || e.data.cartId;')
-                    lines.append(f'    {fn_name}(deadId); // Attempt action on deleted resource')
+                    lines.append(f'    {fn_name}(e.data.id || e.data.sku);')
                     lines.append('  }});')
-            else:
-                print(f"[DEBUG] ! Negative pattern failed: Could not find API call for {action_key} on {m}")
-        
         lines.append('}});')
         output_lines.append("\n".join(lines))
     return "\n".join(output_lines)
+

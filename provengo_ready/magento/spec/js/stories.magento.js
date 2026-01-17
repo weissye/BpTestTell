@@ -1531,57 +1531,255 @@ bthread("chain:GuestCarts_GuestCartDeliveryPickupLocation", function () {
 // --- Hyper-Story Version 1: Global Coordination for magento ---
 bthread("hyper:magento:orchestration:1", function () {
   bthread("Persona_Customer_1", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Admin_1", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Guest_1", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Supplier_1", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
 
-  // Seeding Phase: Populating the Master Entities
+  // Seeding Phase
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_1 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_1 = {};
+      let customerId_seed_1 = Math.floor(Math.random() * 1000);
+      let email_seed_1 = "email_seed_1_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_1 = "newPassword_seed_1_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_1 = "resetPasswordLinkToken_seed_1_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_1 = "resetToken_seed_1_" + Math.floor(Math.random()*1000);
+      let template_seed_1 = "template_seed_1_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_1 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_1, customerAccountManagementV1ResetPasswordPostBody_seed_1, customerId_seed_1, email_seed_1, newPassword_seed_1, resetPasswordLinkToken_seed_1, resetToken_seed_1, template_seed_1, websiteId_seed_1, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_1 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_1 = {};
+      let customerId_seed_1 = Math.floor(Math.random() * 1000);
+      let email_seed_1 = "email_seed_1_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_1 = "newPassword_seed_1_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_1 = "resetPasswordLinkToken_seed_1_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_1 = "resetToken_seed_1_" + Math.floor(Math.random()*1000);
+      let template_seed_1 = "template_seed_1_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_1 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_1, customerAccountManagementV1ResetPasswordPostBody_seed_1, customerId_seed_1, email_seed_1, newPassword_seed_1, resetPasswordLinkToken_seed_1, resetToken_seed_1, template_seed_1, websiteId_seed_1, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_1 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_1 = {};
+      let customerId_seed_1 = Math.floor(Math.random() * 1000);
+      let email_seed_1 = "email_seed_1_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_1 = "newPassword_seed_1_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_1 = "resetPasswordLinkToken_seed_1_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_1 = "resetToken_seed_1_" + Math.floor(Math.random()*1000);
+      let template_seed_1 = "template_seed_1_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_1 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_1, customerAccountManagementV1ResetPasswordPostBody_seed_1, customerId_seed_1, email_seed_1, newPassword_seed_1, resetPasswordLinkToken_seed_1, resetToken_seed_1, template_seed_1, websiteId_seed_1, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_1 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_1 = {};
+      let customerId_seed_1 = Math.floor(Math.random() * 1000);
+      let email_seed_1 = "email_seed_1_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_1 = "newPassword_seed_1_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_1 = "resetPasswordLinkToken_seed_1_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_1 = "resetToken_seed_1_" + Math.floor(Math.random()*1000);
+      let template_seed_1 = "template_seed_1_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_1 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_1, customerAccountManagementV1ResetPasswordPostBody_seed_1, customerId_seed_1, email_seed_1, newPassword_seed_1, resetPasswordLinkToken_seed_1, resetToken_seed_1, template_seed_1, websiteId_seed_1, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_1 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_1 = {};
+      let customerId_seed_1 = Math.floor(Math.random() * 1000);
+      let email_seed_1 = "email_seed_1_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_1 = "newPassword_seed_1_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_1 = "resetPasswordLinkToken_seed_1_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_1 = "resetToken_seed_1_" + Math.floor(Math.random()*1000);
+      let template_seed_1 = "template_seed_1_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_1 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_1, customerAccountManagementV1ResetPasswordPostBody_seed_1, customerId_seed_1, email_seed_1, newPassword_seed_1, resetPasswordLinkToken_seed_1, resetToken_seed_1, template_seed_1, websiteId_seed_1, { expectedResponseCodes: [200, 201] });
 }});
 // --- Hyper-Story Version 2: Global Coordination for magento ---
 bthread("hyper:magento:orchestration:2", function () {
   bthread("Persona_Customer_2", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Admin_2", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Guest_2", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Supplier_2", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
 
-  // Seeding Phase: Populating the Master Entities
+  // Seeding Phase
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_2 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_2 = {};
+      let customerId_seed_2 = Math.floor(Math.random() * 1000);
+      let email_seed_2 = "email_seed_2_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_2 = "newPassword_seed_2_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_2 = "resetPasswordLinkToken_seed_2_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_2 = "resetToken_seed_2_" + Math.floor(Math.random()*1000);
+      let template_seed_2 = "template_seed_2_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_2 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_2, customerAccountManagementV1ResetPasswordPostBody_seed_2, customerId_seed_2, email_seed_2, newPassword_seed_2, resetPasswordLinkToken_seed_2, resetToken_seed_2, template_seed_2, websiteId_seed_2, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_2 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_2 = {};
+      let customerId_seed_2 = Math.floor(Math.random() * 1000);
+      let email_seed_2 = "email_seed_2_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_2 = "newPassword_seed_2_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_2 = "resetPasswordLinkToken_seed_2_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_2 = "resetToken_seed_2_" + Math.floor(Math.random()*1000);
+      let template_seed_2 = "template_seed_2_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_2 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_2, customerAccountManagementV1ResetPasswordPostBody_seed_2, customerId_seed_2, email_seed_2, newPassword_seed_2, resetPasswordLinkToken_seed_2, resetToken_seed_2, template_seed_2, websiteId_seed_2, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_2 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_2 = {};
+      let customerId_seed_2 = Math.floor(Math.random() * 1000);
+      let email_seed_2 = "email_seed_2_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_2 = "newPassword_seed_2_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_2 = "resetPasswordLinkToken_seed_2_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_2 = "resetToken_seed_2_" + Math.floor(Math.random()*1000);
+      let template_seed_2 = "template_seed_2_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_2 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_2, customerAccountManagementV1ResetPasswordPostBody_seed_2, customerId_seed_2, email_seed_2, newPassword_seed_2, resetPasswordLinkToken_seed_2, resetToken_seed_2, template_seed_2, websiteId_seed_2, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_2 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_2 = {};
+      let customerId_seed_2 = Math.floor(Math.random() * 1000);
+      let email_seed_2 = "email_seed_2_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_2 = "newPassword_seed_2_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_2 = "resetPasswordLinkToken_seed_2_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_2 = "resetToken_seed_2_" + Math.floor(Math.random()*1000);
+      let template_seed_2 = "template_seed_2_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_2 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_2, customerAccountManagementV1ResetPasswordPostBody_seed_2, customerId_seed_2, email_seed_2, newPassword_seed_2, resetPasswordLinkToken_seed_2, resetToken_seed_2, template_seed_2, websiteId_seed_2, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_2 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_2 = {};
+      let customerId_seed_2 = Math.floor(Math.random() * 1000);
+      let email_seed_2 = "email_seed_2_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_2 = "newPassword_seed_2_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_2 = "resetPasswordLinkToken_seed_2_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_2 = "resetToken_seed_2_" + Math.floor(Math.random()*1000);
+      let template_seed_2 = "template_seed_2_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_2 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_2, customerAccountManagementV1ResetPasswordPostBody_seed_2, customerId_seed_2, email_seed_2, newPassword_seed_2, resetPasswordLinkToken_seed_2, resetToken_seed_2, template_seed_2, websiteId_seed_2, { expectedResponseCodes: [200, 201] });
 }});
 // --- Hyper-Story Version 3: Global Coordination for magento ---
 bthread("hyper:magento:orchestration:3", function () {
   bthread("Persona_Customer_3", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Admin_3", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Guest_3", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
-
   bthread("Persona_Supplier_3", function() {
+    let event_Customers = waitFor(matchAnyCustomersAdded());
+    let sharedId = event_Customers.data.id || event_Customers.data.sku;
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
+    customerAccountManagementV1ValidateResetPasswordLinkTokenGet(sharedId);
   }});
 
-  // Seeding Phase: Populating the Master Entities
+  // Seeding Phase
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_3 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_3 = {};
+      let customerId_seed_3 = Math.floor(Math.random() * 1000);
+      let email_seed_3 = "email_seed_3_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_3 = "newPassword_seed_3_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_3 = "resetPasswordLinkToken_seed_3_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_3 = "resetToken_seed_3_" + Math.floor(Math.random()*1000);
+      let template_seed_3 = "template_seed_3_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_3 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_3, customerAccountManagementV1ResetPasswordPostBody_seed_3, customerId_seed_3, email_seed_3, newPassword_seed_3, resetPasswordLinkToken_seed_3, resetToken_seed_3, template_seed_3, websiteId_seed_3, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_3 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_3 = {};
+      let customerId_seed_3 = Math.floor(Math.random() * 1000);
+      let email_seed_3 = "email_seed_3_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_3 = "newPassword_seed_3_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_3 = "resetPasswordLinkToken_seed_3_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_3 = "resetToken_seed_3_" + Math.floor(Math.random()*1000);
+      let template_seed_3 = "template_seed_3_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_3 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_3, customerAccountManagementV1ResetPasswordPostBody_seed_3, customerId_seed_3, email_seed_3, newPassword_seed_3, resetPasswordLinkToken_seed_3, resetToken_seed_3, template_seed_3, websiteId_seed_3, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_3 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_3 = {};
+      let customerId_seed_3 = Math.floor(Math.random() * 1000);
+      let email_seed_3 = "email_seed_3_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_3 = "newPassword_seed_3_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_3 = "resetPasswordLinkToken_seed_3_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_3 = "resetToken_seed_3_" + Math.floor(Math.random()*1000);
+      let template_seed_3 = "template_seed_3_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_3 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_3, customerAccountManagementV1ResetPasswordPostBody_seed_3, customerId_seed_3, email_seed_3, newPassword_seed_3, resetPasswordLinkToken_seed_3, resetToken_seed_3, template_seed_3, websiteId_seed_3, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_3 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_3 = {};
+      let customerId_seed_3 = Math.floor(Math.random() * 1000);
+      let email_seed_3 = "email_seed_3_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_3 = "newPassword_seed_3_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_3 = "resetPasswordLinkToken_seed_3_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_3 = "resetToken_seed_3_" + Math.floor(Math.random()*1000);
+      let template_seed_3 = "template_seed_3_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_3 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_3, customerAccountManagementV1ResetPasswordPostBody_seed_3, customerId_seed_3, email_seed_3, newPassword_seed_3, resetPasswordLinkToken_seed_3, resetToken_seed_3, template_seed_3, websiteId_seed_3, { expectedResponseCodes: [200, 201] });
+      let customerAccountManagementV1InitiatePasswordResetPutBody_seed_3 = {};
+      let customerAccountManagementV1ResetPasswordPostBody_seed_3 = {};
+      let customerId_seed_3 = Math.floor(Math.random() * 1000);
+      let email_seed_3 = "email_seed_3_" + Math.floor(Math.random()*1000);
+      let newPassword_seed_3 = "newPassword_seed_3_" + Math.floor(Math.random()*1000);
+      let resetPasswordLinkToken_seed_3 = "resetPasswordLinkToken_seed_3_" + Math.floor(Math.random()*1000);
+      let resetToken_seed_3 = "resetToken_seed_3_" + Math.floor(Math.random()*1000);
+      let template_seed_3 = "template_seed_3_" + Math.floor(Math.random()*1000);
+      let websiteId_seed_3 = Math.floor(Math.random() * 1000);
+    customerAccountManagementV1ResetPasswordPost(customerAccountManagementV1InitiatePasswordResetPutBody_seed_3, customerAccountManagementV1ResetPasswordPostBody_seed_3, customerId_seed_3, email_seed_3, newPassword_seed_3, resetPasswordLinkToken_seed_3, resetToken_seed_3, template_seed_3, websiteId_seed_3, { expectedResponseCodes: [200, 201] });
 }});
-// --- Hyper-Negative Story Version 1: Reactive State-Violation ---
+// --- Hyper-Negative Story Version 1 ---
 bthread("hyper:magento:negative_orchestration:1", function () {
 }});
-// --- Hyper-Negative Story Version 2: Reactive State-Violation ---
+// --- Hyper-Negative Story Version 2 ---
 bthread("hyper:magento:negative_orchestration:2", function () {
 }});
-// --- Hyper-Negative Story Version 3: Reactive State-Violation ---
+// --- Hyper-Negative Story Version 3 ---
 bthread("hyper:magento:negative_orchestration:3", function () {
 }});

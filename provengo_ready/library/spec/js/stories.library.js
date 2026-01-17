@@ -422,23 +422,24 @@ bthread("chain:Users_Holds", function () {
 bthread("hyper:library:orchestration:1", function () {
   bthread("Persona_Library Staff_1", function() {
     let event_Books = waitFor(matchAnyBooksAdded());
-    let sharedId = event_Books.data.id || event_Books.data.sku || event_Books.data.cartId;
-    getBook(sharedId);
-    getBook(sharedId);
+    let sharedId = event_Books.data.id || event_Books.data.sku;
+    createBook(sharedId);
+    deleteBook(sharedId);
     let event_Users = waitFor(matchAnyUsersAdded());
-    let sharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    let sharedId = event_Users.data.id || event_Users.data.sku;
+    createUser(sharedId);
+    deleteUser(sharedId);
   }});
   bthread("Persona_Members_1", function() {
     let event_Books = waitFor(matchAnyBooksAdded());
-    let sharedId = event_Books.data.id || event_Books.data.sku || event_Books.data.cartId;
-    getBook(sharedId);
-    getBook(sharedId);
+    let sharedId = event_Books.data.id || event_Books.data.sku;
+    listBooks(sharedId);
     let event_Users = waitFor(matchAnyUsersAdded());
-    let sharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    let sharedId = event_Users.data.id || event_Users.data.sku;
+    listUsers(sharedId);
   }});
 
   // Seeding Phase
-  for (let i=0; i<5; i++) {
       let id_seed_1 = Math.floor(Math.random() * 1000);
       let q_seed_1 = "q_seed_1_" + Math.floor(Math.random()*1000);
       let title_seed_1 = "title_seed_1_" + Math.floor(Math.random()*1000);
@@ -459,8 +460,6 @@ bthread("hyper:library:orchestration:1", function () {
       let q_seed_1 = "q_seed_1_" + Math.floor(Math.random()*1000);
       let title_seed_1 = "title_seed_1_" + Math.floor(Math.random()*1000);
     createBook(id_seed_1, q_seed_1, title_seed_1, { expectedResponseCodes: [200, 201] });
-  }
-  for (let i=0; i<5; i++) {
       let id_seed_1 = Math.floor(Math.random() * 1000);
       let name_seed_1 = "name_seed_1_" + Math.floor(Math.random()*1000);
       let q_seed_1 = "q_seed_1_" + Math.floor(Math.random()*1000);
@@ -481,29 +480,29 @@ bthread("hyper:library:orchestration:1", function () {
       let name_seed_1 = "name_seed_1_" + Math.floor(Math.random()*1000);
       let q_seed_1 = "q_seed_1_" + Math.floor(Math.random()*1000);
     createUser(id_seed_1, name_seed_1, q_seed_1, { expectedResponseCodes: [200, 201] });
-  }
 }});
 // --- Hyper-Story Version 2: Global Coordination for library ---
 bthread("hyper:library:orchestration:2", function () {
   bthread("Persona_Library Staff_2", function() {
     let event_Books = waitFor(matchAnyBooksAdded());
-    let sharedId = event_Books.data.id || event_Books.data.sku || event_Books.data.cartId;
-    getBook(sharedId);
-    getBook(sharedId);
+    let sharedId = event_Books.data.id || event_Books.data.sku;
+    createBook(sharedId);
+    deleteBook(sharedId);
     let event_Users = waitFor(matchAnyUsersAdded());
-    let sharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    let sharedId = event_Users.data.id || event_Users.data.sku;
+    createUser(sharedId);
+    deleteUser(sharedId);
   }});
   bthread("Persona_Members_2", function() {
     let event_Books = waitFor(matchAnyBooksAdded());
-    let sharedId = event_Books.data.id || event_Books.data.sku || event_Books.data.cartId;
-    getBook(sharedId);
-    getBook(sharedId);
+    let sharedId = event_Books.data.id || event_Books.data.sku;
+    listBooks(sharedId);
     let event_Users = waitFor(matchAnyUsersAdded());
-    let sharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    let sharedId = event_Users.data.id || event_Users.data.sku;
+    listUsers(sharedId);
   }});
 
   // Seeding Phase
-  for (let i=0; i<5; i++) {
       let id_seed_2 = Math.floor(Math.random() * 1000);
       let q_seed_2 = "q_seed_2_" + Math.floor(Math.random()*1000);
       let title_seed_2 = "title_seed_2_" + Math.floor(Math.random()*1000);
@@ -524,8 +523,6 @@ bthread("hyper:library:orchestration:2", function () {
       let q_seed_2 = "q_seed_2_" + Math.floor(Math.random()*1000);
       let title_seed_2 = "title_seed_2_" + Math.floor(Math.random()*1000);
     createBook(id_seed_2, q_seed_2, title_seed_2, { expectedResponseCodes: [200, 201] });
-  }
-  for (let i=0; i<5; i++) {
       let id_seed_2 = Math.floor(Math.random() * 1000);
       let name_seed_2 = "name_seed_2_" + Math.floor(Math.random()*1000);
       let q_seed_2 = "q_seed_2_" + Math.floor(Math.random()*1000);
@@ -546,29 +543,29 @@ bthread("hyper:library:orchestration:2", function () {
       let name_seed_2 = "name_seed_2_" + Math.floor(Math.random()*1000);
       let q_seed_2 = "q_seed_2_" + Math.floor(Math.random()*1000);
     createUser(id_seed_2, name_seed_2, q_seed_2, { expectedResponseCodes: [200, 201] });
-  }
 }});
 // --- Hyper-Story Version 3: Global Coordination for library ---
 bthread("hyper:library:orchestration:3", function () {
   bthread("Persona_Library Staff_3", function() {
     let event_Books = waitFor(matchAnyBooksAdded());
-    let sharedId = event_Books.data.id || event_Books.data.sku || event_Books.data.cartId;
-    getBook(sharedId);
-    getBook(sharedId);
+    let sharedId = event_Books.data.id || event_Books.data.sku;
+    createBook(sharedId);
+    deleteBook(sharedId);
     let event_Users = waitFor(matchAnyUsersAdded());
-    let sharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    let sharedId = event_Users.data.id || event_Users.data.sku;
+    createUser(sharedId);
+    deleteUser(sharedId);
   }});
   bthread("Persona_Members_3", function() {
     let event_Books = waitFor(matchAnyBooksAdded());
-    let sharedId = event_Books.data.id || event_Books.data.sku || event_Books.data.cartId;
-    getBook(sharedId);
-    getBook(sharedId);
+    let sharedId = event_Books.data.id || event_Books.data.sku;
+    listBooks(sharedId);
     let event_Users = waitFor(matchAnyUsersAdded());
-    let sharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    let sharedId = event_Users.data.id || event_Users.data.sku;
+    listUsers(sharedId);
   }});
 
   // Seeding Phase
-  for (let i=0; i<5; i++) {
       let id_seed_3 = Math.floor(Math.random() * 1000);
       let q_seed_3 = "q_seed_3_" + Math.floor(Math.random()*1000);
       let title_seed_3 = "title_seed_3_" + Math.floor(Math.random()*1000);
@@ -589,8 +586,6 @@ bthread("hyper:library:orchestration:3", function () {
       let q_seed_3 = "q_seed_3_" + Math.floor(Math.random()*1000);
       let title_seed_3 = "title_seed_3_" + Math.floor(Math.random()*1000);
     createBook(id_seed_3, q_seed_3, title_seed_3, { expectedResponseCodes: [200, 201] });
-  }
-  for (let i=0; i<5; i++) {
       let id_seed_3 = Math.floor(Math.random() * 1000);
       let name_seed_3 = "name_seed_3_" + Math.floor(Math.random()*1000);
       let q_seed_3 = "q_seed_3_" + Math.floor(Math.random()*1000);
@@ -611,74 +606,25 @@ bthread("hyper:library:orchestration:3", function () {
       let name_seed_3 = "name_seed_3_" + Math.floor(Math.random()*1000);
       let q_seed_3 = "q_seed_3_" + Math.floor(Math.random()*1000);
     createUser(id_seed_3, name_seed_3, q_seed_3, { expectedResponseCodes: [200, 201] });
-  }
 }});
-// --- Hyper-Negative Story Version 1: Reactive State-Violation ---
+// --- Hyper-Negative Story Version 1 ---
 bthread("hyper:library:negative_orchestration:1", function () {
   bthread("Hyper_Neg_PostDelete_Books_1", function() {
     let e = waitFor(matchAnyBooksDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteBook(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Loans_1", function() {
-    let e = waitFor(matchAnyLoansDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteLoan(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Users_1", function() {
-    let e = waitFor(matchAnyUsersDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteUser(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Holds_1", function() {
-    let e = waitFor(matchAnyHoldsDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteHold(deadId); // Attempt action on deleted resource
+    getBook(e.data.id || e.data.sku);
   }});
 }});
-// --- Hyper-Negative Story Version 2: Reactive State-Violation ---
+// --- Hyper-Negative Story Version 2 ---
 bthread("hyper:library:negative_orchestration:2", function () {
   bthread("Hyper_Neg_PostDelete_Books_2", function() {
     let e = waitFor(matchAnyBooksDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteBook(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Loans_2", function() {
-    let e = waitFor(matchAnyLoansDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteLoan(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Users_2", function() {
-    let e = waitFor(matchAnyUsersDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteUser(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Holds_2", function() {
-    let e = waitFor(matchAnyHoldsDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteHold(deadId); // Attempt action on deleted resource
+    getBook(e.data.id || e.data.sku);
   }});
 }});
-// --- Hyper-Negative Story Version 3: Reactive State-Violation ---
+// --- Hyper-Negative Story Version 3 ---
 bthread("hyper:library:negative_orchestration:3", function () {
   bthread("Hyper_Neg_PostDelete_Books_3", function() {
     let e = waitFor(matchAnyBooksDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteBook(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Loans_3", function() {
-    let e = waitFor(matchAnyLoansDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteLoan(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Users_3", function() {
-    let e = waitFor(matchAnyUsersDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteUser(deadId); // Attempt action on deleted resource
-  }});
-  bthread("Hyper_Neg_PostDelete_Holds_3", function() {
-    let e = waitFor(matchAnyHoldsDeleted());
-    let deadId = e.data.id || e.data.sku || e.data.cartId;
-    deleteHold(deadId); // Attempt action on deleted resource
+    getBook(e.data.id || e.data.sku);
   }});
 }});
