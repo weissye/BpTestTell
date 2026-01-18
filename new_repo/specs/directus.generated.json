@@ -21,9 +21,9 @@
           "bodyTemplate": {},
           "paramTypes": {
             "Fields": "string",
-            "Limit": "integer",
+            "Limit": "string",
             "Meta": "string",
-            "Offset": "integer",
+            "Offset": "string",
             "Sort": "string",
             "Filter": "string",
             "Search": "string"
@@ -89,7 +89,7 @@
       "operations": {
         "add": {
           "name": "passwordReset",
-          "descriptionTemplate": "Reset a Password",
+          "descriptionTemplate": "The request a password reset endpoint sends an email with a link to the admin app which in turn uses this endpoint to allow the user to reset their password.",
           "method": "POST",
           "path": "/auth/password/reset",
           "params": [
@@ -576,18 +576,14 @@
             401
           ]
         },
-        "get": {
-          "name": "getComment",
-          "descriptionTemplate": "Retrieve a single comment by unique identifier.",
+        "list": {
+          "name": "getComments",
+          "descriptionTemplate": "List the comments.",
           "method": "GET",
-          "path": "/comments/{id}",
-          "params": [
-            "id"
-          ],
+          "path": "/comments",
+          "params": [],
           "bodyTemplate": {},
-          "paramTypes": {
-            "id": "string"
-          },
+          "paramTypes": {},
           "x-defined-response-codes": [
             200,
             401
@@ -620,19 +616,6 @@
           ],
           "queryParams": []
         },
-        "list": {
-          "name": "getComments",
-          "descriptionTemplate": "List the comments.",
-          "method": "GET",
-          "path": "/comments",
-          "params": [],
-          "bodyTemplate": {},
-          "paramTypes": {},
-          "x-defined-response-codes": [
-            200,
-            401
-          ]
-        },
         "add": {
           "name": "createComment",
           "descriptionTemplate": "Create a new comment.",
@@ -659,6 +642,23 @@
           ],
           "queryParams": [],
           "x-generate-full-story": true
+        },
+        "get": {
+          "name": "getComment",
+          "descriptionTemplate": "Retrieve a single comment by unique identifier.",
+          "method": "GET",
+          "path": "/comments/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
         }
       }
     },
@@ -710,13 +710,13 @@
           "method": "GET",
           "path": "/fields/{collection}",
           "params": [
-            "collection",
-            "Sort"
+            "Sort",
+            "collection"
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "collection": "string",
-            "Sort": "object"
+            "Sort": "string",
+            "collection": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -731,7 +731,6 @@
           "path": "/fields/{collection}",
           "params": [
             "field",
-            "type",
             "schema",
             "meta",
             "datatype",
@@ -739,7 +738,7 @@
           ],
           "bodyTemplate": {
             "field": "{field}",
-            "type": "{type}",
+            "type": "\"string\"",
             "schema": "{schema}",
             "meta": "{meta}",
             "datatype": "{datatype}",
@@ -849,13 +848,13 @@
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "Fields": "object",
-            "Limit": "object",
-            "Offset": "object",
-            "Sort": "object",
-            "Filter": "object",
-            "Search": "object",
-            "Meta": "object"
+            "Fields": "string",
+            "Limit": "string",
+            "Offset": "string",
+            "Sort": "string",
+            "Filter": "string",
+            "Search": "string",
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -989,30 +988,6 @@
             404
           ]
         },
-        "add": {
-          "name": "createFlow",
-          "descriptionTemplate": "Create a new flow.",
-          "method": "POST",
-          "path": "/flows",
-          "params": [
-            "Fields",
-            "Meta"
-          ],
-          "bodyTemplate": {
-            "data": "{data}"
-          },
-          "paramTypes": {
-            "Fields": "string",
-            "Meta": "string",
-            "data": "object"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ],
-          "x-generate-full-story": true
-        },
         "update": {
           "name": "updateFlow",
           "descriptionTemplate": "Update an existing flow",
@@ -1037,6 +1012,30 @@
             401,
             404
           ]
+        },
+        "add": {
+          "name": "createFlow",
+          "descriptionTemplate": "Create a new flow.",
+          "method": "POST",
+          "path": "/flows",
+          "params": [
+            "Fields",
+            "Meta"
+          ],
+          "bodyTemplate": {
+            "data": "{data}"
+          },
+          "paramTypes": {
+            "Fields": "string",
+            "Meta": "string",
+            "data": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ],
+          "x-generate-full-story": true
         },
         "get": {
           "name": "getFlow",
@@ -1108,6 +1107,30 @@
             404
           ]
         },
+        "update": {
+          "name": "updateFolder",
+          "descriptionTemplate": "Update an existing folder",
+          "method": "PATCH",
+          "path": "/folders/{id}",
+          "params": [
+            "name",
+            "parent"
+          ],
+          "bodyTemplate": {
+            "name": "{name}",
+            "parent": "{parent}"
+          },
+          "paramTypes": {
+            "name": "string",
+            "parent": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ],
+          "queryParams": []
+        },
         "add": {
           "name": "createFolder",
           "descriptionTemplate": "Create a new folder.",
@@ -1132,30 +1155,6 @@
           ],
           "queryParams": [],
           "x-generate-full-story": true
-        },
-        "update": {
-          "name": "updateFolder",
-          "descriptionTemplate": "Update an existing folder",
-          "method": "PATCH",
-          "path": "/folders/{id}",
-          "params": [
-            "name",
-            "parent"
-          ],
-          "bodyTemplate": {
-            "name": "{name}",
-            "parent": "{parent}"
-          },
-          "paramTypes": {
-            "name": "string",
-            "parent": "integer"
-          },
-          "x-defined-response-codes": [
-            200,
-            401,
-            404
-          ],
-          "queryParams": []
         },
         "get": {
           "name": "getFolder",
@@ -1184,21 +1183,16 @@
     "Operations": {
       "operations": {
         "delete": {
-          "name": "deleteOperation",
-          "descriptionTemplate": "Delete an existing operation",
+          "name": "deleteOperations",
+          "descriptionTemplate": "Delete multiple existing operations.",
           "method": "DELETE",
-          "path": "/operations/{id}",
-          "params": [
-            "UUId"
-          ],
+          "path": "/operations",
+          "params": [],
           "bodyTemplate": {},
-          "paramTypes": {
-            "UUId": "object"
-          },
+          "paramTypes": {},
           "x-defined-response-codes": [
             200,
-            401,
-            404
+            401
           ]
         },
         "list": {
@@ -1216,26 +1210,27 @@
           ]
         },
         "update": {
-          "name": "updateOperation",
-          "descriptionTemplate": "Update an existing operation",
+          "name": "updateOperations",
+          "descriptionTemplate": "Update multiple operations at the same time.",
           "method": "PATCH",
-          "path": "/operations/{id}",
+          "path": "/operations",
           "params": [
-            "Fields",
-            "Meta"
+            "data",
+            "keys"
           ],
           "bodyTemplate": {
-            "data": "{data}"
+            "data": "{data}",
+            "keys": "{keys}"
           },
           "paramTypes": {
-            "Fields": "object",
-            "Meta": "object"
+            "data": "string",
+            "keys": "array"
           },
           "x-defined-response-codes": [
             200,
-            401,
-            404
-          ]
+            401
+          ],
+          "queryParams": []
         },
         "add": {
           "name": "createOperation",
@@ -1260,6 +1255,24 @@
           ],
           "x-generate-full-story": true
         },
+        "deleteItem": {
+          "name": "deleteOperation",
+          "descriptionTemplate": "Delete an existing operation",
+          "method": "DELETE",
+          "path": "/operations/{id}",
+          "params": [
+            "UUId"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "UUId": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
+        },
         "get": {
           "name": "getOperation",
           "descriptionTemplate": "Retrieve a single operation by unique identifier.",
@@ -1277,37 +1290,72 @@
             401,
             404
           ]
-        }
-      }
-    },
-    "Permissions": {
-      "operations": {
-        "delete": {
-          "name": "deletePermission",
-          "descriptionTemplate": "Delete an existing permission",
-          "method": "DELETE",
-          "path": "/permissions/{id}",
+        },
+        "updateItem": {
+          "name": "updateOperation",
+          "descriptionTemplate": "Update an existing operation",
+          "method": "PATCH",
+          "path": "/operations/{id}",
           "params": [
-            "Id"
+            "Fields",
+            "Meta"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "data": "{data}"
+          },
           "paramTypes": {
-            "Id": "object"
+            "Fields": "object",
+            "Meta": "object"
           },
           "x-defined-response-codes": [
             200,
             401,
             404
           ]
-        },
-        "list": {
-          "name": "getMyPermissions",
-          "descriptionTemplate": "List the permissions that apply to the current user.",
-          "method": "GET",
-          "path": "/permissions/me",
+        }
+      }
+    },
+    "Permissions": {
+      "operations": {
+        "delete": {
+          "name": "deletePermissions",
+          "descriptionTemplate": "Delete multiple existing permissions.",
+          "method": "DELETE",
+          "path": "/permissions",
           "params": [],
           "bodyTemplate": {},
           "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401
+          ]
+        },
+        "list": {
+          "name": "getPermissions",
+          "descriptionTemplate": "List all permissions.",
+          "method": "GET",
+          "path": "/permissions",
+          "params": [
+            "Fields",
+            "Limit",
+            "Offset",
+            "Meta",
+            "Sort",
+            "Filter",
+            "Search",
+            "Page"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Fields": "object",
+            "Limit": "object",
+            "Offset": "object",
+            "Meta": "object",
+            "Sort": "object",
+            "Filter": "object",
+            "Search": "object",
+            "Page": "object"
+          },
           "x-defined-response-codes": [
             200,
             401,
@@ -1315,56 +1363,25 @@
           ]
         },
         "update": {
-          "name": "updatePermission",
-          "descriptionTemplate": "Update an existing permission",
+          "name": "updatePermissions",
+          "descriptionTemplate": "Update multiple permissions at the same time.",
           "method": "PATCH",
-          "path": "/permissions/{id}",
+          "path": "/permissions",
           "params": [
-            "collection",
-            "comment",
-            "create",
-            "delete",
-            "explain",
-            "read",
-            "read_field_blacklist",
-            "role",
-            "status",
-            "status_blacklist",
-            "update",
-            "write_field_blacklist"
+            "keys",
+            "data"
           ],
           "bodyTemplate": {
-            "collection": "{collection}",
-            "comment": "{comment}",
-            "create": "{create}",
-            "delete": "{delete}",
-            "explain": "{explain}",
-            "read": "{read}",
-            "read_field_blacklist": "{read_field_blacklist}",
-            "role": "{role}",
-            "status": "{status}",
-            "status_blacklist": "{status_blacklist}",
-            "update": "{update}",
-            "write_field_blacklist": "{write_field_blacklist}"
+            "keys": "{keys}",
+            "data": "{data}"
           },
           "paramTypes": {
-            "collection": "object",
-            "comment": "string",
-            "create": "string",
-            "delete": "string",
-            "explain": "string",
-            "read": "string",
-            "read_field_blacklist": "object",
-            "role": "object",
-            "status": "object",
-            "status_blacklist": "object",
-            "update": "string",
-            "write_field_blacklist": "object"
+            "keys": "array",
+            "data": "object"
           },
           "x-defined-response-codes": [
             200,
-            401,
-            404
+            401
           ],
           "queryParams": []
         },
@@ -1423,6 +1440,38 @@
           "queryParams": [],
           "x-generate-full-story": true
         },
+        "listMy": {
+          "name": "getMyPermissions",
+          "descriptionTemplate": "List the permissions that apply to the current user.",
+          "method": "GET",
+          "path": "/permissions/me",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
+        },
+        "deleteItem": {
+          "name": "deletePermission",
+          "descriptionTemplate": "Delete an existing permission",
+          "method": "DELETE",
+          "path": "/permissions/{id}",
+          "params": [
+            "Id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "Id": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ]
+        },
         "get": {
           "name": "getPermission",
           "descriptionTemplate": "Retrieve a single permissions object by unique identifier.",
@@ -1444,6 +1493,60 @@
             401,
             404
           ]
+        },
+        "updateItem": {
+          "name": "updatePermission",
+          "descriptionTemplate": "Update an existing permission",
+          "method": "PATCH",
+          "path": "/permissions/{id}",
+          "params": [
+            "collection",
+            "comment",
+            "create",
+            "delete",
+            "explain",
+            "read",
+            "read_field_blacklist",
+            "role",
+            "status",
+            "status_blacklist",
+            "update",
+            "write_field_blacklist"
+          ],
+          "bodyTemplate": {
+            "collection": "{collection}",
+            "comment": "{comment}",
+            "create": "{create}",
+            "delete": "{delete}",
+            "explain": "{explain}",
+            "read": "{read}",
+            "read_field_blacklist": "{read_field_blacklist}",
+            "role": "{role}",
+            "status": "{status}",
+            "status_blacklist": "{status_blacklist}",
+            "update": "{update}",
+            "write_field_blacklist": "{write_field_blacklist}"
+          },
+          "paramTypes": {
+            "collection": "object",
+            "comment": "string",
+            "create": "string",
+            "delete": "string",
+            "explain": "string",
+            "read": "string",
+            "read_field_blacklist": "object",
+            "role": "object",
+            "status": "object",
+            "status_blacklist": "object",
+            "update": "string",
+            "write_field_blacklist": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            401,
+            404
+          ],
+          "queryParams": []
         }
       }
     },
@@ -1469,7 +1572,7 @@
             "Fields": "string",
             "Limit": "integer",
             "Offset": "integer",
-            "Meta": "boolean",
+            "Meta": "string",
             "Sort": "string",
             "Filter": "string",
             "Search": "string",
@@ -1529,7 +1632,7 @@
           "paramTypes": {
             "Id": "string",
             "Fields": "string",
-            "Meta": "boolean"
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -1612,7 +1715,7 @@
             "Fields": "string",
             "Limit": "integer",
             "Offset": "integer",
-            "Meta": "boolean",
+            "Meta": "string",
             "Sort": "string",
             "Filter": "string",
             "Search": "string",
@@ -1638,7 +1741,7 @@
           "paramTypes": {
             "Id": "string",
             "Fields": "string",
-            "Meta": "boolean"
+            "Meta": "string"
           },
           "x-defined-response-codes": [
             200,
@@ -1670,7 +1773,7 @@
             "Fields": "string",
             "Limit": "integer",
             "Offset": "integer",
-            "Meta": "boolean",
+            "Meta": "string",
             "Sort": "string",
             "Filter": "string",
             "Search": "string",
@@ -2370,34 +2473,80 @@
     "Items": [
       "Collections"
     ],
+    "Presets": [
+      "Collections"
+    ],
     "Comments": [
-      "Collections",
       "Items"
     ],
     "Fields": [
       "Collections"
     ],
-    "Presets": [
-      "Collections"
-    ],
     "Permissions": [
-      "Collections",
-      "Roles"
+      "Comments"
     ],
     "Relations": [
       "Collections"
+    ]
+  },
+  "system_architecture": {
+    "master_entities": [
+      "Users",
+      "Items",
+      "Collections"
     ],
-    "Roles": [],
-    "Webhooks": [],
-    "Files": [],
-    "Flows": [],
-    "Folders": [],
-    "Operations": [],
-    "Schema": [],
-    "Users": [],
-    "Utilities": [],
-    "Versions": [],
-    "Authentication": []
+    "personas": {
+      "Administrator": [
+        "list",
+        "add",
+        "update",
+        "delete",
+        "get",
+        "deleteItem",
+        "listMy",
+        "addTfa",
+        "removeTfa",
+        "updateItem",
+        "updateLastPage",
+        "addTfa",
+        "removeTfa",
+        "updateLastPage"
+      ],
+      "User": [
+        "list",
+        "get",
+        "update",
+        "add",
+        "updateItem",
+        "deleteItem"
+      ],
+      "System": [
+        "add",
+        "list",
+        "get",
+        "update",
+        "delete",
+        "deleteItem",
+        "updateItem",
+        "addTfa",
+        "removeTfa",
+        "addTfa",
+        "removeTfa",
+        "updateLastPage"
+      ]
+    },
+    "negative_patterns": [
+      {
+        "type": "PostDelete",
+        "entity": "Users",
+        "action": "removeTfa"
+      },
+      {
+        "type": "PostDelete",
+        "entity": "Items",
+        "action": "deleteItem"
+      }
+    ]
   },
   "original_spec": {
     "openapi": "3.0.1",

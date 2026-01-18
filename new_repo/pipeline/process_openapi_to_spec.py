@@ -68,28 +68,36 @@ Output JSON: {"EntityName": true/false}
 
 # --- process_openapi_to_spec.py ---
 
+# process_openapi_to_spec.py
+
 ARCHITECTURE_PROMPT = """
-Analyze the following API Entities and Operations:
+Analyze the following API Entities and Operations Summary:
 {summary}
 
-Your task is to identify the 'Master Entities' (the core objects like Books, Users) and 'Actor Personas' (who uses the system).
+Your task is to identify the 'Master Entities' and 'Actor Personas' to create hyper-coordinated stories.
 
-Rules:
-1. **Master Entity**: The primary resource that links most other operations.
-2. **Actor Personas**: Group operations by the 'Tag' or logical player.
-3. **DO NOT** use placeholders like 'EntityName' or 'PersonaName'. Use ONLY the names found in the summary above.
+STRICT RULES:
+1. **Master Entities**: Identify core resources. You MUST use the exact keys found in the 'entities' dictionary above (e.g., use 'catalogProductRepositoryV1', NOT 'Product').
+2. **Actor Personas**: Group operations by the 'Tag' or logical user role. 
+3. **Persona Actions**: Use the exact 'operationId' or 'name' from the summary. 
+4. **Action Format**: Every action in a persona's list MUST follow this format: "EntityKey:OperationName" (e.g., "catalogProductRepositoryV1:save").
 
-Output JSON: 
-{
-  "master_entities": ["RealEntityName"],
-  "personas": {
-    "RealPersonaName": ["RealOperationName"] 
-  },
+Output JSON Structure:
+{{
+  "master_entities": ["ExactEntityKey1", "ExactEntityKey2"],
+  "personas": {{
+    "PersonaName": ["EntityKey:OperationName", "EntityKey:OperationName"]
+  }},
   "negative_patterns": [
-    {"type": "PostDelete", "entity": "RealEntityName", "action": "RealOperationName"}
+    {{
+      "type": "PostDelete", 
+      "entity": "ExactEntityKey1", 
+      "action": "EntityKey:OperationName"
+    }}
   ]
-}
+}}
 """
+
 # --- UTILS ---
 
 def get_cache_path(content_hash: str) -> Path:

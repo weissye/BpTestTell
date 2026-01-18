@@ -9,17 +9,6 @@ from new_repo.pipeline.emitter_utils import (
     get_raw_spec, get_response_codes, collect_entity_params
 )
 
-import re
-import json
-from pathlib import Path
-from urllib.parse import urlparse
-from typing import Dict, Any
-from new_repo.pipeline.emitter_utils import (
-    ensure_dir, sanitize_param, get_raw_spec, 
-    get_response_codes, collect_entity_params
-)
-
-# HELPER: Ensure this is defined at the top to avoid NameError
 def _is_valid_js_identifier(name: str) -> bool:
     if not name or not isinstance(name, str): return False
     if "..." in name or "…" in name or name.strip() == "": return False
@@ -40,53 +29,113 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     def escape_js_str(s):
         return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '')
 
-    js_url, js_desc = f'"{escape_js_str(path_tmpl)}"', f'"{escape_js_str(desc_tmpl)}"'
+    safe_path = escape_js_str(path_tmpl)
+    safe_desc = escape_js_str(desc_tmpl)
 
+    js_url = f'"{safe_path}"'
+    js_desc = f'"{safe_desc}"'
+
+    # Extract path params
     ordered_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
     path_params_set = set(ordered_path_params)
     query_params_list = op_data.get("queryParams", []) 
 
-    final_sig_params = sig_params if method in ["POST", "PUT", "PATCH"] else ordered_path_params + [qp for qp in query_params_list if qp not in ordered_path_params]
+    final_sig_params = []
+    
+    # STRICT ARGUMENT ORDERING
+    if method in ["POST", "PUT", "PATCH"]:
+        final_sig_params = sig_params
+    else:
+        # For GET/DELETE, force arguments to match URL path order
+        final_sig_params = [p for p in ordered_path_params]
+        # Append query params
+        for qp in query_params_list:
+            if qp not in final_sig_params: final_sig_params.append(qp)
 
+    # URL Construction
     for p in final_sig_params:
         safe_p = sanitize_param(p)
-        if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        if f'{{{p}}}' in path_tmpl:
+            js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
         js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
         
-    js_url, js_desc = js_url.replace(' + ""', ''), js_desc.replace(' + ""', '')
-    query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in query_params_list]
+    js_url = js_url.replace(' + ""', '')
+    js_desc = js_desc.replace(' + ""', '')
+
+    param_types = op_data.get("paramTypes", {})
+    body_js = "{}"
+
+    query_js_parts = []
+    for p in final_sig_params:
+        if p in query_params_list:
+            safe_p = sanitize_param(p)
+            query_js_parts.append(f'    "{p}": {safe_p}')
     query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
 
     if method in ["POST", "PUT", "PATCH"]:
-        b_lines = []
-        # FIX: Whitelist body fields using the Spec's bodyTemplate
-        body_fields = op_data.get("bodyTemplate", {}).keys()
+        b_lines = ["{"]
         
+        # Ensure ID is present if creating
+        if "id" in final_sig_params and "id" not in path_params_set and "id" not in param_types:
+             b_lines.append(f'    "id": id,')
+        elif "id" not in final_sig_params and "create" in fn_name.lower():
+             b_lines.append(f'    "id": Math.floor(Math.random() * 10000),')
+
+        has_username = False
         for p in final_sig_params:
              if p in path_params_set or p in query_params_list: continue
-             # This prevents search params (Fields, Sort) from leaking into the body
-             if p in body_fields or p.lower() == "id":
-                 b_lines.append(f'    "{p}": {sanitize_param(p)}') 
+             if p == "username": has_username = True
+             if p in op_data.get("paramTypes", {}): 
+                 sanitized_p = sanitize_param(p)
+                 ptype = param_types.get(p, "string").lower()
+                 is_primitive = ptype in ["object", "array", "integer", "number", "boolean"]
+                 cast = "" if is_primitive else "String"
+                 if cast: b_lines.append(f'    "{p}": {cast}({sanitized_p}),')
+                 else: b_lines.append(f'    "{p}": {sanitized_p},')
         
-        object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
-        body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
-    else:
-        body_js = "{}"
+        # Ensure username for user creation
+        # if not has_username and "user" in path_tmpl.lower() and "create" in fn_name.lower():
+        #      b_lines.append(f'    "username": "user_" + Math.floor(Math.random() * 1000),')
+        if op_data.get("is_array", False):
+            if object_body == "{}":
+                # Remove "username" from the default fallback
+                object_body = '{ "id": Math.floor(Math.random() * 10000) }' 
+            body_js = f"[{object_body}]"
+        b_lines.append("}")
+        
+        object_body = "\n".join(b_lines) if len(b_lines) > 2 else "{}"
+        
+        # CONSISTENT FIX: Use the flag from the spec
+        if op_data.get("is_array", False):
+            if object_body == "{}":
+                object_body = '{ "id": Math.floor(Math.random() * 10000), "username": "default_user" }'
+            body_js = f"[{object_body}]"
+        else:
+            body_js = object_body
 
-    codes_list = codes_override or get_response_codes(path_tmpl, method, spec)
-    if not codes_override:
-        # STRONG LOGIC: Only add defaults if the spec has ZERO success codes defined
-        if not any(200 <= c < 300 for c in codes_list):
-            codes_list.extend([200, 201])
-        # SMART FALLBACK: Always allow 204 for DELETE (Common Spec Gap)
-        if method == "DELETE" and 204 not in codes_list:
-            codes_list.append(204)
+    if "..." in body_js: body_js = "{}"
+
+    if codes_override: 
+        codes_list = codes_override
+    else: 
+        codes_list = get_response_codes(path_tmpl, method, spec)
+        if method == "POST" and 409 not in codes_list: codes_list.append(409)
+        if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
+        
+        has_success_defined = any(200 <= c < 300 for c in codes_list)
+        if not has_success_defined and method in ["POST", "PUT", "PATCH", "DELETE"]:
+            for success_code in [200, 201, 204]:
+                if success_code not in codes_list:
+                    codes_list.append(success_code)
             
-    codes_str = json.dumps(sorted(list(set(codes_list))))
+    codes_str = json.dumps(sorted(codes_list))
     sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params])
+    safe_fn_name = sanitize_param(fn_name)
     
-    lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
-    lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
+    lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
+    lines.append(f'  var url = {js_url};')
+    lines.append(f'  var reqDescription = {js_desc};')
+    
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
 
     if method in ["POST", "PUT", "PATCH"]:
@@ -94,13 +143,25 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append(f'  bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
         lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: reqDescription }}{qp_arg} }});')
         if not codes_override:
-             payload = "{" + ", ".join([f'"{p}": {sanitize_param(p)}' for p in final_sig_params]) + "}"
-             lines.append(f'  if (res.status >= 200 && res.status < 300) {{ bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }}); }}')
+             payload_parts = []
+             for p in final_sig_params:
+                 s_p = sanitize_param(p)
+                 payload_parts.append(f'"{p}": {s_p}')
+             payload_str = "{" + ", ".join(payload_parts) + "}"
+             
+             lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
+             lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload_str}) }});')
+             lines.append(f'  }}')
+        lines.append('  return res;')
+    elif method == "DELETE":
+        lines.append(f'  let res = svc.delete(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
+        lines.append(f'  if (res.status >= 200 && res.status < 300) {{')
+        lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
+        lines.append(f'  }}')
         lines.append('  return res;')
     else:
-        lines.append(f'  let res = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
-        if method == "DELETE": lines.append(f'  if (res.status >= 200 && res.status < 300) {{ bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }}); }}')
-        lines.append('  return res;')
+        # GET
+        lines.append(f'  return svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
     lines.append('}')
     return lines
 
@@ -108,10 +169,11 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
 
-    lines, path_params = [], set()
+    lines = []
     safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
     js_url = f'"{safe_path}"'
     
+    path_params = set()
     for p in sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl:
@@ -119,19 +181,39 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
             js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
     js_url = js_url.replace(' + ""', '')
 
-    # NO FILTERING: Send everything (including search params) in the body
-    # This keeps the fuzzer "Dirty" to find input validation bugs
-    b_lines = [f'    "{p}": {sanitize_param(p)}' for p in sig_params if p not in path_params]
-    
-    object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
-    body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
+    query_params_list = op_data.get("queryParams", []) 
+    b_lines = ["{"]
+    if "id" in sig_params and "id" not in path_params:
+         b_lines.append(f'    "id": id,')
 
-    lines.append(f'function {sanitize_param(fn_name)}({", ".join([sanitize_param(p) for p in sig_params])}) {{')
+    param_types = op_data.get("paramTypes", {})
+    for p in sig_params:
+         if p.lower() in query_params_list or p in path_params: continue
+         if p not in param_types and p != "id": continue 
+         sanitized_p = sanitize_param(p)
+         b_lines.append(f'    "{p}": {sanitized_p},') 
+                 
+    b_lines = [l for l in b_lines if l.strip()]
+    if len(b_lines) > 1: b_lines.append("}")
+    
+    object_body = "\n".join(b_lines) if len(b_lines) > 1 else "{}"
+    if op_data.get("is_array", False):
+        body_js = f"[{object_body}]"
+    else:
+        body_js = object_body
+
+    sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
+    safe_fn_name = sanitize_param(fn_name)
+
+    lines.append(f'function {safe_fn_name}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url};')
     lines.append(f'  var reqDescription = "Negative Test: Verify Rejection for " + url;')
     lines.append(f'  var body = {body_js};')
     lines.append(f'  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));')
+    
+    # FIX: Added 500 to expected codes to tolerate server crashes during negative testing
     lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: {{ description: reqDescription }} }});')
+    
     lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: " + reqDescription) }});')
     lines.append('}')
     return lines

@@ -9,14 +9,16 @@ from new_repo.pipeline.emitter_utils import (
 
 
 def _resolve_entity_name(name, entities):
-    """Bridges naming gaps (e.g., 'Book' -> 'Books')."""
     if not name: return None
+    print(f"   [DEBUG] Attempting to resolve entity: {name}") # Validation Print
     if name in entities: return name
-    if name + "s" in entities: return name + "s"
-    if name.endswith("s") and name[:-1] in entities: return name[:-1]
     for key in entities.keys():
-        if key.lower() == name.lower(): return key
+        if name.lower() in key.lower(): 
+            print(f"   [DEBUG] Resolved '{name}' to Technical Key: '{key}'") # Validation Print
+            return key
+    print(f"   [DEBUG] ! WARNING: Could not resolve entity: {name}") # Warning Print
     return None
+
 
 def _get_merged_param_types(ent_data):
     """Unified Helper with Debug: Merges parameter types across all operations."""
@@ -33,20 +35,29 @@ def _get_merged_param_types(ent_data):
     return merged_types, merged_formats
 
 def _generate_entity_vars(name, entities, raw_spec, prefix, suffix, deps, merged_types, merged_formats):
-    """Unified Helper with Debug: Generates real JS variables."""
     pk, params = collect_entity_params(name, entities[name], raw_spec)
-    print(f"   [DEBUG] _generate_entity_vars for '{name}': Params: {params}") # DEBUG PRINT
+    
+    # 1. FIX: Treat suffix as a base ID to prevent value collisions
+    try:
+        base_id = int(suffix)
+    except:
+        base_id = 1000 # Fallback
     
     lines, args, arg_map = [], [], {}
     for p in params:
         safe_p = sanitize_param(p)
         var_name = f"{safe_p}_{prefix}_{suffix}"
         p_type = str(merged_types.get(p, "string")).lower()
+        
         if p in deps: val = f"captured_{suffix}['{p}']"
         elif p == pk or "id" in p.lower():
-            val = f"Math.floor(Math.random() * 1000)" if p_type in ["integer", "number"] else f"\"{safe_p}_{suffix}_\" + Math.floor(Math.random()*1000)"
-        elif p_type in ["integer", "number"]: val = "Math.floor(Math.random() * 1000)"
-        else: val = f"\"{safe_p}_{suffix}_\" + Math.floor(Math.random()*1000)"
+            # 2. FIX: Add the base_id to the random number to isolate ranges
+            val = f"{base_id} + Math.floor(Math.random() * 99)" if p_type in ["integer", "number"] else f"\"{safe_p}_{suffix}_\" + Math.floor(Math.random()*1000)"
+        elif p_type in ["integer", "number"]: 
+            val = f"{base_id} + Math.floor(Math.random() * 99)"
+        else: 
+            val = f"\"{safe_p}_{suffix}_\" + Math.floor(Math.random()*1000)"
+            
         lines.append(f"  let {var_name} = {val};")
         args.append(var_name); arg_map[p] = var_name
     return lines, args, arg_map, pk, params
@@ -156,7 +167,7 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
             elif pattern:
                 if '^[0-9a-f]{6}$' in pattern: val = '"000000"'
                 elif 'A-Fa-f' in pattern and ':' in pattern: val = '"AA:BB:CC:DD:EE:FF"'
-                elif '0-9' in pattern and '\.' in pattern and '/' in pattern: val = '"10.0.0.1/24"'
+                elif '0-9' in pattern and r'\.' in pattern and '/' in pattern: val = '"10.0.0.1/24"'
                 else: val = f'"{p}_valid_val"' 
             
             elif "email" in p_format: val = f'"u{suffix}_" + Math.floor(Math.random()*1000) + "@test.com"'
@@ -490,19 +501,17 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     
 # --- ADDITIVE: Robust Hyper-Orchestration Emitter ---
 
+# --- story_emitter.py ---
 
 def _generate_hyper_coordinated_stories(spec, sut_name):
     entities = spec.get("entities", {})
     raw_spec = spec.get("original_spec", {})
     arch = spec.get("system_architecture", {})
     
-    print(f"\n[DEBUG] --- Hyper-Story Resolution: {sut_name} ---")
     masters = [m for m in [_resolve_entity_name(n, entities) for n in arch.get("master_entities", [])] if m]
-    print(f"[DEBUG] Masters Resolved: {masters}")
-    
     personas = arch.get("personas", {})
+    
     output_lines = []
-
     for iteration in range(1, 4):
         lines = [f'// --- Hyper-Story Version {iteration}: Global Coordination for {sut_name} ---']
         lines.append(f'bthread("hyper:{sut_name}:orchestration:{iteration}", function () {{')
@@ -512,51 +521,40 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
             has_activity = False
             for m in masters:
                 safe_m = sanitize_param(m).capitalize()
+                p_id_var = f"{sanitize_param(m)}SharedId"
                 lines.append(f'    let event_{m} = waitFor(matchAny{safe_m}Added());')
-                lines.append(f'    let sharedId = event_{m}.data.id || event_{m}.data.sku;')
+                lines.append(f'    let {p_id_var} = event_{m}.data.id || event_{m}.data.sku || event_{m}.data.cartId;')
                 
-                for action_raw in p_actions:
-                    # SMART PARSING: Handle "Books - add" prefix
-                    target_act = action_raw
-                    if " - " in action_raw:
-                        ent_part, act_part = action_raw.split(" - ", 1)
-                        if _resolve_entity_name(ent_part, entities) != m:
-                            continue # Skip: this action belongs to a different entity
-                        target_act = act_part
-
-                    ent_ops = entities[m].get("operations", {})
-                    op_data = ent_ops.get(target_act.lower()) or ent_ops.get("get") or ent_ops.get("update")
-                    
+                ent_ops = entities[m].get("operations", {})
+                for action_key in p_actions[:2]:
+                    op_data = ent_ops.get(action_key.lower()) or ent_ops.get("update") or ent_ops.get("get")
+                    if not op_data and ent_ops:
+                        op_data = list(ent_ops.values())[0] 
                     if op_data:
-                        fn_name = sanitize_param(op_data["name"])
-                        print(f"   [DEBUG] Persona '{p_name}' action '{action_raw}' -> Mapped to {fn_name}")
-                        lines.append(f'    {fn_name}(sharedId);')
+                        lines.append(f'    {sanitize_param(op_data["name"])}({p_id_var});')
                         has_activity = True
-            
-            if not has_activity: 
-                print(f"   [DEBUG] ! WARNING: Persona '{p_name}' has NO valid actions mapped.")
-                lines.append('    // No valid API actions found.')
-            lines.append('  }});')
+            if not has_activity: lines.append('    // Note: Persona skip')
+            lines.append('  });') 
 
         lines.append('\n  // Seeding Phase')
         for m in masters:
             add_op = entities[m]["operations"].get("add")
-            if not add_op:
-                print(f"   [DEBUG] ! Skipping seeding for '{m}' (No 'add' operation)")
-                continue
-            
-            fn_name = sanitize_param(add_op.get("name"))
-            print(f"   [DEBUG] Generating seeding calls for {m}")
+            if not add_op: continue
             m_types, m_formats = _get_merged_param_types(entities[m])
-            
             for i in range(5):
-                # FIX: Added 'str(i)' to ensure unique JS variable names like 'title_seed_1_0', 'title_seed_1_1'
-                v_code, args, _, _, _ = _generate_entity_vars(m, entities, raw_spec, f"seed_{iteration}", str(i), {}, m_types, m_formats)
-                for v_line in v_code: lines.append("    " + v_line)
-                args_str = ", ".join(args) + (", " if args else "")
-                lines.append(f'    {fn_name}({args_str}{{ expectedResponseCodes: [200, 201] }});')
-                        
-        lines.append('}});')
+                unique_prefix = f"{sanitize_param(m)}_seed_{iteration}_{i}"
+                # SEEDING: Generate full variable set for the entity
+                v_code, args, _, _, _ = _generate_entity_vars(m, entities, raw_spec, unique_prefix, str(i), {}, m_types, m_formats)
+                for v_line in v_code: lines.append("    " + v_line.strip())
+                
+                call_args = ", ".join(args)
+                comma_str = ", " if call_args else ""
+                fn_name = sanitize_param(add_op.get("name", f"create{m}"))
+                
+                # FIX: Align expected codes [200, 201, 204] with lifecycle stories
+                lines.append(f'    {fn_name}({call_args}{comma_str}{{ expectedResponseCodes: [200, 201, 204] }});')
+        
+        lines.append('});')
         output_lines.append("\n".join(lines))
     return "\n".join(output_lines)
 
@@ -564,31 +562,23 @@ def _generate_hyper_negative_stories(spec, sut_name):
     entities = spec.get("entities", {})
     arch = spec.get("system_architecture", {})
     patterns = arch.get("negative_patterns", [])
-    
-    print(f"\n[DEBUG] --- Hyper-Negative Resolution ---")
     output_lines = []
     for iteration in range(1, 4):
-        lines = [f'// --- Hyper-Negative Story Version {iteration} ---']
+        lines = [f'// --- Hyper-Negative Story Version {iteration}: Reactive State-Violation ---']
         lines.append(f'bthread("hyper:{sut_name}:negative_orchestration:{iteration}", function () {{')
-        
         for pat in patterns:
             m = _resolve_entity_name(pat.get("entity"), entities)
-            if not m:
-                print(f"   [DEBUG] ! Skipping negative pattern for entity: {pat.get('entity')} (Not found)")
-                continue
-            
-            safe_m = sanitize_param(m).capitalize()
-            op_data = entities[m]["operations"].get("get") or entities[m]["operations"].get("update")
-            
+            if not m: continue
+            action_key = pat.get("action", "get")
+            ent_ops = entities[m].get("operations", {})
+            op_data = ent_ops.get(action_key.lower()) or ent_ops.get("get")
             if op_data:
-                fn_name = sanitize_param(op_data["name"])
-                print(f"   [DEBUG] Pattern '{pat.get('type')}' on {m} -> Mapped to {fn_name}")
-                if pat.get("type") == "PostDelete":
-                    lines.append(f'  bthread("Hyper_Neg_PostDelete_{m}_{iteration}", function() {{')
-                    lines.append(f'    let e = waitFor(matchAny{safe_m}Deleted());')
-                    lines.append(f'    {fn_name}(e.data.id || e.data.sku);')
-                    lines.append('  }});')
-        lines.append('}});')
+                lines.append(f'  bthread("Hyper_Neg_PostDelete_{m}_{iteration}", function() {{')
+                lines.append(f'    let e = waitFor(matchAny{sanitize_param(m).capitalize()}Deleted());')
+                dead_id_var = f"{sanitize_param(m)}DeadId"
+                lines.append(f'    let {dead_id_var} = e.data.id || e.data.sku || e.data.cartId;')
+                lines.append(f'    {sanitize_param(op_data["name"])}({dead_id_var});')
+                lines.append('  });') # FIXED: Correct single-brace closure
+        lines.append('});') # FIXED: Correct single-brace closure
         output_lines.append("\n".join(lines))
     return "\n".join(output_lines)
-

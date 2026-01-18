@@ -374,8 +374,9 @@ bthread("monitor:Operations:exists", function () {
     let UUId = (e.data.parameters && e.data.parameters["UUId"]) ? e.data.parameters["UUId"] : e.data["UUId"];
     let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedOperations(Fields, Meta, UUId, data, id), function() { verifyOperationsExists(Fields, Meta, UUId, data, id); });
+    block(matchDeletedOperations(Fields, Meta, UUId, data, id, keys), function() { verifyOperationsExists(Fields, Meta, UUId, data, id, keys); });
   }
 });
 
@@ -388,8 +389,9 @@ bthread("monitor:Operations:absence", function () {
     let UUId = (e.data.parameters && e.data.parameters["UUId"]) ? e.data.parameters["UUId"] : e.data["UUId"];
     let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     // Block Creation while Verifying Absence
-    block(matchAnyOperationsAdded(), function() { verifyOperationsDoesNotExist(Fields, Meta, UUId, data, id); });
+    block(matchAnyOperationsAdded(), function() { verifyOperationsDoesNotExist(Fields, Meta, UUId, data, id, keys); });
   }
 });
 
@@ -398,14 +400,22 @@ bthread("monitor:Permissions:exists", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchAnyPermissionsAdded() });
     let Fields = (e.data.parameters && e.data.parameters["Fields"]) ? e.data.parameters["Fields"] : e.data["Fields"];
+    let Filter = (e.data.parameters && e.data.parameters["Filter"]) ? e.data.parameters["Filter"] : e.data["Filter"];
     let Id = (e.data.parameters && e.data.parameters["Id"]) ? e.data.parameters["Id"] : e.data["Id"];
+    let Limit = (e.data.parameters && e.data.parameters["Limit"]) ? e.data.parameters["Limit"] : e.data["Limit"];
     let Meta = (e.data.parameters && e.data.parameters["Meta"]) ? e.data.parameters["Meta"] : e.data["Meta"];
+    let Offset = (e.data.parameters && e.data.parameters["Offset"]) ? e.data.parameters["Offset"] : e.data["Offset"];
+    let Page = (e.data.parameters && e.data.parameters["Page"]) ? e.data.parameters["Page"] : e.data["Page"];
+    let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
+    let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
     let comment = (e.data.parameters && e.data.parameters["comment"]) ? e.data.parameters["comment"] : e.data["comment"];
     let create = (e.data.parameters && e.data.parameters["create"]) ? e.data.parameters["create"] : e.data["create"];
+    let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let _delete = (e.data.parameters && e.data.parameters["delete"]) ? e.data.parameters["delete"] : e.data["delete"];
     let explain = (e.data.parameters && e.data.parameters["explain"]) ? e.data.parameters["explain"] : e.data["explain"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     let read = (e.data.parameters && e.data.parameters["read"]) ? e.data.parameters["read"] : e.data["read"];
     let read_field_blacklist = (e.data.parameters && e.data.parameters["read_field_blacklist"]) ? e.data.parameters["read_field_blacklist"] : e.data["read_field_blacklist"];
     let role = (e.data.parameters && e.data.parameters["role"]) ? e.data.parameters["role"] : e.data["role"];
@@ -414,7 +424,7 @@ bthread("monitor:Permissions:exists", function () {
     let update = (e.data.parameters && e.data.parameters["update"]) ? e.data.parameters["update"] : e.data["update"];
     let write_field_blacklist = (e.data.parameters && e.data.parameters["write_field_blacklist"]) ? e.data.parameters["write_field_blacklist"] : e.data["write_field_blacklist"];
     // Block Deletion while Verifying Existence
-    block(matchDeletedPermissions(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist), function() { verifyPermissionsExists(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
+    block(matchDeletedPermissions(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist), function() { verifyPermissionsExists(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
   }
 });
 
@@ -423,14 +433,22 @@ bthread("monitor:Permissions:absence", function () {
   while (true) {
     let e = bp.sync({ waitFor: matchDeletedPermissions() });
     let Fields = (e.data.parameters && e.data.parameters["Fields"]) ? e.data.parameters["Fields"] : e.data["Fields"];
+    let Filter = (e.data.parameters && e.data.parameters["Filter"]) ? e.data.parameters["Filter"] : e.data["Filter"];
     let Id = (e.data.parameters && e.data.parameters["Id"]) ? e.data.parameters["Id"] : e.data["Id"];
+    let Limit = (e.data.parameters && e.data.parameters["Limit"]) ? e.data.parameters["Limit"] : e.data["Limit"];
     let Meta = (e.data.parameters && e.data.parameters["Meta"]) ? e.data.parameters["Meta"] : e.data["Meta"];
+    let Offset = (e.data.parameters && e.data.parameters["Offset"]) ? e.data.parameters["Offset"] : e.data["Offset"];
+    let Page = (e.data.parameters && e.data.parameters["Page"]) ? e.data.parameters["Page"] : e.data["Page"];
+    let Search = (e.data.parameters && e.data.parameters["Search"]) ? e.data.parameters["Search"] : e.data["Search"];
+    let Sort = (e.data.parameters && e.data.parameters["Sort"]) ? e.data.parameters["Sort"] : e.data["Sort"];
     let collection = (e.data.parameters && e.data.parameters["collection"]) ? e.data.parameters["collection"] : e.data["collection"];
     let comment = (e.data.parameters && e.data.parameters["comment"]) ? e.data.parameters["comment"] : e.data["comment"];
     let create = (e.data.parameters && e.data.parameters["create"]) ? e.data.parameters["create"] : e.data["create"];
+    let data = (e.data.parameters && e.data.parameters["data"]) ? e.data.parameters["data"] : e.data["data"];
     let _delete = (e.data.parameters && e.data.parameters["delete"]) ? e.data.parameters["delete"] : e.data["delete"];
     let explain = (e.data.parameters && e.data.parameters["explain"]) ? e.data.parameters["explain"] : e.data["explain"];
     let id = (e.data.parameters && e.data.parameters["id"]) ? e.data.parameters["id"] : e.data["id"];
+    let keys = (e.data.parameters && e.data.parameters["keys"]) ? e.data.parameters["keys"] : e.data["keys"];
     let read = (e.data.parameters && e.data.parameters["read"]) ? e.data.parameters["read"] : e.data["read"];
     let read_field_blacklist = (e.data.parameters && e.data.parameters["read_field_blacklist"]) ? e.data.parameters["read_field_blacklist"] : e.data["read_field_blacklist"];
     let role = (e.data.parameters && e.data.parameters["role"]) ? e.data.parameters["role"] : e.data["role"];
@@ -439,7 +457,7 @@ bthread("monitor:Permissions:absence", function () {
     let update = (e.data.parameters && e.data.parameters["update"]) ? e.data.parameters["update"] : e.data["update"];
     let write_field_blacklist = (e.data.parameters && e.data.parameters["write_field_blacklist"]) ? e.data.parameters["write_field_blacklist"] : e.data["write_field_blacklist"];
     // Block Creation while Verifying Absence
-    block(matchAnyPermissionsAdded(), function() { verifyPermissionsDoesNotExist(Fields, Id, Meta, collection, comment, create, _delete, explain, id, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
+    block(matchAnyPermissionsAdded(), function() { verifyPermissionsDoesNotExist(Fields, Filter, Id, Limit, Meta, Offset, Page, Search, Sort, collection, comment, create, data, _delete, explain, id, keys, read, read_field_blacklist, role, status, status_blacklist, update, write_field_blacklist); });
   }
 });
 
@@ -704,7 +722,7 @@ bthread("crud:Collections:linear:1", function () {
   let hidden_Collections_110 = true;
   let icon_Collections_110 = "icon_Collections_110_" + Math.floor(Math.random()*1000);
   let id_Collections_110 = "id_Collections_110_" + Math.floor(Math.random()*1000);
-  let meta_Collections_110 = "meta_Collections_110_" + Math.floor(Math.random()*1000);
+  let meta_Collections_110 = {};
   let note_Collections_110 = "note_Collections_110_" + Math.floor(Math.random()*1000);
   let singleton_Collections_110 = true;
   let sort_field_Collections_110 = "sort_field_Collections_110_" + Math.floor(Math.random()*1000);
@@ -721,17 +739,17 @@ bthread("crud:Collections:linear:1", function () {
   let archive_value_Collections_upd_110 = "archive_value_Collections_upd_110_" + Math.floor(Math.random()*1000);
   let collection_Collections_upd_110 = "customers";
   let display_template_Collections_upd_110 = "display_template_Collections_upd_110_" + Math.floor(Math.random()*1000);
-  let fields_Collections_upd_110 = "fields_Collections_upd_110_" + Math.floor(Math.random()*1000);
-  let hidden_Collections_upd_110 = "hidden_Collections_upd_110_" + Math.floor(Math.random()*1000);
+  let fields_Collections_upd_110 = [];
+  let hidden_Collections_upd_110 = true;
   let icon_Collections_upd_110 = "icon_Collections_upd_110_" + Math.floor(Math.random()*1000);
   let id_Collections_upd_110 = id_Collections_110;
   let meta_Collections_upd_110 = {};
   let note_Collections_upd_110 = "note_Collections_upd_110_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_upd_110 = "singleton_Collections_upd_110_" + Math.floor(Math.random()*1000);
+  let singleton_Collections_upd_110 = true;
   let sort_field_Collections_upd_110 = "sort_field_Collections_upd_110_" + Math.floor(Math.random()*1000);
   let translation_Collections_upd_110 = "translation_Collections_upd_110_" + Math.floor(Math.random()*1000);
   let unarchive_value_Collections_upd_110 = "unarchive_value_Collections_upd_110_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_upd_110 = "versioning_Collections_upd_110_" + Math.floor(Math.random()*1000);
+  let versioning_Collections_upd_110 = true;
   updateCollection(Meta_Collections_upd_110, Offset_Collections_upd_110, archive_app_filter_Collections_upd_110, archive_field_Collections_upd_110, archive_value_Collections_upd_110, collection_Collections_upd_110, display_template_Collections_upd_110, fields_Collections_upd_110, hidden_Collections_upd_110, icon_Collections_upd_110, id_Collections_upd_110, meta_Collections_upd_110, note_Collections_upd_110, singleton_Collections_upd_110, sort_field_Collections_upd_110, translation_Collections_upd_110, unarchive_value_Collections_upd_110, versioning_Collections_upd_110, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for Collections to prevent foreign key errors (has active dependents)
@@ -794,11 +812,11 @@ bthread("crud:Presets:linear:1", function () {
   let layout_Presets_130 = "layout_Presets_130_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_130 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_130 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_130 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let role_Presets_130 = Math.floor(Math.random() * 1000);
   let search_Presets_130 = "search_Presets_130_" + Math.floor(Math.random()*1000);
   let search_query_Presets_130 = "search_query_Presets_130_" + Math.floor(Math.random()*1000);
   let title_Presets_130 = "title_Presets_130_" + Math.floor(Math.random()*1000);
-  let translation_Presets_130 = "translation_Presets_130_" + Math.floor(Math.random()*1000);
+  let translation_Presets_130 = {};
   let view_options_Presets_130 = "view_options_Presets_130_" + Math.floor(Math.random()*1000);
   let view_query_Presets_130 = "view_query_Presets_130_" + Math.floor(Math.random()*1000);
   let view_type_Presets_130 = "view_type_Presets_130_" + Math.floor(Math.random()*1000);
@@ -838,16 +856,14 @@ bthread("crud:Presets:linear:1", function () {
 // Story: crud:Comments:linear:1
 bthread("crud:Comments:linear:1", function () {
   let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
   deps["Items"] = matchAnyItemsAdded();
-  let pkMap = {"Collections": "id", "Items": "collection"};
+  let pkMap = {"Items": "collection"};
   let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
   let ItemsId = captured["Items"];
   // -> Creating Comments
   let collection_Comments_140 = ItemsId;
   let comment_Comments_140 = "This is a comment";
-  let id_Comments_140 = CollectionsId;
+  let id_Comments_140 = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
   let item_Comments_140 = "123";
   createComment(collection_Comments_140, comment_Comments_140, id_Comments_140, item_Comments_140, { expectedResponseCodes: [200, 201, 204] });
 
@@ -858,9 +874,7 @@ bthread("crud:Comments:linear:1", function () {
   let item_Comments_upd_140 = "123";
   updateComment(collection_Comments_upd_140, comment_Comments_upd_140, id_Comments_upd_140, item_Comments_upd_140, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Comments
-  deleteComment(id_Comments_140, { expectedResponseCodes: [200, 201, 204] });
-
+  // Skip delete for Comments to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Fields:linear:1
@@ -888,7 +902,7 @@ bthread("crud:Fields:linear:1", function () {
   let datatype_Fields_upd_150 = "datatype_Fields_upd_150_" + Math.floor(Math.random()*1000);
   let field_Fields_upd_150 = "id";
   let id_Fields_upd_150 = "id_Fields_upd_150_" + Math.floor(Math.random()*1000);
-  let length_Fields_upd_150 = "length_Fields_upd_150_" + Math.floor(Math.random()*1000);
+  let length_Fields_upd_150 = Math.floor(Math.random() * 1000);
   let meta_Fields_upd_150 = {};
   let schema_Fields_upd_150 = {};
   let type_Fields_upd_150 = "integer";
@@ -914,7 +928,7 @@ bthread("crud:Files:linear:1", function () {
   let filename_download_Files_160 = "avatar.jpg";
   let folder_Files_160 = "folder_Files_160_" + Math.floor(Math.random()*1000);
   let id_Files_160 = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_Files_160 = "tags_Files_160_" + Math.floor(Math.random()*1000);
+  let tags_Files_160 = [];
   let title_Files_160 = "User Avatar";
   createFile(Fields_Files_160, Filter_Files_160, Limit_Files_160, Meta_Files_160, Offset_Files_160, Search_Files_160, Sort_Files_160, data_Files_160, description_Files_160, filename_download_Files_160, folder_Files_160, id_Files_160, tags_Files_160, title_Files_160, { expectedResponseCodes: [200, 201, 204] });
 
@@ -966,9 +980,9 @@ bthread("crud:Folders:linear:1", function () {
   // -> Creating Folders
   let Fields_Folders_180 = "Fields_Folders_180_" + Math.floor(Math.random()*1000);
   let Filter_Folders_180 = "Filter_Folders_180_" + Math.floor(Math.random()*1000);
-  let Limit_Folders_180 = "Limit_Folders_180_" + Math.floor(Math.random()*1000);
+  let Limit_Folders_180 = Math.floor(Math.random() * 1000);
   let Meta_Folders_180 = "Meta_Folders_180_" + Math.floor(Math.random()*1000);
-  let Offset_Folders_180 = "Offset_Folders_180_" + Math.floor(Math.random()*1000);
+  let Offset_Folders_180 = Math.floor(Math.random() * 1000);
   let Search_Folders_180 = "Search_Folders_180_" + Math.floor(Math.random()*1000);
   let Sort_Folders_180 = "Sort_Folders_180_" + Math.floor(Math.random()*1000);
   let id_Folders_180 = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
@@ -979,9 +993,9 @@ bthread("crud:Folders:linear:1", function () {
   // -> Updating Folders
   let Fields_Folders_upd_180 = "Fields_Folders_upd_180_" + Math.floor(Math.random()*1000);
   let Filter_Folders_upd_180 = "Filter_Folders_upd_180_" + Math.floor(Math.random()*1000);
-  let Limit_Folders_upd_180 = "Limit_Folders_upd_180_" + Math.floor(Math.random()*1000);
+  let Limit_Folders_upd_180 = Math.floor(Math.random() * 1000);
   let Meta_Folders_upd_180 = "Meta_Folders_upd_180_" + Math.floor(Math.random()*1000);
-  let Offset_Folders_upd_180 = "Offset_Folders_upd_180_" + Math.floor(Math.random()*1000);
+  let Offset_Folders_upd_180 = Math.floor(Math.random() * 1000);
   let Search_Folders_upd_180 = "Search_Folders_upd_180_" + Math.floor(Math.random()*1000);
   let Sort_Folders_upd_180 = "Sort_Folders_upd_180_" + Math.floor(Math.random()*1000);
   let id_Folders_upd_180 = id_Folders_180;
@@ -999,62 +1013,78 @@ bthread("crud:Operations:linear:1", function () {
   // -> Creating Operations
   let Fields_Operations_190 = {};
   let Meta_Operations_190 = {};
-  let UUId_Operations_190 = "UUId_Operations_190_" + Math.floor(Math.random()*1000);
+  let UUId_Operations_190 = {};
   let data_Operations_190 = "data_Operations_190_" + Math.floor(Math.random()*1000);
   let id_Operations_190 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  createOperation(Fields_Operations_190, Meta_Operations_190, UUId_Operations_190, data_Operations_190, id_Operations_190, { expectedResponseCodes: [200, 201, 204] });
+  let keys_Operations_190 = [];
+  createOperation(Fields_Operations_190, Meta_Operations_190, UUId_Operations_190, data_Operations_190, id_Operations_190, keys_Operations_190, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Operations
   let Fields_Operations_upd_190 = {};
   let Meta_Operations_upd_190 = {};
-  let UUId_Operations_upd_190 = "UUId_Operations_upd_190_" + Math.floor(Math.random()*1000);
+  let UUId_Operations_upd_190 = {};
   let data_Operations_upd_190 = "data_Operations_upd_190_" + Math.floor(Math.random()*1000);
   let id_Operations_upd_190 = id_Operations_190;
-  updateOperation(Fields_Operations_upd_190, Meta_Operations_upd_190, UUId_Operations_upd_190, data_Operations_upd_190, id_Operations_upd_190, { expectedResponseCodes: [200, 201, 204] });
+  let keys_Operations_upd_190 = [];
+  updateOperations(Fields_Operations_upd_190, Meta_Operations_upd_190, UUId_Operations_upd_190, data_Operations_upd_190, id_Operations_upd_190, keys_Operations_upd_190, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Operations
-  deleteOperation(id_Operations_190, { expectedResponseCodes: [200, 201, 204] });
+  deleteOperations(id_Operations_190, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:Permissions:linear:1
 bthread("crud:Permissions:linear:1", function () {
   let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
-  deps["Roles"] = matchAnyRolesAdded();
-  let pkMap = {"Collections": "id", "Roles": "id"};
+  deps["Comments"] = matchAnyCommentsAdded();
+  let pkMap = {"Comments": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
-  let RolesId = captured["Roles"];
+  let CommentsId = captured["Comments"];
   // -> Creating Permissions
-  let Fields_Permissions_200 = "Fields_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_200 = "Id_Permissions_200_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_200 = "Meta_Permissions_200_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_200 = "customers";
+  let Fields_Permissions_200 = {};
+  let Filter_Permissions_200 = {};
+  let Id_Permissions_200 = {};
+  let Limit_Permissions_200 = {};
+  let Meta_Permissions_200 = {};
+  let Offset_Permissions_200 = {};
+  let Page_Permissions_200 = {};
+  let Search_Permissions_200 = {};
+  let Sort_Permissions_200 = {};
+  let collection_Permissions_200 = {};
   let comment_Permissions_200 = "comment_Permissions_200_" + Math.floor(Math.random()*1000);
   let create_Permissions_200 = "create_Permissions_200_" + Math.floor(Math.random()*1000);
+  let data_Permissions_200 = {};
   let _delete_Permissions_200 = "delete_Permissions_200_" + Math.floor(Math.random()*1000);
   let explain_Permissions_200 = "explain_Permissions_200_" + Math.floor(Math.random()*1000);
-  let id_Permissions_200 = RolesId;
+  let id_Permissions_200 = CommentsId;
+  let keys_Permissions_200 = [];
   let read_Permissions_200 = "read_Permissions_200_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_200 = [];
-  let role_Permissions_200 = Math.floor(Math.random() * 1000);
-  let status_Permissions_200 = "active";
-  let status_blacklist_Permissions_200 = [];
+  let read_field_blacklist_Permissions_200 = {};
+  let role_Permissions_200 = {};
+  let status_Permissions_200 = {};
+  let status_blacklist_Permissions_200 = {};
   let update_Permissions_200 = "update_Permissions_200_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_200 = [];
-  createPermission(Fields_Permissions_200, Id_Permissions_200, Meta_Permissions_200, collection_Permissions_200, comment_Permissions_200, create_Permissions_200, _delete_Permissions_200, explain_Permissions_200, id_Permissions_200, read_Permissions_200, read_field_blacklist_Permissions_200, role_Permissions_200, status_Permissions_200, status_blacklist_Permissions_200, update_Permissions_200, write_field_blacklist_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_200 = {};
+  createPermission(Fields_Permissions_200, Filter_Permissions_200, Id_Permissions_200, Limit_Permissions_200, Meta_Permissions_200, Offset_Permissions_200, Page_Permissions_200, Search_Permissions_200, Sort_Permissions_200, collection_Permissions_200, comment_Permissions_200, create_Permissions_200, data_Permissions_200, _delete_Permissions_200, explain_Permissions_200, id_Permissions_200, keys_Permissions_200, read_Permissions_200, read_field_blacklist_Permissions_200, role_Permissions_200, status_Permissions_200, status_blacklist_Permissions_200, update_Permissions_200, write_field_blacklist_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Permissions
-  let Fields_Permissions_upd_200 = "Fields_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_upd_200 = "Id_Permissions_upd_200_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_upd_200 = "Meta_Permissions_upd_200_" + Math.floor(Math.random()*1000);
+  let Fields_Permissions_upd_200 = {};
+  let Filter_Permissions_upd_200 = {};
+  let Id_Permissions_upd_200 = {};
+  let Limit_Permissions_upd_200 = {};
+  let Meta_Permissions_upd_200 = {};
+  let Offset_Permissions_upd_200 = {};
+  let Page_Permissions_upd_200 = {};
+  let Search_Permissions_upd_200 = {};
+  let Sort_Permissions_upd_200 = {};
   let collection_Permissions_upd_200 = {};
   let comment_Permissions_upd_200 = "comment_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let create_Permissions_upd_200 = "create_Permissions_upd_200_" + Math.floor(Math.random()*1000);
+  let data_Permissions_upd_200 = {};
   let _delete_Permissions_upd_200 = "delete_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let explain_Permissions_upd_200 = "explain_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let id_Permissions_upd_200 = id_Permissions_200;
+  let keys_Permissions_upd_200 = [];
   let read_Permissions_upd_200 = "read_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_upd_200 = {};
   let role_Permissions_upd_200 = {};
@@ -1062,10 +1092,10 @@ bthread("crud:Permissions:linear:1", function () {
   let status_blacklist_Permissions_upd_200 = {};
   let update_Permissions_upd_200 = "update_Permissions_upd_200_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_upd_200 = {};
-  updatePermission(Fields_Permissions_upd_200, Id_Permissions_upd_200, Meta_Permissions_upd_200, collection_Permissions_upd_200, comment_Permissions_upd_200, create_Permissions_upd_200, _delete_Permissions_upd_200, explain_Permissions_upd_200, id_Permissions_upd_200, read_Permissions_upd_200, read_field_blacklist_Permissions_upd_200, role_Permissions_upd_200, status_Permissions_upd_200, status_blacklist_Permissions_upd_200, update_Permissions_upd_200, write_field_blacklist_Permissions_upd_200, { expectedResponseCodes: [200, 201, 204] });
+  updatePermissions(Fields_Permissions_upd_200, Filter_Permissions_upd_200, Id_Permissions_upd_200, Limit_Permissions_upd_200, Meta_Permissions_upd_200, Offset_Permissions_upd_200, Page_Permissions_upd_200, Search_Permissions_upd_200, Sort_Permissions_upd_200, collection_Permissions_upd_200, comment_Permissions_upd_200, create_Permissions_upd_200, data_Permissions_upd_200, _delete_Permissions_upd_200, explain_Permissions_upd_200, id_Permissions_upd_200, keys_Permissions_upd_200, read_Permissions_upd_200, read_field_blacklist_Permissions_upd_200, role_Permissions_upd_200, status_Permissions_upd_200, status_blacklist_Permissions_upd_200, update_Permissions_upd_200, write_field_blacklist_Permissions_upd_200, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Permissions
-  deletePermission(id_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
+  deletePermissions(id_Permissions_200, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1080,10 +1110,10 @@ bthread("crud:Relations:linear:1", function () {
   let Fields_Relations_210 = "Fields_Relations_210_" + Math.floor(Math.random()*1000);
   let Filter_Relations_210 = "Filter_Relations_210_" + Math.floor(Math.random()*1000);
   let Id_Relations_210 = "Id_Relations_210_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_210 = "Limit_Relations_210_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_210 = Math.floor(Math.random() * 1000);
   let Meta_Relations_210 = "Meta_Relations_210_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_210 = "Offset_Relations_210_" + Math.floor(Math.random()*1000);
-  let Page_Relations_210 = "Page_Relations_210_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_210 = Math.floor(Math.random() * 1000);
+  let Page_Relations_210 = Math.floor(Math.random() * 1000);
   let Search_Relations_210 = "Search_Relations_210_" + Math.floor(Math.random()*1000);
   let Sort_Relations_210 = "Sort_Relations_210_" + Math.floor(Math.random()*1000);
   let collection_many_Relations_210 = "collection_many_Relations_210_" + Math.floor(Math.random()*1000);
@@ -1098,10 +1128,10 @@ bthread("crud:Relations:linear:1", function () {
   let Fields_Relations_upd_210 = "Fields_Relations_upd_210_" + Math.floor(Math.random()*1000);
   let Filter_Relations_upd_210 = "Filter_Relations_upd_210_" + Math.floor(Math.random()*1000);
   let Id_Relations_upd_210 = "Id_Relations_upd_210_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_upd_210 = "Limit_Relations_upd_210_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_upd_210 = Math.floor(Math.random() * 1000);
   let Meta_Relations_upd_210 = "Meta_Relations_upd_210_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_upd_210 = "Offset_Relations_upd_210_" + Math.floor(Math.random()*1000);
-  let Page_Relations_upd_210 = "Page_Relations_upd_210_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_upd_210 = Math.floor(Math.random() * 1000);
+  let Page_Relations_upd_210 = Math.floor(Math.random() * 1000);
   let Search_Relations_upd_210 = "Search_Relations_upd_210_" + Math.floor(Math.random()*1000);
   let Sort_Relations_upd_210 = "Sort_Relations_upd_210_" + Math.floor(Math.random()*1000);
   let collection_many_Relations_upd_210 = "collection_many_Relations_upd_210_" + Math.floor(Math.random()*1000);
@@ -1122,10 +1152,10 @@ bthread("crud:Roles:linear:1", function () {
   // -> Creating Roles
   let Fields_Roles_220 = "Fields_Roles_220_" + Math.floor(Math.random()*1000);
   let Filter_Roles_220 = "Filter_Roles_220_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_220 = "Limit_Roles_220_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_220 = Math.floor(Math.random() * 1000);
   let Meta_Roles_220 = "Meta_Roles_220_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_220 = "Offset_Roles_220_" + Math.floor(Math.random()*1000);
-  let Page_Roles_220 = "Page_Roles_220_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_220 = Math.floor(Math.random() * 1000);
+  let Page_Roles_220 = Math.floor(Math.random() * 1000);
   let Search_Roles_220 = "Search_Roles_220_" + Math.floor(Math.random()*1000);
   let Sort_Roles_220 = "Sort_Roles_220_" + Math.floor(Math.random()*1000);
   let description_Roles_220 = "Admins have access to all managed data within the system by default";
@@ -1140,10 +1170,10 @@ bthread("crud:Roles:linear:1", function () {
   // -> Updating Roles
   let Fields_Roles_upd_220 = "Fields_Roles_upd_220_" + Math.floor(Math.random()*1000);
   let Filter_Roles_upd_220 = "Filter_Roles_upd_220_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_upd_220 = "Limit_Roles_upd_220_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_upd_220 = Math.floor(Math.random() * 1000);
   let Meta_Roles_upd_220 = "Meta_Roles_upd_220_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_upd_220 = "Offset_Roles_upd_220_" + Math.floor(Math.random()*1000);
-  let Page_Roles_upd_220 = "Page_Roles_upd_220_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_upd_220 = Math.floor(Math.random() * 1000);
+  let Page_Roles_upd_220 = Math.floor(Math.random() * 1000);
   let Search_Roles_upd_220 = "Search_Roles_upd_220_" + Math.floor(Math.random()*1000);
   let Sort_Roles_upd_220 = "Sort_Roles_upd_220_" + Math.floor(Math.random()*1000);
   let description_Roles_upd_220 = "Admins have access to all managed data within the system by default";
@@ -1155,7 +1185,9 @@ bthread("crud:Roles:linear:1", function () {
   let name_Roles_upd_220 = "Administrator";
   updateRole(Fields_Roles_upd_220, Filter_Roles_upd_220, Limit_Roles_upd_220, Meta_Roles_upd_220, Offset_Roles_upd_220, Page_Roles_upd_220, Search_Roles_upd_220, Sort_Roles_upd_220, description_Roles_upd_220, enforce_tfa_Roles_upd_220, external_id_Roles_upd_220, id_Roles_upd_220, ip_access_Roles_upd_220, module_listing_Roles_upd_220, name_Roles_upd_220, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Roles to prevent foreign key errors (has active dependents)
+  // -> Deleting Roles
+  deleteRole(id_Roles_220, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Schema:linear:1
@@ -1172,10 +1204,10 @@ bthread("crud:Schema:linear:1", function () {
 // Story: crud:Users:linear:1
 bthread("crud:Users:linear:1", function () {
   // -> Creating Users
-  let Fields_Users_240 = "Fields_Users_240_" + Math.floor(Math.random()*1000);
+  let Fields_Users_240 = {};
   let Filter_Users_240 = "Filter_Users_240_" + Math.floor(Math.random()*1000);
   let Limit_Users_240 = "Limit_Users_240_" + Math.floor(Math.random()*1000);
-  let Meta_Users_240 = "Meta_Users_240_" + Math.floor(Math.random()*1000);
+  let Meta_Users_240 = {};
   let Offset_Users_240 = "Offset_Users_240_" + Math.floor(Math.random()*1000);
   let Search_Users_240 = "Search_Users_240_" + Math.floor(Math.random()*1000);
   let Sort_Users_240 = "Sort_Users_240_" + Math.floor(Math.random()*1000);
@@ -1187,10 +1219,10 @@ bthread("crud:Users:linear:1", function () {
   acceptInvite(Fields_Users_240, Filter_Users_240, Limit_Users_240, Meta_Users_240, Offset_Users_240, Search_Users_240, Sort_Users_240, UUId_Users_240, id_Users_240, last_page_Users_240, password_Users_240, token_Users_240, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Users
-  let Fields_Users_upd_240 = "Fields_Users_upd_240_" + Math.floor(Math.random()*1000);
+  let Fields_Users_upd_240 = {};
   let Filter_Users_upd_240 = "Filter_Users_upd_240_" + Math.floor(Math.random()*1000);
   let Limit_Users_upd_240 = "Limit_Users_upd_240_" + Math.floor(Math.random()*1000);
-  let Meta_Users_upd_240 = "Meta_Users_upd_240_" + Math.floor(Math.random()*1000);
+  let Meta_Users_upd_240 = {};
   let Offset_Users_upd_240 = "Offset_Users_upd_240_" + Math.floor(Math.random()*1000);
   let Search_Users_upd_240 = "Search_Users_upd_240_" + Math.floor(Math.random()*1000);
   let Sort_Users_upd_240 = "Sort_Users_upd_240_" + Math.floor(Math.random()*1000);
@@ -1210,7 +1242,7 @@ bthread("crud:Users:linear:1", function () {
 bthread("crud:Utilities:linear:1", function () {
   // -> Creating Utilities
   let id_Utilities_250 = "id_Utilities_250_" + Math.floor(Math.random()*1000);
-  let length_Utilities_250 = "length_Utilities_250_" + Math.floor(Math.random()*1000);
+  let length_Utilities_250 = Math.floor(Math.random() * 1000);
   clearCache(id_Utilities_250, length_Utilities_250, { expectedResponseCodes: [200, 201, 204] });
 
 });
@@ -1220,9 +1252,9 @@ bthread("crud:Versions:linear:1", function () {
   // -> Creating Versions
   let Fields_Versions_260 = "Fields_Versions_260_" + Math.floor(Math.random()*1000);
   let Filter_Versions_260 = "Filter_Versions_260_" + Math.floor(Math.random()*1000);
-  let Limit_Versions_260 = "Limit_Versions_260_" + Math.floor(Math.random()*1000);
+  let Limit_Versions_260 = Math.floor(Math.random() * 1000);
   let Meta_Versions_260 = "Meta_Versions_260_" + Math.floor(Math.random()*1000);
-  let Offset_Versions_260 = "Offset_Versions_260_" + Math.floor(Math.random()*1000);
+  let Offset_Versions_260 = Math.floor(Math.random() * 1000);
   let Search_Versions_260 = "Search_Versions_260_" + Math.floor(Math.random()*1000);
   let Sort_Versions_260 = "Sort_Versions_260_" + Math.floor(Math.random()*1000);
   let UUId_Versions_260 = "UUId_Versions_260_" + Math.floor(Math.random()*1000);
@@ -1235,9 +1267,9 @@ bthread("crud:Versions:linear:1", function () {
   // -> Updating Versions
   let Fields_Versions_upd_260 = "Fields_Versions_upd_260_" + Math.floor(Math.random()*1000);
   let Filter_Versions_upd_260 = "Filter_Versions_upd_260_" + Math.floor(Math.random()*1000);
-  let Limit_Versions_upd_260 = "Limit_Versions_upd_260_" + Math.floor(Math.random()*1000);
+  let Limit_Versions_upd_260 = Math.floor(Math.random() * 1000);
   let Meta_Versions_upd_260 = "Meta_Versions_upd_260_" + Math.floor(Math.random()*1000);
-  let Offset_Versions_upd_260 = "Offset_Versions_upd_260_" + Math.floor(Math.random()*1000);
+  let Offset_Versions_upd_260 = Math.floor(Math.random() * 1000);
   let Search_Versions_upd_260 = "Search_Versions_upd_260_" + Math.floor(Math.random()*1000);
   let Sort_Versions_upd_260 = "Sort_Versions_upd_260_" + Math.floor(Math.random()*1000);
   let UUId_Versions_upd_260 = "UUId_Versions_upd_260_" + Math.floor(Math.random()*1000);
@@ -1306,7 +1338,7 @@ bthread("crud:Collections:linear:2", function () {
   let hidden_Collections_290 = true;
   let icon_Collections_290 = "icon_Collections_290_" + Math.floor(Math.random()*1000);
   let id_Collections_290 = "id_Collections_290_" + Math.floor(Math.random()*1000);
-  let meta_Collections_290 = "meta_Collections_290_" + Math.floor(Math.random()*1000);
+  let meta_Collections_290 = {};
   let note_Collections_290 = "note_Collections_290_" + Math.floor(Math.random()*1000);
   let singleton_Collections_290 = true;
   let sort_field_Collections_290 = "sort_field_Collections_290_" + Math.floor(Math.random()*1000);
@@ -1323,17 +1355,17 @@ bthread("crud:Collections:linear:2", function () {
   let archive_value_Collections_upd_290 = "archive_value_Collections_upd_290_" + Math.floor(Math.random()*1000);
   let collection_Collections_upd_290 = "customers";
   let display_template_Collections_upd_290 = "display_template_Collections_upd_290_" + Math.floor(Math.random()*1000);
-  let fields_Collections_upd_290 = "fields_Collections_upd_290_" + Math.floor(Math.random()*1000);
-  let hidden_Collections_upd_290 = "hidden_Collections_upd_290_" + Math.floor(Math.random()*1000);
+  let fields_Collections_upd_290 = [];
+  let hidden_Collections_upd_290 = true;
   let icon_Collections_upd_290 = "icon_Collections_upd_290_" + Math.floor(Math.random()*1000);
   let id_Collections_upd_290 = id_Collections_290;
   let meta_Collections_upd_290 = {};
   let note_Collections_upd_290 = "note_Collections_upd_290_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_upd_290 = "singleton_Collections_upd_290_" + Math.floor(Math.random()*1000);
+  let singleton_Collections_upd_290 = true;
   let sort_field_Collections_upd_290 = "sort_field_Collections_upd_290_" + Math.floor(Math.random()*1000);
   let translation_Collections_upd_290 = "translation_Collections_upd_290_" + Math.floor(Math.random()*1000);
   let unarchive_value_Collections_upd_290 = "unarchive_value_Collections_upd_290_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_upd_290 = "versioning_Collections_upd_290_" + Math.floor(Math.random()*1000);
+  let versioning_Collections_upd_290 = true;
   updateCollection(Meta_Collections_upd_290, Offset_Collections_upd_290, archive_app_filter_Collections_upd_290, archive_field_Collections_upd_290, archive_value_Collections_upd_290, collection_Collections_upd_290, display_template_Collections_upd_290, fields_Collections_upd_290, hidden_Collections_upd_290, icon_Collections_upd_290, id_Collections_upd_290, meta_Collections_upd_290, note_Collections_upd_290, singleton_Collections_upd_290, sort_field_Collections_upd_290, translation_Collections_upd_290, unarchive_value_Collections_upd_290, versioning_Collections_upd_290, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for Collections to prevent foreign key errors (has active dependents)
@@ -1396,11 +1428,11 @@ bthread("crud:Presets:linear:2", function () {
   let layout_Presets_310 = "layout_Presets_310_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_310 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_310 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_310 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let role_Presets_310 = Math.floor(Math.random() * 1000);
   let search_Presets_310 = "search_Presets_310_" + Math.floor(Math.random()*1000);
   let search_query_Presets_310 = "search_query_Presets_310_" + Math.floor(Math.random()*1000);
   let title_Presets_310 = "title_Presets_310_" + Math.floor(Math.random()*1000);
-  let translation_Presets_310 = "translation_Presets_310_" + Math.floor(Math.random()*1000);
+  let translation_Presets_310 = {};
   let view_options_Presets_310 = "view_options_Presets_310_" + Math.floor(Math.random()*1000);
   let view_query_Presets_310 = "view_query_Presets_310_" + Math.floor(Math.random()*1000);
   let view_type_Presets_310 = "view_type_Presets_310_" + Math.floor(Math.random()*1000);
@@ -1440,16 +1472,14 @@ bthread("crud:Presets:linear:2", function () {
 // Story: crud:Comments:linear:2
 bthread("crud:Comments:linear:2", function () {
   let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
   deps["Items"] = matchAnyItemsAdded();
-  let pkMap = {"Collections": "id", "Items": "collection"};
+  let pkMap = {"Items": "collection"};
   let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
   let ItemsId = captured["Items"];
   // -> Creating Comments
   let collection_Comments_320 = ItemsId;
   let comment_Comments_320 = "This is a comment";
-  let id_Comments_320 = CollectionsId;
+  let id_Comments_320 = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
   let item_Comments_320 = "123";
   createComment(collection_Comments_320, comment_Comments_320, id_Comments_320, item_Comments_320, { expectedResponseCodes: [200, 201, 204] });
 
@@ -1460,9 +1490,7 @@ bthread("crud:Comments:linear:2", function () {
   let item_Comments_upd_320 = "123";
   updateComment(collection_Comments_upd_320, comment_Comments_upd_320, id_Comments_upd_320, item_Comments_upd_320, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Comments
-  deleteComment(id_Comments_320, { expectedResponseCodes: [200, 201, 204] });
-
+  // Skip delete for Comments to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Fields:linear:2
@@ -1490,7 +1518,7 @@ bthread("crud:Fields:linear:2", function () {
   let datatype_Fields_upd_330 = "datatype_Fields_upd_330_" + Math.floor(Math.random()*1000);
   let field_Fields_upd_330 = "id";
   let id_Fields_upd_330 = "id_Fields_upd_330_" + Math.floor(Math.random()*1000);
-  let length_Fields_upd_330 = "length_Fields_upd_330_" + Math.floor(Math.random()*1000);
+  let length_Fields_upd_330 = Math.floor(Math.random() * 1000);
   let meta_Fields_upd_330 = {};
   let schema_Fields_upd_330 = {};
   let type_Fields_upd_330 = "integer";
@@ -1516,7 +1544,7 @@ bthread("crud:Files:linear:2", function () {
   let filename_download_Files_340 = "avatar.jpg";
   let folder_Files_340 = "folder_Files_340_" + Math.floor(Math.random()*1000);
   let id_Files_340 = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_Files_340 = "tags_Files_340_" + Math.floor(Math.random()*1000);
+  let tags_Files_340 = [];
   let title_Files_340 = "User Avatar";
   createFile(Fields_Files_340, Filter_Files_340, Limit_Files_340, Meta_Files_340, Offset_Files_340, Search_Files_340, Sort_Files_340, data_Files_340, description_Files_340, filename_download_Files_340, folder_Files_340, id_Files_340, tags_Files_340, title_Files_340, { expectedResponseCodes: [200, 201, 204] });
 
@@ -1568,9 +1596,9 @@ bthread("crud:Folders:linear:2", function () {
   // -> Creating Folders
   let Fields_Folders_360 = "Fields_Folders_360_" + Math.floor(Math.random()*1000);
   let Filter_Folders_360 = "Filter_Folders_360_" + Math.floor(Math.random()*1000);
-  let Limit_Folders_360 = "Limit_Folders_360_" + Math.floor(Math.random()*1000);
+  let Limit_Folders_360 = Math.floor(Math.random() * 1000);
   let Meta_Folders_360 = "Meta_Folders_360_" + Math.floor(Math.random()*1000);
-  let Offset_Folders_360 = "Offset_Folders_360_" + Math.floor(Math.random()*1000);
+  let Offset_Folders_360 = Math.floor(Math.random() * 1000);
   let Search_Folders_360 = "Search_Folders_360_" + Math.floor(Math.random()*1000);
   let Sort_Folders_360 = "Sort_Folders_360_" + Math.floor(Math.random()*1000);
   let id_Folders_360 = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
@@ -1581,9 +1609,9 @@ bthread("crud:Folders:linear:2", function () {
   // -> Updating Folders
   let Fields_Folders_upd_360 = "Fields_Folders_upd_360_" + Math.floor(Math.random()*1000);
   let Filter_Folders_upd_360 = "Filter_Folders_upd_360_" + Math.floor(Math.random()*1000);
-  let Limit_Folders_upd_360 = "Limit_Folders_upd_360_" + Math.floor(Math.random()*1000);
+  let Limit_Folders_upd_360 = Math.floor(Math.random() * 1000);
   let Meta_Folders_upd_360 = "Meta_Folders_upd_360_" + Math.floor(Math.random()*1000);
-  let Offset_Folders_upd_360 = "Offset_Folders_upd_360_" + Math.floor(Math.random()*1000);
+  let Offset_Folders_upd_360 = Math.floor(Math.random() * 1000);
   let Search_Folders_upd_360 = "Search_Folders_upd_360_" + Math.floor(Math.random()*1000);
   let Sort_Folders_upd_360 = "Sort_Folders_upd_360_" + Math.floor(Math.random()*1000);
   let id_Folders_upd_360 = id_Folders_360;
@@ -1601,62 +1629,78 @@ bthread("crud:Operations:linear:2", function () {
   // -> Creating Operations
   let Fields_Operations_370 = {};
   let Meta_Operations_370 = {};
-  let UUId_Operations_370 = "UUId_Operations_370_" + Math.floor(Math.random()*1000);
+  let UUId_Operations_370 = {};
   let data_Operations_370 = "data_Operations_370_" + Math.floor(Math.random()*1000);
   let id_Operations_370 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  createOperation(Fields_Operations_370, Meta_Operations_370, UUId_Operations_370, data_Operations_370, id_Operations_370, { expectedResponseCodes: [200, 201, 204] });
+  let keys_Operations_370 = [];
+  createOperation(Fields_Operations_370, Meta_Operations_370, UUId_Operations_370, data_Operations_370, id_Operations_370, keys_Operations_370, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Operations
   let Fields_Operations_upd_370 = {};
   let Meta_Operations_upd_370 = {};
-  let UUId_Operations_upd_370 = "UUId_Operations_upd_370_" + Math.floor(Math.random()*1000);
+  let UUId_Operations_upd_370 = {};
   let data_Operations_upd_370 = "data_Operations_upd_370_" + Math.floor(Math.random()*1000);
   let id_Operations_upd_370 = id_Operations_370;
-  updateOperation(Fields_Operations_upd_370, Meta_Operations_upd_370, UUId_Operations_upd_370, data_Operations_upd_370, id_Operations_upd_370, { expectedResponseCodes: [200, 201, 204] });
+  let keys_Operations_upd_370 = [];
+  updateOperations(Fields_Operations_upd_370, Meta_Operations_upd_370, UUId_Operations_upd_370, data_Operations_upd_370, id_Operations_upd_370, keys_Operations_upd_370, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Operations
-  deleteOperation(id_Operations_370, { expectedResponseCodes: [200, 201, 204] });
+  deleteOperations(id_Operations_370, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:Permissions:linear:2
 bthread("crud:Permissions:linear:2", function () {
   let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
-  deps["Roles"] = matchAnyRolesAdded();
-  let pkMap = {"Collections": "id", "Roles": "id"};
+  deps["Comments"] = matchAnyCommentsAdded();
+  let pkMap = {"Comments": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
-  let RolesId = captured["Roles"];
+  let CommentsId = captured["Comments"];
   // -> Creating Permissions
-  let Fields_Permissions_380 = "Fields_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_380 = "Id_Permissions_380_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_380 = "Meta_Permissions_380_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_380 = "customers";
+  let Fields_Permissions_380 = {};
+  let Filter_Permissions_380 = {};
+  let Id_Permissions_380 = {};
+  let Limit_Permissions_380 = {};
+  let Meta_Permissions_380 = {};
+  let Offset_Permissions_380 = {};
+  let Page_Permissions_380 = {};
+  let Search_Permissions_380 = {};
+  let Sort_Permissions_380 = {};
+  let collection_Permissions_380 = {};
   let comment_Permissions_380 = "comment_Permissions_380_" + Math.floor(Math.random()*1000);
   let create_Permissions_380 = "create_Permissions_380_" + Math.floor(Math.random()*1000);
+  let data_Permissions_380 = {};
   let _delete_Permissions_380 = "delete_Permissions_380_" + Math.floor(Math.random()*1000);
   let explain_Permissions_380 = "explain_Permissions_380_" + Math.floor(Math.random()*1000);
-  let id_Permissions_380 = RolesId;
+  let id_Permissions_380 = CommentsId;
+  let keys_Permissions_380 = [];
   let read_Permissions_380 = "read_Permissions_380_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_380 = [];
-  let role_Permissions_380 = Math.floor(Math.random() * 1000);
-  let status_Permissions_380 = "active";
-  let status_blacklist_Permissions_380 = [];
+  let read_field_blacklist_Permissions_380 = {};
+  let role_Permissions_380 = {};
+  let status_Permissions_380 = {};
+  let status_blacklist_Permissions_380 = {};
   let update_Permissions_380 = "update_Permissions_380_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_380 = [];
-  createPermission(Fields_Permissions_380, Id_Permissions_380, Meta_Permissions_380, collection_Permissions_380, comment_Permissions_380, create_Permissions_380, _delete_Permissions_380, explain_Permissions_380, id_Permissions_380, read_Permissions_380, read_field_blacklist_Permissions_380, role_Permissions_380, status_Permissions_380, status_blacklist_Permissions_380, update_Permissions_380, write_field_blacklist_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_380 = {};
+  createPermission(Fields_Permissions_380, Filter_Permissions_380, Id_Permissions_380, Limit_Permissions_380, Meta_Permissions_380, Offset_Permissions_380, Page_Permissions_380, Search_Permissions_380, Sort_Permissions_380, collection_Permissions_380, comment_Permissions_380, create_Permissions_380, data_Permissions_380, _delete_Permissions_380, explain_Permissions_380, id_Permissions_380, keys_Permissions_380, read_Permissions_380, read_field_blacklist_Permissions_380, role_Permissions_380, status_Permissions_380, status_blacklist_Permissions_380, update_Permissions_380, write_field_blacklist_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Permissions
-  let Fields_Permissions_upd_380 = "Fields_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_upd_380 = "Id_Permissions_upd_380_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_upd_380 = "Meta_Permissions_upd_380_" + Math.floor(Math.random()*1000);
+  let Fields_Permissions_upd_380 = {};
+  let Filter_Permissions_upd_380 = {};
+  let Id_Permissions_upd_380 = {};
+  let Limit_Permissions_upd_380 = {};
+  let Meta_Permissions_upd_380 = {};
+  let Offset_Permissions_upd_380 = {};
+  let Page_Permissions_upd_380 = {};
+  let Search_Permissions_upd_380 = {};
+  let Sort_Permissions_upd_380 = {};
   let collection_Permissions_upd_380 = {};
   let comment_Permissions_upd_380 = "comment_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let create_Permissions_upd_380 = "create_Permissions_upd_380_" + Math.floor(Math.random()*1000);
+  let data_Permissions_upd_380 = {};
   let _delete_Permissions_upd_380 = "delete_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let explain_Permissions_upd_380 = "explain_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let id_Permissions_upd_380 = id_Permissions_380;
+  let keys_Permissions_upd_380 = [];
   let read_Permissions_upd_380 = "read_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_upd_380 = {};
   let role_Permissions_upd_380 = {};
@@ -1664,10 +1708,10 @@ bthread("crud:Permissions:linear:2", function () {
   let status_blacklist_Permissions_upd_380 = {};
   let update_Permissions_upd_380 = "update_Permissions_upd_380_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_upd_380 = {};
-  updatePermission(Fields_Permissions_upd_380, Id_Permissions_upd_380, Meta_Permissions_upd_380, collection_Permissions_upd_380, comment_Permissions_upd_380, create_Permissions_upd_380, _delete_Permissions_upd_380, explain_Permissions_upd_380, id_Permissions_upd_380, read_Permissions_upd_380, read_field_blacklist_Permissions_upd_380, role_Permissions_upd_380, status_Permissions_upd_380, status_blacklist_Permissions_upd_380, update_Permissions_upd_380, write_field_blacklist_Permissions_upd_380, { expectedResponseCodes: [200, 201, 204] });
+  updatePermissions(Fields_Permissions_upd_380, Filter_Permissions_upd_380, Id_Permissions_upd_380, Limit_Permissions_upd_380, Meta_Permissions_upd_380, Offset_Permissions_upd_380, Page_Permissions_upd_380, Search_Permissions_upd_380, Sort_Permissions_upd_380, collection_Permissions_upd_380, comment_Permissions_upd_380, create_Permissions_upd_380, data_Permissions_upd_380, _delete_Permissions_upd_380, explain_Permissions_upd_380, id_Permissions_upd_380, keys_Permissions_upd_380, read_Permissions_upd_380, read_field_blacklist_Permissions_upd_380, role_Permissions_upd_380, status_Permissions_upd_380, status_blacklist_Permissions_upd_380, update_Permissions_upd_380, write_field_blacklist_Permissions_upd_380, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Permissions
-  deletePermission(id_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
+  deletePermissions(id_Permissions_380, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -1682,10 +1726,10 @@ bthread("crud:Relations:linear:2", function () {
   let Fields_Relations_390 = "Fields_Relations_390_" + Math.floor(Math.random()*1000);
   let Filter_Relations_390 = "Filter_Relations_390_" + Math.floor(Math.random()*1000);
   let Id_Relations_390 = "Id_Relations_390_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_390 = "Limit_Relations_390_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_390 = Math.floor(Math.random() * 1000);
   let Meta_Relations_390 = "Meta_Relations_390_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_390 = "Offset_Relations_390_" + Math.floor(Math.random()*1000);
-  let Page_Relations_390 = "Page_Relations_390_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_390 = Math.floor(Math.random() * 1000);
+  let Page_Relations_390 = Math.floor(Math.random() * 1000);
   let Search_Relations_390 = "Search_Relations_390_" + Math.floor(Math.random()*1000);
   let Sort_Relations_390 = "Sort_Relations_390_" + Math.floor(Math.random()*1000);
   let collection_many_Relations_390 = "collection_many_Relations_390_" + Math.floor(Math.random()*1000);
@@ -1700,10 +1744,10 @@ bthread("crud:Relations:linear:2", function () {
   let Fields_Relations_upd_390 = "Fields_Relations_upd_390_" + Math.floor(Math.random()*1000);
   let Filter_Relations_upd_390 = "Filter_Relations_upd_390_" + Math.floor(Math.random()*1000);
   let Id_Relations_upd_390 = "Id_Relations_upd_390_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_upd_390 = "Limit_Relations_upd_390_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_upd_390 = Math.floor(Math.random() * 1000);
   let Meta_Relations_upd_390 = "Meta_Relations_upd_390_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_upd_390 = "Offset_Relations_upd_390_" + Math.floor(Math.random()*1000);
-  let Page_Relations_upd_390 = "Page_Relations_upd_390_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_upd_390 = Math.floor(Math.random() * 1000);
+  let Page_Relations_upd_390 = Math.floor(Math.random() * 1000);
   let Search_Relations_upd_390 = "Search_Relations_upd_390_" + Math.floor(Math.random()*1000);
   let Sort_Relations_upd_390 = "Sort_Relations_upd_390_" + Math.floor(Math.random()*1000);
   let collection_many_Relations_upd_390 = "collection_many_Relations_upd_390_" + Math.floor(Math.random()*1000);
@@ -1724,10 +1768,10 @@ bthread("crud:Roles:linear:2", function () {
   // -> Creating Roles
   let Fields_Roles_400 = "Fields_Roles_400_" + Math.floor(Math.random()*1000);
   let Filter_Roles_400 = "Filter_Roles_400_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_400 = "Limit_Roles_400_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_400 = Math.floor(Math.random() * 1000);
   let Meta_Roles_400 = "Meta_Roles_400_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_400 = "Offset_Roles_400_" + Math.floor(Math.random()*1000);
-  let Page_Roles_400 = "Page_Roles_400_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_400 = Math.floor(Math.random() * 1000);
+  let Page_Roles_400 = Math.floor(Math.random() * 1000);
   let Search_Roles_400 = "Search_Roles_400_" + Math.floor(Math.random()*1000);
   let Sort_Roles_400 = "Sort_Roles_400_" + Math.floor(Math.random()*1000);
   let description_Roles_400 = "Admins have access to all managed data within the system by default";
@@ -1742,10 +1786,10 @@ bthread("crud:Roles:linear:2", function () {
   // -> Updating Roles
   let Fields_Roles_upd_400 = "Fields_Roles_upd_400_" + Math.floor(Math.random()*1000);
   let Filter_Roles_upd_400 = "Filter_Roles_upd_400_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_upd_400 = "Limit_Roles_upd_400_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_upd_400 = Math.floor(Math.random() * 1000);
   let Meta_Roles_upd_400 = "Meta_Roles_upd_400_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_upd_400 = "Offset_Roles_upd_400_" + Math.floor(Math.random()*1000);
-  let Page_Roles_upd_400 = "Page_Roles_upd_400_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_upd_400 = Math.floor(Math.random() * 1000);
+  let Page_Roles_upd_400 = Math.floor(Math.random() * 1000);
   let Search_Roles_upd_400 = "Search_Roles_upd_400_" + Math.floor(Math.random()*1000);
   let Sort_Roles_upd_400 = "Sort_Roles_upd_400_" + Math.floor(Math.random()*1000);
   let description_Roles_upd_400 = "Admins have access to all managed data within the system by default";
@@ -1757,7 +1801,9 @@ bthread("crud:Roles:linear:2", function () {
   let name_Roles_upd_400 = "Administrator";
   updateRole(Fields_Roles_upd_400, Filter_Roles_upd_400, Limit_Roles_upd_400, Meta_Roles_upd_400, Offset_Roles_upd_400, Page_Roles_upd_400, Search_Roles_upd_400, Sort_Roles_upd_400, description_Roles_upd_400, enforce_tfa_Roles_upd_400, external_id_Roles_upd_400, id_Roles_upd_400, ip_access_Roles_upd_400, module_listing_Roles_upd_400, name_Roles_upd_400, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Roles to prevent foreign key errors (has active dependents)
+  // -> Deleting Roles
+  deleteRole(id_Roles_400, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Schema:linear:2
@@ -1774,10 +1820,10 @@ bthread("crud:Schema:linear:2", function () {
 // Story: crud:Users:linear:2
 bthread("crud:Users:linear:2", function () {
   // -> Creating Users
-  let Fields_Users_420 = "Fields_Users_420_" + Math.floor(Math.random()*1000);
+  let Fields_Users_420 = {};
   let Filter_Users_420 = "Filter_Users_420_" + Math.floor(Math.random()*1000);
   let Limit_Users_420 = "Limit_Users_420_" + Math.floor(Math.random()*1000);
-  let Meta_Users_420 = "Meta_Users_420_" + Math.floor(Math.random()*1000);
+  let Meta_Users_420 = {};
   let Offset_Users_420 = "Offset_Users_420_" + Math.floor(Math.random()*1000);
   let Search_Users_420 = "Search_Users_420_" + Math.floor(Math.random()*1000);
   let Sort_Users_420 = "Sort_Users_420_" + Math.floor(Math.random()*1000);
@@ -1789,10 +1835,10 @@ bthread("crud:Users:linear:2", function () {
   acceptInvite(Fields_Users_420, Filter_Users_420, Limit_Users_420, Meta_Users_420, Offset_Users_420, Search_Users_420, Sort_Users_420, UUId_Users_420, id_Users_420, last_page_Users_420, password_Users_420, token_Users_420, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Users
-  let Fields_Users_upd_420 = "Fields_Users_upd_420_" + Math.floor(Math.random()*1000);
+  let Fields_Users_upd_420 = {};
   let Filter_Users_upd_420 = "Filter_Users_upd_420_" + Math.floor(Math.random()*1000);
   let Limit_Users_upd_420 = "Limit_Users_upd_420_" + Math.floor(Math.random()*1000);
-  let Meta_Users_upd_420 = "Meta_Users_upd_420_" + Math.floor(Math.random()*1000);
+  let Meta_Users_upd_420 = {};
   let Offset_Users_upd_420 = "Offset_Users_upd_420_" + Math.floor(Math.random()*1000);
   let Search_Users_upd_420 = "Search_Users_upd_420_" + Math.floor(Math.random()*1000);
   let Sort_Users_upd_420 = "Sort_Users_upd_420_" + Math.floor(Math.random()*1000);
@@ -1812,7 +1858,7 @@ bthread("crud:Users:linear:2", function () {
 bthread("crud:Utilities:linear:2", function () {
   // -> Creating Utilities
   let id_Utilities_430 = "id_Utilities_430_" + Math.floor(Math.random()*1000);
-  let length_Utilities_430 = "length_Utilities_430_" + Math.floor(Math.random()*1000);
+  let length_Utilities_430 = Math.floor(Math.random() * 1000);
   clearCache(id_Utilities_430, length_Utilities_430, { expectedResponseCodes: [200, 201, 204] });
 
 });
@@ -1822,9 +1868,9 @@ bthread("crud:Versions:linear:2", function () {
   // -> Creating Versions
   let Fields_Versions_440 = "Fields_Versions_440_" + Math.floor(Math.random()*1000);
   let Filter_Versions_440 = "Filter_Versions_440_" + Math.floor(Math.random()*1000);
-  let Limit_Versions_440 = "Limit_Versions_440_" + Math.floor(Math.random()*1000);
+  let Limit_Versions_440 = Math.floor(Math.random() * 1000);
   let Meta_Versions_440 = "Meta_Versions_440_" + Math.floor(Math.random()*1000);
-  let Offset_Versions_440 = "Offset_Versions_440_" + Math.floor(Math.random()*1000);
+  let Offset_Versions_440 = Math.floor(Math.random() * 1000);
   let Search_Versions_440 = "Search_Versions_440_" + Math.floor(Math.random()*1000);
   let Sort_Versions_440 = "Sort_Versions_440_" + Math.floor(Math.random()*1000);
   let UUId_Versions_440 = "UUId_Versions_440_" + Math.floor(Math.random()*1000);
@@ -1837,9 +1883,9 @@ bthread("crud:Versions:linear:2", function () {
   // -> Updating Versions
   let Fields_Versions_upd_440 = "Fields_Versions_upd_440_" + Math.floor(Math.random()*1000);
   let Filter_Versions_upd_440 = "Filter_Versions_upd_440_" + Math.floor(Math.random()*1000);
-  let Limit_Versions_upd_440 = "Limit_Versions_upd_440_" + Math.floor(Math.random()*1000);
+  let Limit_Versions_upd_440 = Math.floor(Math.random() * 1000);
   let Meta_Versions_upd_440 = "Meta_Versions_upd_440_" + Math.floor(Math.random()*1000);
-  let Offset_Versions_upd_440 = "Offset_Versions_upd_440_" + Math.floor(Math.random()*1000);
+  let Offset_Versions_upd_440 = Math.floor(Math.random() * 1000);
   let Search_Versions_upd_440 = "Search_Versions_upd_440_" + Math.floor(Math.random()*1000);
   let Sort_Versions_upd_440 = "Sort_Versions_upd_440_" + Math.floor(Math.random()*1000);
   let UUId_Versions_upd_440 = "UUId_Versions_upd_440_" + Math.floor(Math.random()*1000);
@@ -1908,7 +1954,7 @@ bthread("crud:Collections:linear:3", function () {
   let hidden_Collections_470 = true;
   let icon_Collections_470 = "icon_Collections_470_" + Math.floor(Math.random()*1000);
   let id_Collections_470 = "id_Collections_470_" + Math.floor(Math.random()*1000);
-  let meta_Collections_470 = "meta_Collections_470_" + Math.floor(Math.random()*1000);
+  let meta_Collections_470 = {};
   let note_Collections_470 = "note_Collections_470_" + Math.floor(Math.random()*1000);
   let singleton_Collections_470 = true;
   let sort_field_Collections_470 = "sort_field_Collections_470_" + Math.floor(Math.random()*1000);
@@ -1925,17 +1971,17 @@ bthread("crud:Collections:linear:3", function () {
   let archive_value_Collections_upd_470 = "archive_value_Collections_upd_470_" + Math.floor(Math.random()*1000);
   let collection_Collections_upd_470 = "customers";
   let display_template_Collections_upd_470 = "display_template_Collections_upd_470_" + Math.floor(Math.random()*1000);
-  let fields_Collections_upd_470 = "fields_Collections_upd_470_" + Math.floor(Math.random()*1000);
-  let hidden_Collections_upd_470 = "hidden_Collections_upd_470_" + Math.floor(Math.random()*1000);
+  let fields_Collections_upd_470 = [];
+  let hidden_Collections_upd_470 = true;
   let icon_Collections_upd_470 = "icon_Collections_upd_470_" + Math.floor(Math.random()*1000);
   let id_Collections_upd_470 = id_Collections_470;
   let meta_Collections_upd_470 = {};
   let note_Collections_upd_470 = "note_Collections_upd_470_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_upd_470 = "singleton_Collections_upd_470_" + Math.floor(Math.random()*1000);
+  let singleton_Collections_upd_470 = true;
   let sort_field_Collections_upd_470 = "sort_field_Collections_upd_470_" + Math.floor(Math.random()*1000);
   let translation_Collections_upd_470 = "translation_Collections_upd_470_" + Math.floor(Math.random()*1000);
   let unarchive_value_Collections_upd_470 = "unarchive_value_Collections_upd_470_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_upd_470 = "versioning_Collections_upd_470_" + Math.floor(Math.random()*1000);
+  let versioning_Collections_upd_470 = true;
   updateCollection(Meta_Collections_upd_470, Offset_Collections_upd_470, archive_app_filter_Collections_upd_470, archive_field_Collections_upd_470, archive_value_Collections_upd_470, collection_Collections_upd_470, display_template_Collections_upd_470, fields_Collections_upd_470, hidden_Collections_upd_470, icon_Collections_upd_470, id_Collections_upd_470, meta_Collections_upd_470, note_Collections_upd_470, singleton_Collections_upd_470, sort_field_Collections_upd_470, translation_Collections_upd_470, unarchive_value_Collections_upd_470, versioning_Collections_upd_470, { expectedResponseCodes: [200, 201, 204] });
 
   // Skip delete for Collections to prevent foreign key errors (has active dependents)
@@ -1998,11 +2044,11 @@ bthread("crud:Presets:linear:3", function () {
   let layout_Presets_490 = "layout_Presets_490_" + Math.floor(Math.random()*1000);
   let layout_options_Presets_490 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
   let layout_query_Presets_490 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_490 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
+  let role_Presets_490 = Math.floor(Math.random() * 1000);
   let search_Presets_490 = "search_Presets_490_" + Math.floor(Math.random()*1000);
   let search_query_Presets_490 = "search_query_Presets_490_" + Math.floor(Math.random()*1000);
   let title_Presets_490 = "title_Presets_490_" + Math.floor(Math.random()*1000);
-  let translation_Presets_490 = "translation_Presets_490_" + Math.floor(Math.random()*1000);
+  let translation_Presets_490 = {};
   let view_options_Presets_490 = "view_options_Presets_490_" + Math.floor(Math.random()*1000);
   let view_query_Presets_490 = "view_query_Presets_490_" + Math.floor(Math.random()*1000);
   let view_type_Presets_490 = "view_type_Presets_490_" + Math.floor(Math.random()*1000);
@@ -2042,16 +2088,14 @@ bthread("crud:Presets:linear:3", function () {
 // Story: crud:Comments:linear:3
 bthread("crud:Comments:linear:3", function () {
   let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
   deps["Items"] = matchAnyItemsAdded();
-  let pkMap = {"Collections": "id", "Items": "collection"};
+  let pkMap = {"Items": "collection"};
   let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
   let ItemsId = captured["Items"];
   // -> Creating Comments
   let collection_Comments_500 = ItemsId;
   let comment_Comments_500 = "This is a comment";
-  let id_Comments_500 = CollectionsId;
+  let id_Comments_500 = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
   let item_Comments_500 = "123";
   createComment(collection_Comments_500, comment_Comments_500, id_Comments_500, item_Comments_500, { expectedResponseCodes: [200, 201, 204] });
 
@@ -2062,9 +2106,7 @@ bthread("crud:Comments:linear:3", function () {
   let item_Comments_upd_500 = "123";
   updateComment(collection_Comments_upd_500, comment_Comments_upd_500, id_Comments_upd_500, item_Comments_upd_500, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Comments
-  deleteComment(id_Comments_500, { expectedResponseCodes: [200, 201, 204] });
-
+  // Skip delete for Comments to prevent foreign key errors (has active dependents)
 });
 
 // Story: crud:Fields:linear:3
@@ -2092,7 +2134,7 @@ bthread("crud:Fields:linear:3", function () {
   let datatype_Fields_upd_510 = "datatype_Fields_upd_510_" + Math.floor(Math.random()*1000);
   let field_Fields_upd_510 = "id";
   let id_Fields_upd_510 = "id_Fields_upd_510_" + Math.floor(Math.random()*1000);
-  let length_Fields_upd_510 = "length_Fields_upd_510_" + Math.floor(Math.random()*1000);
+  let length_Fields_upd_510 = Math.floor(Math.random() * 1000);
   let meta_Fields_upd_510 = {};
   let schema_Fields_upd_510 = {};
   let type_Fields_upd_510 = "integer";
@@ -2118,7 +2160,7 @@ bthread("crud:Files:linear:3", function () {
   let filename_download_Files_520 = "avatar.jpg";
   let folder_Files_520 = "folder_Files_520_" + Math.floor(Math.random()*1000);
   let id_Files_520 = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_Files_520 = "tags_Files_520_" + Math.floor(Math.random()*1000);
+  let tags_Files_520 = [];
   let title_Files_520 = "User Avatar";
   createFile(Fields_Files_520, Filter_Files_520, Limit_Files_520, Meta_Files_520, Offset_Files_520, Search_Files_520, Sort_Files_520, data_Files_520, description_Files_520, filename_download_Files_520, folder_Files_520, id_Files_520, tags_Files_520, title_Files_520, { expectedResponseCodes: [200, 201, 204] });
 
@@ -2170,9 +2212,9 @@ bthread("crud:Folders:linear:3", function () {
   // -> Creating Folders
   let Fields_Folders_540 = "Fields_Folders_540_" + Math.floor(Math.random()*1000);
   let Filter_Folders_540 = "Filter_Folders_540_" + Math.floor(Math.random()*1000);
-  let Limit_Folders_540 = "Limit_Folders_540_" + Math.floor(Math.random()*1000);
+  let Limit_Folders_540 = Math.floor(Math.random() * 1000);
   let Meta_Folders_540 = "Meta_Folders_540_" + Math.floor(Math.random()*1000);
-  let Offset_Folders_540 = "Offset_Folders_540_" + Math.floor(Math.random()*1000);
+  let Offset_Folders_540 = Math.floor(Math.random() * 1000);
   let Search_Folders_540 = "Search_Folders_540_" + Math.floor(Math.random()*1000);
   let Sort_Folders_540 = "Sort_Folders_540_" + Math.floor(Math.random()*1000);
   let id_Folders_540 = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
@@ -2183,9 +2225,9 @@ bthread("crud:Folders:linear:3", function () {
   // -> Updating Folders
   let Fields_Folders_upd_540 = "Fields_Folders_upd_540_" + Math.floor(Math.random()*1000);
   let Filter_Folders_upd_540 = "Filter_Folders_upd_540_" + Math.floor(Math.random()*1000);
-  let Limit_Folders_upd_540 = "Limit_Folders_upd_540_" + Math.floor(Math.random()*1000);
+  let Limit_Folders_upd_540 = Math.floor(Math.random() * 1000);
   let Meta_Folders_upd_540 = "Meta_Folders_upd_540_" + Math.floor(Math.random()*1000);
-  let Offset_Folders_upd_540 = "Offset_Folders_upd_540_" + Math.floor(Math.random()*1000);
+  let Offset_Folders_upd_540 = Math.floor(Math.random() * 1000);
   let Search_Folders_upd_540 = "Search_Folders_upd_540_" + Math.floor(Math.random()*1000);
   let Sort_Folders_upd_540 = "Sort_Folders_upd_540_" + Math.floor(Math.random()*1000);
   let id_Folders_upd_540 = id_Folders_540;
@@ -2203,62 +2245,78 @@ bthread("crud:Operations:linear:3", function () {
   // -> Creating Operations
   let Fields_Operations_550 = {};
   let Meta_Operations_550 = {};
-  let UUId_Operations_550 = "UUId_Operations_550_" + Math.floor(Math.random()*1000);
+  let UUId_Operations_550 = {};
   let data_Operations_550 = "data_Operations_550_" + Math.floor(Math.random()*1000);
   let id_Operations_550 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  createOperation(Fields_Operations_550, Meta_Operations_550, UUId_Operations_550, data_Operations_550, id_Operations_550, { expectedResponseCodes: [200, 201, 204] });
+  let keys_Operations_550 = [];
+  createOperation(Fields_Operations_550, Meta_Operations_550, UUId_Operations_550, data_Operations_550, id_Operations_550, keys_Operations_550, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Operations
   let Fields_Operations_upd_550 = {};
   let Meta_Operations_upd_550 = {};
-  let UUId_Operations_upd_550 = "UUId_Operations_upd_550_" + Math.floor(Math.random()*1000);
+  let UUId_Operations_upd_550 = {};
   let data_Operations_upd_550 = "data_Operations_upd_550_" + Math.floor(Math.random()*1000);
   let id_Operations_upd_550 = id_Operations_550;
-  updateOperation(Fields_Operations_upd_550, Meta_Operations_upd_550, UUId_Operations_upd_550, data_Operations_upd_550, id_Operations_upd_550, { expectedResponseCodes: [200, 201, 204] });
+  let keys_Operations_upd_550 = [];
+  updateOperations(Fields_Operations_upd_550, Meta_Operations_upd_550, UUId_Operations_upd_550, data_Operations_upd_550, id_Operations_upd_550, keys_Operations_upd_550, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Operations
-  deleteOperation(id_Operations_550, { expectedResponseCodes: [200, 201, 204] });
+  deleteOperations(id_Operations_550, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
 // Story: crud:Permissions:linear:3
 bthread("crud:Permissions:linear:3", function () {
   let deps = {};
-  deps["Collections"] = matchAnyCollectionsAdded();
-  deps["Roles"] = matchAnyRolesAdded();
-  let pkMap = {"Collections": "id", "Roles": "id"};
+  deps["Comments"] = matchAnyCommentsAdded();
+  let pkMap = {"Comments": "id"};
   let captured = resolveDependencies(deps, pkMap);
-  let CollectionsId = captured["Collections"];
-  let RolesId = captured["Roles"];
+  let CommentsId = captured["Comments"];
   // -> Creating Permissions
-  let Fields_Permissions_560 = "Fields_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_560 = "Id_Permissions_560_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_560 = "Meta_Permissions_560_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_560 = "customers";
+  let Fields_Permissions_560 = {};
+  let Filter_Permissions_560 = {};
+  let Id_Permissions_560 = {};
+  let Limit_Permissions_560 = {};
+  let Meta_Permissions_560 = {};
+  let Offset_Permissions_560 = {};
+  let Page_Permissions_560 = {};
+  let Search_Permissions_560 = {};
+  let Sort_Permissions_560 = {};
+  let collection_Permissions_560 = {};
   let comment_Permissions_560 = "comment_Permissions_560_" + Math.floor(Math.random()*1000);
   let create_Permissions_560 = "create_Permissions_560_" + Math.floor(Math.random()*1000);
+  let data_Permissions_560 = {};
   let _delete_Permissions_560 = "delete_Permissions_560_" + Math.floor(Math.random()*1000);
   let explain_Permissions_560 = "explain_Permissions_560_" + Math.floor(Math.random()*1000);
-  let id_Permissions_560 = RolesId;
+  let id_Permissions_560 = CommentsId;
+  let keys_Permissions_560 = [];
   let read_Permissions_560 = "read_Permissions_560_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_560 = [];
-  let role_Permissions_560 = Math.floor(Math.random() * 1000);
-  let status_Permissions_560 = "active";
-  let status_blacklist_Permissions_560 = [];
+  let read_field_blacklist_Permissions_560 = {};
+  let role_Permissions_560 = {};
+  let status_Permissions_560 = {};
+  let status_blacklist_Permissions_560 = {};
   let update_Permissions_560 = "update_Permissions_560_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_560 = [];
-  createPermission(Fields_Permissions_560, Id_Permissions_560, Meta_Permissions_560, collection_Permissions_560, comment_Permissions_560, create_Permissions_560, _delete_Permissions_560, explain_Permissions_560, id_Permissions_560, read_Permissions_560, read_field_blacklist_Permissions_560, role_Permissions_560, status_Permissions_560, status_blacklist_Permissions_560, update_Permissions_560, write_field_blacklist_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_560 = {};
+  createPermission(Fields_Permissions_560, Filter_Permissions_560, Id_Permissions_560, Limit_Permissions_560, Meta_Permissions_560, Offset_Permissions_560, Page_Permissions_560, Search_Permissions_560, Sort_Permissions_560, collection_Permissions_560, comment_Permissions_560, create_Permissions_560, data_Permissions_560, _delete_Permissions_560, explain_Permissions_560, id_Permissions_560, keys_Permissions_560, read_Permissions_560, read_field_blacklist_Permissions_560, role_Permissions_560, status_Permissions_560, status_blacklist_Permissions_560, update_Permissions_560, write_field_blacklist_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Permissions
-  let Fields_Permissions_upd_560 = "Fields_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_upd_560 = "Id_Permissions_upd_560_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_upd_560 = "Meta_Permissions_upd_560_" + Math.floor(Math.random()*1000);
+  let Fields_Permissions_upd_560 = {};
+  let Filter_Permissions_upd_560 = {};
+  let Id_Permissions_upd_560 = {};
+  let Limit_Permissions_upd_560 = {};
+  let Meta_Permissions_upd_560 = {};
+  let Offset_Permissions_upd_560 = {};
+  let Page_Permissions_upd_560 = {};
+  let Search_Permissions_upd_560 = {};
+  let Sort_Permissions_upd_560 = {};
   let collection_Permissions_upd_560 = {};
   let comment_Permissions_upd_560 = "comment_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let create_Permissions_upd_560 = "create_Permissions_upd_560_" + Math.floor(Math.random()*1000);
+  let data_Permissions_upd_560 = {};
   let _delete_Permissions_upd_560 = "delete_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let explain_Permissions_upd_560 = "explain_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let id_Permissions_upd_560 = id_Permissions_560;
+  let keys_Permissions_upd_560 = [];
   let read_Permissions_upd_560 = "read_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let read_field_blacklist_Permissions_upd_560 = {};
   let role_Permissions_upd_560 = {};
@@ -2266,10 +2324,10 @@ bthread("crud:Permissions:linear:3", function () {
   let status_blacklist_Permissions_upd_560 = {};
   let update_Permissions_upd_560 = "update_Permissions_upd_560_" + Math.floor(Math.random()*1000);
   let write_field_blacklist_Permissions_upd_560 = {};
-  updatePermission(Fields_Permissions_upd_560, Id_Permissions_upd_560, Meta_Permissions_upd_560, collection_Permissions_upd_560, comment_Permissions_upd_560, create_Permissions_upd_560, _delete_Permissions_upd_560, explain_Permissions_upd_560, id_Permissions_upd_560, read_Permissions_upd_560, read_field_blacklist_Permissions_upd_560, role_Permissions_upd_560, status_Permissions_upd_560, status_blacklist_Permissions_upd_560, update_Permissions_upd_560, write_field_blacklist_Permissions_upd_560, { expectedResponseCodes: [200, 201, 204] });
+  updatePermissions(Fields_Permissions_upd_560, Filter_Permissions_upd_560, Id_Permissions_upd_560, Limit_Permissions_upd_560, Meta_Permissions_upd_560, Offset_Permissions_upd_560, Page_Permissions_upd_560, Search_Permissions_upd_560, Sort_Permissions_upd_560, collection_Permissions_upd_560, comment_Permissions_upd_560, create_Permissions_upd_560, data_Permissions_upd_560, _delete_Permissions_upd_560, explain_Permissions_upd_560, id_Permissions_upd_560, keys_Permissions_upd_560, read_Permissions_upd_560, read_field_blacklist_Permissions_upd_560, role_Permissions_upd_560, status_Permissions_upd_560, status_blacklist_Permissions_upd_560, update_Permissions_upd_560, write_field_blacklist_Permissions_upd_560, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Permissions
-  deletePermission(id_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
+  deletePermissions(id_Permissions_560, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
@@ -2284,10 +2342,10 @@ bthread("crud:Relations:linear:3", function () {
   let Fields_Relations_570 = "Fields_Relations_570_" + Math.floor(Math.random()*1000);
   let Filter_Relations_570 = "Filter_Relations_570_" + Math.floor(Math.random()*1000);
   let Id_Relations_570 = "Id_Relations_570_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_570 = "Limit_Relations_570_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_570 = Math.floor(Math.random() * 1000);
   let Meta_Relations_570 = "Meta_Relations_570_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_570 = "Offset_Relations_570_" + Math.floor(Math.random()*1000);
-  let Page_Relations_570 = "Page_Relations_570_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_570 = Math.floor(Math.random() * 1000);
+  let Page_Relations_570 = Math.floor(Math.random() * 1000);
   let Search_Relations_570 = "Search_Relations_570_" + Math.floor(Math.random()*1000);
   let Sort_Relations_570 = "Sort_Relations_570_" + Math.floor(Math.random()*1000);
   let collection_many_Relations_570 = "collection_many_Relations_570_" + Math.floor(Math.random()*1000);
@@ -2302,10 +2360,10 @@ bthread("crud:Relations:linear:3", function () {
   let Fields_Relations_upd_570 = "Fields_Relations_upd_570_" + Math.floor(Math.random()*1000);
   let Filter_Relations_upd_570 = "Filter_Relations_upd_570_" + Math.floor(Math.random()*1000);
   let Id_Relations_upd_570 = "Id_Relations_upd_570_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_upd_570 = "Limit_Relations_upd_570_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_upd_570 = Math.floor(Math.random() * 1000);
   let Meta_Relations_upd_570 = "Meta_Relations_upd_570_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_upd_570 = "Offset_Relations_upd_570_" + Math.floor(Math.random()*1000);
-  let Page_Relations_upd_570 = "Page_Relations_upd_570_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_upd_570 = Math.floor(Math.random() * 1000);
+  let Page_Relations_upd_570 = Math.floor(Math.random() * 1000);
   let Search_Relations_upd_570 = "Search_Relations_upd_570_" + Math.floor(Math.random()*1000);
   let Sort_Relations_upd_570 = "Sort_Relations_upd_570_" + Math.floor(Math.random()*1000);
   let collection_many_Relations_upd_570 = "collection_many_Relations_upd_570_" + Math.floor(Math.random()*1000);
@@ -2326,10 +2384,10 @@ bthread("crud:Roles:linear:3", function () {
   // -> Creating Roles
   let Fields_Roles_580 = "Fields_Roles_580_" + Math.floor(Math.random()*1000);
   let Filter_Roles_580 = "Filter_Roles_580_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_580 = "Limit_Roles_580_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_580 = Math.floor(Math.random() * 1000);
   let Meta_Roles_580 = "Meta_Roles_580_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_580 = "Offset_Roles_580_" + Math.floor(Math.random()*1000);
-  let Page_Roles_580 = "Page_Roles_580_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_580 = Math.floor(Math.random() * 1000);
+  let Page_Roles_580 = Math.floor(Math.random() * 1000);
   let Search_Roles_580 = "Search_Roles_580_" + Math.floor(Math.random()*1000);
   let Sort_Roles_580 = "Sort_Roles_580_" + Math.floor(Math.random()*1000);
   let description_Roles_580 = "Admins have access to all managed data within the system by default";
@@ -2344,10 +2402,10 @@ bthread("crud:Roles:linear:3", function () {
   // -> Updating Roles
   let Fields_Roles_upd_580 = "Fields_Roles_upd_580_" + Math.floor(Math.random()*1000);
   let Filter_Roles_upd_580 = "Filter_Roles_upd_580_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_upd_580 = "Limit_Roles_upd_580_" + Math.floor(Math.random()*1000);
+  let Limit_Roles_upd_580 = Math.floor(Math.random() * 1000);
   let Meta_Roles_upd_580 = "Meta_Roles_upd_580_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_upd_580 = "Offset_Roles_upd_580_" + Math.floor(Math.random()*1000);
-  let Page_Roles_upd_580 = "Page_Roles_upd_580_" + Math.floor(Math.random()*1000);
+  let Offset_Roles_upd_580 = Math.floor(Math.random() * 1000);
+  let Page_Roles_upd_580 = Math.floor(Math.random() * 1000);
   let Search_Roles_upd_580 = "Search_Roles_upd_580_" + Math.floor(Math.random()*1000);
   let Sort_Roles_upd_580 = "Sort_Roles_upd_580_" + Math.floor(Math.random()*1000);
   let description_Roles_upd_580 = "Admins have access to all managed data within the system by default";
@@ -2359,7 +2417,9 @@ bthread("crud:Roles:linear:3", function () {
   let name_Roles_upd_580 = "Administrator";
   updateRole(Fields_Roles_upd_580, Filter_Roles_upd_580, Limit_Roles_upd_580, Meta_Roles_upd_580, Offset_Roles_upd_580, Page_Roles_upd_580, Search_Roles_upd_580, Sort_Roles_upd_580, description_Roles_upd_580, enforce_tfa_Roles_upd_580, external_id_Roles_upd_580, id_Roles_upd_580, ip_access_Roles_upd_580, module_listing_Roles_upd_580, name_Roles_upd_580, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Roles to prevent foreign key errors (has active dependents)
+  // -> Deleting Roles
+  deleteRole(id_Roles_580, { expectedResponseCodes: [200, 201, 204] });
+
 });
 
 // Story: crud:Schema:linear:3
@@ -2376,10 +2436,10 @@ bthread("crud:Schema:linear:3", function () {
 // Story: crud:Users:linear:3
 bthread("crud:Users:linear:3", function () {
   // -> Creating Users
-  let Fields_Users_600 = "Fields_Users_600_" + Math.floor(Math.random()*1000);
+  let Fields_Users_600 = {};
   let Filter_Users_600 = "Filter_Users_600_" + Math.floor(Math.random()*1000);
   let Limit_Users_600 = "Limit_Users_600_" + Math.floor(Math.random()*1000);
-  let Meta_Users_600 = "Meta_Users_600_" + Math.floor(Math.random()*1000);
+  let Meta_Users_600 = {};
   let Offset_Users_600 = "Offset_Users_600_" + Math.floor(Math.random()*1000);
   let Search_Users_600 = "Search_Users_600_" + Math.floor(Math.random()*1000);
   let Sort_Users_600 = "Sort_Users_600_" + Math.floor(Math.random()*1000);
@@ -2391,10 +2451,10 @@ bthread("crud:Users:linear:3", function () {
   acceptInvite(Fields_Users_600, Filter_Users_600, Limit_Users_600, Meta_Users_600, Offset_Users_600, Search_Users_600, Sort_Users_600, UUId_Users_600, id_Users_600, last_page_Users_600, password_Users_600, token_Users_600, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Updating Users
-  let Fields_Users_upd_600 = "Fields_Users_upd_600_" + Math.floor(Math.random()*1000);
+  let Fields_Users_upd_600 = {};
   let Filter_Users_upd_600 = "Filter_Users_upd_600_" + Math.floor(Math.random()*1000);
   let Limit_Users_upd_600 = "Limit_Users_upd_600_" + Math.floor(Math.random()*1000);
-  let Meta_Users_upd_600 = "Meta_Users_upd_600_" + Math.floor(Math.random()*1000);
+  let Meta_Users_upd_600 = {};
   let Offset_Users_upd_600 = "Offset_Users_upd_600_" + Math.floor(Math.random()*1000);
   let Search_Users_upd_600 = "Search_Users_upd_600_" + Math.floor(Math.random()*1000);
   let Sort_Users_upd_600 = "Sort_Users_upd_600_" + Math.floor(Math.random()*1000);
@@ -2414,7 +2474,7 @@ bthread("crud:Users:linear:3", function () {
 bthread("crud:Utilities:linear:3", function () {
   // -> Creating Utilities
   let id_Utilities_610 = "id_Utilities_610_" + Math.floor(Math.random()*1000);
-  let length_Utilities_610 = "length_Utilities_610_" + Math.floor(Math.random()*1000);
+  let length_Utilities_610 = Math.floor(Math.random() * 1000);
   clearCache(id_Utilities_610, length_Utilities_610, { expectedResponseCodes: [200, 201, 204] });
 
 });
@@ -2424,9 +2484,9 @@ bthread("crud:Versions:linear:3", function () {
   // -> Creating Versions
   let Fields_Versions_620 = "Fields_Versions_620_" + Math.floor(Math.random()*1000);
   let Filter_Versions_620 = "Filter_Versions_620_" + Math.floor(Math.random()*1000);
-  let Limit_Versions_620 = "Limit_Versions_620_" + Math.floor(Math.random()*1000);
+  let Limit_Versions_620 = Math.floor(Math.random() * 1000);
   let Meta_Versions_620 = "Meta_Versions_620_" + Math.floor(Math.random()*1000);
-  let Offset_Versions_620 = "Offset_Versions_620_" + Math.floor(Math.random()*1000);
+  let Offset_Versions_620 = Math.floor(Math.random() * 1000);
   let Search_Versions_620 = "Search_Versions_620_" + Math.floor(Math.random()*1000);
   let Sort_Versions_620 = "Sort_Versions_620_" + Math.floor(Math.random()*1000);
   let UUId_Versions_620 = "UUId_Versions_620_" + Math.floor(Math.random()*1000);
@@ -2439,9 +2499,9 @@ bthread("crud:Versions:linear:3", function () {
   // -> Updating Versions
   let Fields_Versions_upd_620 = "Fields_Versions_upd_620_" + Math.floor(Math.random()*1000);
   let Filter_Versions_upd_620 = "Filter_Versions_upd_620_" + Math.floor(Math.random()*1000);
-  let Limit_Versions_upd_620 = "Limit_Versions_upd_620_" + Math.floor(Math.random()*1000);
+  let Limit_Versions_upd_620 = Math.floor(Math.random() * 1000);
   let Meta_Versions_upd_620 = "Meta_Versions_upd_620_" + Math.floor(Math.random()*1000);
-  let Offset_Versions_upd_620 = "Offset_Versions_upd_620_" + Math.floor(Math.random()*1000);
+  let Offset_Versions_upd_620 = Math.floor(Math.random() * 1000);
   let Search_Versions_upd_620 = "Search_Versions_upd_620_" + Math.floor(Math.random()*1000);
   let Sort_Versions_upd_620 = "Sort_Versions_upd_620_" + Math.floor(Math.random()*1000);
   let UUId_Versions_upd_620 = "UUId_Versions_upd_620_" + Math.floor(Math.random()*1000);
@@ -2485,8 +2545,8 @@ bthread("crud:Webhooks:linear:3", function () {
 
 });
 
-// Story: Deep Chain Collections_Items_Comments (Self-Contained)
-bthread("chain:Collections_Items_Comments", function () {
+// Story: Deep Chain Collections_Items_Comments_Permissions (Self-Contained)
+bthread("chain:Collections_Items_Comments_Permissions", function () {
   // -> Creating Collections
   let Meta_Collections_640 = "Meta_Collections_640_" + Math.floor(Math.random()*1000);
   let Offset_Collections_640 = "Offset_Collections_640_" + Math.floor(Math.random()*1000);
@@ -2499,7 +2559,7 @@ bthread("chain:Collections_Items_Comments", function () {
   let hidden_Collections_640 = true;
   let icon_Collections_640 = "icon_Collections_640_" + Math.floor(Math.random()*1000);
   let id_Collections_640 = "id_Collections_640_" + Math.floor(Math.random()*1000);
-  let meta_Collections_640 = "meta_Collections_640_" + Math.floor(Math.random()*1000);
+  let meta_Collections_640 = {};
   let note_Collections_640 = "note_Collections_640_" + Math.floor(Math.random()*1000);
   let singleton_Collections_640 = true;
   let sort_field_Collections_640 = "sort_field_Collections_640_" + Math.floor(Math.random()*1000);
@@ -2523,11 +2583,41 @@ bthread("chain:Collections_Items_Comments", function () {
   // -> Creating Comments
   let collection_Comments_640 = collection_Items_640;
   let comment_Comments_640 = "This is a comment";
-  let id_Comments_640 = id_Collections_640;
+  let id_Comments_640 = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
   let item_Comments_640 = "123";
   createComment(collection_Comments_640, comment_Comments_640, id_Comments_640, item_Comments_640, { expectedResponseCodes: [200, 201, 204] });
 
+  // -> Creating Permissions
+  let Fields_Permissions_640 = {};
+  let Filter_Permissions_640 = {};
+  let Id_Permissions_640 = {};
+  let Limit_Permissions_640 = {};
+  let Meta_Permissions_640 = {};
+  let Offset_Permissions_640 = {};
+  let Page_Permissions_640 = {};
+  let Search_Permissions_640 = {};
+  let Sort_Permissions_640 = {};
+  let collection_Permissions_640 = {};
+  let comment_Permissions_640 = "comment_Permissions_640_" + Math.floor(Math.random()*1000);
+  let create_Permissions_640 = "create_Permissions_640_" + Math.floor(Math.random()*1000);
+  let data_Permissions_640 = {};
+  let _delete_Permissions_640 = "delete_Permissions_640_" + Math.floor(Math.random()*1000);
+  let explain_Permissions_640 = "explain_Permissions_640_" + Math.floor(Math.random()*1000);
+  let id_Permissions_640 = id_Comments_640;
+  let keys_Permissions_640 = [];
+  let read_Permissions_640 = "read_Permissions_640_" + Math.floor(Math.random()*1000);
+  let read_field_blacklist_Permissions_640 = {};
+  let role_Permissions_640 = {};
+  let status_Permissions_640 = {};
+  let status_blacklist_Permissions_640 = {};
+  let update_Permissions_640 = "update_Permissions_640_" + Math.floor(Math.random()*1000);
+  let write_field_blacklist_Permissions_640 = {};
+  createPermission(Fields_Permissions_640, Filter_Permissions_640, Id_Permissions_640, Limit_Permissions_640, Meta_Permissions_640, Offset_Permissions_640, Page_Permissions_640, Search_Permissions_640, Sort_Permissions_640, collection_Permissions_640, comment_Permissions_640, create_Permissions_640, data_Permissions_640, _delete_Permissions_640, explain_Permissions_640, id_Permissions_640, keys_Permissions_640, read_Permissions_640, read_field_blacklist_Permissions_640, role_Permissions_640, status_Permissions_640, status_blacklist_Permissions_640, update_Permissions_640, write_field_blacklist_Permissions_640, { expectedResponseCodes: [200, 201, 204] });
+
   // --- Proper Teardown (Reverse Order) ---
+  // -> Deleting Permissions
+  deletePermissions(id_Permissions_640, { expectedResponseCodes: [200, 201, 204] });
+
   // -> Deleting Comments
   deleteComment(id_Comments_640, { expectedResponseCodes: [200, 201, 204] });
 
@@ -2539,8 +2629,8 @@ bthread("chain:Collections_Items_Comments", function () {
 
 });
 
-// Story: Deep Chain Collections_Comments (Self-Contained)
-bthread("chain:Collections_Comments", function () {
+// Story: Deep Chain Collections_Presets (Self-Contained)
+bthread("chain:Collections_Presets", function () {
   // -> Creating Collections
   let Meta_Collections_740 = "Meta_Collections_740_" + Math.floor(Math.random()*1000);
   let Offset_Collections_740 = "Offset_Collections_740_" + Math.floor(Math.random()*1000);
@@ -2553,7 +2643,7 @@ bthread("chain:Collections_Comments", function () {
   let hidden_Collections_740 = true;
   let icon_Collections_740 = "icon_Collections_740_" + Math.floor(Math.random()*1000);
   let id_Collections_740 = "id_Collections_740_" + Math.floor(Math.random()*1000);
-  let meta_Collections_740 = "meta_Collections_740_" + Math.floor(Math.random()*1000);
+  let meta_Collections_740 = {};
   let note_Collections_740 = "note_Collections_740_" + Math.floor(Math.random()*1000);
   let singleton_Collections_740 = true;
   let sort_field_Collections_740 = "sort_field_Collections_740_" + Math.floor(Math.random()*1000);
@@ -2562,28 +2652,35 @@ bthread("chain:Collections_Comments", function () {
   let versioning_Collections_740 = true;
   createCollection(Meta_Collections_740, Offset_Collections_740, archive_app_filter_Collections_740, archive_field_Collections_740, archive_value_Collections_740, collection_Collections_740, display_template_Collections_740, fields_Collections_740, hidden_Collections_740, icon_Collections_740, id_Collections_740, meta_Collections_740, note_Collections_740, singleton_Collections_740, sort_field_Collections_740, translation_Collections_740, unarchive_value_Collections_740, versioning_Collections_740, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Items
-  let Collection_Items_740 = "Collection_Items_740_" + Math.floor(Math.random()*1000);
-  let Fields_Items_740 = "Fields_Items_740_" + Math.floor(Math.random()*1000);
-  let Filter_Items_740 = "Filter_Items_740_" + Math.floor(Math.random()*1000);
-  let Limit_Items_740 = "Limit_Items_740_" + Math.floor(Math.random()*1000);
-  let Meta_Items_740 = "Meta_Items_740_" + Math.floor(Math.random()*1000);
-  let Offset_Items_740 = "Offset_Items_740_" + Math.floor(Math.random()*1000);
-  let Search_Items_740 = "Search_Items_740_" + Math.floor(Math.random()*1000);
-  let Sort_Items_740 = "Sort_Items_740_" + Math.floor(Math.random()*1000);
-  let collection_Items_740 = "collection_Items_740_" + Math.floor(Math.random()*1000);
-  createItem(Collection_Items_740, Fields_Items_740, Filter_Items_740, Limit_Items_740, Meta_Items_740, Offset_Items_740, Search_Items_740, Sort_Items_740, collection_Items_740, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Comments
-  let collection_Comments_740 = collection_Items_740;
-  let comment_Comments_740 = "This is a comment";
-  let id_Comments_740 = id_Collections_740;
-  let item_Comments_740 = "123";
-  createComment(collection_Comments_740, comment_Comments_740, id_Comments_740, item_Comments_740, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Presets
+  let Fields_Presets_740 = "Fields_Presets_740_" + Math.floor(Math.random()*1000);
+  let Filter_Presets_740 = "Filter_Presets_740_" + Math.floor(Math.random()*1000);
+  let Id_Presets_740 = "Id_Presets_740_" + Math.floor(Math.random()*1000);
+  let Limit_Presets_740 = "Limit_Presets_740_" + Math.floor(Math.random()*1000);
+  let Meta_Presets_740 = "Meta_Presets_740_" + Math.floor(Math.random()*1000);
+  let Offset_Presets_740 = "Offset_Presets_740_" + Math.floor(Math.random()*1000);
+  let Page_Presets_740 = "Page_Presets_740_" + Math.floor(Math.random()*1000);
+  let Search_Presets_740 = "Search_Presets_740_" + Math.floor(Math.random()*1000);
+  let Sort_Presets_740 = "Sort_Presets_740_" + Math.floor(Math.random()*1000);
+  let collection_Presets_740 = "articles";
+  let filters_Presets_740 = [];
+  let id_Presets_740 = id_Collections_740;
+  let layout_Presets_740 = "layout_Presets_740_" + Math.floor(Math.random()*1000);
+  let layout_options_Presets_740 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
+  let layout_query_Presets_740 = "{'cards': {'sort': '-published_on'}}";
+  let role_Presets_740 = Math.floor(Math.random() * 1000);
+  let search_Presets_740 = "search_Presets_740_" + Math.floor(Math.random()*1000);
+  let search_query_Presets_740 = "search_query_Presets_740_" + Math.floor(Math.random()*1000);
+  let title_Presets_740 = "title_Presets_740_" + Math.floor(Math.random()*1000);
+  let translation_Presets_740 = {};
+  let view_options_Presets_740 = "view_options_Presets_740_" + Math.floor(Math.random()*1000);
+  let view_query_Presets_740 = "view_query_Presets_740_" + Math.floor(Math.random()*1000);
+  let view_type_Presets_740 = "view_type_Presets_740_" + Math.floor(Math.random()*1000);
+  createPreset(Fields_Presets_740, Filter_Presets_740, Id_Presets_740, Limit_Presets_740, Meta_Presets_740, Offset_Presets_740, Page_Presets_740, Search_Presets_740, Sort_Presets_740, collection_Presets_740, filters_Presets_740, id_Presets_740, layout_Presets_740, layout_options_Presets_740, layout_query_Presets_740, role_Presets_740, search_Presets_740, search_query_Presets_740, title_Presets_740, translation_Presets_740, view_options_Presets_740, view_query_Presets_740, view_type_Presets_740, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Comments
-  deleteComment(id_Comments_740, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Presets
+  deletePreset(id_Presets_740, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Collections
   deleteCollection(id_Collections_740, { expectedResponseCodes: [200, 201, 204] });
@@ -2604,7 +2701,7 @@ bthread("chain:Collections_Fields", function () {
   let hidden_Collections_840 = true;
   let icon_Collections_840 = "icon_Collections_840_" + Math.floor(Math.random()*1000);
   let id_Collections_840 = "id_Collections_840_" + Math.floor(Math.random()*1000);
-  let meta_Collections_840 = "meta_Collections_840_" + Math.floor(Math.random()*1000);
+  let meta_Collections_840 = {};
   let note_Collections_840 = "note_Collections_840_" + Math.floor(Math.random()*1000);
   let singleton_Collections_840 = true;
   let sort_field_Collections_840 = "sort_field_Collections_840_" + Math.floor(Math.random()*1000);
@@ -2634,8 +2731,8 @@ bthread("chain:Collections_Fields", function () {
 
 });
 
-// Story: Deep Chain Collections_Presets (Self-Contained)
-bthread("chain:Collections_Presets", function () {
+// Story: Deep Chain Collections_Relations (Self-Contained)
+bthread("chain:Collections_Relations", function () {
   // -> Creating Collections
   let Meta_Collections_940 = "Meta_Collections_940_" + Math.floor(Math.random()*1000);
   let Offset_Collections_940 = "Offset_Collections_940_" + Math.floor(Math.random()*1000);
@@ -2648,7 +2745,7 @@ bthread("chain:Collections_Presets", function () {
   let hidden_Collections_940 = true;
   let icon_Collections_940 = "icon_Collections_940_" + Math.floor(Math.random()*1000);
   let id_Collections_940 = "id_Collections_940_" + Math.floor(Math.random()*1000);
-  let meta_Collections_940 = "meta_Collections_940_" + Math.floor(Math.random()*1000);
+  let meta_Collections_940 = {};
   let note_Collections_940 = "note_Collections_940_" + Math.floor(Math.random()*1000);
   let singleton_Collections_940 = true;
   let sort_field_Collections_940 = "sort_field_Collections_940_" + Math.floor(Math.random()*1000);
@@ -2657,43 +2754,35 @@ bthread("chain:Collections_Presets", function () {
   let versioning_Collections_940 = true;
   createCollection(Meta_Collections_940, Offset_Collections_940, archive_app_filter_Collections_940, archive_field_Collections_940, archive_value_Collections_940, collection_Collections_940, display_template_Collections_940, fields_Collections_940, hidden_Collections_940, icon_Collections_940, id_Collections_940, meta_Collections_940, note_Collections_940, singleton_Collections_940, sort_field_Collections_940, translation_Collections_940, unarchive_value_Collections_940, versioning_Collections_940, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Presets
-  let Fields_Presets_940 = "Fields_Presets_940_" + Math.floor(Math.random()*1000);
-  let Filter_Presets_940 = "Filter_Presets_940_" + Math.floor(Math.random()*1000);
-  let Id_Presets_940 = "Id_Presets_940_" + Math.floor(Math.random()*1000);
-  let Limit_Presets_940 = "Limit_Presets_940_" + Math.floor(Math.random()*1000);
-  let Meta_Presets_940 = "Meta_Presets_940_" + Math.floor(Math.random()*1000);
-  let Offset_Presets_940 = "Offset_Presets_940_" + Math.floor(Math.random()*1000);
-  let Page_Presets_940 = "Page_Presets_940_" + Math.floor(Math.random()*1000);
-  let Search_Presets_940 = "Search_Presets_940_" + Math.floor(Math.random()*1000);
-  let Sort_Presets_940 = "Sort_Presets_940_" + Math.floor(Math.random()*1000);
-  let collection_Presets_940 = "articles";
-  let filters_Presets_940 = [];
-  let id_Presets_940 = id_Collections_940;
-  let layout_Presets_940 = "layout_Presets_940_" + Math.floor(Math.random()*1000);
-  let layout_options_Presets_940 = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_Presets_940 = "{'cards': {'sort': '-published_on'}}";
-  let role_Presets_940 = "50419801-0f30-8644-2b3c-9bc2d980d0a0";
-  let search_Presets_940 = "search_Presets_940_" + Math.floor(Math.random()*1000);
-  let search_query_Presets_940 = "search_query_Presets_940_" + Math.floor(Math.random()*1000);
-  let title_Presets_940 = "title_Presets_940_" + Math.floor(Math.random()*1000);
-  let translation_Presets_940 = "translation_Presets_940_" + Math.floor(Math.random()*1000);
-  let view_options_Presets_940 = "view_options_Presets_940_" + Math.floor(Math.random()*1000);
-  let view_query_Presets_940 = "view_query_Presets_940_" + Math.floor(Math.random()*1000);
-  let view_type_Presets_940 = "view_type_Presets_940_" + Math.floor(Math.random()*1000);
-  createPreset(Fields_Presets_940, Filter_Presets_940, Id_Presets_940, Limit_Presets_940, Meta_Presets_940, Offset_Presets_940, Page_Presets_940, Search_Presets_940, Sort_Presets_940, collection_Presets_940, filters_Presets_940, id_Presets_940, layout_Presets_940, layout_options_Presets_940, layout_query_Presets_940, role_Presets_940, search_Presets_940, search_query_Presets_940, title_Presets_940, translation_Presets_940, view_options_Presets_940, view_query_Presets_940, view_type_Presets_940, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Relations
+  let Fields_Relations_940 = "Fields_Relations_940_" + Math.floor(Math.random()*1000);
+  let Filter_Relations_940 = "Filter_Relations_940_" + Math.floor(Math.random()*1000);
+  let Id_Relations_940 = "Id_Relations_940_" + Math.floor(Math.random()*1000);
+  let Limit_Relations_940 = Math.floor(Math.random() * 1000);
+  let Meta_Relations_940 = "Meta_Relations_940_" + Math.floor(Math.random()*1000);
+  let Offset_Relations_940 = Math.floor(Math.random() * 1000);
+  let Page_Relations_940 = Math.floor(Math.random() * 1000);
+  let Search_Relations_940 = "Search_Relations_940_" + Math.floor(Math.random()*1000);
+  let Sort_Relations_940 = "Sort_Relations_940_" + Math.floor(Math.random()*1000);
+  let collection_many_Relations_940 = "collection_many_Relations_940_" + Math.floor(Math.random()*1000);
+  let collection_one_Relations_940 = "collection_one_Relations_940_" + Math.floor(Math.random()*1000);
+  let field_many_Relations_940 = "field_many_Relations_940_" + Math.floor(Math.random()*1000);
+  let field_one_Relations_940 = "field_one_Relations_940_" + Math.floor(Math.random()*1000);
+  let id_Relations_940 = id_Collections_940;
+  let junction_field_Relations_940 = "junction_field_Relations_940_" + Math.floor(Math.random()*1000);
+  createRelation(Fields_Relations_940, Filter_Relations_940, Id_Relations_940, Limit_Relations_940, Meta_Relations_940, Offset_Relations_940, Page_Relations_940, Search_Relations_940, Sort_Relations_940, collection_many_Relations_940, collection_one_Relations_940, field_many_Relations_940, field_one_Relations_940, id_Relations_940, junction_field_Relations_940, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Presets
-  deletePreset(id_Presets_940, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Relations
+  deleteRelation(id_Relations_940, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Deleting Collections
   deleteCollection(id_Collections_940, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
-// Story: Deep Chain Collections_Permissions (Self-Contained)
-bthread("chain:Collections_Permissions", function () {
+// Story: Deep Chain Items_Comments_Permissions (Self-Contained)
+bthread("chain:Items_Comments_Permissions", function () {
   // -> Creating Collections
   let Meta_Collections_1040 = "Meta_Collections_1040_" + Math.floor(Math.random()*1000);
   let Offset_Collections_1040 = "Offset_Collections_1040_" + Math.floor(Math.random()*1000);
@@ -2706,7 +2795,7 @@ bthread("chain:Collections_Permissions", function () {
   let hidden_Collections_1040 = true;
   let icon_Collections_1040 = "icon_Collections_1040_" + Math.floor(Math.random()*1000);
   let id_Collections_1040 = "id_Collections_1040_" + Math.floor(Math.random()*1000);
-  let meta_Collections_1040 = "meta_Collections_1040_" + Math.floor(Math.random()*1000);
+  let meta_Collections_1040 = {};
   let note_Collections_1040 = "note_Collections_1040_" + Math.floor(Math.random()*1000);
   let singleton_Collections_1040 = true;
   let sort_field_Collections_1040 = "sort_field_Collections_1040_" + Math.floor(Math.random()*1000);
@@ -2715,54 +2804,66 @@ bthread("chain:Collections_Permissions", function () {
   let versioning_Collections_1040 = true;
   createCollection(Meta_Collections_1040, Offset_Collections_1040, archive_app_filter_Collections_1040, archive_field_Collections_1040, archive_value_Collections_1040, collection_Collections_1040, display_template_Collections_1040, fields_Collections_1040, hidden_Collections_1040, icon_Collections_1040, id_Collections_1040, meta_Collections_1040, note_Collections_1040, singleton_Collections_1040, sort_field_Collections_1040, translation_Collections_1040, unarchive_value_Collections_1040, versioning_Collections_1040, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Roles
-  let Fields_Roles_1040 = "Fields_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Filter_Roles_1040 = "Filter_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_1040 = "Limit_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Meta_Roles_1040 = "Meta_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_1040 = "Offset_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Page_Roles_1040 = "Page_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Search_Roles_1040 = "Search_Roles_1040_" + Math.floor(Math.random()*1000);
-  let Sort_Roles_1040 = "Sort_Roles_1040_" + Math.floor(Math.random()*1000);
-  let description_Roles_1040 = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_Roles_1040 = true;
-  let external_id_Roles_1040 = "external_id_Roles_1040_" + Math.floor(Math.random()*1000);
-  let id_Roles_1040 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_Roles_1040 = [];
-  let module_listing_Roles_1040 = "module_listing_Roles_1040_" + Math.floor(Math.random()*1000);
-  let name_Roles_1040 = "Administrator";
-  createRole(Fields_Roles_1040, Filter_Roles_1040, Limit_Roles_1040, Meta_Roles_1040, Offset_Roles_1040, Page_Roles_1040, Search_Roles_1040, Sort_Roles_1040, description_Roles_1040, enforce_tfa_Roles_1040, external_id_Roles_1040, id_Roles_1040, ip_access_Roles_1040, module_listing_Roles_1040, name_Roles_1040, { expectedResponseCodes: [200, 201, 204] });
+  // -> Creating Items
+  let Collection_Items_1040 = "Collection_Items_1040_" + Math.floor(Math.random()*1000);
+  let Fields_Items_1040 = "Fields_Items_1040_" + Math.floor(Math.random()*1000);
+  let Filter_Items_1040 = "Filter_Items_1040_" + Math.floor(Math.random()*1000);
+  let Limit_Items_1040 = "Limit_Items_1040_" + Math.floor(Math.random()*1000);
+  let Meta_Items_1040 = "Meta_Items_1040_" + Math.floor(Math.random()*1000);
+  let Offset_Items_1040 = "Offset_Items_1040_" + Math.floor(Math.random()*1000);
+  let Search_Items_1040 = "Search_Items_1040_" + Math.floor(Math.random()*1000);
+  let Sort_Items_1040 = "Sort_Items_1040_" + Math.floor(Math.random()*1000);
+  let collection_Items_1040 = "collection_Items_1040_" + Math.floor(Math.random()*1000);
+  createItem(Collection_Items_1040, Fields_Items_1040, Filter_Items_1040, Limit_Items_1040, Meta_Items_1040, Offset_Items_1040, Search_Items_1040, Sort_Items_1040, collection_Items_1040, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Creating Comments
+  let collection_Comments_1040 = collection_Items_1040;
+  let comment_Comments_1040 = "This is a comment";
+  let id_Comments_1040 = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
+  let item_Comments_1040 = "123";
+  createComment(collection_Comments_1040, comment_Comments_1040, id_Comments_1040, item_Comments_1040, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating Permissions
-  let Fields_Permissions_1040 = "Fields_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_1040 = "Id_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_1040 = "Meta_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_1040 = "customers";
+  let Fields_Permissions_1040 = {};
+  let Filter_Permissions_1040 = {};
+  let Id_Permissions_1040 = {};
+  let Limit_Permissions_1040 = {};
+  let Meta_Permissions_1040 = {};
+  let Offset_Permissions_1040 = {};
+  let Page_Permissions_1040 = {};
+  let Search_Permissions_1040 = {};
+  let Sort_Permissions_1040 = {};
+  let collection_Permissions_1040 = {};
   let comment_Permissions_1040 = "comment_Permissions_1040_" + Math.floor(Math.random()*1000);
   let create_Permissions_1040 = "create_Permissions_1040_" + Math.floor(Math.random()*1000);
+  let data_Permissions_1040 = {};
   let _delete_Permissions_1040 = "delete_Permissions_1040_" + Math.floor(Math.random()*1000);
   let explain_Permissions_1040 = "explain_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let id_Permissions_1040 = id_Roles_1040;
+  let id_Permissions_1040 = id_Comments_1040;
+  let keys_Permissions_1040 = [];
   let read_Permissions_1040 = "read_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_1040 = [];
-  let role_Permissions_1040 = Math.floor(Math.random() * 1000);
-  let status_Permissions_1040 = "active";
-  let status_blacklist_Permissions_1040 = [];
+  let read_field_blacklist_Permissions_1040 = {};
+  let role_Permissions_1040 = {};
+  let status_Permissions_1040 = {};
+  let status_blacklist_Permissions_1040 = {};
   let update_Permissions_1040 = "update_Permissions_1040_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_1040 = [];
-  createPermission(Fields_Permissions_1040, Id_Permissions_1040, Meta_Permissions_1040, collection_Permissions_1040, comment_Permissions_1040, create_Permissions_1040, _delete_Permissions_1040, explain_Permissions_1040, id_Permissions_1040, read_Permissions_1040, read_field_blacklist_Permissions_1040, role_Permissions_1040, status_Permissions_1040, status_blacklist_Permissions_1040, update_Permissions_1040, write_field_blacklist_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
+  let write_field_blacklist_Permissions_1040 = {};
+  createPermission(Fields_Permissions_1040, Filter_Permissions_1040, Id_Permissions_1040, Limit_Permissions_1040, Meta_Permissions_1040, Offset_Permissions_1040, Page_Permissions_1040, Search_Permissions_1040, Sort_Permissions_1040, collection_Permissions_1040, comment_Permissions_1040, create_Permissions_1040, data_Permissions_1040, _delete_Permissions_1040, explain_Permissions_1040, id_Permissions_1040, keys_Permissions_1040, read_Permissions_1040, read_field_blacklist_Permissions_1040, role_Permissions_1040, status_Permissions_1040, status_blacklist_Permissions_1040, update_Permissions_1040, write_field_blacklist_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
   // -> Deleting Permissions
-  deletePermission(id_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
+  deletePermissions(id_Permissions_1040, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Collections
-  deleteCollection(id_Collections_1040, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Comments
+  deleteComment(id_Comments_1040, { expectedResponseCodes: [200, 201, 204] });
+
+  // -> Deleting Items
+  deleteItems(collection_Items_1040, { expectedResponseCodes: [200, 201, 204] });
 
 });
 
-// Story: Deep Chain Collections_Relations (Self-Contained)
-bthread("chain:Collections_Relations", function () {
+// Story: Deep Chain Comments_Permissions (Self-Contained)
+bthread("chain:Comments_Permissions", function () {
   // -> Creating Collections
   let Meta_Collections_1140 = "Meta_Collections_1140_" + Math.floor(Math.random()*1000);
   let Offset_Collections_1140 = "Offset_Collections_1140_" + Math.floor(Math.random()*1000);
@@ -2775,7 +2876,7 @@ bthread("chain:Collections_Relations", function () {
   let hidden_Collections_1140 = true;
   let icon_Collections_1140 = "icon_Collections_1140_" + Math.floor(Math.random()*1000);
   let id_Collections_1140 = "id_Collections_1140_" + Math.floor(Math.random()*1000);
-  let meta_Collections_1140 = "meta_Collections_1140_" + Math.floor(Math.random()*1000);
+  let meta_Collections_1140 = {};
   let note_Collections_1140 = "note_Collections_1140_" + Math.floor(Math.random()*1000);
   let singleton_Collections_1140 = true;
   let sort_field_Collections_1140 = "sort_field_Collections_1140_" + Math.floor(Math.random()*1000);
@@ -2784,149 +2885,868 @@ bthread("chain:Collections_Relations", function () {
   let versioning_Collections_1140 = true;
   createCollection(Meta_Collections_1140, Offset_Collections_1140, archive_app_filter_Collections_1140, archive_field_Collections_1140, archive_value_Collections_1140, collection_Collections_1140, display_template_Collections_1140, fields_Collections_1140, hidden_Collections_1140, icon_Collections_1140, id_Collections_1140, meta_Collections_1140, note_Collections_1140, singleton_Collections_1140, sort_field_Collections_1140, translation_Collections_1140, unarchive_value_Collections_1140, versioning_Collections_1140, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Creating Relations
-  let Fields_Relations_1140 = "Fields_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Filter_Relations_1140 = "Filter_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Id_Relations_1140 = "Id_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Limit_Relations_1140 = "Limit_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Meta_Relations_1140 = "Meta_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Offset_Relations_1140 = "Offset_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Page_Relations_1140 = "Page_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Search_Relations_1140 = "Search_Relations_1140_" + Math.floor(Math.random()*1000);
-  let Sort_Relations_1140 = "Sort_Relations_1140_" + Math.floor(Math.random()*1000);
-  let collection_many_Relations_1140 = "collection_many_Relations_1140_" + Math.floor(Math.random()*1000);
-  let collection_one_Relations_1140 = "collection_one_Relations_1140_" + Math.floor(Math.random()*1000);
-  let field_many_Relations_1140 = "field_many_Relations_1140_" + Math.floor(Math.random()*1000);
-  let field_one_Relations_1140 = "field_one_Relations_1140_" + Math.floor(Math.random()*1000);
-  let id_Relations_1140 = id_Collections_1140;
-  let junction_field_Relations_1140 = "junction_field_Relations_1140_" + Math.floor(Math.random()*1000);
-  createRelation(Fields_Relations_1140, Filter_Relations_1140, Id_Relations_1140, Limit_Relations_1140, Meta_Relations_1140, Offset_Relations_1140, Page_Relations_1140, Search_Relations_1140, Sort_Relations_1140, collection_many_Relations_1140, collection_one_Relations_1140, field_many_Relations_1140, field_one_Relations_1140, id_Relations_1140, junction_field_Relations_1140, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Relations
-  deleteRelation(id_Relations_1140, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Deleting Collections
-  deleteCollection(id_Collections_1140, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: Deep Chain Items_Comments (Self-Contained)
-bthread("chain:Items_Comments", function () {
-  // -> Creating Collections
-  let Meta_Collections_1240 = "Meta_Collections_1240_" + Math.floor(Math.random()*1000);
-  let Offset_Collections_1240 = "Offset_Collections_1240_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_Collections_1240 = "archive_app_filter_Collections_1240_" + Math.floor(Math.random()*1000);
-  let archive_field_Collections_1240 = "archive_field_Collections_1240_" + Math.floor(Math.random()*1000);
-  let archive_value_Collections_1240 = "archive_value_Collections_1240_" + Math.floor(Math.random()*1000);
-  let collection_Collections_1240 = "customers";
-  let display_template_Collections_1240 = "display_template_Collections_1240_" + Math.floor(Math.random()*1000);
-  let fields_Collections_1240 = [];
-  let hidden_Collections_1240 = true;
-  let icon_Collections_1240 = "icon_Collections_1240_" + Math.floor(Math.random()*1000);
-  let id_Collections_1240 = "id_Collections_1240_" + Math.floor(Math.random()*1000);
-  let meta_Collections_1240 = "meta_Collections_1240_" + Math.floor(Math.random()*1000);
-  let note_Collections_1240 = "note_Collections_1240_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_1240 = true;
-  let sort_field_Collections_1240 = "sort_field_Collections_1240_" + Math.floor(Math.random()*1000);
-  let translation_Collections_1240 = "translation_Collections_1240_" + Math.floor(Math.random()*1000);
-  let unarchive_value_Collections_1240 = "unarchive_value_Collections_1240_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_1240 = true;
-  createCollection(Meta_Collections_1240, Offset_Collections_1240, archive_app_filter_Collections_1240, archive_field_Collections_1240, archive_value_Collections_1240, collection_Collections_1240, display_template_Collections_1240, fields_Collections_1240, hidden_Collections_1240, icon_Collections_1240, id_Collections_1240, meta_Collections_1240, note_Collections_1240, singleton_Collections_1240, sort_field_Collections_1240, translation_Collections_1240, unarchive_value_Collections_1240, versioning_Collections_1240, { expectedResponseCodes: [200, 201, 204] });
-
   // -> Creating Items
-  let Collection_Items_1240 = "Collection_Items_1240_" + Math.floor(Math.random()*1000);
-  let Fields_Items_1240 = "Fields_Items_1240_" + Math.floor(Math.random()*1000);
-  let Filter_Items_1240 = "Filter_Items_1240_" + Math.floor(Math.random()*1000);
-  let Limit_Items_1240 = "Limit_Items_1240_" + Math.floor(Math.random()*1000);
-  let Meta_Items_1240 = "Meta_Items_1240_" + Math.floor(Math.random()*1000);
-  let Offset_Items_1240 = "Offset_Items_1240_" + Math.floor(Math.random()*1000);
-  let Search_Items_1240 = "Search_Items_1240_" + Math.floor(Math.random()*1000);
-  let Sort_Items_1240 = "Sort_Items_1240_" + Math.floor(Math.random()*1000);
-  let collection_Items_1240 = "collection_Items_1240_" + Math.floor(Math.random()*1000);
-  createItem(Collection_Items_1240, Fields_Items_1240, Filter_Items_1240, Limit_Items_1240, Meta_Items_1240, Offset_Items_1240, Search_Items_1240, Sort_Items_1240, collection_Items_1240, { expectedResponseCodes: [200, 201, 204] });
+  let Collection_Items_1140 = "Collection_Items_1140_" + Math.floor(Math.random()*1000);
+  let Fields_Items_1140 = "Fields_Items_1140_" + Math.floor(Math.random()*1000);
+  let Filter_Items_1140 = "Filter_Items_1140_" + Math.floor(Math.random()*1000);
+  let Limit_Items_1140 = "Limit_Items_1140_" + Math.floor(Math.random()*1000);
+  let Meta_Items_1140 = "Meta_Items_1140_" + Math.floor(Math.random()*1000);
+  let Offset_Items_1140 = "Offset_Items_1140_" + Math.floor(Math.random()*1000);
+  let Search_Items_1140 = "Search_Items_1140_" + Math.floor(Math.random()*1000);
+  let Sort_Items_1140 = "Sort_Items_1140_" + Math.floor(Math.random()*1000);
+  let collection_Items_1140 = "collection_Items_1140_" + Math.floor(Math.random()*1000);
+  createItem(Collection_Items_1140, Fields_Items_1140, Filter_Items_1140, Limit_Items_1140, Meta_Items_1140, Offset_Items_1140, Search_Items_1140, Sort_Items_1140, collection_Items_1140, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating Comments
-  let collection_Comments_1240 = collection_Items_1240;
-  let comment_Comments_1240 = "This is a comment";
-  let id_Comments_1240 = id_Collections_1240;
-  let item_Comments_1240 = "123";
-  createComment(collection_Comments_1240, comment_Comments_1240, id_Comments_1240, item_Comments_1240, { expectedResponseCodes: [200, 201, 204] });
-
-  // --- Proper Teardown (Reverse Order) ---
-  // -> Deleting Comments
-  deleteComment(id_Comments_1240, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Deleting Items
-  deleteItems(collection_Items_1240, { expectedResponseCodes: [200, 201, 204] });
-
-});
-
-// Story: Deep Chain Roles_Permissions (Self-Contained)
-bthread("chain:Roles_Permissions", function () {
-  // -> Creating Roles
-  let Fields_Roles_1340 = "Fields_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Filter_Roles_1340 = "Filter_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Limit_Roles_1340 = "Limit_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Meta_Roles_1340 = "Meta_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Offset_Roles_1340 = "Offset_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Page_Roles_1340 = "Page_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Search_Roles_1340 = "Search_Roles_1340_" + Math.floor(Math.random()*1000);
-  let Sort_Roles_1340 = "Sort_Roles_1340_" + Math.floor(Math.random()*1000);
-  let description_Roles_1340 = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_Roles_1340 = true;
-  let external_id_Roles_1340 = "external_id_Roles_1340_" + Math.floor(Math.random()*1000);
-  let id_Roles_1340 = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_Roles_1340 = [];
-  let module_listing_Roles_1340 = "module_listing_Roles_1340_" + Math.floor(Math.random()*1000);
-  let name_Roles_1340 = "Administrator";
-  createRole(Fields_Roles_1340, Filter_Roles_1340, Limit_Roles_1340, Meta_Roles_1340, Offset_Roles_1340, Page_Roles_1340, Search_Roles_1340, Sort_Roles_1340, description_Roles_1340, enforce_tfa_Roles_1340, external_id_Roles_1340, id_Roles_1340, ip_access_Roles_1340, module_listing_Roles_1340, name_Roles_1340, { expectedResponseCodes: [200, 201, 204] });
-
-  // -> Creating Collections
-  let Meta_Collections_1340 = "Meta_Collections_1340_" + Math.floor(Math.random()*1000);
-  let Offset_Collections_1340 = "Offset_Collections_1340_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_Collections_1340 = "archive_app_filter_Collections_1340_" + Math.floor(Math.random()*1000);
-  let archive_field_Collections_1340 = "archive_field_Collections_1340_" + Math.floor(Math.random()*1000);
-  let archive_value_Collections_1340 = "archive_value_Collections_1340_" + Math.floor(Math.random()*1000);
-  let collection_Collections_1340 = "customers";
-  let display_template_Collections_1340 = "display_template_Collections_1340_" + Math.floor(Math.random()*1000);
-  let fields_Collections_1340 = [];
-  let hidden_Collections_1340 = true;
-  let icon_Collections_1340 = "icon_Collections_1340_" + Math.floor(Math.random()*1000);
-  let id_Collections_1340 = "id_Collections_1340_" + Math.floor(Math.random()*1000);
-  let meta_Collections_1340 = "meta_Collections_1340_" + Math.floor(Math.random()*1000);
-  let note_Collections_1340 = "note_Collections_1340_" + Math.floor(Math.random()*1000);
-  let singleton_Collections_1340 = true;
-  let sort_field_Collections_1340 = "sort_field_Collections_1340_" + Math.floor(Math.random()*1000);
-  let translation_Collections_1340 = "translation_Collections_1340_" + Math.floor(Math.random()*1000);
-  let unarchive_value_Collections_1340 = "unarchive_value_Collections_1340_" + Math.floor(Math.random()*1000);
-  let versioning_Collections_1340 = true;
-  createCollection(Meta_Collections_1340, Offset_Collections_1340, archive_app_filter_Collections_1340, archive_field_Collections_1340, archive_value_Collections_1340, collection_Collections_1340, display_template_Collections_1340, fields_Collections_1340, hidden_Collections_1340, icon_Collections_1340, id_Collections_1340, meta_Collections_1340, note_Collections_1340, singleton_Collections_1340, sort_field_Collections_1340, translation_Collections_1340, unarchive_value_Collections_1340, versioning_Collections_1340, { expectedResponseCodes: [200, 201, 204] });
+  let collection_Comments_1140 = collection_Items_1140;
+  let comment_Comments_1140 = "This is a comment";
+  let id_Comments_1140 = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
+  let item_Comments_1140 = "123";
+  createComment(collection_Comments_1140, comment_Comments_1140, id_Comments_1140, item_Comments_1140, { expectedResponseCodes: [200, 201, 204] });
 
   // -> Creating Permissions
-  let Fields_Permissions_1340 = "Fields_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let Id_Permissions_1340 = "Id_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let Meta_Permissions_1340 = "Meta_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let collection_Permissions_1340 = "customers";
-  let comment_Permissions_1340 = "comment_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let create_Permissions_1340 = "create_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let _delete_Permissions_1340 = "delete_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let explain_Permissions_1340 = "explain_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let id_Permissions_1340 = id_Roles_1340;
-  let read_Permissions_1340 = "read_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_Permissions_1340 = [];
-  let role_Permissions_1340 = Math.floor(Math.random() * 1000);
-  let status_Permissions_1340 = "active";
-  let status_blacklist_Permissions_1340 = [];
-  let update_Permissions_1340 = "update_Permissions_1340_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_Permissions_1340 = [];
-  createPermission(Fields_Permissions_1340, Id_Permissions_1340, Meta_Permissions_1340, collection_Permissions_1340, comment_Permissions_1340, create_Permissions_1340, _delete_Permissions_1340, explain_Permissions_1340, id_Permissions_1340, read_Permissions_1340, read_field_blacklist_Permissions_1340, role_Permissions_1340, status_Permissions_1340, status_blacklist_Permissions_1340, update_Permissions_1340, write_field_blacklist_Permissions_1340, { expectedResponseCodes: [200, 201, 204] });
+  let Fields_Permissions_1140 = {};
+  let Filter_Permissions_1140 = {};
+  let Id_Permissions_1140 = {};
+  let Limit_Permissions_1140 = {};
+  let Meta_Permissions_1140 = {};
+  let Offset_Permissions_1140 = {};
+  let Page_Permissions_1140 = {};
+  let Search_Permissions_1140 = {};
+  let Sort_Permissions_1140 = {};
+  let collection_Permissions_1140 = {};
+  let comment_Permissions_1140 = "comment_Permissions_1140_" + Math.floor(Math.random()*1000);
+  let create_Permissions_1140 = "create_Permissions_1140_" + Math.floor(Math.random()*1000);
+  let data_Permissions_1140 = {};
+  let _delete_Permissions_1140 = "delete_Permissions_1140_" + Math.floor(Math.random()*1000);
+  let explain_Permissions_1140 = "explain_Permissions_1140_" + Math.floor(Math.random()*1000);
+  let id_Permissions_1140 = id_Comments_1140;
+  let keys_Permissions_1140 = [];
+  let read_Permissions_1140 = "read_Permissions_1140_" + Math.floor(Math.random()*1000);
+  let read_field_blacklist_Permissions_1140 = {};
+  let role_Permissions_1140 = {};
+  let status_Permissions_1140 = {};
+  let status_blacklist_Permissions_1140 = {};
+  let update_Permissions_1140 = "update_Permissions_1140_" + Math.floor(Math.random()*1000);
+  let write_field_blacklist_Permissions_1140 = {};
+  createPermission(Fields_Permissions_1140, Filter_Permissions_1140, Id_Permissions_1140, Limit_Permissions_1140, Meta_Permissions_1140, Offset_Permissions_1140, Page_Permissions_1140, Search_Permissions_1140, Sort_Permissions_1140, collection_Permissions_1140, comment_Permissions_1140, create_Permissions_1140, data_Permissions_1140, _delete_Permissions_1140, explain_Permissions_1140, id_Permissions_1140, keys_Permissions_1140, read_Permissions_1140, read_field_blacklist_Permissions_1140, role_Permissions_1140, status_Permissions_1140, status_blacklist_Permissions_1140, update_Permissions_1140, write_field_blacklist_Permissions_1140, { expectedResponseCodes: [200, 201, 204] });
 
   // --- Proper Teardown (Reverse Order) ---
   // -> Deleting Permissions
-  deletePermission(id_Permissions_1340, { expectedResponseCodes: [200, 201, 204] });
+  deletePermissions(id_Permissions_1140, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Roles
-  deleteRole(id_Roles_1340, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Comments
+  deleteComment(id_Comments_1140, { expectedResponseCodes: [200, 201, 204] });
 
+});
+
+// --- Hyper-Story Version 1: Global Coordination for directus ---
+bthread("hyper:directus:orchestration:1", function () {
+  bthread("Persona_Administrator_1", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    getUsers(UsersSharedId);
+    acceptInvite(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    getItems(ItemsSharedId);
+    createItem(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    getCollections(CollectionsSharedId);
+    createCollection(CollectionsSharedId);
+  });
+  bthread("Persona_User_1", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    getUsers(UsersSharedId);
+    getMe(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    getItems(ItemsSharedId);
+    getItems(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    getCollections(CollectionsSharedId);
+    getCollection(CollectionsSharedId);
+  });
+  bthread("Persona_System_1", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    acceptInvite(UsersSharedId);
+    getUsers(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    createItem(ItemsSharedId);
+    getItems(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    createCollection(CollectionsSharedId);
+    getCollections(CollectionsSharedId);
+  });
+
+  // Seeding Phase
+    let Fields_Users_seed_1_0 = {};
+    let Filter_Users_seed_1_0 = "Filter_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_1_0 = "Limit_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_1_0 = {};
+    let Offset_Users_seed_1_0 = "Offset_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_1_0 = "Search_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_1_0 = "Sort_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_1_0 = "UUId_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_1_0 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_1_0 = "/my-project/settings/collections/a";
+    let password_Users_seed_1_0 = "password_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_1_0 = "token_Users_seed_1_0_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_1_0, Filter_Users_seed_1_0, Limit_Users_seed_1_0, Meta_Users_seed_1_0, Offset_Users_seed_1_0, Search_Users_seed_1_0, Sort_Users_seed_1_0, UUId_Users_seed_1_0, id_Users_seed_1_0, last_page_Users_seed_1_0, password_Users_seed_1_0, token_Users_seed_1_0, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_1_1 = {};
+    let Filter_Users_seed_1_1 = "Filter_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_1_1 = "Limit_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_1_1 = {};
+    let Offset_Users_seed_1_1 = "Offset_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_1_1 = "Search_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_1_1 = "Sort_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_1_1 = "UUId_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_1_1 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_1_1 = "/my-project/settings/collections/a";
+    let password_Users_seed_1_1 = "password_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_1_1 = "token_Users_seed_1_1_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_1_1, Filter_Users_seed_1_1, Limit_Users_seed_1_1, Meta_Users_seed_1_1, Offset_Users_seed_1_1, Search_Users_seed_1_1, Sort_Users_seed_1_1, UUId_Users_seed_1_1, id_Users_seed_1_1, last_page_Users_seed_1_1, password_Users_seed_1_1, token_Users_seed_1_1, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_1_2 = {};
+    let Filter_Users_seed_1_2 = "Filter_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_1_2 = "Limit_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_1_2 = {};
+    let Offset_Users_seed_1_2 = "Offset_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_1_2 = "Search_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_1_2 = "Sort_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_1_2 = "UUId_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_1_2 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_1_2 = "/my-project/settings/collections/a";
+    let password_Users_seed_1_2 = "password_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_1_2 = "token_Users_seed_1_2_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_1_2, Filter_Users_seed_1_2, Limit_Users_seed_1_2, Meta_Users_seed_1_2, Offset_Users_seed_1_2, Search_Users_seed_1_2, Sort_Users_seed_1_2, UUId_Users_seed_1_2, id_Users_seed_1_2, last_page_Users_seed_1_2, password_Users_seed_1_2, token_Users_seed_1_2, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_1_3 = {};
+    let Filter_Users_seed_1_3 = "Filter_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_1_3 = "Limit_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_1_3 = {};
+    let Offset_Users_seed_1_3 = "Offset_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_1_3 = "Search_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_1_3 = "Sort_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_1_3 = "UUId_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_1_3 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_1_3 = "/my-project/settings/collections/a";
+    let password_Users_seed_1_3 = "password_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_1_3 = "token_Users_seed_1_3_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_1_3, Filter_Users_seed_1_3, Limit_Users_seed_1_3, Meta_Users_seed_1_3, Offset_Users_seed_1_3, Search_Users_seed_1_3, Sort_Users_seed_1_3, UUId_Users_seed_1_3, id_Users_seed_1_3, last_page_Users_seed_1_3, password_Users_seed_1_3, token_Users_seed_1_3, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_1_4 = {};
+    let Filter_Users_seed_1_4 = "Filter_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_1_4 = "Limit_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_1_4 = {};
+    let Offset_Users_seed_1_4 = "Offset_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_1_4 = "Search_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_1_4 = "Sort_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_1_4 = "UUId_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_1_4 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_1_4 = "/my-project/settings/collections/a";
+    let password_Users_seed_1_4 = "password_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_1_4 = "token_Users_seed_1_4_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_1_4, Filter_Users_seed_1_4, Limit_Users_seed_1_4, Meta_Users_seed_1_4, Offset_Users_seed_1_4, Search_Users_seed_1_4, Sort_Users_seed_1_4, UUId_Users_seed_1_4, id_Users_seed_1_4, last_page_Users_seed_1_4, password_Users_seed_1_4, token_Users_seed_1_4, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_1_0 = "Collection_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_1_0 = "Fields_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_1_0 = "Filter_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_1_0 = "Limit_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_1_0 = "Meta_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_1_0 = "Offset_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_1_0 = "Search_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_1_0 = "Sort_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_1_0 = "collection_Items_seed_1_0_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_1_0, Fields_Items_seed_1_0, Filter_Items_seed_1_0, Limit_Items_seed_1_0, Meta_Items_seed_1_0, Offset_Items_seed_1_0, Search_Items_seed_1_0, Sort_Items_seed_1_0, collection_Items_seed_1_0, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_1_1 = "Collection_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_1_1 = "Fields_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_1_1 = "Filter_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_1_1 = "Limit_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_1_1 = "Meta_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_1_1 = "Offset_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_1_1 = "Search_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_1_1 = "Sort_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_1_1 = "collection_Items_seed_1_1_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_1_1, Fields_Items_seed_1_1, Filter_Items_seed_1_1, Limit_Items_seed_1_1, Meta_Items_seed_1_1, Offset_Items_seed_1_1, Search_Items_seed_1_1, Sort_Items_seed_1_1, collection_Items_seed_1_1, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_1_2 = "Collection_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_1_2 = "Fields_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_1_2 = "Filter_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_1_2 = "Limit_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_1_2 = "Meta_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_1_2 = "Offset_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_1_2 = "Search_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_1_2 = "Sort_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_1_2 = "collection_Items_seed_1_2_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_1_2, Fields_Items_seed_1_2, Filter_Items_seed_1_2, Limit_Items_seed_1_2, Meta_Items_seed_1_2, Offset_Items_seed_1_2, Search_Items_seed_1_2, Sort_Items_seed_1_2, collection_Items_seed_1_2, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_1_3 = "Collection_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_1_3 = "Fields_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_1_3 = "Filter_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_1_3 = "Limit_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_1_3 = "Meta_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_1_3 = "Offset_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_1_3 = "Search_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_1_3 = "Sort_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_1_3 = "collection_Items_seed_1_3_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_1_3, Fields_Items_seed_1_3, Filter_Items_seed_1_3, Limit_Items_seed_1_3, Meta_Items_seed_1_3, Offset_Items_seed_1_3, Search_Items_seed_1_3, Sort_Items_seed_1_3, collection_Items_seed_1_3, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_1_4 = "Collection_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_1_4 = "Fields_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_1_4 = "Filter_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_1_4 = "Limit_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_1_4 = "Meta_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_1_4 = "Offset_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_1_4 = "Search_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_1_4 = "Sort_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_1_4 = "collection_Items_seed_1_4_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_1_4, Fields_Items_seed_1_4, Filter_Items_seed_1_4, Limit_Items_seed_1_4, Meta_Items_seed_1_4, Offset_Items_seed_1_4, Search_Items_seed_1_4, Sort_Items_seed_1_4, collection_Items_seed_1_4, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_1_0 = "Meta_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_1_0 = "Offset_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_1_0 = "archive_app_filter_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_1_0 = "archive_field_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_1_0 = "archive_value_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_1_0 = "customers";
+    let display_template_Collections_seed_1_0 = "display_template_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_1_0 = [];
+    let hidden_Collections_seed_1_0 = true;
+    let icon_Collections_seed_1_0 = "icon_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_1_0 = "id_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_1_0 = {};
+    let note_Collections_seed_1_0 = "note_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_1_0 = true;
+    let sort_field_Collections_seed_1_0 = "sort_field_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_1_0 = "translation_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_1_0 = "unarchive_value_Collections_seed_1_0_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_1_0 = true;
+    createCollection(Meta_Collections_seed_1_0, Offset_Collections_seed_1_0, archive_app_filter_Collections_seed_1_0, archive_field_Collections_seed_1_0, archive_value_Collections_seed_1_0, collection_Collections_seed_1_0, display_template_Collections_seed_1_0, fields_Collections_seed_1_0, hidden_Collections_seed_1_0, icon_Collections_seed_1_0, id_Collections_seed_1_0, meta_Collections_seed_1_0, note_Collections_seed_1_0, singleton_Collections_seed_1_0, sort_field_Collections_seed_1_0, translation_Collections_seed_1_0, unarchive_value_Collections_seed_1_0, versioning_Collections_seed_1_0, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_1_1 = "Meta_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_1_1 = "Offset_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_1_1 = "archive_app_filter_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_1_1 = "archive_field_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_1_1 = "archive_value_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_1_1 = "customers";
+    let display_template_Collections_seed_1_1 = "display_template_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_1_1 = [];
+    let hidden_Collections_seed_1_1 = true;
+    let icon_Collections_seed_1_1 = "icon_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_1_1 = "id_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_1_1 = {};
+    let note_Collections_seed_1_1 = "note_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_1_1 = true;
+    let sort_field_Collections_seed_1_1 = "sort_field_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_1_1 = "translation_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_1_1 = "unarchive_value_Collections_seed_1_1_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_1_1 = true;
+    createCollection(Meta_Collections_seed_1_1, Offset_Collections_seed_1_1, archive_app_filter_Collections_seed_1_1, archive_field_Collections_seed_1_1, archive_value_Collections_seed_1_1, collection_Collections_seed_1_1, display_template_Collections_seed_1_1, fields_Collections_seed_1_1, hidden_Collections_seed_1_1, icon_Collections_seed_1_1, id_Collections_seed_1_1, meta_Collections_seed_1_1, note_Collections_seed_1_1, singleton_Collections_seed_1_1, sort_field_Collections_seed_1_1, translation_Collections_seed_1_1, unarchive_value_Collections_seed_1_1, versioning_Collections_seed_1_1, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_1_2 = "Meta_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_1_2 = "Offset_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_1_2 = "archive_app_filter_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_1_2 = "archive_field_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_1_2 = "archive_value_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_1_2 = "customers";
+    let display_template_Collections_seed_1_2 = "display_template_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_1_2 = [];
+    let hidden_Collections_seed_1_2 = true;
+    let icon_Collections_seed_1_2 = "icon_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_1_2 = "id_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_1_2 = {};
+    let note_Collections_seed_1_2 = "note_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_1_2 = true;
+    let sort_field_Collections_seed_1_2 = "sort_field_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_1_2 = "translation_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_1_2 = "unarchive_value_Collections_seed_1_2_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_1_2 = true;
+    createCollection(Meta_Collections_seed_1_2, Offset_Collections_seed_1_2, archive_app_filter_Collections_seed_1_2, archive_field_Collections_seed_1_2, archive_value_Collections_seed_1_2, collection_Collections_seed_1_2, display_template_Collections_seed_1_2, fields_Collections_seed_1_2, hidden_Collections_seed_1_2, icon_Collections_seed_1_2, id_Collections_seed_1_2, meta_Collections_seed_1_2, note_Collections_seed_1_2, singleton_Collections_seed_1_2, sort_field_Collections_seed_1_2, translation_Collections_seed_1_2, unarchive_value_Collections_seed_1_2, versioning_Collections_seed_1_2, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_1_3 = "Meta_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_1_3 = "Offset_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_1_3 = "archive_app_filter_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_1_3 = "archive_field_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_1_3 = "archive_value_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_1_3 = "customers";
+    let display_template_Collections_seed_1_3 = "display_template_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_1_3 = [];
+    let hidden_Collections_seed_1_3 = true;
+    let icon_Collections_seed_1_3 = "icon_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_1_3 = "id_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_1_3 = {};
+    let note_Collections_seed_1_3 = "note_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_1_3 = true;
+    let sort_field_Collections_seed_1_3 = "sort_field_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_1_3 = "translation_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_1_3 = "unarchive_value_Collections_seed_1_3_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_1_3 = true;
+    createCollection(Meta_Collections_seed_1_3, Offset_Collections_seed_1_3, archive_app_filter_Collections_seed_1_3, archive_field_Collections_seed_1_3, archive_value_Collections_seed_1_3, collection_Collections_seed_1_3, display_template_Collections_seed_1_3, fields_Collections_seed_1_3, hidden_Collections_seed_1_3, icon_Collections_seed_1_3, id_Collections_seed_1_3, meta_Collections_seed_1_3, note_Collections_seed_1_3, singleton_Collections_seed_1_3, sort_field_Collections_seed_1_3, translation_Collections_seed_1_3, unarchive_value_Collections_seed_1_3, versioning_Collections_seed_1_3, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_1_4 = "Meta_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_1_4 = "Offset_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_1_4 = "archive_app_filter_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_1_4 = "archive_field_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_1_4 = "archive_value_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_1_4 = "customers";
+    let display_template_Collections_seed_1_4 = "display_template_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_1_4 = [];
+    let hidden_Collections_seed_1_4 = true;
+    let icon_Collections_seed_1_4 = "icon_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_1_4 = "id_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_1_4 = {};
+    let note_Collections_seed_1_4 = "note_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_1_4 = true;
+    let sort_field_Collections_seed_1_4 = "sort_field_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_1_4 = "translation_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_1_4 = "unarchive_value_Collections_seed_1_4_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_1_4 = true;
+    createCollection(Meta_Collections_seed_1_4, Offset_Collections_seed_1_4, archive_app_filter_Collections_seed_1_4, archive_field_Collections_seed_1_4, archive_value_Collections_seed_1_4, collection_Collections_seed_1_4, display_template_Collections_seed_1_4, fields_Collections_seed_1_4, hidden_Collections_seed_1_4, icon_Collections_seed_1_4, id_Collections_seed_1_4, meta_Collections_seed_1_4, note_Collections_seed_1_4, singleton_Collections_seed_1_4, sort_field_Collections_seed_1_4, translation_Collections_seed_1_4, unarchive_value_Collections_seed_1_4, versioning_Collections_seed_1_4, { expectedResponseCodes: [200, 201, 204] });
+});
+// --- Hyper-Story Version 2: Global Coordination for directus ---
+bthread("hyper:directus:orchestration:2", function () {
+  bthread("Persona_Administrator_2", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    getUsers(UsersSharedId);
+    acceptInvite(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    getItems(ItemsSharedId);
+    createItem(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    getCollections(CollectionsSharedId);
+    createCollection(CollectionsSharedId);
+  });
+  bthread("Persona_User_2", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    getUsers(UsersSharedId);
+    getMe(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    getItems(ItemsSharedId);
+    getItems(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    getCollections(CollectionsSharedId);
+    getCollection(CollectionsSharedId);
+  });
+  bthread("Persona_System_2", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    acceptInvite(UsersSharedId);
+    getUsers(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    createItem(ItemsSharedId);
+    getItems(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    createCollection(CollectionsSharedId);
+    getCollections(CollectionsSharedId);
+  });
+
+  // Seeding Phase
+    let Fields_Users_seed_2_0 = {};
+    let Filter_Users_seed_2_0 = "Filter_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_2_0 = "Limit_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_2_0 = {};
+    let Offset_Users_seed_2_0 = "Offset_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_2_0 = "Search_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_2_0 = "Sort_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_2_0 = "UUId_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_2_0 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_2_0 = "/my-project/settings/collections/a";
+    let password_Users_seed_2_0 = "password_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_2_0 = "token_Users_seed_2_0_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_2_0, Filter_Users_seed_2_0, Limit_Users_seed_2_0, Meta_Users_seed_2_0, Offset_Users_seed_2_0, Search_Users_seed_2_0, Sort_Users_seed_2_0, UUId_Users_seed_2_0, id_Users_seed_2_0, last_page_Users_seed_2_0, password_Users_seed_2_0, token_Users_seed_2_0, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_2_1 = {};
+    let Filter_Users_seed_2_1 = "Filter_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_2_1 = "Limit_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_2_1 = {};
+    let Offset_Users_seed_2_1 = "Offset_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_2_1 = "Search_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_2_1 = "Sort_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_2_1 = "UUId_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_2_1 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_2_1 = "/my-project/settings/collections/a";
+    let password_Users_seed_2_1 = "password_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_2_1 = "token_Users_seed_2_1_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_2_1, Filter_Users_seed_2_1, Limit_Users_seed_2_1, Meta_Users_seed_2_1, Offset_Users_seed_2_1, Search_Users_seed_2_1, Sort_Users_seed_2_1, UUId_Users_seed_2_1, id_Users_seed_2_1, last_page_Users_seed_2_1, password_Users_seed_2_1, token_Users_seed_2_1, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_2_2 = {};
+    let Filter_Users_seed_2_2 = "Filter_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_2_2 = "Limit_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_2_2 = {};
+    let Offset_Users_seed_2_2 = "Offset_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_2_2 = "Search_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_2_2 = "Sort_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_2_2 = "UUId_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_2_2 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_2_2 = "/my-project/settings/collections/a";
+    let password_Users_seed_2_2 = "password_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_2_2 = "token_Users_seed_2_2_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_2_2, Filter_Users_seed_2_2, Limit_Users_seed_2_2, Meta_Users_seed_2_2, Offset_Users_seed_2_2, Search_Users_seed_2_2, Sort_Users_seed_2_2, UUId_Users_seed_2_2, id_Users_seed_2_2, last_page_Users_seed_2_2, password_Users_seed_2_2, token_Users_seed_2_2, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_2_3 = {};
+    let Filter_Users_seed_2_3 = "Filter_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_2_3 = "Limit_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_2_3 = {};
+    let Offset_Users_seed_2_3 = "Offset_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_2_3 = "Search_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_2_3 = "Sort_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_2_3 = "UUId_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_2_3 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_2_3 = "/my-project/settings/collections/a";
+    let password_Users_seed_2_3 = "password_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_2_3 = "token_Users_seed_2_3_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_2_3, Filter_Users_seed_2_3, Limit_Users_seed_2_3, Meta_Users_seed_2_3, Offset_Users_seed_2_3, Search_Users_seed_2_3, Sort_Users_seed_2_3, UUId_Users_seed_2_3, id_Users_seed_2_3, last_page_Users_seed_2_3, password_Users_seed_2_3, token_Users_seed_2_3, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_2_4 = {};
+    let Filter_Users_seed_2_4 = "Filter_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_2_4 = "Limit_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_2_4 = {};
+    let Offset_Users_seed_2_4 = "Offset_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_2_4 = "Search_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_2_4 = "Sort_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_2_4 = "UUId_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_2_4 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_2_4 = "/my-project/settings/collections/a";
+    let password_Users_seed_2_4 = "password_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_2_4 = "token_Users_seed_2_4_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_2_4, Filter_Users_seed_2_4, Limit_Users_seed_2_4, Meta_Users_seed_2_4, Offset_Users_seed_2_4, Search_Users_seed_2_4, Sort_Users_seed_2_4, UUId_Users_seed_2_4, id_Users_seed_2_4, last_page_Users_seed_2_4, password_Users_seed_2_4, token_Users_seed_2_4, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_2_0 = "Collection_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_2_0 = "Fields_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_2_0 = "Filter_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_2_0 = "Limit_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_2_0 = "Meta_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_2_0 = "Offset_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_2_0 = "Search_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_2_0 = "Sort_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_2_0 = "collection_Items_seed_2_0_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_2_0, Fields_Items_seed_2_0, Filter_Items_seed_2_0, Limit_Items_seed_2_0, Meta_Items_seed_2_0, Offset_Items_seed_2_0, Search_Items_seed_2_0, Sort_Items_seed_2_0, collection_Items_seed_2_0, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_2_1 = "Collection_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_2_1 = "Fields_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_2_1 = "Filter_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_2_1 = "Limit_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_2_1 = "Meta_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_2_1 = "Offset_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_2_1 = "Search_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_2_1 = "Sort_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_2_1 = "collection_Items_seed_2_1_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_2_1, Fields_Items_seed_2_1, Filter_Items_seed_2_1, Limit_Items_seed_2_1, Meta_Items_seed_2_1, Offset_Items_seed_2_1, Search_Items_seed_2_1, Sort_Items_seed_2_1, collection_Items_seed_2_1, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_2_2 = "Collection_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_2_2 = "Fields_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_2_2 = "Filter_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_2_2 = "Limit_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_2_2 = "Meta_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_2_2 = "Offset_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_2_2 = "Search_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_2_2 = "Sort_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_2_2 = "collection_Items_seed_2_2_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_2_2, Fields_Items_seed_2_2, Filter_Items_seed_2_2, Limit_Items_seed_2_2, Meta_Items_seed_2_2, Offset_Items_seed_2_2, Search_Items_seed_2_2, Sort_Items_seed_2_2, collection_Items_seed_2_2, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_2_3 = "Collection_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_2_3 = "Fields_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_2_3 = "Filter_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_2_3 = "Limit_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_2_3 = "Meta_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_2_3 = "Offset_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_2_3 = "Search_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_2_3 = "Sort_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_2_3 = "collection_Items_seed_2_3_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_2_3, Fields_Items_seed_2_3, Filter_Items_seed_2_3, Limit_Items_seed_2_3, Meta_Items_seed_2_3, Offset_Items_seed_2_3, Search_Items_seed_2_3, Sort_Items_seed_2_3, collection_Items_seed_2_3, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_2_4 = "Collection_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_2_4 = "Fields_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_2_4 = "Filter_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_2_4 = "Limit_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_2_4 = "Meta_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_2_4 = "Offset_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_2_4 = "Search_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_2_4 = "Sort_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_2_4 = "collection_Items_seed_2_4_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_2_4, Fields_Items_seed_2_4, Filter_Items_seed_2_4, Limit_Items_seed_2_4, Meta_Items_seed_2_4, Offset_Items_seed_2_4, Search_Items_seed_2_4, Sort_Items_seed_2_4, collection_Items_seed_2_4, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_2_0 = "Meta_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_2_0 = "Offset_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_2_0 = "archive_app_filter_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_2_0 = "archive_field_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_2_0 = "archive_value_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_2_0 = "customers";
+    let display_template_Collections_seed_2_0 = "display_template_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_2_0 = [];
+    let hidden_Collections_seed_2_0 = true;
+    let icon_Collections_seed_2_0 = "icon_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_2_0 = "id_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_2_0 = {};
+    let note_Collections_seed_2_0 = "note_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_2_0 = true;
+    let sort_field_Collections_seed_2_0 = "sort_field_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_2_0 = "translation_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_2_0 = "unarchive_value_Collections_seed_2_0_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_2_0 = true;
+    createCollection(Meta_Collections_seed_2_0, Offset_Collections_seed_2_0, archive_app_filter_Collections_seed_2_0, archive_field_Collections_seed_2_0, archive_value_Collections_seed_2_0, collection_Collections_seed_2_0, display_template_Collections_seed_2_0, fields_Collections_seed_2_0, hidden_Collections_seed_2_0, icon_Collections_seed_2_0, id_Collections_seed_2_0, meta_Collections_seed_2_0, note_Collections_seed_2_0, singleton_Collections_seed_2_0, sort_field_Collections_seed_2_0, translation_Collections_seed_2_0, unarchive_value_Collections_seed_2_0, versioning_Collections_seed_2_0, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_2_1 = "Meta_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_2_1 = "Offset_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_2_1 = "archive_app_filter_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_2_1 = "archive_field_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_2_1 = "archive_value_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_2_1 = "customers";
+    let display_template_Collections_seed_2_1 = "display_template_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_2_1 = [];
+    let hidden_Collections_seed_2_1 = true;
+    let icon_Collections_seed_2_1 = "icon_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_2_1 = "id_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_2_1 = {};
+    let note_Collections_seed_2_1 = "note_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_2_1 = true;
+    let sort_field_Collections_seed_2_1 = "sort_field_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_2_1 = "translation_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_2_1 = "unarchive_value_Collections_seed_2_1_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_2_1 = true;
+    createCollection(Meta_Collections_seed_2_1, Offset_Collections_seed_2_1, archive_app_filter_Collections_seed_2_1, archive_field_Collections_seed_2_1, archive_value_Collections_seed_2_1, collection_Collections_seed_2_1, display_template_Collections_seed_2_1, fields_Collections_seed_2_1, hidden_Collections_seed_2_1, icon_Collections_seed_2_1, id_Collections_seed_2_1, meta_Collections_seed_2_1, note_Collections_seed_2_1, singleton_Collections_seed_2_1, sort_field_Collections_seed_2_1, translation_Collections_seed_2_1, unarchive_value_Collections_seed_2_1, versioning_Collections_seed_2_1, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_2_2 = "Meta_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_2_2 = "Offset_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_2_2 = "archive_app_filter_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_2_2 = "archive_field_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_2_2 = "archive_value_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_2_2 = "customers";
+    let display_template_Collections_seed_2_2 = "display_template_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_2_2 = [];
+    let hidden_Collections_seed_2_2 = true;
+    let icon_Collections_seed_2_2 = "icon_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_2_2 = "id_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_2_2 = {};
+    let note_Collections_seed_2_2 = "note_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_2_2 = true;
+    let sort_field_Collections_seed_2_2 = "sort_field_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_2_2 = "translation_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_2_2 = "unarchive_value_Collections_seed_2_2_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_2_2 = true;
+    createCollection(Meta_Collections_seed_2_2, Offset_Collections_seed_2_2, archive_app_filter_Collections_seed_2_2, archive_field_Collections_seed_2_2, archive_value_Collections_seed_2_2, collection_Collections_seed_2_2, display_template_Collections_seed_2_2, fields_Collections_seed_2_2, hidden_Collections_seed_2_2, icon_Collections_seed_2_2, id_Collections_seed_2_2, meta_Collections_seed_2_2, note_Collections_seed_2_2, singleton_Collections_seed_2_2, sort_field_Collections_seed_2_2, translation_Collections_seed_2_2, unarchive_value_Collections_seed_2_2, versioning_Collections_seed_2_2, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_2_3 = "Meta_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_2_3 = "Offset_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_2_3 = "archive_app_filter_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_2_3 = "archive_field_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_2_3 = "archive_value_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_2_3 = "customers";
+    let display_template_Collections_seed_2_3 = "display_template_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_2_3 = [];
+    let hidden_Collections_seed_2_3 = true;
+    let icon_Collections_seed_2_3 = "icon_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_2_3 = "id_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_2_3 = {};
+    let note_Collections_seed_2_3 = "note_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_2_3 = true;
+    let sort_field_Collections_seed_2_3 = "sort_field_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_2_3 = "translation_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_2_3 = "unarchive_value_Collections_seed_2_3_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_2_3 = true;
+    createCollection(Meta_Collections_seed_2_3, Offset_Collections_seed_2_3, archive_app_filter_Collections_seed_2_3, archive_field_Collections_seed_2_3, archive_value_Collections_seed_2_3, collection_Collections_seed_2_3, display_template_Collections_seed_2_3, fields_Collections_seed_2_3, hidden_Collections_seed_2_3, icon_Collections_seed_2_3, id_Collections_seed_2_3, meta_Collections_seed_2_3, note_Collections_seed_2_3, singleton_Collections_seed_2_3, sort_field_Collections_seed_2_3, translation_Collections_seed_2_3, unarchive_value_Collections_seed_2_3, versioning_Collections_seed_2_3, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_2_4 = "Meta_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_2_4 = "Offset_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_2_4 = "archive_app_filter_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_2_4 = "archive_field_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_2_4 = "archive_value_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_2_4 = "customers";
+    let display_template_Collections_seed_2_4 = "display_template_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_2_4 = [];
+    let hidden_Collections_seed_2_4 = true;
+    let icon_Collections_seed_2_4 = "icon_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_2_4 = "id_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_2_4 = {};
+    let note_Collections_seed_2_4 = "note_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_2_4 = true;
+    let sort_field_Collections_seed_2_4 = "sort_field_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_2_4 = "translation_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_2_4 = "unarchive_value_Collections_seed_2_4_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_2_4 = true;
+    createCollection(Meta_Collections_seed_2_4, Offset_Collections_seed_2_4, archive_app_filter_Collections_seed_2_4, archive_field_Collections_seed_2_4, archive_value_Collections_seed_2_4, collection_Collections_seed_2_4, display_template_Collections_seed_2_4, fields_Collections_seed_2_4, hidden_Collections_seed_2_4, icon_Collections_seed_2_4, id_Collections_seed_2_4, meta_Collections_seed_2_4, note_Collections_seed_2_4, singleton_Collections_seed_2_4, sort_field_Collections_seed_2_4, translation_Collections_seed_2_4, unarchive_value_Collections_seed_2_4, versioning_Collections_seed_2_4, { expectedResponseCodes: [200, 201, 204] });
+});
+// --- Hyper-Story Version 3: Global Coordination for directus ---
+bthread("hyper:directus:orchestration:3", function () {
+  bthread("Persona_Administrator_3", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    getUsers(UsersSharedId);
+    acceptInvite(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    getItems(ItemsSharedId);
+    createItem(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    getCollections(CollectionsSharedId);
+    createCollection(CollectionsSharedId);
+  });
+  bthread("Persona_User_3", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    getUsers(UsersSharedId);
+    getMe(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    getItems(ItemsSharedId);
+    getItems(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    getCollections(CollectionsSharedId);
+    getCollection(CollectionsSharedId);
+  });
+  bthread("Persona_System_3", function() {
+    let event_Users = waitFor(matchAnyUsersAdded());
+    let UsersSharedId = event_Users.data.id || event_Users.data.sku || event_Users.data.cartId;
+    acceptInvite(UsersSharedId);
+    getUsers(UsersSharedId);
+    let event_Items = waitFor(matchAnyItemsAdded());
+    let ItemsSharedId = event_Items.data.id || event_Items.data.sku || event_Items.data.cartId;
+    createItem(ItemsSharedId);
+    getItems(ItemsSharedId);
+    let event_Collections = waitFor(matchAnyCollectionsAdded());
+    let CollectionsSharedId = event_Collections.data.id || event_Collections.data.sku || event_Collections.data.cartId;
+    createCollection(CollectionsSharedId);
+    getCollections(CollectionsSharedId);
+  });
+
+  // Seeding Phase
+    let Fields_Users_seed_3_0 = {};
+    let Filter_Users_seed_3_0 = "Filter_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_3_0 = "Limit_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_3_0 = {};
+    let Offset_Users_seed_3_0 = "Offset_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_3_0 = "Search_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_3_0 = "Sort_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_3_0 = "UUId_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_3_0 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_3_0 = "/my-project/settings/collections/a";
+    let password_Users_seed_3_0 = "password_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_3_0 = "token_Users_seed_3_0_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_3_0, Filter_Users_seed_3_0, Limit_Users_seed_3_0, Meta_Users_seed_3_0, Offset_Users_seed_3_0, Search_Users_seed_3_0, Sort_Users_seed_3_0, UUId_Users_seed_3_0, id_Users_seed_3_0, last_page_Users_seed_3_0, password_Users_seed_3_0, token_Users_seed_3_0, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_3_1 = {};
+    let Filter_Users_seed_3_1 = "Filter_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_3_1 = "Limit_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_3_1 = {};
+    let Offset_Users_seed_3_1 = "Offset_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_3_1 = "Search_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_3_1 = "Sort_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_3_1 = "UUId_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_3_1 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_3_1 = "/my-project/settings/collections/a";
+    let password_Users_seed_3_1 = "password_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_3_1 = "token_Users_seed_3_1_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_3_1, Filter_Users_seed_3_1, Limit_Users_seed_3_1, Meta_Users_seed_3_1, Offset_Users_seed_3_1, Search_Users_seed_3_1, Sort_Users_seed_3_1, UUId_Users_seed_3_1, id_Users_seed_3_1, last_page_Users_seed_3_1, password_Users_seed_3_1, token_Users_seed_3_1, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_3_2 = {};
+    let Filter_Users_seed_3_2 = "Filter_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_3_2 = "Limit_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_3_2 = {};
+    let Offset_Users_seed_3_2 = "Offset_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_3_2 = "Search_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_3_2 = "Sort_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_3_2 = "UUId_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_3_2 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_3_2 = "/my-project/settings/collections/a";
+    let password_Users_seed_3_2 = "password_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_3_2 = "token_Users_seed_3_2_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_3_2, Filter_Users_seed_3_2, Limit_Users_seed_3_2, Meta_Users_seed_3_2, Offset_Users_seed_3_2, Search_Users_seed_3_2, Sort_Users_seed_3_2, UUId_Users_seed_3_2, id_Users_seed_3_2, last_page_Users_seed_3_2, password_Users_seed_3_2, token_Users_seed_3_2, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_3_3 = {};
+    let Filter_Users_seed_3_3 = "Filter_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_3_3 = "Limit_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_3_3 = {};
+    let Offset_Users_seed_3_3 = "Offset_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_3_3 = "Search_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_3_3 = "Sort_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_3_3 = "UUId_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_3_3 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_3_3 = "/my-project/settings/collections/a";
+    let password_Users_seed_3_3 = "password_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_3_3 = "token_Users_seed_3_3_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_3_3, Filter_Users_seed_3_3, Limit_Users_seed_3_3, Meta_Users_seed_3_3, Offset_Users_seed_3_3, Search_Users_seed_3_3, Sort_Users_seed_3_3, UUId_Users_seed_3_3, id_Users_seed_3_3, last_page_Users_seed_3_3, password_Users_seed_3_3, token_Users_seed_3_3, { expectedResponseCodes: [200, 201, 204] });
+    let Fields_Users_seed_3_4 = {};
+    let Filter_Users_seed_3_4 = "Filter_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Limit_Users_seed_3_4 = "Limit_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Meta_Users_seed_3_4 = {};
+    let Offset_Users_seed_3_4 = "Offset_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Search_Users_seed_3_4 = "Search_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Sort_Users_seed_3_4 = "Sort_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let UUId_Users_seed_3_4 = "UUId_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let id_Users_seed_3_4 = "63716273-0f29-4648-8a2a-2af2948f6f78";
+    let last_page_Users_seed_3_4 = "/my-project/settings/collections/a";
+    let password_Users_seed_3_4 = "password_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    let token_Users_seed_3_4 = "token_Users_seed_3_4_" + Math.floor(Math.random()*1000);
+    acceptInvite(Fields_Users_seed_3_4, Filter_Users_seed_3_4, Limit_Users_seed_3_4, Meta_Users_seed_3_4, Offset_Users_seed_3_4, Search_Users_seed_3_4, Sort_Users_seed_3_4, UUId_Users_seed_3_4, id_Users_seed_3_4, last_page_Users_seed_3_4, password_Users_seed_3_4, token_Users_seed_3_4, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_3_0 = "Collection_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_3_0 = "Fields_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_3_0 = "Filter_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_3_0 = "Limit_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_3_0 = "Meta_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_3_0 = "Offset_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_3_0 = "Search_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_3_0 = "Sort_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_3_0 = "collection_Items_seed_3_0_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_3_0, Fields_Items_seed_3_0, Filter_Items_seed_3_0, Limit_Items_seed_3_0, Meta_Items_seed_3_0, Offset_Items_seed_3_0, Search_Items_seed_3_0, Sort_Items_seed_3_0, collection_Items_seed_3_0, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_3_1 = "Collection_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_3_1 = "Fields_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_3_1 = "Filter_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_3_1 = "Limit_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_3_1 = "Meta_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_3_1 = "Offset_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_3_1 = "Search_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_3_1 = "Sort_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_3_1 = "collection_Items_seed_3_1_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_3_1, Fields_Items_seed_3_1, Filter_Items_seed_3_1, Limit_Items_seed_3_1, Meta_Items_seed_3_1, Offset_Items_seed_3_1, Search_Items_seed_3_1, Sort_Items_seed_3_1, collection_Items_seed_3_1, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_3_2 = "Collection_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_3_2 = "Fields_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_3_2 = "Filter_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_3_2 = "Limit_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_3_2 = "Meta_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_3_2 = "Offset_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_3_2 = "Search_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_3_2 = "Sort_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_3_2 = "collection_Items_seed_3_2_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_3_2, Fields_Items_seed_3_2, Filter_Items_seed_3_2, Limit_Items_seed_3_2, Meta_Items_seed_3_2, Offset_Items_seed_3_2, Search_Items_seed_3_2, Sort_Items_seed_3_2, collection_Items_seed_3_2, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_3_3 = "Collection_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_3_3 = "Fields_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_3_3 = "Filter_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_3_3 = "Limit_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_3_3 = "Meta_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_3_3 = "Offset_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_3_3 = "Search_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_3_3 = "Sort_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_3_3 = "collection_Items_seed_3_3_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_3_3, Fields_Items_seed_3_3, Filter_Items_seed_3_3, Limit_Items_seed_3_3, Meta_Items_seed_3_3, Offset_Items_seed_3_3, Search_Items_seed_3_3, Sort_Items_seed_3_3, collection_Items_seed_3_3, { expectedResponseCodes: [200, 201, 204] });
+    let Collection_Items_seed_3_4 = "Collection_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Fields_Items_seed_3_4 = "Fields_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Filter_Items_seed_3_4 = "Filter_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Limit_Items_seed_3_4 = "Limit_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Meta_Items_seed_3_4 = "Meta_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Offset_Items_seed_3_4 = "Offset_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Search_Items_seed_3_4 = "Search_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Sort_Items_seed_3_4 = "Sort_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    let collection_Items_seed_3_4 = "collection_Items_seed_3_4_" + Math.floor(Math.random()*1000);
+    createItem(Collection_Items_seed_3_4, Fields_Items_seed_3_4, Filter_Items_seed_3_4, Limit_Items_seed_3_4, Meta_Items_seed_3_4, Offset_Items_seed_3_4, Search_Items_seed_3_4, Sort_Items_seed_3_4, collection_Items_seed_3_4, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_3_0 = "Meta_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_3_0 = "Offset_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_3_0 = "archive_app_filter_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_3_0 = "archive_field_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_3_0 = "archive_value_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_3_0 = "customers";
+    let display_template_Collections_seed_3_0 = "display_template_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_3_0 = [];
+    let hidden_Collections_seed_3_0 = true;
+    let icon_Collections_seed_3_0 = "icon_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_3_0 = "id_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_3_0 = {};
+    let note_Collections_seed_3_0 = "note_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_3_0 = true;
+    let sort_field_Collections_seed_3_0 = "sort_field_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_3_0 = "translation_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_3_0 = "unarchive_value_Collections_seed_3_0_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_3_0 = true;
+    createCollection(Meta_Collections_seed_3_0, Offset_Collections_seed_3_0, archive_app_filter_Collections_seed_3_0, archive_field_Collections_seed_3_0, archive_value_Collections_seed_3_0, collection_Collections_seed_3_0, display_template_Collections_seed_3_0, fields_Collections_seed_3_0, hidden_Collections_seed_3_0, icon_Collections_seed_3_0, id_Collections_seed_3_0, meta_Collections_seed_3_0, note_Collections_seed_3_0, singleton_Collections_seed_3_0, sort_field_Collections_seed_3_0, translation_Collections_seed_3_0, unarchive_value_Collections_seed_3_0, versioning_Collections_seed_3_0, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_3_1 = "Meta_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_3_1 = "Offset_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_3_1 = "archive_app_filter_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_3_1 = "archive_field_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_3_1 = "archive_value_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_3_1 = "customers";
+    let display_template_Collections_seed_3_1 = "display_template_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_3_1 = [];
+    let hidden_Collections_seed_3_1 = true;
+    let icon_Collections_seed_3_1 = "icon_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_3_1 = "id_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_3_1 = {};
+    let note_Collections_seed_3_1 = "note_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_3_1 = true;
+    let sort_field_Collections_seed_3_1 = "sort_field_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_3_1 = "translation_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_3_1 = "unarchive_value_Collections_seed_3_1_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_3_1 = true;
+    createCollection(Meta_Collections_seed_3_1, Offset_Collections_seed_3_1, archive_app_filter_Collections_seed_3_1, archive_field_Collections_seed_3_1, archive_value_Collections_seed_3_1, collection_Collections_seed_3_1, display_template_Collections_seed_3_1, fields_Collections_seed_3_1, hidden_Collections_seed_3_1, icon_Collections_seed_3_1, id_Collections_seed_3_1, meta_Collections_seed_3_1, note_Collections_seed_3_1, singleton_Collections_seed_3_1, sort_field_Collections_seed_3_1, translation_Collections_seed_3_1, unarchive_value_Collections_seed_3_1, versioning_Collections_seed_3_1, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_3_2 = "Meta_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_3_2 = "Offset_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_3_2 = "archive_app_filter_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_3_2 = "archive_field_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_3_2 = "archive_value_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_3_2 = "customers";
+    let display_template_Collections_seed_3_2 = "display_template_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_3_2 = [];
+    let hidden_Collections_seed_3_2 = true;
+    let icon_Collections_seed_3_2 = "icon_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_3_2 = "id_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_3_2 = {};
+    let note_Collections_seed_3_2 = "note_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_3_2 = true;
+    let sort_field_Collections_seed_3_2 = "sort_field_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_3_2 = "translation_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_3_2 = "unarchive_value_Collections_seed_3_2_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_3_2 = true;
+    createCollection(Meta_Collections_seed_3_2, Offset_Collections_seed_3_2, archive_app_filter_Collections_seed_3_2, archive_field_Collections_seed_3_2, archive_value_Collections_seed_3_2, collection_Collections_seed_3_2, display_template_Collections_seed_3_2, fields_Collections_seed_3_2, hidden_Collections_seed_3_2, icon_Collections_seed_3_2, id_Collections_seed_3_2, meta_Collections_seed_3_2, note_Collections_seed_3_2, singleton_Collections_seed_3_2, sort_field_Collections_seed_3_2, translation_Collections_seed_3_2, unarchive_value_Collections_seed_3_2, versioning_Collections_seed_3_2, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_3_3 = "Meta_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_3_3 = "Offset_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_3_3 = "archive_app_filter_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_3_3 = "archive_field_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_3_3 = "archive_value_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_3_3 = "customers";
+    let display_template_Collections_seed_3_3 = "display_template_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_3_3 = [];
+    let hidden_Collections_seed_3_3 = true;
+    let icon_Collections_seed_3_3 = "icon_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_3_3 = "id_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_3_3 = {};
+    let note_Collections_seed_3_3 = "note_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_3_3 = true;
+    let sort_field_Collections_seed_3_3 = "sort_field_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_3_3 = "translation_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_3_3 = "unarchive_value_Collections_seed_3_3_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_3_3 = true;
+    createCollection(Meta_Collections_seed_3_3, Offset_Collections_seed_3_3, archive_app_filter_Collections_seed_3_3, archive_field_Collections_seed_3_3, archive_value_Collections_seed_3_3, collection_Collections_seed_3_3, display_template_Collections_seed_3_3, fields_Collections_seed_3_3, hidden_Collections_seed_3_3, icon_Collections_seed_3_3, id_Collections_seed_3_3, meta_Collections_seed_3_3, note_Collections_seed_3_3, singleton_Collections_seed_3_3, sort_field_Collections_seed_3_3, translation_Collections_seed_3_3, unarchive_value_Collections_seed_3_3, versioning_Collections_seed_3_3, { expectedResponseCodes: [200, 201, 204] });
+    let Meta_Collections_seed_3_4 = "Meta_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let Offset_Collections_seed_3_4 = "Offset_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let archive_app_filter_Collections_seed_3_4 = "archive_app_filter_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let archive_field_Collections_seed_3_4 = "archive_field_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let archive_value_Collections_seed_3_4 = "archive_value_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let collection_Collections_seed_3_4 = "customers";
+    let display_template_Collections_seed_3_4 = "display_template_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let fields_Collections_seed_3_4 = [];
+    let hidden_Collections_seed_3_4 = true;
+    let icon_Collections_seed_3_4 = "icon_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let id_Collections_seed_3_4 = "id_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let meta_Collections_seed_3_4 = {};
+    let note_Collections_seed_3_4 = "note_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let singleton_Collections_seed_3_4 = true;
+    let sort_field_Collections_seed_3_4 = "sort_field_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let translation_Collections_seed_3_4 = "translation_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let unarchive_value_Collections_seed_3_4 = "unarchive_value_Collections_seed_3_4_" + Math.floor(Math.random()*1000);
+    let versioning_Collections_seed_3_4 = true;
+    createCollection(Meta_Collections_seed_3_4, Offset_Collections_seed_3_4, archive_app_filter_Collections_seed_3_4, archive_field_Collections_seed_3_4, archive_value_Collections_seed_3_4, collection_Collections_seed_3_4, display_template_Collections_seed_3_4, fields_Collections_seed_3_4, hidden_Collections_seed_3_4, icon_Collections_seed_3_4, id_Collections_seed_3_4, meta_Collections_seed_3_4, note_Collections_seed_3_4, singleton_Collections_seed_3_4, sort_field_Collections_seed_3_4, translation_Collections_seed_3_4, unarchive_value_Collections_seed_3_4, versioning_Collections_seed_3_4, { expectedResponseCodes: [200, 201, 204] });
+});
+// --- Hyper-Negative Story Version 1: Reactive State-Violation ---
+bthread("hyper:directus:negative_orchestration:1", function () {
+  bthread("Hyper_Neg_PostDelete_Users_1", function() {
+    let e = waitFor(matchAnyUsersDeleted());
+    let UsersDeadId = e.data.id || e.data.sku || e.data.cartId;
+    getMe(UsersDeadId);
+  });
+  bthread("Hyper_Neg_PostDelete_Items_1", function() {
+    let e = waitFor(matchAnyItemsDeleted());
+    let ItemsDeadId = e.data.id || e.data.sku || e.data.cartId;
+    getItems(ItemsDeadId);
+  });
+});
+// --- Hyper-Negative Story Version 2: Reactive State-Violation ---
+bthread("hyper:directus:negative_orchestration:2", function () {
+  bthread("Hyper_Neg_PostDelete_Users_2", function() {
+    let e = waitFor(matchAnyUsersDeleted());
+    let UsersDeadId = e.data.id || e.data.sku || e.data.cartId;
+    getMe(UsersDeadId);
+  });
+  bthread("Hyper_Neg_PostDelete_Items_2", function() {
+    let e = waitFor(matchAnyItemsDeleted());
+    let ItemsDeadId = e.data.id || e.data.sku || e.data.cartId;
+    getItems(ItemsDeadId);
+  });
+});
+// --- Hyper-Negative Story Version 3: Reactive State-Violation ---
+bthread("hyper:directus:negative_orchestration:3", function () {
+  bthread("Hyper_Neg_PostDelete_Users_3", function() {
+    let e = waitFor(matchAnyUsersDeleted());
+    let UsersDeadId = e.data.id || e.data.sku || e.data.cartId;
+    getMe(UsersDeadId);
+  });
+  bthread("Hyper_Neg_PostDelete_Items_3", function() {
+    let e = waitFor(matchAnyItemsDeleted());
+    let ItemsDeadId = e.data.id || e.data.sku || e.data.cartId;
+    getItems(ItemsDeadId);
+  });
 });
