@@ -1,0 +1,317 @@
+// Auto-generated NEGATIVE (Fuzzing) stories for Petstore
+//@provengo summon rest
+
+bthread("fuzz:Pet:additionalMetadata_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_additionalMetadata = ["NOT_A_STRING"];
+  verifyPetRejects(bad_additionalMetadata, api_key_valid, category_valid, file_valid, name_valid, petId_valid, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:api_key_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_api_key = ["NOT_A_STRING"];
+  verifyPetRejects(additionalMetadata_valid, bad_api_key, category_valid, file_valid, name_valid, petId_valid, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:category_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_category = ["NOT_A_STRING"];
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, bad_category, file_valid, name_valid, petId_valid, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:file_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_file = ["NOT_A_STRING"];
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, bad_file, name_valid, petId_valid, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:name_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_name = ["NOT_A_STRING"];
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, bad_name, petId_valid, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:petId_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_petId = "INVALID_STRING";
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, name_valid, bad_petId, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:photoUrls_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_photoUrls = "NOT_AN_ARRAY";
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, name_valid, petId_valid, bad_photoUrls, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:status_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_status = ["NOT_A_STRING"];
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, name_valid, petId_valid, photoUrls_valid, bad_status, tags_valid);
+});
+bthread("fuzz:Pet:tags_InvalidType", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let bad_tags = "NOT_AN_ARRAY";
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, name_valid, petId_valid, photoUrls_valid, status_valid, bad_tags);
+});
+bthread("fuzz:Pet:name_Missing", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let missing_name = undefined;
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, missing_name, petId_valid, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:petId_Missing", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let missing_petId = undefined;
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, name_valid, missing_petId, photoUrls_valid, status_valid, tags_valid);
+});
+bthread("fuzz:Pet:photoUrls_Missing", function () {
+  let additionalMetadata_valid = "additionalMetadata_valid_" + Math.floor(Math.random()*1000);
+  let api_key_valid = "api_key_valid_" + Math.floor(Math.random()*1000);
+  let category_valid = "category_valid_" + Math.floor(Math.random()*1000);
+  let file_valid = "file_valid_" + Math.floor(Math.random()*1000);
+  let name_valid = "doggie";
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let photoUrls_valid = [];
+  let status_valid = "active";
+  let tags_valid = [];
+  let missing_photoUrls = undefined;
+  verifyPetRejects(additionalMetadata_valid, api_key_valid, category_valid, file_valid, name_valid, petId_valid, missing_photoUrls, status_valid, tags_valid);
+});
+bthread("fuzz:Store:complete_InvalidType", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let bad_complete = "NOT_A_BOOL";
+  verifyStoreRejects(bad_complete, orderId_valid, petId_valid, quantity_valid, shipDate_valid, status_valid);
+});
+bthread("fuzz:Store:orderId_InvalidType", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let bad_orderId = "INVALID_STRING";
+  verifyStoreRejects(complete_valid, bad_orderId, petId_valid, quantity_valid, shipDate_valid, status_valid);
+});
+bthread("fuzz:Store:petId_InvalidType", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let bad_petId = "INVALID_STRING";
+  verifyStoreRejects(complete_valid, orderId_valid, bad_petId, quantity_valid, shipDate_valid, status_valid);
+});
+bthread("fuzz:Store:quantity_InvalidType", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let bad_quantity = "INVALID_STRING";
+  verifyStoreRejects(complete_valid, orderId_valid, petId_valid, bad_quantity, shipDate_valid, status_valid);
+});
+bthread("fuzz:Store:shipDate_InvalidType", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let bad_shipDate = ["NOT_A_STRING"];
+  verifyStoreRejects(complete_valid, orderId_valid, petId_valid, quantity_valid, bad_shipDate, status_valid);
+});
+bthread("fuzz:Store:status_InvalidType", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let bad_status = ["NOT_A_STRING"];
+  verifyStoreRejects(complete_valid, orderId_valid, petId_valid, quantity_valid, shipDate_valid, bad_status);
+});
+bthread("fuzz:Store:orderId_Missing", function () {
+  let complete_valid = true;
+  let orderId_valid = Math.floor(Math.random() * 1000);
+  let petId_valid = Math.floor(Math.random() * 1000);
+  let quantity_valid = Math.floor(Math.random() * 1000);
+  let shipDate_valid = "shipDate_valid_" + Math.floor(Math.random()*1000);
+  let status_valid = "active";
+  let missing_orderId = undefined;
+  verifyStoreRejects(complete_valid, missing_orderId, petId_valid, quantity_valid, shipDate_valid, status_valid);
+});
+bthread("fuzz:User:email_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_email = ["NOT_A_STRING"];
+  verifyUserRejects(bad_email, firstName_valid, lastName_valid, password_valid, phone_valid, userStatus_valid, username_valid);
+});
+bthread("fuzz:User:firstName_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_firstName = ["NOT_A_STRING"];
+  verifyUserRejects(email_valid, bad_firstName, lastName_valid, password_valid, phone_valid, userStatus_valid, username_valid);
+});
+bthread("fuzz:User:lastName_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_lastName = ["NOT_A_STRING"];
+  verifyUserRejects(email_valid, firstName_valid, bad_lastName, password_valid, phone_valid, userStatus_valid, username_valid);
+});
+bthread("fuzz:User:password_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_password = ["NOT_A_STRING"];
+  verifyUserRejects(email_valid, firstName_valid, lastName_valid, bad_password, phone_valid, userStatus_valid, username_valid);
+});
+bthread("fuzz:User:phone_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_phone = ["NOT_A_STRING"];
+  verifyUserRejects(email_valid, firstName_valid, lastName_valid, password_valid, bad_phone, userStatus_valid, username_valid);
+});
+bthread("fuzz:User:userStatus_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_userStatus = "INVALID_STRING";
+  verifyUserRejects(email_valid, firstName_valid, lastName_valid, password_valid, phone_valid, bad_userStatus, username_valid);
+});
+bthread("fuzz:User:username_InvalidType", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let bad_username = ["NOT_A_STRING"];
+  verifyUserRejects(email_valid, firstName_valid, lastName_valid, password_valid, phone_valid, userStatus_valid, bad_username);
+});
+bthread("fuzz:User:username_Missing", function () {
+  let email_valid = "john@email.com";
+  let firstName_valid = "John";
+  let lastName_valid = "James";
+  let password_valid = "12345";
+  let phone_valid = "12345";
+  let userStatus_valid = Math.floor(Math.random() * 1000);
+  let username_valid = "theUser";
+  let missing_username = undefined;
+  verifyUserRejects(email_valid, firstName_valid, lastName_valid, password_valid, phone_valid, userStatus_valid, missing_username);
+});

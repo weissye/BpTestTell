@@ -137,16 +137,22 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     return lines
 
 def _generate_js_matchers(name, ops, primary_key):
+    """
+    Standardized Matcher Generator:
+    Preserves casing to ensure compatibility with story-side calls.
+    """
     lines = []
-    safe_entity_name = sanitize_param(name).capitalize()
+    # ARCHITECTURAL RULE: Use the technical name directly to ensure character-perfect alignment.
+    # We remove .capitalize() which was lowercasing internal letters (e.g., TenantGroups -> Tenantgroups)
+    safe_entity_name = sanitize_param(name)
     
-    # 1. ADD MATCHER
+    # 1. ADD MATCHER (Generic)
     if "add" in ops:
         desc_tmpl = f"Create a new {name}"
-        if isinstance(ops["add"], dict): desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
+        if isinstance(ops["add"], dict): 
+            desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
         
-        regex_start = f"Done: Positive: {desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0]
-        if regex_start.endswith('"'): regex_start = regex_start[:-1]
+        regex_start = f"Done: Positive: {desc_tmpl}".split("{")[0].strip().rstrip('"')
         
         lines.append(f'function matchAny{safe_entity_name}Added() {{')
         lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{')
@@ -155,30 +161,31 @@ def _generate_js_matchers(name, ops, primary_key):
         lines.append('}')
         lines.append('')
 
-    # 2. DELETE MATCHER
-# 2. DELETE MATCHER
+    # 2. DELETE MATCHERS (Specific and Generic)
     if "delete" in ops:
-         del_desc_tmpl = ops["delete"].get("descriptionTemplate", f"Delete {name}")
-         del_regex_start = f"Done: Positive: {del_desc_tmpl.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}".split("{")[0].strip().rstrip('"')
-         
-         # FIX: Ensure the variable name in the () matches the one in the body
-         safe_pk = sanitize_param(primary_key)
-         
-         lines.append(f'function matchDeleted{safe_entity_name}({safe_pk}) {{')
-         lines.append(f'  return bp.EventSet("Deleted {name} " + {safe_pk}, function(e) {{')
-         lines.append(f'      return e.name.startsWith("{del_regex_start}") && e.name.includes({safe_pk});')
-         lines.append('  });')
-         lines.append('}')         
-         lines.append('')
-         
-         # --- ADDITIVE: Generic "Any Deleted" Matcher ---
-         lines.append(f'function matchAny{safe_entity_name}Deleted() {{')
-         lines.append(f'  return bp.EventSet("Any {name} Deleted", function(e) {{')
-         lines.append(f'      return e.name.startsWith("{del_regex_start}");')
-         lines.append('  });')
-         lines.append('}')         
-         lines.append('')
-         
+        del_desc_tmpl = f"Delete {name}"
+        if isinstance(ops["delete"], dict):
+            del_desc_tmpl = ops["delete"].get("descriptionTemplate", del_desc_tmpl)
+            
+        del_regex_start = f"Done: Positive: {del_desc_tmpl}".split("{")[0].strip().rstrip('"')
+        safe_pk = sanitize_param(primary_key)
+        
+        # Resource-specific matcher for blocking logic
+        lines.append(f'function matchDeleted{safe_entity_name}({safe_pk}) {{')
+        lines.append(f'  return bp.EventSet("Deleted {name} " + {safe_pk}, function(e) {{')
+        lines.append(f'      return e.name.startsWith("{del_regex_start}") && e.name.includes({safe_pk});')
+        lines.append('  });')
+        lines.append('}') 
+        lines.append('')
+        
+        # Generic matcher for hyper-story reactive threads
+        lines.append(f'function matchAny{safe_entity_name}Deleted() {{')
+        lines.append(f'  return bp.EventSet("Any {name} Deleted", function(e) {{')
+        lines.append(f'      return e.name.startsWith("{del_regex_start}");')
+        lines.append('  });')
+        lines.append('}')
+        lines.append('')
+        
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
