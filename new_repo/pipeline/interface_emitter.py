@@ -2,17 +2,6 @@ import re
 import json
 from pathlib import Path
 from urllib.parse import urlparse
-import random
-from typing import Dict, Any
-from new_repo.pipeline.emitter_utils import (
-    ensure_dir, sanitize_param, render_body_js, 
-    get_raw_spec, get_response_codes, collect_entity_params
-)
-
-import re
-import json
-from pathlib import Path
-from urllib.parse import urlparse
 from typing import Dict, Any
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
@@ -24,6 +13,50 @@ def _is_valid_js_identifier(name: str) -> bool:
     if not name or not isinstance(name, str): return False
     if "..." in name or "…" in name or name.strip() == "": return False
     return bool(re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', name))
+
+from urllib.parse import urlparse
+
+def _get_js_header(spec, raw_spec, sut_name):
+    """
+    Standardized JS Header: 
+    Extracts Base Path, Port, and Security Headers directly from the Spec.
+    """
+    base_url = spec.get("base_url", "http://localhost:8080")
+    parsed = urlparse(base_url)
+    
+    default_host = parsed.hostname or "localhost"
+    default_scheme = parsed.scheme or "http"
+    default_port = parsed.port or (80 if default_scheme == "http" else 443)
+    path_suffix = parsed.path.rstrip('/')
+    
+    # Ensure localhost uses http
+    if "localhost" in default_host or "127.0.0.1" in default_host: 
+        default_scheme = "http" 
+
+    # Automated Security/Auth Logic
+    security_schemes = raw_spec.get('components', {}).get('securitySchemes', {})
+    auth_header = ""
+    # Inject api_key if defined in spec or for known Petstore variants
+    if 'api_key' in security_schemes or sut_name in ["PetshopStore", "Petstore"]:
+        auth_header = ', "api_key": "special-key"'
+
+    return [
+        '//@provengo summon rest',
+        f'// === Auto-generated interfaces for {sut_name} ===',
+        f"var host = (typeof host !== 'undefined') ? host : '{default_host}';",
+        f"var port = (typeof port !== 'undefined') ? port : {default_port};",
+        f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';",
+        f"var path = '{path_suffix}';",
+        '',
+        f'const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", {{ headers: {{ "Content-Type": "application/json"{auth_header} }} }});',
+        '',
+        'const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };',
+        'function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }',
+        'function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }',
+        'function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }',
+        ''
+    ]
+
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
     path_tmpl = op_data.get("path", "")
@@ -189,50 +222,35 @@ def _generate_js_matchers(name, ops, primary_key):
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
+    """
+    Standardized Interface Emitter:
+    Automated environment detection with fidelity-preserved operations.
+    """
     sut_name_safe = sanitize_param(sut_name)
     file_path = out_dir / f"interfaces.{sut_name_safe}.js"
     ensure_dir(file_path.parent)
     
-    base_url = spec.get("base_url", "http://localhost:8080")
-    parsed = urlparse(base_url)
-    default_host = parsed.hostname or "localhost"
-    default_scheme = parsed.scheme or "http"
-    default_port = parsed.port or (80 if default_scheme == "http" else 443)
-    path_suffix = parsed.path.rstrip('/')
-    if "localhost" in default_host or "127.0.0.1" in default_host: default_scheme = "http" 
-    
     raw_spec = get_raw_spec(spec)
     entities = spec.get("entities", {})
     
-    lines = []
-    lines.append('//@provengo summon rest')
-    lines.append(f'// === Auto-generated interfaces for {sut_name} ===')
-    
-    lines.append(f"var host = (typeof host !== 'undefined') ? host : '{default_host}';")
-    lines.append(f"var port = (typeof port !== 'undefined') ? port : {default_port};")
-    lines.append(f"var protocol = (typeof protocol !== 'undefined') ? protocol : '{default_scheme}';")
-    lines.append(f"var path = '{path_suffix}';")
-    
-    auth_header = ""
-    if sut_name == "PetshopStore":
-        auth_header = ', "api_key": "special-key"'
+    # 1. Generate Header and Environment Initialization
+    lines = _get_js_header(spec, raw_spec, sut_name)
 
-    lines.append(f'const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", {{ headers: {{ "Content-Type": "application/json"{auth_header} }} }});')
-    
-    lines.append('const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };')
-    lines.append('function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }')
-    lines.append('function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }')
-    lines.append('function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }')
-
+    # 2. Iterate through Entities to generate Operations
     for name, ent in entities.items():
+        # FIDELITY FIX: Use sanitize_param(name) to match story calls
         safe_entity_name = sanitize_param(name)
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+        
+        # Clean parameter identifiers for JS safety
         sig_params = [p for p in sig_params if _is_valid_js_identifier(sanitize_param(p))]
         sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
         ops = ent.get("operations", {})
 
+        # Identify Specific and List operations
         item_get_op = ops.get("get")
-        if isinstance(item_get_op, list): item_get_op = item_get_op[0] if item_get_op else None
+        if isinstance(item_get_op, list): 
+            item_get_op = item_get_op[0] if item_get_op else None
         has_specific_get = item_get_op and "{" in item_get_op.get("path", "")
         
         list_op = None
@@ -241,14 +259,17 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 list_op = op
                 break
 
+        # Generate Standard API Operations
         for op_type, op_data in ops.items():
             if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
             if not op_data: continue
             if isinstance(op_data, list): op_data = op_data[0] if op_data else {}
+            
             fn_name = op_data.get("name", f"{op_type}{name}")
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
 
+        # Generate Advanced Operations (Collision & Fuzzing)
         if "add" in ops and isinstance(ops["add"], dict) and has_specific_get:
              lines.extend(_generate_js_operation(ops["add"], f"tryToAddExisting{safe_entity_name}", sig_params, primary_key, spec, raw_spec, "POST", [400, 409], f"Try Add Existing {name}"))
              lines.append('')
@@ -257,14 +278,13 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.extend(_generate_reject_operation(ops["add"], f"verify{safe_entity_name}Rejects", sig_params, primary_key))
              lines.append('')
 
+        # Generate Verification Logic (Existence/Absence)
         safe_pk = sanitize_param(primary_key)
         
         if has_specific_get:
             path_tmpl = item_get_op.get("path", "")
             safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
-            js_item_url = f'"{safe_path}"'
-            js_item_url = js_item_url.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "')
-            js_item_url = js_item_url.replace(' + ""', '')
+            js_item_url = f'"{safe_path}"'.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "').replace(' + ""', '')
             
             lines.append(f'function verify{safe_entity_name}Exists({safe_pk}) {{')
             lines.append(f'  var url = {js_item_url};')
@@ -289,9 +309,9 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{')
              lines.append(f'  let res = {list_fn_name}({sig_args_str});') 
              lines.append(f'  try {{')
-             lines.append(f'      let listData = res;') 
-             lines.append(f'      if (typeof listData === "string") listData = JSON.parse(listData);') 
-             lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
+             lines.append(f'      let listData = (typeof res === "string") ? JSON.parse(res) : res;') 
+             if not any(k in ["id", "data"] for k in ["id", "data"]): # Simplified check
+                 lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
              lines.append(f'      if (Array.isArray(listData)) {{')
              lines.append(f'          let found = listData.find(item => item.{primary_key} == {safe_pk} || item.id == {safe_pk});')
              lines.append(f'          if (found) pvg.success("{name} found in list");')
@@ -304,8 +324,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'function verify{safe_entity_name}Deleted({sig_args_str}) {{')
              lines.append(f'  let res = {list_fn_name}({sig_args_str});')
              lines.append(f'  try {{')
-             lines.append(f'      let listData = res;')
-             lines.append(f'      if (typeof listData === "string") listData = JSON.parse(listData);')
+             lines.append(f'      let listData = (typeof res === "string") ? JSON.parse(res) : res;')
              lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
              lines.append(f'      if (Array.isArray(listData)) {{')
              lines.append(f'          let found = listData.find(item => item.{primary_key} == {safe_pk} || item.id == {safe_pk});')
@@ -315,12 +334,12 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'  }} catch (err) {{ bp.log.warn("Failed to parse list response: " + err); }}')
              lines.append('}')
              lines.append('')
-             
              lines.append(f'function verify{safe_entity_name}DoesNotExist({sig_args_str}) {{ verify{safe_entity_name}Deleted({sig_args_str}); }}')
              lines.append('')
 
+        # 3. Append Operation Matchers
         lines.extend(_generate_js_matchers(name, ops, primary_key))
 
-    ensure_dir(out_dir)
+    # 4. Final file persistence
     (out_dir / f"interfaces.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-    print(f"   > 📄 Interfaces generated: {file_path}")
+    print(f"   > 📄 Final automated interfaces generated: {file_path}")

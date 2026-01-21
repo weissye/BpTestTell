@@ -108,6 +108,24 @@
             400
           ]
         },
+        "get": {
+          "name": "getPetById",
+          "descriptionTemplate": "Returns a single pet.",
+          "method": "GET",
+          "path": "/pet/{petId}",
+          "params": [
+            "petId"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "petId": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
+        },
         "delete": {
           "name": "deletePet",
           "descriptionTemplate": "Delete a pet.",
@@ -125,24 +143,6 @@
           "x-defined-response-codes": [
             200,
             400
-          ]
-        },
-        "get": {
-          "name": "getPetById",
-          "descriptionTemplate": "Returns a single pet.",
-          "method": "GET",
-          "path": "/pet/{petId}",
-          "params": [
-            "petId"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "petId": "integer"
-          },
-          "x-defined-response-codes": [
-            200,
-            400,
-            404
           ]
         },
         "updateWithForm": {
@@ -419,49 +419,70 @@
   "system_architecture": {
     "master_entities": [
       "Pet",
-      "Store",
       "User"
     ],
-    "personas": {
-      "PetManager": [
-        "Pet:add",
-        "Pet:update",
-        "Pet:list",
-        "Pet:listByTags",
-        "Pet:delete",
-        "Pet:get",
-        "Pet:updateWithForm",
-        "Pet:uploadImage"
-      ],
-      "StoreManager": [
-        "Store:list",
-        "Store:add",
-        "Store:delete",
-        "Store:get"
-      ],
-      "UserManager": [
-        "User:add",
-        "User:list",
-        "User:get",
-        "User:delete",
-        "User:update"
-      ]
-    },
-    "negative_patterns": [
+    "agent_viewpoints": [
       {
-        "type": "PostDelete",
-        "entity": "Pet",
-        "action": "Pet:delete"
+        "role": "PetCareManager",
+        "chain": [
+          "add",
+          "uploadImage",
+          "update",
+          "get"
+        ]
       },
       {
-        "type": "PostDelete",
-        "entity": "Store",
-        "action": "Store:delete"
+        "role": "StoreKeeper",
+        "chain": [
+          "add",
+          "list",
+          "get",
+          "delete"
+        ]
       },
       {
-        "type": "PostDelete",
-        "entity": "User",
-        "action": "User:delete"
+        "role": "UserAdmin",
+        "chain": [
+          "add",
+          "update",
+          "list",
+          "get"
+        ]
+      },
+      {
+        "role": "PetFinder",
+        "chain": [
+          "list",
+          "listByTags",
+          "get",
+          "updateWithForm"
+        ]
+      },
+      {
+        "role": "UserSupport",
+        "chain": [
+          "add",
+          "get",
+          "update",
+          "delete"
+        ]
+      }
+    ],
+    "vandal_conflicts": [
+      {
+        "target": "Pet",
+        "action": "delete",
+        "trigger_on": "add"
+      },
+      {
+        "target": "User",
+        "action": "delete",
+        "trigger_on": "add"
+      },
+      {
+        "target": "Pet",
+        "action": "update",
+        "trigger_on": "get"
       }
     ]
   },

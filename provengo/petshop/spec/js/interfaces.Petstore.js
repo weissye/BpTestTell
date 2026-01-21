@@ -1,118 +1,101 @@
 //@provengo summon rest
-// === Auto-generated interfaces for PetshopStore ===
+// === Auto-generated interfaces for Petstore ===
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8080;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 var path = '/v3';
+
 const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json", "api_key": "special-key" } });
+
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
+
 function addPet(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
-  var url = "/pet";
-  var reqDescription = "Add a new pet to the store. " + petId;
+  var url = "/pet"; var reqDescription = "Add a new pet to the store. " + petId;
   var body = {
-    "category": String(category),
-    "name": String(name),
+    "category": category,
+    "name": name,
     "photoUrls": photoUrls,
-    "status": String(status),
-    "tags": tags,
-};
+    "status": status,
+    "tags": tags
+  };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409, 422], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) });
-  }
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) }); }
   return res;
 }
 
 function updatePet(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
-  var url = "/pet";
-  var reqDescription = "Update an existing pet by Id. " + petId;
+  var url = "/pet"; var reqDescription = "Update an existing pet by Id. " + petId;
   var body = {
-    "category": String(category),
-    "name": String(name),
+    "category": category,
+    "name": name,
     "photoUrls": photoUrls,
-    "status": String(status),
-    "tags": tags,
-};
+    "status": status,
+    "tags": tags
+  };
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 422], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) });
-  }
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) }); }
   return res;
 }
 
 function findPetsByStatus() {
-  var url = "/pet/findByStatus";
-  var reqDescription = "Finds Pets by status. {petId}";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400] });
+  var url = "/pet/findByStatus"; var reqDescription = "Finds Pets by status. {petId}";
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400] });
+  return res;
 }
 
 function findPetsByTags() {
-  var url = "/pet/findByTags";
-  var reqDescription = "Finds Pets by tags. {petId}";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400] });
-}
-
-function deletePet(petId) {
-  var url = "/pet/" + petId;
-  var reqDescription = "Delete a pet. " + petId;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
+  var url = "/pet/findByTags"; var reqDescription = "Finds Pets by tags. {petId}";
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400] });
   return res;
 }
 
 function getPetById(petId) {
-  var url = "/pet/" + petId;
-  var reqDescription = "Returns a single pet. " + petId;
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+  var url = "/pet/" + petId; var reqDescription = "Returns a single pet. " + petId;
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+  return res;
+}
+
+function deletePet(petId) {
+  var url = "/pet/" + petId; var reqDescription = "Delete a pet. " + petId;
+  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400] });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
+  return res;
 }
 
 function updatePetWithForm(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
-  var url = "/pet/" + petId;
-  var reqDescription = "Updates a pet resource based on the form data. " + petId;
-  var body = {
-    "name": String(name),
-    "status": String(status),
-};
+  var url = "/pet/" + petId; var reqDescription = "Updates a pet resource based on the form data. " + petId;
+  var body = {};
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) });
-  }
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) }); }
   return res;
 }
 
 function uploadFile(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
-  var url = "/pet/" + petId + "/uploadImage";
-  var reqDescription = "Upload image of the pet. " + petId;
+  var url = "/pet/" + petId + "/uploadImage"; var reqDescription = "Upload image of the pet. " + petId;
   var body = {
-    "additionalMetadata": String(additionalMetadata),
-    "file": String(file),
-};
+    "file": file
+  };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404, 409], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) });
-  }
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"additionalMetadata": additionalMetadata, "api_key": api_key, "category": category, "file": file, "name": name, "petId": petId, "photoUrls": photoUrls, "status": status, "tags": tags}) }); }
   return res;
 }
 
 function tryToAddExistingPet(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
-  var url = "/pet";
-  var reqDescription = "Try Add Existing Pet " + petId;
+  var url = "/pet"; var reqDescription = "Try Add Existing Pet " + petId;
   var body = {
-    "category": String(category),
-    "name": String(name),
+    "category": category,
+    "name": name,
     "photoUrls": photoUrls,
-    "status": String(status),
-    "tags": tags,
-};
+    "status": status,
+    "tags": tags
+  };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
@@ -122,12 +105,16 @@ function verifyPetRejects(additionalMetadata, api_key, category, file, name, pet
   var url = "/pet";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
+    "additionalMetadata": additionalMetadata,
+    "api_key": api_key,
     "category": category,
+    "file": file,
     "name": name,
+    "petId": petId,
     "photoUrls": photoUrls,
     "status": status,
-    "tags": tags,
-};
+    "tags": tags
+  };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
@@ -161,56 +148,55 @@ function matchDeletedPet(petId) {
   });
 }
 
+function matchAnyPetDeleted() {
+  return bp.EventSet("Any Pet Deleted", function(e) {
+      return e.name.startsWith("Done: Positive: Delete a pet.");
+  });
+}
+
 function getInventory() {
-  var url = "/store/inventory";
-  var reqDescription = "Returns pet inventories by status. {orderId}";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+  var url = "/store/inventory"; var reqDescription = "Returns pet inventories by status. {orderId}";
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+  return res;
 }
 
 function placeOrder(complete, orderId, petId, quantity, shipDate, status) {
-  var url = "/store/order";
-  var reqDescription = "Place an order for a pet. " + orderId;
+  var url = "/store/order"; var reqDescription = "Place an order for a pet. " + orderId;
   var body = {
     "complete": complete,
     "petId": petId,
     "quantity": quantity,
-    "shipDate": String(shipDate),
-    "status": String(status),
-};
+    "shipDate": shipDate,
+    "status": status
+  };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 409, 422], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"complete": complete, "orderId": orderId, "petId": petId, "quantity": quantity, "shipDate": shipDate, "status": status}) });
-  }
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 422], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"complete": complete, "orderId": orderId, "petId": petId, "quantity": quantity, "shipDate": shipDate, "status": status}) }); }
   return res;
 }
 
 function deleteOrder(orderId) {
-  var url = "/store/order/" + orderId;
-  var reqDescription = "Delete purchase order by identifier. " + orderId;
+  var url = "/store/order/" + orderId; var reqDescription = "Delete purchase order by identifier. " + orderId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
   return res;
 }
 
 function getOrderById(orderId) {
-  var url = "/store/order/" + orderId;
-  var reqDescription = "Find purchase order by ID. " + orderId;
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+  var url = "/store/order/" + orderId; var reqDescription = "Find purchase order by ID. " + orderId;
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+  return res;
 }
 
 function tryToAddExistingStore(complete, orderId, petId, quantity, shipDate, status) {
-  var url = "/store/order";
-  var reqDescription = "Try Add Existing Store " + orderId;
+  var url = "/store/order"; var reqDescription = "Try Add Existing Store " + orderId;
   var body = {
     "complete": complete,
     "petId": petId,
     "quantity": quantity,
-    "shipDate": String(shipDate),
-    "status": String(status),
-};
+    "shipDate": shipDate,
+    "status": status
+  };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
@@ -221,11 +207,12 @@ function verifyStoreRejects(complete, orderId, petId, quantity, shipDate, status
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
     "complete": complete,
+    "orderId": orderId,
     "petId": petId,
     "quantity": quantity,
     "shipDate": shipDate,
-    "status": status,
-};
+    "status": status
+  };
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
@@ -259,80 +246,75 @@ function matchDeletedStore(orderId) {
   });
 }
 
+function matchAnyStoreDeleted() {
+  return bp.EventSet("Any Store Deleted", function(e) {
+      return e.name.startsWith("Done: Positive: Delete purchase order by identifier.");
+  });
+}
+
 function createUsersWithListInput(email, firstName, lastName, password, phone, userStatus, username) {
-  var url = "/user/createWithList";
-  var reqDescription = "Creates list of users with given input array. " + username;
+  var url = "/user/createWithList"; var reqDescription = "Creates list of users with given input array. " + username;
   var body = [{
-    "id": Math.floor(Math.random() * 10000),
-    "email": String(email),
-    "firstName": String(firstName),
-    "lastName": String(lastName),
-    "password": String(password),
-    "phone": String(phone),
+    "email": email,
+    "firstName": firstName,
+    "lastName": lastName,
+    "password": password,
+    "phone": phone,
     "userStatus": userStatus,
-    "username": String(username),
-}];
+    "username": username
+  }];
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 409], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"email": email, "firstName": firstName, "lastName": lastName, "password": password, "phone": phone, "userStatus": userStatus, "username": username}) });
-  }
+  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [200], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"email": email, "firstName": firstName, "lastName": lastName, "password": password, "phone": phone, "userStatus": userStatus, "username": username}) }); }
   return res;
 }
 
 function logoutUser() {
-  var url = "/user/logout";
-  var reqDescription = "Logs out current logged in user session. {username}";
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+  var url = "/user/logout"; var reqDescription = "Logs out current logged in user session. {username}";
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
+  return res;
 }
 
 function getUserByName(username) {
-  var url = "/user/" + username;
-  var reqDescription = "Get user by user name. " + username;
-  return svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
-}
-
-function updateUser(email, firstName, lastName, password, phone, userStatus, username) {
-  var url = "/user/" + username;
-  var reqDescription = "Update user resource. " + username;
-  var body = {
-    "email": String(email),
-    "firstName": String(firstName),
-    "lastName": String(lastName),
-    "password": String(password),
-    "phone": String(phone),
-    "userStatus": userStatus,
-};
-  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
-  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"email": email, "firstName": firstName, "lastName": lastName, "password": password, "phone": phone, "userStatus": userStatus, "username": username}) });
-  }
+  var url = "/user/" + username; var reqDescription = "Get user by user name. " + username;
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
   return res;
 }
 
 function deleteUser(username) {
-  var url = "/user/" + username;
-  var reqDescription = "Delete user resource. " + username;
+  var url = "/user/" + username; var reqDescription = "Delete user resource. " + username;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
-  if (res.status >= 200 && res.status < 300) {
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
-  }
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
+  return res;
+}
+
+function updateUser(email, firstName, lastName, password, phone, userStatus, username) {
+  var url = "/user/" + username; var reqDescription = "Update user resource. " + username;
+  var body = {
+    "email": email,
+    "firstName": firstName,
+    "lastName": lastName,
+    "password": password,
+    "phone": phone,
+    "userStatus": userStatus
+  };
+  bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
+  let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });
+  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"email": email, "firstName": firstName, "lastName": lastName, "password": password, "phone": phone, "userStatus": userStatus, "username": username}) }); }
   return res;
 }
 
 function tryToAddExistingUser(email, firstName, lastName, password, phone, userStatus, username) {
-  var url = "/user/createWithList";
-  var reqDescription = "Try Add Existing User " + username;
+  var url = "/user/createWithList"; var reqDescription = "Try Add Existing User " + username;
   var body = [{
-    "email": String(email),
-    "firstName": String(firstName),
-    "lastName": String(lastName),
-    "password": String(password),
-    "phone": String(phone),
+    "email": email,
+    "firstName": firstName,
+    "lastName": lastName,
+    "password": password,
+    "phone": phone,
     "userStatus": userStatus,
-    "username": String(username),
-}];
+    "username": username
+  }];
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
   let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
   return res;
@@ -348,8 +330,8 @@ function verifyUserRejects(email, firstName, lastName, password, phone, userStat
     "password": password,
     "phone": phone,
     "userStatus": userStatus,
-    "username": username,
-}];
+    "username": username
+  }];
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
@@ -380,5 +362,11 @@ function matchAnyUserAdded() {
 function matchDeletedUser(username) {
   return bp.EventSet("Deleted User " + username, function(e) {
       return e.name.startsWith("Done: Positive: Delete user resource.") && e.name.includes(username);
+  });
+}
+
+function matchAnyUserDeleted() {
+  return bp.EventSet("Any User Deleted", function(e) {
+      return e.name.startsWith("Done: Positive: Delete user resource.");
   });
 }

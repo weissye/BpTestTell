@@ -6,8 +6,6 @@ from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
     collect_entity_params
 )
-from repo_saved.scripts.readable.old.emit_hle_js import safe_name
-
 
 def _resolve_entity_name(name, entities):
     if not name: return None
@@ -410,70 +408,126 @@ def _get_required_fields(ent_name, raw_spec):
     schema = schemas.get(ent_name) or schemas.get(ent_name.rstrip('s'))
     if schema: return schema.get("required", [])
     return []
-
 def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
-    print(f"   > 😈 Generating negative tests for {sut_name}...")
+    print(f"   > 😈 Generating evil background agents for {sut_name}...")
     entities = spec.get("entities", {})
     raw_spec = get_raw_spec(spec)
-    lines = []
-    lines.append(f'// Auto-generated NEGATIVE (Fuzzing) stories for {sut_name}')
-    lines.append('//@provengo summon rest')
-    lines.append('')
-    base_id = 900
+    dependencies = spec.get("dependencies", {})
+    arch = spec.get("system_architecture", {})
+    masters = arch.get("master_entities", [])
+    
+    lines = [
+        f'// Auto-generated EVIL BACKGROUND AGENTS for {sut_name}',
+        '//@provengo summon rest',
+        ''
+    ]
+
     for name, ent in entities.items():
         if not ent["operations"].get("add"): continue
-        pk, params = collect_entity_params(name, ent, raw_spec)
         
-        # FIX: Use Merged Types here too
+        # Metadata Setup
+        safe_name = sanitize_param(name)
+        pk, params = collect_entity_params(name, ent, raw_spec)
         merged_types, merged_formats = _get_merged_param_types(ent)
         
-        query_params = ent["operations"]["add"].get("queryParams", [])
-        required_fields = _get_required_fields(name, raw_spec)
-        
-        # Pass merged types to generator
-        vars_code, valid_args, _, _, _ = _generate_entity_vars(
-            name, entities, raw_spec, "valid", str(base_id), {}, 
-            merged_types, merged_formats
-        )
-        
-        arg_map = dict(zip(params, valid_args))
+        # TYPE 1: The Persistent Stalker (Multi-Path Reactive Fuzzing)
+        # This agent discovers live IDs and attacks them with dirty payloads in a loop.
+        # It avoids false positives by calling the 'Rejects' interface.
+        lines.append(f'// Agent: Persistent Stalker for {name}')
+        lines.append(f'bthread("evil:fuzz:{safe_name}:Stalker", function () {{')
+        lines.append('  while (true) {')
+        lines.append(f'    // Path 1: Discovery (Stalking live IDs)')
+        lines.append(f'    let e = waitFor(matchAny{safe_name}Added());')
+        lines.append(f'    let liveId = e.data.{sanitize_param(pk)} || e.data.id || e.data.petId;')
+        lines.append('')
+        lines.append('    // Path 2: Sequential Corruption (Hitting live ID with dirty payloads)')
         for p in params:
-            if p in query_params: continue
-            if p not in merged_types and p != "id": continue
+            if p == pk: continue
             t = merged_types.get(p, "string").lower()
             
-            # Stronger invalid values to force server rejection (retaining previous fix)
-            if t in ["integer", "number"]: bad_value = '"INVALID_STRING"'
-            elif t == "boolean": bad_value = '"NOT_A_BOOL"'
-            elif t == "string": bad_value = '["NOT_A_STRING"]' 
-            elif t == "array": bad_value = '"NOT_AN_ARRAY"'
-            elif t == "object": bad_value = '12345'
-            else: bad_value = '123456' 
-            
-            story_name = f"fuzz:{name}:{sanitize_param(p)}_InvalidType"
-            lines.append(f'bthread("{story_name}", function () {{')
-            lines.extend(vars_code)
+            # Select evil payloads based on type to trigger validation or logic crashes
+            if t in ["integer", "number"]: bad_val = '"INVALID_STRING"'
+            elif t == "boolean": bad_val = '"NOT_A_BOOL"'
+            elif t == "string": bad_val = '["NOT_A_STRING_ARRAY"]'
+            elif t == "array": bad_val = '"NOT_AN_ARRAY"'
+            else: bad_val = '666'
+
+            # Constructing the malicious call using valid data for everything but the fuzzed field
             call_args = []
             for arg_p in params:
-                if arg_p == p: lines.append(f'  let bad_{sanitize_param(p)} = {bad_value};'); call_args.append(f'bad_{sanitize_param(p)}')
-                else: call_args.append(arg_map[arg_p])
-            lines.append(f'  verify{sanitize_param(name)}Rejects({", ".join(call_args)});')
-            lines.append('});')
-        for p in params:
-            if p in query_params: continue
-            if p in required_fields or p == pk:
-                story_name = f"fuzz:{name}:{sanitize_param(p)}_Missing"
-                lines.append(f'bthread("{story_name}", function () {{')
-                lines.extend(vars_code)
-                call_args = []
-                for arg_p in params:
-                    if arg_p == p: lines.append(f'  let missing_{sanitize_param(p)} = undefined;'); call_args.append(f'missing_{sanitize_param(p)}')
-                    else: call_args.append(arg_map[arg_p])
-                lines.append(f'  verify{sanitize_param(name)}Rejects({", ".join(call_args)});')
+                if arg_p == p: call_args.append(bad_val)
+                elif arg_p == pk: call_args.append("liveId")
+                else: 
+                    # Use type-appropriate valid placeholders to isolate the error to one field
+                    p_t = merged_types.get(arg_p, "string").lower()
+                    if p_t in ["integer", "number"]: call_args.append("101")
+                    elif p_t == "boolean": call_args.append("true")
+                    elif p_t == "array": call_args.append("[]")
+                    else: call_args.append(f'"{arg_p}_valid"')
+            
+            lines.append(f'    // Step: Fuzzing {p}')
+            lines.append(f'    verify{safe_name}Rejects({", ".join(call_args)});')
+        
+        lines.append('  }')
+        lines.append('});')
+        lines.append('')
+
+        # TYPE 2: The Collision Saboteur (Concurrency Stress)
+        # Targeted at Master Entities to trigger database-level crashes (500s)
+        if name in masters:
+            lines.append(f'// Agent: Identity Collision Saboteur for {name}')
+            for i in range(1, 4): # 3-Copy Redundancy for write-contention
+                lines.append(f'bthread("evil:collision:{safe_name}:Copy{i}", function () {{')
+                lines.append(f'  let staticKey = "STRESS_COLLISION_KEY";')
+                
+                # Create arguments where the unique key is static across all copies
+                collision_args = []
+                for p in params:
+                    p_t = merged_types.get(p, "string").lower()
+                    if p == pk or p.lower() == "username" or p.lower() == "email": 
+                        collision_args.append("staticKey")
+                    elif p_t in ["integer", "number"]: collision_args.append("999")
+                    elif p_t == "boolean": collision_args.append("true")
+                    elif p_t == "array": collision_args.append("[]")
+                    else: collision_args.append(f'"{p}_val"')
+
+                lines.append(f'  while(true) {{')
+                lines.append('    // Path: Simultaneous Write Collision')
+                # Use the 'Rejects' interface to avoid failing on the expected 409/400/500
+                lines.append(f'    verify{safe_name}Rejects({", ".join(collision_args)});')
+                lines.append('  }')
                 lines.append('});')
-        base_id += 50
+                lines.append('')
+
+    # TYPE 3: The Relational Orphan-Maker (Cross-Path Sabotage)
+    # Dynamically targets any entity with a parent dependency to trigger 500s
+    for child, parents in dependencies.items():
+        for parent in parents:
+            safe_child = sanitize_param(child)
+            safe_parent = sanitize_param(parent)
+            parent_del_op = entities.get(parent, {}).get("operations", {}).get("delete", {}).get("name", f"delete{parent}")
+
+            lines.append(f'// Agent: Orphan-Maker ({child} -> {parent})')
+            lines.append(f'bthread("evil:relational:OrphanMaker_{safe_child}", function() {{')
+            lines.append('  while(true) {')
+            lines.append(f'    // Path 1: Dependency Interception')
+            lines.append(f'    let e = waitFor(matchAny{safe_child}Added());')
+            lines.append(f'    let pId = e.data.{safe_parent}Id || e.data.id;')
+            lines.append('')
+            lines.append(f'    // Path 2: Parent Erasure (Breaking Integrity)')
+            lines.append(f'    {sanitize_param(parent_del_op)}(pId);')
+            lines.append('')
+            lines.append(f'    // Path 3: Verification of Chaos')
+            lines.append(f'    // Try to interact with the orphan to trigger a backend join-crash')
+            lines.append(f'    let childId = e.data.{sanitize_param(pk)} || e.data.id;')
+            lines.append(f'    get{safe_child}ById(childId);')
+            lines.append('  }')
+            lines.append('});')
+            lines.append('')
+
     ensure_dir(out_dir)
     (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
+        
     
 # --- ADDITIVE: Robust Hyper-Orchestration Emitter ---
 
@@ -483,89 +537,113 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
     entities = spec.get("entities", {})
     raw_spec = spec.get("original_spec", {})
     arch = spec.get("system_architecture", {})
-    
-    masters = [m for m in [_resolve_entity_name(n, entities) for n in arch.get("master_entities", [])] if m]
-    personas = arch.get("personas", {})
-    
-    output_lines = []
-    for iteration in range(1, 4):
-        lines = [f'// --- Hyper-Story Version {iteration}: Global Coordination for {sut_name} ---']
-        lines.append(f'bthread("hyper:{sut_name}:orchestration:{iteration}", function () {{')
-        
-        for p_name, p_actions in personas.items():
-            lines.append(f'  bthread("Persona_{p_name}_{iteration}", function() {{')
-            has_activity = False
-            for m in masters:
-                safe_m = sanitize_param(m)
-                p_id_var = f"{sanitize_param(m)}SharedId"
-                lines.append(f'    let event_{m} = waitFor(matchAny{safe_m}Added());')
-                lines.append(f'    let {p_id_var} = event_{m}.data.id || event_{m}.data.sku || event_{m}.data.cartId;')
-                
-                ent_ops = entities[m].get("operations", {})
-                for action_key in p_actions[:2]:
-                    op_data = ent_ops.get(action_key.lower()) or ent_ops.get("update") or ent_ops.get("get")
-                    if not op_data and ent_ops:
-                        op_data = list(ent_ops.values())[0] 
-                    if op_data:
-                        lines.append(f'    {sanitize_param(op_data["name"])}({p_id_var});')
-                        has_activity = True
-            if not has_activity: lines.append('    // Note: Persona skip')
-            lines.append('  });') 
+    agents = arch.get("agent_viewpoints", [])[:6]
+    masters = arch.get("master_entities", [])
+    primary_master = masters[0] if masters else "Pet"
 
-        lines.append('\n  // Seeding Phase')
-        for m in masters:
-            add_op = entities[m]["operations"].get("add")
-            if not add_op: continue
-            m_types, m_formats = _get_merged_param_types(entities[m])
-            for i in range(5):
-                unique_prefix = f"{sanitize_param(m)}_seed_{iteration}_{i}"
-                # SEEDING: Generate full variable set for the entity
-                v_code, args, _, _, _ = _generate_entity_vars(m, entities, raw_spec, unique_prefix, str(i), {}, m_types, m_formats)
-                for v_line in v_code: lines.append("    " + v_line.strip())
+    output_lines = [f'// --- PHASE 1: GLOBAL HYPER-SEEDING for {sut_name} ---']
+    
+    # Global Seeder (Phase 1)
+    output_lines.append(f'bthread("hyper:{sut_name}:GlobalSeeder", function() {{')
+    output_lines.append('  bp.log.info("Seeding system for hyper-coordinated testing...");')
+    for m in masters:
+        add_op = entities[m]["operations"].get("add")
+        if not add_op: continue
+        m_types, m_formats = _get_merged_param_types(entities[m])
+        for i in range(10):
+            unique_prefix = f"{sanitize_param(m)}_init_{i}"
+            v_code, args, _, _, _ = _generate_entity_vars(m, entities, raw_spec, unique_prefix, str(i), {}, m_types, m_formats)
+            for v_line in v_code: output_lines.append("    " + v_line.strip())
+            # FIX: Use technical name (e.g., addPet)
+            fn_name = add_op.get("name", f"add{m}")
+            output_lines.append(f'    {sanitize_param(fn_name)}({", ".join(args)}, {{ expectedResponseCodes: [200, 201, 204] }});')
+    output_lines.append('  bp.sync({ request: bp.Event("Done: Hyper_Seeding_Complete") });')
+    output_lines.append('});\n')
+
+    # Constellation Phase (Phase 2) - 3 Copies
+    for iteration in range(1, 4):
+        output_lines.append(f'// --- Hyper-Story Constellation Copy {iteration} ---')
+        for agent in agents:
+            role = agent.get("role", "GeneralAgent")
+            chain = agent.get("chain", [])
+            output_lines.append(f'bthread("hyper:{sut_name}:copy{iteration}:{role}", function() {{')
+            output_lines.append('  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));')
+            output_lines.append('  while(true) {')
+            
+            # FIX: Resolve IDs and call technical function names
+            for idx, op_id in enumerate(chain[:5]):
+                # Determine which operation to call
+                op_data = entities[primary_master]["operations"].get(op_id)
+                if not op_data: continue
                 
-                call_args = ", ".join(args)
-                comma_str = ", " if call_args else ""
-                fn_name = sanitize_param(add_op.get("name", f"create{m}"))
+                technical_fn = op_data.get("name", op_id)
                 
-                # FIX: Align expected codes [200, 201, 204] with lifecycle stories
-                lines.append(f'    {fn_name}({call_args}{comma_str}{{ expectedResponseCodes: [200, 201, 204] }});')
-        
-        lines.append('});')
-        output_lines.append("\n".join(lines))
+                if idx == 0:
+                    output_lines.append(f'    let e_{idx} = waitFor(matchAny{sanitize_param(primary_master)}Added());')
+                    output_lines.append(f'    let activeId = e_{idx}.data.id || e_{idx}.data.{sanitize_param(primary_master)}Id;')
+                
+                output_lines.append(f'    // Chain step {idx}: {op_id} -> {technical_fn}')
+                output_lines.append(f'    {sanitize_param(technical_fn)}(activeId);')
+            
+            output_lines.append('  }')
+            output_lines.append('});')
     return "\n".join(output_lines)
 
 def _generate_hyper_negative_stories(spec, sut_name):
     entities = spec.get("entities", {})
     arch = spec.get("system_architecture", {})
-    patterns = arch.get("negative_patterns", [])
+    dependencies = spec.get("dependencies", {})
+    conflicts = arch.get("vandal_conflicts", [])
     output_lines = []
-    for iteration in range(1, 4):
-        lines = [f'// --- Hyper-Negative Story Version {iteration}: Reactive State-Violation ---']
-        lines.append(f'bthread("hyper:{sut_name}:negative_orchestration:{iteration}", function () {{')
-        for pat in patterns:
-            m = _resolve_entity_name(pat.get("entity"), entities)
-            if not m: continue
-            
-            action_key = pat.get("action", "get")
-            # FIX: Remove .capitalize() here
-            safe_m = sanitize_param(m)
-            
-            # Debug print to verify alignment
-            print(f"   [DEBUG] Generating Hyper-Negative call for: {safe_m}")
 
-            ent_ops = entities[m].get("operations", {})
-            op_data = ent_ops.get(action_key.lower()) or ent_ops.get("get") or ent_ops.get("update")
-            
-            if op_data:
-                fn_name = sanitize_param(op_data.get("name"))
-                if pat.get("type") == "PostDelete":
-                    lines.append(f'  bthread("Hyper_Neg_PostDelete_{m}_{iteration}", function() {{')
-                    lines.append(f'    let e = waitFor(matchAny{m}Deleted());')
-                    dead_id_var = f"{sanitize_param(m)}DeadId"
-                    lines.append(f'    let {dead_id_var} = e.data.id || e.data.sku || e.data.cartId;')
-                    lines.append(f'    {fn_name}({dead_id_var});')
-                    lines.append('  });')
+    for iteration in range(1, 4):
+        output_lines.append(f'// --- EVIL COORDINATED AGENTS for {sut_name} (Copy {iteration}) ---')
         
-        lines.append('});')
-        output_lines.append("\n".join(lines))
+        # AGENT: The Saboteur (Race-Condition Agent)
+        for conflict in conflicts:
+            target = conflict.get("target")
+            action_key = conflict.get("action") # e.g., "delete"
+            
+            if target in entities:
+                # FIX: Resolve logical action to technical name (e.g., delete -> deletePet)
+                op_data = entities[target]["operations"].get(action_key)
+                if not op_data: continue
+                technical_fn = op_data.get("name", action_key)
+                get_fn = entities[target]["operations"].get("get", {}).get("name", f"get{target}ById")
+                
+                safe_target = sanitize_param(target)
+                output_lines.append(f'bthread("hyper:evil:copy{iteration}:Saboteur_{safe_target}", function() {{')
+                output_lines.append(f'  while(true) {{')
+                output_lines.append(f'    let e = waitFor(matchAny{safe_target}Added());')
+                output_lines.append(f'    let targetId = e.data.id || e.data.{safe_target}Id;')
+                output_lines.append(f'    // EVIL: Execute {technical_fn} while positive agents are active')
+                output_lines.append(f'    {sanitize_param(technical_fn)}(targetId);')
+                output_lines.append(f'    // Verification of Chaos: Trigger 500 on dead resource')
+                output_lines.append(f'    {sanitize_param(get_fn)}(targetId);')
+                output_lines.append('  }')
+                output_lines.append('});')
+
+        # AGENT: The Orphan-Maker (Relational Corruption)
+        for child, parents in dependencies.items():
+            for parent in parents:
+                if child not in entities or parent not in entities: continue
+                safe_child = sanitize_param(child)
+                safe_parent = sanitize_param(parent)
+                
+                # FIX: Resolve technical names for parent-deletion and child-interaction
+                parent_del_op = entities[parent]["operations"].get("delete", {}).get("name", f"delete{parent}")
+                child_get_op = entities[child]["operations"].get("get", {}).get("name", f"get{child}")
+
+                output_lines.append(f'bthread("hyper:evil:copy{iteration}:OrphanMaker_{safe_child}", function() {{')
+                output_lines.append('  while(true) {')
+                output_lines.append(f'    let e = waitFor(matchAny{safe_child}Added());')
+                output_lines.append(f'    let pId = e.data.{safe_parent}Id || e.data.id;')
+                output_lines.append(f'    // Path 2: Parent Erasure (Breaking Integrity)')
+                output_lines.append(f'    {sanitize_param(parent_del_op)}(pId);')
+                output_lines.append(f'    // Path 3: Child Sabotage (Triggering 500 Join Error)')
+                output_lines.append(f'    let childId = e.data.id || e.data.{safe_child}Id;')
+                output_lines.append(f'    {sanitize_param(child_get_op)}(childId);')
+                output_lines.append('  }')
+                output_lines.append('});')
+                
     return "\n".join(output_lines)

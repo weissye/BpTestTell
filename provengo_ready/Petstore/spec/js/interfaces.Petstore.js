@@ -4,11 +4,14 @@ var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8000;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 var path = '/api/v3';
-const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json" } });
+
+const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json", "api_key": "special-key" } });
+
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
 function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
+
 function addPet(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
   var url = "/pet"; var reqDescription = "Add a new pet to the store. " + petId;
   var body = {
@@ -51,16 +54,16 @@ function findPetsByTags() {
   return res;
 }
 
+function getPetById(petId) {
+  var url = "/pet/" + petId; var reqDescription = "Returns a single pet. " + petId;
+  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
+  return res;
+}
+
 function deletePet(petId) {
   var url = "/pet/" + petId; var reqDescription = "Delete a pet. " + petId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400] });
   if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
-  return res;
-}
-
-function getPetById(petId) {
-  var url = "/pet/" + petId; var reqDescription = "Returns a single pet. " + petId;
-  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
   return res;
 }
 

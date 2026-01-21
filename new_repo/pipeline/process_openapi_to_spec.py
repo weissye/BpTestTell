@@ -71,31 +71,25 @@ Output JSON: {"EntityName": true/false}
 # process_openapi_to_spec.py
 
 ARCHITECTURE_PROMPT = """
-Analyze the following API Entities and Operations Summary:
-{summary}
+Analyze the API Entities and Operations: {summary}
 
-Your task is to identify the 'Master Entities' and 'Actor Personas' to create hyper-coordinated stories.
-
+Your task is to design a 'Hyper-Coordinated Constellation'.
 STRICT RULES:
-1. **Master Entities**: Identify core resources. You MUST use the exact keys found in the 'entities' dictionary above (e.g., use 'catalogProductRepositoryV1', NOT 'Product').
-2. **Actor Personas**: Group operations by the 'Tag' or logical user role. 
-3. **Persona Actions**: Use the exact 'operationId' or 'name' from the summary. 
-4. **Action Format**: Every action in a persona's list MUST follow this format: "EntityKey:OperationName" (e.g., "catalogProductRepositoryV1:save").
+1. Master Entities: Identify 2-3 core resources. You MUST use the exact technical keys found in the 'entities' dictionary (e.g., 'catalogProductV1' not 'Product').
+2. Agent Viewpoints: Define 3-6 'Agents' (e.g. InventoryDirector, SalesBot).
+3. Long-Chain Logic: For each agent, list a sequence of 4-5 'operationId's that represent a full lifecycle (e.g. Add -> Upload -> Update -> Get).
+4. Conflict Matrix: Identify 'Vandal' actions where a DELETE or UPDATE should happen during another agent's chain to trigger a 500 error.
 
-Output JSON Structure:
-{{
+Example JSON structure (replace values with data from summary):
+{
   "master_entities": ["ExactEntityKey1", "ExactEntityKey2"],
-  "personas": {{
-    "PersonaName": ["EntityKey:OperationName", "EntityKey:OperationName"]
-  }},
-  "negative_patterns": [
-    {{
-      "type": "PostDelete", 
-      "entity": "ExactEntityKey1", 
-      "action": "EntityKey:OperationName"
-    }}
+  "agent_viewpoints": [
+    { "role": "RoleName", "chain": ["opId1", "opId2", "opId3", "opId4"] }
+  ],
+  "vandal_conflicts": [
+    { "target": "ExactEntityKey1", "action": "deleteOpId", "trigger_on": "addOpId" }
   ]
-}}
+}
 """
 
 # --- UTILS ---
@@ -647,7 +641,16 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
     if not validate_extraction(all_entities):
         all_entities = manual_fallback_extraction(raw_spec)
 
-    # 2. Patching Phase
+    # 2. Update the fallback dictionary
+    try:
+        arch_res = client.chat.completions.create(...)
+        system_architecture = json.loads(arch_res.choices[0].message.content)
+    except Exception as e:
+        print(f"   ⚠️  Architecture analysis failed: {e}")
+        # Updated to match the new Hyper structure
+        system_architecture = {"master_entities": [], "agent_viewpoints": [], "vandal_conflicts": []}
+    
+    # 3. Patching Phase
     patch_extract_all_types_from_schema(all_entities, raw_spec)
     patch_ensure_required_fields(all_entities, raw_spec) 
     patch_link_orphaned_operations(all_entities, raw_spec)
@@ -702,8 +705,8 @@ def process_openapi(openapi_path: Path, sut_name: str, force: bool = False) -> D
         system_architecture = json.loads(arch_res.choices[0].message.content)
     except Exception as e:
         print(f"   ⚠️  Architecture analysis failed: {e}")
-        system_architecture = {"master_entities": [], "personas": {}, "negative_patterns": []}
-
+        # system_architecture = {"master_entities": [], "personas": {}, "negative_patterns": []}
+        system_architecture = {"master_entities": [], "agent_viewpoints": [], "vandal_conflicts": []}     
     # Update context to include architecture
     context = {
         "sut_name": sut_name,
