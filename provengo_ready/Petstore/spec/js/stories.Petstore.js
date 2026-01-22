@@ -145,7 +145,9 @@ bthread("crud:Pet:linear:1", function () {
   let tags_Pet_upd_100 = [];
   updatePet(additionalMetadata_Pet_upd_100, api_key_Pet_upd_100, category_Pet_upd_100, file_Pet_upd_100, name_Pet_upd_100, petId_Pet_upd_100, photoUrls_Pet_upd_100, status_Pet_upd_100, tags_Pet_upd_100, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Pet to prevent foreign key errors
+  // -> Deleting Parent Pet (Intent Race)
+  deletePet(petId_Pet_100);
+
 });
 
 // Story: crud:Store:linear:1
@@ -164,8 +166,9 @@ bthread("crud:Store:linear:1", function () {
   let status_Store_110 = "active";
   placeOrder(complete_Store_110, orderId_Store_110, petId_Store_110, quantity_Store_110, shipDate_Store_110, status_Store_110, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Store
-  deleteOrder(orderId_Store_110, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Leaf Store (Standard)
+  deleteOrder(orderId_Store_110);
+  verifyStoreDoesNotExist(orderId_Store_110);
 
 });
 
@@ -191,8 +194,9 @@ bthread("crud:User:linear:1", function () {
   let username_User_upd_120 = username_User_120;
   updateUser(email_User_upd_120, firstName_User_upd_120, lastName_User_upd_120, password_User_upd_120, phone_User_upd_120, userStatus_User_upd_120, username_User_upd_120, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting User
-  deleteUser(username_User_120, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Leaf User (Standard)
+  deleteUser(username_User_120);
+  verifyUserDoesNotExist(username_User_120);
 
 });
 
@@ -222,7 +226,9 @@ bthread("crud:Pet:linear:2", function () {
   let tags_Pet_upd_130 = [];
   updatePet(additionalMetadata_Pet_upd_130, api_key_Pet_upd_130, category_Pet_upd_130, file_Pet_upd_130, name_Pet_upd_130, petId_Pet_upd_130, photoUrls_Pet_upd_130, status_Pet_upd_130, tags_Pet_upd_130, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Pet to prevent foreign key errors
+  // -> Deleting Parent Pet (Intent Race)
+  deletePet(petId_Pet_130);
+
 });
 
 // Story: crud:Store:linear:2
@@ -241,8 +247,9 @@ bthread("crud:Store:linear:2", function () {
   let status_Store_140 = "active";
   placeOrder(complete_Store_140, orderId_Store_140, petId_Store_140, quantity_Store_140, shipDate_Store_140, status_Store_140, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Store
-  deleteOrder(orderId_Store_140, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Leaf Store (Standard)
+  deleteOrder(orderId_Store_140);
+  verifyStoreDoesNotExist(orderId_Store_140);
 
 });
 
@@ -268,8 +275,9 @@ bthread("crud:User:linear:2", function () {
   let username_User_upd_150 = username_User_150;
   updateUser(email_User_upd_150, firstName_User_upd_150, lastName_User_upd_150, password_User_upd_150, phone_User_upd_150, userStatus_User_upd_150, username_User_upd_150, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting User
-  deleteUser(username_User_150, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Leaf User (Standard)
+  deleteUser(username_User_150);
+  verifyUserDoesNotExist(username_User_150);
 
 });
 
@@ -299,7 +307,9 @@ bthread("crud:Pet:linear:3", function () {
   let tags_Pet_upd_160 = [];
   updatePet(additionalMetadata_Pet_upd_160, api_key_Pet_upd_160, category_Pet_upd_160, file_Pet_upd_160, name_Pet_upd_160, petId_Pet_upd_160, photoUrls_Pet_upd_160, status_Pet_upd_160, tags_Pet_upd_160, { expectedResponseCodes: [200, 201, 204] });
 
-  // Skip delete for Pet to prevent foreign key errors
+  // -> Deleting Parent Pet (Intent Race)
+  deletePet(petId_Pet_160);
+
 });
 
 // Story: crud:Store:linear:3
@@ -318,8 +328,9 @@ bthread("crud:Store:linear:3", function () {
   let status_Store_170 = "active";
   placeOrder(complete_Store_170, orderId_Store_170, petId_Store_170, quantity_Store_170, shipDate_Store_170, status_Store_170, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting Store
-  deleteOrder(orderId_Store_170, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Leaf Store (Standard)
+  deleteOrder(orderId_Store_170);
+  verifyStoreDoesNotExist(orderId_Store_170);
 
 });
 
@@ -345,8 +356,9 @@ bthread("crud:User:linear:3", function () {
   let username_User_upd_180 = username_User_180;
   updateUser(email_User_upd_180, firstName_User_upd_180, lastName_User_upd_180, password_User_upd_180, phone_User_upd_180, userStatus_User_upd_180, username_User_upd_180, { expectedResponseCodes: [200, 201, 204] });
 
-  // -> Deleting User
-  deleteUser(username_User_180, { expectedResponseCodes: [200, 201, 204] });
+  // -> Deleting Leaf User (Standard)
+  deleteUser(username_User_180);
+  verifyUserDoesNotExist(username_User_180);
 
 });
 

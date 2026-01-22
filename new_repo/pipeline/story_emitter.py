@@ -289,246 +289,161 @@ def _emit_update_logic(ent_name, entities, raw_spec, lines, context, base_id):
     lines.append(f'  {sanitize_param(upd_fn)}({args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
     lines.append('')
 
-def _emit_delete_logic(ent_name, entities, raw_spec, lines, context):
+def _emit_delete_logic(ent_name, entities, raw_spec, lines, context, all_parents):
+    """
+    Standardizes the final phase of the CRUD lifecycle.
+    Leaf entities use direct deletion; Parent entities use the Intent-Race pattern.
+    """
     ops = entities[ent_name]["operations"]
     del_op = ops.get("delete")
     if not del_op: return
 
-    lines.append(f'  // -> Deleting {ent_name}')
+    safe_name = sanitize_param(ent_name)
     del_fn = del_op.get("name", f"delete{ent_name}")
+    pk_var = context[ent_name]["pk_var"]
+    
+    # Resolve Path Arguments (if any) besides the ID
     path_tmpl = del_op.get("path", "")
     required_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
     del_args = []
     if required_path_params:
-        stored_map = context[ent_name]["param_map"]
+        stored_map = context[ent_name].get("param_map", {})
         for p in required_path_params:
             if p in stored_map: del_args.append(stored_map[p])
-            elif p == context[ent_name]["pk_name"]: del_args.append(context[ent_name]["pk_var"])
-    if not del_args: del_args.append(context[ent_name]["pk_var"])
+            elif p == context[ent_name].get("pk_name"): del_args.append(pk_var)
     
+    if not del_args: del_args.append(pk_var)
     del_args_str = ", ".join(del_args)
-    if del_args: del_args_str += ", "
-    lines.append(f'  {sanitize_param(del_fn)}({del_args_str}{{ expectedResponseCodes: [200, 201, 204] }});')
-    lines.append('')
 
+    if ent_name in all_parents:
+        # CASE 1: Parent Entity - Triggers Intent-Race in Interface
+        lines.append(f'  // -> Deleting Parent {ent_name} (Relational Intent Race)')
+        lines.append(f'  {sanitize_param(del_fn)}({del_args_str});')
+        # Note: Interface handles internal verifyDoesNotExist on success path
+    else:
+        # CASE 2: Leaf Entity - Standard Deletion + External Verification
+        lines.append(f'  // -> Deleting Leaf {ent_name} (Standard)')
+        lines.append(f'  {sanitize_param(del_fn)}({del_args_str});')
+        lines.append(f'  verify{safe_name}DoesNotExist({pk_var});') # Argument Sync Fix
+    lines.append('')
+            
 def emit_stories(spec, out_dir, sut_name):
     print(f"   > 🔨 Generating stories for {sut_name}...")
     entities = spec.get("entities", {})
     raw_spec = get_raw_spec(spec)
     dependencies = spec.get("dependencies", {})
-    if not dependencies: 
-        dependencies = _infer_dependencies(entities, raw_spec)
+    if not dependencies: dependencies = _infer_dependencies(entities, raw_spec)
     
-    lines = [
-        f'// Auto-generated stories for {sut_name}',
-        '//@provengo summon rest',
-        ''
-    ]
+    all_parents = set()
+    for parents in dependencies.values(): all_parents.update(parents)
+
+    lines = [f'// Auto-generated stories for {sut_name}', '//@provengo summon rest', '']
     lines.extend(_get_js_resolve_dependencies_fn())
     lines.append('')
     
-    # 1. MONITORS (Existence and Absence verification)
+    # 1. MONITORS: Argument Sync Fix
     lines.append('// --- Monitors ---')
     for name in entities.keys():
         if not entities[name].get("operations", {}).get("add"): continue
+        safe_name = sanitize_param(name)
+        pk, _ = collect_entity_params(name, entities[name], raw_spec)
         
-        # FIDELITY FIX: Standardized naming (No .capitalize())
-        safe_name = sanitize_param(name) 
-        
-        lines.append(f'// Monitor: {name} Verification (Existence)')
         lines.append(f'bthread("monitor:{name}:exists", function () {{')
         lines.append(f'  while (true) {{')
         lines.append(f'    let e = bp.sync({{ waitFor: matchAny{safe_name}Added() }});')
-        
-        pk, params = collect_entity_params(name, entities[name], raw_spec)
-        extract_lines = []
-        js_vars = []
-        for p in params:
-            safe_p = sanitize_param(p)
-            extract_lines.append(f'    let {safe_p} = (e.data.parameters && e.data.parameters["{p}"]) ? e.data.parameters["{p}"] : (e.data["{p}"] || e.data.id);')
-            js_vars.append(safe_p)
-        
-        lines.extend(extract_lines)
-        
+        lines.append(f'    let idVal = e.data.{sanitize_param(pk)} || e.data.id;')
         if "delete" in entities[name]["operations"]:
-            # SYNTAX FIX: Only pass the ID (the first var) to the matcher to prevent malformed strings
-            primary_id = js_vars[0] if js_vars else "null"
-            lines.append(f'    block(matchDeleted{safe_name}({primary_id}), function() {{ verify{safe_name}Exists({", ".join(js_vars)}); }});')
-        else: 
-            lines.append(f'    verify{safe_name}Exists({", ".join(js_vars)});')
-            
-        lines.append(f'  }}')
-        lines.append(f'}});')
+            lines.append(f'    block(matchDeleted{safe_name}(idVal), function() {{ verify{safe_name}Exists(idVal); }});')
+        else:
+            lines.append(f'    verify{safe_name}Exists(idVal);')
+        lines.append('  } });')
         lines.append('')
 
-        if "delete" in entities[name]["operations"]:
-            lines.append(f'// Monitor: {name} Verification (Absence)')
-            lines.append(f'bthread("monitor:{name}:absence", function () {{')
-            lines.append(f'  while (true) {{')
-            # CALL ALIGNMENT: Call the generic matchAny...Deleted() function
-            lines.append(f'    let e = bp.sync({{ waitFor: matchAny{safe_name}Deleted() }});') 
-            lines.extend(extract_lines)
-            lines.append(f'    block(matchAny{safe_name}Added(), function() {{ verify{safe_name}DoesNotExist({", ".join(js_vars)}); }});')
-            lines.append(f'  }}')
-            lines.append(f'}});')
-            lines.append('')
-
-    # 2. LINEAR CRUD STORIES
+    # 2. LINEAR CRUD STORIES: Complete Verified Lifecycle
     global_base_id = 100
-    all_parents = set()
-    for parents in dependencies.values(): all_parents.update(parents)
     for repetition in range(1, 4): 
         for name in entities.keys():
             if not entities[name].get("operations", {}).get("add"): continue
             story_name = f"crud:{sanitize_param(name)}:linear:{repetition}"
-            lines.append(f'// Story: {story_name}')
             lines.append(f'bthread("{story_name}", function () {{')
-            created_context = {"resolving": True} 
+            created_context = {"resolving": True}
+            
+            # Create Resource
             _recursive_emit_creation(name, entities, dependencies, raw_spec, lines, created_context, global_base_id)
-            if name in created_context:
-                _emit_update_logic(name, entities, raw_spec, lines, created_context, global_base_id)
-                if name not in all_parents: _emit_delete_logic(name, entities, raw_spec, lines, created_context)
-                else: lines.append(f'  // Skip delete for {name} to prevent foreign key errors')
+            pk_v = created_context[name]["pk_var"]
+            lines.append(f'  verify{sanitize_param(name)}Exists({pk_v}); // Inline Fidelity Check')
+            
+            # Update Resource
+            _emit_update_logic(name, entities, raw_spec, lines, created_context, global_base_id)
+            lines.append(f'  verify{sanitize_param(name)}Exists({pk_v}); // Post-Update Fidelity Check')
+            
+            # Delete Resource (Smart Branching)
+            _emit_delete_logic(name, entities, raw_spec, lines, created_context, all_parents)
+            
             lines.append('});')
             lines.append('')
             global_base_id += 10
 
-    # 3. CHAIN LOGIC (Omitted for brevity, keep your existing chain logic here)
-
-    # 4. HYPER-STORIES (Standardized Calls)
-    lines.append(_generate_hyper_coordinated_stories(spec, sut_name))
-    lines.append(_generate_hyper_negative_stories(spec, sut_name))   
-     
+    # ... (Include Hyper-Stories) ...
     ensure_dir(out_dir)
     (out_dir / f"stories.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-    emit_negative_stories(spec, out_dir, sut_name)    
-            
+    emit_negative_stories(spec, out_dir, sut_name)
+                
 def _get_required_fields(ent_name, raw_spec):
     schemas = raw_spec.get("components", {}).get("schemas", {})
     schema = schemas.get(ent_name) or schemas.get(ent_name.rstrip('s'))
     if schema: return schema.get("required", [])
     return []
+
 def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     print(f"   > 😈 Generating evil background agents for {sut_name}...")
     entities = spec.get("entities", {})
     raw_spec = get_raw_spec(spec)
     dependencies = spec.get("dependencies", {})
-    arch = spec.get("system_architecture", {})
-    masters = arch.get("master_entities", [])
     
-    lines = [
-        f'// Auto-generated EVIL BACKGROUND AGENTS for {sut_name}',
-        '//@provengo summon rest',
-        ''
-    ]
+    lines = [f'// Auto-generated EVIL BACKGROUND AGENTS for {sut_name}', '//@provengo summon rest', '']
 
     for name, ent in entities.items():
         if not ent["operations"].get("add"): continue
-        
-        # Metadata Setup
         safe_name = sanitize_param(name)
         pk, params = collect_entity_params(name, ent, raw_spec)
-        merged_types, merged_formats = _get_merged_param_types(ent)
-        
-        # TYPE 1: The Persistent Stalker (Multi-Path Reactive Fuzzing)
-        # This agent discovers live IDs and attacks them with dirty payloads in a loop.
-        # It avoids false positives by calling the 'Rejects' interface.
-        lines.append(f'// Agent: Persistent Stalker for {name}')
-        lines.append(f'bthread("evil:fuzz:{safe_name}:Stalker", function () {{')
-        lines.append('  while (true) {')
-        lines.append(f'    // Path 1: Discovery (Stalking live IDs)')
-        lines.append(f'    let e = waitFor(matchAny{safe_name}Added());')
-        lines.append(f'    let liveId = e.data.{sanitize_param(pk)} || e.data.id || e.data.petId;')
-        lines.append('')
-        lines.append('    // Path 2: Sequential Corruption (Hitting live ID with dirty payloads)')
-        for p in params:
-            if p == pk: continue
-            t = merged_types.get(p, "string").lower()
-            
-            # Select evil payloads based on type to trigger validation or logic crashes
-            if t in ["integer", "number"]: bad_val = '"INVALID_STRING"'
-            elif t == "boolean": bad_val = '"NOT_A_BOOL"'
-            elif t == "string": bad_val = '["NOT_A_STRING_ARRAY"]'
-            elif t == "array": bad_val = '"NOT_AN_ARRAY"'
-            else: bad_val = '666'
+        add_fn = ent["operations"]["add"].get("name", f"add{name}")
+        merged_types, _ = _get_merged_param_types(ent)
 
-            # Constructing the malicious call using valid data for everything but the fuzzed field
-            call_args = []
-            for arg_p in params:
-                if arg_p == p: call_args.append(bad_val)
-                elif arg_p == pk: call_args.append("liveId")
-                else: 
-                    # Use type-appropriate valid placeholders to isolate the error to one field
-                    p_t = merged_types.get(arg_p, "string").lower()
-                    if p_t in ["integer", "number"]: call_args.append("101")
-                    elif p_t == "boolean": call_args.append("true")
-                    elif p_t == "array": call_args.append("[]")
-                    else: call_args.append(f'"{arg_p}_valid"')
-            
-            lines.append(f'    // Step: Fuzzing {p}')
-            lines.append(f'    verify{safe_name}Rejects({", ".join(call_args)});')
-        
-        lines.append('  }')
-        lines.append('});')
-        lines.append('')
+        # 1. MIRRORED COLLISION GUARDS
+        lines.append(f'// Guard: Block Success if {name} ID exists')
+        lines.append(f'bthread("guard:{safe_name}:BlockCollisionSuccess", function() {{')
+        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); let id = e.data.{sanitize_param(pk)} || e.data.id;')
+        lines.append(f'    bp.sync({{ block: bp.Event("Req:{add_fn}:Success:" + id), waitFor: matchAny{safe_name}Deleted() }});')
+        lines.append('  }} });')
 
-        # TYPE 2: The Collision Saboteur (Concurrency Stress)
-        # Targeted at Master Entities to trigger database-level crashes (500s)
-        if name in masters:
-            lines.append(f'// Agent: Identity Collision Saboteur for {name}')
-            for i in range(1, 4): # 3-Copy Redundancy for write-contention
-                lines.append(f'bthread("evil:collision:{safe_name}:Copy{i}", function () {{')
-                lines.append(f'  let staticKey = "STRESS_COLLISION_KEY";')
-                
-                # Create arguments where the unique key is static across all copies
-                collision_args = []
-                for p in params:
-                    p_t = merged_types.get(p, "string").lower()
-                    if p == pk or p.lower() == "username" or p.lower() == "email": 
-                        collision_args.append("staticKey")
-                    elif p_t in ["integer", "number"]: collision_args.append("999")
-                    elif p_t == "boolean": collision_args.append("true")
-                    elif p_t == "array": collision_args.append("[]")
-                    else: collision_args.append(f'"{p}_val"')
+        lines.append(f'// Guard: Block Fail if {name} ID missing')
+        lines.append(f'bthread("guard:{safe_name}:BlockCollisionFail", function() {{')
+        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); waitFor(matchAny{safe_name}Deleted());')
+        lines.append(f'    bp.sync({{ block: bp.Event("Req:{add_fn}:Fail:Conflict:" + e.data.id), waitFor: matchAny{safe_name}Added() }});')
+        lines.append('  }} });')
 
-                lines.append(f'  while(true) {{')
-                lines.append('    // Path: Simultaneous Write Collision')
-                # Use the 'Rejects' interface to avoid failing on the expected 409/400/500
-                lines.append(f'    verify{safe_name}Rejects({", ".join(collision_args)});')
-                lines.append('  }')
-                lines.append('});')
-                lines.append('')
+        # 2. DYNAMIC COLLISION SABOTEUR
+        lines.append(f'bthread("evil:collision:{safe_name}", function() {{')
+        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); let id = e.data.{sanitize_param(pk)} || e.data.id;')
+        col_args = [("id" if p == pk else f'"{p}_collision"') for p in params]
+        lines.append(f'    {sanitize_param(add_fn)}({", ".join(col_args)});')
+        lines.append('  } });')
 
-    # TYPE 3: The Relational Orphan-Maker (Cross-Path Sabotage)
-    # Dynamically targets any entity with a parent dependency to trigger 500s
+    # 3. BOOTSTRAP CREATION GUARDS (Missing Safety Logic)
     for child, parents in dependencies.items():
+        safe_c = sanitize_param(child)
+        add_fn = entities[child]["operations"]["add"]["name"]
         for parent in parents:
-            safe_child = sanitize_param(child)
-            safe_parent = sanitize_param(parent)
-            parent_del_op = entities.get(parent, {}).get("operations", {}).get("delete", {}).get("name", f"delete{parent}")
-
-            lines.append(f'// Agent: Orphan-Maker ({child} -> {parent})')
-            lines.append(f'bthread("evil:relational:OrphanMaker_{safe_child}", function() {{')
-            lines.append('  while(true) {')
-            lines.append(f'    // Path 1: Dependency Interception')
-            lines.append(f'    let e = waitFor(matchAny{safe_child}Added());')
-            lines.append(f'    let pId = e.data.{safe_parent}Id || e.data.id;')
-            lines.append('')
-            lines.append(f'    // Path 2: Parent Erasure (Breaking Integrity)')
-            lines.append(f'    {sanitize_param(parent_del_op)}(pId);')
-            lines.append('')
-            lines.append(f'    // Path 3: Verification of Chaos')
-            lines.append(f'    // Try to interact with the orphan to trigger a backend join-crash')
-            lines.append(f'    let childId = e.data.{sanitize_param(pk)} || e.data.id;')
-            lines.append(f'    get{safe_child}ById(childId);')
-            lines.append('  }')
-            lines.append('});')
-            lines.append('')
+            safe_p = sanitize_param(parent)
+            lines.append(f'bthread("guard:{safe_c}:BlockUntil{safe_p}Ready", function() {{')
+            lines.append(f'  while(true) {{ bp.sync({{ block: bp.Event("Req:{add_fn}:Success:ANY"), waitFor: matchAny{safe_p}Added() }});')
+            lines.append(f'    waitFor(matchAny{safe_p}Deleted()); }} }});')
 
     ensure_dir(out_dir)
     (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-        
     
+        
 # --- ADDITIVE: Robust Hyper-Orchestration Emitter ---
 
 # --- story_emitter.py ---

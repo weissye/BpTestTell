@@ -60,7 +60,7 @@ function getPetById(petId) {
   return res;
 }
 
-function deletePet(petId) {
+function deletePet(additionalMetadata, api_key, category, file, name, petId, photoUrls, status, tags) {
   var url = "/pet/" + petId; var reqDescription = "Delete a pet. " + petId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400] });
   if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
@@ -175,7 +175,7 @@ function placeOrder(complete, orderId, petId, quantity, shipDate, status) {
   return res;
 }
 
-function deleteOrder(orderId) {
+function deleteOrder(complete, orderId, petId, quantity, shipDate, status) {
   var url = "/store/order/" + orderId; var reqDescription = "Delete purchase order by identifier. " + orderId;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
   if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
@@ -281,7 +281,7 @@ function getUserByName(username) {
   return res;
 }
 
-function deleteUser(username) {
+function deleteUser(email, firstName, lastName, password, phone, userStatus, username) {
   var url = "/user/" + username; var reqDescription = "Delete user resource. " + username;
   let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 204, 400, 404] });
   if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
@@ -296,7 +296,8 @@ function updateUser(email, firstName, lastName, password, phone, userStatus, use
     "lastName": lastName,
     "password": password,
     "phone": phone,
-    "userStatus": userStatus
+    "userStatus": userStatus,
+    "username": username
   };
   bp.log.info("REQ PUT " + url + " Body: " + JSON.stringify(body));
   let res = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: [200, 400, 404], parameters: { description: reqDescription } });

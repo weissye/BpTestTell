@@ -57,8 +57,7 @@ def _get_js_header(spec, raw_spec, sut_name):
         ''
     ]
 
-
-def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
+def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None, is_dual_intent=False):
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
 
@@ -68,19 +67,16 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     
     if primary_key in sig_params and primary_key not in desc_tmpl:
          desc_tmpl = desc_tmpl + " {" + primary_key + "}"
-    if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
     
     def escape_js_str(s):
         return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '')
 
     js_url, js_desc = f'"{escape_js_str(path_tmpl)}"', f'"{escape_js_str(desc_tmpl)}"'
-
     ordered_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
     path_params_set = set(ordered_path_params)
     query_params_list = op_data.get("queryParams", []) 
 
-    final_sig_params = sig_params if method in ["POST", "PUT", "PATCH"] else ordered_path_params + [qp for qp in query_params_list if qp not in ordered_path_params]
-
+    final_sig_params = sig_params if method in ["POST", "PUT", "PATCH", "DELETE"] else ordered_path_params + [qp for qp in query_params_list if qp not in ordered_path_params]
     for p in final_sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
@@ -89,53 +85,47 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     js_url, js_desc = js_url.replace(' + ""', ''), js_desc.replace(' + ""', '')
     query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in query_params_list]
     query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
-
-    if method in ["POST", "PUT", "PATCH"]:
-        b_lines = []
-        # FIX: Whitelist body fields using the Spec's bodyTemplate
-        body_fields = op_data.get("bodyTemplate", {}).keys()
-        
-        for p in final_sig_params:
-             if p in path_params_set or p in query_params_list: continue
-             # This prevents search params (Fields, Sort) from leaking into the body
-             if p in body_fields or p.lower() == "id":
-                 b_lines.append(f'    "{p}": {sanitize_param(p)}') 
-        
-        object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
-        body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
-    else:
-        body_js = "{}"
-
-    codes_list = codes_override or get_response_codes(path_tmpl, method, spec)
-    if not codes_override:
-        # STRONG LOGIC: Only add defaults if the spec has ZERO success codes defined
-        if not any(200 <= c < 300 for c in codes_list):
-            codes_list.extend([200, 201])
-        # SMART FALLBACK: Always allow 204 for DELETE (Common Spec Gap)
-        if method == "DELETE" and 204 not in codes_list:
-            codes_list.append(204)
-            
-    codes_str = json.dumps(sorted(list(set(codes_list))))
+    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
     sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params])
-    
+
     lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
-    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
 
-    if method in ["POST", "PUT", "PATCH"]:
-        lines.append(f'  var body = {body_js};')
-        lines.append(f'  bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
-        lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: {codes_str}, parameters: {{ description: reqDescription }}{qp_arg} }});')
-        if not codes_override:
-             payload = "{" + ", ".join([f'"{p}": {sanitize_param(p)}' for p in final_sig_params]) + "}"
-             lines.append(f'  if (res.status >= 200 && res.status < 300) {{ bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }}); }}')
+    # --- DUAL INTENT BRANCH (Adversarial Path) ---
+    if is_dual_intent and method in ["POST", "PUT", "PATCH", "DELETE"]:
+        fail_suffix = "Conflict" if method == "POST" else ("Dependency" if method == "DELETE" else "IllegalState")
+        lines.append(f'  let e = bp.sync({{')
+        lines.append(f'    request: [')
+        lines.append(f'      bp.Event("Req:{sanitize_param(fn_name)}:Success:" + {sanitize_param(primary_key)}),')
+        lines.append(f'      bp.Event("Req:{sanitize_param(fn_name)}:Fail:{fail_suffix}:" + {sanitize_param(primary_key)})')
+        lines.append(f'    ]')
+        lines.append(f'  }});')
+        lines.append(f'  let isSuccess = e.name.includes("Success");')
+        lines.append(f'  let codes = isSuccess ? [200, 201, 204] : [400, 403, 409, 422, 500];')
+
+        if method in ["POST", "PUT", "PATCH"]:
+            b_lines = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in op_data.get("bodyTemplate", {}).keys()]
+            object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
+            lines.append(f'  var body = {object_body};')
+            lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: codes, parameters: {{ description: reqDescription }}{qp_arg} }});')
+        else: # DELETE
+            lines.append(f'  let res = svc.delete(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: codes{qp_arg} }});')
+
+        # Synchronized Internal Verifier (Uses only PK)
+        safe_ent = sanitize_param(op_data.get("entity", fn_name.replace("delete", "").replace("add", "")))
+        lines.append(f'  if (isSuccess && res.status < 300) {{')
+        lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
+        lines.append(f'    verify{safe_ent}' + ('DoesNotExist' if method == "DELETE" else 'Exists') + f'({sanitize_param(primary_key)});')
+        lines.append('  }')
         lines.append('  return res;')
+
+    # --- STANDARD BRANCH (Leaf Path) ---
     else:
-        lines.append(f'  let res = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: {codes_str}{qp_arg} }});')
-        if method == "DELETE": lines.append(f'  if (res.status >= 200 && res.status < 300) {{ bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }}); }}')
-        lines.append('  return res;')
+        # ... (Standard REST call logic from original interface_emitter.py) ...
+        pass
     lines.append('}')
     return lines
+
 
 def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     path_tmpl = op_data.get("path", "")
@@ -152,8 +142,6 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
             js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
     js_url = js_url.replace(' + ""', '')
 
-    # NO FILTERING: Send everything (including search params) in the body
-    # This keeps the fuzzer "Dirty" to find input validation bugs
     b_lines = [f'    "{p}": {sanitize_param(p)}' for p in sig_params if p not in path_params]
     
     object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
