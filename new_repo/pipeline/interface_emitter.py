@@ -58,6 +58,10 @@ def _get_js_header(spec, raw_spec, sut_name):
     ]
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None, is_dual_intent=False):
+    """
+    Generates a full JavaScript function for a REST operation.
+    Supports Dual-Intent (Adversarial) and Standard execution paths.
+    """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
 
@@ -65,18 +69,22 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     method = (method_override or op_data.get("method", "GET")).upper()
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
     
+    # Ensure the primary key is represented in the description for logging clarity
     if primary_key in sig_params and primary_key not in desc_tmpl:
          desc_tmpl = desc_tmpl + " {" + primary_key + "}"
+    if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
     
     def escape_js_str(s):
         return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '')
 
     js_url, js_desc = f'"{escape_js_str(path_tmpl)}"', f'"{escape_js_str(desc_tmpl)}"'
+
+    # Parameter resolution
     ordered_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
-    path_params_set = set(ordered_path_params)
     query_params_list = op_data.get("queryParams", []) 
 
     final_sig_params = sig_params if method in ["POST", "PUT", "PATCH", "DELETE"] else ordered_path_params + [qp for qp in query_params_list if qp not in ordered_path_params]
+
     for p in final_sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
@@ -86,12 +94,16 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in query_params_list]
     query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
+
+    # Signature fix: Include 'config' for response code overrides from stories
     sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params])
+    sig_args_str = f"{sig_args_str}, config" if sig_args_str else "config"
 
     lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
 
-    # --- DUAL INTENT BRANCH (Adversarial Path) ---
+    # --- BRANCH 1: DUAL INTENT (Adversarial Path) ---
+    # Triggered for parent entities to test relational constraints.
     if is_dual_intent and method in ["POST", "PUT", "PATCH", "DELETE"]:
         fail_suffix = "Conflict" if method == "POST" else ("Dependency" if method == "DELETE" else "IllegalState")
         lines.append(f'  let e = bp.sync({{')
@@ -100,18 +112,18 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append(f'      bp.Event("Req:{sanitize_param(fn_name)}:Fail:{fail_suffix}:" + {sanitize_param(primary_key)})')
         lines.append(f'    ]')
         lines.append(f'  }});')
+        
         lines.append(f'  let isSuccess = e.name.includes("Success");')
-        lines.append(f'  let codes = isSuccess ? [200, 201, 204] : [400, 403, 409, 422, 500];')
+        lines.append(f'  let codes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : (isSuccess ? [200, 201, 204] : [400, 403, 409, 422, 500]);')
 
         if method in ["POST", "PUT", "PATCH"]:
-            b_lines = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in op_data.get("bodyTemplate", {}).keys()]
+            b_lines = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in op_data.get("bodyTemplate", {}).keys() or p.lower() == "id"]
             object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
             lines.append(f'  var body = {object_body};')
             lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: codes, parameters: {{ description: reqDescription }}{qp_arg} }});')
         else: # DELETE
             lines.append(f'  let res = svc.delete(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: codes{qp_arg} }});')
 
-        # Synchronized Internal Verifier (Uses only PK)
         safe_ent = sanitize_param(op_data.get("entity", fn_name.replace("delete", "").replace("add", "")))
         lines.append(f'  if (isSuccess && res.status < 300) {{')
         lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
@@ -119,14 +131,159 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         lines.append('  }')
         lines.append('  return res;')
 
-    # --- STANDARD BRANCH (Leaf Path) ---
+    # --- BRANCH 2: STANDARD OPERATION ---
+    # Handles all standard leaf entity CRUD operations.
     else:
-        # ... (Standard REST call logic from original interface_emitter.py) ...
-        pass
+        if method in ["POST", "PUT", "PATCH"]:
+            # FIX: Ensure the primary_key is EXPLICITLY included in the body
+            body_props = op_data.get("bodyTemplate", {}).keys()
+            b_lines = []
+            
+            # 1. Add all template properties
+            for p in final_sig_params:
+                if p in body_props:
+                    b_lines.append(f'    "{p}": {sanitize_param(p)}')
+            
+            # 2. Force-add the primary key if it was missing from the template
+            safe_pk = sanitize_param(primary_key)
+            if primary_key not in body_props and primary_key in final_sig_params:
+                b_lines.append(f'    "{primary_key}": {safe_pk}')
+            elif "id" not in [k.lower() for k in body_props] and "id" in [p.lower() for p in final_sig_params]:
+                 # Fallback for generic 'id' fields
+                 b_lines.append(f'    "id": {safe_pk}')
+
+            object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
+            body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
+            lines.append(f'  var body = {body_js};')
+            
+        codes_list = codes_override or get_response_codes(path_tmpl, method, spec)
+        if not codes_override:
+            if not any(200 <= c < 300 for c in codes_list): codes_list.extend([200, 201])
+            if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
+        codes_str = json.dumps(sorted(list(set(codes_list))))
+        lines.append(f'  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : {codes_str};')
+
+        if method in ["POST", "PUT", "PATCH"]:
+            lines.append(f'  let res = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: {{ description: reqDescription }}{qp_arg} }});')
+            payload = "{" + ", ".join([f'"{p}": {sanitize_param(p)}' for p in final_sig_params]) + "}"
+            lines.append(f'  if (res.status >= 200 && res.status < 300) {{ bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }}); }}')
+        else:
+            lines.append(f'  let res = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: finalCodes{qp_arg} }});')
+            if method == "DELETE": 
+                lines.append(f'  if (res.status >= 200 && res.status < 300) {{ bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }}); }}')
+        
+        lines.append('  return res;')
+
     lines.append('}')
     return lines
 
+def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
+    """
+    Full Interface Emitter:
+    1. Generates the JS Header (Host, Port, Auth).
+    2. Infers dependencies to identify Parent entities.
+    3. Toggles Dual-Intent logic for safety-removed paths.
+    4. Generates high-fidelity Verifiers and Matchers.
+    """
+    sut_name_safe = sanitize_param(sut_name)
+    file_path = out_dir / f"interfaces.{sut_name_safe}.js"
+    ensure_dir(file_path.parent)
+    
+    raw_spec = get_raw_spec(spec)
+    entities = spec.get("entities", {})
+    
+    # 1. GENERATE HEADER
+    # Extracts environment variables and security headers from the spec.
+    lines = _get_js_header(spec, raw_spec, sut_name)
 
+    # 2. IDENTIFY PARENTS (Relational Adversary Prep)
+    # We infer dependencies if they aren't explicitly provided in the spec.
+    dependencies = spec.get("dependencies", {})
+    if not dependencies:
+        dependencies = _infer_dependencies(entities, raw_spec)
+    
+    all_parents = set()
+    for p_list in dependencies.values():
+        all_parents.update(p_list)
+
+    # 3. GENERATE OPERATIONS
+    for name, ent in entities.items():
+        safe_entity_name = sanitize_param(name)
+        primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
+        
+        # Determine if this entity needs the Intent-Race template
+        is_parent = (name in all_parents)
+        
+        # Clean parameter identifiers for JS safety
+        sig_params = [p for p in sig_params if _is_valid_js_identifier(sanitize_param(p))]
+        ops = ent.get("operations", {})
+
+        # Standard CRUD Operations
+        for op_type, op_data in ops.items():
+            if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
+            if not op_data: continue
+            if isinstance(op_data, list): op_data = op_data[0] if op_data else {}
+            
+            fn_name = op_data.get("name", f"{op_type}{name}")
+            
+            # TRIGGER: Apply Dual-Intent template only to Parent Deletions/Adds
+            lines.extend(_generate_js_operation(
+                op_data, fn_name, sig_params, primary_key, spec, raw_spec, 
+                is_dual_intent=is_parent
+            ))
+            lines.append('')
+
+        # 4. GENERATE ADVERSARIAL HELPERS (Collision & Fuzzing)
+        if "add" in ops and isinstance(ops["add"], dict):
+             # Try Add Existing: Used for explicit collision testing
+             lines.extend(_generate_js_operation(
+                 ops["add"], f"tryToAddExisting{safe_entity_name}", sig_params, primary_key, 
+                 spec, raw_spec, method_override="POST", codes_override=[400, 409], 
+                 desc_override=f"Try Add Existing {name}"
+             ))
+             lines.append('')
+             
+             # Rejects Interface: Used by the Persistent Stalker (Fuzzer)
+             lines.extend(_generate_reject_operation(ops["add"], f"verify{safe_entity_name}Rejects", sig_params, primary_key))
+             lines.append('')
+
+        # 5. GENERATE VERIFICATION LOGIC (Existence/Absence)
+        safe_pk = sanitize_param(primary_key)
+        item_get_op = ops.get("get")
+        if isinstance(item_get_op, list): item_get_op = item_get_op[0]
+        
+        if item_get_op and "{" in item_get_op.get("path", ""):
+            path_tmpl = item_get_op.get("path", "")
+            safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
+            js_item_url = f'"{safe_path}"'.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "').replace(' + ""', '')
+            
+            # verifyExists: Confirms resource creation or update fidelity
+            lines.append(f'function verify{safe_entity_name}Exists({safe_pk}) {{')
+            lines.append(f'  var url = {js_item_url};')
+            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " exists";')
+            lines.append(f'  svc.get(url, {{ expectedResponseCodes: [200], parameters: {{ description: description }} }});')
+            lines.append(f'  pvg.success("{name} found");')
+            lines.append('}')
+            lines.append('')
+            
+            # verifyDoesNotExist: Confirms successful deletion
+            lines.append(f'function verify{safe_entity_name}Deleted({safe_pk}) {{')
+            lines.append(f'  var url = {js_item_url};')
+            lines.append(f'  var description = "Verify {name} " + {safe_pk} + " deleted";')
+            lines.append(f'  svc.get(url, {{ expectedResponseCodes: [404], parameters: {{ description: description }} }});')
+            lines.append(f'  pvg.success("{name} correctly deleted (404)");')
+            lines.append('}')
+            lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{ verify{safe_entity_name}Deleted({safe_pk}); }}')
+            lines.append('')
+
+        # 6. APPEND OPERATION MATCHERS
+        lines.extend(_generate_js_matchers(name, ops, primary_key))
+
+    # 7. FINAL PERSISTENCE
+    (out_dir / f"interfaces.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
+    print(f"   > 📄 Final automated interfaces generated: {file_path}")
+    
+                
 def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 

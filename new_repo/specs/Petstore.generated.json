@@ -108,24 +108,6 @@
             400
           ]
         },
-        "get": {
-          "name": "getPetById",
-          "descriptionTemplate": "Returns a single pet.",
-          "method": "GET",
-          "path": "/pet/{petId}",
-          "params": [
-            "petId"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "petId": "integer"
-          },
-          "x-defined-response-codes": [
-            200,
-            400,
-            404
-          ]
-        },
         "delete": {
           "name": "deletePet",
           "descriptionTemplate": "Delete a pet.",
@@ -143,6 +125,24 @@
           "x-defined-response-codes": [
             200,
             400
+          ]
+        },
+        "get": {
+          "name": "getPetById",
+          "descriptionTemplate": "Returns a single pet.",
+          "method": "GET",
+          "path": "/pet/{petId}",
+          "params": [
+            "petId"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "petId": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
           ]
         },
         "updateWithForm": {
@@ -423,12 +423,13 @@
     ],
     "agent_viewpoints": [
       {
-        "role": "PetCareManager",
+        "role": "PetManager",
         "chain": [
           "add",
-          "uploadImage",
           "update",
-          "get"
+          "list",
+          "get",
+          "delete"
         ]
       },
       {
@@ -446,25 +447,26 @@
           "add",
           "update",
           "list",
+          "get",
+          "delete"
+        ]
+      },
+      {
+        "role": "ContentModerator",
+        "chain": [
+          "add",
+          "uploadImage",
+          "updateWithForm",
           "get"
         ]
       },
       {
-        "role": "PetFinder",
+        "role": "ReportGenerator",
         "chain": [
           "list",
           "listByTags",
           "get",
-          "updateWithForm"
-        ]
-      },
-      {
-        "role": "UserSupport",
-        "chain": [
-          "add",
-          "get",
-          "update",
-          "delete"
+          "add"
         ]
       }
     ],
@@ -476,12 +478,12 @@
       },
       {
         "target": "User",
-        "action": "delete",
-        "trigger_on": "add"
+        "action": "update",
+        "trigger_on": "list"
       },
       {
-        "target": "Pet",
-        "action": "update",
+        "target": "Store",
+        "action": "delete",
         "trigger_on": "get"
       }
     ]

@@ -1,5 +1,5 @@
 # Configuration
-$SutName = "PetshopStore"
+$SutName = "Petstore"
 $DockerImage = "openapitools/openapi-petstore"
 $DockerPort = 8080
 $ApiKey = "special-key"

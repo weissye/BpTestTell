@@ -126,6 +126,11 @@ def _get_field_constraints(ent_name, field_name, raw_spec):
     return {}
 
 def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_map={}, param_types={}, param_formats={}):
+    """
+    General Value Generator:
+    Generates JavaScript variable definitions based on OpenAPI types and formats.
+    Heuristically resolves structured types (Objects/Arrays) to prevent 400 serialization errors.
+    """
     pk, params = collect_entity_params(ent_name, entities[ent_name], raw_spec)
     lines_code = []
     args = []
@@ -136,24 +141,42 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
         safe_p = sanitize_param(p)
         var_name = f"{safe_p}_{suffix}"
         
-        # Look up type from the aggregated map
+        # 1. Resolve Metadata and Apply Heuristics
+        # If the type is generic or missing, infer from common naming conventions
         p_type = param_types.get(p, "string").lower()
         p_format = param_formats.get(p, "").lower()
+
+        if p_type == "string" or not p_type:
+            if p.lower() in ["category", "address", "metadata", "details"]: 
+                p_type = "object"
+            elif p.lower() in ["tags", "photourls", "items", "list", "ids"]: 
+                p_type = "array"
         
         param_var_map[p] = var_name
-        if p == pk: pk_var_name = var_name
+        if p == pk: 
+            pk_var_name = var_name
 
+        # 2. Dependency Link: Reuse IDs captured from parent stories
         if p in link_map:
             lines_code.append(f'  let {var_name} = {link_map[p]};')
         
+        # 3. Structural Types: Ensure valid JSON structures for Objects and Arrays
+        elif p_type == "object":
+            # Generates a minimal valid object to satisfy backend deserializers
+            lines_code.append(f'  let {var_name} = {{ "id": 1, "name": "val_{suffix}" }};')
+        
+        elif p_type == "array":
+            # Satisfies array requirements to avoid String-to-List casting errors
+            lines_code.append(f'  let {var_name} = [];')
+
+        # 4. Numeric Types
         elif p_type in ["integer", "number"]:
              lines_code.append(f'  let {var_name} = Math.floor(Math.random() * 1000);')
+        
         elif p_type == "boolean":
              lines_code.append(f'  let {var_name} = true;')
-        elif p_type == "array":
-             lines_code.append(f'  let {var_name} = [];')
-        elif p_type == "object":
-             lines_code.append(f'  let {var_name} = {{}};')
+
+        # 5. Formatted String Types
         elif p_type == "string":
             constraints = _get_field_constraints(ent_name, p, raw_spec)
             example = constraints.get('example')
@@ -161,33 +184,47 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
             default_val = constraints.get('default')
             
             val = None
-            if example is not None: val = f'"{example}"'
-            elif default_val is not None: val = f'"{default_val}"'
+            if example is not None: 
+                val = f'"{example}"'
+            elif default_val is not None: 
+                val = f'"{default_val}"'
             elif pattern:
+                # Fulfill basic regex patterns for network and identifier types
                 if '^[0-9a-f]{6}$' in pattern: val = '"000000"'
                 elif 'A-Fa-f' in pattern and ':' in pattern: val = '"AA:BB:CC:DD:EE:FF"'
                 elif '0-9' in pattern and r'\.' in pattern and '/' in pattern: val = '"10.0.0.1/24"'
-                else: val = f'"{p}_valid_val"' 
+                else: val = f'"{p}_valid_pattern"' 
             
-            elif "email" in p_format: val = f'"u{suffix}_" + Math.floor(Math.random()*1000) + "@test.com"'
-            elif "date" in p_format: val = f'"2023-01-01T12:00:00Z"'
-            elif "phone" in p_format: val = f'"+1555" + Math.floor(Math.random()*10000000)'
-            elif "uri" in p_format or "url" in p_format: val = f'"http://example.com/{suffix}"'
-            elif "uuid" in p_format: val = f'"00000000-0000-0000-0000-000000000000"'
-            elif p.lower() == "status": val = '"active"'
+            # Semantic Format Handling
+            elif "email" in p_format: 
+                val = f'"u{suffix}_" + Math.floor(Math.random()*1000) + "@test.com"'
+            elif "date" in p_format: 
+                val = f'"2025-01-23T12:00:00Z"'
+            elif "uuid" in p_format: 
+                val = f'"00000000-0000-0000-0000-000000000000"'
+            elif "uri" in p_format or "url" in p_format: 
+                val = f'"http://example.com/{suffix}"'
+            elif p.lower() == "status": 
+                val = '"available"' # Domain fallback
             else:
-                 if val is None: val = f'"{p}_{suffix}_" + Math.floor(Math.random()*1000)'
+                val = f'"{p}_{suffix}_" + Math.floor(Math.random()*1000)'
             
             lines_code.append(f'  let {var_name} = {val};')
+        
+        # 6. Fallback
         else:
              lines_code.append(f'  let {var_name} = "val_" + Math.floor(Math.random()*1000);')
         
         args.append(var_name)
     
+    # Ensure a valid PK variable is identified for subsequent verification steps
     if pk_var_name == "null" and args:
         for a in args:
-            if "id" in a.lower(): pk_var_name = a; break
-        if pk_var_name == "null": pk_var_name = args[0]
+            if "id" in a.lower(): 
+                pk_var_name = a
+                break
+        if pk_var_name == "null": 
+            pk_var_name = args[0]
 
     return lines_code, args, pk, pk_var_name, param_var_map
 
@@ -326,7 +363,7 @@ def _emit_delete_logic(ent_name, entities, raw_spec, lines, context, all_parents
         lines.append(f'  {sanitize_param(del_fn)}({del_args_str});')
         lines.append(f'  verify{safe_name}DoesNotExist({pk_var});') # Argument Sync Fix
     lines.append('')
-            
+                    
 def emit_stories(spec, out_dir, sut_name):
     print(f"   > 🔨 Generating stories for {sut_name}...")
     entities = spec.get("entities", {})
@@ -384,11 +421,22 @@ def emit_stories(spec, out_dir, sut_name):
             lines.append('')
             global_base_id += 10
 
-    # ... (Include Hyper-Stories) ...
+    # 3. HYPER-COORDINATED STORIES
+    lines.append('// --- PHASE 3: HYPER-COORDINATED AGENTS ---')
+    lines.append(_generate_hyper_coordinated_stories(spec, sut_name))
+    lines.append('')
+
+    # 4. HYPER-NEGATIVE STORIES
+    lines.append('// --- PHASE 4: HYPER-NEGATIVE ADVERSARIES ---')
+    lines.append(_generate_hyper_negative_stories(spec, sut_name))
+    lines.append('')
+
     ensure_dir(out_dir)
     (out_dir / f"stories.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
+    
+    # 5. Standalone Negative Agents
     emit_negative_stories(spec, out_dir, sut_name)
-                
+                    
 def _get_required_fields(ent_name, raw_spec):
     schemas = raw_spec.get("components", {}).get("schemas", {})
     schema = schemas.get(ent_name) or schemas.get(ent_name.rstrip('s'))
@@ -401,53 +449,81 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     raw_spec = get_raw_spec(spec)
     dependencies = spec.get("dependencies", {})
     
-    lines = [f'// Auto-generated EVIL BACKGROUND AGENTS for {sut_name}', '//@provengo summon rest', '']
+    lines = [
+        f'// Auto-generated EVIL BACKGROUND AGENTS for {sut_name}',
+        '//@provengo summon rest',
+        ''
+    ]
 
     for name, ent in entities.items():
         if not ent["operations"].get("add"): continue
+        
+        # Metadata Setup
         safe_name = sanitize_param(name)
         pk, params = collect_entity_params(name, ent, raw_spec)
         add_fn = ent["operations"]["add"].get("name", f"add{name}")
-        merged_types, _ = _get_merged_param_types(ent)
+        upd_op = ent["operations"].get("update")
 
         # 1. MIRRORED COLLISION GUARDS
+        # Prevents "Success" paths when the ID is live; prevents "Fail" paths when clean.
         lines.append(f'// Guard: Block Success if {name} ID exists')
         lines.append(f'bthread("guard:{safe_name}:BlockCollisionSuccess", function() {{')
-        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); let id = e.data.{sanitize_param(pk)} || e.data.id;')
+        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added());')
+        lines.append(f'    let id = e.data.{sanitize_param(pk)} || e.data.id;')
         lines.append(f'    bp.sync({{ block: bp.Event("Req:{add_fn}:Success:" + id), waitFor: matchAny{safe_name}Deleted() }});')
-        lines.append('  }} });')
+        lines.append('  } });') 
 
         lines.append(f'// Guard: Block Fail if {name} ID missing')
         lines.append(f'bthread("guard:{safe_name}:BlockCollisionFail", function() {{')
         lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); waitFor(matchAny{safe_name}Deleted());')
         lines.append(f'    bp.sync({{ block: bp.Event("Req:{add_fn}:Fail:Conflict:" + e.data.id), waitFor: matchAny{safe_name}Added() }});')
-        lines.append('  }} });')
+        lines.append('  } });') 
 
-        # 2. DYNAMIC COLLISION SABOTEUR
+        # 2. STATE SENTRY
+        # Blocks updates to a resource once it has been deleted.
+        if upd_op:
+            upd_fn = upd_op.get("name")
+            lines.append(f'// Guard: Block illegal updates for {name} (State Sentry)')
+            lines.append(f'bthread("guard:{safe_name}:StateSentry", function() {{')
+            lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Deleted());')
+            lines.append(f'    let id = e.data.id || e.data.{sanitize_param(pk)};')
+            lines.append(f'    bp.sync({{ block: bp.Event("Req:{upd_fn}:Success:" + id), waitFor: matchAny{safe_name}Added() }});')
+            lines.append('  } });')
+
+        # 3. DYNAMIC COLLISION SABOTEUR
+        # Actively attempts to duplicate live IDs captured from the system.
+        lines.append(f'// Agent: Dynamic Collision Saboteur for {name}')
         lines.append(f'bthread("evil:collision:{safe_name}", function() {{')
-        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); let id = e.data.{sanitize_param(pk)} || e.data.id;')
-        col_args = [("id" if p == pk else f'"{p}_collision"') for p in params]
+        lines.append('  while (true) {')
+        lines.append(f'    let e = waitFor(matchAny{safe_name}Added());')
+        lines.append(f'    let liveId = e.data.{sanitize_param(pk)} || e.data.id;')
+        col_args = [("liveId" if p == pk else f'"{p}_collision"') for p in params]
         lines.append(f'    {sanitize_param(add_fn)}({", ".join(col_args)});')
         lines.append('  } });')
+        lines.append('')
 
-    # 3. BOOTSTRAP CREATION GUARDS (Missing Safety Logic)
+    # 4. BOOTSTRAP CREATION GUARDS (Relational Safety Logic)
+    # Blocks Child creation intents until at least one valid Parent is ready.
     for child, parents in dependencies.items():
         safe_c = sanitize_param(child)
         add_fn = entities[child]["operations"]["add"]["name"]
         for parent in parents:
             safe_p = sanitize_param(parent)
-            lines.append(f'bthread("guard:{safe_c}:BlockUntil{safe_p}Ready", function() {{')
-            lines.append(f'  while(true) {{ bp.sync({{ block: bp.Event("Req:{add_fn}:Success:ANY"), waitFor: matchAny{safe_p}Added() }});')
-            lines.append(f'    waitFor(matchAny{safe_p}Deleted()); }} }});')
+            lines.append(f'// Guard: Block {child} creation until {parent} is ready')
+            lines.append(f'bthread("guard:{safe_c}:BlockAddUntil{safe_p}Ready", function() {{')
+            lines.append(f'  while(true) {{')
+            lines.append(f'    // Using EventSet to match any Success intent for {child}')
+            lines.append(f'    bp.sync({{ ')
+            lines.append(f'      block: bp.EventSet("Block {child} Success", function(ev) {{ return ev.name.startsWith("Req:{add_fn}:Success:"); }}), ')
+            lines.append(f'      waitFor: matchAny{safe_p}Added() ')
+            lines.append(f'    }});')
+            lines.append(f'    waitFor(matchAny{safe_p}Deleted());')
+            lines.append('  } });')
 
     ensure_dir(out_dir)
     (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-    
+            
         
-# --- ADDITIVE: Robust Hyper-Orchestration Emitter ---
-
-# --- story_emitter.py ---
-
 def _generate_hyper_coordinated_stories(spec, sut_name):
     entities = spec.get("entities", {})
     raw_spec = spec.get("original_spec", {})
