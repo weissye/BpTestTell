@@ -120,9 +120,9 @@ def _infer_dependencies(entities, raw_spec):
 # FIX: New helper to aggregate types from ALL operations (Add, Get, Update, Delete)
 # This solves the issue where params like 'orderId' are only defined in 'Delete' but assumed String by 'Add'.
 def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_map={}, param_types={}, param_formats={}, is_negative=False):
-    """FIXED: Uses general schema types to enforce numeric seeding for status/ID fields."""
+    """ULTIMATE FIX: Enforces numeric ID types and ISO dates."""
     pk, params = collect_entity_params(ent_name, entities[ent_name], raw_spec)
-    numeric_base = int(base_id) if str(base_id).isdigit() else 1000
+    numeric_base = int(base_id) if base_id.isdigit() else 1000
     lines, args, param_var_map = [], [], {} 
 
     for p in params:
@@ -132,15 +132,12 @@ def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_ma
 
         if p in link_map: val = f"{link_map[p]}"
         elif is_negative: val = f'"{p}_malformed_{suffix}"'
-        elif p_type in ["object", "array"] or p.lower() in ["category", "tags"]:
+        elif p_type in ["object", "array"] or p.lower() in ["category", "address", "tags"]:
             val = f'{{ "id": 1, "name": "{p}_{suffix}_obj" }}' if p_type != "array" else "[]"
-        elif p_type == "boolean" or p.lower() in ["complete"]: val = "true" 
-        
-        # GENERAL FIX: Detect all technical numeric fields by schema type to stop 400 errors
-        elif p_type in ["integer", "number", "int", "long"] or p.lower() == "id":
+        elif p_type == "boolean" or p.lower() in ["complete", "active"]: val = "true" 
+        elif p.lower() == "id" or (p == pk and p_type in ["integer", "number"]):
             val = f"{numeric_base} + Math.floor(Math.random() * 99)"
-        elif p == pk or p.lower() == "username":
-            val = f'"{safe_p}_{suffix}"'
+        elif p == pk or p.lower() == "username": val = f'"{safe_p}_{suffix}"'
         elif "date" in p.lower() or "time" in p.lower(): val = '"2025-01-25T12:00:00Z"'
         else: val = f'"{safe_p}_{suffix}_" + Math.floor(Math.random()*1000)'
             
@@ -382,9 +379,7 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
                                 
 def _generate_hyper_coordinated_stories(spec, sut_name):
-    """
-    FIXED: Prevents empty while(true) loops and pads call signatures.
-    """
+    """FIX: Only generates b-threads for agents with valid entity-matching chains."""
     entities, raw_spec = spec.get("entities", {}), spec.get("original_spec", {})
     arch = spec.get("system_architecture", {})
     agents, masters = arch.get("agent_viewpoints", [])[:6], arch.get("master_entities", [])
@@ -393,19 +388,20 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
     
     # ... [Keep your existing Global Seeder logic here] ...
 
+    # Constellation Phase (Phase 2)
     for iteration in range(1, 4):
         output_lines.append(f'// --- Hyper-Story Constellation Copy {iteration} ---')
         for agent in agents:
             role, chain = agent.get("role", "GeneralAgent"), agent.get("chain", [])
             if not chain: continue
 
-            # BUG FIX: Pre-filter valid steps to avoid generating empty while(true) loops
+            # FIX: Pre-calculate valid steps to avoid generating empty while(true) loops
             valid_steps = []
             for op_id in chain[:5]:
                 op_data = entities[primary_master]["operations"].get(op_id)
                 if op_data: valid_steps.append(op_data)
             
-            if not valid_steps: continue 
+            if not valid_steps: continue # Skip roles like InventoryController that don't match the master
 
             output_lines.append(f'bthread("hyper:{sut_name}:copy{iteration}:{role}", function() {{')
             output_lines.append('  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));')
@@ -414,18 +410,13 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
                 technical_fn = op_data.get("name")
                 if idx == 0:
                     output_lines.append(f'    let e_0 = waitFor(matchAny{sanitize_param(primary_master)}Added());')
+                    # FIX: Lowercase ID property to match interface payload
                     pk_low = sanitize_param(primary_master).lower()
                     output_lines.append(f'    let activeId = e_0.data.id || e_0.data.{pk_low}Id;')
-                
-                # BUG FIX: Pad parameters so activeId reaches the correct slot in the interface
-                if technical_fn in ["addPet", "updatePet", "updatePetWithForm", "uploadFile"]:
-                    output_lines.append(f'    {sanitize_param(technical_fn)}(null, null, null, null, null, activeId);')
-                elif technical_fn in ["createUsersWithListInput", "updateUser"]:
-                    output_lines.append(f'    {sanitize_param(technical_fn)}(null, null, null, null, null, null, activeId);')
-                else:
-                    output_lines.append(f'    {sanitize_param(technical_fn)}(activeId);')
+                output_lines.append(f'    {sanitize_param(technical_fn)}(activeId);')
             output_lines.append('  } });')
     return "\n".join(output_lines)
+
 
 def _generate_hyper_negative_stories(spec, sut_name):
     entities = spec.get("entities", {})

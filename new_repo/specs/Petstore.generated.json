@@ -419,6 +419,7 @@
   "system_architecture": {
     "master_entities": [
       "Pet",
+      "Store",
       "User"
     ],
     "agent_viewpoints": [
@@ -426,47 +427,45 @@
         "role": "PetManager",
         "chain": [
           "add",
-          "update",
-          "list",
-          "get",
-          "delete"
-        ]
-      },
-      {
-        "role": "StoreKeeper",
-        "chain": [
-          "add",
-          "list",
-          "get",
-          "delete"
-        ]
-      },
-      {
-        "role": "UserAdmin",
-        "chain": [
-          "add",
-          "update",
-          "list",
-          "get",
-          "delete"
-        ]
-      },
-      {
-        "role": "ContentModerator",
-        "chain": [
-          "add",
           "uploadImage",
-          "updateWithForm",
+          "update",
           "get"
         ]
       },
       {
-        "role": "ReportGenerator",
+        "role": "StoreCoordinator",
+        "chain": [
+          "add",
+          "list",
+          "get",
+          "delete"
+        ]
+      },
+      {
+        "role": "UserAdministrator",
+        "chain": [
+          "add",
+          "update",
+          "list",
+          "get"
+        ]
+      },
+      {
+        "role": "PetViewer",
         "chain": [
           "list",
           "listByTags",
           "get",
-          "add"
+          "updateWithForm"
+        ]
+      },
+      {
+        "role": "InventoryController",
+        "chain": [
+          "Store.add",
+          "Store.list",
+          "Store.get",
+          "Store.delete"
         ]
       }
     ],
@@ -477,14 +476,14 @@
         "trigger_on": "add"
       },
       {
-        "target": "User",
-        "action": "update",
-        "trigger_on": "list"
-      },
-      {
         "target": "Store",
         "action": "delete",
-        "trigger_on": "get"
+        "trigger_on": "add"
+      },
+      {
+        "target": "User",
+        "action": "delete",
+        "trigger_on": "update"
       }
     ]
   },
