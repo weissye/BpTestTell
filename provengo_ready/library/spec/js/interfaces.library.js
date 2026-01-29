@@ -4,56 +4,156 @@ var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 8000;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 var path = '';
-const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json" } });
+
+const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json", "api_key": "special-key" } });
+
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
-function block(eventSet, func) { bp.sync({ block: eventSet, waitFor: bp.Event("StartBlock") }); func(); bp.sync({ waitFor: bp.Event("EndBlock") }); }
-function listBooks() {
-  var url = "/books";
-  var reqDescription = "List/search books {id}";
-  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
-  return res;
+
+function listBooks(config) {
+  var url = "/books"; var reqDescription = "List/search books {id}";
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
+  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+  }
+  return response;
 }
 
-function createBook(id, q, title) {
-  var url = "/books";
-  var reqDescription = "Create a book " + id;
+function createBook(id, q, title, config) {
+  var url = "/books"; var reqDescription = "Create a book " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201];
   var body = {
     "id": id,
     "title": title
   };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "q": q, "title": title}) }); }
-  return res;
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "q": q, "title": title}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "q": q, "title": title}) });
+  }
+  return response;
 }
 
-function getBook(id) {
-  var url = "/books/" + id;
-  var reqDescription = "Get book by id";
-  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
-  return res;
+function getBook(id, config) {
+  var url = "/books/" + id; var reqDescription = "Get book by id " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 404];
+  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
+  }
+  return response;
 }
 
-function deleteBook(id) {
-  var url = "/books/" + id;
-  var reqDescription = "Delete a book " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
-  return res;
+function deleteBook(id, config) {
+  var url = "/books/" + id; var reqDescription = "Delete a book " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 400, 404];
+  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+  return response;
 }
 
-function tryToAddExistingBooks(id, q, title) {
-  var url = "/books";
-  var reqDescription = "Try Add Existing Books " + id;
+function tryToAddExistingBooks(id, q, title, config) {
+  var url = "/books"; var reqDescription = "Try Add Existing Books " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
   var body = {
     "id": id,
     "title": title
   };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 409], parameters: { description: reqDescription } });
-  return res;
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "q": q, "title": title}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "q": q, "title": title}) });
+  }
+  return response;
 }
 
 function verifyBooksRejects(id, q, title) {
@@ -103,32 +203,122 @@ function matchAnyBooksDeleted() {
   });
 }
 
-function listLoans() {
-  var url = "/loans";
-  var reqDescription = "List/search loans {userId}";
-  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
-  return res;
+function listLoans(config) {
+  var url = "/loans"; var reqDescription = "List/search loans {userId}";
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
+  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+  }
+  return response;
 }
 
-function createLoan(bookId, userId) {
-  var url = "/loans";
-  var reqDescription = "Create a loan " + userId;
+function createLoan(bookId, userId, config) {
+  var url = "/loans"; var reqDescription = "Create a loan " + userId;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201, 400];
   var body = {
     "bookId": bookId,
     "userId": userId
   };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201, 400], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "userId": userId}) }); }
-  return res;
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "userId": userId}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "userId": userId}) });
+  }
+  return response;
 }
 
-function deleteLoan(userId, bookId) {
-  var url = "/loans/" + userId + "/" + bookId;
-  var reqDescription = "Delete a loan by composite id " + userId;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 404] });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
-  return res;
+function deleteLoan(userId, bookId, config) {
+  var url = "/loans/" + userId + "/" + bookId; var reqDescription = "Delete a loan by composite id " + userId;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 404];
+  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+  return response;
+}
+
+function tryToAddExistingLoans(bookId, userId, config) {
+  var url = "/loans"; var reqDescription = "Try Add Existing Loans " + userId;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
+  var body = {
+    "bookId": bookId,
+    "userId": userId
+  };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "userId": userId}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "userId": userId}) });
+  }
+  return response;
 }
 
 function verifyLoansRejects(bookId, userId) {
@@ -146,9 +336,7 @@ function verifyLoansRejects(bookId, userId) {
 function verifyLoansExists(bookId, userId) {
   let res = listLoans(bookId, userId);
   try {
-      let listData = res;
-      if (typeof listData === "string") listData = JSON.parse(listData);
-      if (!Array.isArray(listData) && listData.data) listData = listData.data;
+      let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.userId == userId || item.id == userId);
           if (found) pvg.success("Loans found in list");
@@ -160,8 +348,7 @@ function verifyLoansExists(bookId, userId) {
 function verifyLoansDeleted(bookId, userId) {
   let res = listLoans(bookId, userId);
   try {
-      let listData = res;
-      if (typeof listData === "string") listData = JSON.parse(listData);
+      let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.userId == userId || item.id == userId);
@@ -191,32 +378,122 @@ function matchAnyLoansDeleted() {
   });
 }
 
-function listUsers() {
-  var url = "/users";
-  var reqDescription = "List/search users {id}";
-  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
-  return res;
+function listUsers(config) {
+  var url = "/users"; var reqDescription = "List/search users {id}";
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
+  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+  }
+  return response;
 }
 
-function createUser(id, name, q) {
-  var url = "/users";
-  var reqDescription = "Create a user " + id;
+function createUser(id, name, q, config) {
+  var url = "/users"; var reqDescription = "Create a user " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201];
   var body = {
     "id": id,
     "name": name
   };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name, "q": q}) }); }
-  return res;
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name, "q": q}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name, "q": q}) });
+  }
+  return response;
 }
 
-function deleteUser(id) {
-  var url = "/users/" + id;
-  var reqDescription = "Delete a user " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200, 400, 404] });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
-  return res;
+function deleteUser(id, config) {
+  var url = "/users/" + id; var reqDescription = "Delete a user " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 400, 404];
+  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+  return response;
+}
+
+function tryToAddExistingUsers(id, name, q, config) {
+  var url = "/users"; var reqDescription = "Try Add Existing Users " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
+  var body = {
+    "id": id,
+    "name": name
+  };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name, "q": q}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "name": name, "q": q}) });
+  }
+  return response;
 }
 
 function verifyUsersRejects(id, name, q) {
@@ -235,9 +512,7 @@ function verifyUsersRejects(id, name, q) {
 function verifyUsersExists(id, name, q) {
   let res = listUsers(id, name, q);
   try {
-      let listData = res;
-      if (typeof listData === "string") listData = JSON.parse(listData);
-      if (!Array.isArray(listData) && listData.data) listData = listData.data;
+      let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("Users found in list");
@@ -249,8 +524,7 @@ function verifyUsersExists(id, name, q) {
 function verifyUsersDeleted(id, name, q) {
   let res = listUsers(id, name, q);
   try {
-      let listData = res;
-      if (typeof listData === "string") listData = JSON.parse(listData);
+      let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
@@ -280,33 +554,124 @@ function matchAnyUsersDeleted() {
   });
 }
 
-function listHolds() {
-  var url = "/holds";
-  var reqDescription = "List holds {id}";
-  let res = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
-  return res;
+function listHolds(config) {
+  var url = "/holds"; var reqDescription = "List holds {id}";
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
+  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {}) });
+  }
+  return response;
 }
 
-function createHold(bookId, id, userId) {
-  var url = "/holds";
-  var reqDescription = "Create a hold " + id;
+function createHold(bookId, id, userId, config) {
+  var url = "/holds"; var reqDescription = "Create a hold " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201];
   var body = {
     "bookId": bookId,
     "id": id,
     "userId": userId
   };
   bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
-  let res = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "id": id, "userId": userId}) }); }
-  return res;
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "id": id, "userId": userId}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "id": id, "userId": userId}) });
+  }
+  return response;
 }
 
-function deleteHold(id) {
-  var url = "/holds/" + id;
-  var reqDescription = "Delete a hold " + id;
-  let res = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: [200] });
-  if (res.status >= 200 && res.status < 300) { bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) }); }
-  return res;
+function deleteHold(id, config) {
+  var url = "/holds/" + id; var reqDescription = "Delete a hold " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204];
+  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+  }
+  return response;
+}
+
+function tryToAddExistingHolds(bookId, id, userId, config) {
+  var url = "/holds"; var reqDescription = "Try Add Existing Holds " + id;
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
+  var body = {
+    "bookId": bookId,
+    "id": id,
+    "userId": userId
+  };
+  bp.log.info("REQ POST " + url + " Body: " + JSON.stringify(body));
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
+  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
+
+  if (code !== undefined) {
+    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }
+    let isExpected = finalCodes.includes(code);
+    let isSuccess = (code >= 200 && code < 300);
+
+    if (isExpected) {
+      if (isSuccess) {
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "id": id, "userId": userId}) });
+      } else {
+        bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
+      }
+    } else {
+      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));
+    }
+  } else {
+    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"bookId": bookId, "id": id, "userId": userId}) });
+  }
+  return response;
 }
 
 function verifyHoldsRejects(bookId, id, userId) {
@@ -325,9 +690,7 @@ function verifyHoldsRejects(bookId, id, userId) {
 function verifyHoldsExists(bookId, id, userId) {
   let res = listHolds(bookId, id, userId);
   try {
-      let listData = res;
-      if (typeof listData === "string") listData = JSON.parse(listData);
-      if (!Array.isArray(listData) && listData.data) listData = listData.data;
+      let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("Holds found in list");
@@ -339,8 +702,7 @@ function verifyHoldsExists(bookId, id, userId) {
 function verifyHoldsDeleted(bookId, id, userId) {
   let res = listHolds(bookId, id, userId);
   try {
-      let listData = res;
-      if (typeof listData === "string") listData = JSON.parse(listData);
+      let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);

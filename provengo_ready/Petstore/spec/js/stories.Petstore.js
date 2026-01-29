@@ -302,17 +302,17 @@ bthread("crud:User:linear:3", function () {
 
 // --- PHASE 1: GLOBAL HYPER-SEEDING for Petstore ---
 // --- Hyper-Story Constellation Copy 1 ---
-bthread("hyper:Petstore:copy1:PetManager", function() {
+bthread("hyper:Petstore:copy1:PetAgent", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
     let activeId = e_0.data.id || e_0.data.petId;
     addPet(null, null, null, null, null, activeId);
     uploadFile(null, null, null, null, null, activeId);
-    updatePet(null, null, null, null, null, activeId);
+    updatePetWithForm(null, null, null, null, null, activeId);
     getPetById(activeId);
   } });
-bthread("hyper:Petstore:copy1:StoreCoordinator", function() {
+bthread("hyper:Petstore:copy1:StoreManager", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
@@ -322,7 +322,7 @@ bthread("hyper:Petstore:copy1:StoreCoordinator", function() {
     getPetById(activeId);
     deletePet(activeId);
   } });
-bthread("hyper:Petstore:copy1:UserAdministrator", function() {
+bthread("hyper:Petstore:copy1:UserCoordinator", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
@@ -330,30 +330,49 @@ bthread("hyper:Petstore:copy1:UserAdministrator", function() {
     addPet(null, null, null, null, null, activeId);
     updatePet(null, null, null, null, null, activeId);
     findPetsByStatus(activeId);
-    getPetById(activeId);
   } });
-bthread("hyper:Petstore:copy1:PetViewer", function() {
+bthread("hyper:Petstore:copy1:TagSpecialist", function() {
+  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
+  while(true) {
+    let e_0 = waitFor(matchAnyPetAdded());
+    let activeId = e_0.data.id || e_0.data.petId;
+    findPetsByTags(activeId);
+    getPetById(activeId);
+    updatePet(null, null, null, null, null, activeId);
+    deletePet(activeId);
+  } });
+bthread("hyper:Petstore:copy1:PetInventoryReviewer", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
     let activeId = e_0.data.id || e_0.data.petId;
     findPetsByStatus(activeId);
-    findPetsByTags(activeId);
     getPetById(activeId);
-    updatePetWithForm(null, null, null, null, null, activeId);
+    updatePet(null, null, null, null, null, activeId);
+    findPetsByTags(activeId);
+  } });
+bthread("hyper:Petstore:copy1:StoreAuditor", function() {
+  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
+  while(true) {
+    let e_0 = waitFor(matchAnyPetAdded());
+    let activeId = e_0.data.id || e_0.data.petId;
+    findPetsByStatus(activeId);
+    getPetById(activeId);
+    deletePet(activeId);
+    addPet(null, null, null, null, null, activeId);
   } });
 // --- Hyper-Story Constellation Copy 2 ---
-bthread("hyper:Petstore:copy2:PetManager", function() {
+bthread("hyper:Petstore:copy2:PetAgent", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
     let activeId = e_0.data.id || e_0.data.petId;
     addPet(null, null, null, null, null, activeId);
     uploadFile(null, null, null, null, null, activeId);
-    updatePet(null, null, null, null, null, activeId);
+    updatePetWithForm(null, null, null, null, null, activeId);
     getPetById(activeId);
   } });
-bthread("hyper:Petstore:copy2:StoreCoordinator", function() {
+bthread("hyper:Petstore:copy2:StoreManager", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
@@ -363,7 +382,7 @@ bthread("hyper:Petstore:copy2:StoreCoordinator", function() {
     getPetById(activeId);
     deletePet(activeId);
   } });
-bthread("hyper:Petstore:copy2:UserAdministrator", function() {
+bthread("hyper:Petstore:copy2:UserCoordinator", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
@@ -371,30 +390,49 @@ bthread("hyper:Petstore:copy2:UserAdministrator", function() {
     addPet(null, null, null, null, null, activeId);
     updatePet(null, null, null, null, null, activeId);
     findPetsByStatus(activeId);
-    getPetById(activeId);
   } });
-bthread("hyper:Petstore:copy2:PetViewer", function() {
+bthread("hyper:Petstore:copy2:TagSpecialist", function() {
+  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
+  while(true) {
+    let e_0 = waitFor(matchAnyPetAdded());
+    let activeId = e_0.data.id || e_0.data.petId;
+    findPetsByTags(activeId);
+    getPetById(activeId);
+    updatePet(null, null, null, null, null, activeId);
+    deletePet(activeId);
+  } });
+bthread("hyper:Petstore:copy2:PetInventoryReviewer", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
     let activeId = e_0.data.id || e_0.data.petId;
     findPetsByStatus(activeId);
-    findPetsByTags(activeId);
     getPetById(activeId);
-    updatePetWithForm(null, null, null, null, null, activeId);
+    updatePet(null, null, null, null, null, activeId);
+    findPetsByTags(activeId);
+  } });
+bthread("hyper:Petstore:copy2:StoreAuditor", function() {
+  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
+  while(true) {
+    let e_0 = waitFor(matchAnyPetAdded());
+    let activeId = e_0.data.id || e_0.data.petId;
+    findPetsByStatus(activeId);
+    getPetById(activeId);
+    deletePet(activeId);
+    addPet(null, null, null, null, null, activeId);
   } });
 // --- Hyper-Story Constellation Copy 3 ---
-bthread("hyper:Petstore:copy3:PetManager", function() {
+bthread("hyper:Petstore:copy3:PetAgent", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
     let activeId = e_0.data.id || e_0.data.petId;
     addPet(null, null, null, null, null, activeId);
     uploadFile(null, null, null, null, null, activeId);
-    updatePet(null, null, null, null, null, activeId);
+    updatePetWithForm(null, null, null, null, null, activeId);
     getPetById(activeId);
   } });
-bthread("hyper:Petstore:copy3:StoreCoordinator", function() {
+bthread("hyper:Petstore:copy3:StoreManager", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
@@ -404,7 +442,7 @@ bthread("hyper:Petstore:copy3:StoreCoordinator", function() {
     getPetById(activeId);
     deletePet(activeId);
   } });
-bthread("hyper:Petstore:copy3:UserAdministrator", function() {
+bthread("hyper:Petstore:copy3:UserCoordinator", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
@@ -412,15 +450,34 @@ bthread("hyper:Petstore:copy3:UserAdministrator", function() {
     addPet(null, null, null, null, null, activeId);
     updatePet(null, null, null, null, null, activeId);
     findPetsByStatus(activeId);
-    getPetById(activeId);
   } });
-bthread("hyper:Petstore:copy3:PetViewer", function() {
+bthread("hyper:Petstore:copy3:TagSpecialist", function() {
+  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
+  while(true) {
+    let e_0 = waitFor(matchAnyPetAdded());
+    let activeId = e_0.data.id || e_0.data.petId;
+    findPetsByTags(activeId);
+    getPetById(activeId);
+    updatePet(null, null, null, null, null, activeId);
+    deletePet(activeId);
+  } });
+bthread("hyper:Petstore:copy3:PetInventoryReviewer", function() {
   waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
   while(true) {
     let e_0 = waitFor(matchAnyPetAdded());
     let activeId = e_0.data.id || e_0.data.petId;
     findPetsByStatus(activeId);
-    findPetsByTags(activeId);
     getPetById(activeId);
-    updatePetWithForm(null, null, null, null, null, activeId);
+    updatePet(null, null, null, null, null, activeId);
+    findPetsByTags(activeId);
+  } });
+bthread("hyper:Petstore:copy3:StoreAuditor", function() {
+  waitFor(bp.Event("Done: Hyper_Seeding_Complete"));
+  while(true) {
+    let e_0 = waitFor(matchAnyPetAdded());
+    let activeId = e_0.data.id || e_0.data.petId;
+    findPetsByStatus(activeId);
+    getPetById(activeId);
+    deletePet(activeId);
+    addPet(null, null, null, null, null, activeId);
   } });

@@ -120,33 +120,48 @@ def _infer_dependencies(entities, raw_spec):
 # FIX: New helper to aggregate types from ALL operations (Add, Get, Update, Delete)
 # This solves the issue where params like 'orderId' are only defined in 'Delete' but assumed String by 'Add'.
 def _generate_entity_vars(ent_name, entities, raw_spec, suffix, base_id, link_map={}, param_types={}, param_formats={}, is_negative=False):
-    """FIXED: Uses general schema types to enforce numeric seeding for status/ID fields."""
+    """
+    FIXED: Resolves Identifier Aliasing during data generation.
+    Ensures that 'orderId' inherits 'integer' seeding from schema 'id'.
+    """
     pk, params = collect_entity_params(ent_name, entities[ent_name], raw_spec)
     numeric_base = int(base_id) if str(base_id).isdigit() else 1000
     lines, args, param_var_map = [], [], {} 
 
     for p in params:
         safe_p, var_name = sanitize_param(p), f"{sanitize_param(p)}_{suffix}"
+        
+        # TYPE RESOLUTION: Borrow numeric type from 'id' if 'p' is a PK alias
         p_type = str(param_types.get(p, "string")).lower()
+        if p == pk and p not in param_types and "id" in param_types:
+            p_type = str(param_types["id"]).lower()
+            
         param_var_map[p] = var_name
 
-        if p in link_map: val = f"{link_map[p]}"
-        elif is_negative: val = f'"{p}_malformed_{suffix}"'
+        if p in link_map: 
+            val = f"{link_map[p]}"
+        elif is_negative: 
+            val = f'"{p}_malformed_{suffix}"'
         elif p_type in ["object", "array"] or p.lower() in ["category", "tags"]:
             val = f'{{ "id": 1, "name": "{p}_{suffix}_obj" }}' if p_type != "array" else "[]"
-        elif p_type == "boolean" or p.lower() in ["complete"]: val = "true" 
+        elif p_type == "boolean" or p.lower() in ["complete"]: 
+            val = "true" 
         
-        # GENERAL FIX: Detect all technical numeric fields by schema type to stop 400 errors
+        # NUMERIC SEEDING: Detects all numeric technical fields by schema type
         elif p_type in ["integer", "number", "int", "long"] or p.lower() == "id":
             val = f"{numeric_base} + Math.floor(Math.random() * 99)"
         elif p == pk or p.lower() == "username":
             val = f'"{safe_p}_{suffix}"'
-        elif "date" in p.lower() or "time" in p.lower(): val = '"2025-01-25T12:00:00Z"'
-        else: val = f'"{safe_p}_{suffix}_" + Math.floor(Math.random()*1000)'
+        elif "date" in p.lower() or "time" in p.lower(): 
+            val = '"2025-01-25T12:00:00Z"'
+        else: 
+            val = f'"{safe_p}_{suffix}_" + Math.floor(Math.random()*1000)'
             
         lines.append(f"  let {var_name} = {val};")
         args.append(var_name)
+        
     return lines, args, pk, (param_var_map.get(pk, "null")), param_var_map
+
 
 def _emit_update_logic(ent_name, entities, raw_spec, lines, context, base_id):
     ops = entities[ent_name]["operations"]
@@ -431,6 +446,7 @@ def _generate_hyper_negative_stories(spec, sut_name):
     entities = spec.get("entities", {})
     arch = spec.get("system_architecture", {})
     dependencies = spec.get("dependencies", {})
+    raw_spec = get_raw_spec(spec)
     conflicts = arch.get("vandal_conflicts", [])
     output_lines = []
 
@@ -461,17 +477,35 @@ def _generate_hyper_negative_stories(spec, sut_name):
             for parent in parents:
                 if child not in entities or parent not in entities: continue
                 safe_child, safe_parent = sanitize_param(child), sanitize_param(parent)
-                parent_del_op = entities[parent]["operations"].get("delete", {}).get("name", f"delete{parent}")
-                child_get_op = entities[child]["operations"].get("get", {}).get("name", f"get{child}")
+                # Find Delete function
+                p_ops = entities[parent].get("operations", {})
+                parent_del_op = p_ops.get("delete", {}).get("name", f"delete{parent}")
+                
+                # Find Read function (Get or List)
+                c_ops = entities[child].get("operations", {})
+                child_read_op = c_ops.get("get", {}).get("name")
+                if not child_read_op:
+                    # Fallback to list
+                    for op_key, op_val in c_ops.items():
+                        if isinstance(op_val, dict) and op_val.get("method") == "GET" and "{" not in op_val.get("path", ""):
+                            child_read_op = op_val.get("name")
+                            break
+                if not child_read_op: child_read_op = f"get{child}" # Final fallback
 
-                output_lines.append(f'bthread("hyper:evil:copy{iteration}:OrphanMaker_{safe_child}", function() {{')
+                # Determine property names
+                p_pk, _ = collect_entity_params(parent, entities[parent], raw_spec)
+                c_pk, c_params = collect_entity_params(child, entities[child], raw_spec)
+                
+                # Find which param in child links to parent
+                linking_param = next((p for p in c_params if p.lower() == p_pk.lower() or p.lower() == f"{parent.lower()}id"), p_pk)
+
+                output_lines.append(f'bthread("hyper:evil:copy{iteration}:OrphanMaker_{safe_child}_{safe_parent}", function() {{')
                 output_lines.append('  while(true) {')
                 output_lines.append(f'    let e = waitFor(matchAny{safe_child}Added());')
-                # FIX: Lowercase property access
-                output_lines.append(f'    let pId = e.data.{safe_parent.lower()}Id || e.data.id;')
+                output_lines.append(f'    let pId = e.data.{linking_param} || e.data.id;')
                 output_lines.append(f'    {sanitize_param(parent_del_op)}(pId);')
-                output_lines.append(f'    let childId = e.data.id || e.data.{safe_child.lower()}Id;')
-                output_lines.append(f'    {sanitize_param(child_get_op)}(childId);')
+                output_lines.append(f'    let childId = e.data.{c_pk} || e.data.id;')
+                output_lines.append(f'    {sanitize_param(child_read_op)}(childId);')
                 output_lines.append('  }')
                 output_lines.append('});')
     return "\n".join(output_lines)

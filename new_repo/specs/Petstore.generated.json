@@ -240,10 +240,10 @@
           "queryParams": [],
           "x-generate-full-story": false
         },
-        "delete": {
-          "name": "deleteOrder",
-          "descriptionTemplate": "Delete purchase order by identifier.",
-          "method": "DELETE",
+        "get": {
+          "name": "getOrderById",
+          "descriptionTemplate": "Find purchase order by ID.",
+          "method": "GET",
           "path": "/store/order/{orderId}",
           "params": [
             "orderId"
@@ -258,10 +258,10 @@
             404
           ]
         },
-        "get": {
-          "name": "getOrderById",
-          "descriptionTemplate": "Find purchase order by ID.",
-          "method": "GET",
+        "delete": {
+          "name": "deleteOrder",
+          "descriptionTemplate": "Delete purchase order by identifier.",
+          "method": "DELETE",
           "path": "/store/order/{orderId}",
           "params": [
             "orderId"
@@ -321,39 +321,28 @@
           "x-generate-full-story": true
         },
         "list": {
-          "name": "logoutUser",
-          "descriptionTemplate": "Logs out current logged in user session.",
+          "name": "loginUser",
+          "descriptionTemplate": "Logs user into the system.",
           "method": "GET",
-          "path": "/user/logout",
-          "params": [],
+          "path": "/user/login",
+          "params": [
+            "username",
+            "password"
+          ],
           "bodyTemplate": {},
-          "paramTypes": {},
+          "paramTypes": {
+            "username": "string",
+            "password": "string"
+          },
           "x-defined-response-codes": [
-            200
+            200,
+            400
           ]
         },
         "get": {
           "name": "getUserByName",
           "descriptionTemplate": "Get user by user name.",
           "method": "GET",
-          "path": "/user/{username}",
-          "params": [
-            "username"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "username": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            400,
-            404
-          ]
-        },
-        "delete": {
-          "name": "deleteUser",
-          "descriptionTemplate": "Delete user resource.",
-          "method": "DELETE",
           "path": "/user/{username}",
           "params": [
             "username"
@@ -407,6 +396,36 @@
             404
           ],
           "queryParams": []
+        },
+        "delete": {
+          "name": "deleteUser",
+          "descriptionTemplate": "Delete user resource.",
+          "method": "DELETE",
+          "path": "/user/{username}",
+          "params": [
+            "username"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "username": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
+        },
+        "logout": {
+          "name": "logoutUser",
+          "descriptionTemplate": "Logs out current logged in user session.",
+          "method": "GET",
+          "path": "/user/logout",
+          "params": [],
+          "bodyTemplate": {},
+          "paramTypes": {},
+          "x-defined-response-codes": [
+            200
+          ]
         }
       }
     }
@@ -424,16 +443,16 @@
     ],
     "agent_viewpoints": [
       {
-        "role": "PetManager",
+        "role": "PetAgent",
         "chain": [
           "add",
           "uploadImage",
-          "update",
+          "updateWithForm",
           "get"
         ]
       },
       {
-        "role": "StoreCoordinator",
+        "role": "StoreManager",
         "chain": [
           "add",
           "list",
@@ -442,30 +461,39 @@
         ]
       },
       {
-        "role": "UserAdministrator",
+        "role": "UserCoordinator",
         "chain": [
           "add",
           "update",
           "list",
-          "get"
+          "logout"
         ]
       },
       {
-        "role": "PetViewer",
+        "role": "TagSpecialist",
         "chain": [
-          "list",
           "listByTags",
           "get",
-          "updateWithForm"
+          "update",
+          "delete"
         ]
       },
       {
-        "role": "InventoryController",
+        "role": "PetInventoryReviewer",
         "chain": [
-          "Store.add",
-          "Store.list",
-          "Store.get",
-          "Store.delete"
+          "list",
+          "get",
+          "update",
+          "listByTags"
+        ]
+      },
+      {
+        "role": "StoreAuditor",
+        "chain": [
+          "list",
+          "get",
+          "delete",
+          "add"
         ]
       }
     ],
@@ -478,12 +506,12 @@
       {
         "target": "Store",
         "action": "delete",
-        "trigger_on": "add"
+        "trigger_on": "list"
       },
       {
         "target": "User",
-        "action": "delete",
-        "trigger_on": "update"
+        "action": "update",
+        "trigger_on": "logout"
       }
     ]
   },

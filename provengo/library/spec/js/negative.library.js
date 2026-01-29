@@ -1,105 +1,198 @@
-// Auto-generated NEGATIVE (Fuzzing) stories for library
+// Auto-generated EVIL BACKGROUND AGENTS for library
 //@provengo summon rest
 
-bthread("fuzz:Books:id_InvalidType", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = "INVALID_STRING";
-  verifyBooksRejects(bad_id, q_valid, title_valid);
+bthread("guard:Books:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyBooksAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createBook:Success:" + id), waitFor: matchAnyBooksDeleted() });
+  } });
+bthread("fuzz:fields:Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyBooksAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Books";
+      let id_neg_Books = "id_malformed_neg_Books";
+      let q_neg_Books = "q_malformed_neg_Books";
+      let title_neg_Books = "title_malformed_neg_Books";
+    verifyBooksRejects(id_neg_Books, q_neg_Books, title_neg_Books, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Books", function() {
+  while (true) {
+    let e = waitFor(matchAnyBooksAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingBooks(liveId, "q_collision", "title_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Loans:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyLoansAdded()); let id = e.data.userId || e.data.id;
+    bp.sync({ block: bp.Event("Req:createLoan:Success:" + id), waitFor: matchAnyLoansDeleted() });
+  } });
+bthread("fuzz:fields:Loans", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Loans";
+      let bookId_neg_Loans = "bookId_malformed_neg_Loans";
+      let userId_neg_Loans = "userId_malformed_neg_Loans";
+    verifyLoansRejects(bookId_neg_Loans, userId_neg_Loans, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Loans", function() {
+  while (true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let liveId = e.data.userId || e.data.id;
+    tryToAddExistingLoans("bookId_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Users:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyUsersAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createUser:Success:" + id), waitFor: matchAnyUsersDeleted() });
+  } });
+bthread("fuzz:fields:Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyUsersAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Users";
+      let id_neg_Users = "id_malformed_neg_Users";
+      let name_neg_Users = "name_malformed_neg_Users";
+      let q_neg_Users = "q_malformed_neg_Users";
+    verifyUsersRejects(id_neg_Users, name_neg_Users, q_neg_Users, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Users", function() {
+  while (true) {
+    let e = waitFor(matchAnyUsersAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingUsers(liveId, "name_collision", "q_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Holds:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyHoldsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createHold:Success:" + id), waitFor: matchAnyHoldsDeleted() });
+  } });
+bthread("fuzz:fields:Holds", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Holds";
+      let bookId_neg_Holds = "bookId_malformed_neg_Holds";
+      let id_neg_Holds = "id_malformed_neg_Holds";
+      let userId_neg_Holds = "userId_malformed_neg_Holds";
+    verifyHoldsRejects(bookId_neg_Holds, id_neg_Holds, userId_neg_Holds, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Holds", function() {
+  while (true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingHolds("bookId_collision", liveId, "userId_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+// --- PHASE 4: COORDINATED VANDALISM (Hyper-Negative) ---
+// --- EVIL COORDINATED AGENTS for library (Copy 1) ---
+bthread("hyper:evil:copy1:OrphanMaker_Loans_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let pId = e.data.id || e.data.id;
+    deleteUser(pId);
+    let childId = e.data.userId || e.data.id;
+    listLoans(childId);
+  }
 });
-bthread("fuzz:Books:q_InvalidType", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let bad_q = ["NOT_A_STRING"];
-  verifyBooksRejects(id_valid, bad_q, title_valid);
+bthread("hyper:evil:copy1:OrphanMaker_Loans_Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let pId = e.data.id || e.data.id;
+    deleteBook(pId);
+    let childId = e.data.userId || e.data.id;
+    listLoans(childId);
+  }
 });
-bthread("fuzz:Books:title_InvalidType", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let bad_title = ["NOT_A_STRING"];
-  verifyBooksRejects(id_valid, q_valid, bad_title);
+bthread("hyper:evil:copy1:OrphanMaker_Holds_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let pId = e.data.id || e.data.id;
+    deleteUser(pId);
+    let childId = e.data.id || e.data.id;
+    listHolds(childId);
+  }
 });
-bthread("fuzz:Books:id_Missing", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyBooksRejects(missing_id, q_valid, title_valid);
+bthread("hyper:evil:copy1:OrphanMaker_Holds_Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let pId = e.data.id || e.data.id;
+    deleteBook(pId);
+    let childId = e.data.id || e.data.id;
+    listHolds(childId);
+  }
 });
-bthread("fuzz:Loans:bookId_InvalidType", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let bad_bookId = "INVALID_STRING";
-  verifyLoansRejects(bad_bookId, userId_valid);
+// --- EVIL COORDINATED AGENTS for library (Copy 2) ---
+bthread("hyper:evil:copy2:OrphanMaker_Loans_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let pId = e.data.id || e.data.id;
+    deleteUser(pId);
+    let childId = e.data.userId || e.data.id;
+    listLoans(childId);
+  }
 });
-bthread("fuzz:Loans:userId_InvalidType", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let bad_userId = "INVALID_STRING";
-  verifyLoansRejects(bookId_valid, bad_userId);
+bthread("hyper:evil:copy2:OrphanMaker_Loans_Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let pId = e.data.id || e.data.id;
+    deleteBook(pId);
+    let childId = e.data.userId || e.data.id;
+    listLoans(childId);
+  }
 });
-bthread("fuzz:Loans:userId_Missing", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let missing_userId = undefined;
-  verifyLoansRejects(bookId_valid, missing_userId);
+bthread("hyper:evil:copy2:OrphanMaker_Holds_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let pId = e.data.id || e.data.id;
+    deleteUser(pId);
+    let childId = e.data.id || e.data.id;
+    listHolds(childId);
+  }
 });
-bthread("fuzz:Users:id_InvalidType", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let name_valid = "name_valid_" + Math.floor(Math.random()*1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = "INVALID_STRING";
-  verifyUsersRejects(bad_id, name_valid, q_valid);
+bthread("hyper:evil:copy2:OrphanMaker_Holds_Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let pId = e.data.id || e.data.id;
+    deleteBook(pId);
+    let childId = e.data.id || e.data.id;
+    listHolds(childId);
+  }
 });
-bthread("fuzz:Users:name_InvalidType", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let name_valid = "name_valid_" + Math.floor(Math.random()*1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let bad_name = ["NOT_A_STRING"];
-  verifyUsersRejects(id_valid, bad_name, q_valid);
+// --- EVIL COORDINATED AGENTS for library (Copy 3) ---
+bthread("hyper:evil:copy3:OrphanMaker_Loans_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let pId = e.data.id || e.data.id;
+    deleteUser(pId);
+    let childId = e.data.userId || e.data.id;
+    listLoans(childId);
+  }
 });
-bthread("fuzz:Users:q_InvalidType", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let name_valid = "name_valid_" + Math.floor(Math.random()*1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let bad_q = ["NOT_A_STRING"];
-  verifyUsersRejects(id_valid, name_valid, bad_q);
+bthread("hyper:evil:copy3:OrphanMaker_Loans_Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyLoansAdded());
+    let pId = e.data.id || e.data.id;
+    deleteBook(pId);
+    let childId = e.data.userId || e.data.id;
+    listLoans(childId);
+  }
 });
-bthread("fuzz:Users:id_Missing", function () {
-  let id_valid = Math.floor(Math.random() * 1000);
-  let name_valid = "name_valid_" + Math.floor(Math.random()*1000);
-  let q_valid = "q_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyUsersRejects(missing_id, name_valid, q_valid);
+bthread("hyper:evil:copy3:OrphanMaker_Holds_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let pId = e.data.id || e.data.id;
+    deleteUser(pId);
+    let childId = e.data.id || e.data.id;
+    listHolds(childId);
+  }
 });
-bthread("fuzz:Holds:bookId_InvalidType", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let bad_bookId = "INVALID_STRING";
-  verifyHoldsRejects(bad_bookId, id_valid, userId_valid);
-});
-bthread("fuzz:Holds:id_InvalidType", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let bad_id = "INVALID_STRING";
-  verifyHoldsRejects(bookId_valid, bad_id, userId_valid);
-});
-bthread("fuzz:Holds:userId_InvalidType", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let bad_userId = "INVALID_STRING";
-  verifyHoldsRejects(bookId_valid, id_valid, bad_userId);
-});
-bthread("fuzz:Holds:id_Missing", function () {
-  let bookId_valid = Math.floor(Math.random() * 1000);
-  let id_valid = Math.floor(Math.random() * 1000);
-  let userId_valid = Math.floor(Math.random() * 1000);
-  let missing_id = undefined;
-  verifyHoldsRejects(bookId_valid, missing_id, userId_valid);
+bthread("hyper:evil:copy3:OrphanMaker_Holds_Books", function() {
+  while(true) {
+    let e = waitFor(matchAnyHoldsAdded());
+    let pId = e.data.id || e.data.id;
+    deleteBook(pId);
+    let childId = e.data.id || e.data.id;
+    listHolds(childId);
+  }
 });

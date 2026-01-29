@@ -273,48 +273,58 @@
     "master_entities": [
       "Books",
       "Loans",
-      "Users",
-      "Holds"
+      "Users"
     ],
-    "personas": {
-      "Librarian": [
-        "Books add",
-        "Books delete",
-        "Loans add",
-        "Loans delete",
-        "Users add",
-        "Users delete",
-        "Holds add",
-        "Holds delete"
-      ],
-      "Customer": [
-        "Books list",
-        "Books get",
-        "Loans list",
-        "Users list",
-        "Holds list"
-      ]
-    },
-    "negative_patterns": [
+    "agent_viewpoints": [
       {
-        "type": "PostDelete",
-        "entity": "Books",
-        "action": "Books delete"
+        "role": "LibraryCatalogManager",
+        "chain": [
+          "Books:add",
+          "Books:list",
+          "Books:get",
+          "Books:delete"
+        ]
       },
       {
-        "type": "PostDelete",
-        "entity": "Loans",
-        "action": "Loans delete"
+        "role": "LoanProcessor",
+        "chain": [
+          "Loans:add",
+          "Loans:list",
+          "Loans:delete"
+        ]
       },
       {
-        "type": "PostDelete",
-        "entity": "Users",
-        "action": "Users delete"
+        "role": "MembershipCoordinator",
+        "chain": [
+          "Users:add",
+          "Users:list",
+          "Users:delete"
+        ]
       },
       {
-        "type": "PostDelete",
-        "entity": "Holds",
-        "action": "Holds delete"
+        "role": "HoldManager",
+        "chain": [
+          "Holds:add",
+          "Holds:list",
+          "Holds:delete"
+        ]
+      }
+    ],
+    "vandal_conflicts": [
+      {
+        "target": "Books",
+        "action": "Books:delete",
+        "trigger_on": "Books:add"
+      },
+      {
+        "target": "Loans",
+        "action": "Loans:delete",
+        "trigger_on": "Loans:add"
+      },
+      {
+        "target": "Users",
+        "action": "Users:delete",
+        "trigger_on": "Users:add"
       }
     ]
   },

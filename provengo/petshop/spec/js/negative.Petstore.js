@@ -99,16 +99,16 @@ bthread("hyper:evil:copy1:Saboteur_User", function() {
   while(true) {
     let e = waitFor(matchAnyUserAdded());
     let targetId = e.data.id || e.data.userId;
-    deleteUser(targetId);
+    updateUser(targetId);
     getUserByName(targetId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_Store", function() {
+bthread("hyper:evil:copy1:OrphanMaker_Store_Pet", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
     let pId = e.data.petId || e.data.id;
     deletePet(pId);
-    let childId = e.data.id || e.data.storeId;
+    let childId = e.data.orderId || e.data.id;
     getOrderById(childId);
   }
 });
@@ -133,16 +133,16 @@ bthread("hyper:evil:copy2:Saboteur_User", function() {
   while(true) {
     let e = waitFor(matchAnyUserAdded());
     let targetId = e.data.id || e.data.userId;
-    deleteUser(targetId);
+    updateUser(targetId);
     getUserByName(targetId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_Store", function() {
+bthread("hyper:evil:copy2:OrphanMaker_Store_Pet", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
     let pId = e.data.petId || e.data.id;
     deletePet(pId);
-    let childId = e.data.id || e.data.storeId;
+    let childId = e.data.orderId || e.data.id;
     getOrderById(childId);
   }
 });
@@ -167,16 +167,16 @@ bthread("hyper:evil:copy3:Saboteur_User", function() {
   while(true) {
     let e = waitFor(matchAnyUserAdded());
     let targetId = e.data.id || e.data.userId;
-    deleteUser(targetId);
+    updateUser(targetId);
     getUserByName(targetId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_Store", function() {
+bthread("hyper:evil:copy3:OrphanMaker_Store_Pet", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
     let pId = e.data.petId || e.data.id;
     deletePet(pId);
-    let childId = e.data.id || e.data.storeId;
+    let childId = e.data.orderId || e.data.id;
     getOrderById(childId);
   }
 });
