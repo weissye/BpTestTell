@@ -18,10 +18,10 @@ function activitypubPerson(user_id, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": user_id, "user-id": user_id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id, "id": user_id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": user_id, "user-id": user_id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id, "id": user_id}) }); }
   return response;
 }
 
@@ -33,10 +33,10 @@ function activitypubPersonInbox(user_id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": user_id, "user-id": user_id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id, "id": user_id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": user_id, "user-id": user_id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id, "id": user_id}) }); }
   return response;
 }
 
@@ -48,10 +48,10 @@ function tryToAddExistingActivityPub(user_id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": user_id, "user-id": user_id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id, "id": user_id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": user_id, "user-id": user_id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"user-id": user_id, "id": user_id}) }); }
   return response;
 }
 
@@ -110,10 +110,10 @@ function adminCronRun(id, limit, page, task, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "task": task}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "task": task, "page": page, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "task": task}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "task": task, "page": page, "id": id}) }); }
   return response;
 }
 
@@ -127,10 +127,10 @@ function tryToAddExistingAdminCron(id, limit, page, task, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "task": task}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "task": task, "page": page, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "task": task}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "task": task, "page": page, "id": id}) }); }
   return response;
 }
 
@@ -151,6 +151,7 @@ function verifyAdminCronExists(id, limit, page, task) {
   let res = adminCronList(id, limit, page, task);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("AdminCron found in list");
@@ -198,6 +199,7 @@ function verifyAdminEmailsExists(id, limit, page) {
   let res = adminGetAllEmails(id, limit, page);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("AdminEmails found in list");
@@ -239,6 +241,7 @@ function verifyEmailsExists(id, limit, page, q) {
   let res = adminSearchEmails(id, limit, page, q);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("Emails found in list");
@@ -287,10 +290,10 @@ function userCreateHook(body, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -332,10 +335,10 @@ function userEditHook(body, id, limit, page, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -350,10 +353,10 @@ function tryToAddExistingHooks(body, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -412,10 +415,10 @@ function orgListUserOrgs(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -426,10 +429,10 @@ function userGet(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -467,6 +470,7 @@ function verifyRunnersExists(id) {
   let res = adminGetRunnerRegistrationToken(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("Runners found in list");
@@ -511,10 +515,10 @@ function adminDeleteUnadoptedRepository(owner, repo, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) }); }
   return response;
 }
 
@@ -526,10 +530,10 @@ function adminAdoptRepository(limit, owner, page, pattern, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "pattern": pattern, "page": page, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "pattern": pattern, "repo": repo, "owner": owner, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "pattern": pattern, "page": page, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "pattern": pattern, "repo": repo, "owner": owner, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -541,10 +545,10 @@ function tryToAddExistingUnadoptedRepositories(limit, owner, page, pattern, repo
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "pattern": pattern, "page": page, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "pattern": pattern, "repo": repo, "owner": owner, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "pattern": pattern, "page": page, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "pattern": pattern, "repo": repo, "owner": owner, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -565,6 +569,7 @@ function verifyUnadoptedRepositoriesExists(limit, owner, page, pattern, repo) {
   let res = adminUnadoptedList(limit, owner, page, pattern, repo);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.owner == owner || item.id == owner);
           if (found) pvg.success("UnadoptedRepositories found in list");
@@ -613,10 +618,10 @@ function userListSubscriptions(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -630,10 +635,10 @@ function userCreateToken(EditUserOption, body, limit, page, token, username, con
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "body": body, "page": page, "username": username, "EditUserOption": EditUserOption, "limit": limit, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "limit": limit, "id": username, "EditUserOption": EditUserOption, "username": username, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "body": body, "page": page, "username": username, "EditUserOption": EditUserOption, "limit": limit, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "limit": limit, "id": username, "EditUserOption": EditUserOption, "username": username, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -644,10 +649,10 @@ function userDeleteAccessToken(username, token, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "token": token, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "token": token, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "token": token, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "token": token, "username": username}) }); }
   return response;
 }
 
@@ -661,10 +666,10 @@ function adminEditUser(EditUserOption, body, limit, page, token, username, confi
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "body": body, "page": page, "username": username, "EditUserOption": EditUserOption, "limit": limit, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "limit": limit, "id": username, "EditUserOption": EditUserOption, "username": username, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "body": body, "page": page, "username": username, "EditUserOption": EditUserOption, "limit": limit, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "limit": limit, "id": username, "EditUserOption": EditUserOption, "username": username, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -675,10 +680,10 @@ function userGetTokens(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -692,10 +697,10 @@ function tryToAddExistingUsers(EditUserOption, body, limit, page, token, usernam
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "body": body, "page": page, "username": username, "EditUserOption": EditUserOption, "limit": limit, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "limit": limit, "id": username, "EditUserOption": EditUserOption, "username": username, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "body": body, "page": page, "username": username, "EditUserOption": EditUserOption, "limit": limit, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"token": token, "limit": limit, "id": username, "EditUserOption": EditUserOption, "username": username, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -755,10 +760,10 @@ function adminListUserBadges(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -772,10 +777,10 @@ function adminAddUserBadges(UserBadgeOption, body, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "UserBadgeOption": UserBadgeOption, "id": username, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UserBadgeOption": UserBadgeOption, "id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "UserBadgeOption": UserBadgeOption, "id": username, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UserBadgeOption": UserBadgeOption, "id": username, "username": username}) }); }
   return response;
 }
 
@@ -786,10 +791,10 @@ function adminDeleteUserBadges(username, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -803,10 +808,10 @@ function tryToAddExistingUserBadges(UserBadgeOption, body, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "UserBadgeOption": UserBadgeOption, "id": username, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UserBadgeOption": UserBadgeOption, "id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "UserBadgeOption": UserBadgeOption, "id": username, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UserBadgeOption": UserBadgeOption, "id": username, "username": username}) }); }
   return response;
 }
 
@@ -820,6 +825,13 @@ function verifyUserBadgesRejects(UserBadgeOption, body, username) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyUserBadgesExists(username) {
+  bp.log.warn("Verification skipped: UserBadges is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyUserBadgesDoesNotExist(username) {
+  bp.log.warn("Absence check skipped: UserBadges has no GET endpoint.");
 }
 
 function matchAnyUserBadgesAdded() {
@@ -850,10 +862,10 @@ function adminCreatePublicKey(key, purge, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "purge": purge, "key": key, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"key": key, "id": username, "purge": purge, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "purge": purge, "key": key, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"key": key, "id": username, "purge": purge, "username": username}) }); }
   return response;
 }
 
@@ -864,10 +876,10 @@ function adminDeleteUser(username, purge, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes, queryParameters: {    "purge": purge} });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "purge": purge, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "purge": purge, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "purge": purge, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "purge": purge, "username": username}) }); }
   return response;
 }
 
@@ -881,10 +893,10 @@ function tryToAddExistingUserKeys(key, purge, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "purge": purge, "key": key, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"key": key, "id": username, "purge": purge, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "purge": purge, "key": key, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"key": key, "id": username, "purge": purge, "username": username}) }); }
   return response;
 }
 
@@ -898,6 +910,13 @@ function verifyUserKeysRejects(key, purge, username) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyUserKeysExists(username) {
+  bp.log.warn("Verification skipped: UserKeys is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyUserKeysDoesNotExist(username) {
+  bp.log.warn("Absence check skipped: UserKeys has no GET endpoint.");
 }
 
 function matchAnyUserKeysAdded() {
@@ -929,10 +948,10 @@ function adminCreateOrg(id, organization, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "username": username, "id": id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "username": username, "id": id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -947,10 +966,10 @@ function tryToAddExistingUserOrganizations(id, organization, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "username": username, "id": id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "username": username, "id": id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"organization": organization, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -964,6 +983,13 @@ function verifyUserOrganizationsRejects(id, organization, username) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyUserOrganizationsExists(id) {
+  bp.log.warn("Verification skipped: UserOrganizations is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyUserOrganizationsDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: UserOrganizations has no GET endpoint.");
 }
 
 function matchAnyUserOrganizationsAdded() {
@@ -983,10 +1009,10 @@ function adminRenameUser(body, id, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -1001,10 +1027,10 @@ function tryToAddExistingUserRename(body, id, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -1018,6 +1044,13 @@ function verifyUserRenameRejects(body, id, username) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyUserRenameExists(id) {
+  bp.log.warn("Verification skipped: UserRename is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyUserRenameDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: UserRename has no GET endpoint.");
 }
 
 function matchAnyUserRenameAdded() {
@@ -1037,10 +1070,10 @@ function adminCreateRepo(id, repository, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "repository": repository}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repository": repository, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "repository": repository}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repository": repository, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -1055,10 +1088,10 @@ function tryToAddExistingUserRepositories(id, repository, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "repository": repository}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repository": repository, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": id, "repository": repository}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repository": repository, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -1072,6 +1105,13 @@ function verifyUserRepositoriesRejects(id, repository, username) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyUserRepositoriesExists(id) {
+  bp.log.warn("Verification skipped: UserRepositories is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyUserRepositoriesDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: UserRepositories has no GET endpoint.");
 }
 
 function matchAnyUserRepositoriesAdded() {
@@ -1186,6 +1226,7 @@ function verifyLicenseTemplatesExists(id) {
   let res = listLicenseTemplates(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("LicenseTemplates found in list");
@@ -1250,10 +1291,10 @@ function renderMarkdown(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -1268,10 +1309,10 @@ function renderMarkdownRaw(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -1286,10 +1327,10 @@ function tryToAddExistingMarkdown(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -1303,6 +1344,13 @@ function verifyMarkdownRejects(body, id) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyMarkdownExists(id) {
+  bp.log.warn("Verification skipped: Markdown is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyMarkdownDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: Markdown has no GET endpoint.");
 }
 
 function matchAnyMarkdownAdded() {
@@ -1322,10 +1370,10 @@ function renderMarkup(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -1340,10 +1388,10 @@ function tryToAddExistingMarkup(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -1357,6 +1405,13 @@ function verifyMarkupRejects(body, id) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyMarkupExists(id) {
+  bp.log.warn("Verification skipped: Markup is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyMarkupDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: Markup has no GET endpoint.");
 }
 
 function matchAnyMarkupAdded() {
@@ -1383,6 +1438,7 @@ function verifyNodeInfoExists(id) {
   let res = getNodeInfo(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("NodeInfo found in list");
@@ -1413,10 +1469,10 @@ function notifyGetRepoList(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) }); }
   return response;
 }
 
@@ -1428,10 +1484,10 @@ function notifyReadRepoList(all, before, last_read_at, limit, owner, page, repo,
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "last_read_at": last_read_at, "owner": owner, "to-status": to_status, "before": before, "status-types": status_types, "all": all, "subject-type": subject_type, "page": page, "since": since, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "limit": limit, "id": owner, "all": all, "repo": repo, "subject-type": subject_type, "owner": owner, "status-types": status_types, "since": since, "to-status": to_status, "last_read_at": last_read_at, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "last_read_at": last_read_at, "owner": owner, "to-status": to_status, "before": before, "status-types": status_types, "all": all, "subject-type": subject_type, "page": page, "since": since, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "limit": limit, "id": owner, "all": all, "repo": repo, "subject-type": subject_type, "owner": owner, "status-types": status_types, "since": since, "to-status": to_status, "last_read_at": last_read_at, "page": page}) }); }
   return response;
 }
 
@@ -1453,6 +1509,7 @@ function verifyNotificationsExists(all, before, last_read_at, limit, owner, page
   let res = notifyNewAvailable(all, before, last_read_at, limit, owner, page, repo, since, status_types, subject_type, to_status);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.owner == owner || item.id == owner);
           if (found) pvg.success("Notifications found in list");
@@ -1500,10 +1557,10 @@ function createOrgRepoDeprecated(body, limit, org, page, secretname, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1545,10 +1602,10 @@ function orgEdit(body, limit, org, page, secretname, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1587,10 +1644,10 @@ function deleteOrgSecret(org, secretname, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "secretname": secretname, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"secretname": secretname, "org": org, "id": org}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org, "secretname": secretname, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"secretname": secretname, "org": org, "id": org}) }); }
   return response;
 }
 
@@ -1604,10 +1661,10 @@ function updateOrgSecret(body, limit, org, page, secretname, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1635,10 +1692,10 @@ function tryToAddExistingOrganization(body, limit, org, page, secretname, config
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "secretname": secretname, "page": page, "org": org, "limit": limit, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "secretname": secretname, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1697,10 +1754,10 @@ function deleteRepoVariable(owner, repo, variablename, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "variablename": variablename}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "variablename": variablename}) }); }
   return response;
 }
 
@@ -1729,10 +1786,10 @@ function createRepoVariable(CreateVariableOption, UpdateVariableOption, body, id
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "CreateVariableOption": CreateVariableOption, "body": body, "page": page, "id": id, "UpdateVariableOption": UpdateVariableOption, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateVariableOption": UpdateVariableOption, "limit": limit, "repo": repo, "CreateVariableOption": CreateVariableOption, "owner": owner, "variablename": variablename, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "CreateVariableOption": CreateVariableOption, "body": body, "page": page, "id": id, "UpdateVariableOption": UpdateVariableOption, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateVariableOption": UpdateVariableOption, "limit": limit, "repo": repo, "CreateVariableOption": CreateVariableOption, "owner": owner, "variablename": variablename, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1747,10 +1804,10 @@ function updateRepoVariable(CreateVariableOption, UpdateVariableOption, body, id
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "CreateVariableOption": CreateVariableOption, "body": body, "page": page, "id": id, "UpdateVariableOption": UpdateVariableOption, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateVariableOption": UpdateVariableOption, "limit": limit, "repo": repo, "CreateVariableOption": CreateVariableOption, "owner": owner, "variablename": variablename, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "CreateVariableOption": CreateVariableOption, "body": body, "page": page, "id": id, "UpdateVariableOption": UpdateVariableOption, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateVariableOption": UpdateVariableOption, "limit": limit, "repo": repo, "CreateVariableOption": CreateVariableOption, "owner": owner, "variablename": variablename, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1761,10 +1818,10 @@ function getRepoVariablesList(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -1779,10 +1836,10 @@ function tryToAddExistingVariables(CreateVariableOption, UpdateVariableOption, b
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "CreateVariableOption": CreateVariableOption, "body": body, "page": page, "id": id, "UpdateVariableOption": UpdateVariableOption, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateVariableOption": UpdateVariableOption, "limit": limit, "repo": repo, "CreateVariableOption": CreateVariableOption, "owner": owner, "variablename": variablename, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "owner": owner, "CreateVariableOption": CreateVariableOption, "body": body, "page": page, "id": id, "UpdateVariableOption": UpdateVariableOption, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateVariableOption": UpdateVariableOption, "limit": limit, "repo": repo, "CreateVariableOption": CreateVariableOption, "owner": owner, "variablename": variablename, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -1850,6 +1907,13 @@ function userListActivityFeeds(username, config) {
   return response;
 }
 
+function verifyActivityFeedsExists(id) {
+  bp.log.warn("Verification skipped: ActivityFeeds is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyActivityFeedsDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: ActivityFeeds has no GET endpoint.");
+}
+
 function orgDeleteAvatar(org, config) {
   var url = "/orgs/" + org + "/avatar"; var reqDescription = "Delete Avatar";
   reqDescription = reqDescription.replace(/\{[^\}]+\}/g, "context");
@@ -1874,10 +1938,10 @@ function orgUpdateAvatar(UpdateUserAvatarOption, body, org, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org}) }); }
   return response;
 }
 
@@ -1891,10 +1955,10 @@ function tryToAddExistingAvatar(UpdateUserAvatarOption, body, org, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "UpdateUserAvatarOption": UpdateUserAvatarOption, "org": org, "id": org}) }); }
   return response;
 }
 
@@ -1908,6 +1972,13 @@ function verifyAvatarRejects(UpdateUserAvatarOption, body, org) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyAvatarExists(org) {
+  bp.log.warn("Verification skipped: Avatar is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyAvatarDoesNotExist(org) {
+  bp.log.warn("Absence check skipped: Avatar has no GET endpoint.");
 }
 
 function matchAnyAvatarAdded() {
@@ -1978,10 +2049,10 @@ function orgEdit(body, limit, org, page, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "org": org, "limit": limit, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "org": org, "limit": limit, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2020,10 +2091,10 @@ function issueListLabels(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -2038,10 +2109,10 @@ function issueCreateLabel(body, id, limit, owner, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2069,10 +2140,10 @@ function issueEditLabel(body, id, limit, owner, page, repo, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2083,10 +2154,10 @@ function issueDeleteLabel(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -2101,10 +2172,10 @@ function tryToAddExistingLabels(body, id, limit, owner, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2168,6 +2239,13 @@ function orgListMembers(org, config) {
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
   } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"org": org}) }); }
   return response;
+}
+
+function verifyMembersExists(id) {
+  bp.log.warn("Verification skipped: Members is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyMembersDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: Members has no GET endpoint.");
 }
 
 function orgDelete(org, config) {
@@ -2276,10 +2354,10 @@ function orgEdit(body, limit, org, page, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "org": org, "limit": limit, "id": org}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "org": org, "limit": limit, "id": org}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": org, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2336,10 +2414,10 @@ function createOrgRepo(body, id, limit, org, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2354,10 +2432,10 @@ function tryToAddExistingOrganizationRepos(body, id, limit, org, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2373,6 +2451,13 @@ function verifyOrganizationReposRejects(body, id, limit, org, page) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyOrganizationReposExists(id) {
+  bp.log.warn("Verification skipped: OrganizationRepos is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyOrganizationReposDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: OrganizationRepos has no GET endpoint.");
 }
 
 function matchAnyOrganizationReposAdded() {
@@ -2406,10 +2491,10 @@ function orgCreateTeam(body, id, limit, org, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2424,10 +2509,10 @@ function tryToAddExistingOrganizationTeams(body, id, limit, org, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "id": id, "org": org, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2443,6 +2528,13 @@ function verifyOrganizationTeamsRejects(body, id, limit, org, page) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyOrganizationTeamsExists(id) {
+  bp.log.warn("Verification skipped: OrganizationTeams is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyOrganizationTeamsDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: OrganizationTeams has no GET endpoint.");
 }
 
 function matchAnyOrganizationTeamsAdded() {
@@ -2503,10 +2595,10 @@ function orgEditTeam(body, id, limit, page, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -2545,10 +2637,10 @@ function listPackages(owner, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "id": owner}) }); }
   return response;
 }
 
@@ -2559,10 +2651,10 @@ function listPackages(owner, page, limit, type, q, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes, queryParameters: {    "page": page,     "limit": limit,     "type": type,     "q": q} });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "page": page, "q": q, "limit": limit, "type": type}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "owner": owner, "type": type, "id": owner, "page": page, "q": q}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "page": page, "q": q, "limit": limit, "type": type}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "owner": owner, "type": type, "id": owner, "page": page, "q": q}) }); }
   return response;
 }
 
@@ -2573,10 +2665,10 @@ function deletePackage(owner, type, name, version, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "name": name, "version": version, "type": type}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"version": version, "name": name, "owner": owner, "type": type, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "name": name, "version": version, "type": type}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"version": version, "name": name, "owner": owner, "type": type, "id": owner}) }); }
   return response;
 }
 
@@ -2587,10 +2679,10 @@ function listPackageFiles(owner, type, name, version, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "name": name, "version": version, "type": type}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"version": version, "name": name, "owner": owner, "type": type, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "name": name, "version": version, "type": type}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"version": version, "name": name, "owner": owner, "type": type, "id": owner}) }); }
   return response;
 }
 
@@ -2629,10 +2721,10 @@ function issueGetIssueReactions(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -2660,10 +2752,10 @@ function moveIssuePin(content, id, index, limit, owner, page, position, repo, co
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) }); }
   return response;
 }
 
@@ -2674,10 +2766,10 @@ function issueDeleteTime(owner, repo, index, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "index": index}) }); }
   return response;
 }
 
@@ -2692,10 +2784,10 @@ function issuePostIssueReaction(content, id, index, limit, owner, page, position
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) }); }
   return response;
 }
 
@@ -2706,10 +2798,10 @@ function issueDeleteStopWatch(owner, repo, index, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -2723,10 +2815,10 @@ function issueStartStopWatch(content, id, index, limit, owner, page, position, r
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) }); }
   return response;
 }
 
@@ -2740,10 +2832,10 @@ function issueStopStopWatch(content, id, index, limit, owner, page, position, re
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) }); }
   return response;
 }
 
@@ -2758,10 +2850,10 @@ function tryToAddExistingIssues(content, id, index, limit, owner, page, position
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "content": content, "page": page, "index": index, "id": id, "repo": repo, "position": position, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "content": content, "position": position, "page": page}) }); }
   return response;
 }
 
@@ -2825,10 +2917,10 @@ function repoMergeUpstream(EditRepoOption, body, id, limit, owner, page, repo, c
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2839,10 +2931,10 @@ function repoGetIssueTemplates(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -2853,10 +2945,10 @@ function repoDeleteAvatar(owner, repo, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -2885,10 +2977,10 @@ function repoEdit(EditRepoOption, body, id, limit, owner, page, repo, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2899,10 +2991,10 @@ function repoGetRunnerRegistrationToken(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -2913,10 +3005,10 @@ function repoListActionsSecrets(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -2927,10 +3019,10 @@ function repoListBranchProtection(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -2945,10 +3037,10 @@ function repoCreateBranchProtection(EditRepoOption, body, id, limit, owner, page
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2963,10 +3055,10 @@ function repoUpdateBranchProtectionPriories(EditRepoOption, body, id, limit, own
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -2981,10 +3073,10 @@ function tryToAddExistingRepository(EditRepoOption, body, id, limit, owner, page
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"EditRepoOption": EditRepoOption, "owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "EditRepoOption": EditRepoOption, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3044,10 +3136,10 @@ function deleteRepoSecret(owner, repo, secretname, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo, "secretname": secretname}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "secretname": secretname, "owner": owner, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo, "secretname": secretname}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "secretname": secretname, "owner": owner, "id": owner}) }); }
   return response;
 }
 
@@ -3061,11 +3153,18 @@ function updateRepoSecret(CreateOrUpdateSecretOption, body, owner, repo, secretn
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "secretname": secretname, "repo": repo, "CreateOrUpdateSecretOption": CreateOrUpdateSecretOption}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateOrUpdateSecretOption": CreateOrUpdateSecretOption, "repo": repo, "secretname": secretname, "owner": owner, "body": body, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "secretname": secretname, "repo": repo, "CreateOrUpdateSecretOption": CreateOrUpdateSecretOption}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateOrUpdateSecretOption": CreateOrUpdateSecretOption, "repo": repo, "secretname": secretname, "owner": owner, "body": body, "id": owner}) }); }
   return response;
+}
+
+function verifySecretsExists(owner) {
+  bp.log.warn("Verification skipped: Secrets is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifySecretsDoesNotExist(owner) {
+  bp.log.warn("Absence check skipped: Secrets has no GET endpoint.");
 }
 
 function matchDeletedSecrets(owner) {
@@ -3087,11 +3186,18 @@ function ListActionTasks(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
+}
+
+function verifyTasksExists(id) {
+  bp.log.warn("Verification skipped: Tasks is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyTasksDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: Tasks has no GET endpoint.");
 }
 
 function repoDeleteBranchProtection(owner, repo, name, config) {
@@ -3101,10 +3207,10 @@ function repoDeleteBranchProtection(owner, repo, name, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "name": name}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "name": name}) }); }
   return response;
 }
 
@@ -3133,10 +3239,10 @@ function repoEditBranchProtection(EditBranchProtectionOption, body, id, name, ow
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "id": id, "repo": repo, "name": name, "EditBranchProtectionOption": EditBranchProtectionOption}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"name": name, "repo": repo, "owner": owner, "EditBranchProtectionOption": EditBranchProtectionOption, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "id": id, "repo": repo, "name": name, "EditBranchProtectionOption": EditBranchProtectionOption}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"name": name, "repo": repo, "owner": owner, "EditBranchProtectionOption": EditBranchProtectionOption, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -3175,10 +3281,10 @@ function repoListBranches(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3193,10 +3299,10 @@ function repoCreateBranch(CreateBranchRepoOption, UpdateBranchRepoOption, body, 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "branch": branch, "body": body, "CreateBranchRepoOption": CreateBranchRepoOption, "page": page, "id": id, "repo": repo, "UpdateBranchRepoOption": UpdateBranchRepoOption, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateBranchRepoOption": CreateBranchRepoOption, "limit": limit, "repo": repo, "branch": branch, "owner": owner, "id": id, "body": body, "UpdateBranchRepoOption": UpdateBranchRepoOption, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "branch": branch, "body": body, "CreateBranchRepoOption": CreateBranchRepoOption, "page": page, "id": id, "repo": repo, "UpdateBranchRepoOption": UpdateBranchRepoOption, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateBranchRepoOption": CreateBranchRepoOption, "limit": limit, "repo": repo, "branch": branch, "owner": owner, "id": id, "body": body, "UpdateBranchRepoOption": UpdateBranchRepoOption, "page": page}) }); }
   return response;
 }
 
@@ -3207,10 +3313,10 @@ function repoDeleteBranch(owner, repo, branch, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "branch": branch}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "branch": branch, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "branch": branch}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "branch": branch, "owner": owner}) }); }
   return response;
 }
 
@@ -3239,10 +3345,10 @@ function repoUpdateBranch(CreateBranchRepoOption, UpdateBranchRepoOption, body, 
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "branch": branch, "body": body, "CreateBranchRepoOption": CreateBranchRepoOption, "page": page, "id": id, "repo": repo, "UpdateBranchRepoOption": UpdateBranchRepoOption, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateBranchRepoOption": CreateBranchRepoOption, "limit": limit, "repo": repo, "branch": branch, "owner": owner, "id": id, "body": body, "UpdateBranchRepoOption": UpdateBranchRepoOption, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "branch": branch, "body": body, "CreateBranchRepoOption": CreateBranchRepoOption, "page": page, "id": id, "repo": repo, "UpdateBranchRepoOption": UpdateBranchRepoOption, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateBranchRepoOption": CreateBranchRepoOption, "limit": limit, "repo": repo, "branch": branch, "owner": owner, "id": id, "body": body, "UpdateBranchRepoOption": UpdateBranchRepoOption, "page": page}) }); }
   return response;
 }
 
@@ -3257,10 +3363,10 @@ function tryToAddExistingBranches(CreateBranchRepoOption, UpdateBranchRepoOption
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "branch": branch, "body": body, "CreateBranchRepoOption": CreateBranchRepoOption, "page": page, "id": id, "repo": repo, "UpdateBranchRepoOption": UpdateBranchRepoOption, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateBranchRepoOption": CreateBranchRepoOption, "limit": limit, "repo": repo, "branch": branch, "owner": owner, "id": id, "body": body, "UpdateBranchRepoOption": UpdateBranchRepoOption, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "branch": branch, "body": body, "CreateBranchRepoOption": CreateBranchRepoOption, "page": page, "id": id, "repo": repo, "UpdateBranchRepoOption": UpdateBranchRepoOption, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"CreateBranchRepoOption": CreateBranchRepoOption, "limit": limit, "repo": repo, "branch": branch, "owner": owner, "id": id, "body": body, "UpdateBranchRepoOption": UpdateBranchRepoOption, "page": page}) }); }
   return response;
 }
 
@@ -3322,10 +3428,10 @@ function repoListCollaborators(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3336,10 +3442,10 @@ function repoDeleteCollaborator(owner, repo, collaborator, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collaborator": collaborator, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "collaborator": collaborator}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collaborator": collaborator, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "collaborator": collaborator}) }); }
   return response;
 }
 
@@ -3368,10 +3474,10 @@ function repoAddCollaborator(AddCollaboratorOption, body, collaborator, id, limi
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collaborator": collaborator, "owner": owner, "body": body, "AddCollaboratorOption": AddCollaboratorOption, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "collaborator": collaborator, "repo": repo, "owner": owner, "id": id, "AddCollaboratorOption": AddCollaboratorOption, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collaborator": collaborator, "owner": owner, "body": body, "AddCollaboratorOption": AddCollaboratorOption, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "collaborator": collaborator, "repo": repo, "owner": owner, "id": id, "AddCollaboratorOption": AddCollaboratorOption, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3386,10 +3492,10 @@ function tryToAddExistingCollaborators(AddCollaboratorOption, body, collaborator
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collaborator": collaborator, "owner": owner, "body": body, "AddCollaboratorOption": AddCollaboratorOption, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "collaborator": collaborator, "repo": repo, "owner": owner, "id": id, "AddCollaboratorOption": AddCollaboratorOption, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"collaborator": collaborator, "owner": owner, "body": body, "AddCollaboratorOption": AddCollaboratorOption, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "collaborator": collaborator, "repo": repo, "owner": owner, "id": id, "AddCollaboratorOption": AddCollaboratorOption, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3449,10 +3555,10 @@ function repoGetAllCommits(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3477,10 +3583,10 @@ function repoListStatusesByRef(owner, repo, ref, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "ref": ref}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "ref": ref}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "ref": ref}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "ref": ref}) }); }
   return response;
 }
 
@@ -3491,10 +3597,10 @@ function repoGetCommitPullRequest(owner, repo, sha, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"sha": sha, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "sha": sha}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"sha": sha, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "sha": sha}) }); }
   return response;
 }
 
@@ -3505,10 +3611,10 @@ function repoDownloadCommitDiffOrPatch(owner, repo, sha, diffType, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"diffType": diffType, "sha": sha, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "diffType": diffType, "owner": owner, "sha": sha}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"diffType": diffType, "sha": sha, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "diffType": diffType, "owner": owner, "sha": sha}) }); }
   return response;
 }
 
@@ -3567,10 +3673,10 @@ function createCurrentUserRepo(body, id, limit, owner, page, repo, username, con
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "username": username, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "username": username, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "username": username, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "username": username, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3581,10 +3687,10 @@ function userCurrentDeleteSubscription(owner, repo, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3598,10 +3704,10 @@ function userCurrentPutSubscription(body, id, limit, owner, page, repo, username
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "username": username, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "username": username, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "username": username, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "username": username, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3630,10 +3736,10 @@ function tryToAddExistingRepositories(body, id, limit, owner, page, repo, userna
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "username": username, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "username": username, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "username": username, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "username": username, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3695,10 +3801,10 @@ function listForks(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3713,10 +3819,10 @@ function createFork(body, id, limit, owner, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3731,10 +3837,10 @@ function tryToAddExistingForks(body, id, limit, owner, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -3750,6 +3856,13 @@ function verifyForksRejects(body, id, limit, owner, page, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyForksExists(id) {
+  bp.log.warn("Verification skipped: Forks is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyForksDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: Forks has no GET endpoint.");
 }
 
 function matchAnyForksAdded() {
@@ -3825,10 +3938,10 @@ function repoListAllGitRefs(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3929,10 +4042,10 @@ function repoListGitHooks(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -3957,10 +4070,10 @@ function repoDeleteGitHook(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -3974,10 +4087,10 @@ function repoEditGitHook(body, id, owner, repo, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -4046,10 +4159,10 @@ function issueGetMilestonesList(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -4064,10 +4177,10 @@ function issueCreateMilestone(body, id, limit, name, owner, page, repo, state, c
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "name": name, "limit": limit, "state": state}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "state": state, "name": name, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "name": name, "limit": limit, "state": state}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "state": state, "name": name, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -4078,10 +4191,10 @@ function issueDeleteComment(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -4109,10 +4222,10 @@ function issueEditComment(body, id, limit, name, owner, page, repo, state, confi
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "name": name, "limit": limit, "state": state}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "state": state, "name": name, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "name": name, "limit": limit, "state": state}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "state": state, "name": name, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -4127,10 +4240,10 @@ function tryToAddExistingIssue(body, id, limit, name, owner, page, repo, state, 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "name": name, "limit": limit, "state": state}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "state": state, "name": name, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "id": id, "repo": repo, "name": name, "limit": limit, "state": state}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "state": state, "name": name, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -4191,10 +4304,10 @@ function issueListIssueCommentAttachments(owner, repo, id, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -4209,10 +4322,10 @@ function issueCreateIssueCommentAttachment(attachment, attachment_id, body, id, 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -4240,10 +4353,10 @@ function issueEditIssueCommentAttachment(attachment, attachment_id, body, id, na
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -4254,10 +4367,10 @@ function issueDeleteIssueCommentAttachment(owner, repo, id, attachment_id, confi
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "attachment_id": attachment_id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "attachment_id": attachment_id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id}) }); }
   return response;
 }
 
@@ -4272,10 +4385,10 @@ function tryToAddExistingIssueCommentAttachments(attachment, attachment_id, body
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -4334,10 +4447,10 @@ function issueGetCommentReactions(owner, repo, id, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "id": id}) }); }
   return response;
 }
 
@@ -4351,10 +4464,10 @@ function issuePostCommentReaction(content, id, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "id": id, "repo": repo, "content": content}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "content": content, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "id": id, "repo": repo, "content": content}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "content": content, "id": owner}) }); }
   return response;
 }
 
@@ -4365,10 +4478,10 @@ function issueDeleteCommentReaction(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "id": id}) }); }
   return response;
 }
 
@@ -4382,10 +4495,10 @@ function tryToAddExistingIssueCommentReactions(content, id, owner, repo, config)
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "id": id, "repo": repo, "content": content}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "content": content, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "id": id, "repo": repo, "content": content}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "content": content, "id": owner}) }); }
   return response;
 }
 
@@ -4398,6 +4511,13 @@ function verifyIssueCommentReactionsRejects(content, id, owner, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyIssueCommentReactionsExists(owner) {
+  bp.log.warn("Verification skipped: IssueCommentReactions is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyIssueCommentReactionsDoesNotExist(owner) {
+  bp.log.warn("Absence check skipped: IssueCommentReactions has no GET endpoint.");
 }
 
 function matchAnyIssueCommentReactionsAdded() {
@@ -4425,11 +4545,18 @@ function repoListPinnedIssues(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
+}
+
+function verifyPinnedIssuesExists(id) {
+  bp.log.warn("Verification skipped: PinnedIssues is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyPinnedIssuesDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: PinnedIssues has no GET endpoint.");
 }
 
 function issueListIssueAttachments(owner, repo, index, config) {
@@ -4439,10 +4566,10 @@ function issueListIssueAttachments(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -4458,10 +4585,10 @@ function issueCreateIssueAttachment(attachment, attachment_id, body, id, index, 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "index": index, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "index": index, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "index": index, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "index": index, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -4490,10 +4617,10 @@ function issueEditIssueAttachment(attachment, attachment_id, body, id, index, na
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "index": index, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "index": index, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "index": index, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "index": index, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -4504,10 +4631,10 @@ function issueDeleteIssueAttachment(owner, repo, index, attachment_id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo, "attachment_id": attachment_id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "attachment_id": attachment_id, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo, "attachment_id": attachment_id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "attachment_id": attachment_id, "index": index}) }); }
   return response;
 }
 
@@ -4523,10 +4650,10 @@ function tryToAddExistingIssueAttachments(attachment, attachment_id, body, id, i
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "index": index, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "index": index, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "index": index, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "index": index, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -4586,10 +4713,10 @@ function issueListBlocks(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) }); }
   return response;
 }
 
@@ -4603,10 +4730,10 @@ function issueCreateIssueBlocking(body, index, limit, owner, page, repo, config)
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "index": index, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "index": index, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -4617,10 +4744,10 @@ function issueRemoveIssueBlocking(owner, repo, index, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) }); }
   return response;
 }
 
@@ -4634,10 +4761,10 @@ function tryToAddExistingIssueBlocks(body, index, limit, owner, page, repo, conf
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "index": index, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "index": index, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -4652,6 +4779,13 @@ function verifyIssueBlocksRejects(body, index, limit, owner, page, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyIssueBlocksExists(owner) {
+  bp.log.warn("Verification skipped: IssueBlocks is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyIssueBlocksDoesNotExist(owner) {
+  bp.log.warn("Absence check skipped: IssueBlocks has no GET endpoint.");
 }
 
 function matchAnyIssueBlocksAdded() {
@@ -4679,10 +4813,10 @@ function issueGetComments(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -4697,10 +4831,10 @@ function issueCreateComment(before, body, id, index, owner, repo, since, config)
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "before": before, "since": since, "index": index, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "index": index, "repo": repo, "owner": owner, "id": id, "since": since, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "before": before, "since": since, "index": index, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "index": index, "repo": repo, "owner": owner, "id": id, "since": since, "body": body}) }); }
   return response;
 }
 
@@ -4728,10 +4862,10 @@ function issueEditCommentDeprecated(before, body, id, index, owner, repo, since,
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "before": before, "since": since, "index": index, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "index": index, "repo": repo, "owner": owner, "id": id, "since": since, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "before": before, "since": since, "index": index, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "index": index, "repo": repo, "owner": owner, "id": id, "since": since, "body": body}) }); }
   return response;
 }
 
@@ -4742,10 +4876,10 @@ function issueDeleteCommentDeprecated(owner, repo, index, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "index": index}) }); }
   return response;
 }
 
@@ -4760,10 +4894,10 @@ function tryToAddExistingIssueComments(before, body, id, index, owner, repo, sin
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "before": before, "since": since, "index": index, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "index": index, "repo": repo, "owner": owner, "id": id, "since": since, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "before": before, "since": since, "index": index, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "index": index, "repo": repo, "owner": owner, "id": id, "since": since, "body": body}) }); }
   return response;
 }
 
@@ -4822,10 +4956,10 @@ function issueSubscriptions(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -4850,10 +4984,10 @@ function issueDeleteSubscription(owner, repo, index, user, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo, "user": user}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "user": user, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo, "user": user}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "user": user, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -4867,10 +5001,10 @@ function issueAddSubscription(id, index, limit, owner, page, repo, user, config)
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "user": user, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "id": id, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "user": user, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "id": id, "page": page}) }); }
   return response;
 }
 
@@ -4884,10 +5018,10 @@ function tryToAddExistingIssueSubscriptions(id, index, limit, owner, page, repo,
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "user": user, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "id": id, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "user": user, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "id": id, "page": page}) }); }
   return response;
 }
 
@@ -4945,11 +5079,18 @@ function issueGetCommentsAndTimeline(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
+}
+
+function verifyIssueTimelineExists(id) {
+  bp.log.warn("Verification skipped: IssueTimeline is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyIssueTimelineDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: IssueTimeline has no GET endpoint.");
 }
 
 function issueResetTime(owner, repo, index, config) {
@@ -4959,10 +5100,10 @@ function issueResetTime(owner, repo, index, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) }); }
   return response;
 }
 
@@ -4973,10 +5114,10 @@ function issueTrackedTimes(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) }); }
   return response;
 }
 
@@ -4990,10 +5131,10 @@ function issueAddTime(before, body, index, limit, owner, page, repo, since, user
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "user": user, "body": body, "before": before, "page": page, "index": index, "since": since, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "since": since, "body": body, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "user": user, "body": body, "before": before, "page": page, "index": index, "since": since, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "since": since, "body": body, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -5007,10 +5148,10 @@ function tryToAddExistingIssueTimes(before, body, index, limit, owner, page, rep
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "user": user, "body": body, "before": before, "page": page, "index": index, "since": since, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "since": since, "body": body, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "user": user, "body": body, "before": before, "page": page, "index": index, "since": since, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"before": before, "limit": limit, "index": index, "repo": repo, "owner": owner, "user": user, "since": since, "body": body, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -5028,6 +5169,13 @@ function verifyIssueTimesRejects(before, body, index, limit, owner, page, repo, 
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyIssueTimesExists(owner) {
+  bp.log.warn("Verification skipped: IssueTimes is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyIssueTimesDoesNotExist(owner) {
+  bp.log.warn("Absence check skipped: IssueTimes has no GET endpoint.");
 }
 
 function matchAnyIssueTimesAdded() {
@@ -5073,10 +5221,10 @@ function userCurrentPostKey(body, fingerprint, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"fingerprint": fingerprint, "body": body, "page": page, "id": id, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "fingerprint": fingerprint, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"fingerprint": fingerprint, "body": body, "page": page, "id": id, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "fingerprint": fingerprint, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5119,10 +5267,10 @@ function tryToAddExistingKeys(body, fingerprint, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"fingerprint": fingerprint, "body": body, "page": page, "id": id, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "fingerprint": fingerprint, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"fingerprint": fingerprint, "body": body, "page": page, "id": id, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "fingerprint": fingerprint, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5182,10 +5330,10 @@ function issueDeleteMilestone(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -5213,10 +5361,10 @@ function issueEditMilestone(body, id, owner, repo, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -5258,10 +5406,10 @@ function repoMirrorSync(id, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -5275,10 +5423,10 @@ function tryToAddExistingMirrorSync(id, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -5291,6 +5439,13 @@ function verifyMirrorSyncRejects(id, owner, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyMirrorSyncExists(id) {
+  bp.log.warn("Verification skipped: MirrorSync is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyMirrorSyncDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: MirrorSync has no GET endpoint.");
 }
 
 function matchAnyMirrorSyncAdded() {
@@ -5336,10 +5491,10 @@ function repoGetPullRequestFiles(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -5353,10 +5508,10 @@ function repoUpdatePullRequest(body, id, index, limit, owner, page, repo, skip_t
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "whitespace": whitespace, "body": body, "style": style, "page": page, "index": index, "id": id, "repo": repo, "skip-to": skip_to, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "style": style, "index": index, "repo": repo, "whitespace": whitespace, "owner": owner, "id": id, "skip-to": skip_to, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "whitespace": whitespace, "body": body, "style": style, "page": page, "index": index, "id": id, "repo": repo, "skip-to": skip_to, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "style": style, "index": index, "repo": repo, "whitespace": whitespace, "owner": owner, "id": id, "skip-to": skip_to, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5385,10 +5540,10 @@ function repoEditPullRequest(body, id, index, limit, owner, page, repo, skip_to,
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "whitespace": whitespace, "body": body, "style": style, "page": page, "index": index, "id": id, "repo": repo, "skip-to": skip_to, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "style": style, "index": index, "repo": repo, "whitespace": whitespace, "owner": owner, "id": id, "skip-to": skip_to, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "whitespace": whitespace, "body": body, "style": style, "page": page, "index": index, "id": id, "repo": repo, "skip-to": skip_to, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "style": style, "index": index, "repo": repo, "whitespace": whitespace, "owner": owner, "id": id, "skip-to": skip_to, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5399,10 +5554,10 @@ function repoCancelScheduledAutoMerge(owner, repo, index, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -5416,10 +5571,10 @@ function tryToAddExistingPullRequests(body, id, index, limit, owner, page, repo,
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "whitespace": whitespace, "body": body, "style": style, "page": page, "index": index, "id": id, "repo": repo, "skip-to": skip_to, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "style": style, "index": index, "repo": repo, "whitespace": whitespace, "owner": owner, "id": id, "skip-to": skip_to, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "whitespace": whitespace, "body": body, "style": style, "page": page, "index": index, "id": id, "repo": repo, "skip-to": skip_to, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "style": style, "index": index, "repo": repo, "whitespace": whitespace, "owner": owner, "id": id, "skip-to": skip_to, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5481,10 +5636,10 @@ function repoDeletePullReviewRequests(owner, repo, index, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "index": index}) }); }
   return response;
 }
 
@@ -5498,10 +5653,10 @@ function repoCreatePullReviewRequests(body, index, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "index": index, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "body": body, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "index": index, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "body": body, "id": owner}) }); }
   return response;
 }
 
@@ -5515,10 +5670,10 @@ function tryToAddExistingPullReviewRequests(body, index, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "index": index, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "body": body, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "index": index, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "body": body, "id": owner}) }); }
   return response;
 }
 
@@ -5531,6 +5686,13 @@ function verifyPullReviewRequestsRejects(body, index, owner, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyPullReviewRequestsExists(owner) {
+  bp.log.warn("Verification skipped: PullReviewRequests is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyPullReviewRequestsDoesNotExist(owner) {
+  bp.log.warn("Absence check skipped: PullReviewRequests has no GET endpoint.");
 }
 
 function matchAnyPullReviewRequestsAdded() {
@@ -5558,10 +5720,10 @@ function repoListPullReviews(owner, repo, index, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index}) }); }
   return response;
 }
 
@@ -5576,10 +5738,10 @@ function repoCreatePullReview(body, id, index, limit, owner, page, repo, config)
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5590,10 +5752,10 @@ function repoDeletePullReview(owner, repo, index, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "index": index}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id, "index": index}) }); }
   return response;
 }
 
@@ -5621,10 +5783,10 @@ function repoSubmitPullReview(body, id, index, limit, owner, page, repo, config)
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5639,10 +5801,10 @@ function tryToAddExistingPullReviews(body, id, index, limit, owner, page, repo, 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "page": page, "index": index, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "index": index, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -5734,10 +5896,10 @@ function repoDismissPullReview(body, id, index, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "index": index, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "index": index, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -5751,10 +5913,10 @@ function tryToAddExistingPullReviewDismissals(body, id, index, owner, repo, conf
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "index": index, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "index": index, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "repo": repo, "owner": owner, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -5767,6 +5929,13 @@ function verifyPullReviewDismissalsRejects(body, id, index, owner, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyPullReviewDismissalsExists(id) {
+  bp.log.warn("Verification skipped: PullReviewDismissals is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyPullReviewDismissalsDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: PullReviewDismissals has no GET endpoint.");
 }
 
 function matchAnyPullReviewDismissalsAdded() {
@@ -5783,10 +5952,10 @@ function repoUnDismissPullReview(id, index, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index, "id": id}) }); }
   return response;
 }
 
@@ -5798,10 +5967,10 @@ function tryToAddExistingPullReviewUndismissals(id, index, owner, repo, config) 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"index": index, "id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "index": index, "id": id}) }); }
   return response;
 }
 
@@ -5812,6 +5981,13 @@ function verifyPullReviewUndismissalsRejects(id, index, owner, repo) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyPullReviewUndismissalsExists(id) {
+  bp.log.warn("Verification skipped: PullReviewUndismissals is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyPullReviewUndismissalsDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: PullReviewUndismissals has no GET endpoint.");
 }
 
 function matchAnyPullReviewUndismissalsAdded() {
@@ -5827,10 +6003,10 @@ function repoListPushMirrors(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -5844,10 +6020,10 @@ function repoPushMirrorSync(id, limit, name, owner, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "page": page, "id": id, "repo": repo, "name": name, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "name": name, "repo": repo, "owner": owner, "id": id, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "page": page, "id": id, "repo": repo, "name": name, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "name": name, "repo": repo, "owner": owner, "id": id, "page": page}) }); }
   return response;
 }
 
@@ -5858,10 +6034,10 @@ function repoDeletePushMirror(owner, repo, name, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "name": name}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "name": name}) }); }
   return response;
 }
 
@@ -5889,10 +6065,10 @@ function tryToAddExistingPushMirrors(id, limit, name, owner, page, repo, config)
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "page": page, "id": id, "repo": repo, "name": name, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "name": name, "repo": repo, "owner": owner, "id": id, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "page": page, "id": id, "repo": repo, "name": name, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "name": name, "repo": repo, "owner": owner, "id": id, "page": page}) }); }
   return response;
 }
 
@@ -5981,10 +6157,10 @@ function repoListReleases(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -5999,10 +6175,10 @@ function repoCreateRelease(body, draft, id, limit, owner, page, pre_release, rep
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "draft": draft, "page": page, "id": id, "repo": repo, "limit": limit, "pre-release": pre_release}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "draft": draft, "repo": repo, "tag": tag, "owner": owner, "id": id, "pre-release": pre_release, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "draft": draft, "page": page, "id": id, "repo": repo, "limit": limit, "pre-release": pre_release}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "draft": draft, "repo": repo, "tag": tag, "owner": owner, "id": id, "pre-release": pre_release, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -6027,10 +6203,10 @@ function repoDeleteReleaseByTag(owner, repo, tag, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "tag": tag}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "tag": tag}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "tag": tag}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "tag": tag}) }); }
   return response;
 }
 
@@ -6041,10 +6217,10 @@ function repoGetRelease(owner, repo, id, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6055,10 +6231,10 @@ function repoDeleteRelease(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6072,10 +6248,10 @@ function repoEditRelease(body, draft, id, limit, owner, page, pre_release, repo,
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "draft": draft, "page": page, "id": id, "repo": repo, "limit": limit, "pre-release": pre_release}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "draft": draft, "repo": repo, "tag": tag, "owner": owner, "id": id, "pre-release": pre_release, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "draft": draft, "page": page, "id": id, "repo": repo, "limit": limit, "pre-release": pre_release}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "draft": draft, "repo": repo, "tag": tag, "owner": owner, "id": id, "pre-release": pre_release, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -6090,10 +6266,10 @@ function tryToAddExistingReleases(body, draft, id, limit, owner, page, pre_relea
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "draft": draft, "page": page, "id": id, "repo": repo, "limit": limit, "pre-release": pre_release}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "draft": draft, "repo": repo, "tag": tag, "owner": owner, "id": id, "pre-release": pre_release, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "draft": draft, "page": page, "id": id, "repo": repo, "limit": limit, "pre-release": pre_release}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "draft": draft, "repo": repo, "tag": tag, "owner": owner, "id": id, "pre-release": pre_release, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -6155,10 +6331,10 @@ function repoListReleaseAttachments(owner, repo, id, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6173,10 +6349,10 @@ function repoCreateReleaseAttachment(attachment, attachment_id, body, id, name, 
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6201,10 +6377,10 @@ function repoDeleteReleaseAttachment(owner, repo, id, attachment_id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "attachment_id": attachment_id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "attachment_id": attachment_id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id}) }); }
   return response;
 }
 
@@ -6218,10 +6394,10 @@ function repoEditReleaseAttachment(attachment, attachment_id, body, id, name, ow
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6236,10 +6412,10 @@ function tryToAddExistingReleaseAttachments(attachment, attachment_id, body, id,
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "attachment": attachment, "id": id, "repo": repo, "attachment_id": attachment_id, "name": name}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"attachment": attachment, "name": name, "repo": repo, "owner": owner, "attachment_id": attachment_id, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6298,11 +6474,18 @@ function repoGetReviewers(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
+}
+
+function verifyReviewersExists(id) {
+  bp.log.warn("Verification skipped: Reviewers is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyReviewersDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: Reviewers has no GET endpoint.");
 }
 
 function repoListTagProtection(owner, repo, config) {
@@ -6312,10 +6495,10 @@ function repoListTagProtection(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -6330,10 +6513,10 @@ function repoCreateTagProtection(body, id, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6361,10 +6544,10 @@ function repoEditTagProtection(body, id, owner, repo, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6375,10 +6558,10 @@ function repoDeleteTagProtection(owner, repo, id, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6393,10 +6576,10 @@ function tryToAddExistingTagProtections(body, id, owner, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "owner": owner, "repo": repo, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "repo": repo, "owner": owner, "id": id}) }); }
   return response;
 }
 
@@ -6453,10 +6636,10 @@ function repoListTags(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -6471,10 +6654,10 @@ function repoCreateTag(body, id, limit, owner, page, repo, tag, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "tag": tag, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "tag": tag, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -6499,10 +6682,10 @@ function repoDeleteTag(owner, repo, tag, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "tag": tag}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "tag": tag}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo, "tag": tag}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "tag": tag}) }); }
   return response;
 }
 
@@ -6517,10 +6700,10 @@ function tryToAddExistingTags(body, id, limit, owner, page, repo, tag, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "tag": tag, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "tag": tag, "body": body, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "tag": tag, "repo": repo, "owner": owner, "id": id, "body": body, "page": page}) }); }
   return response;
 }
 
@@ -6641,10 +6824,10 @@ function repoUpdateTopics(body, limit, owner, page, q, repo, topic, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "topic": topic, "repo": repo, "q": q, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "topic": topic, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page, "q": q}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "topic": topic, "repo": repo, "q": q, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "topic": topic, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page, "q": q}) }); }
   return response;
 }
 
@@ -6655,10 +6838,10 @@ function repoDeleteTopic(owner, repo, topic, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "topic": topic, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "topic": topic}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "topic": topic, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner, "topic": topic}) }); }
   return response;
 }
 
@@ -6670,10 +6853,10 @@ function repoAddTopic(body, limit, owner, page, q, repo, topic, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "topic": topic, "repo": repo, "q": q, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "topic": topic, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page, "q": q}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "topic": topic, "repo": repo, "q": q, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "topic": topic, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page, "q": q}) }); }
   return response;
 }
 
@@ -6685,10 +6868,10 @@ function tryToAddExistingTopics(body, limit, owner, page, q, repo, topic, config
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "topic": topic, "repo": repo, "q": q, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "topic": topic, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page, "q": q}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "body": body, "page": page, "topic": topic, "repo": repo, "q": q, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "topic": topic, "repo": repo, "owner": owner, "body": body, "id": owner, "page": page, "q": q}) }); }
   return response;
 }
 
@@ -6710,6 +6893,7 @@ function verifyTopicsExists(body, limit, owner, page, q, repo, topic) {
   let res = topicSearch(body, limit, owner, page, q, repo, topic);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.owner == owner || item.id == owner);
           if (found) pvg.success("Topics found in list");
@@ -6762,10 +6946,10 @@ function repoTransfer(body, id, owner, repo, transferOptions, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6779,10 +6963,10 @@ function acceptRepoTransfer(body, id, owner, repo, transferOptions, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6796,10 +6980,10 @@ function rejectRepoTransfer(body, id, owner, repo, transferOptions, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6814,10 +6998,10 @@ function tryToAddExistingRepositoryTransfer(body, id, owner, repo, transferOptio
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "owner": owner, "body": body, "id": id, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"transferOptions": transferOptions, "repo": repo, "owner": owner, "id": id, "body": body}) }); }
   return response;
 }
 
@@ -6832,6 +7016,13 @@ function verifyRepositoryTransferRejects(body, id, owner, repo, transferOptions)
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyRepositoryTransferExists(id) {
+  bp.log.warn("Verification skipped: RepositoryTransfer is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyRepositoryTransferDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: RepositoryTransfer has no GET endpoint.");
 }
 
 function matchAnyRepositoryTransferAdded() {
@@ -6851,10 +7042,10 @@ function repoCreateWikiPage(body, id, limit, owner, page, pageName, repo, wikiPa
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "pageName": pageName, "wikiPageOptions": wikiPageOptions, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"wikiPageOptions": wikiPageOptions, "limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "pageName": pageName, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "pageName": pageName, "wikiPageOptions": wikiPageOptions, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"wikiPageOptions": wikiPageOptions, "limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "pageName": pageName, "page": page}) }); }
   return response;
 }
 
@@ -6865,10 +7056,10 @@ function repoDeleteWikiPage(owner, repo, pageName, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"pageName": pageName, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "pageName": pageName}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"pageName": pageName, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "pageName": pageName}) }); }
   return response;
 }
 
@@ -6897,10 +7088,10 @@ function repoEditWikiPage(body, id, limit, owner, page, pageName, repo, wikiPage
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "pageName": pageName, "wikiPageOptions": wikiPageOptions, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"wikiPageOptions": wikiPageOptions, "limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "pageName": pageName, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "pageName": pageName, "wikiPageOptions": wikiPageOptions, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"wikiPageOptions": wikiPageOptions, "limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "pageName": pageName, "page": page}) }); }
   return response;
 }
 
@@ -6911,10 +7102,10 @@ function repoGetWikiPages(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner}) }); }
   return response;
 }
 
@@ -6929,10 +7120,10 @@ function tryToAddExistingWikiPages(body, id, limit, owner, page, pageName, repo,
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "pageName": pageName, "wikiPageOptions": wikiPageOptions, "page": page, "id": id, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"wikiPageOptions": wikiPageOptions, "limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "pageName": pageName, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"owner": owner, "body": body, "pageName": pageName, "wikiPageOptions": wikiPageOptions, "page": page, "id": id, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"wikiPageOptions": wikiPageOptions, "limit": limit, "repo": repo, "owner": owner, "id": id, "body": body, "pageName": pageName, "page": page}) }); }
   return response;
 }
 
@@ -6993,11 +7184,18 @@ function repoGetWikiPageRevisions(owner, repo, pageName, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"pageName": pageName, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "pageName": pageName}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"pageName": pageName, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "pageName": pageName}) }); }
   return response;
+}
+
+function verifyWikiPageRevisionsExists(id) {
+  bp.log.warn("Verification skipped: WikiPageRevisions is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyWikiPageRevisionsDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: WikiPageRevisions has no GET endpoint.");
 }
 
 function getGeneralAPISettings(config) {
@@ -7032,6 +7230,7 @@ function verifySettingsExists(id) {
   let res = getGeneralAPISettings(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("Settings found in list");
@@ -7087,6 +7286,7 @@ function verifyMiscellaneousExists(id) {
   let res = getSigningKey(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("Miscellaneous found in list");
@@ -7146,10 +7346,10 @@ function orgAddTeamMember(id, limit, page, username, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "username": username, "id": id, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "page": page, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "username": username, "id": id, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "page": page, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -7175,10 +7375,10 @@ function tryToAddExistingTeamMembers(id, limit, page, username, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "username": username, "id": id, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "page": page, "id": id, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "username": username, "id": id, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "page": page, "id": id, "username": username}) }); }
   return response;
 }
 
@@ -7264,10 +7464,10 @@ function orgAddTeamRepository(id, limit, org, page, repo, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "org": org, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "repo": repo, "id": id, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "org": org, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "repo": repo, "id": id, "page": page}) }); }
   return response;
 }
 
@@ -7293,10 +7493,10 @@ function tryToAddExistingTeamRepos(id, limit, org, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "org": org, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "repo": repo, "id": id, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "org": org, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "org": org, "repo": repo, "id": id, "page": page}) }); }
   return response;
 }
 
@@ -7367,10 +7567,10 @@ function deleteUserSecret(secretname, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": secretname, "secretname": secretname}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"secretname": secretname, "id": secretname}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": secretname, "secretname": secretname}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"secretname": secretname, "id": secretname}) }); }
   return response;
 }
 
@@ -7384,10 +7584,10 @@ function updateUserSecret(body, limit, page, secretname, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": secretname, "secretname": secretname, "page": page, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "secretname": secretname, "body": body, "id": secretname, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": secretname, "secretname": secretname, "page": page, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "secretname": secretname, "body": body, "id": secretname, "page": page}) }); }
   return response;
 }
 
@@ -7409,6 +7609,7 @@ function verifyUserExists(body, limit, page, secretname) {
   let res = userGetRunnerRegistrationToken(body, limit, page, secretname);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.secretname == secretname || item.id == secretname);
           if (found) pvg.success("User found in list");
@@ -7482,10 +7683,10 @@ function createUserVariable(body, variablename, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "id": variablename, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "variablename": variablename, "id": variablename}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "id": variablename, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "variablename": variablename, "id": variablename}) }); }
   return response;
 }
 
@@ -7499,10 +7700,10 @@ function updateUserVariable(body, variablename, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "id": variablename, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "variablename": variablename, "id": variablename}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "id": variablename, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "variablename": variablename, "id": variablename}) }); }
   return response;
 }
 
@@ -7516,10 +7717,10 @@ function tryToAddExistingUserVariables(body, variablename, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "id": variablename, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "variablename": variablename, "id": variablename}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"variablename": variablename, "id": variablename, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "variablename": variablename, "id": variablename}) }); }
   return response;
 }
 
@@ -7593,10 +7794,10 @@ function userCreateOAuth2Application(body, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -7638,10 +7839,10 @@ function userUpdateOAuth2Application(body, id, limit, page, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -7656,10 +7857,10 @@ function tryToAddExistingOAuth2Applications(body, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "id": id, "limit": limit, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "page": page, "limit": limit, "id": id}) }); }
   return response;
 }
 
@@ -7736,10 +7937,10 @@ function userUpdateAvatar(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -7754,10 +7955,10 @@ function tryToAddExistingUserAvatar(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -7771,6 +7972,13 @@ function verifyUserAvatarRejects(body, id) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyUserAvatarExists(id) {
+  bp.log.warn("Verification skipped: UserAvatar is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyUserAvatarDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: UserAvatar has no GET endpoint.");
 }
 
 function matchAnyUserAvatarAdded() {
@@ -7812,10 +8020,10 @@ function userUnblockUser(username, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -7826,10 +8034,10 @@ function userCheckUserBlock(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -7841,10 +8049,10 @@ function userBlockUser(limit, note, page, username, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"note": note, "page": page, "username": username, "limit": limit, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "id": username, "username": username, "note": note, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"note": note, "page": page, "username": username, "limit": limit, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "id": username, "username": username, "note": note, "page": page}) }); }
   return response;
 }
 
@@ -7915,10 +8123,10 @@ function userAddEmail(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -7933,10 +8141,10 @@ function tryToAddExistingUserEmails(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -7956,6 +8164,7 @@ function verifyUserEmailsExists(body, id) {
   let res = userListEmails(body, id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("UserEmails found in list");
@@ -8015,6 +8224,7 @@ function verifyUserFollowersExists(id, limit, page) {
   let res = userCurrentListFollowers(id, limit, page);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("UserFollowers found in list");
@@ -8056,6 +8266,7 @@ function verifyUserFollowingExists(id, limit, page) {
   let res = userCurrentListFollowing(id, limit, page);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("UserFollowing found in list");
@@ -8086,10 +8297,10 @@ function userCurrentDeleteFollow(username, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -8100,10 +8311,10 @@ function userCurrentCheckFollowing(username, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -8115,10 +8326,10 @@ function userCurrentPutFollow(username, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"username": username, "id": username}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": username, "username": username}) }); }
   return response;
 }
 
@@ -8189,10 +8400,10 @@ function userCurrentPostGPGKey(Form, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "Form": Form, "limit": limit, "id": id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "Form": Form, "page": page, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "Form": Form, "limit": limit, "id": id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "Form": Form, "page": page, "id": id}) }); }
   return response;
 }
 
@@ -8221,10 +8432,10 @@ function tryToAddExistingGPGKeys(Form, id, limit, page, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "Form": Form, "limit": limit, "id": id}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "Form": Form, "page": page, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"page": page, "Form": Form, "limit": limit, "id": id}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "Form": Form, "page": page, "id": id}) }); }
   return response;
 }
 
@@ -8294,6 +8505,7 @@ function verifyGPGKeyTokenExists(id) {
   let res = getVerificationToken(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("GPGKeyToken found in list");
@@ -8328,10 +8540,10 @@ function userVerifyGPGKey(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -8346,10 +8558,10 @@ function tryToAddExistingGPGKeyVerification(body, id, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id}) }); }
   return response;
 }
 
@@ -8363,6 +8575,13 @@ function verifyGPGKeyVerificationRejects(body, id) {
   bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
   bp.sync({ request: bp.Event("Done: Negative: " + reqDescription) });
+}
+
+function verifyGPGKeyVerificationExists(id) {
+  bp.log.warn("Verification skipped: GPGKeyVerification is an Action or asymmetric resource without a GET endpoint.");
+}
+function verifyGPGKeyVerificationDoesNotExist(id) {
+  bp.log.warn("Absence check skipped: GPGKeyVerification has no GET endpoint.");
 }
 
 function matchAnyGPGKeyVerificationAdded() {
@@ -8396,10 +8615,10 @@ function updateUserSettings(UserSettingsOptions, body, id, config) {
   let response = svc.patch(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "UserSettingsOptions": UserSettingsOptions, "body": body}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "UserSettingsOptions": UserSettingsOptions}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id, "UserSettingsOptions": UserSettingsOptions, "body": body}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"body": body, "id": id, "UserSettingsOptions": UserSettingsOptions}) }); }
   return response;
 }
 
@@ -8407,6 +8626,7 @@ function verifyUserSettingsExists(UserSettingsOptions, body, id) {
   let res = getUserSettings(UserSettingsOptions, body, id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("UserSettings found in list");
@@ -8451,10 +8671,10 @@ function userCurrentDeleteStar(owner, repo, config) {
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) }); }
   return response;
 }
 
@@ -8465,10 +8685,10 @@ function userCurrentCheckStarring(owner, repo, config) {
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "repo": repo}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"repo": repo, "owner": owner, "id": owner}) }); }
   return response;
 }
 
@@ -8480,10 +8700,10 @@ function userCurrentPutStar(limit, owner, page, repo, config) {
   let response = svc.put(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "page": page, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "page": page, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -8495,10 +8715,10 @@ function tryToAddExistingUserStarred(limit, owner, page, repo, config) {
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
   if (code !== undefined) { if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);
-    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "page": page, "repo": repo, "limit": limit}) });
+    if (finalCodes.includes(code)) { if (code >= 200 && code < 300) bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": owner, "page": page}) });
       else bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) }); }
     else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);
-  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": owner, "owner": owner, "page": page, "repo": repo, "limit": limit}) }); }
+  } else { bp.log.warn("Response status missing."); bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"limit": limit, "repo": repo, "owner": owner, "id": owner, "page": page}) }); }
   return response;
 }
 
@@ -8566,6 +8786,7 @@ function verifyUserStopwatchesExists(id, limit, page) {
   let res = userGetStopWatches(id, limit, page);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("UserStopwatches found in list");
@@ -8607,6 +8828,7 @@ function verifyUserSubscriptionsExists(id, limit, page) {
   let res = userCurrentListSubscriptions(id, limit, page);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
+      if (!Array.isArray(listData) && listData.data) listData = listData.data;
       if (Array.isArray(listData)) {
           let found = listData.find(item => item.id == id || item.id == id);
           if (found) pvg.success("UserSubscriptions found in list");

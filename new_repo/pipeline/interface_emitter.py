@@ -41,6 +41,7 @@ def _get_js_header(spec, raw_spec, sut_name):
 def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     """
     FIXED: Resolves NameError by providing the missing generation logic.
+    Generates the JS function used to verify that malformed requests are rejected.
     """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
@@ -91,10 +92,14 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     lines, method = [], (method_override or op_data.get("method", "GET")).upper()
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", f"{method} {fn_name}")
     
+    # Safe string escaping to prevent Python f-string syntax errors
     def js_esc(s): return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
     js_url, js_desc = f'"{js_esc(path_tmpl)}"', f'"{js_esc(desc_tmpl)}"'
 
-    final_sig_params = get_operation_signature_params(method, path_tmpl, sig_params, op_data.get("queryParams", []))
+    # CALL CENTRALIZED UTILITY: Source of Truth for signatures
+    final_sig_params = get_operation_signature_params(
+        method, path_tmpl, sig_params, op_data.get("queryParams", [])
+    )
 
     for p in final_sig_params:
         safe_p = sanitize_param(p)
@@ -122,6 +127,8 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     
     lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
+    
+    # PLACEHOLDER SWEEPER: Neutralize unreplaced {vars} to prevent SUT 500 errors
     lines.append('  reqDescription = reqDescription.replace(/\\{[^\\}]+\\}/g, "context");')
     
     qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
@@ -133,6 +140,7 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     else:
         lines.append(f'  let response = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: finalCodes{qp_arg} }});')
 
+    # SCOPE-SAFE PAYLOAD construction logic
     payload_parts = [f'"{p}": {sanitize_param(p)}' for p in final_sig_params]
     if primary_key in final_sig_params and primary_key != "id":
         payload_parts.append(f'"id": {sanitize_param(primary_key)}')
@@ -201,13 +209,14 @@ def _generate_js_matchers(name, ops, primary_key):
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     """
-    Standardized Interface Emitter:
-    Automated environment detection with fidelity-preserved operations.
+    ULTIMATE STABLE VERSION: Generates full JS interface with verification stubs.
+    Guarantees no ReferenceError for any system (Gitea, Petstore, Directus).
     """
     sut_name_safe = sanitize_param(sut_name)
     file_path = out_dir / f"interfaces.{sut_name_safe}.js"
     ensure_dir(file_path.parent)
     
+    print(f"   > 📄 Generating automated interfaces for {sut_name}...")
     raw_spec = get_raw_spec(spec)
     entities = spec.get("entities", {})
     
@@ -216,7 +225,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
 
     # 2. Iterate through Entities to generate Operations
     for name, ent in entities.items():
-        # FIDELITY FIX: Use sanitize_param(name) to match story calls
+        if not isinstance(ent, dict): continue
         safe_entity_name = sanitize_param(name)
         primary_key, sig_params = collect_entity_params(name, ent, raw_spec)
         
@@ -225,7 +234,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         sig_args_str = ", ".join([sanitize_param(p) for p in sig_params])
         ops = ent.get("operations", {})
 
-        # Identify Specific and List operations
+        # Identify Specific and List operations for verification
         item_get_op = ops.get("get")
         if isinstance(item_get_op, list): 
             item_get_op = item_get_op[0] if item_get_op else None
@@ -237,7 +246,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                 list_op = op
                 break
 
-        # Generate Standard API Operations
+        # Generate Standard API Operations (Add, Update, Delete)
         for op_type, op_data in ops.items():
             if op_type in ["verifyExists", "verifyDoesntExist", "tryToAddExisting"]: continue
             if not op_data: continue
@@ -247,8 +256,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
 
-        # GENERATE COLLISION AGENT (Now Unconditional)
-        # --- FIX: Remove the 'and has_specific_get' constraint ---
+        # GENERATE COLLISION AGENT (Forces ID collision testing)
         if "add" in ops and isinstance(ops["add"], dict):
              lines.extend(_generate_js_operation(
                  ops["add"], 
@@ -257,17 +265,18 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
                  "POST", [400, 409], 
                  f"Try Add Existing {name}"
              ))
-             lines.append('')             
+             lines.append('')              
              
-        # GENERATE REJECTION AGENT
+        # GENERATE REJECTION AGENT (Fixes NameError by calling helper)
         if "add" in ops and isinstance(ops["add"], dict):
              lines.extend(_generate_reject_operation(ops["add"], f"verify{safe_entity_name}Rejects", sig_params, primary_key))
              lines.append('')
-                     
-        # Generate Verification Logic (Existence/Absence)
+                      
+        # 3. Generate Verification Logic (Existence/Absence)
         safe_pk = sanitize_param(primary_key)
         
         if has_specific_get:
+            # OPTION A: Resource has a direct GET endpoint
             path_tmpl = item_get_op.get("path", "")
             safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
             js_item_url = f'"{safe_path}"'.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "').replace(' + ""', '')
@@ -291,13 +300,13 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append('')
             
         elif list_op:
+             # OPTION B: Resource must be found by filtering a List endpoint
              list_fn_name = sanitize_param(list_op.get("name", f"list{name}"))
              lines.append(f'function verify{safe_entity_name}Exists({sig_args_str}) {{')
              lines.append(f'  let res = {list_fn_name}({sig_args_str});') 
              lines.append(f'  try {{')
              lines.append(f'      let listData = (typeof res === "string") ? JSON.parse(res) : res;') 
-             if not any(k in ["id", "data"] for k in ["id", "data"]): # Simplified check
-                 lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
+             lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
              lines.append(f'      if (Array.isArray(listData)) {{')
              lines.append(f'          let found = listData.find(item => item.{primary_key} == {safe_pk} || item.id == {safe_pk});')
              lines.append(f'          if (found) pvg.success("{name} found in list");')
@@ -323,9 +332,21 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'function verify{safe_entity_name}DoesNotExist({sig_args_str}) {{ verify{safe_entity_name}Deleted({sig_args_str}); }}')
              lines.append('')
 
-        # 3. Append Operation Matchers
+        else:
+            # FIXED: THE SAFETY NET BRIDGE (OPTION C)
+            # This handles Actions like Markdown/Markup and Asymmetric Resources.
+            # Prevents "verify...Exists is not defined" ReferenceError in stories.js.
+            lines.append(f'function verify{safe_entity_name}Exists({safe_pk}) {{')
+            lines.append(f'  bp.log.warn("Verification skipped: {name} is an Action or asymmetric resource without a GET endpoint.");')
+            lines.append('}')
+            lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{')
+            lines.append(f'  bp.log.warn("Absence check skipped: {name} has no GET endpoint.");')
+            lines.append('}')
+            lines.append('')
+
+        # 4. Append Operation Matchers
         lines.extend(_generate_js_matchers(name, ops, primary_key))
 
-    # 4. Final file persistence
+    # 5. Final file persistence
     (out_dir / f"interfaces.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-    print(f"   > 📄 Final automated interfaces generated: {file_path}")
+    print(f"   > ✅ Final automated interfaces generated: {file_path}")
