@@ -5,9 +5,9 @@ from urllib.parse import urlparse
 from typing import Dict, Any
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
-    get_response_codes, collect_entity_params
+    get_response_codes, collect_entity_params,
+    get_operation_signature_params  
 )
-
 
 def _is_valid_js_identifier(name: str) -> bool:
     """ULTIMATE FIX: Resolves NameError in emit_interfaces."""
@@ -36,118 +36,12 @@ def _get_js_header(spec, raw_spec, sut_name):
         ''
     ]
         
-def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
-    """
-    ULTIMATE STEADY-STATE VERSION: Fixed Identifier Aliasing & Status Code Pollution.
-    Ensures that technical IDs (like orderId) map correctly to schema keys (like id).
-    """
-    path_tmpl = op_data.get("path", "")
-    if not path_tmpl: return [] 
-
-    lines = []
-    method = (method_override or op_data.get("method", "GET")).upper()
-    desc_tmpl = desc_override or op_data.get("descriptionTemplate", "")
-    
-    if primary_key in sig_params and "{" not in desc_tmpl:
-         desc_tmpl = desc_tmpl + " {" + primary_key + "}"
-    if not desc_tmpl: desc_tmpl = f"{method} {fn_name}"
-    
-    def escape_js_str(s):
-        return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\r', '')
-
-    clean_url = path_tmpl.replace(' + ""', '')
-    clean_desc = desc_tmpl.replace(' + ""', '')
-    js_url, js_desc = f'"{escape_js_str(clean_url)}"', f'"{escape_js_str(clean_desc)}"'
-
-    ordered_path_params = re.findall(r'\{([^\}]+)\}', path_tmpl)
-    path_params_set = set(ordered_path_params)
-    query_params_list = op_data.get("queryParams", []) 
-
-    final_sig_params = sig_params if method in ["POST", "PUT", "PATCH"] else ordered_path_params + [qp for qp in query_params_list if qp not in ordered_path_params]
-
-    for p in final_sig_params:
-        safe_p = sanitize_param(p)
-        if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
-        js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
         
-    js_url, js_desc = js_url.replace(' + ""', ''), js_desc.replace(' + ""', '')
-    query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in query_params_list]
-    query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
-
-    if method in ["POST", "PUT", "PATCH"]:
-        b_lines = []
-        body_fields = op_data.get("bodyTemplate", {}).keys()
-        param_types = op_data.get("paramTypes", {})
-        
-        for p in final_sig_params:
-             if p in path_params_set or p in query_params_list: continue
-             
-             # ALIAS RESOLUTION: Map Technical ID back to Schema ID
-             json_key = p
-             if p == primary_key and p not in body_fields:
-                 if "id" in param_types or "id" in body_fields:
-                     json_key = "id"
-             
-             if json_key in body_fields or p == primary_key:
-                 b_lines.append(f'    "{json_key}": {sanitize_param(p)}') 
-        
-        object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
-        body_js = f"[{object_body}]" if (op_data.get("is_array", False) or "WithList" in fn_name) else object_body
-    else:
-        body_js = "{}"
-
-    # SUCCESS CODE ENFORCEMENT: Remove 4xx/5xx from standard paths
-    codes_list = codes_override or get_response_codes(path_tmpl, method, spec)
-    if not codes_override:
-        codes_list = [c for c in codes_list if c < 400]
-        if not any(200 <= c < 300 for c in codes_list):
-            codes_list.append(201 if method == "POST" else 200)
-        if method == "DELETE" and 204 not in codes_list:
-            codes_list.append(204)
-            
-    codes_str = json.dumps(sorted(list(set(codes_list))))
-    sig_args_str = ", ".join([sanitize_param(p) for p in final_sig_params] + ["config"])
-    
-    lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
-    lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
-    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
-    lines.append(f'  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : {codes_str};')
-    
-    if method in ["POST", "PUT", "PATCH"]:
-        lines.append(f'  var body = {body_js};')
-        lines.append(f'  bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
-        lines.append(f'  let response = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: {{ description: reqDescription }}{qp_arg} }});')
-    else:
-        lines.append(f'  let response = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: finalCodes{qp_arg} }});')
-
-    payload = "{" + ", ".join([f'"{p}": {sanitize_param(p)}' for p in final_sig_params]) + "}"
-    lines.append('  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);')
-    lines.append('')
-    lines.append('  if (code !== undefined) {')
-    lines.append('    if (code === 500) { bp.log.info("SUT_500_ERROR: Internal Server Error detected for: " + reqDescription); }')
-    lines.append('    let isExpected = finalCodes.includes(code);')
-    lines.append('    let isSuccess = (code >= 200 && code < 300);')
-    lines.append('')
-    lines.append('    if (isExpected) {')
-    lines.append('      if (isSuccess) {')
-    if method == "DELETE": lines.append(f'        bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
-    else: lines.append(f'        bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }});')
-    lines.append('      } else {')
-    lines.append(f'        bp.sync({{ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {{status: code}}) }});')
-    lines.append('      }')
-    lines.append('    } else {')
-    lines.append(f'      pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription + ". Expected: " + JSON.stringify(finalCodes));')
-    lines.append('    }')
-    lines.append('  } else {')
-    lines.append('    bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");')
-    if method == "DELETE": lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription) }});')
-    else: lines.append(f'    bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }});')
-    lines.append('  }')
-    lines.append('  return response;')
-    lines.append('}')
-    return lines
-                
+# Add this to interface_emitter.py
 def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
+    """
+    FIXED: Resolves NameError by providing the missing generation logic.
+    """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
 
@@ -163,7 +57,6 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     js_url = js_url.replace(' + ""', '')
 
     b_lines = [f'    "{p}": {sanitize_param(p)}' for p in sig_params if p not in path_params]
-    
     object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
     body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
 
@@ -175,6 +68,83 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
     lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: {{ description: reqDescription }} }});')
     lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: " + reqDescription) }});')
     lines.append('}')
+    return lines
+
+# UPDATE YOUR IMPORTS IN interface_emitter.py:
+# from new_repo.pipeline.emitter_utils import (
+#     ensure_dir, sanitize_param, get_raw_spec, 
+#     get_response_codes, collect_entity_params,
+#     get_operation_signature_params  # <--- ADD THIS IMPORT
+# )
+
+# Ensure this import is present at the top of the file
+from new_repo.pipeline.emitter_utils import get_operation_signature_params
+
+def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
+    """
+    ULTIMATE VERSION: Standardizes signature logic and forces scope-safe canonical 'id'.
+    Fixes ReferenceError and prevents 'undefined/null' corruption in URL paths.
+    """
+    path_tmpl = op_data.get("path", "")
+    if not path_tmpl: return [] 
+
+    lines, method = [], (method_override or op_data.get("method", "GET")).upper()
+    desc_tmpl = desc_override or op_data.get("descriptionTemplate", f"{method} {fn_name}")
+    
+    def js_esc(s): return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
+    js_url, js_desc = f'"{js_esc(path_tmpl)}"', f'"{js_esc(desc_tmpl)}"'
+
+    final_sig_params = get_operation_signature_params(method, path_tmpl, sig_params, op_data.get("queryParams", []))
+
+    for p in final_sig_params:
+        safe_p = sanitize_param(p)
+        if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
+        
+    js_url, js_desc = js_url.replace(' + ""', '').replace('"" + ', ''), js_desc.replace(' + ""', '').replace('"" + ', '')
+    query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in op_data.get("queryParams", [])]
+    query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
+
+    if method in ["POST", "PUT", "PATCH"]:
+        b_lines, body_fields = [], op_data.get("bodyTemplate", {}).keys()
+        for p in final_sig_params:
+             if p in re.findall(r'\{([^}]+)\}', path_tmpl) or p in op_data.get("queryParams", []): continue
+             json_key = "id" if (p == primary_key and p not in body_fields and "id" in op_data.get("paramTypes", {})) else p
+             if json_key in body_fields or p == primary_key: b_lines.append(f'    "{json_key}": {sanitize_param(p)}') 
+        object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
+        body_js = f"[{object_body}]" if (op_data.get("is_array", False) or "WithList" in fn_name) else object_body
+    else: body_js = "{}"
+
+    codes_list = codes_override or [c for c in get_response_codes(path_tmpl, method, spec) if c < 400]
+    if not codes_list: codes_list.append(201 if method == "POST" else 200)
+    if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
+    codes_str, sig_args_str = json.dumps(sorted(list(set(codes_list)))), ", ".join([sanitize_param(p) for p in final_sig_params] + ["config"])
+    
+    lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
+    lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
+    lines.append('  reqDescription = reqDescription.replace(/\\{[^\\}]+\\}/g, "context");')
+    
+    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
+    lines.append(f'  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : {codes_str};')
+    
+    if method in ["POST", "PUT", "PATCH"]:
+        lines.append(f'  var body = {body_js}; bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
+        lines.append(f'  let response = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: {{ description: reqDescription }}{qp_arg} }});')
+    else:
+        lines.append(f'  let response = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: finalCodes{qp_arg} }});')
+
+    payload_parts = [f'"{p}": {sanitize_param(p)}' for p in final_sig_params]
+    if primary_key in final_sig_params and primary_key != "id":
+        payload_parts.append(f'"id": {sanitize_param(primary_key)}')
+    payload = "{" + ", ".join(list(set(payload_parts))) + "}"
+    
+    lines.extend(['  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);',
+                  f'  if (code !== undefined) {{ if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);',
+                  f'    if (finalCodes.includes(code)) {{ if (code >= 200 && code < 300) bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }});',
+                  f'      else bp.sync({{ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {{status: code}}) }}); }}',
+                  f'    else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);',
+                  f'  }} else {{ bp.log.warn("Response status missing."); bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }}); }}',
+                  '  return response;\n}'])
     return lines
 
 def _generate_js_matchers(name, ops, primary_key):

@@ -4,20 +4,51 @@ from pathlib import Path
 from typing import Dict, Any, List
 from new_repo.pipeline.emitter_utils import (
     ensure_dir, sanitize_param, get_raw_spec, 
-    collect_entity_params
+    collect_entity_params,
+    get_operation_signature_params  
 )
 
-def _resolve_entity_name(name, entities):
-    if not name: return None
-    print(f"   [DEBUG] Attempting to resolve entity: {name}") # Validation Print
-    if name in entities: return name
-    for key in entities.keys():
-        if name.lower() in key.lower(): 
-            print(f"   [DEBUG] Resolved '{name}' to Technical Key: '{key}'") # Validation Print
-            return key
-    print(f"   [DEBUG] ! WARNING: Could not resolve entity: {name}") # Warning Print
-    return None
 
+# UPDATE YOUR IMPORTS IN story_emitter.py:
+# from new_repo.pipeline.emitter_utils import (
+#     ensure_dir, sanitize_param, get_raw_spec, 
+#     collect_entity_params, get_operation_signature_params # <--- ADD THIS IMPORT
+# )
+
+# Ensure this import is present at the top of the file
+from new_repo.pipeline.emitter_utils import get_operation_signature_params
+
+def _generate_saboteur(ent_name, op_name, op_data, full_sig_params, primary_key, iteration):
+    """
+    ULTIMATE VERSION: Signature-Aware Saboteur with Race-Condition Protection.
+    Aligns signature perfectly with interface_emitter using centralized utility.
+    """
+    safe_ent = sanitize_param(ent_name)
+    op_fn_name = op_data.get("name", f"{op_name}{ent_name}")
+    method, path_tmpl = op_data.get("method", "GET").upper(), op_data.get("path", "")
+    
+    # REPLICATE INTERFACE SIGNATURE: Perfect sync for Short vs Long signatures
+    target_sig = get_operation_signature_params(
+        method, path_tmpl, full_sig_params, op_data.get("queryParams", [])
+    )
+    
+    output_lines = [f'bthread("hyper:{safe_ent}:copy{iteration}:Saboteur_{op_name}", function() {{', 
+                    '  while(true) {', f'    let e = waitFor(matchAny{safe_ent}Added());', 
+                    '    let targetId = e.data.id;'] 
+    
+    # BARRIER: Forces the Saboteur to wait until the main CRUD story verifies existence.
+    # Prevents '404 Not Found' race conditions in main test scenarios.
+    output_lines.append(f'    // Barrier: Wait for the main test to finish its verification check')
+    output_lines.append(f'    bp.sync({{ waitFor: bp.EventSet("Barrier: {ent_name} Verified", function(ev) {{')
+    output_lines.append(f'        return ev.name.includes("Verify {ent_name}") && ev.name.includes(targetId);')
+    output_lines.append('    }) });')
+    
+    # ALIGNED CALL: Use POSITIONAL logic to ensure ID lands in the right slot
+    call_args = ["targetId" if p == primary_key else "null" for p in target_sig]
+            
+    output_lines.extend([f'    {sanitize_param(op_fn_name)}({", ".join(call_args)});',
+                         f'    if (typeof get{ent_name} === "function") {{ get{ent_name}(targetId); }}', '  }\n});'])
+    return output_lines
 
 def _get_merged_param_types(ent_data):
     """Unified Helper with Debug: Merges parameter types across all operations."""
@@ -351,11 +382,11 @@ def _get_required_fields(ent_name, raw_spec):
 
 def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     """
-    ULTIMATE FIX: Calls hyper-coordinated negative agents and appends to the file.
+    LIFECYCLE-AWARE EMITTER: Only generates collision guards for deletable resources.
+    Prevents ReferenceError for systems with asymmetric CRUD (like Directus Authentication).
     """
     print(f"   > 😈 Generating evil background agents for {sut_name}...")
     entities, raw_spec = spec.get("entities", {}), get_raw_spec(spec)
-    dependencies = spec.get("dependencies", {}) or _infer_dependencies(entities, raw_spec)
     lines = [f'// Auto-generated EVIL BACKGROUND AGENTS for {sut_name}', '//@provengo summon rest', '']
 
     for name, ent in entities.items():
@@ -363,11 +394,13 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         safe_name, (pk, params) = sanitize_param(name), collect_entity_params(name, ent, raw_spec)
         add_fn = ent["operations"]["add"].get("name", f"add{name}")
 
-        # Collision Guard
-        lines.append(f'bthread("guard:{safe_name}:BlockCollisionSuccess", function() {{')
-        lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); let id = e.data.{sanitize_param(pk)} || e.data.id;')
-        lines.append(f'    bp.sync({{ block: bp.Event("Req:{add_fn}:Success:" + id), waitFor: matchAny{safe_name}Deleted() }});')
-        lines.append('  } });') 
+        # DEFENSIVE FIX: Only generate Collision Guards if the entity can actually be deleted
+        # This prevents calling non-existent matchAny...Deleted() functions
+        if "delete" in ent["operations"]:
+            lines.append(f'bthread("guard:{safe_name}:BlockCollisionSuccess", function() {{')
+            lines.append(f'  while(true) {{ let e = waitFor(matchAny{safe_name}Added()); let id = e.data.{sanitize_param(pk)} || e.data.id;')
+            lines.append(f'    bp.sync({{ block: bp.Event("Req:{add_fn}:Success:" + id), waitFor: matchAny{safe_name}Deleted() }});')
+            lines.append('  } });') 
 
         # Field Malfunction Fuzzer
         lines.append(f'bthread("fuzz:fields:{safe_name}", function() {{')
@@ -389,13 +422,12 @@ def emit_negative_stories(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         lines.append(f'    tryToAddExisting{safe_name}({", ".join(col_args)}, {{ description: "[NEGATIVE TEST] Collision Attack" }});')
         lines.append('  } });\n')
 
-    # FIX: Explicitly call and append the Coordinated Adversaries
     lines.append('// --- PHASE 4: COORDINATED VANDALISM (Hyper-Negative) ---')
     lines.append(_generate_hyper_negative_stories(spec, sut_name))
 
     ensure_dir(out_dir)
     (out_dir / f"negative.{sut_name}.js").write_text("\n".join(lines), encoding="utf-8")
-                                
+                                        
 def _generate_hyper_coordinated_stories(spec, sut_name):
     """
     FIXED: Prevents empty while(true) loops and pads call signatures.
@@ -443,69 +475,59 @@ def _generate_hyper_coordinated_stories(spec, sut_name):
     return "\n".join(output_lines)
 
 def _generate_hyper_negative_stories(spec, sut_name):
-    entities = spec.get("entities", {})
-    arch = spec.get("system_architecture", {})
-    dependencies = spec.get("dependencies", {})
-    raw_spec = get_raw_spec(spec)
-    conflicts = arch.get("vandal_conflicts", [])
-    output_lines = []
+    """
+    Finalized Version: Orchestrates Saboteurs and OrphanMakers with Race-Condition protection.
+    """
+    entities, arch = spec.get("entities", {}), spec.get("system_architecture", {})
+    dependencies, raw_spec = spec.get("dependencies", {}), get_raw_spec(spec)
+    conflicts, output_lines = arch.get("vandal_conflicts", []), []
 
     for iteration in range(1, 4):
         output_lines.append(f'// --- EVIL COORDINATED AGENTS for {sut_name} (Copy {iteration}) ---')
         
+        # 1. Generate Saboteurs (Action-based vandals)
         for conflict in conflicts:
-            target = conflict.get("target")
-            action_key = conflict.get("action")
+            target, action_key = conflict.get("target"), conflict.get("action")
             if target in entities:
                 op_data = entities[target]["operations"].get(action_key)
-                if not op_data: continue
-                technical_fn = op_data.get("name", action_key)
-                get_fn = entities[target]["operations"].get("get", {}).get("name", f"get{target}ById")
-                
-                safe_target = sanitize_param(target)
-                pk_low = safe_target.lower() # FIX: Lowercase for property access
-                output_lines.append(f'bthread("hyper:evil:copy{iteration}:Saboteur_{safe_target}", function() {{')
-                output_lines.append(f'  while(true) {{')
-                output_lines.append(f'    let e = waitFor(matchAny{safe_target}Added());')
-                output_lines.append(f'    let targetId = e.data.id || e.data.{pk_low}Id;')
-                output_lines.append(f'    {sanitize_param(technical_fn)}(targetId);')
-                output_lines.append(f'    {sanitize_param(get_fn)}(targetId);')
-                output_lines.append('  }')
-                output_lines.append('});')
+                if op_data:
+                    pk, sig = collect_entity_params(target, entities[target], raw_spec)
+                    output_lines.extend(_generate_saboteur(target, action_key, op_data, sig, pk, iteration))
 
+        # 2. Generate OrphanMakers (Relational-based vandals)
         for child, parents in dependencies.items():
             for parent in parents:
                 if child not in entities or parent not in entities: continue
-                safe_child, safe_parent = sanitize_param(child), sanitize_param(parent)
-                # Find Delete function
-                p_ops = entities[parent].get("operations", {})
-                parent_del_op = p_ops.get("delete", {}).get("name", f"delete{parent}")
-                
-                # Find Read function (Get or List)
-                c_ops = entities[child].get("operations", {})
-                child_read_op = c_ops.get("get", {}).get("name")
-                if not child_read_op:
-                    # Fallback to list
-                    for op_key, op_val in c_ops.items():
-                        if isinstance(op_val, dict) and op_val.get("method") == "GET" and "{" not in op_val.get("path", ""):
-                            child_read_op = op_val.get("name")
-                            break
-                if not child_read_op: child_read_op = f"get{child}" # Final fallback
-
-                # Determine property names
                 p_pk, _ = collect_entity_params(parent, entities[parent], raw_spec)
                 c_pk, c_params = collect_entity_params(child, entities[child], raw_spec)
-                
-                # Find which param in child links to parent
                 linking_param = next((p for p in c_params if p.lower() == p_pk.lower() or p.lower() == f"{parent.lower()}id"), p_pk)
+                
+                parent_del_op = entities[parent]["operations"].get("delete", {}).get("name", f"delete{parent}")
+                
+                # FIXED READER LOGIC: Prioritize specific Getters (with {id}) over Lists (without {id})
+                # This ensures the OrphanMaker uses a function that actually accepts an ID.
+                c_ops = entities[child].get("operations", {})
+                child_read_op = c_ops.get("get", {}).get("name") 
+                if not child_read_op or "{" not in c_ops.get("get", {}).get("path", ""):
+                    child_read_op = next((op.get("name") for op in c_ops.values() if isinstance(op, dict) and op.get("method") == "GET" and "{" in op.get("path", "")), None)
+                if not child_read_op:
+                    child_read_op = next((op.get("name") for op in c_ops.values() if isinstance(op, dict) and op.get("method") == "GET"), f"get{child}")
 
+                safe_child, safe_parent = sanitize_param(child), sanitize_param(parent)
                 output_lines.append(f'bthread("hyper:evil:copy{iteration}:OrphanMaker_{safe_child}_{safe_parent}", function() {{')
                 output_lines.append('  while(true) {')
                 output_lines.append(f'    let e = waitFor(matchAny{safe_child}Added());')
+                
+                # RACE CONDITION BARRIER: Wait for child resource to be verified by main test
+                output_lines.append(f'    // Barrier: Ensure main test verifies {child} before sabotaging parent')
+                output_lines.append(f'    bp.sync({{ waitFor: bp.EventSet("Barrier: {child} Verified", function(ev) {{')
+                output_lines.append(f'        return ev.name.includes("Verify {child}") && ev.name.includes(e.data.id);')
+                output_lines.append('    }) });')
+
                 output_lines.append(f'    let pId = e.data.{linking_param} || e.data.id;')
                 output_lines.append(f'    {sanitize_param(parent_del_op)}(pId);')
                 output_lines.append(f'    let childId = e.data.{c_pk} || e.data.id;')
                 output_lines.append(f'    {sanitize_param(child_read_op)}(childId);')
-                output_lines.append('  }')
-                output_lines.append('});')
+                output_lines.append('  }\n});')
+
     return "\n".join(output_lines)

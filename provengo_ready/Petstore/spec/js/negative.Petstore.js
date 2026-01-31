@@ -79,33 +79,49 @@ bthread("evil:collision:User", function() {
 
 // --- PHASE 4: COORDINATED VANDALISM (Hyper-Negative) ---
 // --- EVIL COORDINATED AGENTS for Petstore (Copy 1) ---
-bthread("hyper:evil:copy1:Saboteur_Pet", function() {
+bthread("hyper:Pet:copy1:Saboteur_delete", function() {
   while(true) {
     let e = waitFor(matchAnyPetAdded());
-    let targetId = e.data.id || e.data.petId;
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: Pet Verified", function(ev) {
+        return ev.name.includes("Verify Pet") && ev.name.includes(targetId);
+    }) });
     deletePet(targetId);
-    getPetById(targetId);
+    if (typeof getPetById === "function") { getPetById(targetId); }
   }
 });
-bthread("hyper:evil:copy1:Saboteur_Store", function() {
+bthread("hyper:Store:copy1:Saboteur_delete", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
-    let targetId = e.data.id || e.data.storeId;
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: Store Verified", function(ev) {
+        return ev.name.includes("Verify Store") && ev.name.includes(targetId);
+    }) });
     deleteOrder(targetId);
-    getOrderById(targetId);
+    if (typeof getStore === "function") { getStore(targetId); }
   }
 });
-bthread("hyper:evil:copy1:Saboteur_User", function() {
+bthread("hyper:User:copy1:Saboteur_update", function() {
   while(true) {
     let e = waitFor(matchAnyUserAdded());
-    let targetId = e.data.id || e.data.userId;
-    updateUser(targetId);
-    getUserByName(targetId);
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: User Verified", function(ev) {
+        return ev.name.includes("Verify User") && ev.name.includes(targetId);
+    }) });
+    updateUser(null, null, null, null, null, null, targetId);
+    if (typeof getUser === "function") { getUser(targetId); }
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_Store_Pet", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
+    // Barrier: Ensure main test verifies Store before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Store Verified", function(ev) {
+        return ev.name.includes("Verify Store") && ev.name.includes(e.data.id);
+    }) });
     let pId = e.data.petId || e.data.id;
     deletePet(pId);
     let childId = e.data.orderId || e.data.id;
@@ -113,33 +129,49 @@ bthread("hyper:evil:copy1:OrphanMaker_Store_Pet", function() {
   }
 });
 // --- EVIL COORDINATED AGENTS for Petstore (Copy 2) ---
-bthread("hyper:evil:copy2:Saboteur_Pet", function() {
+bthread("hyper:Pet:copy2:Saboteur_delete", function() {
   while(true) {
     let e = waitFor(matchAnyPetAdded());
-    let targetId = e.data.id || e.data.petId;
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: Pet Verified", function(ev) {
+        return ev.name.includes("Verify Pet") && ev.name.includes(targetId);
+    }) });
     deletePet(targetId);
-    getPetById(targetId);
+    if (typeof getPetById === "function") { getPetById(targetId); }
   }
 });
-bthread("hyper:evil:copy2:Saboteur_Store", function() {
+bthread("hyper:Store:copy2:Saboteur_delete", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
-    let targetId = e.data.id || e.data.storeId;
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: Store Verified", function(ev) {
+        return ev.name.includes("Verify Store") && ev.name.includes(targetId);
+    }) });
     deleteOrder(targetId);
-    getOrderById(targetId);
+    if (typeof getStore === "function") { getStore(targetId); }
   }
 });
-bthread("hyper:evil:copy2:Saboteur_User", function() {
+bthread("hyper:User:copy2:Saboteur_update", function() {
   while(true) {
     let e = waitFor(matchAnyUserAdded());
-    let targetId = e.data.id || e.data.userId;
-    updateUser(targetId);
-    getUserByName(targetId);
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: User Verified", function(ev) {
+        return ev.name.includes("Verify User") && ev.name.includes(targetId);
+    }) });
+    updateUser(null, null, null, null, null, null, targetId);
+    if (typeof getUser === "function") { getUser(targetId); }
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_Store_Pet", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
+    // Barrier: Ensure main test verifies Store before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Store Verified", function(ev) {
+        return ev.name.includes("Verify Store") && ev.name.includes(e.data.id);
+    }) });
     let pId = e.data.petId || e.data.id;
     deletePet(pId);
     let childId = e.data.orderId || e.data.id;
@@ -147,33 +179,49 @@ bthread("hyper:evil:copy2:OrphanMaker_Store_Pet", function() {
   }
 });
 // --- EVIL COORDINATED AGENTS for Petstore (Copy 3) ---
-bthread("hyper:evil:copy3:Saboteur_Pet", function() {
+bthread("hyper:Pet:copy3:Saboteur_delete", function() {
   while(true) {
     let e = waitFor(matchAnyPetAdded());
-    let targetId = e.data.id || e.data.petId;
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: Pet Verified", function(ev) {
+        return ev.name.includes("Verify Pet") && ev.name.includes(targetId);
+    }) });
     deletePet(targetId);
-    getPetById(targetId);
+    if (typeof getPetById === "function") { getPetById(targetId); }
   }
 });
-bthread("hyper:evil:copy3:Saboteur_Store", function() {
+bthread("hyper:Store:copy3:Saboteur_delete", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
-    let targetId = e.data.id || e.data.storeId;
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: Store Verified", function(ev) {
+        return ev.name.includes("Verify Store") && ev.name.includes(targetId);
+    }) });
     deleteOrder(targetId);
-    getOrderById(targetId);
+    if (typeof getStore === "function") { getStore(targetId); }
   }
 });
-bthread("hyper:evil:copy3:Saboteur_User", function() {
+bthread("hyper:User:copy3:Saboteur_update", function() {
   while(true) {
     let e = waitFor(matchAnyUserAdded());
-    let targetId = e.data.id || e.data.userId;
-    updateUser(targetId);
-    getUserByName(targetId);
+    let targetId = e.data.id;
+    // Wait for the main test to finish its verification check
+    bp.sync({ waitFor: bp.EventSet("Barrier: User Verified", function(ev) {
+        return ev.name.includes("Verify User") && ev.name.includes(targetId);
+    }) });
+    updateUser(null, null, null, null, null, null, targetId);
+    if (typeof getUser === "function") { getUser(targetId); }
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_Store_Pet", function() {
   while(true) {
     let e = waitFor(matchAnyStoreAdded());
+    // Barrier: Ensure main test verifies Store before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Store Verified", function(ev) {
+        return ev.name.includes("Verify Store") && ev.name.includes(e.data.id);
+    }) });
     let pId = e.data.petId || e.data.id;
     deletePet(pId);
     let childId = e.data.orderId || e.data.id;

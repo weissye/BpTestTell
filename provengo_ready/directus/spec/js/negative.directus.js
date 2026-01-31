@@ -1,3796 +1,863 @@
-// Auto-generated NEGATIVE (Fuzzing) stories for directus
+// Auto-generated EVIL BACKGROUND AGENTS for directus
 //@provengo summon rest
 
-bthread("fuzz:Authentication:password_InvalidType", function () {
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let provider_valid = "provider_valid_" + Math.floor(Math.random()*1000);
-  let redirect_valid = "redirect_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_password = ["NOT_A_STRING"];
-  verifyAuthenticationRejects(bad_password, provider_valid, redirect_valid, token_valid);
-});
-bthread("fuzz:Authentication:provider_InvalidType", function () {
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let provider_valid = "provider_valid_" + Math.floor(Math.random()*1000);
-  let redirect_valid = "redirect_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_provider = ["NOT_A_STRING"];
-  verifyAuthenticationRejects(password_valid, bad_provider, redirect_valid, token_valid);
-});
-bthread("fuzz:Authentication:redirect_InvalidType", function () {
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let provider_valid = "provider_valid_" + Math.floor(Math.random()*1000);
-  let redirect_valid = "redirect_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_redirect = ["NOT_A_STRING"];
-  verifyAuthenticationRejects(password_valid, provider_valid, bad_redirect, token_valid);
-});
-bthread("fuzz:Authentication:token_InvalidType", function () {
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let provider_valid = "provider_valid_" + Math.floor(Math.random()*1000);
-  let redirect_valid = "redirect_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_token = ["NOT_A_STRING"];
-  verifyAuthenticationRejects(password_valid, provider_valid, redirect_valid, bad_token);
-});
-bthread("fuzz:Authentication:provider_Missing", function () {
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let provider_valid = "provider_valid_" + Math.floor(Math.random()*1000);
-  let redirect_valid = "redirect_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let missing_provider = undefined;
-  verifyAuthenticationRejects(password_valid, missing_provider, redirect_valid, token_valid);
-});
-bthread("fuzz:Collections:Meta_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyCollectionsRejects(bad_Meta, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:Offset_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_Offset = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, bad_Offset, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:archive_app_filter_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_archive_app_filter = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, bad_archive_app_filter, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:archive_field_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_archive_field = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, bad_archive_field, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:archive_value_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_archive_value = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, bad_archive_value, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:collection_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_collection = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, bad_collection, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:display_template_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_display_template = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, bad_display_template, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:fields_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_fields = "NOT_AN_ARRAY";
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, bad_fields, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:hidden_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_hidden = "NOT_A_BOOL";
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, bad_hidden, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:icon_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_icon = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, bad_icon, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:id_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_id = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, bad_id, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:meta_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_meta = 12345;
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, bad_meta, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:note_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_note = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, bad_note, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:singleton_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_singleton = "NOT_A_BOOL";
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, bad_singleton, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:sort_field_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_sort_field = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, bad_sort_field, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:translation_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_translation = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, bad_translation, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Collections:unarchive_value_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_unarchive_value = ["NOT_A_STRING"];
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, bad_unarchive_value, versioning_valid);
-});
-bthread("fuzz:Collections:versioning_InvalidType", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let bad_versioning = "NOT_A_BOOL";
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, id_valid, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, bad_versioning);
-});
-bthread("fuzz:Collections:id_Missing", function () {
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let archive_app_filter_valid = "archive_app_filter_valid_" + Math.floor(Math.random()*1000);
-  let archive_field_valid = "archive_field_valid_" + Math.floor(Math.random()*1000);
-  let archive_value_valid = "archive_value_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "customers";
-  let display_template_valid = "display_template_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = [];
-  let hidden_valid = true;
-  let icon_valid = "icon_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let meta_valid = {};
-  let note_valid = "note_valid_" + Math.floor(Math.random()*1000);
-  let singleton_valid = true;
-  let sort_field_valid = "sort_field_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = "translation_valid_" + Math.floor(Math.random()*1000);
-  let unarchive_value_valid = "unarchive_value_valid_" + Math.floor(Math.random()*1000);
-  let versioning_valid = true;
-  let missing_id = undefined;
-  verifyCollectionsRejects(Meta_valid, Offset_valid, archive_app_filter_valid, archive_field_valid, archive_value_valid, collection_valid, display_template_valid, fields_valid, hidden_valid, icon_valid, missing_id, meta_valid, note_valid, singleton_valid, sort_field_valid, translation_valid, unarchive_value_valid, versioning_valid);
-});
-bthread("fuzz:Items:Collection_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Collection = ["NOT_A_STRING"];
-  verifyItemsRejects(bad_Collection, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Fields_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, bad_Fields, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Filter_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, Fields_valid, bad_Filter, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Limit_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Limit = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, bad_Limit, Meta_valid, Offset_valid, Search_valid, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Meta_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Offset_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Offset = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, bad_Offset, Search_valid, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Search_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Search = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, bad_Search, Sort_valid, collection_valid);
-});
-bthread("fuzz:Items:Sort_InvalidType", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, bad_Sort, collection_valid);
-});
-bthread("fuzz:Items:collection_Missing", function () {
-  let Collection_valid = "Collection_valid_" + Math.floor(Math.random()*1000);
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "collection_valid_" + Math.floor(Math.random()*1000);
-  let missing_collection = undefined;
-  verifyItemsRejects(Collection_valid, Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, missing_collection);
-});
-bthread("fuzz:Presets:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyPresetsRejects(bad_Fields, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Filter_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, bad_Filter, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Id = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, bad_Id, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Limit_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Limit = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, bad_Limit, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, bad_Meta, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Offset_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Offset = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, bad_Offset, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Page_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Page = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, bad_Page, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Search = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, bad_Search, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:Sort_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, bad_Sort, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:collection_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_collection = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_collection, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:filters_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_filters = "NOT_AN_ARRAY";
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, bad_filters, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, bad_id, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:layout_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_layout = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, bad_layout, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:layout_options_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_layout_options = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, bad_layout_options, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:layout_query_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_layout_query = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, bad_layout_query, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:role_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_role = "INVALID_STRING";
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, bad_role, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_search = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, bad_search, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:search_query_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_search_query = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, bad_search_query, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:title_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_title = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, bad_title, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:translation_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_translation = 12345;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, bad_translation, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:view_options_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_view_options = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, bad_view_options, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Presets:view_query_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_view_query = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, bad_view_query, view_type_valid);
-});
-bthread("fuzz:Presets:view_type_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let bad_view_type = ["NOT_A_STRING"];
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, id_valid, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, bad_view_type);
-});
-bthread("fuzz:Presets:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Page_valid = "Page_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "articles";
-  let filters_valid = [];
-  let id_valid = "155";
-  let layout_valid = "layout_valid_" + Math.floor(Math.random()*1000);
-  let layout_options_valid = "{'cards': {'icon': 'account_circle', 'title': '{{ first_name }} {{ last_name }}', 'subtitle': '{{ title }}', 'size': 3}}";
-  let layout_query_valid = "{'cards': {'sort': '-published_on'}}";
-  let role_valid = Math.floor(Math.random() * 1000);
-  let search_valid = "search_valid_" + Math.floor(Math.random()*1000);
-  let search_query_valid = "search_query_valid_" + Math.floor(Math.random()*1000);
-  let title_valid = "title_valid_" + Math.floor(Math.random()*1000);
-  let translation_valid = {};
-  let view_options_valid = "view_options_valid_" + Math.floor(Math.random()*1000);
-  let view_query_valid = "view_query_valid_" + Math.floor(Math.random()*1000);
-  let view_type_valid = "view_type_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyPresetsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, filters_valid, missing_id, layout_valid, layout_options_valid, layout_query_valid, role_valid, search_valid, search_query_valid, title_valid, translation_valid, view_options_valid, view_query_valid, view_type_valid);
-});
-bthread("fuzz:Comments:collection_InvalidType", function () {
-  let collection_valid = "articles";
-  let comment_valid = "This is a comment";
-  let id_valid = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
-  let item_valid = "123";
-  let bad_collection = ["NOT_A_STRING"];
-  verifyCommentsRejects(bad_collection, comment_valid, id_valid, item_valid);
-});
-bthread("fuzz:Comments:comment_InvalidType", function () {
-  let collection_valid = "articles";
-  let comment_valid = "This is a comment";
-  let id_valid = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
-  let item_valid = "123";
-  let bad_comment = ["NOT_A_STRING"];
-  verifyCommentsRejects(collection_valid, bad_comment, id_valid, item_valid);
-});
-bthread("fuzz:Comments:id_InvalidType", function () {
-  let collection_valid = "articles";
-  let comment_valid = "This is a comment";
-  let id_valid = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
-  let item_valid = "123";
-  let bad_id = ["NOT_A_STRING"];
-  verifyCommentsRejects(collection_valid, comment_valid, bad_id, item_valid);
-});
-bthread("fuzz:Comments:item_InvalidType", function () {
-  let collection_valid = "articles";
-  let comment_valid = "This is a comment";
-  let id_valid = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
-  let item_valid = "123";
-  let bad_item = ["NOT_A_STRING"];
-  verifyCommentsRejects(collection_valid, comment_valid, id_valid, bad_item);
-});
-bthread("fuzz:Comments:id_Missing", function () {
-  let collection_valid = "articles";
-  let comment_valid = "This is a comment";
-  let id_valid = "81dfa7e0-56d2-471f-b96a-1cf8a62bdf28";
-  let item_valid = "123";
-  let missing_id = undefined;
-  verifyCommentsRejects(collection_valid, comment_valid, missing_id, item_valid);
-});
-bthread("fuzz:Fields:Sort_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyFieldsRejects(bad_Sort, collection_valid, datatype_valid, field_valid, id_valid, length_valid, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:collection_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_collection = ["NOT_A_STRING"];
-  verifyFieldsRejects(Sort_valid, bad_collection, datatype_valid, field_valid, id_valid, length_valid, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:datatype_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_datatype = ["NOT_A_STRING"];
-  verifyFieldsRejects(Sort_valid, collection_valid, bad_datatype, field_valid, id_valid, length_valid, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:field_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_field = ["NOT_A_STRING"];
-  verifyFieldsRejects(Sort_valid, collection_valid, datatype_valid, bad_field, id_valid, length_valid, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:id_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_id = ["NOT_A_STRING"];
-  verifyFieldsRejects(Sort_valid, collection_valid, datatype_valid, field_valid, bad_id, length_valid, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:length_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_length = "INVALID_STRING";
-  verifyFieldsRejects(Sort_valid, collection_valid, datatype_valid, field_valid, id_valid, bad_length, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:meta_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_meta = 12345;
-  verifyFieldsRejects(Sort_valid, collection_valid, datatype_valid, field_valid, id_valid, length_valid, bad_meta, schema_valid, type_valid);
-});
-bthread("fuzz:Fields:schema_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_schema = 12345;
-  verifyFieldsRejects(Sort_valid, collection_valid, datatype_valid, field_valid, id_valid, length_valid, meta_valid, bad_schema, type_valid);
-});
-bthread("fuzz:Fields:type_InvalidType", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let bad_type = ["NOT_A_STRING"];
-  verifyFieldsRejects(Sort_valid, collection_valid, datatype_valid, field_valid, id_valid, length_valid, meta_valid, schema_valid, bad_type);
-});
-bthread("fuzz:Fields:collection_Missing", function () {
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_valid = "about_us";
-  let datatype_valid = "datatype_valid_" + Math.floor(Math.random()*1000);
-  let field_valid = "id";
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let meta_valid = {};
-  let schema_valid = {};
-  let type_valid = "integer";
-  let missing_collection = undefined;
-  verifyFieldsRejects(Sort_valid, missing_collection, datatype_valid, field_valid, id_valid, length_valid, meta_valid, schema_valid, type_valid);
-});
-bthread("fuzz:Files:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyFilesRejects(bad_Fields, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:Filter_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, bad_Filter, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:Limit_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Limit = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, bad_Limit, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:Offset_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Offset = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, bad_Offset, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:Search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Search = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, bad_Search, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:Sort_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, bad_Sort, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:data_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_data = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, bad_data, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:description_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_description = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, bad_description, filename_download_valid, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:filename_download_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_filename_download = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, bad_filename_download, folder_valid, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:folder_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_folder = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, bad_folder, id_valid, tags_valid, title_valid);
-});
-bthread("fuzz:Files:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_id = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, bad_id, tags_valid, title_valid);
-});
-bthread("fuzz:Files:tags_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_tags = "NOT_AN_ARRAY";
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, bad_tags, title_valid);
-});
-bthread("fuzz:Files:title_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let bad_title = ["NOT_A_STRING"];
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, id_valid, tags_valid, bad_title);
-});
-bthread("fuzz:Files:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "description_valid_" + Math.floor(Math.random()*1000);
-  let filename_download_valid = "avatar.jpg";
-  let folder_valid = "folder_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "8cbb43fe-4cdf-4991-8352-c461779cec02";
-  let tags_valid = [];
-  let title_valid = "User Avatar";
-  let missing_id = undefined;
-  verifyFilesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, data_valid, description_valid, filename_download_valid, folder_valid, missing_id, tags_valid, title_valid);
-});
-bthread("fuzz:Flows:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyFlowsRejects(bad_Fields, Meta_valid, data_valid, id_valid);
-});
-bthread("fuzz:Flows:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyFlowsRejects(Fields_valid, bad_Meta, data_valid, id_valid);
-});
-bthread("fuzz:Flows:data_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let bad_data = 12345;
-  verifyFlowsRejects(Fields_valid, Meta_valid, bad_data, id_valid);
-});
-bthread("fuzz:Flows:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let bad_id = ["NOT_A_STRING"];
-  verifyFlowsRejects(Fields_valid, Meta_valid, data_valid, bad_id);
-});
-bthread("fuzz:Flows:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let missing_id = undefined;
-  verifyFlowsRejects(Fields_valid, Meta_valid, data_valid, missing_id);
-});
-bthread("fuzz:Folders:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyFoldersRejects(bad_Fields, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:Filter_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyFoldersRejects(Fields_valid, bad_Filter, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:Limit_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Limit = "INVALID_STRING";
-  verifyFoldersRejects(Fields_valid, Filter_valid, bad_Limit, Meta_valid, Offset_valid, Search_valid, Sort_valid, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:Offset_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Offset = "INVALID_STRING";
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, bad_Offset, Search_valid, Sort_valid, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:Search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Search = ["NOT_A_STRING"];
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, bad_Search, Sort_valid, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:Sort_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, bad_Sort, id_valid, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, bad_id, name_valid, parent_valid);
-});
-bthread("fuzz:Folders:name_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_name = ["NOT_A_STRING"];
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, id_valid, bad_name, parent_valid);
-});
-bthread("fuzz:Folders:parent_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let bad_parent = "INVALID_STRING";
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, id_valid, name_valid, bad_parent);
-});
-bthread("fuzz:Folders:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "0cf0e03d-4364-45df-b77b-ca61f61869d2";
-  let name_valid = "New York";
-  let parent_valid = Math.floor(Math.random() * 1000);
-  let missing_id = undefined;
-  verifyFoldersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, missing_id, name_valid, parent_valid);
-});
-bthread("fuzz:Operations:Fields_InvalidType", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let bad_Fields = 12345;
-  verifyOperationsRejects(bad_Fields, Meta_valid, UUId_valid, data_valid, id_valid, keys_valid);
-});
-bthread("fuzz:Operations:Meta_InvalidType", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let bad_Meta = 12345;
-  verifyOperationsRejects(Fields_valid, bad_Meta, UUId_valid, data_valid, id_valid, keys_valid);
-});
-bthread("fuzz:Operations:UUId_InvalidType", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let bad_UUId = 12345;
-  verifyOperationsRejects(Fields_valid, Meta_valid, bad_UUId, data_valid, id_valid, keys_valid);
-});
-bthread("fuzz:Operations:data_InvalidType", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let bad_data = ["NOT_A_STRING"];
-  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, bad_data, id_valid, keys_valid);
-});
-bthread("fuzz:Operations:id_InvalidType", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let bad_id = ["NOT_A_STRING"];
-  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, bad_id, keys_valid);
-});
-bthread("fuzz:Operations:keys_InvalidType", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let bad_keys = "NOT_AN_ARRAY";
-  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, id_valid, bad_keys);
-});
-bthread("fuzz:Operations:id_Missing", function () {
-  let Fields_valid = {};
-  let Meta_valid = {};
-  let UUId_valid = {};
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let keys_valid = [];
-  let missing_id = undefined;
-  verifyOperationsRejects(Fields_valid, Meta_valid, UUId_valid, data_valid, missing_id, keys_valid);
-});
-bthread("fuzz:Permissions:Fields_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Fields = 12345;
-  verifyPermissionsRejects(bad_Fields, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Filter_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Filter = 12345;
-  verifyPermissionsRejects(Fields_valid, bad_Filter, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Id_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Id = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, bad_Id, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Limit_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Limit = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, bad_Limit, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Meta_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Meta = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, bad_Meta, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Offset_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Offset = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, bad_Offset, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Page_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Page = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, bad_Page, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Search_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Search = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, bad_Search, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:Sort_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_Sort = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, bad_Sort, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:collection_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_collection = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_collection, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:comment_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_comment = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, bad_comment, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:create_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_create = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, bad_create, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:data_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_data = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, bad_data, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:_delete_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad__delete = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, bad__delete, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:explain_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_explain = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, bad_explain, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:id_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_id = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, bad_id, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:keys_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_keys = "NOT_AN_ARRAY";
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, bad_keys, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:read_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_read = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, bad_read, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:read_field_blacklist_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_read_field_blacklist = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, bad_read_field_blacklist, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:role_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_role = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, bad_role, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:status_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_status = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, bad_status, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:status_blacklist_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_status_blacklist = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, bad_status_blacklist, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:update_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_update = ["NOT_A_STRING"];
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, bad_update, write_field_blacklist_valid);
-});
-bthread("fuzz:Permissions:write_field_blacklist_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let bad_write_field_blacklist = 12345;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, id_valid, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, bad_write_field_blacklist);
-});
-bthread("fuzz:Permissions:id_Missing", function () {
-  let Fields_valid = {};
-  let Filter_valid = {};
-  let Id_valid = {};
-  let Limit_valid = {};
-  let Meta_valid = {};
-  let Offset_valid = {};
-  let Page_valid = {};
-  let Search_valid = {};
-  let Sort_valid = {};
-  let collection_valid = {};
-  let comment_valid = "comment_valid_" + Math.floor(Math.random()*1000);
-  let create_valid = "create_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = {};
-  let _delete_valid = "delete_valid_" + Math.floor(Math.random()*1000);
-  let explain_valid = "explain_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let keys_valid = [];
-  let read_valid = "read_valid_" + Math.floor(Math.random()*1000);
-  let read_field_blacklist_valid = {};
-  let role_valid = {};
-  let status_valid = {};
-  let status_blacklist_valid = {};
-  let update_valid = "update_valid_" + Math.floor(Math.random()*1000);
-  let write_field_blacklist_valid = {};
-  let missing_id = undefined;
-  verifyPermissionsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_valid, comment_valid, create_valid, data_valid, _delete_valid, explain_valid, missing_id, keys_valid, read_valid, read_field_blacklist_valid, role_valid, status_valid, status_blacklist_valid, update_valid, write_field_blacklist_valid);
-});
-bthread("fuzz:Relations:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyRelationsRejects(bad_Fields, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Filter_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, bad_Filter, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Id = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, bad_Id, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Limit_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Limit = "INVALID_STRING";
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, bad_Limit, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, bad_Meta, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Offset_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Offset = "INVALID_STRING";
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, bad_Offset, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Page_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Page = "INVALID_STRING";
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, bad_Page, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Search = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, bad_Search, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:Sort_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, bad_Sort, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:collection_many_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_collection_many = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_collection_many, collection_one_valid, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:collection_one_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_collection_one = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, bad_collection_one, field_many_valid, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:field_many_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_field_many = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, bad_field_many, field_one_valid, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:field_one_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_field_one = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, bad_field_one, id_valid, junction_field_valid);
-});
-bthread("fuzz:Relations:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, bad_id, junction_field_valid);
-});
-bthread("fuzz:Relations:junction_field_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let bad_junction_field = ["NOT_A_STRING"];
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, id_valid, bad_junction_field);
-});
-bthread("fuzz:Relations:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Id_valid = "Id_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let collection_many_valid = "collection_many_valid_" + Math.floor(Math.random()*1000);
-  let collection_one_valid = "collection_one_valid_" + Math.floor(Math.random()*1000);
-  let field_many_valid = "field_many_valid_" + Math.floor(Math.random()*1000);
-  let field_one_valid = "field_one_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "1";
-  let junction_field_valid = "junction_field_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyRelationsRejects(Fields_valid, Filter_valid, Id_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, collection_many_valid, collection_one_valid, field_many_valid, field_one_valid, missing_id, junction_field_valid);
-});
-bthread("fuzz:Roles:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyRolesRejects(bad_Fields, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Filter_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, bad_Filter, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Limit_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Limit = "INVALID_STRING";
-  verifyRolesRejects(Fields_valid, Filter_valid, bad_Limit, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Offset_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Offset = "INVALID_STRING";
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, bad_Offset, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Page_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Page = "INVALID_STRING";
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, bad_Page, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Search = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, bad_Search, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:Sort_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, bad_Sort, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:description_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_description = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, bad_description, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:enforce_tfa_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_enforce_tfa = "NOT_A_BOOL";
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, bad_enforce_tfa, external_id_valid, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:external_id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_external_id = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, bad_external_id, id_valid, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_id = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, bad_id, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:ip_access_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_ip_access = "NOT_AN_ARRAY";
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, bad_ip_access, module_listing_valid, name_valid);
-});
-bthread("fuzz:Roles:module_listing_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_module_listing = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, bad_module_listing, name_valid);
-});
-bthread("fuzz:Roles:name_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let bad_name = ["NOT_A_STRING"];
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, id_valid, ip_access_valid, module_listing_valid, bad_name);
-});
-bthread("fuzz:Roles:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Page_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let description_valid = "Admins have access to all managed data within the system by default";
-  let enforce_tfa_valid = true;
-  let external_id_valid = "external_id_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "2f24211d-d928-469a-aea3-3c8f53d4e426";
-  let ip_access_valid = [];
-  let module_listing_valid = "module_listing_valid_" + Math.floor(Math.random()*1000);
-  let name_valid = "Administrator";
-  let missing_id = undefined;
-  verifyRolesRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Page_valid, Search_valid, Sort_valid, description_valid, enforce_tfa_valid, external_id_valid, missing_id, ip_access_valid, module_listing_valid, name_valid);
-});
-bthread("fuzz:Schema:Export_InvalidType", function () {
-  let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let bad_Export = ["NOT_A_STRING"];
-  verifySchemaRejects(bad_Export, data_valid, force_valid, id_valid);
-});
-bthread("fuzz:Schema:data_InvalidType", function () {
-  let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let bad_data = ["NOT_A_STRING"];
-  verifySchemaRejects(Export_valid, bad_data, force_valid, id_valid);
-});
-bthread("fuzz:Schema:id_InvalidType", function () {
-  let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifySchemaRejects(Export_valid, data_valid, force_valid, bad_id);
-});
-bthread("fuzz:Schema:id_Missing", function () {
-  let Export_valid = "Export_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let force_valid = true;
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifySchemaRejects(Export_valid, data_valid, force_valid, missing_id);
-});
-bthread("fuzz:Users:Fields_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Fields = 12345;
-  verifyUsersRejects(bad_Fields, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:Filter_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, bad_Filter, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:Limit_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Limit = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, bad_Limit, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:Meta_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Meta = 12345;
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:Offset_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Offset = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, bad_Offset, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:Search_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Search = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, bad_Search, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:Sort_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, bad_Sort, UUId_valid, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:UUId_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_UUId = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, bad_UUId, id_valid, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:id_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, bad_id, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Users:last_page_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_last_page = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, bad_last_page, password_valid, token_valid);
-});
-bthread("fuzz:Users:password_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_password = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, bad_password, token_valid);
-});
-bthread("fuzz:Users:token_InvalidType", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let bad_token = ["NOT_A_STRING"];
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, id_valid, last_page_valid, password_valid, bad_token);
-});
-bthread("fuzz:Users:id_Missing", function () {
-  let Fields_valid = {};
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = "Limit_valid_" + Math.floor(Math.random()*1000);
-  let Meta_valid = {};
-  let Offset_valid = "Offset_valid_" + Math.floor(Math.random()*1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let last_page_valid = "/my-project/settings/collections/a";
-  let password_valid = "password_valid_" + Math.floor(Math.random()*1000);
-  let token_valid = "token_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyUsersRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, missing_id, last_page_valid, password_valid, token_valid);
-});
-bthread("fuzz:Utilities:id_InvalidType", function () {
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyUtilitiesRejects(bad_id, length_valid);
-});
-bthread("fuzz:Utilities:length_InvalidType", function () {
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let bad_length = "INVALID_STRING";
-  verifyUtilitiesRejects(id_valid, bad_length);
-});
-bthread("fuzz:Utilities:id_Missing", function () {
-  let id_valid = "id_valid_" + Math.floor(Math.random()*1000);
-  let length_valid = Math.floor(Math.random() * 1000);
-  let missing_id = undefined;
-  verifyUtilitiesRejects(missing_id, length_valid);
-});
-bthread("fuzz:Versions:Fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Fields = ["NOT_A_STRING"];
-  verifyVersionsRejects(bad_Fields, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:Filter_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Filter = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, bad_Filter, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:Limit_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Limit = "INVALID_STRING";
-  verifyVersionsRejects(Fields_valid, Filter_valid, bad_Limit, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:Meta_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Meta = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, bad_Meta, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:Offset_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Offset = "INVALID_STRING";
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, bad_Offset, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:Search_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Search = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, bad_Search, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:Sort_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_Sort = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, bad_Sort, UUId_valid, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:UUId_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_UUId = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, bad_UUId, data_valid, fields_valid, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:fields_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_fields = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, bad_fields, id_valid, mainHash_valid);
-});
-bthread("fuzz:Versions:id_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, bad_id, mainHash_valid);
-});
-bthread("fuzz:Versions:mainHash_InvalidType", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let bad_mainHash = ["NOT_A_STRING"];
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, id_valid, bad_mainHash);
-});
-bthread("fuzz:Versions:id_Missing", function () {
-  let Fields_valid = "Fields_valid_" + Math.floor(Math.random()*1000);
-  let Filter_valid = "Filter_valid_" + Math.floor(Math.random()*1000);
-  let Limit_valid = Math.floor(Math.random() * 1000);
-  let Meta_valid = "Meta_valid_" + Math.floor(Math.random()*1000);
-  let Offset_valid = Math.floor(Math.random() * 1000);
-  let Search_valid = "Search_valid_" + Math.floor(Math.random()*1000);
-  let Sort_valid = "Sort_valid_" + Math.floor(Math.random()*1000);
-  let UUId_valid = "UUId_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = "data_valid_" + Math.floor(Math.random()*1000);
-  let fields_valid = "fields_valid_" + Math.floor(Math.random()*1000);
-  let id_valid = "63716273-0f29-4648-8a2a-2af2948f6f78";
-  let mainHash_valid = "mainHash_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyVersionsRejects(Fields_valid, Filter_valid, Limit_valid, Meta_valid, Offset_valid, Search_valid, Sort_valid, UUId_valid, data_valid, fields_valid, missing_id, mainHash_valid);
-});
-bthread("fuzz:Webhooks:actions_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_actions = ["NOT_A_STRING"];
-  verifyWebhooksRejects(bad_actions, data_valid, id_valid, method_valid, name_valid, status_valid, system_collections_valid, url_valid);
-});
-bthread("fuzz:Webhooks:data_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_data = "NOT_A_BOOL";
-  verifyWebhooksRejects(actions_valid, bad_data, id_valid, method_valid, name_valid, status_valid, system_collections_valid, url_valid);
-});
-bthread("fuzz:Webhooks:id_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_id = ["NOT_A_STRING"];
-  verifyWebhooksRejects(actions_valid, data_valid, bad_id, method_valid, name_valid, status_valid, system_collections_valid, url_valid);
-});
-bthread("fuzz:Webhooks:method_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_method = ["NOT_A_STRING"];
-  verifyWebhooksRejects(actions_valid, data_valid, id_valid, bad_method, name_valid, status_valid, system_collections_valid, url_valid);
-});
-bthread("fuzz:Webhooks:name_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_name = ["NOT_A_STRING"];
-  verifyWebhooksRejects(actions_valid, data_valid, id_valid, method_valid, bad_name, status_valid, system_collections_valid, url_valid);
-});
-bthread("fuzz:Webhooks:status_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_status = ["NOT_A_STRING"];
-  verifyWebhooksRejects(actions_valid, data_valid, id_valid, method_valid, name_valid, bad_status, system_collections_valid, url_valid);
-});
-bthread("fuzz:Webhooks:system_collections_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_system_collections = ["NOT_A_STRING"];
-  verifyWebhooksRejects(actions_valid, data_valid, id_valid, method_valid, name_valid, status_valid, bad_system_collections, url_valid);
-});
-bthread("fuzz:Webhooks:url_InvalidType", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let bad_url = ["NOT_A_STRING"];
-  verifyWebhooksRejects(actions_valid, data_valid, id_valid, method_valid, name_valid, status_valid, system_collections_valid, bad_url);
-});
-bthread("fuzz:Webhooks:id_Missing", function () {
-  let actions_valid = "actions_valid_" + Math.floor(Math.random()*1000);
-  let data_valid = true;
-  let id_valid = "1";
-  let method_valid = "POST";
-  let name_valid = "create articles";
-  let status_valid = "inactive";
-  let system_collections_valid = "system-collections_valid_" + Math.floor(Math.random()*1000);
-  let url_valid = "url_valid_" + Math.floor(Math.random()*1000);
-  let missing_id = undefined;
-  verifyWebhooksRejects(actions_valid, data_valid, missing_id, method_valid, name_valid, status_valid, system_collections_valid, url_valid);
+bthread("fuzz:fields:Authentication", function() {
+  while(true) {
+    let e = waitFor(matchAnyAuthenticationAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Authentication";
+      let password_neg_Authentication = "password_malformed_neg_Authentication";
+      let provider_neg_Authentication = "provider_malformed_neg_Authentication";
+      let redirect_neg_Authentication = "redirect_malformed_neg_Authentication";
+      let token_neg_Authentication = "token_malformed_neg_Authentication";
+    verifyAuthenticationRejects(password_neg_Authentication, provider_neg_Authentication, redirect_neg_Authentication, token_neg_Authentication, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Authentication", function() {
+  while (true) {
+    let e = waitFor(matchAnyAuthenticationAdded());
+    let liveId = e.data.provider || e.data.id;
+    tryToAddExistingAuthentication("password_collision", liveId, "redirect_collision", "token_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Collections:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyCollectionsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createCollection:Success:" + id), waitFor: matchAnyCollectionsDeleted() });
+  } });
+bthread("fuzz:fields:Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyCollectionsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Collections";
+      let Meta_neg_Collections = "Meta_malformed_neg_Collections";
+      let Offset_neg_Collections = "Offset_malformed_neg_Collections";
+      let archive_app_filter_neg_Collections = "archive_app_filter_malformed_neg_Collections";
+      let archive_field_neg_Collections = "archive_field_malformed_neg_Collections";
+      let archive_value_neg_Collections = "archive_value_malformed_neg_Collections";
+      let collection_neg_Collections = "collection_malformed_neg_Collections";
+      let display_template_neg_Collections = "display_template_malformed_neg_Collections";
+      let fields_neg_Collections = "fields_malformed_neg_Collections";
+      let hidden_neg_Collections = "hidden_malformed_neg_Collections";
+      let icon_neg_Collections = "icon_malformed_neg_Collections";
+      let id_neg_Collections = "id_malformed_neg_Collections";
+      let meta_neg_Collections = "meta_malformed_neg_Collections";
+      let note_neg_Collections = "note_malformed_neg_Collections";
+      let singleton_neg_Collections = "singleton_malformed_neg_Collections";
+      let sort_field_neg_Collections = "sort_field_malformed_neg_Collections";
+      let translation_neg_Collections = "translation_malformed_neg_Collections";
+      let unarchive_value_neg_Collections = "unarchive_value_malformed_neg_Collections";
+      let versioning_neg_Collections = "versioning_malformed_neg_Collections";
+    verifyCollectionsRejects(Meta_neg_Collections, Offset_neg_Collections, archive_app_filter_neg_Collections, archive_field_neg_Collections, archive_value_neg_Collections, collection_neg_Collections, display_template_neg_Collections, fields_neg_Collections, hidden_neg_Collections, icon_neg_Collections, id_neg_Collections, meta_neg_Collections, note_neg_Collections, singleton_neg_Collections, sort_field_neg_Collections, translation_neg_Collections, unarchive_value_neg_Collections, versioning_neg_Collections, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Collections", function() {
+  while (true) {
+    let e = waitFor(matchAnyCollectionsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingCollections("Meta_collision", "Offset_collision", "archive_app_filter_collision", "archive_field_collision", "archive_value_collision", "collection_collision", "display_template_collision", "fields_collision", "hidden_collision", "icon_collision", liveId, "meta_collision", "note_collision", "singleton_collision", "sort_field_collision", "translation_collision", "unarchive_value_collision", "versioning_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Items:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyItemsAdded()); let id = e.data.collection || e.data.id;
+    bp.sync({ block: bp.Event("Req:createItem:Success:" + id), waitFor: matchAnyItemsDeleted() });
+  } });
+bthread("fuzz:fields:Items", function() {
+  while(true) {
+    let e = waitFor(matchAnyItemsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Items";
+      let Collection_neg_Items = "Collection_malformed_neg_Items";
+      let Fields_neg_Items = "Fields_malformed_neg_Items";
+      let Filter_neg_Items = "Filter_malformed_neg_Items";
+      let Limit_neg_Items = "Limit_malformed_neg_Items";
+      let Meta_neg_Items = "Meta_malformed_neg_Items";
+      let Offset_neg_Items = "Offset_malformed_neg_Items";
+      let Search_neg_Items = "Search_malformed_neg_Items";
+      let Sort_neg_Items = "Sort_malformed_neg_Items";
+      let collection_neg_Items = "collection_malformed_neg_Items";
+    verifyItemsRejects(Collection_neg_Items, Fields_neg_Items, Filter_neg_Items, Limit_neg_Items, Meta_neg_Items, Offset_neg_Items, Search_neg_Items, Sort_neg_Items, collection_neg_Items, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Items", function() {
+  while (true) {
+    let e = waitFor(matchAnyItemsAdded());
+    let liveId = e.data.collection || e.data.id;
+    tryToAddExistingItems("Collection_collision", "Fields_collision", "Filter_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Search_collision", "Sort_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Presets:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyPresetsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createPreset:Success:" + id), waitFor: matchAnyPresetsDeleted() });
+  } });
+bthread("fuzz:fields:Presets", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Presets";
+      let Fields_neg_Presets = "Fields_malformed_neg_Presets";
+      let Filter_neg_Presets = "Filter_malformed_neg_Presets";
+      let Id_neg_Presets = "Id_malformed_neg_Presets";
+      let Limit_neg_Presets = "Limit_malformed_neg_Presets";
+      let Meta_neg_Presets = "Meta_malformed_neg_Presets";
+      let Offset_neg_Presets = "Offset_malformed_neg_Presets";
+      let Page_neg_Presets = "Page_malformed_neg_Presets";
+      let Search_neg_Presets = "Search_malformed_neg_Presets";
+      let Sort_neg_Presets = "Sort_malformed_neg_Presets";
+      let collection_neg_Presets = "collection_malformed_neg_Presets";
+      let filters_neg_Presets = "filters_malformed_neg_Presets";
+      let id_neg_Presets = "id_malformed_neg_Presets";
+      let layout_neg_Presets = "layout_malformed_neg_Presets";
+      let layout_options_neg_Presets = "layout_options_malformed_neg_Presets";
+      let layout_query_neg_Presets = "layout_query_malformed_neg_Presets";
+      let role_neg_Presets = "role_malformed_neg_Presets";
+      let search_neg_Presets = "search_malformed_neg_Presets";
+      let search_query_neg_Presets = "search_query_malformed_neg_Presets";
+      let title_neg_Presets = "title_malformed_neg_Presets";
+      let translation_neg_Presets = "translation_malformed_neg_Presets";
+      let view_options_neg_Presets = "view_options_malformed_neg_Presets";
+      let view_query_neg_Presets = "view_query_malformed_neg_Presets";
+      let view_type_neg_Presets = "view_type_malformed_neg_Presets";
+    verifyPresetsRejects(Fields_neg_Presets, Filter_neg_Presets, Id_neg_Presets, Limit_neg_Presets, Meta_neg_Presets, Offset_neg_Presets, Page_neg_Presets, Search_neg_Presets, Sort_neg_Presets, collection_neg_Presets, filters_neg_Presets, id_neg_Presets, layout_neg_Presets, layout_options_neg_Presets, layout_query_neg_Presets, role_neg_Presets, search_neg_Presets, search_query_neg_Presets, title_neg_Presets, translation_neg_Presets, view_options_neg_Presets, view_query_neg_Presets, view_type_neg_Presets, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Presets", function() {
+  while (true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingPresets("Fields_collision", "Filter_collision", "Id_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Page_collision", "Search_collision", "Sort_collision", "collection_collision", "filters_collision", liveId, "layout_collision", "layout_options_collision", "layout_query_collision", "role_collision", "search_collision", "search_query_collision", "title_collision", "translation_collision", "view_options_collision", "view_query_collision", "view_type_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Comments:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyCommentsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createComment:Success:" + id), waitFor: matchAnyCommentsDeleted() });
+  } });
+bthread("fuzz:fields:Comments", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Comments";
+      let collection_neg_Comments = "collection_malformed_neg_Comments";
+      let comment_neg_Comments = "comment_malformed_neg_Comments";
+      let id_neg_Comments = "id_malformed_neg_Comments";
+      let item_neg_Comments = "item_malformed_neg_Comments";
+    verifyCommentsRejects(collection_neg_Comments, comment_neg_Comments, id_neg_Comments, item_neg_Comments, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Comments", function() {
+  while (true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingComments("collection_collision", "comment_collision", liveId, "item_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Fields:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyFieldsAdded()); let id = e.data.collection || e.data.id;
+    bp.sync({ block: bp.Event("Req:createField:Success:" + id), waitFor: matchAnyFieldsDeleted() });
+  } });
+bthread("fuzz:fields:Fields", function() {
+  while(true) {
+    let e = waitFor(matchAnyFieldsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Fields";
+      let Sort_neg_Fields = "Sort_malformed_neg_Fields";
+      let collection_neg_Fields = "collection_malformed_neg_Fields";
+      let datatype_neg_Fields = "datatype_malformed_neg_Fields";
+      let field_neg_Fields = "field_malformed_neg_Fields";
+      let id_neg_Fields = "id_malformed_neg_Fields";
+      let length_neg_Fields = "length_malformed_neg_Fields";
+      let meta_neg_Fields = "meta_malformed_neg_Fields";
+      let schema_neg_Fields = "schema_malformed_neg_Fields";
+      let type_neg_Fields = "type_malformed_neg_Fields";
+    verifyFieldsRejects(Sort_neg_Fields, collection_neg_Fields, datatype_neg_Fields, field_neg_Fields, id_neg_Fields, length_neg_Fields, meta_neg_Fields, schema_neg_Fields, type_neg_Fields, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Fields", function() {
+  while (true) {
+    let e = waitFor(matchAnyFieldsAdded());
+    let liveId = e.data.collection || e.data.id;
+    tryToAddExistingFields("Sort_collision", liveId, "datatype_collision", "field_collision", "id_collision", "length_collision", "meta_collision", "schema_collision", "type_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Files:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyFilesAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createFile:Success:" + id), waitFor: matchAnyFilesDeleted() });
+  } });
+bthread("fuzz:fields:Files", function() {
+  while(true) {
+    let e = waitFor(matchAnyFilesAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Files";
+      let Fields_neg_Files = "Fields_malformed_neg_Files";
+      let Filter_neg_Files = "Filter_malformed_neg_Files";
+      let Limit_neg_Files = "Limit_malformed_neg_Files";
+      let Meta_neg_Files = "Meta_malformed_neg_Files";
+      let Offset_neg_Files = "Offset_malformed_neg_Files";
+      let Search_neg_Files = "Search_malformed_neg_Files";
+      let Sort_neg_Files = "Sort_malformed_neg_Files";
+      let data_neg_Files = "data_malformed_neg_Files";
+      let description_neg_Files = "description_malformed_neg_Files";
+      let filename_download_neg_Files = "filename_download_malformed_neg_Files";
+      let folder_neg_Files = "folder_malformed_neg_Files";
+      let id_neg_Files = "id_malformed_neg_Files";
+      let tags_neg_Files = "tags_malformed_neg_Files";
+      let title_neg_Files = "title_malformed_neg_Files";
+    verifyFilesRejects(Fields_neg_Files, Filter_neg_Files, Limit_neg_Files, Meta_neg_Files, Offset_neg_Files, Search_neg_Files, Sort_neg_Files, data_neg_Files, description_neg_Files, filename_download_neg_Files, folder_neg_Files, id_neg_Files, tags_neg_Files, title_neg_Files, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Files", function() {
+  while (true) {
+    let e = waitFor(matchAnyFilesAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingFiles("Fields_collision", "Filter_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Search_collision", "Sort_collision", "data_collision", "description_collision", "filename_download_collision", "folder_collision", liveId, "tags_collision", "title_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Flows:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyFlowsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createFlow:Success:" + id), waitFor: matchAnyFlowsDeleted() });
+  } });
+bthread("fuzz:fields:Flows", function() {
+  while(true) {
+    let e = waitFor(matchAnyFlowsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Flows";
+      let Fields_neg_Flows = "Fields_malformed_neg_Flows";
+      let Meta_neg_Flows = "Meta_malformed_neg_Flows";
+      let data_neg_Flows = "data_malformed_neg_Flows";
+      let id_neg_Flows = "id_malformed_neg_Flows";
+    verifyFlowsRejects(Fields_neg_Flows, Meta_neg_Flows, data_neg_Flows, id_neg_Flows, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Flows", function() {
+  while (true) {
+    let e = waitFor(matchAnyFlowsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingFlows("Fields_collision", "Meta_collision", "data_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Folders:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyFoldersAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createFolder:Success:" + id), waitFor: matchAnyFoldersDeleted() });
+  } });
+bthread("fuzz:fields:Folders", function() {
+  while(true) {
+    let e = waitFor(matchAnyFoldersAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Folders";
+      let Fields_neg_Folders = "Fields_malformed_neg_Folders";
+      let Filter_neg_Folders = "Filter_malformed_neg_Folders";
+      let Limit_neg_Folders = "Limit_malformed_neg_Folders";
+      let Meta_neg_Folders = "Meta_malformed_neg_Folders";
+      let Offset_neg_Folders = "Offset_malformed_neg_Folders";
+      let Search_neg_Folders = "Search_malformed_neg_Folders";
+      let Sort_neg_Folders = "Sort_malformed_neg_Folders";
+      let id_neg_Folders = "id_malformed_neg_Folders";
+      let name_neg_Folders = "name_malformed_neg_Folders";
+      let parent_neg_Folders = "parent_malformed_neg_Folders";
+    verifyFoldersRejects(Fields_neg_Folders, Filter_neg_Folders, Limit_neg_Folders, Meta_neg_Folders, Offset_neg_Folders, Search_neg_Folders, Sort_neg_Folders, id_neg_Folders, name_neg_Folders, parent_neg_Folders, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Folders", function() {
+  while (true) {
+    let e = waitFor(matchAnyFoldersAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingFolders("Fields_collision", "Filter_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Search_collision", "Sort_collision", liveId, "name_collision", "parent_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Operations:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyOperationsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createOperation:Success:" + id), waitFor: matchAnyOperationsDeleted() });
+  } });
+bthread("fuzz:fields:Operations", function() {
+  while(true) {
+    let e = waitFor(matchAnyOperationsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Operations";
+      let Fields_neg_Operations = "Fields_malformed_neg_Operations";
+      let Meta_neg_Operations = "Meta_malformed_neg_Operations";
+      let UUId_neg_Operations = "UUId_malformed_neg_Operations";
+      let data_neg_Operations = "data_malformed_neg_Operations";
+      let id_neg_Operations = "id_malformed_neg_Operations";
+      let keys_neg_Operations = "keys_malformed_neg_Operations";
+    verifyOperationsRejects(Fields_neg_Operations, Meta_neg_Operations, UUId_neg_Operations, data_neg_Operations, id_neg_Operations, keys_neg_Operations, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Operations", function() {
+  while (true) {
+    let e = waitFor(matchAnyOperationsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingOperations("Fields_collision", "Meta_collision", "UUId_collision", "data_collision", liveId, "keys_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Permissions:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyPermissionsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createPermission:Success:" + id), waitFor: matchAnyPermissionsDeleted() });
+  } });
+bthread("fuzz:fields:Permissions", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Permissions";
+      let Fields_neg_Permissions = "Fields_malformed_neg_Permissions";
+      let Filter_neg_Permissions = "Filter_malformed_neg_Permissions";
+      let Id_neg_Permissions = "Id_malformed_neg_Permissions";
+      let Limit_neg_Permissions = "Limit_malformed_neg_Permissions";
+      let Meta_neg_Permissions = "Meta_malformed_neg_Permissions";
+      let Offset_neg_Permissions = "Offset_malformed_neg_Permissions";
+      let Page_neg_Permissions = "Page_malformed_neg_Permissions";
+      let Search_neg_Permissions = "Search_malformed_neg_Permissions";
+      let Sort_neg_Permissions = "Sort_malformed_neg_Permissions";
+      let collection_neg_Permissions = "collection_malformed_neg_Permissions";
+      let comment_neg_Permissions = "comment_malformed_neg_Permissions";
+      let create_neg_Permissions = "create_malformed_neg_Permissions";
+      let data_neg_Permissions = "data_malformed_neg_Permissions";
+      let _delete_neg_Permissions = "delete_malformed_neg_Permissions";
+      let explain_neg_Permissions = "explain_malformed_neg_Permissions";
+      let id_neg_Permissions = "id_malformed_neg_Permissions";
+      let keys_neg_Permissions = "keys_malformed_neg_Permissions";
+      let read_neg_Permissions = "read_malformed_neg_Permissions";
+      let read_field_blacklist_neg_Permissions = "read_field_blacklist_malformed_neg_Permissions";
+      let role_neg_Permissions = "role_malformed_neg_Permissions";
+      let status_neg_Permissions = "status_malformed_neg_Permissions";
+      let status_blacklist_neg_Permissions = "status_blacklist_malformed_neg_Permissions";
+      let update_neg_Permissions = "update_malformed_neg_Permissions";
+      let write_field_blacklist_neg_Permissions = "write_field_blacklist_malformed_neg_Permissions";
+    verifyPermissionsRejects(Fields_neg_Permissions, Filter_neg_Permissions, Id_neg_Permissions, Limit_neg_Permissions, Meta_neg_Permissions, Offset_neg_Permissions, Page_neg_Permissions, Search_neg_Permissions, Sort_neg_Permissions, collection_neg_Permissions, comment_neg_Permissions, create_neg_Permissions, data_neg_Permissions, _delete_neg_Permissions, explain_neg_Permissions, id_neg_Permissions, keys_neg_Permissions, read_neg_Permissions, read_field_blacklist_neg_Permissions, role_neg_Permissions, status_neg_Permissions, status_blacklist_neg_Permissions, update_neg_Permissions, write_field_blacklist_neg_Permissions, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Permissions", function() {
+  while (true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingPermissions("Fields_collision", "Filter_collision", "Id_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Page_collision", "Search_collision", "Sort_collision", "collection_collision", "comment_collision", "create_collision", "data_collision", "delete_collision", "explain_collision", liveId, "keys_collision", "read_collision", "read_field_blacklist_collision", "role_collision", "status_collision", "status_blacklist_collision", "update_collision", "write_field_blacklist_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Relations:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyRelationsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createRelation:Success:" + id), waitFor: matchAnyRelationsDeleted() });
+  } });
+bthread("fuzz:fields:Relations", function() {
+  while(true) {
+    let e = waitFor(matchAnyRelationsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Relations";
+      let Fields_neg_Relations = "Fields_malformed_neg_Relations";
+      let Filter_neg_Relations = "Filter_malformed_neg_Relations";
+      let Id_neg_Relations = "Id_malformed_neg_Relations";
+      let Limit_neg_Relations = "Limit_malformed_neg_Relations";
+      let Meta_neg_Relations = "Meta_malformed_neg_Relations";
+      let Offset_neg_Relations = "Offset_malformed_neg_Relations";
+      let Page_neg_Relations = "Page_malformed_neg_Relations";
+      let Search_neg_Relations = "Search_malformed_neg_Relations";
+      let Sort_neg_Relations = "Sort_malformed_neg_Relations";
+      let collection_many_neg_Relations = "collection_many_malformed_neg_Relations";
+      let collection_one_neg_Relations = "collection_one_malformed_neg_Relations";
+      let field_many_neg_Relations = "field_many_malformed_neg_Relations";
+      let field_one_neg_Relations = "field_one_malformed_neg_Relations";
+      let id_neg_Relations = "id_malformed_neg_Relations";
+      let junction_field_neg_Relations = "junction_field_malformed_neg_Relations";
+    verifyRelationsRejects(Fields_neg_Relations, Filter_neg_Relations, Id_neg_Relations, Limit_neg_Relations, Meta_neg_Relations, Offset_neg_Relations, Page_neg_Relations, Search_neg_Relations, Sort_neg_Relations, collection_many_neg_Relations, collection_one_neg_Relations, field_many_neg_Relations, field_one_neg_Relations, id_neg_Relations, junction_field_neg_Relations, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Relations", function() {
+  while (true) {
+    let e = waitFor(matchAnyRelationsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingRelations("Fields_collision", "Filter_collision", "Id_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Page_collision", "Search_collision", "Sort_collision", "collection_many_collision", "collection_one_collision", "field_many_collision", "field_one_collision", liveId, "junction_field_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Roles:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyRolesAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createRole:Success:" + id), waitFor: matchAnyRolesDeleted() });
+  } });
+bthread("fuzz:fields:Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyRolesAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Roles";
+      let Fields_neg_Roles = "Fields_malformed_neg_Roles";
+      let Filter_neg_Roles = "Filter_malformed_neg_Roles";
+      let Limit_neg_Roles = "Limit_malformed_neg_Roles";
+      let Meta_neg_Roles = "Meta_malformed_neg_Roles";
+      let Offset_neg_Roles = "Offset_malformed_neg_Roles";
+      let Page_neg_Roles = "Page_malformed_neg_Roles";
+      let Search_neg_Roles = "Search_malformed_neg_Roles";
+      let Sort_neg_Roles = "Sort_malformed_neg_Roles";
+      let description_neg_Roles = "description_malformed_neg_Roles";
+      let enforce_tfa_neg_Roles = "enforce_tfa_malformed_neg_Roles";
+      let external_id_neg_Roles = "external_id_malformed_neg_Roles";
+      let id_neg_Roles = "id_malformed_neg_Roles";
+      let ip_access_neg_Roles = "ip_access_malformed_neg_Roles";
+      let module_listing_neg_Roles = "module_listing_malformed_neg_Roles";
+      let name_neg_Roles = "name_malformed_neg_Roles";
+    verifyRolesRejects(Fields_neg_Roles, Filter_neg_Roles, Limit_neg_Roles, Meta_neg_Roles, Offset_neg_Roles, Page_neg_Roles, Search_neg_Roles, Sort_neg_Roles, description_neg_Roles, enforce_tfa_neg_Roles, external_id_neg_Roles, id_neg_Roles, ip_access_neg_Roles, module_listing_neg_Roles, name_neg_Roles, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Roles", function() {
+  while (true) {
+    let e = waitFor(matchAnyRolesAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingRoles("Fields_collision", "Filter_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Page_collision", "Search_collision", "Sort_collision", "description_collision", "enforce_tfa_collision", "external_id_collision", liveId, "ip_access_collision", "module_listing_collision", "name_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("fuzz:fields:Schema", function() {
+  while(true) {
+    let e = waitFor(matchAnySchemaAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Schema";
+      let Export_neg_Schema = "Export_malformed_neg_Schema";
+      let data_neg_Schema = "data_malformed_neg_Schema";
+      let force_neg_Schema = "force_malformed_neg_Schema";
+      let id_neg_Schema = "id_malformed_neg_Schema";
+    verifySchemaRejects(Export_neg_Schema, data_neg_Schema, force_neg_Schema, id_neg_Schema, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Schema", function() {
+  while (true) {
+    let e = waitFor(matchAnySchemaAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingSchema("Export_collision", "data_collision", "force_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Users:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyUsersAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:acceptInvite:Success:" + id), waitFor: matchAnyUsersDeleted() });
+  } });
+bthread("fuzz:fields:Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyUsersAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Users";
+      let Fields_neg_Users = "Fields_malformed_neg_Users";
+      let Filter_neg_Users = "Filter_malformed_neg_Users";
+      let Limit_neg_Users = "Limit_malformed_neg_Users";
+      let Meta_neg_Users = "Meta_malformed_neg_Users";
+      let Offset_neg_Users = "Offset_malformed_neg_Users";
+      let Search_neg_Users = "Search_malformed_neg_Users";
+      let Sort_neg_Users = "Sort_malformed_neg_Users";
+      let UUId_neg_Users = "UUId_malformed_neg_Users";
+      let id_neg_Users = "id_malformed_neg_Users";
+      let last_page_neg_Users = "last_page_malformed_neg_Users";
+      let password_neg_Users = "password_malformed_neg_Users";
+      let token_neg_Users = "token_malformed_neg_Users";
+    verifyUsersRejects(Fields_neg_Users, Filter_neg_Users, Limit_neg_Users, Meta_neg_Users, Offset_neg_Users, Search_neg_Users, Sort_neg_Users, UUId_neg_Users, id_neg_Users, last_page_neg_Users, password_neg_Users, token_neg_Users, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Users", function() {
+  while (true) {
+    let e = waitFor(matchAnyUsersAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingUsers("Fields_collision", "Filter_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Search_collision", "Sort_collision", "UUId_collision", liveId, "last_page_collision", "password_collision", "token_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("fuzz:fields:Utilities", function() {
+  while(true) {
+    let e = waitFor(matchAnyUtilitiesAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Utilities";
+      let id_neg_Utilities = "id_malformed_neg_Utilities";
+      let length_neg_Utilities = "length_malformed_neg_Utilities";
+    verifyUtilitiesRejects(id_neg_Utilities, length_neg_Utilities, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Utilities", function() {
+  while (true) {
+    let e = waitFor(matchAnyUtilitiesAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingUtilities(liveId, "length_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Versions:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyVersionsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:promoteContentVersion:Success:" + id), waitFor: matchAnyVersionsDeleted() });
+  } });
+bthread("fuzz:fields:Versions", function() {
+  while(true) {
+    let e = waitFor(matchAnyVersionsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Versions";
+      let Fields_neg_Versions = "Fields_malformed_neg_Versions";
+      let Filter_neg_Versions = "Filter_malformed_neg_Versions";
+      let Limit_neg_Versions = "Limit_malformed_neg_Versions";
+      let Meta_neg_Versions = "Meta_malformed_neg_Versions";
+      let Offset_neg_Versions = "Offset_malformed_neg_Versions";
+      let Search_neg_Versions = "Search_malformed_neg_Versions";
+      let Sort_neg_Versions = "Sort_malformed_neg_Versions";
+      let UUId_neg_Versions = "UUId_malformed_neg_Versions";
+      let data_neg_Versions = "data_malformed_neg_Versions";
+      let fields_neg_Versions = "fields_malformed_neg_Versions";
+      let id_neg_Versions = "id_malformed_neg_Versions";
+      let mainHash_neg_Versions = "mainHash_malformed_neg_Versions";
+    verifyVersionsRejects(Fields_neg_Versions, Filter_neg_Versions, Limit_neg_Versions, Meta_neg_Versions, Offset_neg_Versions, Search_neg_Versions, Sort_neg_Versions, UUId_neg_Versions, data_neg_Versions, fields_neg_Versions, id_neg_Versions, mainHash_neg_Versions, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Versions", function() {
+  while (true) {
+    let e = waitFor(matchAnyVersionsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingVersions("Fields_collision", "Filter_collision", "Limit_collision", "Meta_collision", "Offset_collision", "Search_collision", "Sort_collision", "UUId_collision", "data_collision", "fields_collision", liveId, "mainHash_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Webhooks:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyWebhooksAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createWebhook:Success:" + id), waitFor: matchAnyWebhooksDeleted() });
+  } });
+bthread("fuzz:fields:Webhooks", function() {
+  while(true) {
+    let e = waitFor(matchAnyWebhooksAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Webhooks";
+      let actions_neg_Webhooks = "actions_malformed_neg_Webhooks";
+      let data_neg_Webhooks = "data_malformed_neg_Webhooks";
+      let id_neg_Webhooks = "id_malformed_neg_Webhooks";
+      let method_neg_Webhooks = "method_malformed_neg_Webhooks";
+      let name_neg_Webhooks = "name_malformed_neg_Webhooks";
+      let status_neg_Webhooks = "status_malformed_neg_Webhooks";
+      let system_collections_neg_Webhooks = "system-collections_malformed_neg_Webhooks";
+      let url_neg_Webhooks = "url_malformed_neg_Webhooks";
+    verifyWebhooksRejects(actions_neg_Webhooks, data_neg_Webhooks, id_neg_Webhooks, method_neg_Webhooks, name_neg_Webhooks, status_neg_Webhooks, system_collections_neg_Webhooks, url_neg_Webhooks, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Webhooks", function() {
+  while (true) {
+    let e = waitFor(matchAnyWebhooksAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingWebhooks("actions_collision", "data_collision", liveId, "method_collision", "name_collision", "status_collision", "system-collections_collision", "url_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+// --- PHASE 4: COORDINATED VANDALISM (Hyper-Negative) ---
+// --- EVIL COORDINATED AGENTS for directus (Copy 1) ---
+bthread("hyper:evil:copy1:OrphanMaker_Items_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyItemsAdded());
+    // Barrier: Ensure main test verifies Items before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Items Verified", function(ev) {
+        return ev.name.includes("Verify Items") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.collection || e.data.id;
+    getItems(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Presets_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    // Barrier: Ensure main test verifies Presets before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Presets Verified", function(ev) {
+        return ev.name.includes("Verify Presets") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getPreset(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Presets_Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    // Barrier: Ensure main test verifies Presets before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Presets Verified", function(ev) {
+        return ev.name.includes("Verify Presets") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteRole(pId);
+    let childId = e.data.id || e.data.id;
+    getPreset(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Comments_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    // Barrier: Ensure main test verifies Comments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Comments Verified", function(ev) {
+        return ev.name.includes("Verify Comments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getComment(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Comments_Items", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    // Barrier: Ensure main test verifies Comments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Comments Verified", function(ev) {
+        return ev.name.includes("Verify Comments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.collection || e.data.id;
+    deleteItems(pId);
+    let childId = e.data.id || e.data.id;
+    getComment(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Fields_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyFieldsAdded());
+    // Barrier: Ensure main test verifies Fields before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Fields Verified", function(ev) {
+        return ev.name.includes("Verify Fields") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.collection || e.data.id;
+    getCollectionFields(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Permissions_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    // Barrier: Ensure main test verifies Permissions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Permissions Verified", function(ev) {
+        return ev.name.includes("Verify Permissions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getPermission(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Permissions_Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    // Barrier: Ensure main test verifies Permissions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Permissions Verified", function(ev) {
+        return ev.name.includes("Verify Permissions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteRole(pId);
+    let childId = e.data.id || e.data.id;
+    getPermission(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Relations_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyRelationsAdded());
+    // Barrier: Ensure main test verifies Relations before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Relations Verified", function(ev) {
+        return ev.name.includes("Verify Relations") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getRelation(childId);
+  }
+});
+// --- EVIL COORDINATED AGENTS for directus (Copy 2) ---
+bthread("hyper:evil:copy2:OrphanMaker_Items_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyItemsAdded());
+    // Barrier: Ensure main test verifies Items before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Items Verified", function(ev) {
+        return ev.name.includes("Verify Items") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.collection || e.data.id;
+    getItems(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Presets_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    // Barrier: Ensure main test verifies Presets before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Presets Verified", function(ev) {
+        return ev.name.includes("Verify Presets") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getPreset(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Presets_Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    // Barrier: Ensure main test verifies Presets before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Presets Verified", function(ev) {
+        return ev.name.includes("Verify Presets") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteRole(pId);
+    let childId = e.data.id || e.data.id;
+    getPreset(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Comments_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    // Barrier: Ensure main test verifies Comments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Comments Verified", function(ev) {
+        return ev.name.includes("Verify Comments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getComment(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Comments_Items", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    // Barrier: Ensure main test verifies Comments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Comments Verified", function(ev) {
+        return ev.name.includes("Verify Comments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.collection || e.data.id;
+    deleteItems(pId);
+    let childId = e.data.id || e.data.id;
+    getComment(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Fields_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyFieldsAdded());
+    // Barrier: Ensure main test verifies Fields before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Fields Verified", function(ev) {
+        return ev.name.includes("Verify Fields") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.collection || e.data.id;
+    getCollectionFields(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Permissions_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    // Barrier: Ensure main test verifies Permissions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Permissions Verified", function(ev) {
+        return ev.name.includes("Verify Permissions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getPermission(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Permissions_Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    // Barrier: Ensure main test verifies Permissions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Permissions Verified", function(ev) {
+        return ev.name.includes("Verify Permissions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteRole(pId);
+    let childId = e.data.id || e.data.id;
+    getPermission(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Relations_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyRelationsAdded());
+    // Barrier: Ensure main test verifies Relations before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Relations Verified", function(ev) {
+        return ev.name.includes("Verify Relations") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getRelation(childId);
+  }
+});
+// --- EVIL COORDINATED AGENTS for directus (Copy 3) ---
+bthread("hyper:evil:copy3:OrphanMaker_Items_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyItemsAdded());
+    // Barrier: Ensure main test verifies Items before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Items Verified", function(ev) {
+        return ev.name.includes("Verify Items") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.collection || e.data.id;
+    getItems(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Presets_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    // Barrier: Ensure main test verifies Presets before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Presets Verified", function(ev) {
+        return ev.name.includes("Verify Presets") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getPreset(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Presets_Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyPresetsAdded());
+    // Barrier: Ensure main test verifies Presets before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Presets Verified", function(ev) {
+        return ev.name.includes("Verify Presets") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteRole(pId);
+    let childId = e.data.id || e.data.id;
+    getPreset(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Comments_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    // Barrier: Ensure main test verifies Comments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Comments Verified", function(ev) {
+        return ev.name.includes("Verify Comments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getComment(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Comments_Items", function() {
+  while(true) {
+    let e = waitFor(matchAnyCommentsAdded());
+    // Barrier: Ensure main test verifies Comments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Comments Verified", function(ev) {
+        return ev.name.includes("Verify Comments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.collection || e.data.id;
+    deleteItems(pId);
+    let childId = e.data.id || e.data.id;
+    getComment(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Fields_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyFieldsAdded());
+    // Barrier: Ensure main test verifies Fields before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Fields Verified", function(ev) {
+        return ev.name.includes("Verify Fields") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.collection || e.data.id;
+    getCollectionFields(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Permissions_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    // Barrier: Ensure main test verifies Permissions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Permissions Verified", function(ev) {
+        return ev.name.includes("Verify Permissions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getPermission(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Permissions_Roles", function() {
+  while(true) {
+    let e = waitFor(matchAnyPermissionsAdded());
+    // Barrier: Ensure main test verifies Permissions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Permissions Verified", function(ev) {
+        return ev.name.includes("Verify Permissions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteRole(pId);
+    let childId = e.data.id || e.data.id;
+    getPermission(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Relations_Collections", function() {
+  while(true) {
+    let e = waitFor(matchAnyRelationsAdded());
+    // Barrier: Ensure main test verifies Relations before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Relations Verified", function(ev) {
+        return ev.name.includes("Verify Relations") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.Id || e.data.id;
+    deleteCollection(pId);
+    let childId = e.data.id || e.data.id;
+    getRelation(childId);
+  }
 });

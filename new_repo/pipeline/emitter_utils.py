@@ -15,6 +15,23 @@ JS_RESERVED = {
     "with", "yield"
 }
 
+
+def get_operation_signature_params(method: str, path_tmpl: str, full_entity_sig: List[str], query_params: List[str]) -> List[str]:
+    """
+    CENTRALIZED SIGNATURE LOGIC: Standardizes argument lists for any SUT.
+    Ensures GET/DELETE operations use only path/query parameters.
+    """
+    method = method.upper()
+    path_params = re.findall(r'\{([^}]+)\}', path_tmpl)
+    
+    if method in ["POST", "PUT", "PATCH"]:
+        return full_entity_sig
+    else:
+        # Merge path and query params, ensuring no duplicates
+        sig = path_params + [qp for qp in query_params if qp not in path_params]
+        return sig
+    
+
 def ensure_directory_exists(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
