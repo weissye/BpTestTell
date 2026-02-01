@@ -209,7 +209,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{EditHookOption}"
           },
           "paramTypes": {
             "id": "integer",
@@ -368,41 +368,40 @@
           ]
         },
         "add": {
-          "name": "userCreateToken",
-          "descriptionTemplate": "Create an access token",
+          "name": "adminCreateUser",
+          "descriptionTemplate": "Create a user",
           "method": "POST",
-          "path": "/users/{username}/tokens",
+          "path": "/admin/users",
           "params": [
-            "username",
             "body"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{CreateUserOption}"
           },
           "paramTypes": {
-            "username": "string",
             "body": "object"
           },
           "x-defined-response-codes": [
             201,
             400,
-            403
+            403,
+            422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "delete": {
-          "name": "userDeleteAccessToken",
-          "descriptionTemplate": "Delete an access token",
+          "name": "adminDeleteUser",
+          "descriptionTemplate": "Delete a user",
           "method": "DELETE",
-          "path": "/users/{username}/tokens/{token}",
+          "path": "/admin/users/{username}",
           "params": [
             "username",
-            "token"
+            "purge"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "username": "string",
-            "token": "string"
+            "purge": "boolean"
           },
           "x-defined-response-codes": [
             204,
@@ -435,6 +434,23 @@
           ]
         },
         "get": {
+          "name": "userGetHeatmapData",
+          "descriptionTemplate": "Get a user's heatmap",
+          "method": "GET",
+          "path": "/users/{username}/heatmap",
+          "params": [
+            "username"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "username": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "listTokens": {
           "name": "userGetTokens",
           "descriptionTemplate": "List the authenticated user's access tokens",
           "method": "GET",
@@ -453,6 +469,49 @@
           "x-defined-response-codes": [
             200,
             403
+          ]
+        },
+        "addToken": {
+          "name": "userCreateToken",
+          "descriptionTemplate": "Create an access token",
+          "method": "POST",
+          "path": "/users/{username}/tokens",
+          "params": [
+            "username",
+            "body"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "username": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            400,
+            403
+          ]
+        },
+        "deleteToken": {
+          "name": "userDeleteAccessToken",
+          "descriptionTemplate": "Delete an access token",
+          "method": "DELETE",
+          "path": "/users/{username}/tokens/{token}",
+          "params": [
+            "username",
+            "token"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "username": "string",
+            "token": "string"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            422
           ]
         }
       }
@@ -758,9 +817,7 @@
           "descriptionTemplate": "Render a markdown document as HTML",
           "method": "POST",
           "path": "/markdown",
-          "params": [
-            "body"
-          ],
+          "params": [],
           "bodyTemplate": {
             "body": "{body}"
           },
@@ -778,9 +835,7 @@
           "descriptionTemplate": "Render raw markdown as HTML",
           "method": "POST",
           "path": "/markdown/raw",
-          "params": [
-            "body"
-          ],
+          "params": [],
           "bodyTemplate": {
             "body": "{body}"
           },
@@ -801,9 +856,7 @@
           "descriptionTemplate": "Render a markup document as HTML",
           "method": "POST",
           "path": "/markup",
-          "params": [
-            "body"
-          ],
+          "params": [],
           "bodyTemplate": {
             "body": "{body}"
           },
@@ -895,6 +948,44 @@
           ]
         },
         "get": {
+          "name": "notifyGetThread",
+          "descriptionTemplate": "Get notification thread by ID",
+          "method": "GET",
+          "path": "/notifications/threads/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404
+          ]
+        },
+        "updateThread": {
+          "name": "notifyReadThread",
+          "descriptionTemplate": "Mark notification thread as read by ID",
+          "method": "PATCH",
+          "path": "/notifications/threads/{id}",
+          "params": [
+            "id",
+            "to-status"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "string",
+            "to-status": "string"
+          },
+          "x-defined-response-codes": [
+            205,
+            403,
+            404
+          ]
+        },
+        "checkNew": {
           "name": "notifyNewAvailable",
           "descriptionTemplate": "Check if unread notifications exist",
           "method": "GET",
@@ -929,6 +1020,27 @@
           ]
         },
         "add": {
+          "name": "orgCreate",
+          "descriptionTemplate": "Create an organization",
+          "method": "POST",
+          "path": "/orgs",
+          "params": [
+            "organization"
+          ],
+          "bodyTemplate": {
+            "organization": "{organization}"
+          },
+          "paramTypes": {
+            "organization": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
+            422
+          ],
+          "x-generate-full-story": true
+        },
+        "addRepo": {
           "name": "createOrgRepoDeprecated",
           "descriptionTemplate": "Create a repository in an organization",
           "method": "POST",
@@ -949,8 +1061,7 @@
             403,
             404,
             422
-          ],
-          "x-generate-full-story": false
+          ]
         },
         "delete": {
           "name": "orgDelete",
@@ -992,8 +1103,7 @@
           "method": "PATCH",
           "path": "/orgs/{org}",
           "params": [
-            "org",
-            "body"
+            "org"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -1071,8 +1181,7 @@
           "path": "/orgs/{org}/actions/secrets/{secretname}",
           "params": [
             "org",
-            "secretname",
-            "body"
+            "secretname"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -1113,42 +1222,35 @@
         }
       }
     },
-    "Variables": {
+    "OrgVariables": {
       "operations": {
         "delete": {
-          "name": "deleteRepoVariable",
-          "descriptionTemplate": "Delete a repo-level variable",
+          "name": "orgDelete",
+          "descriptionTemplate": "Delete an organization",
           "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/actions/variables/{variablename}",
+          "path": "/orgs/{org}",
           "params": [
-            "owner",
-            "repo",
-            "variablename"
+            "org"
           ],
-          "bodyTemplate": {},
           "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "variablename": "string"
+            "org": "string"
           },
+          "queryParams": [],
           "x-defined-response-codes": [
-            200,
-            201,
             204,
-            400,
             404
           ]
         },
         "get": {
-          "name": "repoGetByID",
-          "descriptionTemplate": "Get a repository by id",
+          "name": "orgGet",
+          "descriptionTemplate": "Get an organization",
           "method": "GET",
-          "path": "/repositories/{id}",
+          "path": "/orgs/{org}",
           "params": [
-            "id"
+            "org"
           ],
           "paramTypes": {
-            "id": "string"
+            "org": "string"
           },
           "queryParams": [],
           "x-defined-response-codes": [
@@ -1157,22 +1259,19 @@
           ]
         },
         "add": {
-          "name": "createRepoVariable",
-          "descriptionTemplate": "Create a repo-level variable",
+          "name": "createOrgVariable",
+          "descriptionTemplate": "Create an org-level variable",
           "method": "POST",
-          "path": "/repos/{owner}/{repo}/actions/variables/{variablename}",
+          "path": "/orgs/{org}/actions/variables/{variablename}",
           "params": [
-            "owner",
-            "repo",
-            "variablename",
-            "body"
+            "org",
+            "variablename"
           ],
           "bodyTemplate": {
-            "CreateVariableOption": "{CreateVariableOption}"
+            "body": "{body}"
           },
           "paramTypes": {
-            "owner": "string",
-            "repo": "string",
+            "org": "string",
             "variablename": "string",
             "body": "object"
           },
@@ -1185,76 +1284,42 @@
           "x-generate-full-story": false
         },
         "update": {
-          "name": "updateRepoVariable",
-          "descriptionTemplate": "Update a repo-level variable",
-          "method": "PUT",
-          "path": "/repos/{owner}/{repo}/actions/variables/{variablename}",
+          "name": "orgEdit",
+          "descriptionTemplate": "Edit an organization",
+          "method": "PATCH",
+          "path": "/orgs/{org}",
           "params": [
-            "owner",
-            "repo",
-            "variablename",
+            "org",
             "body"
           ],
-          "bodyTemplate": {
-            "UpdateVariableOption": "{UpdateVariableOption}"
-          },
           "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "variablename": "string",
-            "body": "object"
+            "org": "string",
+            "body": "string"
           },
-          "x-defined-response-codes": [
-            201,
-            204,
-            400,
-            404
-          ]
-        },
-        "list": {
-          "name": "getRepoVariablesList",
-          "descriptionTemplate": "Get repo-level variables list",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/actions/variables",
-          "params": [
-            "owner",
-            "repo",
-            "page",
-            "limit"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "page": "integer",
-            "limit": "integer"
-          },
+          "queryParams": [],
           "x-defined-response-codes": [
             200,
-            400,
             404
           ]
         }
       }
     },
-    "ActivityFeeds": {
+    "OrgActivityFeeds": {
       "operations": {
         "list": {
-          "name": "userListActivityFeeds",
-          "descriptionTemplate": "List a user's activity feeds",
+          "name": "orgListActivityFeeds",
+          "descriptionTemplate": "List an organization's activity feeds",
           "method": "GET",
-          "path": "/users/{username}/activities/feeds",
+          "path": "/orgs/{org}/activities/feeds",
           "params": [
-            "username",
-            "only-performed-by",
+            "org",
             "date",
             "page",
             "limit"
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "username": "string",
-            "only-performed-by": "boolean",
+            "org": "string",
             "date": "string",
             "page": "integer",
             "limit": "integer"
@@ -1266,7 +1331,7 @@
         }
       }
     },
-    "Avatar": {
+    "OrgAvatar": {
       "operations": {
         "delete": {
           "name": "orgDeleteAvatar",
@@ -1291,11 +1356,10 @@
           "method": "POST",
           "path": "/orgs/{org}/avatar",
           "params": [
-            "org",
-            "body"
+            "org"
           ],
           "bodyTemplate": {
-            "UpdateUserAvatarOption": "{UpdateUserAvatarOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "org": "string",
@@ -1309,7 +1373,7 @@
         }
       }
     },
-    "Blocks": {
+    "OrgBlocks": {
       "operations": {
         "list": {
           "name": "organizationListBlocks",
@@ -1330,7 +1394,11 @@
           "x-defined-response-codes": [
             200
           ]
-        },
+        }
+      }
+    },
+    "OrgBlockUser": {
+      "operations": {
         "delete": {
           "name": "orgDelete",
           "descriptionTemplate": "Delete an organization",
@@ -1418,8 +1486,7 @@
           "path": "/repos/{owner}/{repo}/labels",
           "params": [
             "owner",
-            "repo",
-            "body"
+            "repo"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -1434,7 +1501,7 @@
             404,
             422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "get": {
           "name": "repoGetByID",
@@ -1461,8 +1528,7 @@
           "params": [
             "owner",
             "repo",
-            "id",
-            "body"
+            "id"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -1743,21 +1809,26 @@
     "Teams": {
       "operations": {
         "list": {
-          "name": "userListTeams",
-          "descriptionTemplate": "List all the teams a user belongs to",
+          "name": "orgListTeamActivityFeeds",
+          "descriptionTemplate": "List a team's activity feeds",
           "method": "GET",
-          "path": "/user/teams",
+          "path": "/teams/{id}/activities/feeds",
           "params": [
+            "id",
+            "date",
             "page",
             "limit"
           ],
           "bodyTemplate": {},
           "paramTypes": {
+            "id": "integer",
+            "date": "string",
             "page": "integer",
             "limit": "integer"
           },
           "x-defined-response-codes": [
-            200
+            200,
+            404
           ]
         },
         "delete": {
@@ -1804,7 +1875,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "EditTeamOption": "{EditTeamOption}"
           },
           "paramTypes": {
             "id": "integer",
@@ -1950,6 +2021,34 @@
             404
           ]
         },
+        "add": {
+          "name": "issuePostIssueReaction",
+          "descriptionTemplate": "Add a reaction to an issue",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "content"
+          ],
+          "bodyTemplate": {
+            "content": "{content}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "content": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            201,
+            403,
+            404
+          ],
+          "x-generate-full-story": false
+        },
         "get": {
           "name": "repoGetByID",
           "descriptionTemplate": "Get a repository by id",
@@ -2016,33 +2115,167 @@
             404
           ]
         },
-        "add": {
-          "name": "issuePostIssueReaction",
-          "descriptionTemplate": "Add a reaction to an issue",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/issues/{index}/reactions",
+        "deleteLabels": {
+          "name": "issueClearLabels",
+          "descriptionTemplate": "Remove all labels from an issue",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/labels",
           "params": [
             "owner",
             "repo",
-            "index",
-            "content"
+            "index"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
+        },
+        "getLabels": {
+          "name": "issueGetLabels",
+          "descriptionTemplate": "Get an issue's labels",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "addLabel": {
+          "name": "issueAddLabel",
+          "descriptionTemplate": "Add a label to an issue",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+          "params": [
+            "owner",
+            "repo",
+            "index"
           ],
           "bodyTemplate": {
-            "content": "{content}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "content": "object"
+            "body": "object"
           },
           "x-defined-response-codes": [
             200,
-            201,
             403,
             404
+          ]
+        },
+        "replaceLabels": {
+          "name": "issueReplaceLabels",
+          "descriptionTemplate": "Replace an issue's labels",
+          "method": "PUT",
+          "path": "/repos/{owner}/{repo}/issues/{index}/labels",
+          "params": [
+            "owner",
+            "repo",
+            "index"
           ],
-          "x-generate-full-story": false
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404
+          ]
+        },
+        "removeLabel": {
+          "name": "issueRemoveLabel",
+          "descriptionTemplate": "Remove a label from an issue",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/labels/{id}",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404,
+            422
+          ]
+        },
+        "unpin": {
+          "name": "unpinIssue",
+          "descriptionTemplate": "Unpin an Issue",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/pin",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
+        },
+        "pin": {
+          "name": "pinIssue",
+          "descriptionTemplate": "Pin an Issue",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/issues/{index}/pin",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
         },
         "deleteStopwatch": {
           "name": "issueDeleteStopWatch",
@@ -2143,10 +2376,10 @@
           "x-generate-full-story": false
         },
         "list": {
-          "name": "repoGetIssueTemplates",
-          "descriptionTemplate": "Get available issue templates for a repository",
+          "name": "repoGetLanguages",
+          "descriptionTemplate": "Get languages and number of bytes of code written",
           "method": "GET",
-          "path": "/repos/{owner}/{repo}/issue_templates",
+          "path": "/repos/{owner}/{repo}/languages",
           "params": [
             "owner",
             "repo"
@@ -2262,73 +2495,6 @@
             200,
             404
           ]
-        },
-        "listBranchProtection": {
-          "name": "repoListBranchProtection",
-          "descriptionTemplate": "List branch protections for a repository",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/branch_protections",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string"
-          },
-          "x-defined-response-codes": [
-            200
-          ]
-        },
-        "addBranchProtection": {
-          "name": "repoCreateBranchProtection",
-          "descriptionTemplate": "Create a branch protections for a repository",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/branch_protections",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            201,
-            403,
-            404,
-            422,
-            423
-          ]
-        },
-        "updateBranchProtectionPriority": {
-          "name": "repoUpdateBranchProtectionPriories",
-          "descriptionTemplate": "Update the priorities of branch protections for a repository.",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/branch_protections/priority",
-          "params": [
-            "owner",
-            "repo"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            204,
-            404,
-            422,
-            423
-          ]
         }
       }
     },
@@ -2416,6 +2582,159 @@
         }
       }
     },
+    "Variables": {
+      "operations": {
+        "list": {
+          "name": "getRepoVariablesList",
+          "descriptionTemplate": "Get repo-level variables list",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/actions/variables",
+          "params": [
+            "owner",
+            "repo",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "page": "integer",
+            "limit": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            400,
+            404
+          ]
+        },
+        "get": {
+          "name": "repoGetByID",
+          "descriptionTemplate": "Get a repository by id",
+          "method": "GET",
+          "path": "/repositories/{id}",
+          "params": [
+            "id"
+          ],
+          "paramTypes": {
+            "id": "string"
+          },
+          "queryParams": [],
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "add": {
+          "name": "createRepoVariable",
+          "descriptionTemplate": "Create a repo-level variable",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/actions/variables/{variablename}",
+          "params": [
+            "owner",
+            "repo",
+            "variablename",
+            "body"
+          ],
+          "bodyTemplate": {
+            "CreateVariableOption": "{CreateVariableOption}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "variablename": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ],
+          "x-generate-full-story": false
+        },
+        "update": {
+          "name": "updateRepoVariable",
+          "descriptionTemplate": "Update a repo-level variable",
+          "method": "PUT",
+          "path": "/repos/{owner}/{repo}/actions/variables/{variablename}",
+          "params": [
+            "owner",
+            "repo",
+            "variablename",
+            "body"
+          ],
+          "bodyTemplate": {
+            "UpdateVariableOption": "{UpdateVariableOption}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "variablename": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            204,
+            400,
+            404
+          ]
+        },
+        "delete": {
+          "name": "deleteRepoVariable",
+          "descriptionTemplate": "Delete a repo-level variable",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/actions/variables/{variablename}",
+          "params": [
+            "owner",
+            "repo",
+            "variablename"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "variablename": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            201,
+            204,
+            400,
+            404
+          ]
+        }
+      }
+    },
+    "ActivityFeeds": {
+      "operations": {
+        "list": {
+          "name": "repoListActivityFeeds",
+          "descriptionTemplate": "List a repository's activity feeds",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/activities/feeds",
+          "params": [
+            "owner",
+            "repo",
+            "date",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "date": "string",
+            "page": "integer",
+            "limit": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        }
+      }
+    },
     "BranchProtections": {
       "operations": {
         "delete": {
@@ -2468,7 +2787,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{EditBranchProtectionOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
@@ -2520,7 +2839,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{CreateBranchRepoOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
@@ -2534,7 +2853,7 @@
             409,
             423
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "delete": {
           "name": "repoDeleteBranch",
@@ -2588,7 +2907,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{UpdateBranchRepoOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
@@ -2681,7 +3000,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{AddCollaboratorOption}"
+            "body": "{body}"
           },
           "paramTypes": {
             "owner": "string",
@@ -2879,7 +3198,7 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "body": "{CreateRepoOption}"
           },
           "paramTypes": {
             "body": "object"
@@ -2890,7 +3209,7 @@
             409,
             422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "delete": {
           "name": "userCurrentDeleteSubscription",
@@ -2901,7 +3220,7 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
@@ -2920,7 +3239,7 @@
             "owner",
             "repo"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": null,
           "paramTypes": {
             "owner": "string",
             "repo": "string"
@@ -3004,7 +3323,7 @@
             409,
             422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         }
       }
     },
@@ -3239,78 +3558,74 @@
         }
       }
     },
-    "Issue": {
+    "RepositoryIssueConfig": {
+      "operations": {
+        "get": {
+          "name": "repoGetByID",
+          "descriptionTemplate": "Get a repository by id",
+          "method": "GET",
+          "path": "/repositories/{id}",
+          "params": [
+            "id"
+          ],
+          "paramTypes": {
+            "id": "string"
+          },
+          "queryParams": [],
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        }
+      }
+    },
+    "RepositoryIssueTemplates": {
       "operations": {
         "list": {
-          "name": "issueGetMilestonesList",
-          "descriptionTemplate": "Get all of a repository's opened milestones",
+          "name": "repoGetIssueTemplates",
+          "descriptionTemplate": "Get available issue templates for a repository",
           "method": "GET",
-          "path": "/repos/{owner}/{repo}/milestones",
+          "path": "/repos/{owner}/{repo}/issue_templates",
           "params": [
             "owner",
-            "repo",
-            "state",
-            "name",
-            "page",
-            "limit"
+            "repo"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
-            "repo": "string",
-            "state": "string",
-            "name": "string",
-            "page": "integer",
-            "limit": "integer"
+            "repo": "string"
           },
           "x-defined-response-codes": [
             200,
             404
           ]
-        },
-        "add": {
-          "name": "issueCreateMilestone",
-          "descriptionTemplate": "Create a milestone",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/milestones",
+        }
+      }
+    },
+    "IssueComments": {
+      "operations": {
+        "list": {
+          "name": "issueGetComments",
+          "descriptionTemplate": "List all comments on an issue",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/issues/{index}/comments",
           "params": [
             "owner",
             "repo",
-            "body"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            201,
-            404
-          ],
-          "x-generate-full-story": false
-        },
-        "delete": {
-          "name": "issueDeleteComment",
-          "descriptionTemplate": "Delete a comment",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/comments/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "id"
+            "index",
+            "since",
+            "before"
           ],
           "bodyTemplate": {},
           "paramTypes": {
             "owner": "string",
             "repo": "string",
-            "id": "integer"
+            "index": "integer",
+            "since": "string",
+            "before": "string"
           },
           "x-defined-response-codes": [
-            204,
-            403,
+            200,
             404
           ]
         },
@@ -3331,15 +3646,41 @@
             404
           ]
         },
-        "update": {
-          "name": "issueEditComment",
-          "descriptionTemplate": "Edit a comment",
-          "method": "PATCH",
-          "path": "/repos/{owner}/{repo}/issues/comments/{id}",
+        "delete": {
+          "name": "issueDeleteCommentDeprecated",
+          "descriptionTemplate": "Delete a comment",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}",
           "params": [
             "owner",
             "repo",
+            "index",
             "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
+        },
+        "update": {
+          "name": "issueEditCommentDeprecated",
+          "descriptionTemplate": "Edit a comment",
+          "method": "PATCH",
+          "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "id",
+            "body"
           ],
           "bodyTemplate": {
             "body": "{body}"
@@ -3347,6 +3688,7 @@
           "paramTypes": {
             "owner": "string",
             "repo": "string",
+            "index": "integer",
             "id": "integer",
             "body": "object"
           },
@@ -3354,9 +3696,36 @@
             200,
             204,
             403,
+            404
+          ]
+        },
+        "add": {
+          "name": "issueCreateComment",
+          "descriptionTemplate": "Add a comment to an issue",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/issues/{index}/comments",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "body"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            403,
             404,
             423
-          ]
+          ],
+          "x-generate-full-story": true
         }
       }
     },
@@ -3646,6 +4015,30 @@
           ],
           "x-generate-full-story": false
         },
+        "delete": {
+          "name": "issueDeleteIssueAttachment",
+          "descriptionTemplate": "Delete an issue attachment",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "attachment_id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "attachment_id": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            404,
+            423
+          ]
+        },
         "get": {
           "name": "repoGetByID",
           "descriptionTemplate": "Get a repository by id",
@@ -3691,35 +4084,36 @@
             422,
             423
           ]
-        },
-        "delete": {
-          "name": "issueDeleteIssueAttachment",
-          "descriptionTemplate": "Delete an issue attachment",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "attachment_id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "attachment_id": "integer"
-          },
-          "x-defined-response-codes": [
-            204,
-            404,
-            423
-          ]
         }
       }
     },
     "IssueBlocks": {
       "operations": {
+        "delete": {
+          "name": "issueRemoveIssueBlocking",
+          "descriptionTemplate": "Unblock the issue given in the body by the issue in path",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/blocks",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "body"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
         "list": {
           "name": "issueListBlocks",
           "descriptionTemplate": "List issues that are blocked by this issue",
@@ -3770,158 +4164,6 @@
             404
           ],
           "x-generate-full-story": false
-        },
-        "delete": {
-          "name": "issueRemoveIssueBlocking",
-          "descriptionTemplate": "Unblock the issue given in the body by the issue in path",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/blocks",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "body"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "string",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            200,
-            404
-          ]
-        }
-      }
-    },
-    "IssueComments": {
-      "operations": {
-        "list": {
-          "name": "issueGetComments",
-          "descriptionTemplate": "List all comments on an issue",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/issues/{index}/comments",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "since",
-            "before"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "since": "string",
-            "before": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            404
-          ]
-        },
-        "add": {
-          "name": "issueCreateComment",
-          "descriptionTemplate": "Add a comment to an issue",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/issues/{index}/comments",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "body"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            201,
-            403,
-            404,
-            423
-          ],
-          "x-generate-full-story": false
-        },
-        "get": {
-          "name": "repoGetByID",
-          "descriptionTemplate": "Get a repository by id",
-          "method": "GET",
-          "path": "/repositories/{id}",
-          "params": [
-            "id"
-          ],
-          "paramTypes": {
-            "id": "string"
-          },
-          "queryParams": [],
-          "x-defined-response-codes": [
-            200,
-            404
-          ]
-        },
-        "update": {
-          "name": "issueEditCommentDeprecated",
-          "descriptionTemplate": "Edit a comment",
-          "method": "PATCH",
-          "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "id",
-            "body"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "id": "integer",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            200,
-            204,
-            403,
-            404
-          ]
-        },
-        "delete": {
-          "name": "issueDeleteCommentDeprecated",
-          "descriptionTemplate": "Delete a comment",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/comments/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "id": "integer"
-          },
-          "x-defined-response-codes": [
-            204,
-            403,
-            404
-          ]
         }
       }
     },
@@ -3969,31 +4211,6 @@
             404
           ]
         },
-        "delete": {
-          "name": "issueDeleteSubscription",
-          "descriptionTemplate": "Unsubscribe user from issue",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "user"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "user": "string"
-          },
-          "x-defined-response-codes": [
-            200,
-            201,
-            304,
-            404
-          ]
-        },
         "add": {
           "name": "issueAddSubscription",
           "descriptionTemplate": "Subscribe user to issue",
@@ -4019,6 +4236,31 @@
             404
           ],
           "x-generate-full-story": false
+        },
+        "delete": {
+          "name": "issueDeleteSubscription",
+          "descriptionTemplate": "Unsubscribe user from issue",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "user"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "user": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            201,
+            304,
+            404
+          ]
         }
       }
     },
@@ -4057,29 +4299,6 @@
     },
     "IssueTimes": {
       "operations": {
-        "delete": {
-          "name": "issueResetTime",
-          "descriptionTemplate": "Reset a tracked time of an issue",
-          "method": "DELETE",
-          "path": "/repos/{owner}/{repo}/issues/{index}/times",
-          "params": [
-            "owner",
-            "repo",
-            "index"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer"
-          },
-          "x-defined-response-codes": [
-            204,
-            400,
-            403,
-            404
-          ]
-        },
         "list": {
           "name": "issueTrackedTimes",
           "descriptionTemplate": "List an issue's tracked times",
@@ -4138,78 +4357,116 @@
             404
           ],
           "x-generate-full-story": false
+        },
+        "delete": {
+          "name": "issueResetTime",
+          "descriptionTemplate": "Reset a tracked time of an issue",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/issues/{index}/times",
+          "params": [
+            "owner",
+            "repo",
+            "index"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            400,
+            403,
+            404
+          ]
         }
       }
     },
-    "Keys": {
+    "RepositoryKeys": {
       "operations": {
         "list": {
-          "name": "userCurrentListKeys",
-          "descriptionTemplate": "List the authenticated user's public keys",
+          "name": "repoListKeys",
+          "descriptionTemplate": "List a repository's keys",
           "method": "GET",
-          "path": "/user/keys",
+          "path": "/repos/{owner}/{repo}/keys",
           "params": [
+            "owner",
+            "repo",
+            "key_id",
             "fingerprint",
             "page",
             "limit"
           ],
           "bodyTemplate": {},
           "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "key_id": "integer",
             "fingerprint": "string",
             "page": "integer",
             "limit": "integer"
-          },
-          "x-defined-response-codes": [
-            200
-          ]
-        },
-        "add": {
-          "name": "userCurrentPostKey",
-          "descriptionTemplate": "Create a public key",
-          "method": "POST",
-          "path": "/user/keys",
-          "params": [
-            "body"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            201,
-            422
-          ],
-          "x-generate-full-story": false
-        },
-        "get": {
-          "name": "userCurrentGetKey",
-          "descriptionTemplate": "Get a public key",
-          "method": "GET",
-          "path": "/user/keys/{id}",
-          "params": [
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "id": "integer"
           },
           "x-defined-response-codes": [
             200,
             404
           ]
         },
-        "delete": {
-          "name": "userCurrentDeleteKey",
-          "descriptionTemplate": "Delete a public key",
-          "method": "DELETE",
-          "path": "/user/keys/{id}",
+        "add": {
+          "name": "repoCreateKey",
+          "descriptionTemplate": "Add a key to a repository",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/keys",
           "params": [
+            "owner",
+            "repo"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            404,
+            422
+          ],
+          "x-generate-full-story": true
+        },
+        "get": {
+          "name": "repoGetByID",
+          "descriptionTemplate": "Get a repository by id",
+          "method": "GET",
+          "path": "/repositories/{id}",
+          "params": [
+            "id"
+          ],
+          "paramTypes": {
+            "id": "string"
+          },
+          "queryParams": [],
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "delete": {
+          "name": "repoDeleteKey",
+          "descriptionTemplate": "Delete a key from a repository",
+          "method": "DELETE",
+          "path": "/repos/{owner}/{repo}/keys/{id}",
+          "params": [
+            "owner",
+            "repo",
             "id"
           ],
           "bodyTemplate": {},
           "paramTypes": {
+            "owner": "string",
+            "repo": "string",
             "id": "integer"
           },
           "x-defined-response-codes": [
@@ -4217,6 +4474,61 @@
             403,
             404
           ]
+        }
+      }
+    },
+    "Issue": {
+      "operations": {
+        "list": {
+          "name": "issueGetMilestonesList",
+          "descriptionTemplate": "Get all of a repository's opened milestones",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/milestones",
+          "params": [
+            "owner",
+            "repo",
+            "state",
+            "name",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "state": "string",
+            "name": "string",
+            "page": "integer",
+            "limit": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "add": {
+          "name": "issueCreateMilestone",
+          "descriptionTemplate": "Create a milestone",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/milestones",
+          "params": [
+            "owner",
+            "repo",
+            "body"
+          ],
+          "bodyTemplate": {
+            "body": "{body}"
+          },
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            404
+          ],
+          "x-generate-full-story": true
         }
       }
     },
@@ -4365,29 +4677,31 @@
           ]
         },
         "add": {
-          "name": "repoUpdatePullRequest",
-          "descriptionTemplate": "Merge PR's baseBranch into headBranch",
+          "name": "repoMergePullRequest",
+          "descriptionTemplate": "Merge a pull request",
           "method": "POST",
-          "path": "/repos/{owner}/{repo}/pulls/{index}/update",
+          "path": "/repos/{owner}/{repo}/pulls/{index}/merge",
           "params": [
             "owner",
             "repo",
             "index",
-            "style"
+            "body"
           ],
-          "bodyTemplate": {},
+          "bodyTemplate": {
+            "body": "{body}"
+          },
           "paramTypes": {
             "owner": "string",
             "repo": "string",
             "index": "integer",
-            "style": "string"
+            "body": "object"
           },
           "x-defined-response-codes": [
             200,
-            403,
             404,
+            405,
             409,
-            422
+            423
           ],
           "x-generate-full-story": false
         },
@@ -4548,14 +4862,15 @@
           ]
         },
         "add": {
-          "name": "repoCreatePullReview",
-          "descriptionTemplate": "Create a review to a pull request",
+          "name": "repoSubmitPullReview",
+          "descriptionTemplate": "Submit a pending review to a pull request",
           "method": "POST",
-          "path": "/repos/{owner}/{repo}/pulls/{index}/reviews",
+          "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}",
           "params": [
             "owner",
             "repo",
             "index",
+            "id",
             "body"
           ],
           "bodyTemplate": {
@@ -4565,6 +4880,7 @@
             "owner": "string",
             "repo": "string",
             "index": "integer",
+            "id": "integer",
             "body": "object"
           },
           "x-defined-response-codes": [
@@ -4613,34 +4929,6 @@
           "x-defined-response-codes": [
             200,
             404
-          ]
-        },
-        "submit": {
-          "name": "repoSubmitPullReview",
-          "descriptionTemplate": "Submit a pending review to a pull request",
-          "method": "POST",
-          "path": "/repos/{owner}/{repo}/pulls/{index}/reviews/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "index",
-            "id",
-            "body"
-          ],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "index": "integer",
-            "id": "integer",
-            "body": "object"
-          },
-          "x-defined-response-codes": [
-            200,
-            404,
-            422
           ]
         }
       }
@@ -4724,6 +5012,37 @@
             200,
             403,
             404,
+            422
+          ],
+          "x-generate-full-story": false
+        }
+      }
+    },
+    "PullRequestUpdate": {
+      "operations": {
+        "add": {
+          "name": "repoUpdatePullRequest",
+          "descriptionTemplate": "Merge PR's baseBranch into headBranch",
+          "method": "POST",
+          "path": "/repos/{owner}/{repo}/pulls/{index}/update",
+          "params": [
+            "owner",
+            "repo",
+            "index",
+            "style"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "index": "integer",
+            "style": "string"
+          },
+          "x-defined-response-codes": [
+            200,
+            403,
+            404,
+            409,
             422
           ],
           "x-generate-full-story": false
@@ -4894,7 +5213,7 @@
             409,
             422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "get": {
           "name": "repoGetByID",
@@ -4935,27 +5254,6 @@
             422
           ]
         },
-        "getById": {
-          "name": "repoGetRelease",
-          "descriptionTemplate": "Get a release",
-          "method": "GET",
-          "path": "/repos/{owner}/{repo}/releases/{id}",
-          "params": [
-            "owner",
-            "repo",
-            "id"
-          ],
-          "bodyTemplate": {},
-          "paramTypes": {
-            "owner": "string",
-            "repo": "string",
-            "id": "integer"
-          },
-          "x-defined-response-codes": [
-            200,
-            404
-          ]
-        },
         "deleteById": {
           "name": "repoDeleteRelease",
           "descriptionTemplate": "Delete a release",
@@ -4976,6 +5274,27 @@
             204,
             404,
             422
+          ]
+        },
+        "getById": {
+          "name": "repoGetRelease",
+          "descriptionTemplate": "Get a release",
+          "method": "GET",
+          "path": "/repos/{owner}/{repo}/releases/{id}",
+          "params": [
+            "owner",
+            "repo",
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "owner": "string",
+            "repo": "string",
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
           ]
         },
         "update": {
@@ -5058,23 +5377,6 @@
           ],
           "x-generate-full-story": false
         },
-        "get": {
-          "name": "repoGetByID",
-          "descriptionTemplate": "Get a repository by id",
-          "method": "GET",
-          "path": "/repositories/{id}",
-          "params": [
-            "id"
-          ],
-          "paramTypes": {
-            "id": "string"
-          },
-          "queryParams": [],
-          "x-defined-response-codes": [
-            200,
-            404
-          ]
-        },
         "delete": {
           "name": "repoDeleteReleaseAttachment",
           "descriptionTemplate": "Delete a release attachment",
@@ -5095,6 +5397,23 @@
           },
           "x-defined-response-codes": [
             204,
+            404
+          ]
+        },
+        "get": {
+          "name": "repoGetByID",
+          "descriptionTemplate": "Get a repository by id",
+          "method": "GET",
+          "path": "/repositories/{id}",
+          "params": [
+            "id"
+          ],
+          "paramTypes": {
+            "id": "string"
+          },
+          "queryParams": [],
+          "x-defined-response-codes": [
+            200,
             404
           ]
         },
@@ -5313,7 +5632,7 @@
             422,
             423
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "get": {
           "name": "repoGetByID",
@@ -5362,25 +5681,34 @@
     "TrackedTimes": {
       "operations": {
         "list": {
-          "name": "userCurrentTrackedTimes",
-          "descriptionTemplate": "List the current user's tracked times",
+          "name": "repoTrackedTimes",
+          "descriptionTemplate": "List a repo's tracked times",
           "method": "GET",
-          "path": "/user/times",
+          "path": "/repos/{owner}/{repo}/times",
           "params": [
-            "page",
-            "limit",
+            "owner",
+            "repo",
+            "user",
             "since",
-            "before"
+            "before",
+            "page",
+            "limit"
           ],
           "bodyTemplate": {},
           "paramTypes": {
-            "page": "integer",
-            "limit": "integer",
+            "owner": "string",
+            "repo": "string",
+            "user": "string",
             "since": "string",
-            "before": "string"
+            "before": "string",
+            "page": "integer",
+            "limit": "integer"
           },
           "x-defined-response-codes": [
-            200
+            200,
+            400,
+            403,
+            404
           ]
         },
         "get": {
@@ -5437,7 +5765,10 @@
             "body"
           ],
           "bodyTemplate": {
-            "body": "{body}"
+            "topics": [
+              "{topic1}",
+              "{topic2}"
+            ]
           },
           "paramTypes": {
             "owner": "string",
@@ -5567,7 +5898,7 @@
         }
       }
     },
-    "WikiPages": {
+    "WikiPage": {
       "operations": {
         "add": {
           "name": "repoCreateWikiPage",
@@ -5663,7 +5994,11 @@
             404,
             423
           ]
-        },
+        }
+      }
+    },
+    "WikiPages": {
+      "operations": {
         "list": {
           "name": "repoGetWikiPages",
           "descriptionTemplate": "Get all wiki pages",
@@ -6137,7 +6472,7 @@
             201,
             400
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "delete": {
           "name": "userDeleteOAuth2Application",
@@ -6359,7 +6694,7 @@
             201,
             422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         }
       }
     },
@@ -6519,7 +6854,7 @@
             404,
             422
           ],
-          "x-generate-full-story": false
+          "x-generate-full-story": true
         },
         "delete": {
           "name": "userCurrentDeleteGPGKey",
@@ -6566,18 +6901,93 @@
           "method": "POST",
           "path": "/user/gpg_key_verify",
           "params": [],
-          "bodyTemplate": {
-            "body": "{body}"
-          },
-          "paramTypes": {
-            "body": "object"
-          },
+          "bodyTemplate": {},
+          "paramTypes": {},
           "x-defined-response-codes": [
             201,
             404,
             422
           ],
           "x-generate-full-story": false
+        }
+      }
+    },
+    "Keys": {
+      "operations": {
+        "list": {
+          "name": "userCurrentListKeys",
+          "descriptionTemplate": "List the authenticated user's public keys",
+          "method": "GET",
+          "path": "/user/keys",
+          "params": [
+            "fingerprint",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "fingerprint": "string",
+            "page": "integer",
+            "limit": "integer"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
+        },
+        "add": {
+          "name": "userCurrentPostKey",
+          "descriptionTemplate": "Create a public key",
+          "method": "POST",
+          "path": "/user/keys",
+          "params": [
+            "body"
+          ],
+          "bodyTemplate": {
+            "body": "{CreateKeyOption}"
+          },
+          "paramTypes": {
+            "body": "object"
+          },
+          "x-defined-response-codes": [
+            201,
+            422
+          ],
+          "x-generate-full-story": true
+        },
+        "get": {
+          "name": "userCurrentGetKey",
+          "descriptionTemplate": "Get a public key",
+          "method": "GET",
+          "path": "/user/keys/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        },
+        "delete": {
+          "name": "userCurrentDeleteKey",
+          "descriptionTemplate": "Delete a public key",
+          "method": "DELETE",
+          "path": "/user/keys/{id}",
+          "params": [
+            "id"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "id": "integer"
+          },
+          "x-defined-response-codes": [
+            204,
+            403,
+            404
+          ]
         }
       }
     },
@@ -6739,6 +7149,83 @@
           ]
         }
       }
+    },
+    "UserTeams": {
+      "operations": {
+        "list": {
+          "name": "userListTeams",
+          "descriptionTemplate": "List all the teams a user belongs to",
+          "method": "GET",
+          "path": "/user/teams",
+          "params": [
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "page": "integer",
+            "limit": "integer"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
+        }
+      }
+    },
+    "UserTimes": {
+      "operations": {
+        "list": {
+          "name": "userCurrentTrackedTimes",
+          "descriptionTemplate": "List the current user's tracked times",
+          "method": "GET",
+          "path": "/user/times",
+          "params": [
+            "page",
+            "limit",
+            "since",
+            "before"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "page": "integer",
+            "limit": "integer",
+            "since": "string",
+            "before": "string"
+          },
+          "x-defined-response-codes": [
+            200
+          ]
+        }
+      }
+    },
+    "UserActivityFeeds": {
+      "operations": {
+        "list": {
+          "name": "userListActivityFeeds",
+          "descriptionTemplate": "List a user's activity feeds",
+          "method": "GET",
+          "path": "/users/{username}/activities/feeds",
+          "params": [
+            "username",
+            "only-performed-by",
+            "date",
+            "page",
+            "limit"
+          ],
+          "bodyTemplate": {},
+          "paramTypes": {
+            "username": "string",
+            "only-performed-by": "boolean",
+            "date": "string",
+            "page": "integer",
+            "limit": "integer"
+          },
+          "x-defined-response-codes": [
+            200,
+            404
+          ]
+        }
+      }
     }
   },
   "dependencies": {
@@ -6746,8 +7233,7 @@
       "Users"
     ],
     "UnadoptedRepositories": [
-      "Users",
-      "Repositories"
+      "Users"
     ],
     "UserBadges": [
       "Users"
@@ -6765,124 +7251,116 @@
     "UserRepositories": [
       "Users"
     ],
-    "Variables": [
-      "Repositories"
-    ],
-    "Avatar": [
-      "Organization"
-    ],
-    "Labels": [
-      "Repositories"
-    ],
     "OrganizationRepos": [
       "Organization"
     ],
     "OrganizationTeams": [
       "Organization"
     ],
-    "Issues": [
-      "Repositories"
+    "OrgVariables": [
+      "Organization"
     ],
-    "Repository": [
-      "Repositories"
-    ],
-    "Branches": [
-      "Repositories"
+    "OrgAvatar": [
+      "Organization"
     ],
     "Collaborators": [
-      "Repositories"
+      "Repository"
+    ],
+    "Labels": [
+      "Repository"
+    ],
+    "Issues": [
+      "Repository"
+    ],
+    "Repository": [
+      "Users"
+    ],
+    "Variables": [
+      "Repository"
+    ],
+    "Branches": [
+      "Repository"
     ],
     "Forks": [
-      "Repositories"
+      "Repository"
     ],
-    "Issue": [
-      "Repositories"
+    "IssueComments": [
+      "Issues"
     ],
     "IssueCommentAttachments": [
-      "Repositories",
       "Issues"
     ],
     "IssueCommentReactions": [
-      "Repositories",
       "Issues"
     ],
     "IssueAttachments": [
-      "Repositories",
       "Issues"
     ],
     "IssueBlocks": [
-      "Repositories",
-      "Issues"
-    ],
-    "IssueComments": [
-      "Repositories",
       "Issues"
     ],
     "IssueSubscriptions": [
-      "Repositories",
-      "Users"
-    ],
-    "IssueTimes": [
-      "Repositories",
       "Issues"
     ],
+    "IssueTimes": [
+      "Issues"
+    ],
+    "RepositoryKeys": [
+      "Repository"
+    ],
     "MirrorSync": [
-      "Repositories"
+      "Repository"
     ],
     "PullRequests": [
-      "Repositories"
+      "Repository"
     ],
     "PullReviewRequests": [
-      "Repositories",
       "PullRequests"
     ],
     "PullReviews": [
-      "Repositories",
       "PullRequests"
     ],
     "PullReviewDismissals": [
-      "Repositories",
       "PullReviews"
     ],
     "PullReviewUndismissals": [
-      "Repositories",
-      "PullReviews"
+      "PullReviewDismissals"
+    ],
+    "PullRequestUpdate": [
+      "PullRequests"
     ],
     "PushMirrors": [
-      "Repositories"
+      "Repository"
     ],
     "Releases": [
-      "Repositories"
+      "Repository"
     ],
     "ReleaseAttachments": [
-      "Repositories",
       "Releases"
     ],
     "TagProtections": [
-      "Repositories"
+      "Repository"
     ],
     "Tags": [
-      "Repositories"
+      "Repository"
     ],
     "Topics": [
-      "Repositories"
+      "Repository"
     ],
     "RepositoryTransfer": [
-      "Repositories",
-      "Users"
+      "Repository"
     ],
-    "WikiPages": [
-      "Repositories"
+    "WikiPage": [
+      "Repository"
     ],
     "TeamMembers": [
       "OrganizationTeams"
     ],
     "TeamRepos": [
-      "OrganizationTeams",
-      "OrganizationRepos"
+      "OrganizationTeams"
     ],
-    "UserVariables": [
-      "Users"
+    "UserStarred": [
+      "Repository"
     ],
     "OAuth2Applications": [
       "Users"
@@ -6896,12 +7374,8 @@
     "GPGKeys": [
       "Users"
     ],
-    "GPGKeyVerification": [
-      "GPGKeys"
-    ],
-    "UserStarred": [
-      "Users",
-      "Repositories"
+    "Keys": [
+      "Users"
     ]
   },
   "system_architecture": {
@@ -6912,7 +7386,7 @@
     ],
     "agent_viewpoints": [
       {
-        "role": "RepositoryCoordinator",
+        "role": "RepoManager",
         "chain": [
           "Repositories.add",
           "Repositories.update",
@@ -6921,7 +7395,7 @@
         ]
       },
       {
-        "role": "UserManager",
+        "role": "UserDirector",
         "chain": [
           "Users.add",
           "Users.update",
@@ -6930,30 +7404,30 @@
         ]
       },
       {
-        "role": "IssueTracker",
+        "role": "IssueOperator",
         "chain": [
           "Issues.add",
-          "Issues.update",
           "Issues.get",
+          "Issues.update",
           "Issues.delete"
         ]
       },
       {
-        "role": "CollaboratorIntegrator",
+        "role": "CollaboratorCoordinator",
         "chain": [
           "Collaborators.add",
-          "Collaborators.update",
           "Collaborators.get",
+          "Collaborators.update",
           "Collaborators.delete"
         ]
       },
       {
-        "role": "MarkdownEngine",
+        "role": "ReleaseSupervisor",
         "chain": [
-          "Markdown.add",
-          "Markdown.addRaw",
-          "Markdown.add",
-          "Markdown.addRaw"
+          "Releases.add",
+          "Releases.update",
+          "Releases.get",
+          "Releases.delete"
         ]
       }
     ],
@@ -6965,13 +7439,13 @@
       },
       {
         "target": "Users",
-        "action": "Users.update",
+        "action": "Users.delete",
         "trigger_on": "Users.add"
       },
       {
         "target": "Issues",
-        "action": "Issues.delete",
-        "trigger_on": "Issues.update"
+        "action": "Issues.update",
+        "trigger_on": "Issues.get"
       }
     ]
   },

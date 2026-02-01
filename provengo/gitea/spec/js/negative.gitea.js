@@ -81,26 +81,28 @@ bthread("evil:collision:UnadoptedRepositories", function() {
 
 bthread("guard:Users:BlockCollisionSuccess", function() {
   while(true) { let e = waitFor(matchAnyUsersAdded()); let id = e.data.username || e.data.id;
-    bp.sync({ block: bp.Event("Req:userCreateToken:Success:" + id), waitFor: matchAnyUsersDeleted() });
+    bp.sync({ block: bp.Event("Req:adminCreateUser:Success:" + id), waitFor: matchAnyUsersDeleted() });
   } });
 bthread("fuzz:fields:Users", function() {
   while(true) {
     let e = waitFor(matchAnyUsersAdded());
     let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Users";
+      let CreateUserOption_neg_Users = "CreateUserOption_malformed_neg_Users";
       let EditUserOption_neg_Users = "EditUserOption_malformed_neg_Users";
       let body_neg_Users = "body_malformed_neg_Users";
       let limit_neg_Users = "limit_malformed_neg_Users";
       let page_neg_Users = "page_malformed_neg_Users";
+      let purge_neg_Users = "purge_malformed_neg_Users";
       let token_neg_Users = "token_malformed_neg_Users";
       let username_neg_Users = "username_malformed_neg_Users";
-    verifyUsersRejects(EditUserOption_neg_Users, body_neg_Users, limit_neg_Users, page_neg_Users, token_neg_Users, username_neg_Users, { description: neg_desc });
+    verifyUsersRejects(CreateUserOption_neg_Users, EditUserOption_neg_Users, body_neg_Users, limit_neg_Users, page_neg_Users, purge_neg_Users, token_neg_Users, username_neg_Users, { description: neg_desc });
   } });
 
 bthread("evil:collision:Users", function() {
   while (true) {
     let e = waitFor(matchAnyUsersAdded());
     let liveId = e.data.username || e.data.id;
-    tryToAddExistingUsers("EditUserOption_collision", "body_collision", "limit_collision", "page_collision", "token_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingUsers("CreateUserOption_collision", "EditUserOption_collision", "body_collision", "limit_collision", "page_collision", "purge_collision", "token_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:UserBadges:BlockCollisionSuccess", function() {
@@ -251,31 +253,25 @@ bthread("evil:collision:Organization", function() {
     tryToAddExistingOrganization("body_collision", "limit_collision", liveId, "page_collision", "secretname_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
-bthread("guard:Variables:BlockCollisionSuccess", function() {
-  while(true) { let e = waitFor(matchAnyVariablesAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:createRepoVariable:Success:" + id), waitFor: matchAnyVariablesDeleted() });
+bthread("guard:OrgVariables:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyOrgVariablesAdded()); let id = e.data.org || e.data.id;
+    bp.sync({ block: bp.Event("Req:createOrgVariable:Success:" + id), waitFor: matchAnyOrgVariablesDeleted() });
   } });
-bthread("fuzz:fields:Variables", function() {
+bthread("fuzz:fields:OrgVariables", function() {
   while(true) {
-    let e = waitFor(matchAnyVariablesAdded());
-    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Variables";
-      let CreateVariableOption_neg_Variables = "CreateVariableOption_malformed_neg_Variables";
-      let UpdateVariableOption_neg_Variables = "UpdateVariableOption_malformed_neg_Variables";
-      let body_neg_Variables = "body_malformed_neg_Variables";
-      let id_neg_Variables = "id_malformed_neg_Variables";
-      let limit_neg_Variables = "limit_malformed_neg_Variables";
-      let owner_neg_Variables = "owner_malformed_neg_Variables";
-      let page_neg_Variables = "page_malformed_neg_Variables";
-      let repo_neg_Variables = "repo_malformed_neg_Variables";
-      let variablename_neg_Variables = "variablename_malformed_neg_Variables";
-    verifyVariablesRejects(CreateVariableOption_neg_Variables, UpdateVariableOption_neg_Variables, body_neg_Variables, id_neg_Variables, limit_neg_Variables, owner_neg_Variables, page_neg_Variables, repo_neg_Variables, variablename_neg_Variables, { description: neg_desc });
+    let e = waitFor(matchAnyOrgVariablesAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for OrgVariables";
+      let body_neg_OrgVariables = "body_malformed_neg_OrgVariables";
+      let org_neg_OrgVariables = "org_malformed_neg_OrgVariables";
+      let variablename_neg_OrgVariables = "variablename_malformed_neg_OrgVariables";
+    verifyOrgVariablesRejects(body_neg_OrgVariables, org_neg_OrgVariables, variablename_neg_OrgVariables, { description: neg_desc });
   } });
 
-bthread("evil:collision:Variables", function() {
+bthread("evil:collision:OrgVariables", function() {
   while (true) {
-    let e = waitFor(matchAnyVariablesAdded());
-    let liveId = e.data.id || e.data.id;
-    tryToAddExistingVariables("CreateVariableOption_collision", "UpdateVariableOption_collision", "body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", "variablename_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    let e = waitFor(matchAnyOrgVariablesAdded());
+    let liveId = e.data.org || e.data.id;
+    tryToAddExistingOrgVariables("body_collision", liveId, "variablename_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:Avatar:BlockCollisionSuccess", function() {
@@ -286,17 +282,16 @@ bthread("fuzz:fields:Avatar", function() {
   while(true) {
     let e = waitFor(matchAnyAvatarAdded());
     let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Avatar";
-      let UpdateUserAvatarOption_neg_Avatar = "UpdateUserAvatarOption_malformed_neg_Avatar";
       let body_neg_Avatar = "body_malformed_neg_Avatar";
       let org_neg_Avatar = "org_malformed_neg_Avatar";
-    verifyAvatarRejects(UpdateUserAvatarOption_neg_Avatar, body_neg_Avatar, org_neg_Avatar, { description: neg_desc });
+    verifyAvatarRejects(body_neg_Avatar, org_neg_Avatar, { description: neg_desc });
   } });
 
 bthread("evil:collision:Avatar", function() {
   while (true) {
     let e = waitFor(matchAnyAvatarAdded());
     let liveId = e.data.org || e.data.id;
-    tryToAddExistingAvatar("UpdateUserAvatarOption_collision", "body_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingAvatar("body_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:Labels:BlockCollisionSuccess", function() {
@@ -389,27 +384,54 @@ bthread("evil:collision:Issues", function() {
 
 bthread("guard:Repository:BlockCollisionSuccess", function() {
   while(true) { let e = waitFor(matchAnyRepositoryAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:repoMergeUpstream:Success:" + id), waitFor: matchAnyRepositoryDeleted() });
+    bp.sync({ block: bp.Event("Req:repoCreateStatus:Success:" + id), waitFor: matchAnyRepositoryDeleted() });
   } });
 bthread("fuzz:fields:Repository", function() {
   while(true) {
     let e = waitFor(matchAnyRepositoryAdded());
     let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Repository";
-      let EditRepoOption_neg_Repository = "EditRepoOption_malformed_neg_Repository";
       let body_neg_Repository = "body_malformed_neg_Repository";
       let id_neg_Repository = "id_malformed_neg_Repository";
       let limit_neg_Repository = "limit_malformed_neg_Repository";
       let owner_neg_Repository = "owner_malformed_neg_Repository";
       let page_neg_Repository = "page_malformed_neg_Repository";
       let repo_neg_Repository = "repo_malformed_neg_Repository";
-    verifyRepositoryRejects(EditRepoOption_neg_Repository, body_neg_Repository, id_neg_Repository, limit_neg_Repository, owner_neg_Repository, page_neg_Repository, repo_neg_Repository, { description: neg_desc });
+      let sha_neg_Repository = "sha_malformed_neg_Repository";
+    verifyRepositoryRejects(body_neg_Repository, id_neg_Repository, limit_neg_Repository, owner_neg_Repository, page_neg_Repository, repo_neg_Repository, sha_neg_Repository, { description: neg_desc });
   } });
 
 bthread("evil:collision:Repository", function() {
   while (true) {
     let e = waitFor(matchAnyRepositoryAdded());
     let liveId = e.data.id || e.data.id;
-    tryToAddExistingRepository("EditRepoOption_collision", "body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingRepository("body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", "sha_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Variables:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyVariablesAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:createRepoVariable:Success:" + id), waitFor: matchAnyVariablesDeleted() });
+  } });
+bthread("fuzz:fields:Variables", function() {
+  while(true) {
+    let e = waitFor(matchAnyVariablesAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Variables";
+      let CreateVariableOption_neg_Variables = "CreateVariableOption_malformed_neg_Variables";
+      let UpdateVariableOption_neg_Variables = "UpdateVariableOption_malformed_neg_Variables";
+      let body_neg_Variables = "body_malformed_neg_Variables";
+      let id_neg_Variables = "id_malformed_neg_Variables";
+      let limit_neg_Variables = "limit_malformed_neg_Variables";
+      let owner_neg_Variables = "owner_malformed_neg_Variables";
+      let page_neg_Variables = "page_malformed_neg_Variables";
+      let repo_neg_Variables = "repo_malformed_neg_Variables";
+      let variablename_neg_Variables = "variablename_malformed_neg_Variables";
+    verifyVariablesRejects(CreateVariableOption_neg_Variables, UpdateVariableOption_neg_Variables, body_neg_Variables, id_neg_Variables, limit_neg_Variables, owner_neg_Variables, page_neg_Variables, repo_neg_Variables, variablename_neg_Variables, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Variables", function() {
+  while (true) {
+    let e = waitFor(matchAnyVariablesAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingVariables("CreateVariableOption_collision", "UpdateVariableOption_collision", "body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", "variablename_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:Branches:BlockCollisionSuccess", function() {
@@ -474,20 +496,21 @@ bthread("fuzz:fields:Repositories", function() {
     let e = waitFor(matchAnyRepositoriesAdded());
     let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Repositories";
       let body_neg_Repositories = "body_malformed_neg_Repositories";
+      let filepath_neg_Repositories = "filepath_malformed_neg_Repositories";
       let id_neg_Repositories = "id_malformed_neg_Repositories";
       let limit_neg_Repositories = "limit_malformed_neg_Repositories";
       let owner_neg_Repositories = "owner_malformed_neg_Repositories";
       let page_neg_Repositories = "page_malformed_neg_Repositories";
       let repo_neg_Repositories = "repo_malformed_neg_Repositories";
       let username_neg_Repositories = "username_malformed_neg_Repositories";
-    verifyRepositoriesRejects(body_neg_Repositories, id_neg_Repositories, limit_neg_Repositories, owner_neg_Repositories, page_neg_Repositories, repo_neg_Repositories, username_neg_Repositories, { description: neg_desc });
+    verifyRepositoriesRejects(body_neg_Repositories, filepath_neg_Repositories, id_neg_Repositories, limit_neg_Repositories, owner_neg_Repositories, page_neg_Repositories, repo_neg_Repositories, username_neg_Repositories, { description: neg_desc });
   } });
 
 bthread("evil:collision:Repositories", function() {
   while (true) {
     let e = waitFor(matchAnyRepositoriesAdded());
     let liveId = e.data.id || e.data.id;
-    tryToAddExistingRepositories("body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", "username_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingRepositories("body_collision", "filepath_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", "username_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("fuzz:fields:Forks", function() {
@@ -510,10 +533,6 @@ bthread("evil:collision:Forks", function() {
     tryToAddExistingForks("body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "repo_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
-bthread("guard:Issue:BlockCollisionSuccess", function() {
-  while(true) { let e = waitFor(matchAnyIssueAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:issueCreateMilestone:Success:" + id), waitFor: matchAnyIssueDeleted() });
-  } });
 bthread("fuzz:fields:Issue", function() {
   while(true) {
     let e = waitFor(matchAnyIssueAdded());
@@ -534,6 +553,31 @@ bthread("evil:collision:Issue", function() {
     let e = waitFor(matchAnyIssueAdded());
     let liveId = e.data.id || e.data.id;
     tryToAddExistingIssue("body_collision", liveId, "limit_collision", "name_collision", "owner_collision", "page_collision", "repo_collision", "state_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:IssueComments:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyIssueCommentsAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:issueCreateComment:Success:" + id), waitFor: matchAnyIssueCommentsDeleted() });
+  } });
+bthread("fuzz:fields:IssueComments", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueCommentsAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for IssueComments";
+      let before_neg_IssueComments = "before_malformed_neg_IssueComments";
+      let body_neg_IssueComments = "body_malformed_neg_IssueComments";
+      let id_neg_IssueComments = "id_malformed_neg_IssueComments";
+      let index_neg_IssueComments = "index_malformed_neg_IssueComments";
+      let owner_neg_IssueComments = "owner_malformed_neg_IssueComments";
+      let repo_neg_IssueComments = "repo_malformed_neg_IssueComments";
+      let since_neg_IssueComments = "since_malformed_neg_IssueComments";
+    verifyIssueCommentsRejects(before_neg_IssueComments, body_neg_IssueComments, id_neg_IssueComments, index_neg_IssueComments, owner_neg_IssueComments, repo_neg_IssueComments, since_neg_IssueComments, { description: neg_desc });
+  } });
+
+bthread("evil:collision:IssueComments", function() {
+  while (true) {
+    let e = waitFor(matchAnyIssueCommentsAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingIssueComments("before_collision", "body_collision", liveId, "index_collision", "owner_collision", "repo_collision", "since_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:IssueCommentAttachments:BlockCollisionSuccess", function() {
@@ -633,31 +677,6 @@ bthread("evil:collision:IssueBlocks", function() {
     tryToAddExistingIssueBlocks("body_collision", "index_collision", "limit_collision", liveId, "page_collision", "repo_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
-bthread("guard:IssueComments:BlockCollisionSuccess", function() {
-  while(true) { let e = waitFor(matchAnyIssueCommentsAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:issueCreateComment:Success:" + id), waitFor: matchAnyIssueCommentsDeleted() });
-  } });
-bthread("fuzz:fields:IssueComments", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentsAdded());
-    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for IssueComments";
-      let before_neg_IssueComments = "before_malformed_neg_IssueComments";
-      let body_neg_IssueComments = "body_malformed_neg_IssueComments";
-      let id_neg_IssueComments = "id_malformed_neg_IssueComments";
-      let index_neg_IssueComments = "index_malformed_neg_IssueComments";
-      let owner_neg_IssueComments = "owner_malformed_neg_IssueComments";
-      let repo_neg_IssueComments = "repo_malformed_neg_IssueComments";
-      let since_neg_IssueComments = "since_malformed_neg_IssueComments";
-    verifyIssueCommentsRejects(before_neg_IssueComments, body_neg_IssueComments, id_neg_IssueComments, index_neg_IssueComments, owner_neg_IssueComments, repo_neg_IssueComments, since_neg_IssueComments, { description: neg_desc });
-  } });
-
-bthread("evil:collision:IssueComments", function() {
-  while (true) {
-    let e = waitFor(matchAnyIssueCommentsAdded());
-    let liveId = e.data.id || e.data.id;
-    tryToAddExistingIssueComments("before_collision", "body_collision", liveId, "index_collision", "owner_collision", "repo_collision", "since_collision", { description: "[NEGATIVE TEST] Collision Attack" });
-  } });
-
 bthread("guard:IssueSubscriptions:BlockCollisionSuccess", function() {
   while(true) { let e = waitFor(matchAnyIssueSubscriptionsAdded()); let id = e.data.id || e.data.id;
     bp.sync({ block: bp.Event("Req:issueAddSubscription:Success:" + id), waitFor: matchAnyIssueSubscriptionsDeleted() });
@@ -710,27 +729,30 @@ bthread("evil:collision:IssueTimes", function() {
     tryToAddExistingIssueTimes("before_collision", "body_collision", "index_collision", "limit_collision", liveId, "page_collision", "repo_collision", "since_collision", "user_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
-bthread("guard:Keys:BlockCollisionSuccess", function() {
-  while(true) { let e = waitFor(matchAnyKeysAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:userCurrentPostKey:Success:" + id), waitFor: matchAnyKeysDeleted() });
+bthread("guard:RepositoryKeys:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyRepositoryKeysAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:repoCreateKey:Success:" + id), waitFor: matchAnyRepositoryKeysDeleted() });
   } });
-bthread("fuzz:fields:Keys", function() {
+bthread("fuzz:fields:RepositoryKeys", function() {
   while(true) {
-    let e = waitFor(matchAnyKeysAdded());
-    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Keys";
-      let body_neg_Keys = "body_malformed_neg_Keys";
-      let fingerprint_neg_Keys = "fingerprint_malformed_neg_Keys";
-      let id_neg_Keys = "id_malformed_neg_Keys";
-      let limit_neg_Keys = "limit_malformed_neg_Keys";
-      let page_neg_Keys = "page_malformed_neg_Keys";
-    verifyKeysRejects(body_neg_Keys, fingerprint_neg_Keys, id_neg_Keys, limit_neg_Keys, page_neg_Keys, { description: neg_desc });
+    let e = waitFor(matchAnyRepositoryKeysAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for RepositoryKeys";
+      let body_neg_RepositoryKeys = "body_malformed_neg_RepositoryKeys";
+      let fingerprint_neg_RepositoryKeys = "fingerprint_malformed_neg_RepositoryKeys";
+      let id_neg_RepositoryKeys = "id_malformed_neg_RepositoryKeys";
+      let key_id_neg_RepositoryKeys = "key_id_malformed_neg_RepositoryKeys";
+      let limit_neg_RepositoryKeys = "limit_malformed_neg_RepositoryKeys";
+      let owner_neg_RepositoryKeys = "owner_malformed_neg_RepositoryKeys";
+      let page_neg_RepositoryKeys = "page_malformed_neg_RepositoryKeys";
+      let repo_neg_RepositoryKeys = "repo_malformed_neg_RepositoryKeys";
+    verifyRepositoryKeysRejects(body_neg_RepositoryKeys, fingerprint_neg_RepositoryKeys, id_neg_RepositoryKeys, key_id_neg_RepositoryKeys, limit_neg_RepositoryKeys, owner_neg_RepositoryKeys, page_neg_RepositoryKeys, repo_neg_RepositoryKeys, { description: neg_desc });
   } });
 
-bthread("evil:collision:Keys", function() {
+bthread("evil:collision:RepositoryKeys", function() {
   while (true) {
-    let e = waitFor(matchAnyKeysAdded());
+    let e = waitFor(matchAnyRepositoryKeysAdded());
     let liveId = e.data.id || e.data.id;
-    tryToAddExistingKeys("body_collision", "fingerprint_collision", liveId, "limit_collision", "page_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingRepositoryKeys("body_collision", "fingerprint_collision", liveId, "key_id_collision", "limit_collision", "owner_collision", "page_collision", "repo_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("fuzz:fields:MirrorSync", function() {
@@ -802,7 +824,7 @@ bthread("evil:collision:PullReviewRequests", function() {
 
 bthread("guard:PullReviews:BlockCollisionSuccess", function() {
   while(true) { let e = waitFor(matchAnyPullReviewsAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:repoCreatePullReview:Success:" + id), waitFor: matchAnyPullReviewsDeleted() });
+    bp.sync({ block: bp.Event("Req:repoSubmitPullReview:Success:" + id), waitFor: matchAnyPullReviewsDeleted() });
   } });
 bthread("fuzz:fields:PullReviews", function() {
   while(true) {
@@ -894,6 +916,7 @@ bthread("fuzz:fields:Releases", function() {
   while(true) {
     let e = waitFor(matchAnyReleasesAdded());
     let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Releases";
+      let CreateReleaseOption_neg_Releases = "CreateReleaseOption_malformed_neg_Releases";
       let body_neg_Releases = "body_malformed_neg_Releases";
       let draft_neg_Releases = "draft_malformed_neg_Releases";
       let id_neg_Releases = "id_malformed_neg_Releases";
@@ -903,14 +926,14 @@ bthread("fuzz:fields:Releases", function() {
       let pre_release_neg_Releases = "pre-release_malformed_neg_Releases";
       let repo_neg_Releases = "repo_malformed_neg_Releases";
       let tag_neg_Releases = "tag_malformed_neg_Releases";
-    verifyReleasesRejects(body_neg_Releases, draft_neg_Releases, id_neg_Releases, limit_neg_Releases, owner_neg_Releases, page_neg_Releases, pre_release_neg_Releases, repo_neg_Releases, tag_neg_Releases, { description: neg_desc });
+    verifyReleasesRejects(CreateReleaseOption_neg_Releases, body_neg_Releases, draft_neg_Releases, id_neg_Releases, limit_neg_Releases, owner_neg_Releases, page_neg_Releases, pre_release_neg_Releases, repo_neg_Releases, tag_neg_Releases, { description: neg_desc });
   } });
 
 bthread("evil:collision:Releases", function() {
   while (true) {
     let e = waitFor(matchAnyReleasesAdded());
     let liveId = e.data.id || e.data.id;
-    tryToAddExistingReleases("body_collision", "draft_collision", liveId, "limit_collision", "owner_collision", "page_collision", "pre-release_collision", "repo_collision", "tag_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingReleases("CreateReleaseOption_collision", "body_collision", "draft_collision", liveId, "limit_collision", "owner_collision", "page_collision", "pre-release_collision", "repo_collision", "tag_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:ReleaseAttachments:BlockCollisionSuccess", function() {
@@ -1000,14 +1023,16 @@ bthread("fuzz:fields:Topics", function() {
       let q_neg_Topics = "q_malformed_neg_Topics";
       let repo_neg_Topics = "repo_malformed_neg_Topics";
       let topic_neg_Topics = "topic_malformed_neg_Topics";
-    verifyTopicsRejects(body_neg_Topics, limit_neg_Topics, owner_neg_Topics, page_neg_Topics, q_neg_Topics, repo_neg_Topics, topic_neg_Topics, { description: neg_desc });
+      let topic1_neg_Topics = "topic1_malformed_neg_Topics";
+      let topic2_neg_Topics = "topic2_malformed_neg_Topics";
+    verifyTopicsRejects(body_neg_Topics, limit_neg_Topics, owner_neg_Topics, page_neg_Topics, q_neg_Topics, repo_neg_Topics, topic_neg_Topics, topic1_neg_Topics, topic2_neg_Topics, { description: neg_desc });
   } });
 
 bthread("evil:collision:Topics", function() {
   while (true) {
     let e = waitFor(matchAnyTopicsAdded());
     let liveId = e.data.owner || e.data.id;
-    tryToAddExistingTopics("body_collision", "limit_collision", liveId, "page_collision", "q_collision", "repo_collision", "topic_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingTopics("body_collision", "limit_collision", liveId, "page_collision", "q_collision", "repo_collision", "topic_collision", "topic1_collision", "topic2_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("fuzz:fields:RepositoryTransfer", function() {
@@ -1029,30 +1054,28 @@ bthread("evil:collision:RepositoryTransfer", function() {
     tryToAddExistingRepositoryTransfer("body_collision", liveId, "owner_collision", "repo_collision", "transferOptions_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
-bthread("guard:WikiPages:BlockCollisionSuccess", function() {
-  while(true) { let e = waitFor(matchAnyWikiPagesAdded()); let id = e.data.id || e.data.id;
-    bp.sync({ block: bp.Event("Req:repoCreateWikiPage:Success:" + id), waitFor: matchAnyWikiPagesDeleted() });
+bthread("guard:WikiPage:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyWikiPageAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:repoCreateWikiPage:Success:" + id), waitFor: matchAnyWikiPageDeleted() });
   } });
-bthread("fuzz:fields:WikiPages", function() {
+bthread("fuzz:fields:WikiPage", function() {
   while(true) {
-    let e = waitFor(matchAnyWikiPagesAdded());
-    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for WikiPages";
-      let body_neg_WikiPages = "body_malformed_neg_WikiPages";
-      let id_neg_WikiPages = "id_malformed_neg_WikiPages";
-      let limit_neg_WikiPages = "limit_malformed_neg_WikiPages";
-      let owner_neg_WikiPages = "owner_malformed_neg_WikiPages";
-      let page_neg_WikiPages = "page_malformed_neg_WikiPages";
-      let pageName_neg_WikiPages = "pageName_malformed_neg_WikiPages";
-      let repo_neg_WikiPages = "repo_malformed_neg_WikiPages";
-      let wikiPageOptions_neg_WikiPages = "wikiPageOptions_malformed_neg_WikiPages";
-    verifyWikiPagesRejects(body_neg_WikiPages, id_neg_WikiPages, limit_neg_WikiPages, owner_neg_WikiPages, page_neg_WikiPages, pageName_neg_WikiPages, repo_neg_WikiPages, wikiPageOptions_neg_WikiPages, { description: neg_desc });
+    let e = waitFor(matchAnyWikiPageAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for WikiPage";
+      let body_neg_WikiPage = "body_malformed_neg_WikiPage";
+      let id_neg_WikiPage = "id_malformed_neg_WikiPage";
+      let owner_neg_WikiPage = "owner_malformed_neg_WikiPage";
+      let pageName_neg_WikiPage = "pageName_malformed_neg_WikiPage";
+      let repo_neg_WikiPage = "repo_malformed_neg_WikiPage";
+      let wikiPageOptions_neg_WikiPage = "wikiPageOptions_malformed_neg_WikiPage";
+    verifyWikiPageRejects(body_neg_WikiPage, id_neg_WikiPage, owner_neg_WikiPage, pageName_neg_WikiPage, repo_neg_WikiPage, wikiPageOptions_neg_WikiPage, { description: neg_desc });
   } });
 
-bthread("evil:collision:WikiPages", function() {
+bthread("evil:collision:WikiPage", function() {
   while (true) {
-    let e = waitFor(matchAnyWikiPagesAdded());
+    let e = waitFor(matchAnyWikiPageAdded());
     let liveId = e.data.id || e.data.id;
-    tryToAddExistingWikiPages("body_collision", liveId, "limit_collision", "owner_collision", "page_collision", "pageName_collision", "repo_collision", "wikiPageOptions_collision", { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingWikiPage("body_collision", liveId, "owner_collision", "pageName_collision", "repo_collision", "wikiPageOptions_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:TeamMembers:BlockCollisionSuccess", function() {
@@ -1208,16 +1231,38 @@ bthread("fuzz:fields:GPGKeyVerification", function() {
   while(true) {
     let e = waitFor(matchAnyGPGKeyVerificationAdded());
     let neg_desc = "[NEGATIVE TEST] Intentional malfunction for GPGKeyVerification";
-      let body_neg_GPGKeyVerification = "body_malformed_neg_GPGKeyVerification";
       let id_neg_GPGKeyVerification = "id_malformed_neg_GPGKeyVerification";
-    verifyGPGKeyVerificationRejects(body_neg_GPGKeyVerification, id_neg_GPGKeyVerification, { description: neg_desc });
+    verifyGPGKeyVerificationRejects(id_neg_GPGKeyVerification, { description: neg_desc });
   } });
 
 bthread("evil:collision:GPGKeyVerification", function() {
   while (true) {
     let e = waitFor(matchAnyGPGKeyVerificationAdded());
     let liveId = e.data.id || e.data.id;
-    tryToAddExistingGPGKeyVerification("body_collision", liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+    tryToAddExistingGPGKeyVerification(liveId, { description: "[NEGATIVE TEST] Collision Attack" });
+  } });
+
+bthread("guard:Keys:BlockCollisionSuccess", function() {
+  while(true) { let e = waitFor(matchAnyKeysAdded()); let id = e.data.id || e.data.id;
+    bp.sync({ block: bp.Event("Req:userCurrentPostKey:Success:" + id), waitFor: matchAnyKeysDeleted() });
+  } });
+bthread("fuzz:fields:Keys", function() {
+  while(true) {
+    let e = waitFor(matchAnyKeysAdded());
+    let neg_desc = "[NEGATIVE TEST] Intentional malfunction for Keys";
+      let body_neg_Keys = "body_malformed_neg_Keys";
+      let fingerprint_neg_Keys = "fingerprint_malformed_neg_Keys";
+      let id_neg_Keys = "id_malformed_neg_Keys";
+      let limit_neg_Keys = "limit_malformed_neg_Keys";
+      let page_neg_Keys = "page_malformed_neg_Keys";
+    verifyKeysRejects(body_neg_Keys, fingerprint_neg_Keys, id_neg_Keys, limit_neg_Keys, page_neg_Keys, { description: neg_desc });
+  } });
+
+bthread("evil:collision:Keys", function() {
+  while (true) {
+    let e = waitFor(matchAnyKeysAdded());
+    let liveId = e.data.id || e.data.id;
+    tryToAddExistingKeys("body_collision", "fingerprint_collision", liveId, "limit_collision", "page_collision", { description: "[NEGATIVE TEST] Collision Attack" });
   } });
 
 bthread("guard:UserStarred:BlockCollisionSuccess", function() {
@@ -1252,35 +1297,9 @@ bthread("hyper:evil:copy1:OrphanMaker_ActivityPub_Users", function() {
         return ev.name.includes("Verify ActivityPub") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.user-id || e.data.id;
     activitypubPerson(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_UnadoptedRepositories_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUnadoptedRepositoriesAdded());
-    // Barrier: Ensure main test verifies UnadoptedRepositories before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UnadoptedRepositories Verified", function(ev) {
-        return ev.name.includes("Verify UnadoptedRepositories") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.owner || e.data.id;
-    adminUnadoptedList(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_UnadoptedRepositories_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyUnadoptedRepositoriesAdded());
-    // Barrier: Ensure main test verifies UnadoptedRepositories before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UnadoptedRepositories Verified", function(ev) {
-        return ev.name.includes("Verify UnadoptedRepositories") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    adminUnadoptedList(childId);
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_UserBadges_Users", function() {
@@ -1291,7 +1310,7 @@ bthread("hyper:evil:copy1:OrphanMaker_UserBadges_Users", function() {
         return ev.name.includes("Verify UserBadges") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.username || e.data.id;
     adminListUserBadges(childId);
   }
@@ -1304,7 +1323,7 @@ bthread("hyper:evil:copy1:OrphanMaker_UserKeys_Users", function() {
         return ev.name.includes("Verify UserKeys") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.username || e.data.id;
     getUserKeys(childId);
   }
@@ -1317,20 +1336,7 @@ bthread("hyper:evil:copy1:OrphanMaker_UserOrganizations_Users", function() {
         return ev.name.includes("Verify UserOrganizations") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getUserOrganizations(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_UserOrganizations_Organization", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserOrganizationsAdded());
-    // Barrier: Ensure main test verifies UserOrganizations before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserOrganizations Verified", function(ev) {
-        return ev.name.includes("Verify UserOrganizations") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserOrganizations(childId);
   }
@@ -1343,7 +1349,7 @@ bthread("hyper:evil:copy1:OrphanMaker_UserRename_Users", function() {
         return ev.name.includes("Verify UserRename") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserRename(childId);
   }
@@ -1356,33 +1362,46 @@ bthread("hyper:evil:copy1:OrphanMaker_UserRepositories_Users", function() {
         return ev.name.includes("Verify UserRepositories") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserRepositories(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_Variables_Repositories", function() {
+bthread("hyper:evil:copy1:OrphanMaker_Organization_Organizations", function() {
   while(true) {
-    let e = waitFor(matchAnyVariablesAdded());
-    // Barrier: Ensure main test verifies Variables before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: Variables Verified", function(ev) {
-        return ev.name.includes("Verify Variables") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyOrganizationAdded());
+    // Barrier: Ensure main test verifies Organization before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Organization Verified", function(ev) {
+        return ev.name.includes("Verify Organization") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
+    let childId = e.data.org || e.data.id;
+    orgGet(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_Avatar_Organization", function() {
+bthread("hyper:evil:copy1:OrphanMaker_OrgVariables_Organizations", function() {
+  while(true) {
+    let e = waitFor(matchAnyOrgVariablesAdded());
+    // Barrier: Ensure main test verifies OrgVariables before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: OrgVariables Verified", function(ev) {
+        return ev.name.includes("Verify OrgVariables") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
+    let childId = e.data.org || e.data.id;
+    orgGet(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Avatar_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyAvatarAdded());
     // Barrier: Ensure main test verifies Avatar before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: Avatar Verified", function(ev) {
         return ev.name.includes("Verify Avatar") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.org || e.data.id;
     getAvatar(childId);
   }
@@ -1395,33 +1414,33 @@ bthread("hyper:evil:copy1:OrphanMaker_Labels_Repositories", function() {
         return ev.name.includes("Verify Labels") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_OrganizationRepos_Organization", function() {
+bthread("hyper:evil:copy1:OrphanMaker_OrganizationRepos_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyOrganizationReposAdded());
     // Barrier: Ensure main test verifies OrganizationRepos before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: OrganizationRepos Verified", function(ev) {
         return ev.name.includes("Verify OrganizationRepos") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.id || e.data.id;
     orgListRepos(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_OrganizationTeams_Organization", function() {
+bthread("hyper:evil:copy1:OrphanMaker_OrganizationTeams_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyOrganizationTeamsAdded());
     // Barrier: Ensure main test verifies OrganizationTeams before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: OrganizationTeams Verified", function(ev) {
         return ev.name.includes("Verify OrganizationTeams") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.id || e.data.id;
     orgListTeams(childId);
   }
@@ -1434,7 +1453,7 @@ bthread("hyper:evil:copy1:OrphanMaker_Issues_Repositories", function() {
         return ev.name.includes("Verify Issues") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1447,7 +1466,20 @@ bthread("hyper:evil:copy1:OrphanMaker_Repository_Repositories", function() {
         return ev.name.includes("Verify Repository") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Variables_Repositories", function() {
+  while(true) {
+    let e = waitFor(matchAnyVariablesAdded());
+    // Barrier: Ensure main test verifies Variables before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Variables Verified", function(ev) {
+        return ev.name.includes("Verify Variables") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1460,7 +1492,7 @@ bthread("hyper:evil:copy1:OrphanMaker_Branches_Repositories", function() {
         return ev.name.includes("Verify Branches") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1473,7 +1505,20 @@ bthread("hyper:evil:copy1:OrphanMaker_Collaborators_Repositories", function() {
         return ev.name.includes("Verify Collaborators") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_Repositories_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyRepositoriesAdded());
+    // Barrier: Ensure main test verifies Repositories before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Repositories Verified", function(ev) {
+        return ev.name.includes("Verify Repositories") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.username || e.data.id;
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1486,7 +1531,7 @@ bthread("hyper:evil:copy1:OrphanMaker_Forks_Repositories", function() {
         return ev.name.includes("Verify Forks") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     listForks(childId);
   }
@@ -1499,126 +1544,9 @@ bthread("hyper:evil:copy1:OrphanMaker_Issue_Repositories", function() {
         return ev.name.includes("Verify Issue") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueCommentAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueCommentAttachments_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueCommentReactions_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentReactionsAdded());
-    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    issueGetCommentReactions(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueCommentReactions_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentReactionsAdded());
-    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.owner || e.data.id;
-    issueGetCommentReactions(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueAttachments_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueBlocks_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueBlocksAdded());
-    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
-        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    issueListBlocks(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueBlocks_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueBlocksAdded());
-    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
-        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.owner || e.data.id;
-    issueListBlocks(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueComments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentsAdded());
-    // Barrier: Ensure main test verifies IssueComments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueComments Verified", function(ev) {
-        return ev.name.includes("Verify IssueComments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
+    issueGetMilestonesList(childId);
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_IssueComments_Issues", function() {
@@ -1634,43 +1562,69 @@ bthread("hyper:evil:copy1:OrphanMaker_IssueComments_Issues", function() {
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_IssueSubscriptions_Repositories", function() {
+bthread("hyper:evil:copy1:OrphanMaker_IssueCommentAttachments_IssueComments", function() {
   while(true) {
-    let e = waitFor(matchAnyIssueSubscriptionsAdded());
-    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
-        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
+    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
+        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    issueDeleteCommentDeprecated(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_IssueSubscriptions_Users", function() {
+bthread("hyper:evil:copy1:OrphanMaker_IssueCommentReactions_IssueComments", function() {
   while(true) {
-    let e = waitFor(matchAnyIssueSubscriptionsAdded());
-    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
-        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_IssueTimes_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueTimesAdded());
-    // Barrier: Ensure main test verifies IssueTimes before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueTimes Verified", function(ev) {
-        return ev.name.includes("Verify IssueTimes") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyIssueCommentReactionsAdded());
+    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
+        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    issueDeleteCommentDeprecated(pId);
     let childId = e.data.owner || e.data.id;
-    issueTrackedTimes(childId);
+    issueGetCommentReactions(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_IssueAttachments_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueAttachmentsAdded());
+    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
+        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_IssueBlocks_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueBlocksAdded());
+    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
+        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.owner || e.data.id;
+    issueListBlocks(childId);
+  }
+});
+bthread("hyper:evil:copy1:OrphanMaker_IssueSubscriptions_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueSubscriptionsAdded());
+    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
+        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_IssueTimes_Issues", function() {
@@ -1686,6 +1640,19 @@ bthread("hyper:evil:copy1:OrphanMaker_IssueTimes_Issues", function() {
     issueTrackedTimes(childId);
   }
 });
+bthread("hyper:evil:copy1:OrphanMaker_RepositoryKeys_Repositories", function() {
+  while(true) {
+    let e = waitFor(matchAnyRepositoryKeysAdded());
+    // Barrier: Ensure main test verifies RepositoryKeys before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: RepositoryKeys Verified", function(ev) {
+        return ev.name.includes("Verify RepositoryKeys") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
 bthread("hyper:evil:copy1:OrphanMaker_MirrorSync_Repositories", function() {
   while(true) {
     let e = waitFor(matchAnyMirrorSyncAdded());
@@ -1694,7 +1661,7 @@ bthread("hyper:evil:copy1:OrphanMaker_MirrorSync_Repositories", function() {
         return ev.name.includes("Verify MirrorSync") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     getMirrorSync(childId);
   }
@@ -1707,22 +1674,9 @@ bthread("hyper:evil:copy1:OrphanMaker_PullRequests_Repositories", function() {
         return ev.name.includes("Verify PullRequests") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_PullReviewRequests_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewRequestsAdded());
-    // Barrier: Ensure main test verifies PullReviewRequests before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewRequests Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewRequests") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    getPullReviewRequests(childId);
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_PullReviewRequests_PullRequests", function() {
@@ -1738,19 +1692,6 @@ bthread("hyper:evil:copy1:OrphanMaker_PullReviewRequests_PullRequests", function
     getPullReviewRequests(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_PullReviews_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewsAdded());
-    // Barrier: Ensure main test verifies PullReviews before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviews Verified", function(ev) {
-        return ev.name.includes("Verify PullReviews") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
 bthread("hyper:evil:copy1:OrphanMaker_PullReviews_PullRequests", function() {
   while(true) {
     let e = waitFor(matchAnyPullReviewsAdded());
@@ -1764,19 +1705,6 @@ bthread("hyper:evil:copy1:OrphanMaker_PullReviews_PullRequests", function() {
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_PullReviewDismissals_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewDismissalsAdded());
-    // Barrier: Ensure main test verifies PullReviewDismissals before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewDismissals Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewDismissals") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    getPullReviewDismissals(childId);
-  }
-});
 bthread("hyper:evil:copy1:OrphanMaker_PullReviewDismissals_PullReviews", function() {
   while(true) {
     let e = waitFor(matchAnyPullReviewDismissalsAdded());
@@ -1788,19 +1716,6 @@ bthread("hyper:evil:copy1:OrphanMaker_PullReviewDismissals_PullReviews", functio
     repoDeletePullReview(pId);
     let childId = e.data.id || e.data.id;
     getPullReviewDismissals(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_PullReviewUndismissals_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewUndismissalsAdded());
-    // Barrier: Ensure main test verifies PullReviewUndismissals before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewUndismissals Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewUndismissals") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    getPullReviewUndismissals(childId);
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_PullReviewUndismissals_PullReviews", function() {
@@ -1824,7 +1739,7 @@ bthread("hyper:evil:copy1:OrphanMaker_PushMirrors_Repositories", function() {
         return ev.name.includes("Verify PushMirrors") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1837,20 +1752,7 @@ bthread("hyper:evil:copy1:OrphanMaker_Releases_Repositories", function() {
         return ev.name.includes("Verify Releases") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_ReleaseAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyReleaseAttachmentsAdded());
-    // Barrier: Ensure main test verifies ReleaseAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: ReleaseAttachments Verified", function(ev) {
-        return ev.name.includes("Verify ReleaseAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1876,7 +1778,7 @@ bthread("hyper:evil:copy1:OrphanMaker_TagProtections_Repositories", function() {
         return ev.name.includes("Verify TagProtections") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1889,7 +1791,7 @@ bthread("hyper:evil:copy1:OrphanMaker_Tags_Repositories", function() {
         return ev.name.includes("Verify Tags") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -1902,7 +1804,7 @@ bthread("hyper:evil:copy1:OrphanMaker_Topics_Repositories", function() {
         return ev.name.includes("Verify Topics") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.owner || e.data.id;
     topicSearch(childId);
   }
@@ -1915,38 +1817,25 @@ bthread("hyper:evil:copy1:OrphanMaker_RepositoryTransfer_Repositories", function
         return ev.name.includes("Verify RepositoryTransfer") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     getRepositoryTransfer(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_RepositoryTransfer_Users", function() {
+bthread("hyper:evil:copy1:OrphanMaker_WikiPage_Repositories", function() {
   while(true) {
-    let e = waitFor(matchAnyRepositoryTransferAdded());
-    // Barrier: Ensure main test verifies RepositoryTransfer before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: RepositoryTransfer Verified", function(ev) {
-        return ev.name.includes("Verify RepositoryTransfer") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getRepositoryTransfer(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_WikiPages_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyWikiPagesAdded());
-    // Barrier: Ensure main test verifies WikiPages before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: WikiPages Verified", function(ev) {
-        return ev.name.includes("Verify WikiPages") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyWikiPageAdded());
+    // Barrier: Ensure main test verifies WikiPage before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: WikiPage Verified", function(ev) {
+        return ev.name.includes("Verify WikiPage") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_TeamMembers_OrganizationTeams", function() {
+bthread("hyper:evil:copy1:OrphanMaker_TeamMembers_Teams", function() {
   while(true) {
     let e = waitFor(matchAnyTeamMembersAdded());
     // Barrier: Ensure main test verifies TeamMembers before sabotaging parent
@@ -1954,12 +1843,12 @@ bthread("hyper:evil:copy1:OrphanMaker_TeamMembers_OrganizationTeams", function()
         return ev.name.includes("Verify TeamMembers") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationTeams(pId);
+    orgDeleteTeam(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_TeamRepos_OrganizationTeams", function() {
+bthread("hyper:evil:copy1:OrphanMaker_TeamRepos_Teams", function() {
   while(true) {
     let e = waitFor(matchAnyTeamReposAdded());
     // Barrier: Ensure main test verifies TeamRepos before sabotaging parent
@@ -1967,12 +1856,12 @@ bthread("hyper:evil:copy1:OrphanMaker_TeamRepos_OrganizationTeams", function() {
         return ev.name.includes("Verify TeamRepos") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationTeams(pId);
+    orgDeleteTeam(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
 });
-bthread("hyper:evil:copy1:OrphanMaker_TeamRepos_OrganizationRepos", function() {
+bthread("hyper:evil:copy1:OrphanMaker_TeamRepos_Repositories", function() {
   while(true) {
     let e = waitFor(matchAnyTeamReposAdded());
     // Barrier: Ensure main test verifies TeamRepos before sabotaging parent
@@ -1980,7 +1869,7 @@ bthread("hyper:evil:copy1:OrphanMaker_TeamRepos_OrganizationRepos", function() {
         return ev.name.includes("Verify TeamRepos") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationRepos(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
@@ -1993,74 +1882,9 @@ bthread("hyper:evil:copy1:OrphanMaker_UserVariables_Users", function() {
         return ev.name.includes("Verify UserVariables") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.variablename || e.data.id;
     getUserVariable(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_OAuth2Applications_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyOAuth2ApplicationsAdded());
-    // Barrier: Ensure main test verifies OAuth2Applications before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: OAuth2Applications Verified", function(ev) {
-        return ev.name.includes("Verify OAuth2Applications") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userGetOAuth2Application(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_UserAvatar_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserAvatarAdded());
-    // Barrier: Ensure main test verifies UserAvatar before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserAvatar Verified", function(ev) {
-        return ev.name.includes("Verify UserAvatar") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getUserAvatar(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_UserEmails_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserEmailsAdded());
-    // Barrier: Ensure main test verifies UserEmails before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserEmails Verified", function(ev) {
-        return ev.name.includes("Verify UserEmails") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userListEmails(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_GPGKeys_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyGPGKeysAdded());
-    // Barrier: Ensure main test verifies GPGKeys before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: GPGKeys Verified", function(ev) {
-        return ev.name.includes("Verify GPGKeys") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userCurrentGetGPGKey(childId);
-  }
-});
-bthread("hyper:evil:copy1:OrphanMaker_GPGKeyVerification_GPGKeys", function() {
-  while(true) {
-    let e = waitFor(matchAnyGPGKeyVerificationAdded());
-    // Barrier: Ensure main test verifies GPGKeyVerification before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: GPGKeyVerification Verified", function(ev) {
-        return ev.name.includes("Verify GPGKeyVerification") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteGPGKey(pId);
-    let childId = e.data.id || e.data.id;
-    getGPGKeyVerification(childId);
   }
 });
 bthread("hyper:evil:copy1:OrphanMaker_UserStarred_Users", function() {
@@ -2071,7 +1895,7 @@ bthread("hyper:evil:copy1:OrphanMaker_UserStarred_Users", function() {
         return ev.name.includes("Verify UserStarred") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.owner || e.data.id;
     userCurrentCheckStarring(childId);
   }
@@ -2084,7 +1908,7 @@ bthread("hyper:evil:copy1:OrphanMaker_UserStarred_Repositories", function() {
         return ev.name.includes("Verify UserStarred") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.owner || e.data.id;
     userCurrentCheckStarring(childId);
   }
@@ -2098,35 +1922,9 @@ bthread("hyper:evil:copy2:OrphanMaker_ActivityPub_Users", function() {
         return ev.name.includes("Verify ActivityPub") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.user-id || e.data.id;
     activitypubPerson(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_UnadoptedRepositories_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUnadoptedRepositoriesAdded());
-    // Barrier: Ensure main test verifies UnadoptedRepositories before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UnadoptedRepositories Verified", function(ev) {
-        return ev.name.includes("Verify UnadoptedRepositories") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.owner || e.data.id;
-    adminUnadoptedList(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_UnadoptedRepositories_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyUnadoptedRepositoriesAdded());
-    // Barrier: Ensure main test verifies UnadoptedRepositories before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UnadoptedRepositories Verified", function(ev) {
-        return ev.name.includes("Verify UnadoptedRepositories") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    adminUnadoptedList(childId);
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_UserBadges_Users", function() {
@@ -2137,7 +1935,7 @@ bthread("hyper:evil:copy2:OrphanMaker_UserBadges_Users", function() {
         return ev.name.includes("Verify UserBadges") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.username || e.data.id;
     adminListUserBadges(childId);
   }
@@ -2150,7 +1948,7 @@ bthread("hyper:evil:copy2:OrphanMaker_UserKeys_Users", function() {
         return ev.name.includes("Verify UserKeys") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.username || e.data.id;
     getUserKeys(childId);
   }
@@ -2163,20 +1961,7 @@ bthread("hyper:evil:copy2:OrphanMaker_UserOrganizations_Users", function() {
         return ev.name.includes("Verify UserOrganizations") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getUserOrganizations(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_UserOrganizations_Organization", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserOrganizationsAdded());
-    // Barrier: Ensure main test verifies UserOrganizations before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserOrganizations Verified", function(ev) {
-        return ev.name.includes("Verify UserOrganizations") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserOrganizations(childId);
   }
@@ -2189,7 +1974,7 @@ bthread("hyper:evil:copy2:OrphanMaker_UserRename_Users", function() {
         return ev.name.includes("Verify UserRename") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserRename(childId);
   }
@@ -2202,33 +1987,46 @@ bthread("hyper:evil:copy2:OrphanMaker_UserRepositories_Users", function() {
         return ev.name.includes("Verify UserRepositories") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserRepositories(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_Variables_Repositories", function() {
+bthread("hyper:evil:copy2:OrphanMaker_Organization_Organizations", function() {
   while(true) {
-    let e = waitFor(matchAnyVariablesAdded());
-    // Barrier: Ensure main test verifies Variables before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: Variables Verified", function(ev) {
-        return ev.name.includes("Verify Variables") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyOrganizationAdded());
+    // Barrier: Ensure main test verifies Organization before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Organization Verified", function(ev) {
+        return ev.name.includes("Verify Organization") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
+    let childId = e.data.org || e.data.id;
+    orgGet(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_Avatar_Organization", function() {
+bthread("hyper:evil:copy2:OrphanMaker_OrgVariables_Organizations", function() {
+  while(true) {
+    let e = waitFor(matchAnyOrgVariablesAdded());
+    // Barrier: Ensure main test verifies OrgVariables before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: OrgVariables Verified", function(ev) {
+        return ev.name.includes("Verify OrgVariables") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
+    let childId = e.data.org || e.data.id;
+    orgGet(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Avatar_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyAvatarAdded());
     // Barrier: Ensure main test verifies Avatar before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: Avatar Verified", function(ev) {
         return ev.name.includes("Verify Avatar") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.org || e.data.id;
     getAvatar(childId);
   }
@@ -2241,33 +2039,33 @@ bthread("hyper:evil:copy2:OrphanMaker_Labels_Repositories", function() {
         return ev.name.includes("Verify Labels") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_OrganizationRepos_Organization", function() {
+bthread("hyper:evil:copy2:OrphanMaker_OrganizationRepos_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyOrganizationReposAdded());
     // Barrier: Ensure main test verifies OrganizationRepos before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: OrganizationRepos Verified", function(ev) {
         return ev.name.includes("Verify OrganizationRepos") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.id || e.data.id;
     orgListRepos(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_OrganizationTeams_Organization", function() {
+bthread("hyper:evil:copy2:OrphanMaker_OrganizationTeams_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyOrganizationTeamsAdded());
     // Barrier: Ensure main test verifies OrganizationTeams before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: OrganizationTeams Verified", function(ev) {
         return ev.name.includes("Verify OrganizationTeams") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.id || e.data.id;
     orgListTeams(childId);
   }
@@ -2280,7 +2078,7 @@ bthread("hyper:evil:copy2:OrphanMaker_Issues_Repositories", function() {
         return ev.name.includes("Verify Issues") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2293,7 +2091,20 @@ bthread("hyper:evil:copy2:OrphanMaker_Repository_Repositories", function() {
         return ev.name.includes("Verify Repository") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Variables_Repositories", function() {
+  while(true) {
+    let e = waitFor(matchAnyVariablesAdded());
+    // Barrier: Ensure main test verifies Variables before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Variables Verified", function(ev) {
+        return ev.name.includes("Verify Variables") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2306,7 +2117,7 @@ bthread("hyper:evil:copy2:OrphanMaker_Branches_Repositories", function() {
         return ev.name.includes("Verify Branches") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2319,7 +2130,20 @@ bthread("hyper:evil:copy2:OrphanMaker_Collaborators_Repositories", function() {
         return ev.name.includes("Verify Collaborators") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_Repositories_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyRepositoriesAdded());
+    // Barrier: Ensure main test verifies Repositories before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Repositories Verified", function(ev) {
+        return ev.name.includes("Verify Repositories") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.username || e.data.id;
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2332,7 +2156,7 @@ bthread("hyper:evil:copy2:OrphanMaker_Forks_Repositories", function() {
         return ev.name.includes("Verify Forks") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     listForks(childId);
   }
@@ -2345,126 +2169,9 @@ bthread("hyper:evil:copy2:OrphanMaker_Issue_Repositories", function() {
         return ev.name.includes("Verify Issue") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueCommentAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueCommentAttachments_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueCommentReactions_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentReactionsAdded());
-    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    issueGetCommentReactions(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueCommentReactions_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentReactionsAdded());
-    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.owner || e.data.id;
-    issueGetCommentReactions(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueAttachments_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueBlocks_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueBlocksAdded());
-    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
-        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    issueListBlocks(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueBlocks_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueBlocksAdded());
-    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
-        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.owner || e.data.id;
-    issueListBlocks(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueComments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentsAdded());
-    // Barrier: Ensure main test verifies IssueComments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueComments Verified", function(ev) {
-        return ev.name.includes("Verify IssueComments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
+    issueGetMilestonesList(childId);
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_IssueComments_Issues", function() {
@@ -2480,43 +2187,69 @@ bthread("hyper:evil:copy2:OrphanMaker_IssueComments_Issues", function() {
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_IssueSubscriptions_Repositories", function() {
+bthread("hyper:evil:copy2:OrphanMaker_IssueCommentAttachments_IssueComments", function() {
   while(true) {
-    let e = waitFor(matchAnyIssueSubscriptionsAdded());
-    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
-        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
+    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
+        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    issueDeleteCommentDeprecated(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_IssueSubscriptions_Users", function() {
+bthread("hyper:evil:copy2:OrphanMaker_IssueCommentReactions_IssueComments", function() {
   while(true) {
-    let e = waitFor(matchAnyIssueSubscriptionsAdded());
-    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
-        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_IssueTimes_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueTimesAdded());
-    // Barrier: Ensure main test verifies IssueTimes before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueTimes Verified", function(ev) {
-        return ev.name.includes("Verify IssueTimes") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyIssueCommentReactionsAdded());
+    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
+        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    issueDeleteCommentDeprecated(pId);
     let childId = e.data.owner || e.data.id;
-    issueTrackedTimes(childId);
+    issueGetCommentReactions(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_IssueAttachments_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueAttachmentsAdded());
+    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
+        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_IssueBlocks_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueBlocksAdded());
+    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
+        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.owner || e.data.id;
+    issueListBlocks(childId);
+  }
+});
+bthread("hyper:evil:copy2:OrphanMaker_IssueSubscriptions_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueSubscriptionsAdded());
+    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
+        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_IssueTimes_Issues", function() {
@@ -2532,6 +2265,19 @@ bthread("hyper:evil:copy2:OrphanMaker_IssueTimes_Issues", function() {
     issueTrackedTimes(childId);
   }
 });
+bthread("hyper:evil:copy2:OrphanMaker_RepositoryKeys_Repositories", function() {
+  while(true) {
+    let e = waitFor(matchAnyRepositoryKeysAdded());
+    // Barrier: Ensure main test verifies RepositoryKeys before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: RepositoryKeys Verified", function(ev) {
+        return ev.name.includes("Verify RepositoryKeys") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
 bthread("hyper:evil:copy2:OrphanMaker_MirrorSync_Repositories", function() {
   while(true) {
     let e = waitFor(matchAnyMirrorSyncAdded());
@@ -2540,7 +2286,7 @@ bthread("hyper:evil:copy2:OrphanMaker_MirrorSync_Repositories", function() {
         return ev.name.includes("Verify MirrorSync") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     getMirrorSync(childId);
   }
@@ -2553,22 +2299,9 @@ bthread("hyper:evil:copy2:OrphanMaker_PullRequests_Repositories", function() {
         return ev.name.includes("Verify PullRequests") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_PullReviewRequests_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewRequestsAdded());
-    // Barrier: Ensure main test verifies PullReviewRequests before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewRequests Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewRequests") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    getPullReviewRequests(childId);
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_PullReviewRequests_PullRequests", function() {
@@ -2584,19 +2317,6 @@ bthread("hyper:evil:copy2:OrphanMaker_PullReviewRequests_PullRequests", function
     getPullReviewRequests(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_PullReviews_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewsAdded());
-    // Barrier: Ensure main test verifies PullReviews before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviews Verified", function(ev) {
-        return ev.name.includes("Verify PullReviews") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
 bthread("hyper:evil:copy2:OrphanMaker_PullReviews_PullRequests", function() {
   while(true) {
     let e = waitFor(matchAnyPullReviewsAdded());
@@ -2610,19 +2330,6 @@ bthread("hyper:evil:copy2:OrphanMaker_PullReviews_PullRequests", function() {
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_PullReviewDismissals_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewDismissalsAdded());
-    // Barrier: Ensure main test verifies PullReviewDismissals before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewDismissals Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewDismissals") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    getPullReviewDismissals(childId);
-  }
-});
 bthread("hyper:evil:copy2:OrphanMaker_PullReviewDismissals_PullReviews", function() {
   while(true) {
     let e = waitFor(matchAnyPullReviewDismissalsAdded());
@@ -2634,19 +2341,6 @@ bthread("hyper:evil:copy2:OrphanMaker_PullReviewDismissals_PullReviews", functio
     repoDeletePullReview(pId);
     let childId = e.data.id || e.data.id;
     getPullReviewDismissals(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_PullReviewUndismissals_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewUndismissalsAdded());
-    // Barrier: Ensure main test verifies PullReviewUndismissals before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewUndismissals Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewUndismissals") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    getPullReviewUndismissals(childId);
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_PullReviewUndismissals_PullReviews", function() {
@@ -2670,7 +2364,7 @@ bthread("hyper:evil:copy2:OrphanMaker_PushMirrors_Repositories", function() {
         return ev.name.includes("Verify PushMirrors") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2683,20 +2377,7 @@ bthread("hyper:evil:copy2:OrphanMaker_Releases_Repositories", function() {
         return ev.name.includes("Verify Releases") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_ReleaseAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyReleaseAttachmentsAdded());
-    // Barrier: Ensure main test verifies ReleaseAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: ReleaseAttachments Verified", function(ev) {
-        return ev.name.includes("Verify ReleaseAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2722,7 +2403,7 @@ bthread("hyper:evil:copy2:OrphanMaker_TagProtections_Repositories", function() {
         return ev.name.includes("Verify TagProtections") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2735,7 +2416,7 @@ bthread("hyper:evil:copy2:OrphanMaker_Tags_Repositories", function() {
         return ev.name.includes("Verify Tags") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -2748,7 +2429,7 @@ bthread("hyper:evil:copy2:OrphanMaker_Topics_Repositories", function() {
         return ev.name.includes("Verify Topics") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.owner || e.data.id;
     topicSearch(childId);
   }
@@ -2761,38 +2442,25 @@ bthread("hyper:evil:copy2:OrphanMaker_RepositoryTransfer_Repositories", function
         return ev.name.includes("Verify RepositoryTransfer") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     getRepositoryTransfer(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_RepositoryTransfer_Users", function() {
+bthread("hyper:evil:copy2:OrphanMaker_WikiPage_Repositories", function() {
   while(true) {
-    let e = waitFor(matchAnyRepositoryTransferAdded());
-    // Barrier: Ensure main test verifies RepositoryTransfer before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: RepositoryTransfer Verified", function(ev) {
-        return ev.name.includes("Verify RepositoryTransfer") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getRepositoryTransfer(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_WikiPages_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyWikiPagesAdded());
-    // Barrier: Ensure main test verifies WikiPages before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: WikiPages Verified", function(ev) {
-        return ev.name.includes("Verify WikiPages") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyWikiPageAdded());
+    // Barrier: Ensure main test verifies WikiPage before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: WikiPage Verified", function(ev) {
+        return ev.name.includes("Verify WikiPage") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_TeamMembers_OrganizationTeams", function() {
+bthread("hyper:evil:copy2:OrphanMaker_TeamMembers_Teams", function() {
   while(true) {
     let e = waitFor(matchAnyTeamMembersAdded());
     // Barrier: Ensure main test verifies TeamMembers before sabotaging parent
@@ -2800,12 +2468,12 @@ bthread("hyper:evil:copy2:OrphanMaker_TeamMembers_OrganizationTeams", function()
         return ev.name.includes("Verify TeamMembers") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationTeams(pId);
+    orgDeleteTeam(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_TeamRepos_OrganizationTeams", function() {
+bthread("hyper:evil:copy2:OrphanMaker_TeamRepos_Teams", function() {
   while(true) {
     let e = waitFor(matchAnyTeamReposAdded());
     // Barrier: Ensure main test verifies TeamRepos before sabotaging parent
@@ -2813,12 +2481,12 @@ bthread("hyper:evil:copy2:OrphanMaker_TeamRepos_OrganizationTeams", function() {
         return ev.name.includes("Verify TeamRepos") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationTeams(pId);
+    orgDeleteTeam(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
 });
-bthread("hyper:evil:copy2:OrphanMaker_TeamRepos_OrganizationRepos", function() {
+bthread("hyper:evil:copy2:OrphanMaker_TeamRepos_Repositories", function() {
   while(true) {
     let e = waitFor(matchAnyTeamReposAdded());
     // Barrier: Ensure main test verifies TeamRepos before sabotaging parent
@@ -2826,7 +2494,7 @@ bthread("hyper:evil:copy2:OrphanMaker_TeamRepos_OrganizationRepos", function() {
         return ev.name.includes("Verify TeamRepos") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationRepos(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
@@ -2839,74 +2507,9 @@ bthread("hyper:evil:copy2:OrphanMaker_UserVariables_Users", function() {
         return ev.name.includes("Verify UserVariables") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.variablename || e.data.id;
     getUserVariable(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_OAuth2Applications_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyOAuth2ApplicationsAdded());
-    // Barrier: Ensure main test verifies OAuth2Applications before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: OAuth2Applications Verified", function(ev) {
-        return ev.name.includes("Verify OAuth2Applications") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userGetOAuth2Application(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_UserAvatar_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserAvatarAdded());
-    // Barrier: Ensure main test verifies UserAvatar before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserAvatar Verified", function(ev) {
-        return ev.name.includes("Verify UserAvatar") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getUserAvatar(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_UserEmails_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserEmailsAdded());
-    // Barrier: Ensure main test verifies UserEmails before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserEmails Verified", function(ev) {
-        return ev.name.includes("Verify UserEmails") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userListEmails(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_GPGKeys_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyGPGKeysAdded());
-    // Barrier: Ensure main test verifies GPGKeys before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: GPGKeys Verified", function(ev) {
-        return ev.name.includes("Verify GPGKeys") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userCurrentGetGPGKey(childId);
-  }
-});
-bthread("hyper:evil:copy2:OrphanMaker_GPGKeyVerification_GPGKeys", function() {
-  while(true) {
-    let e = waitFor(matchAnyGPGKeyVerificationAdded());
-    // Barrier: Ensure main test verifies GPGKeyVerification before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: GPGKeyVerification Verified", function(ev) {
-        return ev.name.includes("Verify GPGKeyVerification") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteGPGKey(pId);
-    let childId = e.data.id || e.data.id;
-    getGPGKeyVerification(childId);
   }
 });
 bthread("hyper:evil:copy2:OrphanMaker_UserStarred_Users", function() {
@@ -2917,7 +2520,7 @@ bthread("hyper:evil:copy2:OrphanMaker_UserStarred_Users", function() {
         return ev.name.includes("Verify UserStarred") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.owner || e.data.id;
     userCurrentCheckStarring(childId);
   }
@@ -2930,7 +2533,7 @@ bthread("hyper:evil:copy2:OrphanMaker_UserStarred_Repositories", function() {
         return ev.name.includes("Verify UserStarred") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.owner || e.data.id;
     userCurrentCheckStarring(childId);
   }
@@ -2944,35 +2547,9 @@ bthread("hyper:evil:copy3:OrphanMaker_ActivityPub_Users", function() {
         return ev.name.includes("Verify ActivityPub") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.user-id || e.data.id;
     activitypubPerson(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_UnadoptedRepositories_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUnadoptedRepositoriesAdded());
-    // Barrier: Ensure main test verifies UnadoptedRepositories before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UnadoptedRepositories Verified", function(ev) {
-        return ev.name.includes("Verify UnadoptedRepositories") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.owner || e.data.id;
-    adminUnadoptedList(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_UnadoptedRepositories_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyUnadoptedRepositoriesAdded());
-    // Barrier: Ensure main test verifies UnadoptedRepositories before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UnadoptedRepositories Verified", function(ev) {
-        return ev.name.includes("Verify UnadoptedRepositories") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    adminUnadoptedList(childId);
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_UserBadges_Users", function() {
@@ -2983,7 +2560,7 @@ bthread("hyper:evil:copy3:OrphanMaker_UserBadges_Users", function() {
         return ev.name.includes("Verify UserBadges") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.username || e.data.id;
     adminListUserBadges(childId);
   }
@@ -2996,7 +2573,7 @@ bthread("hyper:evil:copy3:OrphanMaker_UserKeys_Users", function() {
         return ev.name.includes("Verify UserKeys") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.username || e.data.id;
     getUserKeys(childId);
   }
@@ -3009,20 +2586,7 @@ bthread("hyper:evil:copy3:OrphanMaker_UserOrganizations_Users", function() {
         return ev.name.includes("Verify UserOrganizations") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getUserOrganizations(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_UserOrganizations_Organization", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserOrganizationsAdded());
-    // Barrier: Ensure main test verifies UserOrganizations before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserOrganizations Verified", function(ev) {
-        return ev.name.includes("Verify UserOrganizations") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserOrganizations(childId);
   }
@@ -3035,7 +2599,7 @@ bthread("hyper:evil:copy3:OrphanMaker_UserRename_Users", function() {
         return ev.name.includes("Verify UserRename") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserRename(childId);
   }
@@ -3048,33 +2612,46 @@ bthread("hyper:evil:copy3:OrphanMaker_UserRepositories_Users", function() {
         return ev.name.includes("Verify UserRepositories") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     getUserRepositories(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_Variables_Repositories", function() {
+bthread("hyper:evil:copy3:OrphanMaker_Organization_Organizations", function() {
   while(true) {
-    let e = waitFor(matchAnyVariablesAdded());
-    // Barrier: Ensure main test verifies Variables before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: Variables Verified", function(ev) {
-        return ev.name.includes("Verify Variables") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyOrganizationAdded());
+    // Barrier: Ensure main test verifies Organization before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Organization Verified", function(ev) {
+        return ev.name.includes("Verify Organization") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
+    let childId = e.data.org || e.data.id;
+    orgGet(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_Avatar_Organization", function() {
+bthread("hyper:evil:copy3:OrphanMaker_OrgVariables_Organizations", function() {
+  while(true) {
+    let e = waitFor(matchAnyOrgVariablesAdded());
+    // Barrier: Ensure main test verifies OrgVariables before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: OrgVariables Verified", function(ev) {
+        return ev.name.includes("Verify OrgVariables") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
+    let childId = e.data.org || e.data.id;
+    orgGet(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Avatar_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyAvatarAdded());
     // Barrier: Ensure main test verifies Avatar before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: Avatar Verified", function(ev) {
         return ev.name.includes("Verify Avatar") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.org || e.data.id;
     getAvatar(childId);
   }
@@ -3087,33 +2664,33 @@ bthread("hyper:evil:copy3:OrphanMaker_Labels_Repositories", function() {
         return ev.name.includes("Verify Labels") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_OrganizationRepos_Organization", function() {
+bthread("hyper:evil:copy3:OrphanMaker_OrganizationRepos_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyOrganizationReposAdded());
     // Barrier: Ensure main test verifies OrganizationRepos before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: OrganizationRepos Verified", function(ev) {
         return ev.name.includes("Verify OrganizationRepos") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.id || e.data.id;
     orgListRepos(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_OrganizationTeams_Organization", function() {
+bthread("hyper:evil:copy3:OrphanMaker_OrganizationTeams_Organizations", function() {
   while(true) {
     let e = waitFor(matchAnyOrganizationTeamsAdded());
     // Barrier: Ensure main test verifies OrganizationTeams before sabotaging parent
     bp.sync({ waitFor: bp.EventSet("Barrier: OrganizationTeams Verified", function(ev) {
         return ev.name.includes("Verify OrganizationTeams") && ev.name.includes(e.data.id);
     }) });
-    let pId = e.data.org || e.data.id;
-    orgDelete(pId);
+    let pId = e.data.username || e.data.id;
+    deleteOrganizations(pId);
     let childId = e.data.id || e.data.id;
     orgListTeams(childId);
   }
@@ -3126,7 +2703,7 @@ bthread("hyper:evil:copy3:OrphanMaker_Issues_Repositories", function() {
         return ev.name.includes("Verify Issues") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3139,7 +2716,20 @@ bthread("hyper:evil:copy3:OrphanMaker_Repository_Repositories", function() {
         return ev.name.includes("Verify Repository") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Variables_Repositories", function() {
+  while(true) {
+    let e = waitFor(matchAnyVariablesAdded());
+    // Barrier: Ensure main test verifies Variables before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Variables Verified", function(ev) {
+        return ev.name.includes("Verify Variables") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3152,7 +2742,7 @@ bthread("hyper:evil:copy3:OrphanMaker_Branches_Repositories", function() {
         return ev.name.includes("Verify Branches") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3165,7 +2755,20 @@ bthread("hyper:evil:copy3:OrphanMaker_Collaborators_Repositories", function() {
         return ev.name.includes("Verify Collaborators") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_Repositories_Users", function() {
+  while(true) {
+    let e = waitFor(matchAnyRepositoriesAdded());
+    // Barrier: Ensure main test verifies Repositories before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: Repositories Verified", function(ev) {
+        return ev.name.includes("Verify Repositories") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.username || e.data.id;
+    adminDeleteUser(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3178,7 +2781,7 @@ bthread("hyper:evil:copy3:OrphanMaker_Forks_Repositories", function() {
         return ev.name.includes("Verify Forks") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     listForks(childId);
   }
@@ -3191,126 +2794,9 @@ bthread("hyper:evil:copy3:OrphanMaker_Issue_Repositories", function() {
         return ev.name.includes("Verify Issue") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueCommentAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueCommentAttachments_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueCommentReactions_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentReactionsAdded());
-    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    issueGetCommentReactions(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueCommentReactions_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentReactionsAdded());
-    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
-        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.owner || e.data.id;
-    issueGetCommentReactions(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueAttachments_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueAttachmentsAdded());
-    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
-        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueBlocks_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueBlocksAdded());
-    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
-        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    issueListBlocks(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueBlocks_Issues", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueBlocksAdded());
-    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
-        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    issueDeleteTime(pId);
-    let childId = e.data.owner || e.data.id;
-    issueListBlocks(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueComments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueCommentsAdded());
-    // Barrier: Ensure main test verifies IssueComments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueComments Verified", function(ev) {
-        return ev.name.includes("Verify IssueComments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
+    issueGetMilestonesList(childId);
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_IssueComments_Issues", function() {
@@ -3326,43 +2812,69 @@ bthread("hyper:evil:copy3:OrphanMaker_IssueComments_Issues", function() {
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_IssueSubscriptions_Repositories", function() {
+bthread("hyper:evil:copy3:OrphanMaker_IssueCommentAttachments_IssueComments", function() {
   while(true) {
-    let e = waitFor(matchAnyIssueSubscriptionsAdded());
-    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
-        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyIssueCommentAttachmentsAdded());
+    // Barrier: Ensure main test verifies IssueCommentAttachments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentAttachments Verified", function(ev) {
+        return ev.name.includes("Verify IssueCommentAttachments") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    issueDeleteCommentDeprecated(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_IssueSubscriptions_Users", function() {
+bthread("hyper:evil:copy3:OrphanMaker_IssueCommentReactions_IssueComments", function() {
   while(true) {
-    let e = waitFor(matchAnyIssueSubscriptionsAdded());
-    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
-        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_IssueTimes_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyIssueTimesAdded());
-    // Barrier: Ensure main test verifies IssueTimes before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: IssueTimes Verified", function(ev) {
-        return ev.name.includes("Verify IssueTimes") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyIssueCommentReactionsAdded());
+    // Barrier: Ensure main test verifies IssueCommentReactions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueCommentReactions Verified", function(ev) {
+        return ev.name.includes("Verify IssueCommentReactions") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    issueDeleteCommentDeprecated(pId);
     let childId = e.data.owner || e.data.id;
-    issueTrackedTimes(childId);
+    issueGetCommentReactions(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_IssueAttachments_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueAttachmentsAdded());
+    // Barrier: Ensure main test verifies IssueAttachments before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueAttachments Verified", function(ev) {
+        return ev.name.includes("Verify IssueAttachments") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_IssueBlocks_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueBlocksAdded());
+    // Barrier: Ensure main test verifies IssueBlocks before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueBlocks Verified", function(ev) {
+        return ev.name.includes("Verify IssueBlocks") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.owner || e.data.id;
+    issueListBlocks(childId);
+  }
+});
+bthread("hyper:evil:copy3:OrphanMaker_IssueSubscriptions_Issues", function() {
+  while(true) {
+    let e = waitFor(matchAnyIssueSubscriptionsAdded());
+    // Barrier: Ensure main test verifies IssueSubscriptions before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: IssueSubscriptions Verified", function(ev) {
+        return ev.name.includes("Verify IssueSubscriptions") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    issueDeleteTime(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_IssueTimes_Issues", function() {
@@ -3378,6 +2890,19 @@ bthread("hyper:evil:copy3:OrphanMaker_IssueTimes_Issues", function() {
     issueTrackedTimes(childId);
   }
 });
+bthread("hyper:evil:copy3:OrphanMaker_RepositoryKeys_Repositories", function() {
+  while(true) {
+    let e = waitFor(matchAnyRepositoryKeysAdded());
+    // Barrier: Ensure main test verifies RepositoryKeys before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: RepositoryKeys Verified", function(ev) {
+        return ev.name.includes("Verify RepositoryKeys") && ev.name.includes(e.data.id);
+    }) });
+    let pId = e.data.id || e.data.id;
+    repoDeleteFile(pId);
+    let childId = e.data.id || e.data.id;
+    repoGetByID(childId);
+  }
+});
 bthread("hyper:evil:copy3:OrphanMaker_MirrorSync_Repositories", function() {
   while(true) {
     let e = waitFor(matchAnyMirrorSyncAdded());
@@ -3386,7 +2911,7 @@ bthread("hyper:evil:copy3:OrphanMaker_MirrorSync_Repositories", function() {
         return ev.name.includes("Verify MirrorSync") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     getMirrorSync(childId);
   }
@@ -3399,22 +2924,9 @@ bthread("hyper:evil:copy3:OrphanMaker_PullRequests_Repositories", function() {
         return ev.name.includes("Verify PullRequests") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_PullReviewRequests_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewRequestsAdded());
-    // Barrier: Ensure main test verifies PullReviewRequests before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewRequests Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewRequests") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.owner || e.data.id;
-    getPullReviewRequests(childId);
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_PullReviewRequests_PullRequests", function() {
@@ -3430,19 +2942,6 @@ bthread("hyper:evil:copy3:OrphanMaker_PullReviewRequests_PullRequests", function
     getPullReviewRequests(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_PullReviews_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewsAdded());
-    // Barrier: Ensure main test verifies PullReviews before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviews Verified", function(ev) {
-        return ev.name.includes("Verify PullReviews") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
 bthread("hyper:evil:copy3:OrphanMaker_PullReviews_PullRequests", function() {
   while(true) {
     let e = waitFor(matchAnyPullReviewsAdded());
@@ -3456,19 +2955,6 @@ bthread("hyper:evil:copy3:OrphanMaker_PullReviews_PullRequests", function() {
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_PullReviewDismissals_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewDismissalsAdded());
-    // Barrier: Ensure main test verifies PullReviewDismissals before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewDismissals Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewDismissals") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    getPullReviewDismissals(childId);
-  }
-});
 bthread("hyper:evil:copy3:OrphanMaker_PullReviewDismissals_PullReviews", function() {
   while(true) {
     let e = waitFor(matchAnyPullReviewDismissalsAdded());
@@ -3480,19 +2966,6 @@ bthread("hyper:evil:copy3:OrphanMaker_PullReviewDismissals_PullReviews", functio
     repoDeletePullReview(pId);
     let childId = e.data.id || e.data.id;
     getPullReviewDismissals(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_PullReviewUndismissals_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyPullReviewUndismissalsAdded());
-    // Barrier: Ensure main test verifies PullReviewUndismissals before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: PullReviewUndismissals Verified", function(ev) {
-        return ev.name.includes("Verify PullReviewUndismissals") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    getPullReviewUndismissals(childId);
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_PullReviewUndismissals_PullReviews", function() {
@@ -3516,7 +2989,7 @@ bthread("hyper:evil:copy3:OrphanMaker_PushMirrors_Repositories", function() {
         return ev.name.includes("Verify PushMirrors") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3529,20 +3002,7 @@ bthread("hyper:evil:copy3:OrphanMaker_Releases_Repositories", function() {
         return ev.name.includes("Verify Releases") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
-    let childId = e.data.id || e.data.id;
-    repoGetByID(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_ReleaseAttachments_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyReleaseAttachmentsAdded());
-    // Barrier: Ensure main test verifies ReleaseAttachments before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: ReleaseAttachments Verified", function(ev) {
-        return ev.name.includes("Verify ReleaseAttachments") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3568,7 +3028,7 @@ bthread("hyper:evil:copy3:OrphanMaker_TagProtections_Repositories", function() {
         return ev.name.includes("Verify TagProtections") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3581,7 +3041,7 @@ bthread("hyper:evil:copy3:OrphanMaker_Tags_Repositories", function() {
         return ev.name.includes("Verify Tags") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
@@ -3594,7 +3054,7 @@ bthread("hyper:evil:copy3:OrphanMaker_Topics_Repositories", function() {
         return ev.name.includes("Verify Topics") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.owner || e.data.id;
     topicSearch(childId);
   }
@@ -3607,38 +3067,25 @@ bthread("hyper:evil:copy3:OrphanMaker_RepositoryTransfer_Repositories", function
         return ev.name.includes("Verify RepositoryTransfer") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     getRepositoryTransfer(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_RepositoryTransfer_Users", function() {
+bthread("hyper:evil:copy3:OrphanMaker_WikiPage_Repositories", function() {
   while(true) {
-    let e = waitFor(matchAnyRepositoryTransferAdded());
-    // Barrier: Ensure main test verifies RepositoryTransfer before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: RepositoryTransfer Verified", function(ev) {
-        return ev.name.includes("Verify RepositoryTransfer") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getRepositoryTransfer(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_WikiPages_Repositories", function() {
-  while(true) {
-    let e = waitFor(matchAnyWikiPagesAdded());
-    // Barrier: Ensure main test verifies WikiPages before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: WikiPages Verified", function(ev) {
-        return ev.name.includes("Verify WikiPages") && ev.name.includes(e.data.id);
+    let e = waitFor(matchAnyWikiPageAdded());
+    // Barrier: Ensure main test verifies WikiPage before sabotaging parent
+    bp.sync({ waitFor: bp.EventSet("Barrier: WikiPage Verified", function(ev) {
+        return ev.name.includes("Verify WikiPage") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     repoGetByID(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_TeamMembers_OrganizationTeams", function() {
+bthread("hyper:evil:copy3:OrphanMaker_TeamMembers_Teams", function() {
   while(true) {
     let e = waitFor(matchAnyTeamMembersAdded());
     // Barrier: Ensure main test verifies TeamMembers before sabotaging parent
@@ -3646,12 +3093,12 @@ bthread("hyper:evil:copy3:OrphanMaker_TeamMembers_OrganizationTeams", function()
         return ev.name.includes("Verify TeamMembers") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationTeams(pId);
+    orgDeleteTeam(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_TeamRepos_OrganizationTeams", function() {
+bthread("hyper:evil:copy3:OrphanMaker_TeamRepos_Teams", function() {
   while(true) {
     let e = waitFor(matchAnyTeamReposAdded());
     // Barrier: Ensure main test verifies TeamRepos before sabotaging parent
@@ -3659,12 +3106,12 @@ bthread("hyper:evil:copy3:OrphanMaker_TeamRepos_OrganizationTeams", function() {
         return ev.name.includes("Verify TeamRepos") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationTeams(pId);
+    orgDeleteTeam(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
 });
-bthread("hyper:evil:copy3:OrphanMaker_TeamRepos_OrganizationRepos", function() {
+bthread("hyper:evil:copy3:OrphanMaker_TeamRepos_Repositories", function() {
   while(true) {
     let e = waitFor(matchAnyTeamReposAdded());
     // Barrier: Ensure main test verifies TeamRepos before sabotaging parent
@@ -3672,7 +3119,7 @@ bthread("hyper:evil:copy3:OrphanMaker_TeamRepos_OrganizationRepos", function() {
         return ev.name.includes("Verify TeamRepos") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    deleteOrganizationRepos(pId);
+    repoDeleteFile(pId);
     let childId = e.data.id || e.data.id;
     orgGetTeam(childId);
   }
@@ -3685,74 +3132,9 @@ bthread("hyper:evil:copy3:OrphanMaker_UserVariables_Users", function() {
         return ev.name.includes("Verify UserVariables") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.variablename || e.data.id;
     getUserVariable(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_OAuth2Applications_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyOAuth2ApplicationsAdded());
-    // Barrier: Ensure main test verifies OAuth2Applications before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: OAuth2Applications Verified", function(ev) {
-        return ev.name.includes("Verify OAuth2Applications") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userGetOAuth2Application(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_UserAvatar_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserAvatarAdded());
-    // Barrier: Ensure main test verifies UserAvatar before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserAvatar Verified", function(ev) {
-        return ev.name.includes("Verify UserAvatar") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    getUserAvatar(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_UserEmails_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyUserEmailsAdded());
-    // Barrier: Ensure main test verifies UserEmails before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: UserEmails Verified", function(ev) {
-        return ev.name.includes("Verify UserEmails") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userListEmails(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_GPGKeys_Users", function() {
-  while(true) {
-    let e = waitFor(matchAnyGPGKeysAdded());
-    // Barrier: Ensure main test verifies GPGKeys before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: GPGKeys Verified", function(ev) {
-        return ev.name.includes("Verify GPGKeys") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
-    let childId = e.data.id || e.data.id;
-    userCurrentGetGPGKey(childId);
-  }
-});
-bthread("hyper:evil:copy3:OrphanMaker_GPGKeyVerification_GPGKeys", function() {
-  while(true) {
-    let e = waitFor(matchAnyGPGKeyVerificationAdded());
-    // Barrier: Ensure main test verifies GPGKeyVerification before sabotaging parent
-    bp.sync({ waitFor: bp.EventSet("Barrier: GPGKeyVerification Verified", function(ev) {
-        return ev.name.includes("Verify GPGKeyVerification") && ev.name.includes(e.data.id);
-    }) });
-    let pId = e.data.id || e.data.id;
-    userCurrentDeleteGPGKey(pId);
-    let childId = e.data.id || e.data.id;
-    getGPGKeyVerification(childId);
   }
 });
 bthread("hyper:evil:copy3:OrphanMaker_UserStarred_Users", function() {
@@ -3763,7 +3145,7 @@ bthread("hyper:evil:copy3:OrphanMaker_UserStarred_Users", function() {
         return ev.name.includes("Verify UserStarred") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.username || e.data.id;
-    userDeleteAccessToken(pId);
+    adminDeleteUser(pId);
     let childId = e.data.owner || e.data.id;
     userCurrentCheckStarring(childId);
   }
@@ -3776,7 +3158,7 @@ bthread("hyper:evil:copy3:OrphanMaker_UserStarred_Repositories", function() {
         return ev.name.includes("Verify UserStarred") && ev.name.includes(e.data.id);
     }) });
     let pId = e.data.id || e.data.id;
-    userCurrentDeleteSubscription(pId);
+    repoDeleteFile(pId);
     let childId = e.data.owner || e.data.id;
     userCurrentCheckStarring(childId);
   }

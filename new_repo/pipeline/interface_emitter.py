@@ -39,35 +39,23 @@ def _get_js_header(spec, raw_spec, sut_name):
         
 # Add this to interface_emitter.py
 def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
-    """
-    FIXED: Resolves NameError by providing the missing generation logic.
-    Generates the JS function used to verify that malformed requests are rejected.
-    """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
-
     lines, path_params = [], set()
     safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
     js_url = f'"{safe_path}"'
-    
     for p in sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl:
             path_params.add(p)
             js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
     js_url = js_url.replace(' + ""', '')
-
     b_lines = [f'    "{p}": {sanitize_param(p)}' for p in sig_params if p not in path_params]
     object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
-    body_js = f"[{object_body}]" if op_data.get("is_array", False) else object_body
-
     lines.append(f'function {sanitize_param(fn_name)}({", ".join([sanitize_param(p) for p in sig_params])}) {{')
-    lines.append(f'  var url = {js_url};')
-    lines.append(f'  var reqDescription = "Negative Test: Verify Rejection for " + url;')
-    lines.append(f'  var body = {body_js};')
-    lines.append(f'  bp.log.info("REQ POST (Negative) " + url + " Body: " + JSON.stringify(body));')
-    lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: {{ description: reqDescription }} }});')
-    lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: " + reqDescription) }});')
+    lines.append(f'  var url = {js_url}; var body = {object_body};')
+    lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: {{ description: "Verify rejection" }} }});')
+    lines.append(f'  bp.sync({{ request: bp.Event("Done: Negative: " + url) }});')
     lines.append('}')
     return lines
 
@@ -83,24 +71,17 @@ from new_repo.pipeline.emitter_utils import get_operation_signature_params
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
     """
-    ULTIMATE VERSION: Standardizes signature logic and forces scope-safe canonical 'id'.
-    Fixes ReferenceError and prevents 'undefined/null' corruption in URL paths.
+    STRICT FIDELITY ACTUATOR: Extracts every 2xx code and ensures scope-safe payloads.
     """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
 
     lines, method = [], (method_override or op_data.get("method", "GET")).upper()
     desc_tmpl = desc_override or op_data.get("descriptionTemplate", f"{method} {fn_name}")
-    
-    # Safe string escaping to prevent Python f-string syntax errors
     def js_esc(s): return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
     js_url, js_desc = f'"{js_esc(path_tmpl)}"', f'"{js_esc(desc_tmpl)}"'
 
-    # CALL CENTRALIZED UTILITY: Source of Truth for signatures
-    final_sig_params = get_operation_signature_params(
-        method, path_tmpl, sig_params, op_data.get("queryParams", [])
-    )
-
+    final_sig_params = get_operation_signature_params(method, path_tmpl, sig_params, op_data.get("queryParams", []))
     for p in final_sig_params:
         safe_p = sanitize_param(p)
         if f'{{{p}}}' in path_tmpl: js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
@@ -110,6 +91,20 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in op_data.get("queryParams", [])]
     query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
 
+    # SUCCESS CODE FIDELITY: Captured from raw OpenAPI spec
+    codes_list = codes_override or [c for c in get_response_codes(path_tmpl, method, spec) if c < 400]
+    if not codes_list:
+        codes_list = [200, 201, 202, 204] # Safe fallback for undocumented specs
+
+    codes_str, sig_args_str = json.dumps(sorted(list(set(codes_list)))), ", ".join([sanitize_param(p) for p in final_sig_params] + ["config"])
+    
+    lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
+    lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
+    lines.append('  reqDescription = reqDescription.replace(/\\{[^\\}]+\\}/g, "context");')
+    
+    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
+    lines.append(f'  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : {codes_str};')
+    
     if method in ["POST", "PUT", "PATCH"]:
         b_lines, body_fields = [], op_data.get("bodyTemplate", {}).keys()
         for p in final_sig_params:
@@ -118,29 +113,11 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
              if json_key in body_fields or p == primary_key: b_lines.append(f'    "{json_key}": {sanitize_param(p)}') 
         object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
         body_js = f"[{object_body}]" if (op_data.get("is_array", False) or "WithList" in fn_name) else object_body
-    else: body_js = "{}"
-
-    codes_list = codes_override or [c for c in get_response_codes(path_tmpl, method, spec) if c < 400]
-    if not codes_list: codes_list.append(201 if method == "POST" else 200)
-    if method == "DELETE" and 204 not in codes_list: codes_list.append(204)
-    codes_str, sig_args_str = json.dumps(sorted(list(set(codes_list)))), ", ".join([sanitize_param(p) for p in final_sig_params] + ["config"])
-    
-    lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
-    lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
-    
-    # PLACEHOLDER SWEEPER: Neutralize unreplaced {vars} to prevent SUT 500 errors
-    lines.append('  reqDescription = reqDescription.replace(/\\{[^\\}]+\\}/g, "context");')
-    
-    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
-    lines.append(f'  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : {codes_str};')
-    
-    if method in ["POST", "PUT", "PATCH"]:
         lines.append(f'  var body = {body_js}; bp.log.info("REQ {method} " + url + " Body: " + JSON.stringify(body));')
         lines.append(f'  let response = svc.{method.lower()}(url, {{ body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: {{ description: reqDescription }}{qp_arg} }});')
     else:
         lines.append(f'  let response = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: finalCodes{qp_arg} }});')
 
-    # SCOPE-SAFE PAYLOAD construction logic
     payload_parts = [f'"{p}": {sanitize_param(p)}' for p in final_sig_params]
     if primary_key in final_sig_params and primary_key != "id":
         payload_parts.append(f'"id": {sanitize_param(primary_key)}')
@@ -276,7 +253,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
         safe_pk = sanitize_param(primary_key)
         
         if has_specific_get:
-            # OPTION A: Resource has a direct GET endpoint
+            # OPTION A: Resource has a direct GET endpoint (High Fidelity)
             path_tmpl = item_get_op.get("path", "")
             safe_path = path_tmpl.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
             js_item_url = f'"{safe_path}"'.replace(f'{{{primary_key}}}', f'" + {safe_pk} + "').replace(' + ""', '')
@@ -333,11 +310,11 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append('')
 
         else:
-            # FIXED: THE SAFETY NET BRIDGE (OPTION C)
+            # OPTION C: THE SAFETY NET BRIDGE
             # This handles Actions like Markdown/Markup and Asymmetric Resources.
-            # Prevents "verify...Exists is not defined" ReferenceError in stories.js.
+            # Prevents "ReferenceError" crashes when stories call verification functions.
             lines.append(f'function verify{safe_entity_name}Exists({safe_pk}) {{')
-            lines.append(f'  bp.log.warn("Verification skipped: {name} is an Action or asymmetric resource without a GET endpoint.");')
+            lines.append(f'  bp.log.warn("Verification skipped: {name} is an Action or asymmetric resource without a documented GET endpoint.");')
             lines.append('}')
             lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{')
             lines.append(f'  bp.log.warn("Absence check skipped: {name} has no GET endpoint.");')
