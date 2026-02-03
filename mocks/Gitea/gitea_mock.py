@@ -3,106 +3,957 @@ from collections import defaultdict
 import random
 import re
 
-# Auto-generated Mock for Gitea API
 app = Flask(__name__)
 mock_db = defaultdict(list)
 
-PATH_STATUS_CODES = {
-    "activitypub/user-id/{user-id}/inbox": 204,
-    "admin/cron/{task}": 204,
-    "admin/hooks": 201,
-    "admin/unadopted/{owner}/{repo}": 204,
-    "admin/users": 201,
-    "admin/users/{username}/badges": 204,
-    "admin/users/{username}/keys": 201,
-    "admin/users/{username}/orgs": 201,
-    "admin/users/{username}/rename": 204,
-    "admin/users/{username}/repos": 201,
-    "markdown": 200,
-    "markdown/raw": 200,
-    "markup": 200,
-    "org/{org}/repos": 201,
-    "orgs": 201,
-    "orgs/{org}/actions/variables/{variablename}": 201,
-    "orgs/{org}/avatar": 204,
-    "orgs/{org}/hooks": 201,
-    "orgs/{org}/labels": 201,
-    "orgs/{org}/repos": 201,
-    "orgs/{org}/teams": 201,
-    "repos/migrate": 201,
-    "repos/{owner}/{repo}/actions/variables/{variablename}": 201,
-    "repos/{owner}/{repo}/avatar": 204,
-    "repos/{owner}/{repo}/branch_protections": 201,
-    "repos/{owner}/{repo}/branch_protections/priority": 204,
-    "repos/{owner}/{repo}/branches": 201,
-    "repos/{owner}/{repo}/contents": 201,
-    "repos/{owner}/{repo}/contents/{filepath}": 201,
-    "repos/{owner}/{repo}/diffpatch": 200,
-    "repos/{owner}/{repo}/forks": 202,
-    "repos/{owner}/{repo}/hooks": 201,
-    "repos/{owner}/{repo}/hooks/{id}/tests": 204,
-    "repos/{owner}/{repo}/issues": 201,
-    "repos/{owner}/{repo}/issues/comments/{id}/assets": 201,
-    "repos/{owner}/{repo}/issues/comments/{id}/reactions": 201,
-    "repos/{owner}/{repo}/issues/{index}/assets": 201,
-    "repos/{owner}/{repo}/issues/{index}/blocks": 201,
-    "repos/{owner}/{repo}/issues/{index}/comments": 201,
-    "repos/{owner}/{repo}/issues/{index}/deadline": 201,
-    "repos/{owner}/{repo}/issues/{index}/dependencies": 201,
-    "repos/{owner}/{repo}/issues/{index}/labels": 200,
-    "repos/{owner}/{repo}/issues/{index}/pin": 204,
-    "repos/{owner}/{repo}/issues/{index}/reactions": 201,
-    "repos/{owner}/{repo}/issues/{index}/stopwatch/start": 201,
-    "repos/{owner}/{repo}/issues/{index}/stopwatch/stop": 201,
-    "repos/{owner}/{repo}/issues/{index}/times": 200,
-    "repos/{owner}/{repo}/keys": 201,
-    "repos/{owner}/{repo}/labels": 201,
-    "repos/{owner}/{repo}/merge-upstream": 200,
-    "repos/{owner}/{repo}/milestones": 201,
-    "repos/{owner}/{repo}/mirror-sync": 200,
-    "repos/{owner}/{repo}/pulls": 201,
-    "repos/{owner}/{repo}/pulls/{index}/merge": 200,
-    "repos/{owner}/{repo}/pulls/{index}/requested_reviewers": 201,
-    "repos/{owner}/{repo}/pulls/{index}/reviews": 200,
-    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}": 200,
-    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals": 200,
-    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals": 200,
-    "repos/{owner}/{repo}/pulls/{index}/update": 200,
-    "repos/{owner}/{repo}/push_mirrors": 200,
-    "repos/{owner}/{repo}/push_mirrors-sync": 200,
-    "repos/{owner}/{repo}/releases": 201,
-    "repos/{owner}/{repo}/releases/{id}/assets": 201,
-    "repos/{owner}/{repo}/statuses/{sha}": 201,
-    "repos/{owner}/{repo}/tag_protections": 201,
-    "repos/{owner}/{repo}/tags": 200,
-    "repos/{owner}/{repo}/transfer": 202,
-    "repos/{owner}/{repo}/transfer/accept": 202,
-    "repos/{owner}/{repo}/transfer/reject": 200,
-    "repos/{owner}/{repo}/wiki/new": 201,
-    "repos/{template_owner}/{template_repo}/generate": 201,
-    "user/actions/variables/{variablename}": 201,
-    "user/applications/oauth2": 201,
-    "user/avatar": 204,
-    "user/emails": 201,
-    "user/gpg_key_verify": 201,
-    "user/gpg_keys": 201,
-    "user/hooks": 201,
-    "user/keys": 201,
-    "user/repos": 201,
-    "users/{username}/tokens": 201
+SPEC_CODES = {
+    "activitypub/user-id/{user-id}": {
+        "GET": 200
+    },
+    "activitypub/user-id/{user-id}/inbox": {
+        "POST": 204
+    },
+    "admin/cron": {
+        "GET": 200
+    },
+    "admin/cron/{task}": {
+        "POST": 204
+    },
+    "admin/emails": {
+        "GET": 200
+    },
+    "admin/emails/search": {
+        "GET": 200
+    },
+    "admin/hooks": {
+        "GET": 200,
+        "POST": 201
+    },
+    "admin/hooks/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "admin/orgs": {
+        "GET": 200
+    },
+    "admin/runners/registration-token": {
+        "GET": 200
+    },
+    "admin/unadopted": {
+        "GET": 200
+    },
+    "admin/unadopted/{owner}/{repo}": {
+        "POST": 204,
+        "DELETE": 204
+    },
+    "admin/users": {
+        "GET": 200,
+        "POST": 201
+    },
+    "admin/users/{username}": {
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "admin/users/{username}/badges": {
+        "GET": 200,
+        "POST": 204,
+        "DELETE": 204
+    },
+    "admin/users/{username}/keys": {
+        "POST": 201
+    },
+    "admin/users/{username}/keys/{id}": {
+        "DELETE": 204
+    },
+    "admin/users/{username}/orgs": {
+        "POST": 201
+    },
+    "admin/users/{username}/rename": {
+        "POST": 204
+    },
+    "admin/users/{username}/repos": {
+        "POST": 201
+    },
+    "gitignore/templates": {
+        "GET": 200
+    },
+    "gitignore/templates/{name}": {
+        "GET": 200
+    },
+    "label/templates": {
+        "GET": 200
+    },
+    "label/templates/{name}": {
+        "GET": 200
+    },
+    "licenses": {
+        "GET": 200
+    },
+    "licenses/{name}": {
+        "GET": 200
+    },
+    "markdown": {
+        "POST": 200
+    },
+    "markdown/raw": {
+        "POST": 200
+    },
+    "markup": {
+        "POST": 200
+    },
+    "nodeinfo": {
+        "GET": 200
+    },
+    "notifications": {
+        "GET": 200,
+        "PUT": 200
+    },
+    "notifications/new": {
+        "GET": 200
+    },
+    "notifications/threads/{id}": {
+        "GET": 200,
+        "PATCH": 200
+    },
+    "org/{org}/repos": {
+        "POST": 201
+    },
+    "orgs": {
+        "GET": 200,
+        "POST": 201
+    },
+    "orgs/{org}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "orgs/{org}/actions/runners/registration-token": {
+        "GET": 200
+    },
+    "orgs/{org}/actions/secrets": {
+        "GET": 200
+    },
+    "orgs/{org}/actions/secrets/{secretname}": {
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "orgs/{org}/actions/variables": {
+        "GET": 200
+    },
+    "orgs/{org}/actions/variables/{variablename}": {
+        "GET": 200,
+        "PUT": 204,
+        "POST": 204,
+        "DELETE": 204
+    },
+    "orgs/{org}/activities/feeds": {
+        "GET": 200
+    },
+    "orgs/{org}/avatar": {
+        "POST": 204,
+        "DELETE": 204
+    },
+    "orgs/{org}/blocks": {
+        "GET": 200
+    },
+    "orgs/{org}/blocks/{username}": {
+        "GET": 204,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "orgs/{org}/hooks": {
+        "GET": 200,
+        "POST": 201
+    },
+    "orgs/{org}/hooks/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "orgs/{org}/labels": {
+        "GET": 200,
+        "POST": 201
+    },
+    "orgs/{org}/labels/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "orgs/{org}/members": {
+        "GET": 200
+    },
+    "orgs/{org}/members/{username}": {
+        "GET": 204,
+        "DELETE": 204
+    },
+    "orgs/{org}/public_members": {
+        "GET": 200
+    },
+    "orgs/{org}/public_members/{username}": {
+        "GET": 204,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "orgs/{org}/repos": {
+        "GET": 200,
+        "POST": 201
+    },
+    "orgs/{org}/teams": {
+        "GET": 200,
+        "POST": 201
+    },
+    "orgs/{org}/teams/search": {
+        "GET": 200
+    },
+    "packages/{owner}": {
+        "GET": 200
+    },
+    "packages/{owner}/{type}/{name}/{version}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "packages/{owner}/{type}/{name}/{version}/files": {
+        "GET": 200
+    },
+    "repos/issues/search": {
+        "GET": 200
+    },
+    "repos/migrate": {
+        "POST": 201
+    },
+    "repos/search": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/actions/runners/registration-token": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/actions/secrets": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/actions/secrets/{secretname}": {
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/actions/tasks": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/actions/variables": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/actions/variables/{variablename}": {
+        "GET": 200,
+        "PUT": 204,
+        "POST": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/activities/feeds": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/archive/{archive}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/assignees": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/avatar": {
+        "POST": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/branch_protections": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/branch_protections/priority": {
+        "POST": 204
+    },
+    "repos/{owner}/{repo}/branch_protections/{name}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/branches": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/branches/{branch}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 204
+    },
+    "repos/{owner}/{repo}/collaborators": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/collaborators/{collaborator}": {
+        "GET": 204,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/collaborators/{collaborator}/permission": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/commits": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/commits/{ref}/status": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/commits/{ref}/statuses": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/commits/{sha}/pull": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/compare/{basehead}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/contents": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/contents/{filepath}": {
+        "GET": 200,
+        "PUT": 200,
+        "POST": 201,
+        "DELETE": 200
+    },
+    "repos/{owner}/{repo}/diffpatch": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/editorconfig/{filepath}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/forks": {
+        "GET": 200,
+        "POST": 202
+    },
+    "repos/{owner}/{repo}/git/blobs/{sha}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/commits/{sha}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/commits/{sha}.{diffType}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/notes/{sha}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/refs": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/refs/{ref}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/tags/{sha}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/git/trees/{sha}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/hooks": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/hooks/git": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/hooks/git/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/hooks/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/hooks/{id}/tests": {
+        "POST": 204
+    },
+    "repos/{owner}/{repo}/issue_config": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issue_config/validate": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issue_templates": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issues": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/comments": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issues/comments/{id}": {
+        "GET": 204,
+        "DELETE": 204,
+        "PATCH": 204
+    },
+    "repos/{owner}/{repo}/issues/comments/{id}/assets": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 201
+    },
+    "repos/{owner}/{repo}/issues/comments/{id}/reactions": {
+        "GET": 200,
+        "POST": 201,
+        "DELETE": 200
+    },
+    "repos/{owner}/{repo}/issues/pinned": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/assets": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/blocks": {
+        "GET": 200,
+        "POST": 201,
+        "DELETE": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}/comments": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/comments/{id}": {
+        "DELETE": 204,
+        "PATCH": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/deadline": {
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/dependencies": {
+        "GET": 200,
+        "POST": 201,
+        "DELETE": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}/labels": {
+        "GET": 200,
+        "PUT": 200,
+        "POST": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/labels/{id}": {
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/pin": {
+        "POST": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/pin/{position}": {
+        "PATCH": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/reactions": {
+        "GET": 200,
+        "POST": 201,
+        "DELETE": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}/stopwatch/delete": {
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/stopwatch/start": {
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/stopwatch/stop": {
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/subscriptions": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}/subscriptions/check": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}/subscriptions/{user}": {
+        "PUT": 201,
+        "DELETE": 201
+    },
+    "repos/{owner}/{repo}/issues/{index}/timeline": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/issues/{index}/times": {
+        "GET": 200,
+        "POST": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/issues/{index}/times/{id}": {
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/keys": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/keys/{id}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/labels": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/labels/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/languages": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/licenses": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/media/{filepath}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/merge-upstream": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/milestones": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/milestones/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/mirror-sync": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/new_pin_allowed": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/notifications": {
+        "GET": 200,
+        "PUT": 200
+    },
+    "repos/{owner}/{repo}/pulls": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/pulls/pinned": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/pulls/{base}/{head}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}": {
+        "GET": 200,
+        "PATCH": 201
+    },
+    "repos/{owner}/{repo}/pulls/{index}.{diffType}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/commits": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/files": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/merge": {
+        "GET": 204,
+        "POST": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/pulls/{index}/requested_reviewers": {
+        "POST": 201,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/pulls/{index}/reviews": {
+        "GET": 200,
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}": {
+        "GET": 200,
+        "POST": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/comments": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/dismissals": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/reviews/{id}/undismissals": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/pulls/{index}/update": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/push_mirrors": {
+        "GET": 200,
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/push_mirrors-sync": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/push_mirrors/{name}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/raw/{filepath}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/releases": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/releases/latest": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/releases/tags/{tag}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/releases/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/releases/{id}/assets": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/releases/{id}/assets/{attachment_id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 201
+    },
+    "repos/{owner}/{repo}/reviewers": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/signing-key.gpg": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/stargazers": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/statuses/{sha}": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/subscribers": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/subscription": {
+        "GET": 200,
+        "PUT": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/tag_protections": {
+        "GET": 200,
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/tag_protections/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/tags": {
+        "GET": 200,
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/tags/{tag}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/teams": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/teams/{team}": {
+        "GET": 200,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/times": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/times/{user}": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/topics": {
+        "GET": 200,
+        "PUT": 204
+    },
+    "repos/{owner}/{repo}/topics/{topic}": {
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "repos/{owner}/{repo}/transfer": {
+        "POST": 202
+    },
+    "repos/{owner}/{repo}/transfer/accept": {
+        "POST": 202
+    },
+    "repos/{owner}/{repo}/transfer/reject": {
+        "POST": 200
+    },
+    "repos/{owner}/{repo}/wiki/new": {
+        "POST": 201
+    },
+    "repos/{owner}/{repo}/wiki/page/{pageName}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "repos/{owner}/{repo}/wiki/pages": {
+        "GET": 200
+    },
+    "repos/{owner}/{repo}/wiki/revisions/{pageName}": {
+        "GET": 200
+    },
+    "repos/{template_owner}/{template_repo}/generate": {
+        "POST": 201
+    },
+    "repositories/{id}": {
+        "GET": 200
+    },
+    "settings/api": {
+        "GET": 200
+    },
+    "settings/attachment": {
+        "GET": 200
+    },
+    "settings/repository": {
+        "GET": 200
+    },
+    "settings/ui": {
+        "GET": 200
+    },
+    "signing-key.gpg": {
+        "GET": 200
+    },
+    "teams/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "teams/{id}/activities/feeds": {
+        "GET": 200
+    },
+    "teams/{id}/members": {
+        "GET": 200
+    },
+    "teams/{id}/members/{username}": {
+        "GET": 200,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "teams/{id}/repos": {
+        "GET": 200
+    },
+    "teams/{id}/repos/{org}/{repo}": {
+        "GET": 200,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "topics/search": {
+        "GET": 200
+    },
+    "user": {
+        "GET": 200
+    },
+    "user/actions/runners/registration-token": {
+        "GET": 200
+    },
+    "user/actions/secrets/{secretname}": {
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "user/actions/variables": {
+        "GET": 200
+    },
+    "user/actions/variables/{variablename}": {
+        "GET": 200,
+        "PUT": 204,
+        "POST": 204,
+        "DELETE": 204
+    },
+    "user/applications/oauth2": {
+        "GET": 200,
+        "POST": 201
+    },
+    "user/applications/oauth2/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "user/avatar": {
+        "POST": 204,
+        "DELETE": 204
+    },
+    "user/blocks": {
+        "GET": 200
+    },
+    "user/blocks/{username}": {
+        "GET": 204,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "user/emails": {
+        "GET": 200,
+        "POST": 201,
+        "DELETE": 204
+    },
+    "user/followers": {
+        "GET": 200
+    },
+    "user/following": {
+        "GET": 200
+    },
+    "user/following/{username}": {
+        "GET": 204,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "user/gpg_key_token": {
+        "GET": 200
+    },
+    "user/gpg_key_verify": {
+        "POST": 201
+    },
+    "user/gpg_keys": {
+        "GET": 200,
+        "POST": 201
+    },
+    "user/gpg_keys/{id}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "user/hooks": {
+        "GET": 200,
+        "POST": 201
+    },
+    "user/hooks/{id}": {
+        "GET": 200,
+        "DELETE": 204,
+        "PATCH": 200
+    },
+    "user/keys": {
+        "GET": 200,
+        "POST": 201
+    },
+    "user/keys/{id}": {
+        "GET": 200,
+        "DELETE": 204
+    },
+    "user/orgs": {
+        "GET": 200
+    },
+    "user/repos": {
+        "GET": 200,
+        "POST": 201
+    },
+    "user/settings": {
+        "GET": 200,
+        "PATCH": 200
+    },
+    "user/starred": {
+        "GET": 200
+    },
+    "user/starred/{owner}/{repo}": {
+        "GET": 204,
+        "PUT": 204,
+        "DELETE": 204
+    },
+    "user/stopwatches": {
+        "GET": 200
+    },
+    "user/subscriptions": {
+        "GET": 200
+    },
+    "user/teams": {
+        "GET": 200
+    },
+    "user/times": {
+        "GET": 200
+    },
+    "users/search": {
+        "GET": 200
+    },
+    "users/{username}": {
+        "GET": 200
+    },
+    "users/{username}/activities/feeds": {
+        "GET": 200
+    },
+    "users/{username}/followers": {
+        "GET": 200
+    },
+    "users/{username}/following": {
+        "GET": 200
+    },
+    "users/{username}/following/{target}": {
+        "GET": 204
+    },
+    "users/{username}/gpg_keys": {
+        "GET": 200
+    },
+    "users/{username}/heatmap": {
+        "GET": 200
+    },
+    "users/{username}/keys": {
+        "GET": 200
+    },
+    "users/{username}/orgs": {
+        "GET": 200
+    },
+    "users/{username}/orgs/{org}/permissions": {
+        "GET": 200
+    },
+    "users/{username}/repos": {
+        "GET": 200
+    },
+    "users/{username}/starred": {
+        "GET": 200
+    },
+    "users/{username}/subscriptions": {
+        "GET": 200
+    },
+    "users/{username}/tokens": {
+        "GET": 200,
+        "POST": 201
+    },
+    "users/{username}/tokens/{token}": {
+        "DELETE": 204
+    },
+    "version": {
+        "GET": 200
+    }
 }
 
-def get_success_code(resource_path):
-    # Normalize path
-    if resource_path.startswith('api/v1/'): resource_path = resource_path[7:]
-    
-    if resource_path in PATH_STATUS_CODES: return PATH_STATUS_CODES[resource_path]
-    for path_pattern, code in PATH_STATUS_CODES.items():
-        if '{' in path_pattern:
-            regex = re.sub(r'\{[^}]+\}', '[^/]+', path_pattern)
-            regex = '^' + regex + '$'
-            if re.fullmatch(regex, resource_path): return code
-    return 201
+def get_success_code(path, method):
+    method = method.upper()
+    if path.startswith('api/v1/'): path = path[7:]
+    # Exact match check
+    if path in SPEC_CODES and method in SPEC_CODES[path]: return SPEC_CODES[path][method]
+    # Regex match check for paths with {id}
+    for pattern, methods in SPEC_CODES.items():
+        if '{' in pattern:
+            regex = '^' + re.sub(r'\{[^}]+\}', '[^/]+', pattern) + '$'
+            if re.fullmatch(regex, path) and method in methods: return methods[method]
+    return 204 if method == 'DELETE' else (201 if method == 'POST' else 200)
 
 def mock_retrieve(resource_key, item_id):
     for item in mock_db[resource_key]:
@@ -111,82 +962,53 @@ def mock_retrieve(resource_key, item_id):
 
 @app.route('/<path:resource_path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def handle_request(resource_path):
-    # Normalize Gitea API path
     clean_path = resource_path
     if clean_path.startswith('api/v1/'): clean_path = clean_path[7:]
-    
-    resource_key = clean_path
     parts = clean_path.split('/')
-    item_id = None
-    if len(parts) > 1:
-        last_part = parts[-1]
-        # Gitea IDs are integers, usernames are strings. Simple heuristic:
-        # If it looks like an ID (digit) or we are in a detail route context
-        item_id = last_part
-        resource_key = '/'.join(parts[:-1])
+    
+    if request.method == 'POST' or clean_path in SPEC_CODES:
+        resource_key, item_id = clean_path, None
+    elif len(parts) > 1:
+        resource_key, item_id = '/'.join(parts[:-1]), parts[-1]
+    else:
+        resource_key, item_id = clean_path, None
 
-    print(f'[{request.method}] Path: {resource_path} | Clean: {clean_path} | Key: {resource_key} | ID: {item_id}')
+    print(f'[{request.method}] Path: {clean_path} | Key: {resource_key} | ID: {item_id}')
+    success_code = get_success_code(clean_path, request.method)
 
     if request.method == 'GET':
-        # List vs Item logic
-        # A heuristic: if 'item_id' seems to be a variable part, try retrieve.
-        # If retrieve fails, it might be a list endpoint that just looks like a detail.
         item = mock_retrieve(resource_key, item_id)
         if item: return jsonify(item)
-        
-        # Fallback: Maybe it wasn't an ID, but a list resource
-        if resource_key in mock_db and len(mock_db[resource_key]) > 0:
-             # It was a list, return list
-             return jsonify(mock_db[resource_key])
-        
-        # Check if the full path is a list key
-        if clean_path in mock_db:
-             return jsonify(mock_db[clean_path])
-        
+        if resource_key in mock_db and item_id is None: return jsonify(mock_db[resource_key])
+        if clean_path in SPEC_CODES: return jsonify([])
         return jsonify({'message': 'Not Found'}), 404
 
     elif request.method == 'POST':
-        success_code = get_success_code(clean_path)
-        # Handle empty body (204) or specific logic
-        if 'admin/unadopted' in clean_path:
-             return '', 204
-
+        if 'admin/unadopted' in clean_path: return '', 204
         try: new_item = request.json or {}
         except: new_item = {}
-        
-        if 'id' not in new_item:
-            new_item['id'] = random.randint(1000, 9999)
-
-        # Upsert Logic for Tests
-        existing_idx = next((index for (index, d) in enumerate(mock_db[resource_key]) if str(d.get('id')) == str(new_item.get('id'))), None)
-        if existing_idx is not None:
-             mock_db[resource_key][existing_idx] = new_item
-             # Return 200 for updates to avoid conflicts, or the expected success code if safe
-             return jsonify(new_item), 200
-
+        if 'id' not in new_item: new_item['id'] = random.randint(1000, 9999)
         mock_db[resource_key].append(new_item)
-        print(f"DEBUG POST: Added to '{resource_key}'. Returning {success_code}")
-        if success_code == 204: return '', 204
         return jsonify(new_item), success_code
 
     elif request.method in ['PUT', 'PATCH']:
-        if item_id is None: return '', 405
         existing_item = mock_retrieve(resource_key, item_id)
+        try: payload = request.json or {}
+        except: payload = {}
         if existing_item:
-            try: existing_item.update(request.json or {})
-            except: pass
-            return jsonify(existing_item)
-        return jsonify({'message': 'Not Found'}), 404
+            existing_item.update(payload)
+            return jsonify(existing_item), success_code
+        # Idempotent creation for relationship PUTs
+        payload['id'] = item_id
+        mock_db[resource_key].append(payload)
+        return jsonify(payload), success_code
 
     elif request.method == 'DELETE':
         if item_id is not None:
-             initial_len = len(mock_db[resource_key])
-             mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
-             if len(mock_db[resource_key]) < initial_len:
-                 return '', 204
-             return jsonify({'message': 'Not Found'}), 404
+            mock_db[resource_key] = [i for i in mock_db[resource_key] if str(i.get('id')) != str(item_id)]
+            return '', success_code
         return '', 405
 
 if __name__ == '__main__':
-    print('🚀 Gitea Mock Server (RAM Only) running on http://127.0.0.1:8000')
+    print('🚀 Gitea Mock Server (Fidelity Fix) running on http://127.0.0.1:8000')
     app.run(debug=False, port=8000)

@@ -71,7 +71,7 @@ from new_repo.pipeline.emitter_utils import get_operation_signature_params
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
     """
-    STRICT FIDELITY ACTUATOR: Extracts every 2xx code and ensures scope-safe payloads.
+    ULTIMATE FIDELITY ACTUATOR: Fixes NameError, AttributeError, and Strict Entity Labeling.
     """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
@@ -88,25 +88,25 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
         js_desc = js_desc.replace(f'{{{p}}}', f'" + {safe_p} + "')
         
     js_url, js_desc = js_url.replace(' + ""', '').replace('"" + ', ''), js_desc.replace(' + ""', '').replace('"" + ', '')
+    
+    # FIX: Define qp_arg HERE so it's visible to both IF and ELSE blocks
     query_js_parts = [f'    "{p}": {sanitize_param(p)}' for p in final_sig_params if p in op_data.get("queryParams", [])]
     query_js = "{" + ", ".join(query_js_parts) + "}" if query_js_parts else "null"
+    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
 
-    # SUCCESS CODE FIDELITY: Captured from raw OpenAPI spec
     codes_list = codes_override or [c for c in get_response_codes(path_tmpl, method, spec) if c < 400]
-    if not codes_list:
-        codes_list = [200, 201, 202, 204] # Safe fallback for undocumented specs
-
+    if not codes_list: codes_list = [200, 201, 202, 204]
     codes_str, sig_args_str = json.dumps(sorted(list(set(codes_list)))), ", ".join([sanitize_param(p) for p in final_sig_params] + ["config"])
     
     lines.append(f'function {sanitize_param(fn_name)}({sig_args_str}) {{')
     lines.append(f'  var url = {js_url}; var reqDescription = {js_desc};')
     lines.append('  reqDescription = reqDescription.replace(/\\{[^\\}]+\\}/g, "context");')
-    
-    qp_arg = f', queryParameters: {query_js}' if query_js != "null" else ""
     lines.append(f'  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : {codes_str};')
     
     if method in ["POST", "PUT", "PATCH"]:
-        b_lines, body_fields = [], op_data.get("bodyTemplate", {}).keys()
+        # Fix: AttributeError 'NoneType' safety
+        body_template = op_data.get("bodyTemplate") or {}
+        b_lines, body_fields = [], body_template.keys()
         for p in final_sig_params:
              if p in re.findall(r'\{([^}]+)\}', path_tmpl) or p in op_data.get("queryParams", []): continue
              json_key = "id" if (p == primary_key and p not in body_fields and "id" in op_data.get("paramTypes", {})) else p
@@ -118,76 +118,52 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     else:
         lines.append(f'  let response = svc.{method.lower()}(url, {{ parameters: {{ description: reqDescription }}, expectedResponseCodes: finalCodes{qp_arg} }});')
 
+    # FIX: Use [Entity]: prefix for strict synchronization
+    entity_marker = sanitize_param(op_data.get("entity", "Unknown"))
+    pos_event = f'"Done: Positive: {entity_marker}: " + reqDescription'
+    
     payload_parts = [f'"{p}": {sanitize_param(p)}' for p in final_sig_params]
     if primary_key in final_sig_params and primary_key != "id":
         payload_parts.append(f'"id": {sanitize_param(primary_key)}')
     payload = "{" + ", ".join(list(set(payload_parts))) + "}"
     
     lines.extend(['  let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);',
-                  f'  if (code !== undefined) {{ if (code === 500) bp.log.info("SUT_500_ERROR for: " + reqDescription);',
-                  f'    if (finalCodes.includes(code)) {{ if (code >= 200 && code < 300) bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }});',
-                  f'      else bp.sync({{ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {{status: code}}) }}); }}',
-                  f'    else pvg.fail("Unexpected Response Code " + code + " for: " + reqDescription);',
-                  f'  }} else {{ bp.log.warn("Response status missing."); bp.sync({{ request: bp.Event("Done: Positive: " + reqDescription, {payload}) }}); }}',
+                  f'  if (code !== undefined) {{ if (code === 500) bp.log.info("SUT_500_ERROR for: \" + reqDescription);',
+                  f'    if (finalCodes.includes(code)) {{ if (code >= 200 && code < 300) bp.sync({{ request: bp.Event({pos_event}, {payload}) }});',
+                  f'      else bp.sync({{ request: bp.Event("Done: Negative: Expected Failure: \" + reqDescription, {{status: code}}) }}); }}',
+                  f'    else pvg.fail(\"Unexpected Response Code \" + code + \" for: \" + reqDescription);',
+                  f'  }} else {{ bp.log.warn(\"Response status missing.\"); bp.sync({{ request: bp.Event({pos_event}, {payload}) }}); }}',
                   '  return response;\n}'])
     return lines
 
-def _generate_js_matchers(name, ops, primary_key):
+def _generate_js_matchers(name, ops, pk):
     """
-    Standardized Matcher Generator:
-    Preserves casing to ensure compatibility with story-side calls.
+    STRICT BOUNDARY MATCHERS: Prevents cross-entity event leaking (e.g. Users vs UserVariables).
     """
+    safe_name = sanitize_param(name)
     lines = []
-    # ARCHITECTURAL RULE: Use the technical name directly to ensure character-perfect alignment.
-    # We remove .capitalize() which was lowercasing internal letters (e.g., TenantGroups -> Tenantgroups)
-    safe_entity_name = sanitize_param(name)
     
-    # 1. ADD MATCHER (Generic)
-    if "add" in ops:
-        desc_tmpl = f"Create a new {name}"
-        if isinstance(ops["add"], dict): 
-            desc_tmpl = ops["add"].get("descriptionTemplate", desc_tmpl)
-        
-        regex_start = f"Done: Positive: {desc_tmpl}".split("{")[0].strip().rstrip('"')
-        
-        lines.append(f'function matchAny{safe_entity_name}Added() {{')
-        lines.append(f'  return bp.EventSet("Any {name} Added", function(e) {{')
-        lines.append(f'      return e.name.startsWith("{regex_start}");')
-        lines.append('  });')
-        lines.append('}')
-        lines.append('')
+    # Strictly match the "EntityName: " prefix to prevent substring collisions
+    lines.append(f'function matchAny{safe_name}Added() {{')
+    lines.append(f'  return bp.EventSet("matchAny{safe_name}Added", function(e) {{')
+    lines.append(f'    return e.name.includes("Done: Positive: {safe_name}: ");')
+    lines.append('  });')
+    lines.append('}')
+    lines.append('')
 
-    # 2. DELETE MATCHERS (Specific and Generic)
     if "delete" in ops:
-        del_desc_tmpl = f"Delete {name}"
-        if isinstance(ops["delete"], dict):
-            del_desc_tmpl = ops["delete"].get("descriptionTemplate", del_desc_tmpl)
-            
-        del_regex_start = f"Done: Positive: {del_desc_tmpl}".split("{")[0].strip().rstrip('"')
-        safe_pk = sanitize_param(primary_key)
-        
-        # Resource-specific matcher for blocking logic
-        lines.append(f'function matchDeleted{safe_entity_name}({safe_pk}) {{')
-        lines.append(f'  return bp.EventSet("Deleted {name} " + {safe_pk}, function(e) {{')
-        lines.append(f'      return e.name.startsWith("{del_regex_start}") && e.name.includes({safe_pk});')
-        lines.append('  });')
-        lines.append('}') 
-        lines.append('')
-        
-        # Generic matcher for hyper-story reactive threads
-        lines.append(f'function matchAny{safe_entity_name}Deleted() {{')
-        lines.append(f'  return bp.EventSet("Any {name} Deleted", function(e) {{')
-        lines.append(f'      return e.name.startsWith("{del_regex_start}");')
+        lines.append(f'function matchAny{safe_name}Deleted() {{')
+        lines.append(f'  return bp.EventSet("matchAny{safe_name}Deleted", function(e) {{')
+        lines.append(f'    return e.name.includes("Done: Positive: {safe_name}: ") && e.name.includes("Delete");')
         lines.append('  });')
         lines.append('}')
         lines.append('')
-        
     return lines
 
 def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
     """
-    ULTIMATE STABLE VERSION: Generates full JS interface with verification stubs.
-    Guarantees no ReferenceError for any system (Gitea, Petstore, Directus).
+    ULTIMATE STABLE VERSION: Generates full JS interface with synchronized stubs.
+    Guarantees no ReferenceError and prevents 404 race conditions via strict prefixing.
     """
     sut_name_safe = sanitize_param(sut_name)
     file_path = out_dir / f"interfaces.{sut_name_safe}.js"
@@ -229,12 +205,15 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             if not op_data: continue
             if isinstance(op_data, list): op_data = op_data[0] if op_data else {}
             
+            # IDENTITY FIX: Inject Entity Name metadata for strict labeling in _generate_js_operation
+            op_data["entity"] = name 
             fn_name = op_data.get("name", f"{op_type}{name}")
             lines.extend(_generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec))
             lines.append('')
 
         # GENERATE COLLISION AGENT (Forces ID collision testing)
         if "add" in ops and isinstance(ops["add"], dict):
+             ops["add"]["entity"] = name
              lines.extend(_generate_js_operation(
                  ops["add"], 
                  f"tryToAddExisting{safe_entity_name}", 
@@ -262,6 +241,8 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append(f'  var url = {js_item_url};')
             lines.append(f'  var description = "Verify {name} " + {safe_pk} + " exists";')
             lines.append(f'  svc.get(url, {{ expectedResponseCodes: [200], parameters: {{ description: description }} }});')
+            # SYNC FIX: Signals to Saboteurs that verification is complete using STRICT PREFIX
+            lines.append(f'  bp.sync({{ request: bp.Event("Done: Positive: {safe_entity_name}: Verify " + {safe_pk}, {{id: {safe_pk}}}) }});')
             lines.append(f'  pvg.success("{name} found");')
             lines.append('}')
             lines.append('')
@@ -286,8 +267,11 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append(f'      if (!Array.isArray(listData) && listData.data) listData = listData.data;')
              lines.append(f'      if (Array.isArray(listData)) {{')
              lines.append(f'          let found = listData.find(item => item.{primary_key} == {safe_pk} || item.id == {safe_pk});')
-             lines.append(f'          if (found) pvg.success("{name} found in list");')
-             lines.append(f'          else pvg.fail("{name} NOT found in list");')
+             lines.append(f'          if (found) {{')
+             # SYNC FIX: Signals to Saboteurs using STRICT PREFIX
+             lines.append(f'              bp.sync({{ request: bp.Event("Done: Positive: {safe_entity_name}: Verify " + {safe_pk}, {{id: {safe_pk}}}) }});')
+             lines.append(f'              pvg.success("{name} found in list");')
+             lines.append(f'          }} else pvg.fail("{name} NOT found in list");')
              lines.append(f'      }}')
              lines.append(f'  }} catch (err) {{ bp.log.warn("Failed to parse list response: " + err); }}')
              lines.append('}')
@@ -310,18 +294,18 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
              lines.append('')
 
         else:
-            # OPTION C: THE SAFETY NET BRIDGE
-            # This handles Actions like Markdown/Markup and Asymmetric Resources.
-            # Prevents "ReferenceError" crashes when stories call verification functions.
+            # OPTION C: THE SAFETY NET BRIDGE (Synchronized)
             lines.append(f'function verify{safe_entity_name}Exists({safe_pk}) {{')
-            lines.append(f'  bp.log.warn("Verification skipped: {name} is an Action or asymmetric resource without a documented GET endpoint.");')
+            lines.append(f'  bp.log.warn("Verification skipped: {name} is an Action without a GET endpoint.");')
+            # SYNC FIX: Release Saboteurs using STRICT PREFIX to prevent 404 race conditions
+            lines.append(f'  bp.sync({{ request: bp.Event("Done: Positive: {safe_entity_name}: Verify " + {safe_pk}, {{id: {safe_pk}}}) }});')
             lines.append('}')
             lines.append(f'function verify{safe_entity_name}DoesNotExist({safe_pk}) {{')
             lines.append(f'  bp.log.warn("Absence check skipped: {name} has no GET endpoint.");')
             lines.append('}')
             lines.append('')
 
-        # 4. Append Operation Matchers
+        # 4. Append Operation Matchers (Unconditional)
         lines.extend(_generate_js_matchers(name, ops, primary_key))
 
     # 5. Final file persistence
