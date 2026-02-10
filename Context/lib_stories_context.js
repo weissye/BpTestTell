@@ -1,3 +1,5 @@
+const NUMBER_OF_USERS = 3
+
 ctx.registerEffect("createBook", function(data) {
 	ctx.insertEntity(ctx.Entity(data.id, 'book', {name:data.name}))
 	let allusers= ctx.runQuery('Users.All')
@@ -34,9 +36,9 @@ ctx.registerWholeDbQuery('UserBook.BookIsNotLoaned', function(db) {
 		.filter(e=>!db[e.bookid].IsLoaned)
 })
 
-bthread("crud:Users:linear:2", function () {
+bthread("create random users", function () {
   // -> Creating Users
-  for(let i= 0 ; i<3; i++){
+  for(let i= 0 ; i<NUMBER_OF_USERS; i++){
 	  let id_Users_160 = 160 + Math.floor(Math.random() * 99);
 	  let name_Users_160 = "name_Users_160_" + Math.floor(Math.random()*1000);
 	  let q_Users_160 = "q_Users_160_" + Math.floor(Math.random()*1000);
@@ -44,9 +46,17 @@ bthread("crud:Users:linear:2", function () {
   }
 });
 
+
+//this funciton will be in the interface file.
+function deleteUser(user){
+	return Event("deleteUser", {id:user.id})
+}
+
 ctx.bthread("verifyUser","User.All", function(user) {
-	verifyUserExists(user);
-})
+	sync({request:verifyUserExists(user), block: deleteUser(user)});
+	sync({waitFor: deleteUser(user)});
+	sync({request:verifyUserDoesNotExists(user)});
+}, dont_die=true)
 
 ctx.bthread("deleteUser","User.NoLoan", function(user) {
 	deleteUser(user);
