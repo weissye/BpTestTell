@@ -1,4 +1,5 @@
 const NUMBER_OF_USERS = 3
+const NUMBER_OF_BOOKS = 3
 
 ctx.registerEffect("createBook", function(data) {
 	ctx.insertEntity(ctx.Entity(data.id, 'book', {name:data.name}))
@@ -43,20 +44,18 @@ bthread("create random users", function () {
 	  let name_Users_160 = "name_Users_160_" + Math.floor(Math.random()*1000);
 	  let q_Users_160 = "q_Users_160_" + Math.floor(Math.random()*1000);
 	  createUser(id_Users_160, name_Users_160, q_Users_160, { expectedResponseCodes: [200, 201, 204] });
+	  sync(request:verifyUserExists, block:AnyUserChanges)
   }
 });
 
-
-//this funciton will be in the interface file.
-function deleteUser(user){
-	return Event("deleteUser", {id:user.id})
-}
-
-ctx.bthread("verifyUser","User.All", function(user) {
-	sync({request:verifyUserExists(user), block: deleteUser(user)});
-	sync({waitFor: deleteUser(user)});
-	sync({request:verifyUserDoesNotExists(user)});
-}, dont_die=true)
+bthread("create random books", function () {
+  // -> Creating Users
+  for(let i= 0 ; i<NUMBER_OF_BOOKS; i++){
+	  //...
+	  createBook()
+	  sync(request:verifyBookExists,block:AnyBookChanges)
+  }
+});
 
 ctx.bthread("deleteUser","User.NoLoan", function(user) {
 	deleteUser(user);
@@ -67,12 +66,12 @@ ctx.bthread("deleteUser","User.HasLoan", function(user) {
 })
 
 bthread("verifyUserDeletion", function() {
-	let e = waitFor(any('deleteUser'));
+	let e = waitFor(anyDeleteUser));
 	verifyUserDoesNotExists(e.data);
 })
 
 
-ctx.bthread("crud:Holds:linear:2", 'UserBook.BookNotLoaned' ,function (userbook) {
+ctx.bthread("crud:Holds:linear:2", 'UserBook.BookNotLoaned', function (userbook) {
 	let user = ctx.getEntity('userbook.userid')
 	let book= ctx.getEntity('userbook.bookid')
 	try{
