@@ -76,7 +76,7 @@ ctx.bthread("crud:Holds:linear:2", 'UserBook.BookNotLoaned', function (userbook)
 	let book= ctx.getEntity('userbook.bookid')
 	try{
 		createHold(bookId_Holds_170, id_Holds_170, userId_Holds_170, { expectedResponseCodes: [200, 201, 204] });
-	}catch(e)(
+	}catch(e){
 		verifyHoldsExists(id_Holds_170);
 		deleteHold(id_Holds_170);
 		verifyHoldsDoesNotExist(id_Holds_170);

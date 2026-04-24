@@ -30,6 +30,14 @@ loans: List[Dict[str, Any]] = []
 holds: List[Dict[str, Any]] = []
 
 
+def is_int(value: Any) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
+def is_str(value: Any) -> bool:
+    return isinstance(value, str)
+
+
 # --- Database Management ---
 def reset_database() -> tuple[Response, int]:
     """Reset all data stores and optionally initialize with provided data."""
@@ -86,6 +94,10 @@ def add_user() -> tuple[Response, int]:
     if not user or "id" not in user:
         logger.error("Attempt to add user without id")
         return jsonify({"error": "user id is required"}), 400
+    if not is_int(user.get("id")):
+        return jsonify({"error": "user id must be an integer"}), 400
+    if "name" not in user or not is_str(user.get("name")):
+        return jsonify({"error": "user name must be a string"}), 400
 
     # Check for duplicates
     if user.get("id") in [u.get("id") for u in users]:
@@ -95,11 +107,11 @@ def add_user() -> tuple[Response, int]:
     # Add user
     users.append(user)
     logger.info(f"Added new user: {user}")
-    return jsonify({"message": "User Added", "user": user}), 201
+    return jsonify(user), 201
 
 
-@app.route("/users/<int:user_id>", methods=["DELETE"])
-def delete_user(user_id: int) -> tuple[Response, int]:
+@app.route("/users/<int:id>", methods=["DELETE"])
+def delete_user(id: int) -> tuple[Response, int]:
     """
     Delete a user by ID.
 
@@ -113,7 +125,7 @@ def delete_user(user_id: int) -> tuple[Response, int]:
     """
     global users
     try:
-        user_id = int(user_id)
+        user_id = int(id)
         logger.info(f"Attempting to delete user with ID: {user_id}")
     except ValueError:
         return jsonify({"error": "Invalid user ID format"}), 400
@@ -160,17 +172,21 @@ def add_book() -> tuple[Response, int]:
     if "id" not in book:
         logger.error("Attempt to add book without id")
         return jsonify({"error": "book id is required"}), 400
+    if not is_int(book.get("id")):
+        return jsonify({"error": "book id must be an integer"}), 400
+    if "title" not in book or not is_str(book.get("title")):
+        return jsonify({"error": "book title must be a string"}), 400
     if book.get("id") in [b.get("id") for b in books]:
         logger.error("Attempt to add duplicate book")
         return jsonify({"error": "Book already exists"}), 400
     else:
         books.append(book)
         logger.info(f"Added new book: {book}")
-        return jsonify({"message": "Book Added", "book": book}), 201
+        return jsonify(book), 201
 
 
-@app.route("/books/<book_id>", methods=["DELETE"])
-def delete_book(book_id: int) -> tuple[Response, int]:
+@app.route("/books/<int:id>", methods=["DELETE"])
+def delete_book(id: int) -> tuple[Response, int]:
     """
     Delete a book by ID.
 
@@ -184,7 +200,7 @@ def delete_book(book_id: int) -> tuple[Response, int]:
     """
     global books
     try:
-        book_id = int(book_id)
+        book_id = int(id)
     except ValueError:
         return jsonify({"error": "Invalid book ID format"}), 400
 
@@ -220,8 +236,8 @@ def search_books() -> Response:
     return jsonify(results)
 
 
-@app.route("/books/<book_id>", methods=["GET"])
-def get_book(book_id: int) -> Response:
+@app.route("/books/<int:id>", methods=["GET"])
+def get_book(id: int) -> Response:
     """
     Get detailed information about a specific book.
 
@@ -232,7 +248,7 @@ def get_book(book_id: int) -> Response:
         200: Book found
         404: Book not found
     """
-    book = next((b for b in books if b.get("id") == book_id), None)
+    book = next((b for b in books if b.get("id") == id), None)
     if book:
         return jsonify(book), 200
     return jsonify({"error": "Book not found"}), 404
@@ -256,12 +272,16 @@ def add_loan() -> tuple[Response, int]:
     # Check that user exists
     if user_id is None:
         return jsonify({"error": "userId is required"}), 400
+    if not is_int(user_id):
+        return jsonify({"error": "userId must be an integer"}), 400
     if not any(u.get("id") == user_id for u in users):
         return jsonify({"error": f"User {user_id} does not exist"}), 400
 
     # Check that book exists
     if book_id is None:
         return jsonify({"error": "bookId is required"}), 400
+    if not is_int(book_id):
+        return jsonify({"error": "bookId must be an integer"}), 400
 
     logger.info(f"Checking if book {book_id} exists in books: {books}")
 
@@ -272,14 +292,10 @@ def add_loan() -> tuple[Response, int]:
     if any(l.get("userId") == user_id and l.get("bookId") == book_id for l in loans):
         return jsonify({"error": "Loan already exists"}), 400
 
-    loans.append({"userId": user_id, "bookId": book_id})
+    loan_record = {"userId": user_id, "bookId": book_id}
+    loans.append(loan_record)
     logger.info(f"Added new loan: userId={user_id}, bookId={book_id}")
-    return (
-        jsonify(
-            {"message": "Loan added", "loan": {"userId": user_id, "bookId": book_id}}
-        ),
-        201,
-    )
+    return jsonify(loan_record), 201
 
 
 @app.route("/loans/<int:user_id>/<int:book_id>", methods=["DELETE"])
@@ -345,13 +361,21 @@ def add_hold() -> tuple[Response, int]:
         201: Hold created successfully
     """
     hold = request.get_json()
+    if not hold:
+        return jsonify({"error": "hold body is required"}), 400
+    if not is_int(hold.get("id")):
+        return jsonify({"error": "hold id must be an integer"}), 400
+    if not is_int(hold.get("userId")):
+        return jsonify({"error": "hold userId must be an integer"}), 400
+    if not is_int(hold.get("bookId")):
+        return jsonify({"error": "hold bookId must be an integer"}), 400
     holds.append(hold)
     logger.info(f"Added new hold: {hold}")
-    return jsonify({"message": "Hold added", "hold": hold}), 201
+    return jsonify(hold), 201
 
 
-@app.route("/holds/<int:hold_id>", methods=["DELETE"])
-def delete_hold(hold_id: int) -> tuple[Response, int]:
+@app.route("/holds/<int:id>", methods=["DELETE"])
+def delete_hold(id: int) -> tuple[Response, int]:
     """
     Delete a hold by ID.
 
@@ -362,8 +386,8 @@ def delete_hold(hold_id: int) -> tuple[Response, int]:
         200: Hold deleted successfully
     """
     global holds
-    holds = [hold for hold in holds if hold.get("id") != hold_id]
-    logger.info(f"Deleted hold with ID: {hold_id}")
+    holds = [hold for hold in holds if hold.get("id") != id]
+    logger.info(f"Deleted hold with ID: {id}")
     return jsonify({"message": "Hold deleted"}), 200
 
 

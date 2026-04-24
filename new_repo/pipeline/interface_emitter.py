@@ -50,8 +50,12 @@ def _generate_reject_operation(op_data, fn_name, sig_params, primary_key):
             path_params.add(p)
             js_url = js_url.replace(f'{{{p}}}', f'" + {safe_p} + "')
     js_url = js_url.replace(' + ""', '')
+    
+    # Robustly handle body construction for malformed input tests
+    body_template = op_data.get("bodyTemplate") or {}
     b_lines = [f'    "{p}": {sanitize_param(p)}' for p in sig_params if p not in path_params]
     object_body = "{\n" + ",\n".join(b_lines) + "\n  }" if b_lines else "{}"
+    
     lines.append(f'function {sanitize_param(fn_name)}({", ".join([sanitize_param(p) for p in sig_params])}) {{')
     lines.append(f'  var url = {js_url}; var body = {object_body};')
     lines.append(f'  svc.post(url, {{ body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: {{ description: "Verify rejection" }} }});')
@@ -71,7 +75,7 @@ from new_repo.pipeline.emitter_utils import get_operation_signature_params
 
 def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_spec, method_override=None, codes_override=None, desc_override=None):
     """
-    ULTIMATE FIDELITY ACTUATOR: Fixes NameError, AttributeError, and Strict Entity Labeling.
+    STRICT FIDELITY ACTUATOR: Extracts every 2xx code and ensures scope-safe payloads.
     """
     path_tmpl = op_data.get("path", "")
     if not path_tmpl: return [] 
@@ -137,9 +141,11 @@ def _generate_js_operation(op_data, fn_name, sig_params, primary_key, spec, raw_
     return lines
 
 def _generate_js_matchers(name, ops, pk):
+def _generate_js_matchers(name, ops, pk):
     """
     STRICT BOUNDARY MATCHERS: Prevents cross-entity event leaking (e.g. Users vs UserVariables).
     """
+    safe_name = sanitize_param(name)
     safe_name = sanitize_param(name)
     lines = []
     
@@ -305,6 +311,7 @@ def emit_interfaces(spec: Dict[str, Any], out_dir: Path, sut_name: str):
             lines.append('}')
             lines.append('')
 
+        # 4. Append Operation Matchers (Unconditional)
         # 4. Append Operation Matchers (Unconditional)
         lines.extend(_generate_js_matchers(name, ops, primary_key))
 

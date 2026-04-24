@@ -1,7 +1,7 @@
 //@provengo summon rest
 // === Auto-generated interfaces for library ===
 var host = (typeof host !== 'undefined') ? host : 'localhost';
-var port = (typeof port !== 'undefined') ? port : 8000;
+var port = (typeof port !== 'undefined') ? port : 23242;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
 var path = '';
 
@@ -10,11 +10,15 @@ const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "proven
 const pvg = { success: function(msg) { bp.log.info(msg); }, fail: function(msg) { bp.log.error(msg); throw new Error(msg); } };
 function waitFor(eventSet) { return bp.sync({waitFor: eventSet}); }
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function(e) { return e.name === "Done: Positive: " + desc; }); }
+function asInteger(value) { return Number.parseInt(value, 10); }
+function asString(value) { return String(value); }
 
-function listBooks(config) {
+function listBooks(q, config) {
   var url = "/books"; var reqDescription = "List/search books {id}";
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
-  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  var parameters = { description: reqDescription };
+  if (q !== undefined && q !== null) parameters.q = asString(q);
+  let response = svc.get(url, { parameters: parameters, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
   if (code !== undefined) {
@@ -39,6 +43,8 @@ function listBooks(config) {
 }
 
 function createBook(id, q, title, config) {
+  id = asInteger(id);
+  title = asString(title);
   var url = "/books"; var reqDescription = "Create a book " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201];
   var body = {
@@ -71,6 +77,7 @@ function createBook(id, q, title, config) {
 }
 
 function getBook(id, config) {
+  id = asInteger(id);
   var url = "/books/" + id; var reqDescription = "Get book by id " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 404];
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
@@ -98,6 +105,7 @@ function getBook(id, config) {
 }
 
 function deleteBook(id, config) {
+  id = asInteger(id);
   var url = "/books/" + id; var reqDescription = "Delete a book " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 400, 404];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
@@ -110,7 +118,7 @@ function deleteBook(id, config) {
 
     if (isExpected) {
       if (isSuccess) {
-        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
       } else {
         bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
       }
@@ -119,12 +127,14 @@ function deleteBook(id, config) {
     }
   } else {
     bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
   }
   return response;
 }
 
 function tryToAddExistingBooks(id, q, title, config) {
+  id = asInteger(id);
+  title = asString(title);
   var url = "/books"; var reqDescription = "Try Add Existing Books " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
   var body = {
@@ -157,6 +167,8 @@ function tryToAddExistingBooks(id, q, title, config) {
 }
 
 function verifyBooksRejects(id, q, title) {
+  id = asInteger(id);
+  title = asString(title);
   var url = "/books";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -170,6 +182,7 @@ function verifyBooksRejects(id, q, title) {
 }
 
 function verifyBooksExists(id) {
+  id = asInteger(id);
   var url = "/books/" + id;
   var description = "Verify Books " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
@@ -177,6 +190,7 @@ function verifyBooksExists(id) {
 }
 
 function verifyBooksDeleted(id) {
+  id = asInteger(id);
   var url = "/books/" + id;
   var description = "Verify Books " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
@@ -203,10 +217,13 @@ function matchAnyBooksDeleted() {
   });
 }
 
-function listLoans(config) {
+function listLoans(userId, bookId, config) {
   var url = "/loans"; var reqDescription = "List/search loans {userId}";
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
-  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  var parameters = { description: reqDescription };
+  if (userId !== undefined && userId !== null) parameters.userId = asInteger(userId);
+  if (bookId !== undefined && bookId !== null) parameters.bookId = asInteger(bookId);
+  let response = svc.get(url, { parameters: parameters, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
   if (code !== undefined) {
@@ -231,6 +248,8 @@ function listLoans(config) {
 }
 
 function createLoan(bookId, userId, config) {
+  bookId = asInteger(bookId);
+  userId = asInteger(userId);
   var url = "/loans"; var reqDescription = "Create a loan " + userId;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201, 400];
   var body = {
@@ -263,6 +282,8 @@ function createLoan(bookId, userId, config) {
 }
 
 function deleteLoan(userId, bookId, config) {
+  userId = asInteger(userId);
+  bookId = asInteger(bookId);
   var url = "/loans/" + userId + "/" + bookId; var reqDescription = "Delete a loan by composite id " + userId;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 404];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
@@ -275,7 +296,7 @@ function deleteLoan(userId, bookId, config) {
 
     if (isExpected) {
       if (isSuccess) {
-        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"userId": userId, "bookId": bookId}) });
       } else {
         bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
       }
@@ -284,12 +305,14 @@ function deleteLoan(userId, bookId, config) {
     }
   } else {
     bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"userId": userId, "bookId": bookId}) });
   }
   return response;
 }
 
 function tryToAddExistingLoans(bookId, userId, config) {
+  bookId = asInteger(bookId);
+  userId = asInteger(userId);
   var url = "/loans"; var reqDescription = "Try Add Existing Loans " + userId;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
   var body = {
@@ -322,6 +345,8 @@ function tryToAddExistingLoans(bookId, userId, config) {
 }
 
 function verifyLoansRejects(bookId, userId) {
+  bookId = asInteger(bookId);
+  userId = asInteger(userId);
   var url = "/loans";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -334,7 +359,9 @@ function verifyLoansRejects(bookId, userId) {
 }
 
 function verifyLoansExists(bookId, userId) {
-  let res = listLoans(bookId, userId);
+  bookId = asInteger(bookId);
+  userId = asInteger(userId);
+  let res = listLoans(userId, bookId);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (Array.isArray(listData)) {
@@ -346,7 +373,9 @@ function verifyLoansExists(bookId, userId) {
 }
 
 function verifyLoansDeleted(bookId, userId) {
-  let res = listLoans(bookId, userId);
+  bookId = asInteger(bookId);
+  userId = asInteger(userId);
+  let res = listLoans(userId, bookId);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
@@ -378,10 +407,12 @@ function matchAnyLoansDeleted() {
   });
 }
 
-function listUsers(config) {
+function listUsers(q, config) {
   var url = "/users"; var reqDescription = "List/search users {id}";
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
-  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  var parameters = { description: reqDescription };
+  if (q !== undefined && q !== null) parameters.q = asString(q);
+  let response = svc.get(url, { parameters: parameters, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
   if (code !== undefined) {
@@ -406,6 +437,8 @@ function listUsers(config) {
 }
 
 function createUser(id, name, q, config) {
+  id = asInteger(id);
+  name = asString(name);
   var url = "/users"; var reqDescription = "Create a user " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201];
   var body = {
@@ -438,6 +471,7 @@ function createUser(id, name, q, config) {
 }
 
 function deleteUser(id, config) {
+  id = asInteger(id);
   var url = "/users/" + id; var reqDescription = "Delete a user " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 400, 404];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
@@ -450,7 +484,7 @@ function deleteUser(id, config) {
 
     if (isExpected) {
       if (isSuccess) {
-        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
       } else {
         bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
       }
@@ -459,12 +493,14 @@ function deleteUser(id, config) {
     }
   } else {
     bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
   }
   return response;
 }
 
 function tryToAddExistingUsers(id, name, q, config) {
+  id = asInteger(id);
+  name = asString(name);
   var url = "/users"; var reqDescription = "Try Add Existing Users " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
   var body = {
@@ -497,6 +533,8 @@ function tryToAddExistingUsers(id, name, q, config) {
 }
 
 function verifyUsersRejects(id, name, q) {
+  id = asInteger(id);
+  name = asString(name);
   var url = "/users";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -510,7 +548,8 @@ function verifyUsersRejects(id, name, q) {
 }
 
 function verifyUsersExists(id, name, q) {
-  let res = listUsers(id, name, q);
+  id = asInteger(id);
+  let res = listUsers(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (Array.isArray(listData)) {
@@ -522,7 +561,8 @@ function verifyUsersExists(id, name, q) {
 }
 
 function verifyUsersDeleted(id, name, q) {
-  let res = listUsers(id, name, q);
+  id = asInteger(id);
+  let res = listUsers(id);
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
@@ -582,6 +622,9 @@ function listHolds(config) {
 }
 
 function createHold(bookId, id, userId, config) {
+  bookId = asInteger(bookId);
+  id = asInteger(id);
+  userId = asInteger(userId);
   var url = "/holds"; var reqDescription = "Create a hold " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [201];
   var body = {
@@ -615,6 +658,7 @@ function createHold(bookId, id, userId, config) {
 }
 
 function deleteHold(id, config) {
+  id = asInteger(id);
   var url = "/holds/" + id; var reqDescription = "Delete a hold " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
@@ -627,7 +671,7 @@ function deleteHold(id, config) {
 
     if (isExpected) {
       if (isSuccess) {
-        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+        bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
       } else {
         bp.sync({ request: bp.Event("Done: Negative: Expected Failure: " + reqDescription, {status: code}) });
       }
@@ -636,12 +680,15 @@ function deleteHold(id, config) {
     }
   } else {
     bp.log.warn("Warning: Response status missing. Inferring success from Actuator pass.");
-    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription) });
+    bp.sync({ request: bp.Event("Done: Positive: " + reqDescription, {"id": id}) });
   }
   return response;
 }
 
 function tryToAddExistingHolds(bookId, id, userId, config) {
+  bookId = asInteger(bookId);
+  id = asInteger(id);
+  userId = asInteger(userId);
   var url = "/holds"; var reqDescription = "Try Add Existing Holds " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
   var body = {
@@ -675,6 +722,9 @@ function tryToAddExistingHolds(bookId, id, userId, config) {
 }
 
 function verifyHoldsRejects(bookId, id, userId) {
+  bookId = asInteger(bookId);
+  id = asInteger(id);
+  userId = asInteger(userId);
   var url = "/holds";
   var reqDescription = "Negative Test: Verify Rejection for " + url;
   var body = {
@@ -688,7 +738,8 @@ function verifyHoldsRejects(bookId, id, userId) {
 }
 
 function verifyHoldsExists(bookId, id, userId) {
-  let res = listHolds(bookId, id, userId);
+  id = asInteger(id);
+  let res = listHolds();
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (Array.isArray(listData)) {
@@ -700,7 +751,8 @@ function verifyHoldsExists(bookId, id, userId) {
 }
 
 function verifyHoldsDeleted(bookId, id, userId) {
-  let res = listHolds(bookId, id, userId);
+  id = asInteger(id);
+  let res = listHolds();
   try {
       let listData = (typeof res === "string") ? JSON.parse(res) : res;
       if (!Array.isArray(listData) && listData.data) listData = listData.data;
