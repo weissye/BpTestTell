@@ -107,7 +107,7 @@ function getBook(id, config) {
 function deleteBook(id, config) {
   id = asInteger(id);
   var url = "/books/" + id; var reqDescription = "Delete a book " + id;
-  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 400, 404];
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 400, 404];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
@@ -285,7 +285,7 @@ function deleteLoan(userId, bookId, config) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
   var url = "/loans/" + userId + "/" + bookId; var reqDescription = "Delete a loan by composite id " + userId;
-  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 404];
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 404];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
@@ -473,7 +473,7 @@ function createUser(id, name, q, config) {
 function deleteUser(id, config) {
   id = asInteger(id);
   var url = "/users/" + id; var reqDescription = "Delete a user " + id;
-  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204, 400, 404];
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 400, 404];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
@@ -660,7 +660,7 @@ function createHold(bookId, id, userId, config) {
 function deleteHold(id, config) {
   id = asInteger(id);
   var url = "/holds/" + id; var reqDescription = "Delete a hold " + id;
-  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200, 204];
+  let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [200];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   let code = (response && (response.status !== undefined)) ? response.status : (response ? response.statusCode : undefined);
 
