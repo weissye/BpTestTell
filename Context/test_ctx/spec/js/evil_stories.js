@@ -1,0 +1,132 @@
+const EVIL_EXPECTED_CODES = [400, 401];
+
+function evilId(base) {
+	return base + Math.floor(Math.random() * 100000);
+}
+
+function evilPost(url, body, description) {
+	bp.log.info("EVIL POST " + url + " Body: " + JSON.stringify(body));
+	svc.post(url, {
+		body: JSON.stringify(body),
+		expectedResponseCodes: EVIL_EXPECTED_CODES,
+		parameters: { description: description }
+	});
+	bp.sync({ request: bp.Event("Done: Evil Negative: " + description, body) });
+}
+
+function evilDelete(url, description) {
+	bp.log.info("EVIL DELETE " + url);
+	svc.delete(url, {
+		expectedResponseCodes: EVIL_EXPECTED_CODES,
+		parameters: { description: description }
+	});
+	bp.sync({ request: bp.Event("Done: Evil Negative: " + description, {}) });
+}
+
+bthread("evil:create duplicate users", function() {
+	let id = evilId(10000);
+	let name = "evil_user_" + id;
+
+	createUser(id, name, null, { expectedResponseCodes: [201] });
+	evilPost("/users", { id: id, name: "duplicate_" + name }, "Duplicate user should be rejected");
+});
+
+bthread("evil:create duplicate books", function() {
+	let id = evilId(20000);
+	let title = "evil_book_" + id;
+
+	createBook(id, null, title, { expectedResponseCodes: [201] });
+	evilPost("/books", { id: id, title: "duplicate_" + title }, "Duplicate book should be rejected");
+});
+
+bthread("evil:create loans for missing resources", function() {
+	evilPost("/loans", {
+		userId: evilId(30000),
+		bookId: evilId(40000)
+	}, "Loan with missing user and book should be rejected");
+
+	let userId = evilId(50000);
+	createUser(userId, "loan_missing_book_" + userId, null, { expectedResponseCodes: [201] });
+	evilPost("/loans", {
+		userId: userId,
+		bookId: evilId(60000)
+	}, "Loan with missing book should be rejected");
+
+	let bookId = evilId(70000);
+	createBook(bookId, null, "loan_missing_user_" + bookId, { expectedResponseCodes: [201] });
+	evilPost("/loans", {
+		userId: evilId(80000),
+		bookId: bookId
+	}, "Loan with missing user should be rejected");
+});
+
+bthread("evil:create illegal loan state", function() {
+	let userId = evilId(90000);
+	let firstBookId = evilId(100000);
+	let secondBookId = evilId(110000);
+
+	createUser(userId, "evil_loan_user_" + userId, null, { expectedResponseCodes: [201] });
+	createBook(firstBookId, null, "evil_loan_book_" + firstBookId, { expectedResponseCodes: [201] });
+	createBook(secondBookId, null, "evil_loan_book_" + secondBookId, { expectedResponseCodes: [201] });
+
+	createLoan(firstBookId, userId, { expectedResponseCodes: [201] });
+	evilPost("/loans", {
+		userId: userId,
+		bookId: secondBookId
+	}, "Second loan for same user should be rejected");
+});
+
+bthread("evil:create holds for missing resources", function() {
+	evilPost("/holds", {
+		id: evilId(120000),
+		userId: evilId(130000),
+		bookId: evilId(140000)
+	}, "Hold with missing user and book should be rejected");
+
+	let userId = evilId(150000);
+	createUser(userId, "hold_missing_book_" + userId, null, { expectedResponseCodes: [201] });
+	evilPost("/holds", {
+		id: evilId(160000),
+		userId: userId,
+		bookId: evilId(170000)
+	}, "Hold with missing book should be rejected");
+
+	let bookId = evilId(180000);
+	createBook(bookId, null, "hold_missing_user_" + bookId, { expectedResponseCodes: [201] });
+	evilPost("/holds", {
+		id: evilId(190000),
+		userId: evilId(200000),
+		bookId: bookId
+	}, "Hold with missing user should be rejected");
+});
+
+bthread("evil:create duplicate holds", function() {
+	let userId = evilId(210000);
+	let bookId = evilId(220000);
+	let holdId = evilId(230000);
+
+	createUser(userId, "evil_hold_user_" + userId, null, { expectedResponseCodes: [201] });
+	createBook(bookId, null, "evil_hold_book_" + bookId, { expectedResponseCodes: [201] });
+	createHold(bookId, holdId, userId, { expectedResponseCodes: [201] });
+
+	evilPost("/holds", {
+		id: holdId,
+		userId: userId,
+		bookId: bookId
+	}, "Duplicate hold should be rejected");
+});
+
+bthread("evil:delete protected and malformed resources", function() {
+	let userId = evilId(240000);
+	let bookId = evilId(250000);
+
+	createUser(userId, "evil_delete_user_" + userId, null, { expectedResponseCodes: [201] });
+	createBook(bookId, null, "evil_delete_book_" + bookId, { expectedResponseCodes: [201] });
+	createLoan(bookId, userId, { expectedResponseCodes: [201] });
+
+	deleteUser(userId, { expectedResponseCodes: EVIL_EXPECTED_CODES });
+	evilDelete("/books/not-an-integer", "Malformed book id delete should be rejected");
+	evilDelete("/users/not-an-integer", "Malformed user id delete should be rejected");
+	evilDelete("/loans/not-a-user/not-a-book", "Malformed loan delete should be rejected");
+	evilDelete("/holds/not-a-hold", "Malformed hold delete should be rejected");
+});
