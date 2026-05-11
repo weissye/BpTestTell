@@ -34,12 +34,17 @@ ctx.bthread("deleteUser","User.HasLoan", function(user) {
 
 bthread("verifyUserCreation", function() {
 	let e = waitFor(matchAnyUsersAdded());
-	verifyUsersExists(e.data.id, e.data.name, e.data.q);
+	doWhileBlocking(matchDeletedUsers(e.data.id), function() {
+		verifyUsersExists(e.data.id);
+	});
 });
+
 
 bthread("verifyUserDeletion", function() {
 	let e = waitFor(matchAnyUsersDeleted());
-	verifyUsersDoesNotExist(e.data.id);
+	doWhileBlocking(matchAnyUsersAdded(), function() {
+		verifyUsersDoesNotExist(e.data.id);
+	});
 });
 
 
