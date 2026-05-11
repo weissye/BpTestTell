@@ -1,5 +1,4 @@
 //@provengo summon rest
-// === Auto-generated interfaces for library ===
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 23242;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
@@ -22,7 +21,7 @@ function listBooks(q) {
   return response;
 }
 
-function createBook(id, q, title) {
+function createBook(id, title) {
   id = asInteger(id);
   title = asString(title);
   var url = "/books"; var reqDescription = "Create a book " + id;
@@ -51,7 +50,7 @@ function deleteBook(id) {
   return response;
 }
 
-function tryToAddExistingBooks(id, q, title) {
+function tryToAddExistingBooks(id, title) {
   id = asInteger(id);
   title = asString(title);
   var url = "/books"; var reqDescription = "Rainy: Try Add Existing Books " + id;
@@ -93,7 +92,7 @@ function verifyBooksDeleted(id) {
 
 function verifyBooksDoesNotExist(id) { verifyBooksDeleted(id); }
 
-function verifyBookCantBeDeleted(id) {
+function verifyBookCannotBeDeleted(id) {
   id = asInteger(id);
   var url = "/books/" + id;
   var description = "Verify Book " + id + " cannot be deleted";
@@ -103,6 +102,12 @@ function verifyBookCantBeDeleted(id) {
 function matchAnyBooksAdded() {
   return bp.EventSet("Any Books Added", function (e) {
     return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a book ");
+  });
+}
+
+function matchAddBook(id) {
+  return bp.EventSet("Add Book " + id, function (e) {
+    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a book " + id);
   });
 }
 
@@ -210,6 +215,12 @@ function matchAnyLoansAdded() {
   });
 }
 
+function matchAddLoan(userId) {
+  return bp.EventSet("Add Loan " + userId, function (e) {
+    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a loan " + userId);
+  });
+}
+
 function matchDeletedLoans(userId) {
   return bp.EventSet("Deleted Loans " + userId, function (e) {
     return e.name.startsWith("Done: Positive: Delete a loan by composite id") && e.name.includes(userId);
@@ -231,7 +242,7 @@ function listUsers(q) {
   return response;
 }
 
-function createUser(id, name, q) {
+function createUser(id, name) {
   id = asInteger(id);
   name = asString(name);
   var url = "/users"; var reqDescription = "Create a user " + id;
@@ -252,7 +263,7 @@ function deleteUser(id) {
   return response;
 }
 
-function tryToAddExistingUsers(id, name, q) {
+function tryToAddExistingUsers(id, name) {
   id = asInteger(id);
   name = asString(name);
   var url = "/users"; var reqDescription = "Rainy: Try Add Existing Users " + id;
@@ -278,7 +289,7 @@ function verifyUsersRejects(id, name, q) {
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
 }
 
-function verifyUsersExists(id, name, q) {
+function verifyUsersExists(id) {
   id = asInteger(id);
   let res = listUsers(id);
   try {
@@ -290,7 +301,7 @@ function verifyUsersExists(id, name, q) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDeleted(id, name, q) {
+function verifyUsersDeleted(id) {
   id = asInteger(id);
   let res = listUsers(id);
   try {
@@ -303,9 +314,9 @@ function verifyUsersDeleted(id, name, q) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDoesNotExist(id, name, q) { verifyUsersDeleted(id, name, q); }
+function verifyUsersDoesNotExist(id) { verifyUsersDeleted(id); }
 
-function verifyUserCantBeDeleted(id) {
+function verifyUserCannotBeDeleted(id) {
   id = asInteger(id);
   var url = "/users/" + id;
   var description = "Verify User " + id + " cannot be deleted";
@@ -315,6 +326,12 @@ function verifyUserCantBeDeleted(id) {
 function matchAnyUsersAdded() {
   return bp.EventSet("Any Users Added", function (e) {
     return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a user ");
+  });
+}
+
+function matchAddUser(id) {
+  return bp.EventSet("Add User " + id, function (e) {
+    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a user " + id);
   });
 }
 
@@ -389,7 +406,7 @@ function verifyHoldsRejects(bookId, id, userId) {
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
 }
 
-function verifyHoldsExists(bookId, id, userId) {
+function verifyHoldsExists(id) {
   id = asInteger(id);
   let res = listHolds();
   try {
@@ -401,7 +418,7 @@ function verifyHoldsExists(bookId, id, userId) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyHoldsDeleted(bookId, id, userId) {
+function verifyHoldsDeleted(id) {
   id = asInteger(id);
   let res = listHolds();
   try {
@@ -414,9 +431,9 @@ function verifyHoldsDeleted(bookId, id, userId) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyHoldsDoesNotExist(bookId, id, userId) { verifyHoldsDeleted(bookId, id, userId); }
+function verifyHoldsDoesNotExist(id) { verifyHoldsDeleted(id); }
 
-function verifyHoldCantBeDeleted(id) {
+function verifyHoldCannotBeDeleted(id) {
   id = asInteger(id);
   var url = "/holds/" + id;
   var description = "Verify Hold " + id + " cannot be deleted";
@@ -426,6 +443,12 @@ function verifyHoldCantBeDeleted(id) {
 function matchAnyHoldsAdded() {
   return bp.EventSet("Any Holds Added", function (e) {
     return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a hold ");
+  });
+}
+
+function matchAddHold(id) {
+  return bp.EventSet("Add Hold " + id, function (e) {
+    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a hold " + id);
   });
 }
 
