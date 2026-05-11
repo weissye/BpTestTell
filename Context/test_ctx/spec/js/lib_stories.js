@@ -34,7 +34,7 @@ ctx.bthread("deleteUser","User.HasLoan", function(user) {
 
 bthread("verifyUserCreation", function() {
 	let e = waitFor(matchAnyUsersAdded());
-	doWhileBlocking(matchDeletedUsers(e.data.id), function() {
+	block(matchDeletedUsers(e.data.id), function() {
 		verifyUsersExists(e.data.id);
 	});
 });
@@ -42,7 +42,7 @@ bthread("verifyUserCreation", function() {
 
 bthread("verifyUserDeletion", function() {
 	let e = waitFor(matchAnyUsersDeleted());
-	doWhileBlocking(matchAnyUsersAdded(), function() {
+	block(matchAnyUsersAdded(), function() {
 		verifyUsersDoesNotExist(e.data.id);
 	});
 });
