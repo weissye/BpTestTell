@@ -32,10 +32,15 @@ ctx.bthread("deleteUser","User.HasLoan", function(user) {
 	deleteUser(user.id, { expectedResponseCodes: [400] });
 })
 
+bthread("verifyUserCreation", function() {
+	let e = waitFor(matchAnyUsersAdded());
+	verifyUsersExists(e.data.id, e.data.name, e.data.q);
+});
+
 bthread("verifyUserDeletion", function() {
 	let e = waitFor(matchAnyUsersDeleted());
 	verifyUsersDoesNotExist(e.data.id);
-})
+});
 
 
 ctx.bthread("crud:Holds:linear:2", 'UserBook.BookIsNotLoaned', function (userbook) {
