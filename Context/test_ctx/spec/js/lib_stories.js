@@ -3,7 +3,6 @@ const NUMBER_OF_BOOKS = 3
 
 
 bthread("create random users", function () {
-	// -> Creating Users
 	for (let i = 0; i < NUMBER_OF_USERS; i++) {
 		let id_Users_160 = 160 + i * 1000 + Math.floor(Math.random() * 999);
 		let name_Users_160 = "name_Users_160_" + Math.floor(Math.random() * 1000);
@@ -13,7 +12,6 @@ bthread("create random users", function () {
 });
 
 bthread("create random books", function () {
-	// -> Creating Books
 	for (let i = 0; i < NUMBER_OF_BOOKS; i++) {
 		let id_Books_160 = 160 + i * 1000 + Math.floor(Math.random() * 999);
 		let title_Books_160 = "title_Books_160_" + Math.floor(Math.random() * 1000);
