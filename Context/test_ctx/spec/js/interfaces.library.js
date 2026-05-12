@@ -7,13 +7,64 @@ var path = '';
 const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json", "api_key": "special-key" } });
 
 const pvg = { fail: function (msg) { bp.log.error(msg); throw new Error(msg); } };
-function waitFor(eventSet) { return bp.sync({ waitFor: eventSet }); }
+
 function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function (e) { return e.name === "Done: Positive: " + desc; }); }
+
 function asInteger(value) { return Number.parseInt(value, 10); }
+
 function asString(value) { return String(value); }
 
+function extractId(e) {
+  var body = getJsonBody(e);
+  if (body && body.id !== undefined && body.id !== null) return asInteger(body.id);
+  if (body && body.userId !== undefined && body.userId !== null) return asInteger(body.userId);
+
+  if (e && e.data && e.data.parameters) {
+    if (e.data.parameters.id !== undefined && e.data.parameters.id !== null) return asInteger(e.data.parameters.id);
+    if (e.data.parameters.userId !== undefined && e.data.parameters.userId !== null) return asInteger(e.data.parameters.userId);
+  }
+
+  var pathValue = getRequestPath(e);
+  if (pathValue) {
+    var segments = pathValue.split("/").filter(function (s) { return s.length > 0; });
+    if (segments.length >= 3 && segments[0] === "loans") return asInteger(segments[1]);
+    if (segments.length >= 2) return asInteger(segments[segments.length - 1]);
+  }
+
+  pvg.fail("Could not extract ID from event fields");
+}
+
+function getExpectedResponseCodes(e) {
+  if (!e || !e.data) return [];
+  if (Array.isArray(e.data.expectedResponseCodes)) return e.data.expectedResponseCodes;
+  if (e.data.options && Array.isArray(e.data.options.expectedResponseCodes)) return e.data.options.expectedResponseCodes;
+  if (e.data.parameters && Array.isArray(e.data.parameters.expectedResponseCodes)) return e.data.parameters.expectedResponseCodes;
+  return [];
+}
+
+function hasExpectedCode(e, code) {
+  return getExpectedResponseCodes(e).indexOf(code) !== -1;
+}
+
+function getRequestPath(e) {
+  if (!e || !e.data) return "";
+  var p = e.data.path || e.data.url || e.data.endpoint || "";
+  if (!p) return "";
+  var qIdx = p.indexOf("?");
+  return qIdx === -1 ? p : p.substring(0, qIdx);
+}
+
+function getJsonBody(e) {
+  if (!e || !e.data || e.data.body === undefined || e.data.body === null) return null;
+  if (typeof e.data.body === "object") return e.data.body;
+  if (typeof e.data.body === "string") {
+    try { return JSON.parse(e.data.body); } catch (err) { return null; }
+  }
+  return null;
+}
+
 function listBooks(q) {
-  var url = "/books"; var reqDescription = "List/search books {id}";
+  var url = "/books"; var reqDescription = "List/search book {id}";
   let finalCodes = [200];
   var parameters = { description: reqDescription };
   if (q !== undefined && q !== null) parameters.q = asString(q);
@@ -50,10 +101,10 @@ function deleteBook(id) {
   return response;
 }
 
-function tryToAddExistingBooks(id, title) {
+function verifyThatABookCannotBeAdded(id, title) {
   id = asInteger(id);
   title = asString(title);
-  var url = "/books"; var reqDescription = "Rainy: Try Add Existing Books " + id;
+  var url = "/books"; var reqDescription = "Rainy: Try Add Existing Book " + id;
   let finalCodes = [400, 409];
   var body = {
     "id": id,
@@ -63,7 +114,7 @@ function tryToAddExistingBooks(id, title) {
   return response;
 }
 
-function verifyBooksRejects(id, q, title) {
+function verifyBookRejects(id, q, title) {
   id = asInteger(id);
   title = asString(title);
   var url = "/books";
@@ -76,21 +127,21 @@ function verifyBooksRejects(id, q, title) {
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
 }
 
-function verifyBooksExists(id) {
+function verifyBookExists(id) {
   id = asInteger(id);
   var url = "/books/" + id;
-  var description = "Verify Books " + id + " exists";
+  var description = "Verify Book " + id + " exists";
   svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
 }
 
-function verifyBooksDeleted(id) {
+function verifyBookDeleted(id) {
   id = asInteger(id);
   var url = "/books/" + id;
-  var description = "Verify Books " + id + " deleted";
+  var description = "Verify Book " + id + " deleted";
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function verifyBooksDoesNotExist(id) { verifyBooksDeleted(id); }
+function verifyBookDoesNotExist(id) { verifyBookDeleted(id); }
 
 function verifyBookCannotBeDeleted(id) {
   id = asInteger(id);
@@ -101,30 +152,31 @@ function verifyBookCannotBeDeleted(id) {
 
 function matchAnyBooksAdded() {
   return bp.EventSet("Any Books Added", function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a book ");
+    return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201);
   });
 }
 
 function matchAddBook(id) {
   return bp.EventSet("Add Book " + id, function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a book " + id);
+    var body = getJsonBody(e);
+    return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
   });
 }
 
 function matchDeletedBooks(id) {
   return bp.EventSet("Deleted Books " + id, function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description === ("Delete a book " + id);
+    return e.name === "DELETE" && getRequestPath(e) === ("/books/" + asInteger(id)) && hasExpectedCode(e, 200);
   });
 }
 
 function matchAnyBooksDeleted() {
   return bp.EventSet("Any Books Deleted", function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Delete a book ");
+    return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
   });
 }
 
 function listLoans(userId, bookId) {
-  var url = "/loans"; var reqDescription = "List/search loans {userId}";
+  var url = "/loans"; var reqDescription = "List/search loan {userId}";
   let finalCodes = [200];
   var parameters = { description: reqDescription };
   if (userId !== undefined && userId !== null) parameters.userId = asInteger(userId);
@@ -155,10 +207,10 @@ function deleteLoan(userId, bookId) {
   return response;
 }
 
-function tryToAddExistingLoans(bookId, userId) {
+function verifyThatALoanCannotBeAdded(bookId, userId) {
   bookId = asInteger(bookId);
   userId = asInteger(userId);
-  var url = "/loans"; var reqDescription = "Rainy: Try Add Existing Loans " + userId;
+  var url = "/loans"; var reqDescription = "Rainy: Try Add Existing Loan " + userId;
   let finalCodes = [400, 409];
   var body = {
     "bookId": bookId,
@@ -168,7 +220,7 @@ function tryToAddExistingLoans(bookId, userId) {
   return response;
 }
 
-function verifyLoansRejects(bookId, userId) {
+function verifyLoanRejects(bookId, userId) {
   bookId = asInteger(bookId);
   userId = asInteger(userId);
   var url = "/loans";
@@ -180,7 +232,7 @@ function verifyLoansRejects(bookId, userId) {
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
 }
 
-function verifyLoansExists(bookId, userId) {
+function verifyLoanExists(bookId, userId) {
   bookId = asInteger(bookId);
   userId = asInteger(userId);
   let res = listLoans(userId, bookId);
@@ -188,12 +240,12 @@ function verifyLoansExists(bookId, userId) {
     let listData = (typeof res === "string") ? JSON.parse(res) : res;
     if (Array.isArray(listData)) {
       let found = listData.find(item => item.userId == userId || item.id == userId);
-      if (!found) pvg.fail("Loans NOT found in list");
+      if (!found) pvg.fail("Loan NOT found in list");
     }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyLoansDeleted(bookId, userId) {
+function verifyLoanDoesNotExist(bookId, userId) {
   bookId = asInteger(bookId);
   userId = asInteger(userId);
   let res = listLoans(userId, bookId);
@@ -202,39 +254,39 @@ function verifyLoansDeleted(bookId, userId) {
     if (!Array.isArray(listData) && listData.data) listData = listData.data;
     if (Array.isArray(listData)) {
       let found = listData.find(item => item.userId == userId || item.id == userId);
-      if (found) pvg.fail("Loans still found in list (deletion failed)");
+      if (found) pvg.fail("Loan still found in list (deletion failed)");
     }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyLoansDoesNotExist(bookId, userId) { verifyLoansDeleted(bookId, userId); }
 
 function matchAnyLoansAdded() {
   return bp.EventSet("Any Loans Added", function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a loan ");
+    return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201);
   });
 }
 
 function matchAddLoan(userId) {
   return bp.EventSet("Add Loan " + userId, function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a loan " + userId);
+    var body = getJsonBody(e);
+    return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && asInteger(body.userId) === asInteger(userId);
   });
 }
 
 function matchDeletedLoans(userId) {
   return bp.EventSet("Deleted Loans " + userId, function (e) {
-    return e.name.startsWith("Done: Positive: Delete a loan by composite id") && e.name.includes(userId);
+    return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/" + asInteger(userId) + "/") && hasExpectedCode(e, 200);
   });
 }
 
 function matchAnyLoansDeleted() {
   return bp.EventSet("Any Loans Deleted", function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Delete a loan ");
+    return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
   });
 }
 
 function listUsers(q) {
-  var url = "/users"; var reqDescription = "List/search users {id}";
+  var url = "/users"; var reqDescription = "List/search user {id}";
   let finalCodes = [200];
   var parameters = { description: reqDescription };
   if (q !== undefined && q !== null) parameters.q = asString(q);
@@ -257,16 +309,18 @@ function createUser(id, name) {
 
 function deleteUser(id) {
   id = asInteger(id);
-  var url = "/users/" + id; var reqDescription = "Delete a user " + id;
+  var url = "/users/" + id; 
+  var reqDescription = "Delete a user " + id;
   let finalCodes = [200];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   return response;
 }
 
-function tryToAddExistingUsers(id, name) {
+function verifyThatUserCannotBeAdded(id, name) {
   id = asInteger(id);
   name = asString(name);
-  var url = "/users"; var reqDescription = "Rainy: Try Add Existing Users " + id;
+  var url = "/users"; 
+  var reqDescription = "Rainy: Try Add Existing User " + id;
   let finalCodes = [400, 409];
   var body = {
     "id": id,
@@ -276,7 +330,7 @@ function tryToAddExistingUsers(id, name) {
   return response;
 }
 
-function verifyUsersRejects(id, name, q) {
+function verifyUserRejects(id, name, q) {
   id = asInteger(id);
   name = asString(name);
   var url = "/users";
@@ -289,19 +343,19 @@ function verifyUsersRejects(id, name, q) {
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
 }
 
-function verifyUsersExists(id) {
+function verifyUserExists(id) {
   id = asInteger(id);
   let res = listUsers(id);
   try {
     let listData = (typeof res === "string") ? JSON.parse(res) : res;
     if (Array.isArray(listData)) {
       let found = listData.find(item => item.id == id || item.id == id);
-      if (!found) pvg.fail("Users NOT found in list");
+      if (!found) pvg.fail("User NOT found in list");
     }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDeleted(id) {
+function verifyUserDeleted(id) {
   id = asInteger(id);
   let res = listUsers(id);
   try {
@@ -309,12 +363,12 @@ function verifyUsersDeleted(id) {
     if (!Array.isArray(listData) && listData.data) listData = listData.data;
     if (Array.isArray(listData)) {
       let found = listData.find(item => item.id == id || item.id == id);
-      if (found) pvg.fail("Users still found in list (deletion failed)");
+      if (found) pvg.fail("User still found in list (deletion failed)");
     }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyUsersDoesNotExist(id) { verifyUsersDeleted(id); }
+function verifyUserDoesNotExist(id) { verifyUserDeleted(id); }
 
 function verifyUserCannotBeDeleted(id) {
   id = asInteger(id);
@@ -325,30 +379,32 @@ function verifyUserCannotBeDeleted(id) {
 
 function matchAnyUsersAdded() {
   return bp.EventSet("Any Users Added", function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a user ");
+    return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201);
   });
 }
 
 function matchAddUser(id) {
   return bp.EventSet("Add User " + id, function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a user " + id);
+    var body = getJsonBody(e);
+    return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
   });
 }
 
 function matchDeletedUsers(id) {
   return bp.EventSet("Deleted Users " + id, function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description === ("Delete a user " + id);
+    return e.name === "DELETE" && getRequestPath(e) === ("/users/" + asInteger(id)) && hasExpectedCode(e, 200);
   });
 }
 
 function matchAnyUsersDeleted() {
   return bp.EventSet("Any Users Deleted", function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Delete a user ");
+    return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
   });
 }
 
+// Private function for Holds
 function listHolds() {
-  var url = "/holds"; var reqDescription = "List holds {id}";
+  var url = "/holds"; var reqDescription = "List hold {id}";
   let finalCodes = [200];
   let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   return response;
@@ -377,22 +433,8 @@ function deleteHold(id) {
   return response;
 }
 
-function tryToAddExistingHolds(bookId, id, userId) {
-  bookId = asInteger(bookId);
-  id = asInteger(id);
-  userId = asInteger(userId);
-  var url = "/holds"; var reqDescription = "Rainy: Try Add Existing Holds " + id;
-  let finalCodes = [400, 409];
-  var body = {
-    "bookId": bookId,
-    "id": id,
-    "userId": userId
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
-}
 
-function verifyHoldsRejects(bookId, id, userId) {
+function verifyHoldRejects(bookId, id, userId) {
   bookId = asInteger(bookId);
   id = asInteger(id);
   userId = asInteger(userId);
@@ -406,19 +448,19 @@ function verifyHoldsRejects(bookId, id, userId) {
   svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
 }
 
-function verifyHoldsExists(id) {
+function verifyHoldExists(id) {
   id = asInteger(id);
   let res = listHolds();
   try {
     let listData = (typeof res === "string") ? JSON.parse(res) : res;
     if (Array.isArray(listData)) {
       let found = listData.find(item => item.id == id || item.id == id);
-      if (!found) pvg.fail("Holds NOT found in list");
+      if (!found) pvg.fail("Hold NOT found in list");
     }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyHoldsDeleted(id) {
+function verifyHoldDeleted(id) {
   id = asInteger(id);
   let res = listHolds();
   try {
@@ -426,12 +468,12 @@ function verifyHoldsDeleted(id) {
     if (!Array.isArray(listData) && listData.data) listData = listData.data;
     if (Array.isArray(listData)) {
       let found = listData.find(item => item.id == id || item.id == id);
-      if (found) pvg.fail("Holds still found in list (deletion failed)");
+      if (found) pvg.fail("Hold still found in list (deletion failed)");
     }
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
-function verifyHoldsDoesNotExist(id) { verifyHoldsDeleted(id); }
+function verifyHoldDoesNotExist(id) { verifyHoldDeleted(id); }
 
 function verifyHoldCannotBeDeleted(id) {
   id = asInteger(id);
@@ -442,24 +484,25 @@ function verifyHoldCannotBeDeleted(id) {
 
 function matchAnyHoldsAdded() {
   return bp.EventSet("Any Holds Added", function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Create a hold ");
+    return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201);
   });
 }
 
 function matchAddHold(id) {
   return bp.EventSet("Add Hold " + id, function (e) {
-    return e.name === "POST" && e.data && e.data.parameters && e.data.parameters.description === ("Create a hold " + id);
+    var body = getJsonBody(e);
+    return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
   });
 }
 
 function matchDeletedHolds(id) {
   return bp.EventSet("Deleted Holds " + id, function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description === ("Delete a hold " + id);
+    return e.name === "DELETE" && getRequestPath(e) === ("/holds/" + asInteger(id)) && hasExpectedCode(e, 200);
   });
 }
 
 function matchAnyHoldsDeleted() {
   return bp.EventSet("Any Holds Deleted", function (e) {
-    return e.name === "DELETE" && e.data && e.data.parameters && e.data.parameters.description && e.data.parameters.description.startsWith("Delete a hold ");
+    return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
   });
 }
