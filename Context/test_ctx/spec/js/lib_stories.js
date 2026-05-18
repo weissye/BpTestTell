@@ -37,16 +37,13 @@ ctx.bthread("verifyUserCreation", "User.All", function (user) {
 });
 
 bthread("verifyUserDeletion", function () {
-	while (true) {
-		let e = waitFor(matchAnyUsersDeleted());
-		let id = parseInt(e.data.parameters.description.split(' ').pop());
-		// Note: While this bthread is busy requesting verifyUsersDoesNotExist, 
-		// it is not waiting for matchAnyUsersDeleted. Consequently, if another User 
-		// is deleted concurrently during this verification window, that deletion event may be missed.
+	on(matchAnyUsersDeleted(), function (e) {
+		let id = extractId(e);
+
 		block(matchAddUser(id), function () {
 			verifyUsersDoesNotExist(id);
 		});
-	}
+	});
 });
 
 ctx.bthread("verifyBookCreation", "Book.All", function (book) {
@@ -56,16 +53,13 @@ ctx.bthread("verifyBookCreation", "Book.All", function (book) {
 });
 
 bthread("verifyBookDeletion", function () {
-	while (true) {
-		let e = waitFor(matchAnyBooksDeleted());
-		let id = parseInt(e.data.parameters.description.split(' ').pop());
-		// Note: While this bthread is busy requesting verifyBooksDoesNotExist, 
-		// it is not waiting for matchAnyBooksDeleted. Consequently, if another Book 
-		// is deleted concurrently during this verification window, that deletion event may be missed.
+	on(matchAnyBooksDeleted(), function (e) {
+		let id = extractId(e);
+
 		block(matchAddBook(id), function () {
 			verifyBooksDoesNotExist(id);
 		});
-	}
+	});
 });
 
 ctx.bthread("verifyLoanCreation", "Loan.All", function (loan) {
@@ -75,16 +69,13 @@ ctx.bthread("verifyLoanCreation", "Loan.All", function (loan) {
 });
 
 bthread("verifyLoanDeletion", function () {
-	while (true) {
-		let e = waitFor(matchAnyLoansDeleted());
-		let id = parseInt(e.data.parameters.description.split(' ').pop());
-		// Note: While this bthread is busy requesting verifyLoansDoesNotExist, 
-		// it is not waiting for matchAnyLoansDeleted. Consequently, if another Loan 
-		// is deleted concurrently during this verification window, that deletion event may be missed.
+	on(matchAnyLoansDeleted(), function (e) {
+		let id = extractId(e);
+
 		block(matchAddLoan(id), function () {
 			verifyLoansDoesNotExist(null, id);
 		});
-	}
+	});
 });
 
 ctx.bthread("verifyHoldCreation", "Hold.All", function (hold) {
@@ -94,16 +85,13 @@ ctx.bthread("verifyHoldCreation", "Hold.All", function (hold) {
 });
 
 bthread("verifyHoldDeletion", function () {
-	while (true) {
-		let e = waitFor(matchAnyHoldsDeleted());
-		let id = parseInt(e.data.parameters.description.split(' ').pop());
-		// Note: While this bthread is busy requesting verifyHoldsDoesNotExist, 
-		// it is not waiting for matchAnyHoldsDeleted. Consequently, if another Hold 
-		// is deleted concurrently during this verification window, that deletion event may be missed.
+	on(matchAnyHoldsDeleted(), function (e) {
+		let id = extractId(e);
+
 		block(matchAddHold(id), function () {
 			verifyHoldsDoesNotExist(id);
 		});
-	}
+	});
 });
 
 
