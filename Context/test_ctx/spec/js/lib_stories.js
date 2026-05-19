@@ -165,7 +165,7 @@ ctx.bthread("deleteUser", "User.NoLoan", function (user) {
 	deleteUser(user.id); // <--- Lower the priority?
 })
 
-ctx.bthread("deleteBook", "Book.All", function (book) {
+ctx.bthread("deleteBook", "Book.NoLoan", function (book) {
 	deleteBook(book.id);
 })
 

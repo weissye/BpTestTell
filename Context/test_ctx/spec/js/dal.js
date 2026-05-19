@@ -103,6 +103,12 @@ ctx.registerQuery('Book.All', function(e) {
 	return e.type === 'book';
 });
 
+ctx.registerQuery('Book.NoLoan', function(e) {
+	return e.type === 'book' && !ctx.runQuery('Loan.All').some(function(l) {
+		return sameId(l.bookid, e.id);
+	});
+});
+
 ctx.registerQuery('User.All', function(e) {
 	return e.type === 'user';
 });

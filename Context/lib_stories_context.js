@@ -22,6 +22,9 @@ ctx.registerQuery('Book.All', function(e) {
 	return e.type==='book'
 })
 
+ctx.registerQuery('Book.NoLoan', function(e) {
+	return e.type==='book' && e.loan == null
+})
 
 ctx.registerQuery('User.All', function(e) {
 	return e.type==='user'
