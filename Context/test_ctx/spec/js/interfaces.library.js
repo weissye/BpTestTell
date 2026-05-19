@@ -141,19 +141,28 @@ function verifyBookDeleted(id) {
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
+function verifyBookDoesNotAppearInAnyList(id) { verifyBookDeleted(id); }
+
+function verifyBooksDoesNotAppearInAnyList(id) { verifyBookDoesNotAppearInAnyList(id); }
+
 function verifyBookDoesNotExist(id) { verifyBookDeleted(id); }
 
-function verifyBookCannotBeDeleted(id) {
+function verifyBookCannotBeDeleted(id, expectedCode) {
   id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/books/" + id;
   var description = "Verify Book " + id + " cannot be deleted";
-  svc.delete(url, { expectedResponseCodes: [400], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
 function matchAnyBooksAdded() {
   return bp.EventSet("Any Books Added", function (e) {
     return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201);
   });
+}
+
+function matchAnyBookAdded() {
+  return matchAnyBooksAdded();
 }
 
 function matchAddBook(id) {
@@ -163,16 +172,24 @@ function matchAddBook(id) {
   });
 }
 
-function matchDeletedBooks(id) {
+function matchDeleteBook(id) {
   return bp.EventSet("Deleted Books " + id, function (e) {
     return e.name === "DELETE" && getRequestPath(e) === ("/books/" + asInteger(id)) && hasExpectedCode(e, 200);
   });
 }
 
-function matchAnyBooksDeleted() {
+function matchDeletedBooks(id) {
+  return matchDeleteBook(id);
+}
+
+function matchAnyBookDeleted() {
   return bp.EventSet("Any Books Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
   });
+}
+
+function matchAnyBooksDeleted() {
+  return matchAnyBookDeleted();
 }
 
 function listLoans(userId, bookId) {
@@ -259,11 +276,28 @@ function verifyLoanDoesNotExist(bookId, userId) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
+function verifyLoanDoesNotAppearInAnyList(bookId, userId) { verifyLoanDoesNotExist(bookId, userId); }
+
+function verifyLoansDoesNotAppearInAnyList(bookId, userId) { verifyLoanDoesNotAppearInAnyList(bookId, userId); }
+
+function verifyLoanCannotBeDeleted(userId, bookId, expectedCode) {
+  userId = asInteger(userId);
+  bookId = asInteger(bookId);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/loans/" + userId + "/" + bookId;
+  var description = "Verify Loan " + userId + "/" + bookId + " cannot be deleted";
+  svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
 
 function matchAnyLoansAdded() {
   return bp.EventSet("Any Loans Added", function (e) {
     return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201);
   });
+}
+
+function matchAnyLoanAdded() {
+  return matchAnyLoansAdded();
 }
 
 function matchAddLoan(userId) {
@@ -273,16 +307,24 @@ function matchAddLoan(userId) {
   });
 }
 
-function matchDeletedLoans(userId) {
+function matchDeleteLoan(userId) {
   return bp.EventSet("Deleted Loans " + userId, function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/" + asInteger(userId) + "/") && hasExpectedCode(e, 200);
   });
 }
 
-function matchAnyLoansDeleted() {
+function matchDeletedLoans(userId) {
+  return matchDeleteLoan(userId);
+}
+
+function matchAnyLoanDeleted() {
   return bp.EventSet("Any Loans Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
   });
+}
+
+function matchAnyLoansDeleted() {
+  return matchAnyLoanDeleted();
 }
 
 function listUsers(q) {
@@ -368,19 +410,28 @@ function verifyUserDeleted(id) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
+function verifyUserDoesNotAppearInAnyList(id) { verifyUserDeleted(id); }
+
+function verifyUsersDoesNotAppearInAnyList(id) { verifyUserDoesNotAppearInAnyList(id); }
+
 function verifyUserDoesNotExist(id) { verifyUserDeleted(id); }
 
-function verifyUserCannotBeDeleted(id) {
+function verifyUserCannotBeDeleted(id, expectedCode) {
   id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/users/" + id;
   var description = "Verify User " + id + " cannot be deleted";
-  svc.delete(url, { expectedResponseCodes: [400], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
 function matchAnyUsersAdded() {
   return bp.EventSet("Any Users Added", function (e) {
     return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201);
   });
+}
+
+function matchAnyUserAdded() {
+  return matchAnyUsersAdded();
 }
 
 function matchAddUser(id) {
@@ -390,16 +441,24 @@ function matchAddUser(id) {
   });
 }
 
-function matchDeletedUsers(id) {
+function matchDeleteUser(id) {
   return bp.EventSet("Deleted Users " + id, function (e) {
     return e.name === "DELETE" && getRequestPath(e) === ("/users/" + asInteger(id)) && hasExpectedCode(e, 200);
   });
 }
 
-function matchAnyUsersDeleted() {
+function matchDeletedUser(id) {
+  return matchDeleteUser(id);
+}
+
+function matchAnyUserDeleted() {
   return bp.EventSet("Any Users Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
   });
+}
+
+function matchAnyUsersDeleted() {
+  return matchAnyUserDeleted();
 }
 
 // Private function for Holds
@@ -473,19 +532,28 @@ function verifyHoldDeleted(id) {
   } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
 }
 
+function verifyHoldDoesNotAppearInAnyList(id) { verifyHoldDeleted(id); }
+
+function verifyHoldsDoesNotAppearInAnyList(id) { verifyHoldDoesNotAppearInAnyList(id); }
+
 function verifyHoldDoesNotExist(id) { verifyHoldDeleted(id); }
 
-function verifyHoldCannotBeDeleted(id) {
+function verifyHoldCannotBeDeleted(id, expectedCode) {
   id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/holds/" + id;
   var description = "Verify Hold " + id + " cannot be deleted";
-  svc.delete(url, { expectedResponseCodes: [400], parameters: { description: description } });
+  svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
 function matchAnyHoldsAdded() {
   return bp.EventSet("Any Holds Added", function (e) {
     return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201);
   });
+}
+
+function matchAnyHoldAdded() {
+  return matchAnyHoldsAdded();
 }
 
 function matchAddHold(id) {
@@ -495,14 +563,22 @@ function matchAddHold(id) {
   });
 }
 
-function matchDeletedHolds(id) {
+function matchDeleteHold(id) {
   return bp.EventSet("Deleted Holds " + id, function (e) {
     return e.name === "DELETE" && getRequestPath(e) === ("/holds/" + asInteger(id)) && hasExpectedCode(e, 200);
   });
 }
 
-function matchAnyHoldsDeleted() {
+function matchDeletedHolds(id) {
+  return matchDeleteHold(id);
+}
+
+function matchAnyHoldDeleted() {
   return bp.EventSet("Any Holds Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
   });
+}
+
+function matchAnyHoldsDeleted() {
+  return matchAnyHoldDeleted();
 }

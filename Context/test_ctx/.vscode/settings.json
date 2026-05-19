@@ -1,0 +1,8 @@
+{
+  "editor.rulers": [100],
+  "prettier.printWidth": 100,
+  "[javascript]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100
+  }
+}
