@@ -8,8 +8,6 @@ const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "proven
 
 const pvg = { fail: function (msg) { bp.log.error(msg); throw new Error(msg); } };
 
-function matchSuccess(desc) { return bp.EventSet("Done: Positive: " + desc, function (e) { return e.name === "Done: Positive: " + desc; }); }
-
 function asInteger(value) { return Number.parseInt(value, 10); }
 
 function asString(value) { return String(value); }
@@ -63,13 +61,37 @@ function getJsonBody(e) {
   return null;
 }
 
-function listBooks(q) {
-  var url = "/books"; var reqDescription = "List/search book {id}";
-  let finalCodes = [200];
-  var parameters = { description: reqDescription };
-  if (q !== undefined && q !== null) parameters.q = asString(q);
-  let response = svc.get(url, { parameters: parameters, expectedResponseCodes: finalCodes });
-  return response;
+function readSutList(listName, url, parameters) {
+  try {
+    var requestParameters = parameters || {};
+    if (requestParameters.description === undefined || requestParameters.description === null) {
+      requestParameters.description = "Verify SUT " + listName + " list";
+    }
+    var response = svc.get(url, { parameters: requestParameters, expectedResponseCodes: [200] });
+    var listData = (typeof response === "string") ? JSON.parse(response) : response;
+    if (!Array.isArray(listData) && listData && typeof listData.body === "string") listData = JSON.parse(listData.body);
+    if (!Array.isArray(listData) && listData && Array.isArray(listData.data)) listData = listData.data;
+    if (!Array.isArray(listData) && listData && Array.isArray(listData.items)) listData = listData.items;
+    if (!Array.isArray(listData) && listData && Array.isArray(listData.results)) listData = listData.results;
+    if (Array.isArray(listData)) return listData;
+    pvg.fail("Could not inspect " + listName + " response as a SUT list");
+  } catch (err) {
+    pvg.fail("Failed to read " + listName + " from the SUT: " + err);
+  }
+}
+
+function verifySutListContains(listName, url, parameters, predicate, failureMessage) {
+  // Verification is executed against the SUT by fetching only the requested SUT list slice before inspecting it.
+  var listData = readSutList(listName, url, parameters);
+  var found = listData.find(predicate);
+  if (!found) pvg.fail(failureMessage);
+}
+
+function verifySutListDoesNotContain(listName, url, parameters, predicate, failureMessage) {
+  // Verification is executed against the SUT by fetching only the requested SUT list slice before inspecting it.
+  var listData = readSutList(listName, url, parameters);
+  var found = listData.find(predicate);
+  if (found) pvg.fail(failureMessage + ": " + JSON.stringify(found));
 }
 
 function createBook(id, title) {
@@ -85,14 +107,6 @@ function createBook(id, title) {
   return response;
 }
 
-function getBook(id) {
-  id = asInteger(id);
-  var url = "/books/" + id; var reqDescription = "Get book by id " + id;
-  let finalCodes = [200];
-  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
-  return response;
-}
-
 function deleteBook(id) {
   id = asInteger(id);
   var url = "/books/" + id; var reqDescription = "Delete a book " + id;
@@ -101,68 +115,35 @@ function deleteBook(id) {
   return response;
 }
 
-function verifyThatABookCannotBeAdded(id, title) {
+function verifyBooksExists(id) {
+  // Verification is executed against the SUT dataset by reading the books list and searching for this book id.
   id = asInteger(id);
-  title = asString(title);
-  var url = "/books"; var reqDescription = "Rainy: Try Add Existing Book " + id;
-  let finalCodes = [400, 409];
-  var body = {
-    "id": id,
-    "title": title
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
+  verifySutListContains("books", "/books", { q: asString(id), description: "Verify Book " + id + " exists in SUT books list" }, function (item) {
+    return item && asInteger(item.id) === id;
+  }, "Book " + id + " was not found in the SUT books list");
 }
 
-function verifyBookRejects(id, q, title) {
+function verifyBookDoesNotAppearInAnyList(id) {
+  // Verification is executed against SUT datasets: books directly, and loans/holds indirectly by bookId.
   id = asInteger(id);
-  title = asString(title);
-  var url = "/books";
-  var reqDescription = "Rainy: Verify Rejection for " + url;
-  var body = {
-    "id": id,
-    "q": q,
-    "title": title
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
+  verifySutListDoesNotContain("books", "/books", { q: asString(id), description: "Verify Book " + id + " is absent from SUT books list" }, function (item) {
+    return item && asInteger(item.id) === id;
+  }, "Book " + id + " still appears in books list");
+  verifySutListDoesNotContain("loans", "/loans", { bookId: id, description: "Verify Book " + id + " is absent from SUT loans list" }, function (item) {
+    return item && asInteger(item.bookId) === id;
+  }, "Book " + id + " still appears in loans list");
+  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify Book " + id + " is absent from SUT holds list" }, function (item) {
+    return item && asInteger(item.bookId) === id;
+  }, "Book " + id + " still appears in holds list");
 }
-
-function verifyBookExists(id) {
-  id = asInteger(id);
-  var url = "/books/" + id;
-  var description = "Verify Book " + id + " exists";
-  svc.get(url, { expectedResponseCodes: [200], parameters: { description: description } });
-}
-
-function verifyBookDeleted(id) {
-  id = asInteger(id);
-  var url = "/books/" + id;
-  var description = "Verify Book " + id + " deleted";
-  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
-}
-
-function verifyBookDoesNotAppearInAnyList(id) { verifyBookDeleted(id); }
-
-function verifyBooksDoesNotAppearInAnyList(id) { verifyBookDoesNotAppearInAnyList(id); }
-
-function verifyBookDoesNotExist(id) { verifyBookDeleted(id); }
 
 function verifyBookCannotBeDeleted(id, expectedCode) {
+  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/books/" + id;
   var description = "Verify Book " + id + " cannot be deleted";
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
-}
-
-function matchAnyBooksAdded() {
-  return bp.EventSet("Any Books Added", function (e) {
-    return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201);
-  });
-}
-
-function matchAnyBookAdded() {
-  return matchAnyBooksAdded();
 }
 
 function matchAddBook(id) {
@@ -178,41 +159,10 @@ function matchDeleteBook(id) {
   });
 }
 
-function matchDeletedBooks(id) {
-  return matchDeleteBook(id);
-}
-
 function matchAnyBookDeleted() {
   return bp.EventSet("Any Books Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
   });
-}
-
-function matchAnyBooksDeleted() {
-  return matchAnyBookDeleted();
-}
-
-function listLoans(userId, bookId) {
-  var url = "/loans"; var reqDescription = "List/search loan {userId}";
-  let finalCodes = [200];
-  var parameters = { description: reqDescription };
-  if (userId !== undefined && userId !== null) parameters.userId = asInteger(userId);
-  if (bookId !== undefined && bookId !== null) parameters.bookId = asInteger(bookId);
-  let response = svc.get(url, { parameters: parameters, expectedResponseCodes: finalCodes });
-  return response;
-}
-
-function createLoan(bookId, userId) {
-  bookId = asInteger(bookId);
-  userId = asInteger(userId);
-  var url = "/loans"; var reqDescription = "Create a loan " + userId;
-  let finalCodes = [201];
-  var body = {
-    "bookId": bookId,
-    "userId": userId
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
 }
 
 function deleteLoan(userId, bookId) {
@@ -224,80 +174,35 @@ function deleteLoan(userId, bookId) {
   return response;
 }
 
-function verifyThatALoanCannotBeAdded(bookId, userId) {
-  bookId = asInteger(bookId);
-  userId = asInteger(userId);
-  var url = "/loans"; var reqDescription = "Rainy: Try Add Existing Loan " + userId;
-  let finalCodes = [400, 409];
-  var body = {
-    "bookId": bookId,
-    "userId": userId
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
-}
-
-function verifyLoanRejects(bookId, userId) {
-  bookId = asInteger(bookId);
-  userId = asInteger(userId);
-  var url = "/loans";
-  var reqDescription = "Rainy: Verify Rejection for " + url;
-  var body = {
-    "bookId": bookId,
-    "userId": userId
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
-}
-
 function verifyLoanExists(bookId, userId) {
+  // Verification is executed against the SUT dataset by reading the loans list and searching for this composite id.
   bookId = asInteger(bookId);
   userId = asInteger(userId);
-  let res = listLoans(userId, bookId);
-  try {
-    let listData = (typeof res === "string") ? JSON.parse(res) : res;
-    if (Array.isArray(listData)) {
-      let found = listData.find(item => item.userId == userId || item.id == userId);
-      if (!found) pvg.fail("Loan NOT found in list");
-    }
-  } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
+  verifySutListContains("loans", "/loans", { userId: userId, bookId: bookId, description: "Verify Loan " + userId + "/" + bookId + " exists in SUT loans list" }, function (item) {
+    return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId;
+  }, "Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
 }
 
-function verifyLoanDoesNotExist(bookId, userId) {
-  bookId = asInteger(bookId);
+function verifyLoanDoesNotAppearInAnyList(bookId, userId) {
+  // Verification is executed against the SUT dataset by reading the loans list and confirming the loan is absent.
+  bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
   userId = asInteger(userId);
-  let res = listLoans(userId, bookId);
-  try {
-    let listData = (typeof res === "string") ? JSON.parse(res) : res;
-    if (!Array.isArray(listData) && listData.data) listData = listData.data;
-    if (Array.isArray(listData)) {
-      let found = listData.find(item => item.userId == userId || item.id == userId);
-      if (found) pvg.fail("Loan still found in list (deletion failed)");
-    }
-  } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
+  var parameters = { userId: userId, description: "Verify Loan " + userId + (bookId === null ? "" : "/" + bookId) + " is absent from SUT loans list" };
+  if (bookId !== null) parameters.bookId = bookId;
+  verifySutListDoesNotContain("loans", "/loans", parameters, function (item) {
+    if (!item || asInteger(item.userId) !== userId) return false;
+    return bookId === null || asInteger(item.bookId) === bookId;
+  }, "Loan " + userId + (bookId === null ? "" : "/" + bookId) + " still appears in loans list");
 }
-
-function verifyLoanDoesNotAppearInAnyList(bookId, userId) { verifyLoanDoesNotExist(bookId, userId); }
-
-function verifyLoansDoesNotAppearInAnyList(bookId, userId) { verifyLoanDoesNotAppearInAnyList(bookId, userId); }
 
 function verifyLoanCannotBeDeleted(userId, bookId, expectedCode) {
+  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
   userId = asInteger(userId);
   bookId = asInteger(bookId);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/loans/" + userId + "/" + bookId;
   var description = "Verify Loan " + userId + "/" + bookId + " cannot be deleted";
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
-}
-
-
-function matchAnyLoansAdded() {
-  return bp.EventSet("Any Loans Added", function (e) {
-    return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201);
-  });
-}
-
-function matchAnyLoanAdded() {
-  return matchAnyLoansAdded();
 }
 
 function matchAddLoan(userId) {
@@ -313,27 +218,10 @@ function matchDeleteLoan(userId) {
   });
 }
 
-function matchDeletedLoans(userId) {
-  return matchDeleteLoan(userId);
-}
-
 function matchAnyLoanDeleted() {
   return bp.EventSet("Any Loans Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
   });
-}
-
-function matchAnyLoansDeleted() {
-  return matchAnyLoanDeleted();
-}
-
-function listUsers(q) {
-  var url = "/users"; var reqDescription = "List/search user {id}";
-  let finalCodes = [200];
-  var parameters = { description: reqDescription };
-  if (q !== undefined && q !== null) parameters.q = asString(q);
-  let response = svc.get(url, { parameters: parameters, expectedResponseCodes: finalCodes });
-  return response;
 }
 
 function createUser(id, name) {
@@ -358,80 +246,35 @@ function deleteUser(id) {
   return response;
 }
 
-function verifyThatUserCannotBeAdded(id, name) {
+function verifyUsersExists(id) {
+  // Verification is executed against the SUT dataset by reading the users list and searching for this user id.
   id = asInteger(id);
-  name = asString(name);
-  var url = "/users"; 
-  var reqDescription = "Rainy: Try Add Existing User " + id;
-  let finalCodes = [400, 409];
-  var body = {
-    "id": id,
-    "name": name
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
+  verifySutListContains("users", "/users", { q: asString(id), description: "Verify User " + id + " exists in SUT users list" }, function (item) {
+    return item && asInteger(item.id) === id;
+  }, "User " + id + " was not found in the SUT users list");
 }
 
-function verifyUserRejects(id, name, q) {
+function verifyUserDoesNotAppearInAnyList(id) {
+  // Verification is executed against SUT datasets: users directly, and loans/holds indirectly by userId.
   id = asInteger(id);
-  name = asString(name);
-  var url = "/users";
-  var reqDescription = "Rainy: Verify Rejection for " + url;
-  var body = {
-    "id": id,
-    "name": name,
-    "q": q
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
+  verifySutListDoesNotContain("users", "/users", { q: asString(id), description: "Verify User " + id + " is absent from SUT users list" }, function (item) {
+    return item && asInteger(item.id) === id;
+  }, "User " + id + " still appears in users list");
+  verifySutListDoesNotContain("loans", "/loans", { userId: id, description: "Verify User " + id + " is absent from SUT loans list" }, function (item) {
+    return item && asInteger(item.userId) === id;
+  }, "User " + id + " still appears in loans list");
+  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify User " + id + " is absent from SUT holds list" }, function (item) {
+    return item && asInteger(item.userId) === id;
+  }, "User " + id + " still appears in holds list");
 }
-
-function verifyUserExists(id) {
-  id = asInteger(id);
-  let res = listUsers(id);
-  try {
-    let listData = (typeof res === "string") ? JSON.parse(res) : res;
-    if (Array.isArray(listData)) {
-      let found = listData.find(item => item.id == id || item.id == id);
-      if (!found) pvg.fail("User NOT found in list");
-    }
-  } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
-}
-
-function verifyUserDeleted(id) {
-  id = asInteger(id);
-  let res = listUsers(id);
-  try {
-    let listData = (typeof res === "string") ? JSON.parse(res) : res;
-    if (!Array.isArray(listData) && listData.data) listData = listData.data;
-    if (Array.isArray(listData)) {
-      let found = listData.find(item => item.id == id || item.id == id);
-      if (found) pvg.fail("User still found in list (deletion failed)");
-    }
-  } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
-}
-
-function verifyUserDoesNotAppearInAnyList(id) { verifyUserDeleted(id); }
-
-function verifyUsersDoesNotAppearInAnyList(id) { verifyUserDoesNotAppearInAnyList(id); }
-
-function verifyUserDoesNotExist(id) { verifyUserDeleted(id); }
 
 function verifyUserCannotBeDeleted(id, expectedCode) {
+  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/users/" + id;
   var description = "Verify User " + id + " cannot be deleted";
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
-}
-
-function matchAnyUsersAdded() {
-  return bp.EventSet("Any Users Added", function (e) {
-    return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201);
-  });
-}
-
-function matchAnyUserAdded() {
-  return matchAnyUsersAdded();
 }
 
 function matchAddUser(id) {
@@ -447,26 +290,10 @@ function matchDeleteUser(id) {
   });
 }
 
-function matchDeletedUser(id) {
-  return matchDeleteUser(id);
-}
-
 function matchAnyUserDeleted() {
   return bp.EventSet("Any Users Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
   });
-}
-
-function matchAnyUsersDeleted() {
-  return matchAnyUserDeleted();
-}
-
-// Private function for Holds
-function listHolds() {
-  var url = "/holds"; var reqDescription = "List hold {id}";
-  let finalCodes = [200];
-  let response = svc.get(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
-  return response;
 }
 
 function createHold(bookId, id, userId) {
@@ -492,68 +319,29 @@ function deleteHold(id) {
   return response;
 }
 
-
-function verifyHoldRejects(bookId, id, userId) {
-  bookId = asInteger(bookId);
+function verifyHoldsExists(id) {
+  // Verification is executed against the SUT dataset by reading the holds list and searching for this hold id.
   id = asInteger(id);
-  userId = asInteger(userId);
-  var url = "/holds";
-  var reqDescription = "Rainy: Verify Rejection for " + url;
-  var body = {
-    "bookId": bookId,
-    "id": id,
-    "userId": userId
-  };
-  svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [400, 422, 409, 500], parameters: { description: reqDescription } });
+  verifySutListContains("holds", "/holds", { q: asString(id), description: "Verify Hold " + id + " exists in SUT holds list" }, function (item) {
+    return item && asInteger(item.id) === id;
+  }, "Hold " + id + " was not found in the SUT holds list");
 }
 
-function verifyHoldExists(id) {
+function verifyHoldDoesNotAppearInAnyList(id) {
+  // Verification is executed against the SUT dataset by confirming this hold id is absent from the holds list.
   id = asInteger(id);
-  let res = listHolds();
-  try {
-    let listData = (typeof res === "string") ? JSON.parse(res) : res;
-    if (Array.isArray(listData)) {
-      let found = listData.find(item => item.id == id || item.id == id);
-      if (!found) pvg.fail("Hold NOT found in list");
-    }
-  } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
+  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify Hold " + id + " is absent from SUT holds list" }, function (item) {
+    return item && asInteger(item.id) === id;
+  }, "Hold " + id + " still appears in holds list");
 }
-
-function verifyHoldDeleted(id) {
-  id = asInteger(id);
-  let res = listHolds();
-  try {
-    let listData = (typeof res === "string") ? JSON.parse(res) : res;
-    if (!Array.isArray(listData) && listData.data) listData = listData.data;
-    if (Array.isArray(listData)) {
-      let found = listData.find(item => item.id == id || item.id == id);
-      if (found) pvg.fail("Hold still found in list (deletion failed)");
-    }
-  } catch (err) { bp.log.warn("Failed to parse list response: " + err); }
-}
-
-function verifyHoldDoesNotAppearInAnyList(id) { verifyHoldDeleted(id); }
-
-function verifyHoldsDoesNotAppearInAnyList(id) { verifyHoldDoesNotAppearInAnyList(id); }
-
-function verifyHoldDoesNotExist(id) { verifyHoldDeleted(id); }
 
 function verifyHoldCannotBeDeleted(id, expectedCode) {
+  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/holds/" + id;
   var description = "Verify Hold " + id + " cannot be deleted";
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
-}
-
-function matchAnyHoldsAdded() {
-  return bp.EventSet("Any Holds Added", function (e) {
-    return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201);
-  });
-}
-
-function matchAnyHoldAdded() {
-  return matchAnyHoldsAdded();
 }
 
 function matchAddHold(id) {
@@ -569,16 +357,8 @@ function matchDeleteHold(id) {
   });
 }
 
-function matchDeletedHolds(id) {
-  return matchDeleteHold(id);
-}
-
 function matchAnyHoldDeleted() {
   return bp.EventSet("Any Holds Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
   });
-}
-
-function matchAnyHoldsDeleted() {
-  return matchAnyHoldDeleted();
 }
