@@ -1,5 +1,5 @@
-const NUMBER_OF_USERS = 3
-const NUMBER_OF_BOOKS = 3
+const NUMBER_OF_USERS = 10
+const NUMBER_OF_BOOKS = 10
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -12,7 +12,7 @@ const NUMBER_OF_BOOKS = 3
 ctx.bthread("verifyUserCreation", "User.All", function (user) {
 	// When a user is created, delay that user's deletion until we verify
 	// that the user exists in the system.
-	// Users.All is what we believe should exist based on events we
+	// Note that Users.All is what we believe should exist based on events we
 	// triggered, and this bthread verifies that it actually exists.
 	block(matchDeleteUser(user.id), function () {
 		verifyUsersExists(user.id);

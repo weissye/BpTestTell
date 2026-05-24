@@ -38,7 +38,52 @@ function createUserBook(userIdValue, bookIdValue) {
 	}));
 }
 
-ctx.registerEffect("createBook", function(data) {
+
+ctx.registerEffect("GET", function (data) {
+	effect(data);
+});
+
+
+ctx.registerEffect("POST", function (data) {
+	effect(data);
+});
+
+ctx.registerEffect("DELETE", function (data) {
+	effect(data);
+});
+
+ctx.registerEffect("PUT", function (data) {
+	effect(data);
+});
+
+ctx.registerEffect("PATCH", function (data) {
+	effect(data);
+});
+
+
+function effect(data) {
+	if (matchAddUser(data)) {
+
+
+
+		bp.log.info("Adding user {0}", data.parameters);
+		ctx.insertEntity(ctx.Entity(userId(data.parameters.body.id), 'user', {
+			id: data.parameters.body.id,
+			name: data.parameters.body.name
+		}));
+
+		// let allbooks = ctx.runQuery('Book.All');
+		// for (let b of allbooks) {
+		// 	createUserBook(data.parameters.body.id, b.id);
+		// }
+	}
+}
+
+
+
+
+
+ctx.registerEffect("createBook", function (data) {
 	ctx.insertEntity(ctx.Entity(bookId(data.id), 'book', {
 		id: data.id,
 		title: data.title || data.name
@@ -50,14 +95,14 @@ ctx.registerEffect("createBook", function(data) {
 	}
 });
 
-ctx.registerEffect("deleteBook", function(data) {
+ctx.registerEffect("deleteBook", function (data) {
 	ctx.removeEntity(bookId(data.id));
-	removeWhere('UserBook.All', function(e) { return sameId(e.bookid, data.id); });
-	removeWhere('Loan.All', function(e) { return sameId(e.bookid, data.id); });
-	removeWhere('Hold.All', function(e) { return sameId(e.bookid, data.id); });
+	removeWhere('UserBook.All', function (e) { return sameId(e.bookid, data.id); });
+	removeWhere('Loan.All', function (e) { return sameId(e.bookid, data.id); });
+	removeWhere('Hold.All', function (e) { return sameId(e.bookid, data.id); });
 });
 
-ctx.registerEffect("createUser", function(data) {
+ctx.registerEffect("createUser", function (data) {
 	ctx.insertEntity(ctx.Entity(userId(data.id), 'user', {
 		id: data.id,
 		name: data.name
@@ -69,25 +114,25 @@ ctx.registerEffect("createUser", function(data) {
 	}
 });
 
-ctx.registerEffect("deleteUser", function(data) {
+ctx.registerEffect("deleteUser", function (data) {
 	ctx.removeEntity(userId(data.id));
-	removeWhere('UserBook.All', function(e) { return sameId(e.userid, data.id); });
-	removeWhere('Loan.All', function(e) { return sameId(e.userid, data.id); });
-	removeWhere('Hold.All', function(e) { return sameId(e.userid, data.id); });
+	removeWhere('UserBook.All', function (e) { return sameId(e.userid, data.id); });
+	removeWhere('Loan.All', function (e) { return sameId(e.userid, data.id); });
+	removeWhere('Hold.All', function (e) { return sameId(e.userid, data.id); });
 });
 
-ctx.registerEffect("createLoan", function(data) {
+ctx.registerEffect("createLoan", function (data) {
 	ctx.insertEntity(ctx.Entity(loanId(data.userId, data.bookId), 'loan', {
 		userid: data.userId,
 		bookid: data.bookId
 	}));
 });
 
-ctx.registerEffect("deleteLoan", function(data) {
+ctx.registerEffect("deleteLoan", function (data) {
 	ctx.removeEntity(loanId(data.userId, data.bookId));
 });
 
-ctx.registerEffect("createHold", function(data) {
+ctx.registerEffect("createHold", function (data) {
 	ctx.insertEntity(ctx.Entity(holdId(data.id), 'hold', {
 		id: data.id,
 		userid: data.userId,
@@ -95,62 +140,62 @@ ctx.registerEffect("createHold", function(data) {
 	}));
 });
 
-ctx.registerEffect("deleteHold", function(data) {
+ctx.registerEffect("deleteHold", function (data) {
 	ctx.removeEntity(holdId(data.id));
 });
 
-ctx.registerQuery('Book.All', function(e) {
+ctx.registerQuery('Book.All', function (e) {
 	return e.type === 'book';
 });
 
-ctx.registerQuery('Book.NoLoan', function(e) {
-	return e.type === 'book' && !ctx.runQuery('Loan.All').some(function(l) {
+ctx.registerQuery('Book.NoLoan', function (e) {
+	return e.type === 'book' && !ctx.runQuery('Loan.All').some(function (l) {
 		return sameId(l.bookid, e.id);
 	});
 });
 
-ctx.registerQuery('User.All', function(e) {
+ctx.registerQuery('User.All', function (e) {
 	return e.type === 'user';
 });
 
-ctx.registerQuery('Loan.All', function(e) {
+ctx.registerQuery('Loan.All', function (e) {
 	return e.type === 'loan';
 });
 
-ctx.registerQuery('Hold.All', function(e) {
+ctx.registerQuery('Hold.All', function (e) {
 	return e.type === 'hold';
 });
 
-ctx.registerQuery('UserBook.All', function(e) {
+ctx.registerQuery('UserBook.All', function (e) {
 	return e.type === 'user-book';
 });
 
-ctx.registerQuery('User.NoLoan', function(e) {
-	return e.type === 'user' && !ctx.runQuery('Loan.All').some(function(l) {
+ctx.registerQuery('User.NoLoan', function (e) {
+	return e.type === 'user' && !ctx.runQuery('Loan.All').some(function (l) {
 		return sameId(l.userid, e.id);
 	});
 });
 
-ctx.registerQuery('User.HasLoan', function(e) {
-	return e.type === 'user' && ctx.runQuery('Loan.All').some(function(l) {
+ctx.registerQuery('User.HasLoan', function (e) {
+	return e.type === 'user' && ctx.runQuery('Loan.All').some(function (l) {
 		return sameId(l.userid, e.id);
 	});
 });
 
-ctx.registerQuery('Book.NotLoaned', function(e) {
-	return e.type === 'book' && !ctx.runQuery('Loan.All').some(function(l) {
+ctx.registerQuery('Book.NotLoaned', function (e) {
+	return e.type === 'book' && !ctx.runQuery('Loan.All').some(function (l) {
 		return sameId(l.bookid, e.id);
 	});
 });
 
-ctx.registerQuery('Book.IsLoaned', function(e) {
-	return e.type === 'book' && ctx.runQuery('Loan.All').some(function(l) {
+ctx.registerQuery('Book.IsLoaned', function (e) {
+	return e.type === 'book' && ctx.runQuery('Loan.All').some(function (l) {
 		return sameId(l.bookid, e.id);
 	});
 });
 
-ctx.registerQuery('UserBook.BookIsNotLoaned', function(e) {
-	return e.type === 'user-book' && !ctx.runQuery('Loan.All').some(function(l) {
+ctx.registerQuery('UserBook.BookIsNotLoaned', function (e) {
+	return e.type === 'user-book' && !ctx.runQuery('Loan.All').some(function (l) {
 		return sameId(l.bookid, e.bookid);
 	});
 });
