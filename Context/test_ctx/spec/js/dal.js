@@ -62,7 +62,7 @@ ctx.registerEffect("PATCH", function (data) {
 
 
 function effect(data) {
-	if (matchAnyUserAdded().contains(data)) {
+	if (isAnyUserAdded(data)) {
 		let body = getJsonBody(data);
 
 

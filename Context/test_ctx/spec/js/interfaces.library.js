@@ -292,10 +292,14 @@ function matchAddUser(id) {
   });
 }
 
+function isAnyUserAdded(e) {
+  var body = getJsonBody(e);
+  return getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
+}
+
 function matchAnyUserAdded() {
   return bp.EventSet("Any Users Added", function (e) {
-    var body = getJsonBody(e);
-    return getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
+    return isAnyUserAdded(e);
   });
 }
 
