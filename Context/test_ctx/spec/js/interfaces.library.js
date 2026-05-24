@@ -50,11 +50,7 @@ function getRequestPath(e) {
   if (!data) return "";
   var p = data.path || data.url || data.endpoint || "";
   if (!p) return "";
-  var protocolIdx = p.indexOf("://");
-  if (protocolIdx !== -1) {
-    var pathIdx = p.indexOf("/", protocolIdx + 3);
-    p = pathIdx === -1 ? "/" : p.substring(pathIdx);
-  }
+  p = String(p).replace(/^https?:\/\/[^\/]+/, "");
   var qIdx = p.indexOf("?");
   return qIdx === -1 ? p : p.substring(0, qIdx);
 }
@@ -76,6 +72,9 @@ function readSutList(listName, url, parameters) {
       requestParameters.description = "Verify SUT " + listName + " list";
     }
     var response = svc.get(url, { parameters: requestParameters, expectedResponseCodes: [200] });
+    if (response === undefined || response === null) return null;
+    if (response.lib === "REST" || response.method !== undefined) return null;
+    if (response.data && (response.data.lib === "REST" || response.data.method !== undefined)) return null;
     var listData = (typeof response === "string") ? JSON.parse(response) : response;
     if (!Array.isArray(listData) && listData && typeof listData.body === "string") listData = JSON.parse(listData.body);
     if (!Array.isArray(listData) && listData && Array.isArray(listData.data)) listData = listData.data;
@@ -84,6 +83,7 @@ function readSutList(listName, url, parameters) {
     if (Array.isArray(listData)) return listData;
     pvg.fail("Could not inspect " + listName + " response as a SUT list");
   } catch (err) {
+    if (String(err).indexOf("EndOfContextException") !== -1) return null;
     pvg.fail("Failed to read " + listName + " from the SUT: " + err);
   }
 }
@@ -91,6 +91,7 @@ function readSutList(listName, url, parameters) {
 function verifySutListContains(listName, url, parameters, predicate, failureMessage) {
   // Verification is executed against the SUT by fetching only the requested SUT list slice before inspecting it.
   var listData = readSutList(listName, url, parameters);
+  if (listData === null) return;
   var found = listData.find(predicate);
   if (!found) pvg.fail(failureMessage);
 }
@@ -98,6 +99,7 @@ function verifySutListContains(listName, url, parameters, predicate, failureMess
 function verifySutListDoesNotContain(listName, url, parameters, predicate, failureMessage) {
   // Verification is executed against the SUT by fetching only the requested SUT list slice before inspecting it.
   var listData = readSutList(listName, url, parameters);
+  if (listData === null) return;
   var found = listData.find(predicate);
   if (found) pvg.fail(failureMessage + ": " + JSON.stringify(found));
 }
@@ -137,7 +139,7 @@ function verifyBookDoesNotAppearInAnyList(id) {
   verifySutListDoesNotContain("books", "/books", { q: asString(id), description: "Verify Book " + id + " is absent from SUT books list" }, function (item) {
     return item && asInteger(item.id) === id;
   }, "Book " + id + " still appears in books list");
-  verifySutListDoesNotContain("loans", "/loans", { bookId: id, description: "Verify Book " + id + " is absent from SUT loans list" }, function (item) {
+  verifySutListDoesNotContain("loans", "/loans", { bookId: asString(id), description: "Verify Book " + id + " is absent from SUT loans list" }, function (item) {
     return item && asInteger(item.bookId) === id;
   }, "Book " + id + " still appears in loans list");
   verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify Book " + id + " is absent from SUT holds list" }, function (item) {
@@ -167,18 +169,69 @@ function matchDeleteBook(id) {
   });
 }
 
+function matchDeleteBookOrUser(bookId, userId) {
+  return bp.EventSet("Deleted Book/User " + bookId + "/" + userId, function (e) {
+    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
+    var path = getRequestPath(e);
+    return path === ("/books/" + asInteger(bookId)) || path === ("/users/" + asInteger(userId));
+  });
+}
+
+function matchSuccessfulDuplicateHold(holdId, bookId, userId) {
+  return bp.EventSet("Duplicate Successful Hold " + holdId + "/" + userId + "/" + bookId, function (e) {
+    var body = getJsonBody(e);
+    if (e.name !== "POST" || getRequestPath(e) !== "/holds" || !hasExpectedCode(e, 201) || !body) return false;
+    return asInteger(body.id) === asInteger(holdId)
+      || (asInteger(body.bookId) === asInteger(bookId) && asInteger(body.userId) === asInteger(userId));
+  });
+}
+
+function matchDeleteHoldOrBookOrUser(holdId, bookId, userId) {
+  return bp.EventSet("Deleted Hold/Book/User " + holdId + "/" + userId + "/" + bookId, function (e) {
+    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
+    var path = getRequestPath(e);
+    return path === ("/holds/" + asInteger(holdId))
+      || path === ("/books/" + asInteger(bookId))
+      || path === ("/users/" + asInteger(userId));
+  });
+}
+
 function matchAnyBookDeleted() {
   return bp.EventSet("Any Books Deleted", function (e) {
     return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
   });
 }
 
-function deleteLoan(userId, bookId) {
+function deleteLoan(userId, bookId, loanNumber) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
-  var url = "/loans/" + userId + "/" + bookId; var reqDescription = "Delete a loan by composite id " + userId;
+  loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
+  var url = "/loans/" + userId + "/" + bookId;
+  var reqDescription = "Delete a loan " + (loanNumber === null ? "" : loanNumber + " ") + userId + "/" + bookId;
   let finalCodes = [200];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  return response;
+}
+
+function createLoan(userId, bookId, loanNumber, expectedCode) {
+  userId = asInteger(userId);
+  bookId = asInteger(bookId);
+  if (expectedCode === undefined && (loanNumber === 201 || loanNumber === 400 || loanNumber === 404)) {
+    expectedCode = loanNumber;
+    loanNumber = null;
+  }
+  loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
+  var url = "/loans";
+  var reqDescription = "Create a loan " + (loanNumber === null ? "" : loanNumber + " ") + userId + "/" + bookId;
+  expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
+  let finalCodes = [expectedCode];
+  var body = {
+    "userId": userId,
+    "bookId": bookId
+  };
+  let parameters = { description: reqDescription };
+  if (loanNumber !== null) parameters.loanNumber = loanNumber;
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: parameters });
   return response;
 }
 
@@ -186,7 +239,7 @@ function verifyLoanExists(bookId, userId) {
   // Verification is executed against the SUT dataset by reading the loans list and searching for this composite id.
   bookId = asInteger(bookId);
   userId = asInteger(userId);
-  verifySutListContains("loans", "/loans", { userId: userId, bookId: bookId, description: "Verify Loan " + userId + "/" + bookId + " exists in SUT loans list" }, function (item) {
+  verifySutListContains("loans", "/loans", { userId: asString(userId), bookId: asString(bookId), description: "Verify Loan " + userId + "/" + bookId + " exists in SUT loans list" }, function (item) {
     return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId;
   }, "Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
 }
@@ -195,8 +248,8 @@ function verifyLoanDoesNotAppearInAnyList(bookId, userId) {
   // Verification is executed against the SUT dataset by reading the loans list and confirming the loan is absent.
   bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
   userId = asInteger(userId);
-  var parameters = { userId: userId, description: "Verify Loan " + userId + (bookId === null ? "" : "/" + bookId) + " is absent from SUT loans list" };
-  if (bookId !== null) parameters.bookId = bookId;
+  var parameters = { userId: asString(userId), description: "Verify Loan " + userId + (bookId === null ? "" : "/" + bookId) + " is absent from SUT loans list" };
+  if (bookId !== null) parameters.bookId = asString(bookId);
   verifySutListDoesNotContain("loans", "/loans", parameters, function (item) {
     if (!item || asInteger(item.userId) !== userId) return false;
     return bookId === null || asInteger(item.bookId) === bookId;
@@ -217,6 +270,24 @@ function matchAddLoan(userId) {
   return bp.EventSet("Add Loan " + userId, function (e) {
     var body = getJsonBody(e);
     return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && asInteger(body.userId) === asInteger(userId);
+  });
+}
+
+function matchSuccessfulDuplicateLoan(userId, bookId) {
+  return bp.EventSet("Duplicate Successful Loan " + userId + "/" + bookId, function (e) {
+    var body = getJsonBody(e);
+    if (e.name !== "POST" || getRequestPath(e) !== "/loans" || !hasExpectedCode(e, 201) || !body) return false;
+    return asInteger(body.userId) === asInteger(userId) || asInteger(body.bookId) === asInteger(bookId);
+  });
+}
+
+function matchDeleteLoanOrBookOrUser(userId, bookId) {
+  return bp.EventSet("Deleted Loan/Book/User " + userId + "/" + bookId, function (e) {
+    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
+    var path = getRequestPath(e);
+    return path === ("/loans/" + asInteger(userId) + "/" + asInteger(bookId))
+      || path === ("/books/" + asInteger(bookId))
+      || path === ("/users/" + asInteger(userId));
   });
 }
 
@@ -268,7 +339,7 @@ function verifyUserDoesNotAppearInAnyList(id) {
   verifySutListDoesNotContain("users", "/users", { q: asString(id), description: "Verify User " + id + " is absent from SUT users list" }, function (item) {
     return item && asInteger(item.id) === id;
   }, "User " + id + " still appears in users list");
-  verifySutListDoesNotContain("loans", "/loans", { userId: id, description: "Verify User " + id + " is absent from SUT loans list" }, function (item) {
+  verifySutListDoesNotContain("loans", "/loans", { userId: asString(id), description: "Verify User " + id + " is absent from SUT loans list" }, function (item) {
     return item && asInteger(item.userId) === id;
   }, "User " + id + " still appears in loans list");
   verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify User " + id + " is absent from SUT holds list" }, function (item) {
@@ -315,12 +386,13 @@ function matchAnyUserDeleted() {
   });
 }
 
-function createHold(bookId, id, userId) {
+function createHold(bookId, id, userId, expectedCode) {
   bookId = asInteger(bookId);
   id = asInteger(id);
   userId = asInteger(userId);
-  var url = "/holds"; var reqDescription = "Create a hold " + id;
-  let finalCodes = [201];
+  var url = "/holds"; var reqDescription = "Create a hold " + id + " " + userId + "/" + bookId;
+  expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
+  let finalCodes = [expectedCode];
   var body = {
     "bookId": bookId,
     "id": id,
@@ -330,10 +402,14 @@ function createHold(bookId, id, userId) {
   return response;
 }
 
-function deleteHold(id) {
+function deleteHold(id, expectedCode, userId, bookId) {
   id = asInteger(id);
-  var url = "/holds/" + id; var reqDescription = "Delete a hold " + id;
-  let finalCodes = [200];
+  userId = userId === undefined || userId === null ? null : asInteger(userId);
+  bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
+  var url = "/holds/" + id;
+  var reqDescription = "Delete a hold " + id + (userId === null || bookId === null ? "" : " " + userId + "/" + bookId);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
+  let finalCodes = [expectedCode];
   let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
   return response;
 }

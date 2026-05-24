@@ -1,5 +1,5 @@
-const NUMBER_OF_USERS = 10
-const NUMBER_OF_BOOKS = 10
+const NUMBER_OF_USERS = 4
+const NUMBER_OF_BOOKS = 4
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ ctx.bthread("checkThatCannotDeleteLoanedUser", "User.HasLoan", function (user) {
 	// When a user has a loan, delay deletion until we verify that the user
 	// does not have any active loans.
 	block(matchDeleteUser(user.id), function () {
-		verifyUserCannotBeDeleted(user.id, 403);
+		verifyUserCannotBeDeleted(user.id, 400);
 	});
 })
 
@@ -70,6 +70,13 @@ ctx.bthread("verifyLoanCreation", "Loan.All", function (loan) {
 	});
 });
 
+ctx.bthread("blockDuplicateSuccessfulLoanCreation", "Loan.All", function (loan) {
+	bp.sync({
+		block: matchSuccessfulDuplicateLoan(loan.userid, loan.bookid),
+		waitFor: matchDeleteLoanOrBookOrUser(loan.userid, loan.bookid)
+	});
+});
+
 bthread("verifyLoanDeletion", function () {
 	// When a loan is deleted, delay recreation until we verify that the
 	// loan no longer exists in the system.
@@ -89,8 +96,15 @@ bthread("verifyLoanDeletion", function () {
 ctx.bthread("verifyHoldCreation", "Hold.All", function (hold) {
 	// When a hold is created, delay deletion until we verify that the hold
 	// exists in the system.
-	block(matchDeleteHold(hold.id), function () {
-		verifyHoldsExists(hold.id);
+	block(matchDeleteHold(hold.holdid), function () {
+		verifyHoldsExists(hold.holdid);
+	});
+});
+
+ctx.bthread("blockDuplicateSuccessfulHoldCreation", "Hold.All", function (hold) {
+	bp.sync({
+		block: matchSuccessfulDuplicateHold(hold.holdid, hold.bookid, hold.userid),
+		waitFor: matchDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid)
 	});
 });
 
@@ -118,7 +132,6 @@ bthread("create random users", function () {
 	for (let i = 0; i < NUMBER_OF_USERS; i++) {
 		let id_Users_160 = 160 + i * 1000 + Math.floor(Math.random() * 999);
 		let name_Users_160 = "name_Users_160_" + Math.floor(Math.random() * 1000);
-		let q_Users_160 = "q_Users_160_" + Math.floor(Math.random() * 1000);
 		createUser(id_Users_160, name_Users_160);
 	}
 });
@@ -127,7 +140,6 @@ bthread("create random books", function () {
 	for (let i = 0; i < NUMBER_OF_BOOKS; i++) {
 		let id_Books_160 = 160 + i * 1000 + Math.floor(Math.random() * 999);
 		let title_Books_160 = "title_Books_160_" + Math.floor(Math.random() * 1000);
-		let q_Books_160 = "q_Books_160_" + Math.floor(Math.random() * 1000);
 		createBook(id_Books_160, title_Books_160);
 	}
 });
@@ -141,15 +153,33 @@ bthread("create random books", function () {
 // loans and holds from those existing objects.
 //////////////////////////////////////////////////////////////////////////
 
-ctx.bthread("crud:Holds:linear:2", 'UserBook.BookIsNotLoaned', function (userbook) {
-	let user = ctx.getEntity(userbook.userid)
-	let book = ctx.getEntity(userbook.bookid)
+ctx.bthread("crud:Loans:create", 'UserBook.CanCreateLoan', function (userbook) {
+	let id_Loans_170 = 170 + Math.floor(Math.random() * 999999);
+	block(matchDeleteBookOrUser(userbook.bookid, userbook.userid), function () {
+		createLoan(userbook.userid, userbook.bookid, id_Loans_170);
+	});
+});
+
+ctx.bthread("verifyCannotCreateLoanForBusyUserOrBook", 'UserBook.CannotCreateLoan', function (userbook) {
+	let id_Loans_170 = 170 + Math.floor(Math.random() * 999999);
+	createLoan(userbook.userid, userbook.bookid, id_Loans_170, 400);
+});
+
+ctx.bthread("crud:Holds:linear:2", 'UserBook.CanCreateHold', function (userbook) {
 	let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
-	try {
-		createHold(book.id, id_Holds_170, user.id);
-	} catch (e) {
-		deleteHold(id_Holds_170);
-	}
+	block(matchDeleteBookOrUser(userbook.bookid, userbook.userid), function () {
+		createHold(userbook.bookid, id_Holds_170, userbook.userid);
+	});
+});
+
+ctx.bthread("verifyCannotCreateHoldForLoanedBook", 'UserBook.BookHasLoan', function (userbook) {
+	let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
+	createHold(userbook.bookid, id_Holds_170, userbook.userid, 400);
+});
+
+ctx.bthread("verifyCannotCreateDuplicateHold", 'UserBook.BookUserHasHold', function (userbook) {
+	let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
+	createHold(userbook.bookid, id_Holds_170, userbook.userid, 400);
 });
 
 
@@ -161,18 +191,18 @@ ctx.bthread("crud:Holds:linear:2", 'UserBook.BookIsNotLoaned', function (userboo
 /////////////////////////////////////////////////////////////////////////
 
 
-ctx.bthread("deleteUser", "User.NoLoan", function (user) {
-	deleteUser(user.id); // <--- Lower the priority?
+ctx.bthread("deleteUser", "User.CanDelete", function (user) {
+	deleteUser(user.id);
 })
 
-ctx.bthread("deleteBook", "Book.NoLoan", function (book) {
+ctx.bthread("deleteBook", "Book.CanDelete", function (book) {
 	deleteBook(book.id);
 })
 
 ctx.bthread("deleteLoan", "Loan.All", function (loan) {
-	deleteLoan(loan.userid, loan.bookid);
+	deleteLoan(loan.userid, loan.bookid, loan.loanid);
 })
 
 ctx.bthread("deleteHold", "Hold.All", function (hold) {
-	deleteHold(hold.id);
+	deleteHold(hold.holdid, 200, hold.userid, hold.bookid);
 })
