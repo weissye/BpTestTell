@@ -62,14 +62,15 @@ ctx.registerEffect("PATCH", function (data) {
 
 
 function effect(data) {
-	if (matchAddUser(data)) {
+	if (matchAnyUserAdded().contains(data)) {
+		let body = getJsonBody(data);
 
 
 
 		bp.log.info("Adding user {0}", data.parameters);
-		ctx.insertEntity(ctx.Entity(userId(data.parameters.body.id), 'user', {
-			id: data.parameters.body.id,
-			name: data.parameters.body.name
+		ctx.insertEntity(ctx.Entity(userId(body.id), 'user', {
+			id: body.id,
+			name: body.name
 		}));
 
 		// let allbooks = ctx.runQuery('Book.All');

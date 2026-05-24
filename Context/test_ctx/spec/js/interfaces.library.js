@@ -33,10 +33,11 @@ function extractId(e) {
 }
 
 function getExpectedResponseCodes(e) {
-  if (!e || !e.data) return [];
-  if (Array.isArray(e.data.expectedResponseCodes)) return e.data.expectedResponseCodes;
-  if (e.data.options && Array.isArray(e.data.options.expectedResponseCodes)) return e.data.options.expectedResponseCodes;
-  if (e.data.parameters && Array.isArray(e.data.parameters.expectedResponseCodes)) return e.data.parameters.expectedResponseCodes;
+  var data = e && e.data ? e.data : e;
+  if (!data) return [];
+  if (Array.isArray(data.expectedResponseCodes)) return data.expectedResponseCodes;
+  if (data.options && Array.isArray(data.options.expectedResponseCodes)) return data.options.expectedResponseCodes;
+  if (data.parameters && Array.isArray(data.parameters.expectedResponseCodes)) return data.parameters.expectedResponseCodes;
   return [];
 }
 
@@ -45,18 +46,25 @@ function hasExpectedCode(e, code) {
 }
 
 function getRequestPath(e) {
-  if (!e || !e.data) return "";
-  var p = e.data.path || e.data.url || e.data.endpoint || "";
+  var data = e && e.data ? e.data : e;
+  if (!data) return "";
+  var p = data.path || data.url || data.endpoint || "";
   if (!p) return "";
+  var protocolIdx = p.indexOf("://");
+  if (protocolIdx !== -1) {
+    var pathIdx = p.indexOf("/", protocolIdx + 3);
+    p = pathIdx === -1 ? "/" : p.substring(pathIdx);
+  }
   var qIdx = p.indexOf("?");
   return qIdx === -1 ? p : p.substring(0, qIdx);
 }
 
 function getJsonBody(e) {
-  if (!e || !e.data || e.data.body === undefined || e.data.body === null) return null;
-  if (typeof e.data.body === "object") return e.data.body;
-  if (typeof e.data.body === "string") {
-    try { return JSON.parse(e.data.body); } catch (err) { return null; }
+  var data = e && e.data ? e.data : e;
+  if (!data || data.body === undefined || data.body === null) return null;
+  if (typeof data.body === "object") return data.body;
+  if (typeof data.body === "string") {
+    try { return JSON.parse(data.body); } catch (err) { return null; }
   }
   return null;
 }
@@ -281,6 +289,13 @@ function matchAddUser(id) {
   return bp.EventSet("Add User " + id, function (e) {
     var body = getJsonBody(e);
     return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
+  });
+}
+
+function matchAnyUserAdded() {
+  return bp.EventSet("Any Users Added", function (e) {
+    var body = getJsonBody(e);
+    return getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
   });
 }
 
