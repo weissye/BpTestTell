@@ -1,8 +1,22 @@
 {
   "editor.rulers": [100],
   "prettier.printWidth": 100,
+  "prettier.proseWrap": "always",
   "[javascript]": {
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 100
   }
+  "editor.formatOnSave": true
+  ,"[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
