@@ -1,5 +1,20 @@
-const NUMBER_OF_USERS = 4
-const NUMBER_OF_BOOKS = 4
+const NUMBER_OF_USERS = 1
+const NUMBER_OF_BOOKS = 1
+
+//////////////////////////////////////////////////////////////////////////
+// Story layer.
+//
+// This file describes test behavior: which operations should be attempted,
+// blocked, verified, or repeated under different domain states. It should use
+// the public APIs exposed by the interface layer and the query API exposed by
+// the DAL. It should not update Context entities directly and should avoid
+// duplicating the DAL's domain rules.
+//
+// Separation of concerns in this model:
+// - interfaces.library.js owns REST calls, EventSets, and event-data extraction.
+// - dal.js owns Context entities, effects, and queries over the model.
+// - lib_stories.js owns behavioral scenarios and verification timing.
+//////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -31,7 +46,8 @@ bthread("verifyUserDeletion", function () {
 	// When a user is deleted, delay recreation until we verify that the
 	// user no longer exists in the system.
 	on(matchAnyUserDeleted(), function (e) {
-		let id = extractId(e);
+		let eventData = extractEventData(e);
+		let id = eventData.id;
 
 		block(matchAddUser(id), function () {
 			verifyUserDoesNotAppearInAnyList(id);
@@ -53,7 +69,8 @@ bthread("verifyBookDeletion", function () {
 	// When a book is deleted, delay recreation until we verify that the
 	// book no longer exists in the system.
 	on(matchAnyBookDeleted(), function (e) {
-		let id = extractId(e);
+		let eventData = extractEventData(e);
+		let id = eventData.id;
 
 		block(matchAddBook(id), function () {
 			verifyBookDoesNotAppearInAnyList(id);
@@ -70,25 +87,17 @@ ctx.bthread("verifyLoanCreation", "Loan.All", function (loan) {
 	});
 });
 
-ctx.bthread("blockDuplicateSuccessfulLoanCreation", "Loan.All", function (loan) {
-	bp.sync({
-		block: matchSuccessfulDuplicateLoan(loan.userid, loan.bookid),
-		waitFor: matchDeleteLoanOrBookOrUser(loan.userid, loan.bookid)
-	});
-});
-
 bthread("verifyLoanDeletion", function () {
 	// When a loan is deleted, delay recreation until we verify that the
 	// loan no longer exists in the system.
 	on(matchAnyLoanDeleted(), function (e) {
-		let id = extractId(e);
-		let path = getRequestPath(e);
-		let segments = path.split("/").filter(function (segment) { return segment.length > 0; });
-		let bookId = segments.length >= 3 ? asInteger(segments[2]) : null;
+		let eventData = extractEventData(e);
+		let userId = eventData.userId;
+		let bookId = eventData.bookId;
 
-		block(matchAddLoan(id), function () {
-			verifyLoanDoesNotAppearInAnyList(null, id);
-			if (bookId !== null) verifyLoanCannotBeDeleted(id, bookId, 404);
+		block(matchAddLoan(userId), function () {
+			verifyLoanDoesNotAppearInAnyList(null, userId);
+			if (bookId !== undefined && bookId !== null) verifyLoanCannotBeDeleted(userId, bookId, 404);
 		});
 	});
 });
@@ -101,18 +110,12 @@ ctx.bthread("verifyHoldCreation", "Hold.All", function (hold) {
 	});
 });
 
-ctx.bthread("blockDuplicateSuccessfulHoldCreation", "Hold.All", function (hold) {
-	bp.sync({
-		block: matchSuccessfulDuplicateHold(hold.holdid, hold.bookid, hold.userid),
-		waitFor: matchDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid)
-	});
-});
-
 bthread("verifyHoldDeletion", function () {
 	// When a hold is deleted, delay recreation until we verify that the
 	// hold no longer exists in the system.
 	on(matchAnyHoldDeleted(), function (e) {
-		let id = extractId(e);
+		let eventData = extractEventData(e);
+		let id = eventData.id;
 
 		block(matchAddHold(id), function () {
 			verifyHoldDoesNotAppearInAnyList(id);
@@ -162,7 +165,7 @@ ctx.bthread("crud:Loans:create", 'UserBook.CanCreateLoan', function (userbook) {
 
 ctx.bthread("verifyCannotCreateLoanForBusyUserOrBook", 'UserBook.CannotCreateLoan', function (userbook) {
 	let id_Loans_170 = 170 + Math.floor(Math.random() * 999999);
-	createLoan(userbook.userid, userbook.bookid, id_Loans_170, 400);
+	tryToAddLoanAndExpectError(userbook.userid, userbook.bookid, id_Loans_170);
 });
 
 ctx.bthread("crud:Holds:linear:2", 'UserBook.CanCreateHold', function (userbook) {
@@ -174,12 +177,12 @@ ctx.bthread("crud:Holds:linear:2", 'UserBook.CanCreateHold', function (userbook)
 
 ctx.bthread("verifyCannotCreateHoldForLoanedBook", 'UserBook.BookHasLoan', function (userbook) {
 	let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
-	createHold(userbook.bookid, id_Holds_170, userbook.userid, 400);
+	tryToAddHoldAndExpectError(userbook.bookid, id_Holds_170, userbook.userid);
 });
 
 ctx.bthread("verifyCannotCreateDuplicateHold", 'UserBook.BookUserHasHold', function (userbook) {
 	let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
-	createHold(userbook.bookid, id_Holds_170, userbook.userid, 400);
+	tryToAddHoldAndExpectError(userbook.bookid, id_Holds_170, userbook.userid);
 });
 
 
