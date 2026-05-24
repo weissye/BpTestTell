@@ -1,3 +1,13 @@
+//////////////////////////////////////////////////////////////////////////
+// Data access layer for the Context model.
+//
+// This file owns the in-memory entities and queries used by ctx.bthread.
+// It should not know REST paths, request bodies, status-code conventions, or
+// how interface events are encoded. The interface layer classifies concrete
+// events with EventSets such as AnyBookAdded and converts them to semantic
+// event data with extractEventData(). The DAL only consumes those abstractions.
+//////////////////////////////////////////////////////////////////////////
+
 function bookId(id) {
 	return id;
 }
@@ -47,48 +57,6 @@ function createUserBook(userIdValue, bookIdValue) {
 		bookid: bookIdValue,
 		userid: userIdValue
 	}));
-}
-
-function requestPath(data) {
-	if (!data) return "";
-	let pathValue = data.path || data.url || data.endpoint || "";
-	pathValue = String(pathValue).replace(/^https?:\/\/[^\/]+/, "");
-	let queryIndex = pathValue.indexOf("?");
-	return queryIndex === -1 ? pathValue : pathValue.substring(0, queryIndex);
-}
-
-function requestPathSegments(data) {
-	return requestPath(data).split("/").filter(function (segment) {
-		return segment.length > 0;
-	});
-}
-
-function requestBody(data) {
-	if (!data || data.body === undefined || data.body === null) return null;
-	if (typeof data.body === "object") return data.body;
-	try {
-		return JSON.parse(data.body);
-	} catch (e) {
-		return null;
-	}
-}
-
-function expectedCodes(data) {
-	if (!data) return [];
-	if (Array.isArray(data.expectedResponseCodes)) return data.expectedResponseCodes;
-	if (data.parameters && Array.isArray(data.parameters.expectedResponseCodes)) return data.parameters.expectedResponseCodes;
-	return [];
-}
-
-function expectsCode(data, code) {
-	return expectedCodes(data).some(function (expectedCode) {
-		return Number(expectedCode) === Number(code);
-	});
-}
-
-function requestParameter(data, name) {
-	if (!data || !data.parameters) return null;
-	return data.parameters[name] === undefined || data.parameters[name] === null ? null : data.parameters[name];
 }
 
 function hasLoanForBook(bookIdValue) {
@@ -167,11 +135,11 @@ function deleteUserEntity(data) {
 	removeWhere('Hold.All', function (e) { return sameId(e.userid, data.id); });
 }
 
-function createLoanEntity(data, eventData) {
+function createLoanEntity(data) {
 	if (entityExists('Loan.All', loanId(data.userId, data.bookId))) return;
 	// bp.log.info("DAL create loan {0}/{1}", data.userId, data.bookId);
 	ctx.insertEntity(ctx.Entity(loanId(data.userId, data.bookId), 'loan', {
-		loanid: requestParameter(eventData, "loanNumber"),
+		loanid: data.loanNumber,
 		userid: data.userId,
 		bookid: data.bookId
 	}));
@@ -199,37 +167,41 @@ function deleteHoldEntity(data) {
 	ctx.removeEntity(holdId(data.id));
 }
 
+// COBP registers effects by concrete event name, so this is the only place in
+// the DAL that mentions transport event names. The body of each effect
+// immediately delegates to the interface abstractions: an EventSet determines
+// what happened, and eventData provides the transport-independent fields.
 ctx.registerEffect("POST", function (data) {
-	// Only successful create requests should change the context model.
-	// Requests that expect 400/404 are negative tests, so they must not add entities.
-	if (!expectsCode(data, 201)) return;
-
-	let body = requestBody(data);
-	if (!body) return;
-
-	let segments = requestPathSegments(data);
-	if (segments.length !== 1) return;
-	if (segments[0] === "books") createBookEntity(body);
-	if (segments[0] === "users") createUserEntity(body);
-	if (segments[0] === "loans") createLoanEntity(body, data);
-	if (segments[0] === "holds") createHoldEntity(body);
+	var event = bp.Event("POST", data);
+	handleInterfaceEffect(event, extractEventData(event));
 });
 
 ctx.registerEffect("DELETE", function (data) {
-	// Only successful delete requests should remove data from the context model.
-	// Failed delete attempts are assertions about SUT behavior, not state changes.
-	if (!expectsCode(data, 200)) return;
-
-	let segments = requestPathSegments(data);
-	if (segments.length < 2) return;
-
-	if (segments[0] === "books") deleteBookEntity({ id: segments[1] });
-	if (segments[0] === "users") deleteUserEntity({ id: segments[1] });
-	if (segments[0] === "holds") deleteHoldEntity({ id: segments[1] });
-	if (segments[0] === "loans" && segments.length >= 3) {
-		deleteLoanEntity({ userId: segments[1], bookId: segments[2] });
-	}
+	var event = bp.Event("DELETE", data);
+	handleInterfaceEffect(event, extractEventData(event));
 });
+
+// Update the Context model according to semantic interface events. The
+// Any*Added/Any*Deleted objects are EventSets defined by the interface layer;
+// they hide REST routes and expected response codes from this file.
+function handleInterfaceEffect(event, eventData) {
+	if (AnyBookAdded.contains(event)) createBookEntity(eventData);
+	if (AnyUserAdded.contains(event)) createUserEntity(eventData);
+	if (AnyLoanAdded.contains(event)) createLoanEntity(eventData);
+	if (AnyHoldAdded.contains(event)) createHoldEntity(eventData);
+
+	if (AnyBookDeleted.contains(event)) deleteBookEntity(eventData);
+	if (AnyUserDeleted.contains(event)) deleteUserEntity(eventData);
+	if (AnyHoldDeleted.contains(event)) deleteHoldEntity(eventData);
+	if (AnyLoanDeleted.contains(event)) deleteLoanEntity(eventData);
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Query API exposed to stories.
+//
+// Stories should ask these queries what domain states are currently valid.
+// They should not inspect entities directly or recreate the domain rules.
+//////////////////////////////////////////////////////////////////////////
 
 ctx.registerQuery('Book.All', function (e) {
 	return e.type === 'book';

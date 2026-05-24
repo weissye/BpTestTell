@@ -464,7 +464,7 @@ function deleteUser(id, config) {
   return response;
 }
 
-function tryToAddExistingUsers(id, name, q, config) {
+function verifyThatUserCannotBeAdded(id, name, q, config) {
   var url = "/users"; var reqDescription = "Try Add Existing Users " + id;
   let finalCodes = (config && config.expectedResponseCodes) ? config.expectedResponseCodes : [400, 409];
   var body = {

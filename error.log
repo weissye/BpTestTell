@@ -1,0 +1,2 @@
+ERR : Path C:\Users\geraw\provengo\BpTestTell does not contain source files
+testory.bprogram.TestoryBProgramBuilder:::verifyDirStructure (TestoryBProgramBuilder.java:179)testory.Main:::main (Main.java:135)

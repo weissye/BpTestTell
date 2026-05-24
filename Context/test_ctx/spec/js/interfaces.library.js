@@ -1,4 +1,20 @@
 //@provengo summon rest
+//////////////////////////////////////////////////////////////////////////
+// Interface layer for the library REST service.
+//
+// This file is the only layer that should know the concrete transport shape:
+// REST URLs, HTTP verbs, request/response-code conventions, and JSON payloads.
+// It exposes three kinds of API to the rest of the model:
+//
+// 1. Action functions such as createBook/deleteLoan that send REST requests.
+// 2. EventSets such as AnyBookAdded and matchDeleteUser that classify events.
+// 3. extractEventData(), which converts a concrete event into semantic fields.
+//
+// Stories use action functions and EventSets to describe behavior. The DAL uses
+// EventSets plus extractEventData() to update the Context model without parsing
+// URLs, bodies, or transport parameters itself.
+//////////////////////////////////////////////////////////////////////////
+
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 23242;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
@@ -65,6 +81,81 @@ function getJsonBody(e) {
   return null;
 }
 
+// Boundary adapter from concrete REST events to semantic event data.
+// Consumers can depend on fields like id, userId, bookId, title, and
+// loanNumber without knowing whether the values came from a JSON body,
+// REST path, query parameter, or request metadata.
+function getEventData(e) {
+  var body = getJsonBody(e) || {};
+  var data = e && e.data ? e.data : e;
+  var parameters = data && data.parameters ? data.parameters : {};
+  return {
+    id: body.id !== undefined && body.id !== null ? body.id : parameters.id,
+    title: body.title !== undefined && body.title !== null ? body.title : body.name,
+    name: body.name,
+    userId: body.userId !== undefined && body.userId !== null ? body.userId : parameters.userId,
+    bookId: body.bookId !== undefined && body.bookId !== null ? body.bookId : parameters.bookId,
+    loanNumber: parameters.loanNumber
+  };
+}
+
+function extractEventData(e) {
+  return getEventData(e);
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Broad event classifiers.
+//
+// These EventSets describe meaningful domain events in interface terms:
+// "a book was successfully added", "a loan was successfully deleted", etc.
+// Their predicates may inspect REST details, but callers should treat the
+// EventSet names as the public contract.
+//////////////////////////////////////////////////////////////////////////
+
+var AnyBookAdded = bp.EventSet("Any Books Added", function (e) {
+  var body = getJsonBody(e);
+  return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && body.id !== undefined;
+});
+
+var AnyUserAdded = bp.EventSet("Any Users Added", function (e) {
+  var body = getJsonBody(e);
+  return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
+});
+
+var AnyLoanAdded = bp.EventSet("Any Loans Added", function (e) {
+  var body = getJsonBody(e);
+  return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && body.userId !== undefined && body.bookId !== undefined;
+});
+
+var AnyHoldAdded = bp.EventSet("Any Holds Added", function (e) {
+  var body = getJsonBody(e);
+  return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && body.id !== undefined;
+});
+
+var AnyBookDeleted = bp.EventSet("Any Books Deleted", function (e) {
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
+});
+
+var AnyUserDeleted = bp.EventSet("Any Users Deleted", function (e) {
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
+});
+
+var AnyLoanDeleted = bp.EventSet("Any Loans Deleted", function (e) {
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
+});
+
+var AnyHoldDeleted = bp.EventSet("Any Holds Deleted", function (e) {
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
+});
+
+//////////////////////////////////////////////////////////////////////////
+// SUT list readers and verification helpers.
+//
+// Verification functions read the real SUT state and assert that it matches
+// the scenario expectation. They are intentionally kept in the interface
+// layer because they are REST-facing checks, not Context model updates.
+//////////////////////////////////////////////////////////////////////////
+
 function readSutList(listName, url, parameters) {
   try {
     var requestParameters = parameters || {};
@@ -104,6 +195,14 @@ function verifySutListDoesNotContain(listName, url, parameters, predicate, failu
   if (found) pvg.fail(failureMessage + ": " + JSON.stringify(found));
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Interface action functions.
+//
+// These functions are the only place stories should actuate the SUT. They
+// normalize argument types, build URLs/bodies, and attach semantic parameters
+// that extractEventData() can later expose to other layers.
+//////////////////////////////////////////////////////////////////////////
+
 function createBook(id, title) {
   id = asInteger(id);
   title = asString(title);
@@ -121,7 +220,7 @@ function deleteBook(id) {
   id = asInteger(id);
   var url = "/books/" + id; var reqDescription = "Delete a book " + id;
   let finalCodes = [200];
-  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
   return response;
 }
 
@@ -156,6 +255,15 @@ function verifyBookCannotBeDeleted(id, expectedCode) {
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Specific event matchers.
+//
+// The broad Any* EventSets classify all successful operations of a type and
+// are useful for DAL effects. The match* helpers below are narrower EventSets
+// for stories: they wait for or block a specific object, duplicate attempt, or
+// cascading delete condition.
+//////////////////////////////////////////////////////////////////////////
+
 function matchAddBook(id) {
   return bp.EventSet("Add Book " + id, function (e) {
     var body = getJsonBody(e);
@@ -177,15 +285,6 @@ function matchDeleteBookOrUser(bookId, userId) {
   });
 }
 
-function matchSuccessfulDuplicateHold(holdId, bookId, userId) {
-  return bp.EventSet("Duplicate Successful Hold " + holdId + "/" + userId + "/" + bookId, function (e) {
-    var body = getJsonBody(e);
-    if (e.name !== "POST" || getRequestPath(e) !== "/holds" || !hasExpectedCode(e, 201) || !body) return false;
-    return asInteger(body.id) === asInteger(holdId)
-      || (asInteger(body.bookId) === asInteger(bookId) && asInteger(body.userId) === asInteger(userId));
-  });
-}
-
 function matchDeleteHoldOrBookOrUser(holdId, bookId, userId) {
   return bp.EventSet("Deleted Hold/Book/User " + holdId + "/" + userId + "/" + bookId, function (e) {
     if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
@@ -197,9 +296,7 @@ function matchDeleteHoldOrBookOrUser(holdId, bookId, userId) {
 }
 
 function matchAnyBookDeleted() {
-  return bp.EventSet("Any Books Deleted", function (e) {
-    return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
-  });
+  return AnyBookDeleted;
 }
 
 function deleteLoan(userId, bookId, loanNumber) {
@@ -209,7 +306,9 @@ function deleteLoan(userId, bookId, loanNumber) {
   var url = "/loans/" + userId + "/" + bookId;
   var reqDescription = "Delete a loan " + (loanNumber === null ? "" : loanNumber + " ") + userId + "/" + bookId;
   let finalCodes = [200];
-  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let parameters = { description: reqDescription, userId: userId, bookId: bookId };
+  if (loanNumber !== null) parameters.loanNumber = loanNumber;
+  let response = svc.delete(url, { parameters: parameters, expectedResponseCodes: finalCodes });
   return response;
 }
 
@@ -233,6 +332,11 @@ function createLoan(userId, bookId, loanNumber, expectedCode) {
   if (loanNumber !== null) parameters.loanNumber = loanNumber;
   let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: parameters });
   return response;
+}
+
+function tryToAddLoanAndExpectError(userId, bookId, loanNumber, expectedCode) {
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  return createLoan(userId, bookId, loanNumber, expectedCode);
 }
 
 function verifyLoanExists(bookId, userId) {
@@ -273,14 +377,6 @@ function matchAddLoan(userId) {
   });
 }
 
-function matchSuccessfulDuplicateLoan(userId, bookId) {
-  return bp.EventSet("Duplicate Successful Loan " + userId + "/" + bookId, function (e) {
-    var body = getJsonBody(e);
-    if (e.name !== "POST" || getRequestPath(e) !== "/loans" || !hasExpectedCode(e, 201) || !body) return false;
-    return asInteger(body.userId) === asInteger(userId) || asInteger(body.bookId) === asInteger(bookId);
-  });
-}
-
 function matchDeleteLoanOrBookOrUser(userId, bookId) {
   return bp.EventSet("Deleted Loan/Book/User " + userId + "/" + bookId, function (e) {
     if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
@@ -298,9 +394,7 @@ function matchDeleteLoan(userId) {
 }
 
 function matchAnyLoanDeleted() {
-  return bp.EventSet("Any Loans Deleted", function (e) {
-    return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
-  });
+  return AnyLoanDeleted;
 }
 
 function createUser(id, name) {
@@ -321,7 +415,7 @@ function deleteUser(id) {
   var url = "/users/" + id; 
   var reqDescription = "Delete a user " + id;
   let finalCodes = [200];
-  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
   return response;
 }
 
@@ -363,15 +457,8 @@ function matchAddUser(id) {
   });
 }
 
-function isAnyUserAdded(e) {
-  var body = getJsonBody(e);
-  return getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
-}
-
 function matchAnyUserAdded() {
-  return bp.EventSet("Any Users Added", function (e) {
-    return isAnyUserAdded(e);
-  });
+  return AnyUserAdded;
 }
 
 function matchDeleteUser(id) {
@@ -381,9 +468,7 @@ function matchDeleteUser(id) {
 }
 
 function matchAnyUserDeleted() {
-  return bp.EventSet("Any Users Deleted", function (e) {
-    return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
-  });
+  return AnyUserDeleted;
 }
 
 function createHold(bookId, id, userId, expectedCode) {
@@ -402,6 +487,11 @@ function createHold(bookId, id, userId, expectedCode) {
   return response;
 }
 
+function tryToAddHoldAndExpectError(bookId, id, userId, expectedCode) {
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  return createHold(bookId, id, userId, expectedCode);
+}
+
 function deleteHold(id, expectedCode, userId, bookId) {
   id = asInteger(id);
   userId = userId === undefined || userId === null ? null : asInteger(userId);
@@ -410,7 +500,10 @@ function deleteHold(id, expectedCode, userId, bookId) {
   var reqDescription = "Delete a hold " + id + (userId === null || bookId === null ? "" : " " + userId + "/" + bookId);
   expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
   let finalCodes = [expectedCode];
-  let response = svc.delete(url, { parameters: { description: reqDescription }, expectedResponseCodes: finalCodes });
+  let parameters = { description: reqDescription, id: id };
+  if (userId !== null) parameters.userId = userId;
+  if (bookId !== null) parameters.bookId = bookId;
+  let response = svc.delete(url, { parameters: parameters, expectedResponseCodes: finalCodes });
   return response;
 }
 
@@ -453,7 +546,5 @@ function matchDeleteHold(id) {
 }
 
 function matchAnyHoldDeleted() {
-  return bp.EventSet("Any Holds Deleted", function (e) {
-    return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
-  });
+  return AnyHoldDeleted;
 }
