@@ -28,6 +28,34 @@ function asInteger(value) { return Number.parseInt(value, 10); }
 
 function asString(value) { return String(value); }
 
+function entityDescription(entityName, id) {
+  return entityName + " " + id;
+}
+
+function relationDescription(entityName, id, details) {
+  return entityDescription(entityName, id) + (details ? " " + details : "");
+}
+
+function createDescription(entityName, id) {
+  return "Create: " + entityDescription(entityName, id);
+}
+
+function deleteDescription(entityName, id, details) {
+  return "Delete: " + relationDescription(entityName, id, details);
+}
+
+function verifyExistsDescription(entityName, id, listName) {
+  return "Verify: " + entityDescription(entityName, id) + " exists in " + listName + " list";
+}
+
+function verifyAbsentDescription(entityName, id, listName) {
+  return "Verify: " + entityDescription(entityName, id) + " is absent from " + listName + " list";
+}
+
+function verifyRejectedDescription(entityName, id, action, reason) {
+  return "Verify: " + action + " " + entityDescription(entityName, id) + " is rejected" + (reason ? " because " + reason : "");
+}
+
 function extractId(e) {
   var body = getJsonBody(e);
   if (body && body.id !== undefined && body.id !== null) return asInteger(body.id);
@@ -157,7 +185,7 @@ function readSutList(listName, url, parameters) {
   try {
     var requestParameters = parameters || {};
     if (requestParameters.description === undefined || requestParameters.description === null) {
-      requestParameters.description = "Verify SUT " + listName + " list";
+      requestParameters.description = "Verify: read " + listName + " list";
     }
     var response = svc.get(url, { parameters: requestParameters, expectedResponseCodes: [200] });
     if (response === undefined || response === null) return null;
@@ -203,7 +231,7 @@ function verifySutListDoesNotContain(listName, url, parameters, predicate, failu
 function createBook(id, title) {
   id = asInteger(id);
   title = asString(title);
-  var url = "/books"; var reqDescription = "Create a book " + id;
+  var url = "/books"; var reqDescription = createDescription("Book", id);
   let finalCodes = [201];
   var body = {
     "id": id,
@@ -215,30 +243,30 @@ function createBook(id, title) {
 
 function deleteBook(id) {
   id = asInteger(id);
-  var url = "/books/" + id; var reqDescription = "Delete a book " + id;
+  var url = "/books/" + id; var reqDescription = deleteDescription("Book", id);
   let finalCodes = [200];
   let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
   return response;
 }
 
-function verifyBooksExists(id) {
+function verifyBookExists(id) {
   // Verification is executed against the SUT dataset by reading the books list and searching for this book id.
   id = asInteger(id);
-  verifySutListContains("books", "/books", { q: asString(id), description: "Verify Book " + id + " exists in SUT books list" }, function (item) {
+  verifySutListContains("books", "/books", { q: asString(id), description: verifyExistsDescription("Book", id, "books") }, function (item) {
     return item && asInteger(item.id) === id;
   }, "Book " + id + " was not found in the SUT books list");
 }
 
-function verifyBookDoesNotAppearInAnyList(id) {
+function verifyBookAbsentFromAllLists(id) {
   // Verification is executed against SUT datasets: books directly, and loans/holds indirectly by bookId.
   id = asInteger(id);
-  verifySutListDoesNotContain("books", "/books", { q: asString(id), description: "Verify Book " + id + " is absent from SUT books list" }, function (item) {
+  verifySutListDoesNotContain("books", "/books", { q: asString(id), description: verifyAbsentDescription("Book", id, "books") }, function (item) {
     return item && asInteger(item.id) === id;
   }, "Book " + id + " still appears in books list");
-  verifySutListDoesNotContain("loans", "/loans", { bookId: asString(id), description: "Verify Book " + id + " is absent from SUT loans list" }, function (item) {
+  verifySutListDoesNotContain("loans", "/loans", { bookId: asString(id), description: verifyAbsentDescription("Book", id, "loans") }, function (item) {
     return item && asInteger(item.bookId) === id;
   }, "Book " + id + " still appears in loans list");
-  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify Book " + id + " is absent from SUT holds list" }, function (item) {
+  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: verifyAbsentDescription("Book", id, "holds") }, function (item) {
     return item && asInteger(item.bookId) === id;
   }, "Book " + id + " still appears in holds list");
 }
@@ -248,8 +276,12 @@ function verifyBookCannotBeDeleted(id, expectedCode) {
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/books/" + id;
-  var description = "Verify Book " + id + " cannot be deleted";
+  var description = verifyRejectedDescription("Book", id, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
+function verifyDeletedBookCannotBeDeleted(id) {
+  verifyBookCannotBeDeleted(id, 404);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -301,7 +333,7 @@ function deleteLoan(userId, bookId, loanNumber) {
   bookId = asInteger(bookId);
   loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
   var url = "/loans/" + userId + "/" + bookId;
-  var reqDescription = "Delete a loan " + (loanNumber === null ? "" : loanNumber + " ") + userId + "/" + bookId;
+  var reqDescription = deleteDescription("Loan", userId + "/" + bookId, loanNumber === null ? "" : "number " + loanNumber);
   let finalCodes = [200];
   let parameters = { description: reqDescription, userId: userId, bookId: bookId };
   if (loanNumber !== null) parameters.loanNumber = loanNumber;
@@ -309,7 +341,7 @@ function deleteLoan(userId, bookId, loanNumber) {
   return response;
 }
 
-function createLoan(userId, bookId, loanNumber, expectedCode) {
+function createLoan(userId, bookId, loanNumber, expectedCode, description) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
   if (expectedCode === undefined && (loanNumber === 201 || loanNumber === 400 || loanNumber === 404)) {
@@ -318,7 +350,7 @@ function createLoan(userId, bookId, loanNumber, expectedCode) {
   }
   loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
   var url = "/loans";
-  var reqDescription = "Create a loan " + (loanNumber === null ? "" : loanNumber + " ") + userId + "/" + bookId;
+  var reqDescription = description || (createDescription("Loan", userId + "/" + bookId) + (loanNumber === null ? "" : " number " + loanNumber));
   expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
   let finalCodes = [expectedCode];
   var body = {
@@ -331,25 +363,26 @@ function createLoan(userId, bookId, loanNumber, expectedCode) {
   return response;
 }
 
-function tryToAddLoanAndExpectError(userId, bookId, loanNumber, expectedCode) {
+function tryToCreateLoanAndExpectError(userId, bookId, loanNumber, expectedCode) {
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
-  return createLoan(userId, bookId, loanNumber, expectedCode);
+  return createLoan(userId, bookId, loanNumber, expectedCode, verifyRejectedDescription("Loan", userId + "/" + bookId, "create", "the operation is not allowed in this state"));
 }
 
 function verifyLoanExists(bookId, userId) {
   // Verification is executed against the SUT dataset by reading the loans list and searching for this composite id.
   bookId = asInteger(bookId);
   userId = asInteger(userId);
-  verifySutListContains("loans", "/loans", { userId: asString(userId), bookId: asString(bookId), description: "Verify Loan " + userId + "/" + bookId + " exists in SUT loans list" }, function (item) {
+  verifySutListContains("loans", "/loans", { userId: asString(userId), bookId: asString(bookId), description: verifyExistsDescription("Loan", userId + "/" + bookId, "loans") }, function (item) {
     return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId;
   }, "Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
 }
 
-function verifyLoanDoesNotAppearInAnyList(bookId, userId) {
+function verifyLoanAbsentFromAllLists(bookId, userId) {
   // Verification is executed against the SUT dataset by reading the loans list and confirming the loan is absent.
   bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
   userId = asInteger(userId);
-  var parameters = { userId: asString(userId), description: "Verify Loan " + userId + (bookId === null ? "" : "/" + bookId) + " is absent from SUT loans list" };
+  var loanId = userId + (bookId === null ? "" : "/" + bookId);
+  var parameters = { userId: asString(userId), description: verifyAbsentDescription("Loan", loanId, "loans") };
   if (bookId !== null) parameters.bookId = asString(bookId);
   verifySutListDoesNotContain("loans", "/loans", parameters, function (item) {
     if (!item || asInteger(item.userId) !== userId) return false;
@@ -363,8 +396,12 @@ function verifyLoanCannotBeDeleted(userId, bookId, expectedCode) {
   bookId = asInteger(bookId);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/loans/" + userId + "/" + bookId;
-  var description = "Verify Loan " + userId + "/" + bookId + " cannot be deleted";
+  var description = verifyRejectedDescription("Loan", userId + "/" + bookId, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
+function verifyDeletedLoanCannotBeDeleted(userId, bookId) {
+  verifyLoanCannotBeDeleted(userId, bookId, 404);
 }
 
 function matchAddLoan(userId) {
@@ -397,7 +434,7 @@ function matchAnyLoanDeleted() {
 function createUser(id, name) {
   id = asInteger(id);
   name = asString(name);
-  var url = "/users"; var reqDescription = "Create a user " + id;
+  var url = "/users"; var reqDescription = createDescription("User", id);
   let finalCodes = [201];
   var body = {
     "id": id,
@@ -407,33 +444,58 @@ function createUser(id, name) {
   return response;
 }
 
+function tryToCreateUserWithSameIdAndExpectError(id, expectedCode) {
+  id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/users";
+  var reqDescription = verifyRejectedDescription("User", id, "create", "the id already exists");
+  var body = {
+    "id": id,
+    "name": "Duplicate user " + id
+  };
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription } });
+  return response;
+}
+
+function tryToCreateUserWithBadParametersAndExpectError(id, expectedCode) {
+  id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/users";
+  var reqDescription = verifyRejectedDescription("User", id, "create", "required parameters are missing or invalid");
+  var body = {
+    "id": id
+  };
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription } });
+  return response;
+}
+
 function deleteUser(id) {
   id = asInteger(id);
   var url = "/users/" + id; 
-  var reqDescription = "Delete a user " + id;
+  var reqDescription = deleteDescription("User", id);
   let finalCodes = [200];
   let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
   return response;
 }
 
-function verifyUsersExists(id) {
+function verifyUserExists(id) {
   // Verification is executed against the SUT dataset by reading the users list and searching for this user id.
   id = asInteger(id);
-  verifySutListContains("users", "/users", { q: asString(id), description: "Verify User " + id + " exists in SUT users list" }, function (item) {
+  verifySutListContains("users", "/users", { q: asString(id), description: verifyExistsDescription("User", id, "users") }, function (item) {
     return item && asInteger(item.id) === id;
   }, "User " + id + " was not found in the SUT users list");
 }
 
-function verifyUserDoesNotAppearInAnyList(id) {
+function verifyUserAbsentFromAllLists(id) {
   // Verification is executed against SUT datasets: users directly, and loans/holds indirectly by userId.
   id = asInteger(id);
-  verifySutListDoesNotContain("users", "/users", { q: asString(id), description: "Verify User " + id + " is absent from SUT users list" }, function (item) {
+  verifySutListDoesNotContain("users", "/users", { q: asString(id), description: verifyAbsentDescription("User", id, "users") }, function (item) {
     return item && asInteger(item.id) === id;
   }, "User " + id + " still appears in users list");
-  verifySutListDoesNotContain("loans", "/loans", { userId: asString(id), description: "Verify User " + id + " is absent from SUT loans list" }, function (item) {
+  verifySutListDoesNotContain("loans", "/loans", { userId: asString(id), description: verifyAbsentDescription("User", id, "loans") }, function (item) {
     return item && asInteger(item.userId) === id;
   }, "User " + id + " still appears in loans list");
-  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify User " + id + " is absent from SUT holds list" }, function (item) {
+  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: verifyAbsentDescription("User", id, "holds") }, function (item) {
     return item && asInteger(item.userId) === id;
   }, "User " + id + " still appears in holds list");
 }
@@ -443,8 +505,12 @@ function verifyUserCannotBeDeleted(id, expectedCode) {
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/users/" + id;
-  var description = "Verify User " + id + " cannot be deleted";
+  var description = verifyRejectedDescription("User", id, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
+function verifyDeletedUserCannotBeDeleted(id) {
+  verifyUserCannotBeDeleted(id, 404);
 }
 
 function matchAddUser(id) {
@@ -468,11 +534,11 @@ function matchAnyUserDeleted() {
   return AnyUserDeleted;
 }
 
-function createHold(bookId, id, userId, expectedCode) {
+function createHold(bookId, id, userId, expectedCode, description) {
   bookId = asInteger(bookId);
   id = asInteger(id);
   userId = asInteger(userId);
-  var url = "/holds"; var reqDescription = "Create a hold " + id + " " + userId + "/" + bookId;
+  var url = "/holds"; var reqDescription = description || (createDescription("Hold", id) + " for User " + userId + " and Book " + bookId);
   expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
   let finalCodes = [expectedCode];
   var body = {
@@ -484,17 +550,22 @@ function createHold(bookId, id, userId, expectedCode) {
   return response;
 }
 
-function tryToAddHoldAndExpectError(bookId, id, userId, expectedCode) {
+function tryToCreateHoldAndExpectError(bookId, id, userId, expectedCode) {
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
-  return createHold(bookId, id, userId, expectedCode);
+  return createHold(bookId, id, userId, expectedCode, verifyRejectedDescription("Hold", id, "create", "the operation is not allowed in this state"));
 }
 
 function deleteHold(id, expectedCode, userId, bookId) {
   id = asInteger(id);
+  if (bookId === undefined && userId !== undefined && userId !== null) {
+    bookId = userId;
+    userId = expectedCode;
+    expectedCode = null;
+  }
   userId = userId === undefined || userId === null ? null : asInteger(userId);
   bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
   var url = "/holds/" + id;
-  var reqDescription = "Delete a hold " + id + (userId === null || bookId === null ? "" : " " + userId + "/" + bookId);
+  var reqDescription = deleteDescription("Hold", id, userId === null || bookId === null ? "" : "for User " + userId + " and Book " + bookId);
   expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
   let finalCodes = [expectedCode];
   let parameters = { description: reqDescription, id: id };
@@ -504,18 +575,18 @@ function deleteHold(id, expectedCode, userId, bookId) {
   return response;
 }
 
-function verifyHoldsExists(id) {
+function verifyHoldExists(id) {
   // Verification is executed against the SUT dataset by reading the holds list and searching for this hold id.
   id = asInteger(id);
-  verifySutListContains("holds", "/holds", { q: asString(id), description: "Verify Hold " + id + " exists in SUT holds list" }, function (item) {
+  verifySutListContains("holds", "/holds", { q: asString(id), description: verifyExistsDescription("Hold", id, "holds") }, function (item) {
     return item && asInteger(item.id) === id;
   }, "Hold " + id + " was not found in the SUT holds list");
 }
 
-function verifyHoldDoesNotAppearInAnyList(id) {
+function verifyHoldAbsentFromAllLists(id) {
   // Verification is executed against the SUT dataset by confirming this hold id is absent from the holds list.
   id = asInteger(id);
-  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: "Verify Hold " + id + " is absent from SUT holds list" }, function (item) {
+  verifySutListDoesNotContain("holds", "/holds", { q: asString(id), description: verifyAbsentDescription("Hold", id, "holds") }, function (item) {
     return item && asInteger(item.id) === id;
   }, "Hold " + id + " still appears in holds list");
 }
@@ -525,8 +596,12 @@ function verifyHoldCannotBeDeleted(id, expectedCode) {
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/holds/" + id;
-  var description = "Verify Hold " + id + " cannot be deleted";
+  var description = verifyRejectedDescription("Hold", id, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
+function verifyDeletedHoldCannotBeDeleted(id) {
+  verifyHoldCannotBeDeleted(id, 404);
 }
 
 function matchAddHold(id) {

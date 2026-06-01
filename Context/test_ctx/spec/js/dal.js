@@ -239,6 +239,10 @@ ctx.registerQuery('UserBook.CanCreateHold', function (e) {
 	return e.type === 'user-book' && !hasLoanForBook(e.bookid) && !hasHoldForUserBook(e.userid, e.bookid);
 });
 
+ctx.registerQuery('UserBook.CannotCreateHold', function (e) {
+	return e.type === 'user-book' && (hasLoanForBook(e.bookid) || hasHoldForUserBook(e.userid, e.bookid));
+});
+
 ctx.registerQuery('UserBook.CanCreateLoan', function (e) {
 	return e.type === 'user-book' && !hasLoanForUser(e.userid) && !hasLoanForBook(e.bookid);
 });
