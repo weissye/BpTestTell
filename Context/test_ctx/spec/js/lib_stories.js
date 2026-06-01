@@ -1,5 +1,34 @@
 const NUMBER_OF_USERS = 1;
 const NUMBER_OF_BOOKS = 1;
+const RANDOM = new java.util.Random();
+
+function randomInt() {
+  return RANDOM.nextInt(999999);
+}
+
+function generateUserId() {
+  return randomInt();
+}
+
+function generateUserName() {
+  return "User name " + randomInt();
+}
+
+function generateBookId() {
+  return randomInt();
+}
+
+function generateBookTitle() {
+  return "Book title " + randomInt();
+}
+
+function generateLoanId() {
+  return randomInt();
+}
+
+function generateHoldId() {
+  return randomInt();
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Story layer.
@@ -123,6 +152,16 @@ bthread("verifyHoldDeletion", function () {
   });
 });
 
+
+ctx.bthread(
+  "verifyCannotCreateLoanForBusyUserOrBook",
+  "UserBook.CannotCreateLoan",
+  function (userbook) {
+    tryToAddLoanAndExpectError(userbook.userid, userbook.bookid, generateLoanId());
+  },
+);
+
+
 /////////////////////////////////////////////////////////////////////////
 // Bthreads that create random stand-alone objects: users and books.
 // These objects can be created without preconditions and are then used by
@@ -131,17 +170,13 @@ bthread("verifyHoldDeletion", function () {
 
 bthread("create random users", function () {
   for (let i = 0; i < NUMBER_OF_USERS; i++) {
-    let id_Users_160 = 160 + i * 1000 + Math.floor(Math.random() * 999);
-    let name_Users_160 = "name_Users_160_" + Math.floor(Math.random() * 1000);
-    createUser(id_Users_160, name_Users_160);
+    createUser(generateUserId(), generateUserName());
   }
 });
 
 bthread("create random books", function () {
   for (let i = 0; i < NUMBER_OF_BOOKS; i++) {
-    let id_Books_160 = 160 + i * 1000 + Math.floor(Math.random() * 999);
-    let title_Books_160 = "title_Books_160_" + Math.floor(Math.random() * 1000);
-    createBook(id_Books_160, title_Books_160);
+    createBook(generateBookId(), generateBookTitle());
   }
 });
 
@@ -153,47 +188,15 @@ bthread("create random books", function () {
 //////////////////////////////////////////////////////////////////////////
 
 ctx.bthread("crud:Loans:create", "UserBook.CanCreateLoan", function (userbook) {
-  let id_Loans_170 = 170 + Math.floor(Math.random() * 999999);
-
-  createLoan(userbook.userid, userbook.bookid, id_Loans_170);
-
-  // Gera: I think that this block is not necessary, because we also want to 
-  // allow deletion of the object before the creation of the loan, and if the 
-  // creation is blocked, then the deletion will be blocked as well, so we will 
-  // verify that the loan cannot be created without blocking the deletion.
-  // If we block the deletion here, then we won't be able to verify that the 
-  // loan cannot be created without blocking the deletion, because the deletion 
-  // will already be blocked.
-
-  // block(matchDeleteBookOrUser(userbook.bookid, userbook.userid), function () {
-  //    	createLoan(userbook.userid, userbook.bookid, id_Loans_170);
-  // });
+  createLoan(userbook.userid, userbook.bookid, generateLoanId());
 });
 
-// I think this b-thread does not belong here, because it is not adding a loan, 
-// but rather verifying that a loan cannot be added, so it should be in the 
-// verification b-threads section. 
-ctx.bthread(
-  "verifyCannotCreateLoanForBusyUserOrBook",
-  "UserBook.CannotCreateLoan",
-  function (userbook) {
-    let id_Loans_170 = 170 + Math.floor(Math.random() * 999999);
-    tryToAddLoanAndExpectError(userbook.userid, userbook.bookid, id_Loans_170);
-  },
-);
 
 ctx.bthread(
   "crud:Holds:linear:2",
   "UserBook.CanCreateHold",
   function (userbook) {
-    let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
-	createHold(userbook.bookid, id_Holds_170, userbook.userid);
-
-	// Gera: Same as the comment in the previous b-thread. I think that this block is not necessary, because we also want to
-
-    // block(matchDeleteBookOrUser(userbook.bookid, userbook.userid), function () {
-    //   createHold(userbook.bookid, id_Holds_170, userbook.userid);
-    // });
+    createHold(userbook.bookid, generateHoldId(), userbook.userid);
   },
 );
 
@@ -201,8 +204,7 @@ ctx.bthread(
   "verifyCannotCreateHoldForLoanedBook",
   "UserBook.BookHasLoan",
   function (userbook) {
-    let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
-    tryToAddHoldAndExpectError(userbook.bookid, id_Holds_170, userbook.userid);
+    tryToAddHoldAndExpectError(userbook.bookid, generateHoldId(), userbook.userid);
   },
 );
 
@@ -210,8 +212,7 @@ ctx.bthread(
   "verifyCannotCreateDuplicateHold",
   "UserBook.BookUserHasHold",
   function (userbook) {
-    let id_Holds_170 = 170 + Math.floor(Math.random() * 999999);
-    tryToAddHoldAndExpectError(userbook.bookid, id_Holds_170, userbook.userid);
+    tryToAddHoldAndExpectError(userbook.bookid, generateHoldId(), userbook.userid);
   },
 );
 
