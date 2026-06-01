@@ -221,6 +221,12 @@ ctx.bthread(
 // These bthreads are triggered by the existence of objects and then delete
 // those objects, which in turn triggers the verification bthreads to check
 // that the system behaves correctly after deletion.
+//
+// There is an issue with the sampling mechanism here because it is eager 
+// to delete objects, which can lead to a situation where all objects are deleted 
+// before complex scenarios can be fully explored. A more sophisticated sampling.
+// A poor-man remedy for this is to decrease the probability of deletion, which can 
+// be done by adding a random chance to the deletion bthreads.
 /////////////////////////////////////////////////////////////////////////
 
 ctx.bthread("deleteUser", "User.CanDelete", function (user) {
