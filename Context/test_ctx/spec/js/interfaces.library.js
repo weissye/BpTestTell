@@ -85,7 +85,7 @@ function getJsonBody(e) {
 // Consumers can depend on fields like id, userId, bookId, title, and
 // loanNumber without knowing whether the values came from a JSON body,
 // REST path, query parameter, or request metadata.
-function getEventData(e) {
+function extractEventData(e) {
   var body = getJsonBody(e) || {};
   var data = e && e.data ? e.data : e;
   var parameters = data && data.parameters ? data.parameters : {};
@@ -99,9 +99,6 @@ function getEventData(e) {
   };
 }
 
-function extractEventData(e) {
-  return getEventData(e);
-}
 
 //////////////////////////////////////////////////////////////////////////
 // Broad event classifiers.
