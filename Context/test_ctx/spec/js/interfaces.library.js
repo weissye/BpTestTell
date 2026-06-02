@@ -220,6 +220,55 @@ function verifySutListDoesNotContain(listName, url, parameters, predicate, failu
   if (found) pvg.fail(failureMessage + ": " + JSON.stringify(found));
 }
 
+function verifyUnsupportedUpdate(entityName, id, url, body) {
+  var description = verifyRejectedDescription(entityName, id, "update", "this API does not expose update routes");
+  svc.put(url, { body: JSON.stringify(body || {}), expectedResponseCodes: [405], parameters: { description: description } });
+}
+
+function verifyMalformedDeleteIsRejected(entityName, id, url) {
+  var description = verifyRejectedDescription(entityName, id, "delete", "the path parameters are malformed");
+  svc.delete(url, { expectedResponseCodes: [400], parameters: { description: description } });
+}
+
+function verifyMalformedReadIsRejected(entityName, id, url) {
+  var description = verifyRejectedDescription(entityName, id, "read", "the path parameters are malformed");
+  svc.get(url, { expectedResponseCodes: [400], parameters: { description: description } });
+}
+
+function verifyMissingEntityReadIsRejected(entityName, id, url) {
+  var description = verifyRejectedDescription(entityName, id, "read", "the entity does not exist");
+  svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
+}
+
+function verifyListQueryFuzzIsAccepted(listName, url) {
+  var cases = [
+    { name: "unexpected query", parameters: { unexpected: "value" } },
+    { name: "numeric query", parameters: { q: "12345" } },
+    { name: "empty query", parameters: { q: "" } }
+  ];
+  for (let i = 0; i < cases.length; i++) {
+    var parameters = cases[i].parameters;
+    parameters.description = "Verify: read " + listName + " list accepts harmless query fuzz - " + cases[i].name;
+    svc.get(url, { parameters: parameters, expectedResponseCodes: [200] });
+  }
+}
+
+function verifyLoanQueryFuzzIsRejected() {
+  var cases = [
+    { name: "userId has wrong type", parameters: { userId: "bad-user-id" } },
+    { name: "bookId has wrong type", parameters: { bookId: "bad-book-id" } },
+    { name: "userId is zero", parameters: { userId: "0" } },
+    { name: "bookId is zero", parameters: { bookId: "0" } },
+    { name: "userId is negative", parameters: { userId: "-1" } },
+    { name: "bookId is negative", parameters: { bookId: "-1" } }
+  ];
+  for (let i = 0; i < cases.length; i++) {
+    var parameters = cases[i].parameters;
+    parameters.description = verifyRejectedDescription("Loan", "query", "read", "query parameters are missing or invalid") + " - " + cases[i].name;
+    svc.get("/loans", { parameters: parameters, expectedResponseCodes: [400] });
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Interface action functions.
 //
@@ -241,12 +290,82 @@ function createBook(id, title) {
   return response;
 }
 
+function tryToCreateBookWithSameIdAndExpectError(id, expectedCode) {
+  id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/books";
+  var reqDescription = verifyRejectedDescription("Book", id, "create", "the id already exists");
+  var body = {
+    "id": id,
+    "title": "Duplicate book " + id
+  };
+  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription } });
+  return response;
+}
+
+function tryToCreateBookWithBadParametersAndExpectError(id, expectedCode) {
+  id = asInteger(id);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/books";
+  var reqDescription = verifyRejectedDescription("Book", id, "create", "required parameters are missing or invalid");
+  var cases = [
+    { name: "missing title", body: { "id": id } },
+    { name: "missing id", body: { "title": "Book title " + id } },
+    { name: "missing all required fields", body: {} },
+    { name: "id has wrong type", body: { "id": "bad-book-id", "title": "Book title " + id } },
+    { name: "title has wrong type", body: { "id": id, "title": 12345 } },
+    { name: "multiple wrong types", body: { "id": true, "title": false } },
+    { name: "id and title have swapped types", body: { "title": id, "id": "Book title " + id } },
+    { name: "id is null", body: { "id": null, "title": "Book title " + id } },
+    { name: "title is null", body: { "id": id, "title": null } },
+    { name: "id is zero", body: { "id": 0, "title": "Book title " + id } },
+    { name: "id is negative", body: { "id": -id, "title": "Book title " + id } },
+    { name: "title is empty", body: { "id": id, "title": "" } },
+    { name: "unexpected field", body: { "id": id, "title": "Book title " + id, "unexpected": "value" } }
+  ];
+  for (let i = 0; i < cases.length; i++) {
+    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
+  }
+}
+
 function deleteBook(id) {
   id = asInteger(id);
   var url = "/books/" + id; var reqDescription = deleteDescription("Book", id);
   let finalCodes = [200];
   let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
   return response;
+}
+
+function verifyBookDetailExists(id) {
+  id = asInteger(id);
+  var description = verifyExistsDescription("Book", id, "book detail");
+  var response = svc.get("/books/" + id, { parameters: { description: description, id: id }, expectedResponseCodes: [200] });
+  if (response === undefined || response === null) return;
+  if (response.lib === "REST" || response.method !== undefined) return;
+  if (response.data && (response.data.lib === "REST" || response.data.method !== undefined)) return;
+  var bookData = (typeof response === "string") ? JSON.parse(response) : response;
+  if (bookData && typeof bookData.body === "string") bookData = JSON.parse(bookData.body);
+  if (!bookData || asInteger(bookData.id) !== id) pvg.fail("Book " + id + " detail response did not contain the requested id");
+}
+
+function verifyBookReadFuzz(id) {
+  id = asInteger(id);
+  verifyMalformedReadIsRejected("Book", "bad-id", "/books/bad-id");
+  verifyMalformedReadIsRejected("Book", 0, "/books/0");
+  verifyMalformedReadIsRejected("Book", -1, "/books/-1");
+  verifyMissingEntityReadIsRejected("Book", id + 1000000, "/books/" + (id + 1000000));
+  verifyListQueryFuzzIsAccepted("books", "/books");
+}
+
+function verifyBookDeleteFuzz() {
+  verifyMalformedDeleteIsRejected("Book", "bad-id", "/books/bad-id");
+  verifyMalformedDeleteIsRejected("Book", 0, "/books/0");
+  verifyMalformedDeleteIsRejected("Book", -1, "/books/-1");
+}
+
+function verifyBookUpdateIsUnsupported(id) {
+  id = asInteger(id);
+  verifyUnsupportedUpdate("Book", id, "/books/" + id, { "id": id, "title": "Updated book " + id });
 }
 
 function verifyBookExists(id) {
@@ -341,6 +460,26 @@ function deleteLoan(userId, bookId, loanNumber) {
   return response;
 }
 
+function verifyLoanReadFuzz() {
+  verifyListQueryFuzzIsAccepted("loans", "/loans");
+  verifyLoanQueryFuzzIsRejected();
+}
+
+function verifyLoanDeleteFuzz() {
+  verifyMalformedDeleteIsRejected("Loan", "bad-user-id/1", "/loans/bad-user-id/1");
+  verifyMalformedDeleteIsRejected("Loan", "1/bad-book-id", "/loans/1/bad-book-id");
+  verifyMalformedDeleteIsRejected("Loan", "0/1", "/loans/0/1");
+  verifyMalformedDeleteIsRejected("Loan", "1/0", "/loans/1/0");
+  verifyMalformedDeleteIsRejected("Loan", "-1/1", "/loans/-1/1");
+  verifyMalformedDeleteIsRejected("Loan", "1/-1", "/loans/1/-1");
+}
+
+function verifyLoanUpdateIsUnsupported(userId, bookId) {
+  userId = asInteger(userId);
+  bookId = asInteger(bookId);
+  verifyUnsupportedUpdate("Loan", userId + "/" + bookId, "/loans/" + userId + "/" + bookId, { "userId": userId, "bookId": bookId });
+}
+
 function createLoan(userId, bookId, loanNumber, expectedCode, description) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
@@ -366,6 +505,32 @@ function createLoan(userId, bookId, loanNumber, expectedCode, description) {
 function tryToCreateLoanAndExpectError(userId, bookId, loanNumber, expectedCode) {
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   return createLoan(userId, bookId, loanNumber, expectedCode, verifyRejectedDescription("Loan", userId + "/" + bookId, "create", "the operation is not allowed in this state"));
+}
+
+function tryToCreateLoanWithBadParametersAndExpectError(userId, expectedCode) {
+  userId = asInteger(userId);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/loans";
+  var reqDescription = verifyRejectedDescription("Loan", userId, "create", "required parameters are missing or invalid");
+  var cases = [
+    { name: "missing bookId", body: { "userId": userId } },
+    { name: "missing userId", body: { "bookId": userId } },
+    { name: "missing all required fields", body: {} },
+    { name: "userId has wrong type", body: { "userId": "bad-user-id", "bookId": userId } },
+    { name: "bookId has wrong type", body: { "userId": userId, "bookId": "bad-book-id" } },
+    { name: "multiple wrong types", body: { "userId": true, "bookId": false } },
+    { name: "userId and bookId have swapped invalid values", body: { "bookId": userId, "userId": -userId } },
+    { name: "userId is null", body: { "userId": null, "bookId": userId } },
+    { name: "bookId is null", body: { "userId": userId, "bookId": null } },
+    { name: "userId is zero", body: { "userId": 0, "bookId": userId } },
+    { name: "bookId is zero", body: { "userId": userId, "bookId": 0 } },
+    { name: "userId is negative", body: { "userId": -userId, "bookId": userId } },
+    { name: "bookId is negative", body: { "userId": userId, "bookId": -userId } },
+    { name: "unexpected field", body: { "userId": userId, "bookId": userId, "unexpected": "value" } }
+  ];
+  for (let i = 0; i < cases.length; i++) {
+    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
+  }
 }
 
 function verifyLoanExists(bookId, userId) {
@@ -462,11 +627,24 @@ function tryToCreateUserWithBadParametersAndExpectError(id, expectedCode) {
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/users";
   var reqDescription = verifyRejectedDescription("User", id, "create", "required parameters are missing or invalid");
-  var body = {
-    "id": id
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription } });
-  return response;
+  var cases = [
+    { name: "missing name", body: { "id": id } },
+    { name: "missing id", body: { "name": "User name " + id } },
+    { name: "missing all required fields", body: {} },
+    { name: "id has wrong type", body: { "id": "bad-user-id", "name": "User name " + id } },
+    { name: "name has wrong type", body: { "id": id, "name": 12345 } },
+    { name: "multiple wrong types", body: { "id": true, "name": false } },
+    { name: "id and name have swapped types", body: { "name": id, "id": "User name " + id } },
+    { name: "id is null", body: { "id": null, "name": "User name " + id } },
+    { name: "name is null", body: { "id": id, "name": null } },
+    { name: "id is zero", body: { "id": 0, "name": "User name " + id } },
+    { name: "id is negative", body: { "id": -id, "name": "User name " + id } },
+    { name: "name is empty", body: { "id": id, "name": "" } },
+    { name: "unexpected field", body: { "id": id, "name": "User name " + id, "unexpected": "value" } }
+  ];
+  for (let i = 0; i < cases.length; i++) {
+    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
+  }
 }
 
 function deleteUser(id) {
@@ -476,6 +654,21 @@ function deleteUser(id) {
   let finalCodes = [200];
   let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
   return response;
+}
+
+function verifyUserReadFuzz() {
+  verifyListQueryFuzzIsAccepted("users", "/users");
+}
+
+function verifyUserDeleteFuzz() {
+  verifyMalformedDeleteIsRejected("User", "bad-id", "/users/bad-id");
+  verifyMalformedDeleteIsRejected("User", 0, "/users/0");
+  verifyMalformedDeleteIsRejected("User", -1, "/users/-1");
+}
+
+function verifyUserUpdateIsUnsupported(id) {
+  id = asInteger(id);
+  verifyUnsupportedUpdate("User", id, "/users/" + id, { "id": id, "name": "Updated user " + id });
 }
 
 function verifyUserExists(id) {
@@ -555,6 +748,43 @@ function tryToCreateHoldAndExpectError(bookId, id, userId, expectedCode) {
   return createHold(bookId, id, userId, expectedCode, verifyRejectedDescription("Hold", id, "create", "the operation is not allowed in this state"));
 }
 
+function tryToCreateHoldWithSameIdAndExpectError(bookId, id, userId, expectedCode) {
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  return createHold(bookId, id, userId, expectedCode, verifyRejectedDescription("Hold", id, "create", "the id already exists"));
+}
+
+function tryToCreateHoldWithBadParametersAndExpectError(id, userId, expectedCode) {
+  id = asInteger(id);
+  userId = asInteger(userId);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
+  var url = "/holds";
+  var reqDescription = verifyRejectedDescription("Hold", id, "create", "required parameters are missing or invalid");
+  var cases = [
+    { name: "missing bookId", body: { "id": id, "userId": userId } },
+    { name: "missing userId", body: { "id": id, "bookId": userId } },
+    { name: "missing id", body: { "userId": userId, "bookId": userId } },
+    { name: "missing all required fields", body: {} },
+    { name: "id has wrong type", body: { "id": "bad-hold-id", "userId": userId, "bookId": userId } },
+    { name: "userId has wrong type", body: { "id": id, "userId": "bad-user-id", "bookId": userId } },
+    { name: "bookId has wrong type", body: { "id": id, "userId": userId, "bookId": "bad-book-id" } },
+    { name: "multiple wrong types", body: { "id": true, "userId": false, "bookId": "bad-book-id" } },
+    { name: "parameters have swapped invalid values", body: { "bookId": id, "id": "Hold " + id, "userId": "User " + userId } },
+    { name: "id is null", body: { "id": null, "userId": userId, "bookId": userId } },
+    { name: "userId is null", body: { "id": id, "userId": null, "bookId": userId } },
+    { name: "bookId is null", body: { "id": id, "userId": userId, "bookId": null } },
+    { name: "id is zero", body: { "id": 0, "userId": userId, "bookId": userId } },
+    { name: "userId is zero", body: { "id": id, "userId": 0, "bookId": userId } },
+    { name: "bookId is zero", body: { "id": id, "userId": userId, "bookId": 0 } },
+    { name: "id is negative", body: { "id": -id, "userId": userId, "bookId": userId } },
+    { name: "userId is negative", body: { "id": id, "userId": -userId, "bookId": userId } },
+    { name: "bookId is negative", body: { "id": id, "userId": userId, "bookId": -userId } },
+    { name: "unexpected field", body: { "id": id, "userId": userId, "bookId": userId, "unexpected": "value" } }
+  ];
+  for (let i = 0; i < cases.length; i++) {
+    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
+  }
+}
+
 function deleteHold(id, expectedCode, userId, bookId) {
   id = asInteger(id);
   if (bookId === undefined && userId !== undefined && userId !== null) {
@@ -573,6 +803,23 @@ function deleteHold(id, expectedCode, userId, bookId) {
   if (bookId !== null) parameters.bookId = bookId;
   let response = svc.delete(url, { parameters: parameters, expectedResponseCodes: finalCodes });
   return response;
+}
+
+function verifyHoldReadFuzz() {
+  verifyListQueryFuzzIsAccepted("holds", "/holds");
+}
+
+function verifyHoldDeleteFuzz() {
+  verifyMalformedDeleteIsRejected("Hold", "bad-id", "/holds/bad-id");
+  verifyMalformedDeleteIsRejected("Hold", 0, "/holds/0");
+  verifyMalformedDeleteIsRejected("Hold", -1, "/holds/-1");
+}
+
+function verifyHoldUpdateIsUnsupported(id, userId, bookId) {
+  id = asInteger(id);
+  userId = asInteger(userId);
+  bookId = asInteger(bookId);
+  verifyUnsupportedUpdate("Hold", id, "/holds/" + id, { "id": id, "userId": userId, "bookId": bookId });
 }
 
 function verifyHoldExists(id) {

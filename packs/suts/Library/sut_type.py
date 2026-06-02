@@ -395,8 +395,6 @@ def add_hold() -> tuple[Response, int]:
         return jsonify({"error": f"Book {hold.get('bookId')} does not exist"}), 400
     if any(h.get("id") == hold.get("id") for h in holds):
         return jsonify({"error": "Hold already exists"}), 400
-    if any(h.get("userId") == hold.get("userId") and h.get("bookId") == hold.get("bookId") for h in holds):
-        return jsonify({"error": "User already has a hold for this book"}), 400
     if any(loan.get("bookId") == hold.get("bookId") for loan in loans):
         return jsonify({"error": "Cannot hold a loaned book"}), 400
 

@@ -208,6 +208,10 @@ ctx.bthread("createHold", "UserBook.CanCreateHold", function (userbook) {
   createHold(userbook.bookid, generateHoldId(), userbook.userid);
 });
 
+ctx.bthread("verifyCanCreateMultipleHoldsForSameUserBook", "UserBook.CanCreateHold", function (userbook) {
+  createHold(userbook.bookid, generateHoldId(), userbook.userid);
+});
+
 ctx.bthread("verifyCannotCreateHoldForLoanedBook", "UserBook.CannotCreateHold", function (userbook) {
   tryToCreateHoldAndExpectError(userbook.bookid, generateHoldId(), userbook.userid);
 });
@@ -240,4 +244,86 @@ ctx.bthread("deleteLoan", "Loan.All", function (loan) {
 
 ctx.bthread("deleteHold", "Hold.All", function (hold) {
   deleteHold(hold.holdid, hold.userid, hold.bookid);
+});
+
+//////////////////////////////////////////////////////////////////////////
+// Additional negative verifiers.
+//
+// These bthreads cover entity-specific rejection cases that are supported by
+// the interface layer and SUT but are not part of the basic CRUD flow above.
+//////////////////////////////////////////////////////////////////////////
+
+ctx.bthread("verifyCannotCreateDuplicateBook", "Book.All", function (book) {
+  block(matchDeleteBook(book.id), function () {
+    tryToCreateBookWithSameIdAndExpectError(book.id);
+  });
+});
+
+ctx.bthread("verifyCannotCreateBookWithBadParameters", "Book.All", function (book) {
+  block(matchDeleteBook(book.id), function () {
+    tryToCreateBookWithBadParametersAndExpectError(book.id, 400);
+  });
+});
+
+ctx.bthread("verifyCannotDeleteLoanedBook", "UserBook.BookHasLoan", function (userbook) {
+  block(matchDeleteLoanOrBookOrUser(userbook.userid, userbook.bookid), function () {
+    verifyBookCannotBeDeleted(userbook.bookid, 400);
+  });
+});
+
+ctx.bthread("verifyCannotCreateLoanWithBadParameters", "UserBook.All", function (userbook) {
+  tryToCreateLoanWithBadParametersAndExpectError(userbook.userid, 400);
+});
+
+ctx.bthread("verifyCannotCreateDuplicateHoldId", "Hold.All", function (hold) {
+  block(matchDeleteHold(hold.holdid), function () {
+    tryToCreateHoldWithSameIdAndExpectError(hold.bookid, hold.holdid, hold.userid);
+  });
+});
+
+ctx.bthread("verifyCannotCreateHoldWithBadParameters", "Hold.All", function (hold) {
+  block(matchDeleteHold(hold.holdid), function () {
+    tryToCreateHoldWithBadParametersAndExpectError(hold.holdid, hold.userid, 400);
+  });
+});
+
+//////////////////////////////////////////////////////////////////////////
+// Read, malformed-delete, and unsupported-update API verifiers.
+//
+// The Library SUT exposes list reads for every entity and a detail read only
+// for books. It does not expose update routes, so update coverage verifies
+// that PUT attempts are rejected with 405.
+//////////////////////////////////////////////////////////////////////////
+
+ctx.bthread("verifyUserReadDeleteAndUpdateApiSurface", "User.All", function (user) {
+  block(matchDeleteUser(user.id), function () {
+    verifyUserReadFuzz();
+    verifyUserDeleteFuzz();
+    verifyUserUpdateIsUnsupported(user.id);
+  });
+});
+
+ctx.bthread("verifyBookReadDeleteAndUpdateApiSurface", "Book.All", function (book) {
+  block(matchDeleteBook(book.id), function () {
+    verifyBookDetailExists(book.id);
+    verifyBookReadFuzz(book.id);
+    verifyBookDeleteFuzz();
+    verifyBookUpdateIsUnsupported(book.id);
+  });
+});
+
+ctx.bthread("verifyLoanReadDeleteAndUpdateApiSurface", "Loan.All", function (loan) {
+  block(matchDeleteLoan(loan.userid), function () {
+    verifyLoanReadFuzz();
+    verifyLoanDeleteFuzz();
+    verifyLoanUpdateIsUnsupported(loan.userid, loan.bookid);
+  });
+});
+
+ctx.bthread("verifyHoldReadDeleteAndUpdateApiSurface", "Hold.All", function (hold) {
+  block(matchDeleteHold(hold.holdid), function () {
+    verifyHoldReadFuzz();
+    verifyHoldDeleteFuzz();
+    verifyHoldUpdateIsUnsupported(hold.holdid, hold.userid, hold.bookid);
+  });
 });

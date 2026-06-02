@@ -71,12 +71,6 @@ function hasLoanForUser(userIdValue) {
 	});
 }
 
-function hasHoldForUserBook(userIdValue, bookIdValue) {
-	return ctx.runQuery('Hold.All').some(function (hold) {
-		return sameId(hold.userid, userIdValue) && sameId(hold.bookid, bookIdValue);
-	});
-}
-
 function hasHoldForBook(bookIdValue) {
 	return ctx.runQuery('Hold.All').some(function (hold) {
 		return sameId(hold.bookid, bookIdValue);
@@ -236,11 +230,11 @@ ctx.registerQuery('User.HasLoan', function (e) {
 });
 
 ctx.registerQuery('UserBook.CanCreateHold', function (e) {
-	return e.type === 'user-book' && !hasLoanForBook(e.bookid) && !hasHoldForUserBook(e.userid, e.bookid);
+	return e.type === 'user-book' && !hasLoanForBook(e.bookid);
 });
 
 ctx.registerQuery('UserBook.CannotCreateHold', function (e) {
-	return e.type === 'user-book' && (hasLoanForBook(e.bookid) || hasHoldForUserBook(e.userid, e.bookid));
+	return e.type === 'user-book' && hasLoanForBook(e.bookid);
 });
 
 ctx.registerQuery('UserBook.CanCreateLoan', function (e) {
@@ -255,6 +249,3 @@ ctx.registerQuery('UserBook.BookHasLoan', function (e) {
 	return e.type === 'user-book' && hasLoanForBook(e.bookid);
 });
 
-ctx.registerQuery('UserBook.BookUserHasHold', function (e) {
-	return e.type === 'user-book' && hasHoldForUserBook(e.userid, e.bookid);
-});
