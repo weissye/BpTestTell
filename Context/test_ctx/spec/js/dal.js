@@ -217,6 +217,10 @@ ctx.registerQuery('Hold.All', function (e) {
 	return e.type === 'hold';
 });
 
+ctx.registerQuery('Hold.WithoutLoan', function (e) {
+	return e.type === 'hold' && !hasLoanForUser(e.userid) && !hasLoanForBook(e.bookid);
+});
+
 ctx.registerQuery('UserBook.All', function (e) {
 	return e.type === 'user-book';
 });
@@ -230,11 +234,11 @@ ctx.registerQuery('User.HasLoan', function (e) {
 });
 
 ctx.registerQuery('UserBook.CanCreateHold', function (e) {
-	return e.type === 'user-book' && !hasLoanForBook(e.bookid);
+	return e.type === 'user-book';
 });
 
 ctx.registerQuery('UserBook.CannotCreateHold', function (e) {
-	return e.type === 'user-book' && hasLoanForBook(e.bookid);
+	return false;
 });
 
 ctx.registerQuery('UserBook.CanCreateLoan', function (e) {

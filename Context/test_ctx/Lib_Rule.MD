@@ -59,6 +59,7 @@ Context queries:
 - `UserBook.CanCreateLoan`
 - `UserBook.CannotCreateLoan`
 - `UserBook.CanCreateHold`
+- `UserBook.CannotCreateHold`
 - `UserBook.BookHasLoan`
 
 ## Loans
@@ -106,16 +107,15 @@ Delete a loan 609009 587/391
 
 ## Holds
 
-A hold connects one user to one book request.
+A hold connects one user to one book request. Holds are queue-style reservations: a user can request a book even when that book is currently loaned.
 
 Rules:
 
-- A hold can be created only when the book is not loaned.
+- A hold can be created for any existing user/book pair, even when the book is currently loaned.
 - A user may have multiple active holds.
-- A book may have multiple active holds, as long as the book is not loaned.
+- A book may have multiple active holds.
 - The same user/book pair may have multiple active holds when each hold has a unique hold number.
 - A duplicate hold number is expected to fail with `400`.
-- A hold on a loaned book is expected to fail with `400`.
 - A hold can be deleted when it exists.
 - After a successful hold deletion, the hold should not appear in the holds list.
 - Deleting a hold that no longer exists is expected to fail with `404`.
@@ -124,13 +124,14 @@ Context queries:
 
 - `Hold.All`
 - `UserBook.CanCreateHold`
+- `UserBook.CannotCreateHold`
 - `UserBook.BookHasLoan`
 
 Story behavior:
 
 - `crud:Holds:linear:2` creates valid holds from `UserBook.CanCreateHold`.
-- `verifyCanCreateMultipleHoldsForSameUserBook` verifies that a second hold for the same user/book pair can be created when the book is not loaned.
-- `verifyCannotCreateHoldForLoanedBook` verifies that hold creation on a loaned book fails with `400`.
+- `verifyCanCreateMultipleHoldsForSameUserBook` verifies that a second hold for the same user/book pair can be created.
+- `verifyCanCreateHoldForLoanedBook` verifies that hold creation on a loaned book succeeds.
 - `verifyCannotCreateDuplicateHoldId` verifies that a duplicate hold number fails with `400`.
 - `deleteHold` deletes existing holds from `Hold.All`.
 
@@ -154,7 +155,7 @@ Loans and holds are related through the book.
 
 Rules:
 
-- If a book has an active loan, creating a hold for that book is expected to fail with `400`.
+- If a book has an active loan, creating a hold for that book is allowed.
 - If a book has an active loan, the book cannot be deleted.
 - If a user has an active loan, the user cannot be deleted.
 - If a book has active holds, the book cannot be deleted.
@@ -177,6 +178,6 @@ This prevents negative verification calls from corrupting the expected model.
 ## Current Important Assumptions
 
 - The current loan rule is strict: one active loan per user and one active loan per book.
-- The current hold rule is flexible: a user can have multiple active holds, a book can have multiple active holds, and the same user/book pair can have multiple active holds when each hold has a unique hold number.
+- The current hold rule is queue-style and flexible: a user can have multiple active holds, a book can have multiple active holds whether or not it is loaned, and the same user/book pair can have multiple active holds when each hold has a unique hold number.
 - Hold numbers are unique identifiers for hold deletion.
 - Loan numbers are used for trace descriptions, while the loan identity in the SUT is the `userId/bookId` pair.

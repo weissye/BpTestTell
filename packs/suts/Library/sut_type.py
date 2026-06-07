@@ -158,6 +158,9 @@ def delete_user(id: str) -> tuple[Response, int]:
     if any(loan.get("userId") == user_id for loan in loans):
         return jsonify({"error": "Cannot delete user with active loans"}), 400
 
+    if any(hold.get("userId") == user_id for hold in holds):
+        return jsonify({"error": "Cannot delete user with active holds"}), 400
+
     user = next((u for u in users if u.get("id") == user_id), None)
     if user:
         users.remove(user)
@@ -228,6 +231,10 @@ def delete_book(id: str) -> tuple[Response, int]:
     if any(loan.get("bookId") == book_id for loan in loans):
         logger.warning(f"Cannot delete book {book_id} - has active loans")
         return jsonify({"error": "Cannot delete book with active loans"}), 400
+
+    if any(hold.get("bookId") == book_id for hold in holds):
+        logger.warning(f"Cannot delete book {book_id} - has active holds")
+        return jsonify({"error": "Cannot delete book with active holds"}), 400
 
     books = [book for book in books if book.get("id") != book_id]
 
@@ -395,8 +402,6 @@ def add_hold() -> tuple[Response, int]:
         return jsonify({"error": f"Book {hold.get('bookId')} does not exist"}), 400
     if any(h.get("id") == hold.get("id") for h in holds):
         return jsonify({"error": "Hold already exists"}), 400
-    if any(loan.get("bookId") == hold.get("bookId") for loan in loans):
-        return jsonify({"error": "Cannot hold a loaned book"}), 400
 
     holds.append(hold)
     logger.info(f"Added new hold: {hold}")

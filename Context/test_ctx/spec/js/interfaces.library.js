@@ -443,6 +443,20 @@ function matchDeleteHoldOrBookOrUser(holdId, bookId, userId) {
   });
 }
 
+function matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, userId) {
+  return bp.EventSet("Added Loan for Held Resource or Deleted Hold/Book/User " + holdId + "/" + userId + "/" + bookId, function (e) {
+    if (e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201)) {
+      var body = getJsonBody(e);
+      return body && (asInteger(body.userId) === asInteger(userId) || asInteger(body.bookId) === asInteger(bookId));
+    }
+    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
+    var path = getRequestPath(e);
+    return path === ("/holds/" + asInteger(holdId))
+      || path === ("/books/" + asInteger(bookId))
+      || path === ("/users/" + asInteger(userId));
+  });
+}
+
 function matchAnyBookDeleted() {
   return AnyBookDeleted;
 }

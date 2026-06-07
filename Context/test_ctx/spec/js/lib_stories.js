@@ -31,6 +31,10 @@ function generateHoldId() {
   return randomInt();
 }
 
+function generateMissingId(existingId) {
+  return Number.parseInt(existingId, 10) + 1000000000;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Story layer.
 //
@@ -82,6 +86,12 @@ ctx.bthread("checkThatCannotDeleteLoanedUser", "User.HasLoan", function (user) {
   // does not have any active loans.
   block(matchDeleteUser(user.id), function () {
     verifyUserCannotBeDeleted(user.id, 400);
+  });
+});
+
+ctx.bthread("checkThatCannotDeleteHeldUser", "Hold.WithoutLoan", function (hold) {
+  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
+    verifyUserCannotBeDeleted(hold.userid, 400);
   });
 });
 
@@ -186,6 +196,21 @@ bthread("createRandomBooks", function () {
   }
 });
 
+bthread("verifyHoldOnlyBlocksUserAndBookDeletion", function () {
+  let userId = generateUserId();
+  let bookId = generateBookId();
+  let holdId = generateHoldId();
+
+  createUser(userId, generateUserName());
+  createBook(bookId, generateBookTitle());
+  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, userId), function () {
+    createHold(bookId, holdId, userId);
+    verifyUserCannotBeDeleted(userId, 400);
+    verifyBookCannotBeDeleted(bookId, 400);
+  });
+  deleteHold(holdId, userId, bookId);
+});
+
 //////////////////////////////////////////////////////////////////////////
 // Bthreads that create more complex objects, such as loans and holds,
 // based on the existence of simpler objects like users and books.
@@ -212,8 +237,8 @@ ctx.bthread("verifyCanCreateMultipleHoldsForSameUserBook", "UserBook.CanCreateHo
   createHold(userbook.bookid, generateHoldId(), userbook.userid);
 });
 
-ctx.bthread("verifyCannotCreateHoldForLoanedBook", "UserBook.CannotCreateHold", function (userbook) {
-  tryToCreateHoldAndExpectError(userbook.bookid, generateHoldId(), userbook.userid);
+ctx.bthread("verifyCanCreateHoldForLoanedBook", "UserBook.BookHasLoan", function (userbook) {
+  createHold(userbook.bookid, generateHoldId(), userbook.userid);
 });
 
 
@@ -271,8 +296,23 @@ ctx.bthread("verifyCannotDeleteLoanedBook", "UserBook.BookHasLoan", function (us
   });
 });
 
+ctx.bthread("verifyCannotDeleteHeldBook", "Hold.WithoutLoan", function (hold) {
+  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
+    verifyBookCannotBeDeleted(hold.bookid, 400);
+  });
+});
+
 ctx.bthread("verifyCannotCreateLoanWithBadParameters", "UserBook.All", function (userbook) {
   tryToCreateLoanWithBadParametersAndExpectError(userbook.userid, 400);
+});
+
+ctx.bthread("verifyCannotCreateLoanWithNonexistentForeignKeys", "UserBook.All", function (userbook) {
+  let missingUserId = generateMissingId(userbook.userid);
+  let missingBookId = generateMissingId(userbook.bookid);
+
+  tryToCreateLoanAndExpectError(missingUserId, userbook.bookid, generateLoanId(), 400);
+  tryToCreateLoanAndExpectError(userbook.userid, missingBookId, generateLoanId(), 400);
+  tryToCreateLoanAndExpectError(missingUserId, missingBookId, generateLoanId(), 400);
 });
 
 ctx.bthread("verifyCannotCreateDuplicateHoldId", "Hold.All", function (hold) {
@@ -285,6 +325,15 @@ ctx.bthread("verifyCannotCreateHoldWithBadParameters", "Hold.All", function (hol
   block(matchDeleteHold(hold.holdid), function () {
     tryToCreateHoldWithBadParametersAndExpectError(hold.holdid, hold.userid, 400);
   });
+});
+
+ctx.bthread("verifyCannotCreateHoldWithNonexistentForeignKeys", "UserBook.All", function (userbook) {
+  let missingUserId = generateMissingId(userbook.userid);
+  let missingBookId = generateMissingId(userbook.bookid);
+
+  tryToCreateHoldAndExpectError(userbook.bookid, generateHoldId(), missingUserId, 400);
+  tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), userbook.userid, 400);
+  tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), missingUserId, 400);
 });
 
 //////////////////////////////////////////////////////////////////////////
