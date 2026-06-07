@@ -23,6 +23,14 @@ try {
     for ($run = 1; $run -le $Runs; $run++) {
         Write-Host "Run $run/$Runs" -ForegroundColor Cyan
 
+        & python .\reset_sut_db.py
+        $resetExitCode = $LASTEXITCODE
+        if ($resetExitCode -ne 0) {
+            $script:failedRun = $run
+            Write-Host "Run $run/$Runs failed while resetting the SUT database." -ForegroundColor Red
+            exit $resetExitCode
+        }
+
         & provengo run test_ctx @ProvengoArgs
         $exitCode = $LASTEXITCODE
 
