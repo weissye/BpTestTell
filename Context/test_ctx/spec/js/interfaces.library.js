@@ -175,47 +175,40 @@ function isValidRequestEvent(e, actionName) {
 
 var AnyBookAdded = bp.EventSet("Any Books Added", function (e) {
   var body = getJsonBody(e);
-  if (e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && body.id !== undefined) return true;
-  return isValidRequestEvent(e, "createBook");
+  return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && body.id !== undefined;
 });
 
 var AnyUserAdded = bp.EventSet("Any Users Added", function (e) {
   var body = getJsonBody(e);
-  if (e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined) return true;
-  return isValidRequestEvent(e, "createUser");
+  return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
 });
 
 var AnyLoanAdded = bp.EventSet("Any Loans Added", function (e) {
   var body = getJsonBody(e);
-  if (e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && body.userId !== undefined && body.bookId !== undefined) return true;
-  return isValidRequestEvent(e, "createLoan");
+  return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && body.userId !== undefined && body.bookId !== undefined;
 });
 
 var AnyHoldAdded = bp.EventSet("Any Holds Added", function (e) {
   var body = getJsonBody(e);
-  if (e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && body.id !== undefined) return true;
-  return isValidRequestEvent(e, "createHold");
+  return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && body.id !== undefined;
 });
 
 var AnyBookDeleted = bp.EventSet("Any Books Deleted", function (e) {
-  if (e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200)) return true;
-  return isValidRequestEvent(e, "deleteBook");
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
 });
 
 var AnyUserDeleted = bp.EventSet("Any Users Deleted", function (e) {
-  if (e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200)) return true;
-  return isValidRequestEvent(e, "deleteUser");
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
 });
 
 var AnyLoanDeleted = bp.EventSet("Any Loans Deleted", function (e) {
-  if (e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200)) return true;
-  return isValidRequestEvent(e, "deleteLoan");
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
 });
 
 var AnyHoldDeleted = bp.EventSet("Any Holds Deleted", function (e) {
-  if (e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200)) return true;
-  return isValidRequestEvent(e, "deleteHold");
+  return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
 });
+
 
 //////////////////////////////////////////////////////////////////////////
 // SUT list readers and verification helpers.
