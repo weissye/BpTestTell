@@ -1,5 +1,5 @@
-const NUMBER_OF_USERS = 1;
-const NUMBER_OF_BOOKS = 1;
+const NUMBER_OF_USERS = 3;
+const NUMBER_OF_BOOKS = 3;
 
 const RANDOM = new java.util.Random();
 
@@ -362,11 +362,23 @@ ctx.bthread("verifyBookReadDeleteAndUpdateApiSurface", "Book.All", function (boo
 });
 
 ctx.bthread("verifyLoanReadDeleteAndUpdateApiSurface", "Loan.All", function (loan) {
-  block(matchDeleteLoan(loan.userid), function () {
-    verifyLoanReadFuzz();
-    verifyLoanDeleteFuzz();
-    verifyLoanUpdateIsUnsupported(loan.userid, loan.bookid);
-  });
+  // TODO: Add loan.bookid?
+  //block(matchDeleteLoan(loan.userid), function () {
+    verifyLoanReadFuzz(loan.userid, loan.bookid);   
+    verifyLoanDeleteFuzz(); // <-- Expect error 
+
+    // TODO: Unsupported -> Try to ... and expect error?
+    verifyLoanUpdateIsUnsupported();
+
+    // TODO: Add "Try to add loan and expect error"?
+  //});
+});
+
+ctx.bthread("verifyLoanReadFuzz", "Loan.All", function (loan) {
+    // Try all non-changing operations in any order
+    verifyReadLoanWithStringID(loan.userid, loan.bookid);   
+    // ...
+
 });
 
 ctx.bthread("verifyHoldReadDeleteAndUpdateApiSurface", "Hold.All", function (hold) {
@@ -376,3 +388,14 @@ ctx.bthread("verifyHoldReadDeleteAndUpdateApiSurface", "Hold.All", function (hol
     verifyHoldUpdateIsUnsupported(hold.holdid, hold.userid, hold.bookid);
   });
 });
+
+
+bthread("tryToDeletgeNonexistingUser", function () {
+  // TODO
+});
+
+// Suggestion for interface:
+// Whenever we add/delete/update an object, the interface may generate several events:
+//    1) It requests valid events (variants of, e.g., passing the parameters in different orders or formats) 
+//    togther with some invalid events (e.g., with wrong parameters or missing parameters) to verify that the system rejects them.
+//    2) It repeats until the valid event is selected.
