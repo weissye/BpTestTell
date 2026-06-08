@@ -181,3 +181,10 @@ This prevents negative verification calls from corrupting the expected model.
 - The current hold rule is queue-style and flexible: a user can have multiple active holds, a book can have multiple active holds whether or not it is loaned, and the same user/book pair can have multiple active holds when each hold has a unique hold number.
 - Hold numbers are unique identifiers for hold deletion.
 - Loan numbers are used for trace descriptions, while the loan identity in the SUT is the `userId/bookId` pair.
+
+## Parameter and Type Rules
+
+To support flexible integrations, SUT endpoints allow several valid options for entity IDs in request bodies:
+- **Valid ID formats**: IDs (such as `id`, `userId`, `bookId`) can be passed as either a positive integer (e.g. `123`) or a string representing a positive integer (e.g. `"123"`).
+- **Parameter ordering**: The order of keys in JSON request bodies is flexible and does not affect validation.
+- **Invalid ID formats**: Passing IDs as non-integer/non-numeric-string types, such as objects (e.g., `{"val": 123}`), arrays, booleans, or null, is invalid and expected to fail with `400`.

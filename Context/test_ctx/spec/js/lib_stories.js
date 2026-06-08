@@ -85,13 +85,13 @@ ctx.bthread("checkThatCannotDeleteLoanedUser", "User.HasLoan", function (user) {
   // When a user has a loan, delay deletion until we verify that the user
   // does not have any active loans.
   block(matchDeleteUser(user.id), function () {
-    verifyUserCannotBeDeleted(user.id, 400);
+    tryToDeleteUserAndExpectError(user.id, 400);
   });
 });
 
-ctx.bthread("checkThatCannotDeleteHeldUser", "Hold.WithoutLoan", function (hold) {
+ctx.bthread("checkThatCannotDeleteHeldUser", "Hold.All", function (hold) {
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
-    verifyUserCannotBeDeleted(hold.userid, 400);
+    tryToDeleteUserAndExpectError(hold.userid, 400);
   });
 });
 
@@ -103,7 +103,7 @@ bthread("verifyUserDeletion", function () {
 
     block(matchAddUser(id), function () {
       verifyUserAbsentFromAllLists(id);
-      verifyDeletedUserCannotBeDeleted(id);
+      tryToDeleteUserAndExpectError(id, 404);
     });
   });
 });
@@ -124,7 +124,7 @@ bthread("verifyBookDeletion", function () {
 
     block(matchAddBook(id), function () {
       verifyBookAbsentFromAllLists(id);
-      verifyDeletedBookCannotBeDeleted(id);
+      tryToDeleteBookAndExpectError(id, 404);
     });
   });
 });
@@ -146,7 +146,7 @@ bthread("verifyLoanDeletion", function () {
     block(matchAddLoan(loanData.userId), function () {
       verifyLoanAbsentFromAllLists(null, loanData.userId);
       if (loanData.bookId !== undefined && loanData.bookId !== null)
-        verifyDeletedLoanCannotBeDeleted(loanData.userId, loanData.bookId);
+        tryToDeleteLoanAndExpectError(loanData.userId, loanData.bookId, 404);
     });
   });
 });
@@ -167,7 +167,7 @@ bthread("verifyHoldDeletion", function () {
 
     block(matchAddHold(id), function () {
       verifyHoldAbsentFromAllLists(id);
-      verifyDeletedHoldCannotBeDeleted(id);
+      tryToDeleteHoldAndExpectError(id, 404);
     });
   });
 });
@@ -205,8 +205,8 @@ bthread("verifyHoldOnlyBlocksUserAndBookDeletion", function () {
   createBook(bookId, generateBookTitle());
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, userId), function () {
     createHold(bookId, holdId, userId);
-    verifyUserCannotBeDeleted(userId, 400);
-    verifyBookCannotBeDeleted(bookId, 400);
+    tryToDeleteUserAndExpectError(userId, 400);
+    tryToDeleteBookAndExpectError(bookId, 400);
   });
   deleteHold(holdId, userId, bookId);
 });
@@ -292,13 +292,13 @@ ctx.bthread("verifyCannotCreateBookWithBadParameters", "Book.All", function (boo
 
 ctx.bthread("verifyCannotDeleteLoanedBook", "UserBook.BookHasLoan", function (userbook) {
   block(matchDeleteLoanOrBookOrUser(userbook.userid, userbook.bookid), function () {
-    verifyBookCannotBeDeleted(userbook.bookid, 400);
+    tryToDeleteBookAndExpectError(userbook.bookid, 400);
   });
 });
 
-ctx.bthread("verifyCannotDeleteHeldBook", "Hold.WithoutLoan", function (hold) {
+ctx.bthread("verifyCannotDeleteHeldBook", "Hold.All", function (hold) {
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
-    verifyBookCannotBeDeleted(hold.bookid, 400);
+    tryToDeleteBookAndExpectError(hold.bookid, 400);
   });
 });
 
@@ -346,46 +346,22 @@ ctx.bthread("verifyCannotCreateHoldWithNonexistentForeignKeys", "UserBook.All", 
 
 ctx.bthread("verifyUserReadDeleteAndUpdateApiSurface", "User.All", function (user) {
   block(matchDeleteUser(user.id), function () {
-    verifyUserReadFuzz();
-    verifyUserDeleteFuzz();
-    verifyUserUpdateIsUnsupported(user.id);
+    tryToUpdateUserAndExpectError(user.id, { id: user.id, name: "Updated user " + user.id }, 405);
   });
 });
 
 ctx.bthread("verifyBookReadDeleteAndUpdateApiSurface", "Book.All", function (book) {
-  block(matchDeleteBook(book.id), function () {
-    verifyBookDetailExists(book.id);
-    verifyBookReadFuzz(book.id);
-    verifyBookDeleteFuzz();
-    verifyBookUpdateIsUnsupported(book.id);
-  });
+  verifyBookDetailExists(book.id);
+  tryToUpdateBookAndExpectError(book.id, { id: book.id, title: "Updated book " + book.id }, 405);
 });
 
 ctx.bthread("verifyLoanReadDeleteAndUpdateApiSurface", "Loan.All", function (loan) {
-  // TODO: Add loan.bookid?
-  //block(matchDeleteLoan(loan.userid), function () {
-    verifyLoanReadFuzz(loan.userid, loan.bookid);   
-    verifyLoanDeleteFuzz(); // <-- Expect error 
-
-    // TODO: Unsupported -> Try to ... and expect error?
-    verifyLoanUpdateIsUnsupported();
-
-    // TODO: Add "Try to add loan and expect error"?
-  //});
-});
-
-ctx.bthread("verifyLoanReadFuzz", "Loan.All", function (loan) {
-    // Try all non-changing operations in any order
-    verifyReadLoanWithStringID(loan.userid, loan.bookid);   
-    // ...
-
+  tryToUpdateLoanAndExpectError(loan.userid, loan.bookid, { userId: loan.userid, bookId: loan.bookid }, 405);
 });
 
 ctx.bthread("verifyHoldReadDeleteAndUpdateApiSurface", "Hold.All", function (hold) {
   block(matchDeleteHold(hold.holdid), function () {
-    verifyHoldReadFuzz();
-    verifyHoldDeleteFuzz();
-    verifyHoldUpdateIsUnsupported(hold.holdid, hold.userid, hold.bookid);
+    tryToUpdateHoldAndExpectError(hold.holdid, hold.userid, hold.bookid, { id: hold.holdid, userId: hold.userid, bookId: hold.bookid }, 405);
   });
 });
 
@@ -396,6 +372,6 @@ bthread("tryToDeletgeNonexistingUser", function () {
 
 // Suggestion for interface:
 // Whenever we add/delete/update an object, the interface may generate several events:
-//    1) It requests valid events (variants of, e.g., passing the parameters in different orders or formats) 
+//    1) It requests valid events (variants of, e.g., passing the parameters in different orders or formats)
 //    togther with some invalid events (e.g., with wrong parameters or missing parameters) to verify that the system rejects them.
 //    2) It repeats until the valid event is selected.

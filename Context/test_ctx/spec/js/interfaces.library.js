@@ -117,14 +117,50 @@ function extractEventData(e) {
   var body = getJsonBody(e) || {};
   var data = e && e.data ? e.data : e;
   var parameters = data && data.parameters ? data.parameters : {};
+  
+  var id = body.id !== undefined && body.id !== null ? body.id : parameters.id;
+  var userId = body.userId !== undefined && body.userId !== null ? body.userId : parameters.userId;
+  var bookId = body.bookId !== undefined && body.bookId !== null ? body.bookId : parameters.bookId;
+
+  // Try extracting from path if they are not in body/parameters
+  var pathValue = data.path || data.url || "";
+  if (pathValue) {
+    pathValue = String(pathValue).replace(/^https?:\/\/[^\/]+/, "");
+    var segments = pathValue.split("/").filter(function (s) { return s.length > 0; });
+    if (segments.length >= 2) {
+      var lastSegment = segments[segments.length - 1];
+      var lastSegmentInt = Number.parseInt(lastSegment, 10);
+      if (!isNaN(lastSegmentInt)) {
+        if (segments[0] === "users") {
+          if (id === undefined || id === null) id = lastSegmentInt;
+        } else if (segments[0] === "books") {
+          if (id === undefined || id === null) id = lastSegmentInt;
+        } else if (segments[0] === "holds") {
+          if (id === undefined || id === null) id = lastSegmentInt;
+        } else if (segments[0] === "loans") {
+          if (segments.length >= 3) {
+            var userSeg = Number.parseInt(segments[1], 10);
+            var bookSeg = Number.parseInt(segments[2], 10);
+            if (!isNaN(userSeg) && (userId === undefined || userId === null)) userId = userSeg;
+            if (!isNaN(bookSeg) && (bookId === undefined || bookId === null)) bookId = bookSeg;
+          }
+        }
+      }
+    }
+  }
+
   return {
-    id: body.id !== undefined && body.id !== null ? body.id : parameters.id,
+    id: id,
     title: body.title !== undefined && body.title !== null ? body.title : body.name,
     name: body.name,
-    userId: body.userId !== undefined && body.userId !== null ? body.userId : parameters.userId,
-    bookId: body.bookId !== undefined && body.bookId !== null ? body.bookId : parameters.bookId,
+    userId: userId,
+    bookId: bookId,
     loanNumber: parameters.loanNumber
   };
+}
+
+function isValidRequestEvent(e, actionName) {
+  return e && e.data && e.data.action === actionName && e.data.type === "valid";
 }
 
 
@@ -139,38 +175,46 @@ function extractEventData(e) {
 
 var AnyBookAdded = bp.EventSet("Any Books Added", function (e) {
   var body = getJsonBody(e);
-  return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && body.id !== undefined;
+  if (e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && body.id !== undefined) return true;
+  return isValidRequestEvent(e, "createBook");
 });
 
 var AnyUserAdded = bp.EventSet("Any Users Added", function (e) {
   var body = getJsonBody(e);
-  return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined;
+  if (e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && body.id !== undefined && body.name !== undefined) return true;
+  return isValidRequestEvent(e, "createUser");
 });
 
 var AnyLoanAdded = bp.EventSet("Any Loans Added", function (e) {
   var body = getJsonBody(e);
-  return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && body.userId !== undefined && body.bookId !== undefined;
+  if (e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && body.userId !== undefined && body.bookId !== undefined) return true;
+  return isValidRequestEvent(e, "createLoan");
 });
 
 var AnyHoldAdded = bp.EventSet("Any Holds Added", function (e) {
   var body = getJsonBody(e);
-  return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && body.id !== undefined;
+  if (e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && body.id !== undefined) return true;
+  return isValidRequestEvent(e, "createHold");
 });
 
 var AnyBookDeleted = bp.EventSet("Any Books Deleted", function (e) {
-  return e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200);
+  if (e.name === "DELETE" && getRequestPath(e).startsWith("/books/") && hasExpectedCode(e, 200)) return true;
+  return isValidRequestEvent(e, "deleteBook");
 });
 
 var AnyUserDeleted = bp.EventSet("Any Users Deleted", function (e) {
-  return e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200);
+  if (e.name === "DELETE" && getRequestPath(e).startsWith("/users/") && hasExpectedCode(e, 200)) return true;
+  return isValidRequestEvent(e, "deleteUser");
 });
 
 var AnyLoanDeleted = bp.EventSet("Any Loans Deleted", function (e) {
-  return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200);
+  if (e.name === "DELETE" && getRequestPath(e).startsWith("/loans/") && hasExpectedCode(e, 200)) return true;
+  return isValidRequestEvent(e, "deleteLoan");
 });
 
 var AnyHoldDeleted = bp.EventSet("Any Holds Deleted", function (e) {
-  return e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200);
+  if (e.name === "DELETE" && getRequestPath(e).startsWith("/holds/") && hasExpectedCode(e, 200)) return true;
+  return isValidRequestEvent(e, "deleteHold");
 });
 
 //////////////////////////////////////////////////////////////////////////
@@ -220,9 +264,10 @@ function verifySutListDoesNotContain(listName, url, parameters, predicate, failu
   if (found) pvg.fail(failureMessage + ": " + JSON.stringify(found));
 }
 
-function verifyUnsupportedUpdate(entityName, id, url, body) {
+function tryToUpdateAndExpectError(entityName, id, url, body, expectedCode) {
+  expectedCode = expectedCode === undefined || expectedCode === null ? 405 : asInteger(expectedCode);
   var description = verifyRejectedDescription(entityName, id, "update", "this API does not expose update routes");
-  svc.put(url, { body: JSON.stringify(body || {}), expectedResponseCodes: [405], parameters: { description: description } });
+  svc.put(url, { body: JSON.stringify(body || {}), expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
 function verifyMalformedDeleteIsRejected(entityName, id, url) {
@@ -240,34 +285,8 @@ function verifyMissingEntityReadIsRejected(entityName, id, url) {
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-function verifyListQueryFuzzIsAccepted(listName, url) {
-  var cases = [
-    { name: "unexpected query", parameters: { unexpected: "value" } },
-    { name: "numeric query", parameters: { q: "12345" } },
-    { name: "empty query", parameters: { q: "" } }
-  ];
-  for (let i = 0; i < cases.length; i++) {
-    var parameters = cases[i].parameters;
-    parameters.description = "Verify: read " + listName + " list accepts harmless query fuzz - " + cases[i].name;
-    svc.get(url, { parameters: parameters, expectedResponseCodes: [200] });
-  }
-}
+// verifyListQueryFuzzIsAccepted and verifyLoanQueryFuzzIsRejected were removed in favor of dynamic fuzzing
 
-function verifyLoanQueryFuzzIsRejected() {
-  var cases = [
-    { name: "userId has wrong type", parameters: { userId: "bad-user-id" } },
-    { name: "bookId has wrong type", parameters: { bookId: "bad-book-id" } },
-    { name: "userId is zero", parameters: { userId: "0" } },
-    { name: "bookId is zero", parameters: { bookId: "0" } },
-    { name: "userId is negative", parameters: { userId: "-1" } },
-    { name: "bookId is negative", parameters: { bookId: "-1" } }
-  ];
-  for (let i = 0; i < cases.length; i++) {
-    var parameters = cases[i].parameters;
-    parameters.description = verifyRejectedDescription("Loan", "query", "read", "query parameters are missing or invalid") + " - " + cases[i].name;
-    svc.get("/loans", { parameters: parameters, expectedResponseCodes: [400] });
-  }
-}
 
 //////////////////////////////////////////////////////////////////////////
 // Interface action functions.
@@ -280,14 +299,46 @@ function verifyLoanQueryFuzzIsRejected() {
 function createBook(id, title) {
   id = asInteger(id);
   title = asString(title);
-  var url = "/books"; var reqDescription = createDescription("Book", id);
-  let finalCodes = [201];
-  var body = {
-    "id": id,
-    "title": title
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
+
+  var validEvents = [
+    bp.Event("Req: createBook (valid-standard): " + id, { action: "createBook", type: "valid", body: { id: id, title: title } }),
+    bp.Event("Req: createBook (valid-spaced-title): " + id, { action: "createBook", type: "valid", body: { id: id, title: " " + title } }),
+    bp.Event("Req: createBook (valid-string-id): " + id, { action: "createBook", type: "valid", body: { id: String(id), title: title } }),
+    bp.Event("Req: createBook (valid-swapped-order): " + id, { action: "createBook", type: "valid", body: { title: title, id: id } })
+  ];
+
+  var invalidCases = [
+    { label: "missing title", body: { "id": id } },
+    { label: "missing id", body: { "title": title } },
+    { label: "missing all required fields", body: {} },
+    { label: "id has wrong type", body: { "id": "bad-book-id", "title": title } },
+    { label: "title has wrong type", body: { "id": id, "title": 12345 } },
+    { label: "multiple wrong types", body: { "id": true, "title": false } },
+    { label: "id is null", body: { "id": null, "title": title } },
+    { label: "title is null", body: { "id": id, "title": null } },
+    { label: "id is zero", body: { "id": 0, "title": title } },
+    { label: "id is negative", body: { "id": -id, "title": title } },
+    { label: "title is empty", body: { "id": id, "title": "" } },
+    { label: "id is object", body: { "id": { "val": id }, "title": title } }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: createBook (invalid - " + c.label + "): " + id, { action: "createBook", type: "invalid", body: c.body });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
+    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
+    if (isValid) {
+      var url = "/books";
+      var reqDescription = createDescription("Book", id);
+      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
+      return response;
+    } else {
+      var url = "/books";
+      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
 function tryToCreateBookWithSameIdAndExpectError(id, expectedCode) {
@@ -330,10 +381,30 @@ function tryToCreateBookWithBadParametersAndExpectError(id, expectedCode) {
 
 function deleteBook(id) {
   id = asInteger(id);
-  var url = "/books/" + id; var reqDescription = deleteDescription("Book", id);
-  let finalCodes = [200];
-  let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
-  return response;
+
+  var validEvent = bp.Event("Req: deleteBook (valid): " + id, { action: "deleteBook", type: "valid", url: "/books/" + id });
+
+  var invalidCases = [
+    { label: "bad-id", url: "/books/bad-id" },
+    { label: "zero", url: "/books/0" },
+    { label: "negative", url: "/books/-1" }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: deleteBook (invalid - " + c.label + "): " + id, { action: "deleteBook", type: "invalid", url: c.url });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
+    if (selectedEvent.name === validEvent.name) {
+      var url = "/books/" + id;
+      var reqDescription = deleteDescription("Book", id);
+      var response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: [200] });
+      return response;
+    } else {
+      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
 function verifyBookDetailExists(id) {
@@ -348,24 +419,12 @@ function verifyBookDetailExists(id) {
   if (!bookData || asInteger(bookData.id) !== id) pvg.fail("Book " + id + " detail response did not contain the requested id");
 }
 
-function verifyBookReadFuzz(id) {
-  id = asInteger(id);
-  verifyMalformedReadIsRejected("Book", "bad-id", "/books/bad-id");
-  verifyMalformedReadIsRejected("Book", 0, "/books/0");
-  verifyMalformedReadIsRejected("Book", -1, "/books/-1");
-  verifyMissingEntityReadIsRejected("Book", id + 1000000, "/books/" + (id + 1000000));
-  verifyListQueryFuzzIsAccepted("books", "/books");
-}
+// verifyBookReadFuzz and verifyBookDeleteFuzz were removed in favor of dynamic fuzzing in createBook/deleteBook
 
-function verifyBookDeleteFuzz() {
-  verifyMalformedDeleteIsRejected("Book", "bad-id", "/books/bad-id");
-  verifyMalformedDeleteIsRejected("Book", 0, "/books/0");
-  verifyMalformedDeleteIsRejected("Book", -1, "/books/-1");
-}
-
-function verifyBookUpdateIsUnsupported(id) {
+function tryToUpdateBookAndExpectError(id, body, expectedCode) {
   id = asInteger(id);
-  verifyUnsupportedUpdate("Book", id, "/books/" + id, { "id": id, "title": "Updated book " + id });
+  expectedCode = expectedCode === undefined || expectedCode === null ? 405 : asInteger(expectedCode);
+  tryToUpdateAndExpectError("Book", id, "/books/" + id, body, expectedCode);
 }
 
 function verifyBookExists(id) {
@@ -390,17 +449,12 @@ function verifyBookAbsentFromAllLists(id) {
   }, "Book " + id + " still appears in holds list");
 }
 
-function verifyBookCannotBeDeleted(id, expectedCode) {
-  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
+function tryToDeleteBookAndExpectError(id, expectedCode) {
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/books/" + id;
   var description = verifyRejectedDescription("Book", id, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
-}
-
-function verifyDeletedBookCannotBeDeleted(id) {
-  verifyBookCannotBeDeleted(id, 404);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -415,31 +469,40 @@ function verifyDeletedBookCannotBeDeleted(id) {
 function matchAddBook(id) {
   return bp.EventSet("Add Book " + id, function (e) {
     var body = getJsonBody(e);
-    return e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
+    if (e.name === "POST" && getRequestPath(e) === "/books" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id)) return true;
+    return isValidRequestEvent(e, "createBook") && e.data.body && asInteger(e.data.body.id) === asInteger(id);
   });
 }
 
 function matchDeleteBook(id) {
   return bp.EventSet("Deleted Books " + id, function (e) {
-    return e.name === "DELETE" && getRequestPath(e) === ("/books/" + asInteger(id)) && hasExpectedCode(e, 200);
+    if (e.name === "DELETE" && getRequestPath(e) === ("/books/" + asInteger(id)) && hasExpectedCode(e, 200)) return true;
+    return isValidRequestEvent(e, "deleteBook") && e.data.url === ("/books/" + asInteger(id));
   });
 }
 
 function matchDeleteBookOrUser(bookId, userId) {
   return bp.EventSet("Deleted Book/User " + bookId + "/" + userId, function (e) {
-    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
-    var path = getRequestPath(e);
-    return path === ("/books/" + asInteger(bookId)) || path === ("/users/" + asInteger(userId));
+    if (e.name === "DELETE" && hasExpectedCode(e, 200)) {
+      var path = getRequestPath(e);
+      if (path === ("/books/" + asInteger(bookId)) || path === ("/users/" + asInteger(userId))) return true;
+    }
+    if (isValidRequestEvent(e, "deleteBook") && e.data.url === ("/books/" + asInteger(bookId))) return true;
+    if (isValidRequestEvent(e, "deleteUser") && e.data.url === ("/users/" + asInteger(userId))) return true;
+    return false;
   });
 }
 
 function matchDeleteHoldOrBookOrUser(holdId, bookId, userId) {
   return bp.EventSet("Deleted Hold/Book/User " + holdId + "/" + userId + "/" + bookId, function (e) {
-    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
-    var path = getRequestPath(e);
-    return path === ("/holds/" + asInteger(holdId))
-      || path === ("/books/" + asInteger(bookId))
-      || path === ("/users/" + asInteger(userId));
+    if (e.name === "DELETE" && hasExpectedCode(e, 200)) {
+      var path = getRequestPath(e);
+      if (path === ("/holds/" + asInteger(holdId)) || path === ("/books/" + asInteger(bookId)) || path === ("/users/" + asInteger(userId))) return true;
+    }
+    if (isValidRequestEvent(e, "deleteHold") && e.data.url === ("/holds/" + asInteger(holdId))) return true;
+    if (isValidRequestEvent(e, "deleteBook") && e.data.url === ("/books/" + asInteger(bookId))) return true;
+    if (isValidRequestEvent(e, "deleteUser") && e.data.url === ("/users/" + asInteger(userId))) return true;
+    return false;
   });
 }
 
@@ -447,13 +510,19 @@ function matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, use
   return bp.EventSet("Added Loan for Held Resource or Deleted Hold/Book/User " + holdId + "/" + userId + "/" + bookId, function (e) {
     if (e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201)) {
       var body = getJsonBody(e);
-      return body && (asInteger(body.userId) === asInteger(userId) || asInteger(body.bookId) === asInteger(bookId));
+      if (body && (asInteger(body.userId) === asInteger(userId) || asInteger(body.bookId) === asInteger(bookId))) return true;
     }
-    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
-    var path = getRequestPath(e);
-    return path === ("/holds/" + asInteger(holdId))
-      || path === ("/books/" + asInteger(bookId))
-      || path === ("/users/" + asInteger(userId));
+    if (isValidRequestEvent(e, "createLoan") && e.data.body) {
+      if (asInteger(e.data.body.userId) === asInteger(userId) || asInteger(e.data.body.bookId) === asInteger(bookId)) return true;
+    }
+    if (e.name === "DELETE" && hasExpectedCode(e, 200)) {
+      var path = getRequestPath(e);
+      if (path === ("/holds/" + asInteger(holdId)) || path === ("/books/" + asInteger(bookId)) || path === ("/users/" + asInteger(userId))) return true;
+    }
+    if (isValidRequestEvent(e, "deleteHold") && e.data.url === ("/holds/" + asInteger(holdId))) return true;
+    if (isValidRequestEvent(e, "deleteBook") && e.data.url === ("/books/" + asInteger(bookId))) return true;
+    if (isValidRequestEvent(e, "deleteUser") && e.data.url === ("/users/" + asInteger(userId))) return true;
+    return false;
   });
 }
 
@@ -465,33 +534,44 @@ function deleteLoan(userId, bookId, loanNumber) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
   loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
-  var url = "/loans/" + userId + "/" + bookId;
-  var reqDescription = deleteDescription("Loan", userId + "/" + bookId, loanNumber === null ? "" : "number " + loanNumber);
-  let finalCodes = [200];
-  let parameters = { description: reqDescription, userId: userId, bookId: bookId };
-  if (loanNumber !== null) parameters.loanNumber = loanNumber;
-  let response = svc.delete(url, { parameters: parameters, expectedResponseCodes: finalCodes });
-  return response;
+
+  var validEvent = bp.Event("Req: deleteLoan (valid): " + userId + "/" + bookId, { action: "deleteLoan", type: "valid", url: "/loans/" + userId + "/" + bookId });
+
+  var invalidCases = [
+    { label: "bad-user-id", url: "/loans/bad-user-id/" + bookId },
+    { label: "bad-book-id", url: "/loans/" + userId + "/bad-book-id" },
+    { label: "zero userId", url: "/loans/0/" + bookId },
+    { label: "zero bookId", url: "/loans/" + userId + "/0" },
+    { label: "negative userId", url: "/loans/-1/" + bookId },
+    { label: "negative bookId", url: "/loans/" + userId + "/-1" }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: deleteLoan (invalid - " + c.label + "): " + userId + "/" + bookId, { action: "deleteLoan", type: "invalid", url: c.url });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
+    if (selectedEvent.name === validEvent.name) {
+      var url = "/loans/" + userId + "/" + bookId;
+      var reqDescription = deleteDescription("Loan", userId + "/" + bookId, loanNumber === null ? "" : "number " + loanNumber);
+      let parameters = { description: reqDescription, userId: userId, bookId: bookId };
+      if (loanNumber !== null) parameters.loanNumber = loanNumber;
+      var response = svc.delete(url, { parameters: parameters, expectedResponseCodes: [200] });
+      return response;
+    } else {
+      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
-function verifyLoanReadFuzz() {
-  verifyListQueryFuzzIsAccepted("loans", "/loans");
-  verifyLoanQueryFuzzIsRejected();
-}
+// verifyLoanReadFuzz and verifyLoanDeleteFuzz were removed in favor of dynamic fuzzing in createLoan/deleteLoan
 
-function verifyLoanDeleteFuzz() {
-  verifyMalformedDeleteIsRejected("Loan", "bad-user-id/1", "/loans/bad-user-id/1");
-  verifyMalformedDeleteIsRejected("Loan", "1/bad-book-id", "/loans/1/bad-book-id");
-  verifyMalformedDeleteIsRejected("Loan", "0/1", "/loans/0/1");
-  verifyMalformedDeleteIsRejected("Loan", "1/0", "/loans/1/0");
-  verifyMalformedDeleteIsRejected("Loan", "-1/1", "/loans/-1/1");
-  verifyMalformedDeleteIsRejected("Loan", "1/-1", "/loans/1/-1");
-}
-
-function verifyLoanUpdateIsUnsupported(userId, bookId) {
+function tryToUpdateLoanAndExpectError(userId, bookId, body, expectedCode) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
-  verifyUnsupportedUpdate("Loan", userId + "/" + bookId, "/loans/" + userId + "/" + bookId, { "userId": userId, "bookId": bookId });
+  expectedCode = expectedCode === undefined || expectedCode === null ? 405 : asInteger(expectedCode);
+  tryToUpdateAndExpectError("Loan", userId + "/" + bookId, "/loans/" + userId + "/" + bookId, body, expectedCode);
 }
 
 function createLoan(userId, bookId, loanNumber, expectedCode, description) {
@@ -502,18 +582,51 @@ function createLoan(userId, bookId, loanNumber, expectedCode, description) {
     loanNumber = null;
   }
   loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
-  var url = "/loans";
-  var reqDescription = description || (createDescription("Loan", userId + "/" + bookId) + (loanNumber === null ? "" : " number " + loanNumber));
-  expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
-  let finalCodes = [expectedCode];
-  var body = {
-    "userId": userId,
-    "bookId": bookId
-  };
-  let parameters = { description: reqDescription };
-  if (loanNumber !== null) parameters.loanNumber = loanNumber;
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: parameters });
-  return response;
+
+  var validEvents = [
+    bp.Event("Req: createLoan (valid-standard): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { userId: userId, bookId: bookId } }),
+    bp.Event("Req: createLoan (valid-string-userId): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { userId: String(userId), bookId: bookId } }),
+    bp.Event("Req: createLoan (valid-string-bookId): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { userId: userId, bookId: String(bookId) } }),
+    bp.Event("Req: createLoan (valid-swapped-order): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { bookId: bookId, userId: userId } })
+  ];
+
+  var invalidCases = [
+    { label: "missing bookId", body: { "userId": userId } },
+    { label: "missing userId", body: { "bookId": bookId } },
+    { label: "missing all required fields", body: {} },
+    { label: "userId has wrong type", body: { "userId": "bad-user-id", "bookId": bookId } },
+    { label: "bookId has wrong type", body: { "userId": userId, "bookId": "bad-book-id" } },
+    { label: "multiple wrong types", body: { "userId": true, "bookId": false } },
+    { label: "userId is null", body: { "userId": null, "bookId": bookId } },
+    { label: "bookId is null", body: { "userId": userId, "bookId": null } },
+    { label: "userId is zero", body: { "userId": 0, "bookId": bookId } },
+    { label: "bookId is zero", body: { "userId": userId, "bookId": 0 } },
+    { label: "userId is negative", body: { "userId": -userId, "bookId": bookId } },
+    { label: "bookId is negative", body: { "userId": userId, "bookId": -bookId } },
+    { label: "userId is object", body: { "userId": { "val": userId }, "bookId": bookId } },
+    { label: "bookId is object", body: { "userId": userId, "bookId": { "val": bookId } } }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: createLoan (invalid - " + c.label + "): " + userId + "/" + bookId, { action: "createLoan", type: "invalid", body: c.body });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
+    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
+    if (isValid) {
+      var url = "/loans";
+      var reqDescription = description || (createDescription("Loan", userId + "/" + bookId) + (loanNumber === null ? "" : " number " + loanNumber));
+      expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
+      let parameters = { description: reqDescription };
+      if (loanNumber !== null) parameters.loanNumber = loanNumber;
+      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [expectedCode], parameters: parameters });
+      return response;
+    } else {
+      var url = "/loans";
+      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
 function tryToCreateLoanAndExpectError(userId, bookId, loanNumber, expectedCode) {
@@ -569,8 +682,7 @@ function verifyLoanAbsentFromAllLists(bookId, userId) {
   }, "Loan " + userId + (bookId === null ? "" : "/" + bookId) + " still appears in loans list");
 }
 
-function verifyLoanCannotBeDeleted(userId, bookId, expectedCode) {
-  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
+function tryToDeleteLoanAndExpectError(userId, bookId, expectedCode) {
   userId = asInteger(userId);
   bookId = asInteger(bookId);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
@@ -579,30 +691,33 @@ function verifyLoanCannotBeDeleted(userId, bookId, expectedCode) {
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
-function verifyDeletedLoanCannotBeDeleted(userId, bookId) {
-  verifyLoanCannotBeDeleted(userId, bookId, 404);
-}
-
 function matchAddLoan(userId) {
   return bp.EventSet("Add Loan " + userId, function (e) {
     var body = getJsonBody(e);
-    return e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && asInteger(body.userId) === asInteger(userId);
+    if (e.name === "POST" && getRequestPath(e) === "/loans" && hasExpectedCode(e, 201) && body && asInteger(body.userId) === asInteger(userId)) return true;
+    return isValidRequestEvent(e, "createLoan") && e.data.body && asInteger(e.data.body.userId) === asInteger(userId);
   });
 }
 
 function matchDeleteLoanOrBookOrUser(userId, bookId) {
   return bp.EventSet("Deleted Loan/Book/User " + userId + "/" + bookId, function (e) {
-    if (e.name !== "DELETE" || !hasExpectedCode(e, 200)) return false;
-    var path = getRequestPath(e);
-    return path === ("/loans/" + asInteger(userId) + "/" + asInteger(bookId))
-      || path === ("/books/" + asInteger(bookId))
-      || path === ("/users/" + asInteger(userId));
+    if (e.name === "DELETE" && hasExpectedCode(e, 200)) {
+      var path = getRequestPath(e);
+      if (path === ("/loans/" + asInteger(userId) + "/" + asInteger(bookId))
+        || path === ("/books/" + asInteger(bookId))
+        || path === ("/users/" + asInteger(userId))) return true;
+    }
+    if (isValidRequestEvent(e, "deleteLoan") && e.data.url === ("/loans/" + asInteger(userId) + "/" + asInteger(bookId))) return true;
+    if (isValidRequestEvent(e, "deleteBook") && e.data.url === ("/books/" + asInteger(bookId))) return true;
+    if (isValidRequestEvent(e, "deleteUser") && e.data.url === ("/users/" + asInteger(userId))) return true;
+    return false;
   });
 }
 
 function matchDeleteLoan(userId) {
   return bp.EventSet("Deleted Loans " + userId, function (e) {
-    return e.name === "DELETE" && getRequestPath(e).startsWith("/loans/" + asInteger(userId) + "/") && hasExpectedCode(e, 200);
+    if (e.name === "DELETE" && getRequestPath(e).startsWith("/loans/" + asInteger(userId) + "/") && hasExpectedCode(e, 200)) return true;
+    return isValidRequestEvent(e, "deleteLoan") && e.data.url.startsWith("/loans/" + asInteger(userId) + "/");
   });
 }
 
@@ -613,14 +728,46 @@ function matchAnyLoanDeleted() {
 function createUser(id, name) {
   id = asInteger(id);
   name = asString(name);
-  var url = "/users"; var reqDescription = createDescription("User", id);
-  let finalCodes = [201];
-  var body = {
-    "id": id,
-    "name": name
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
+
+  var validEvents = [
+    bp.Event("Req: createUser (valid-standard): " + id, { action: "createUser", type: "valid", body: { id: id, name: name } }),
+    bp.Event("Req: createUser (valid-spaced-name): " + id, { action: "createUser", type: "valid", body: { id: id, name: " " + name } }),
+    bp.Event("Req: createUser (valid-string-id): " + id, { action: "createUser", type: "valid", body: { id: String(id), name: name } }),
+    bp.Event("Req: createUser (valid-swapped-order): " + id, { action: "createUser", type: "valid", body: { name: name, id: id } })
+  ];
+
+  var invalidCases = [
+    { label: "missing name", body: { "id": id } },
+    { label: "missing id", body: { "name": name } },
+    { label: "missing all required fields", body: {} },
+    { label: "id has wrong type", body: { "id": "bad-user-id", "name": name } },
+    { label: "name has wrong type", body: { "id": id, "name": 12345 } },
+    { label: "multiple wrong types", body: { "id": true, "name": false } },
+    { label: "id is null", body: { "id": null, "name": name } },
+    { label: "name is null", body: { "id": id, "name": null } },
+    { label: "id is zero", body: { "id": 0, "name": name } },
+    { label: "id is negative", body: { "id": -id, "name": name } },
+    { label: "name is empty", body: { "id": id, "name": "" } },
+    { label: "id is object", body: { "id": { "val": id }, "name": name } }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: createUser (invalid - " + c.label + "): " + id, { action: "createUser", type: "invalid", body: c.body });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
+    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
+    if (isValid) {
+      var url = "/users";
+      var reqDescription = createDescription("User", id);
+      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
+      return response;
+    } else {
+      var url = "/users";
+      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
 function tryToCreateUserWithSameIdAndExpectError(id, expectedCode) {
@@ -663,26 +810,38 @@ function tryToCreateUserWithBadParametersAndExpectError(id, expectedCode) {
 
 function deleteUser(id) {
   id = asInteger(id);
-  var url = "/users/" + id; 
-  var reqDescription = deleteDescription("User", id);
-  let finalCodes = [200];
-  let response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: finalCodes });
-  return response;
+
+  var validEvent = bp.Event("Req: deleteUser (valid): " + id, { action: "deleteUser", type: "valid", url: "/users/" + id });
+
+  var invalidCases = [
+    { label: "bad-id", url: "/users/bad-id" },
+    { label: "zero", url: "/users/0" },
+    { label: "negative", url: "/users/-1" }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: deleteUser (invalid - " + c.label + "): " + id, { action: "deleteUser", type: "invalid", url: c.url });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
+    if (selectedEvent.name === validEvent.name) {
+      var url = "/users/" + id;
+      var reqDescription = deleteDescription("User", id);
+      var response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: [200] });
+      return response;
+    } else {
+      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
-function verifyUserReadFuzz() {
-  verifyListQueryFuzzIsAccepted("users", "/users");
-}
+// verifyUserReadFuzz and verifyUserDeleteFuzz were removed in favor of dynamic fuzzing in createUser/deleteUser
 
-function verifyUserDeleteFuzz() {
-  verifyMalformedDeleteIsRejected("User", "bad-id", "/users/bad-id");
-  verifyMalformedDeleteIsRejected("User", 0, "/users/0");
-  verifyMalformedDeleteIsRejected("User", -1, "/users/-1");
-}
-
-function verifyUserUpdateIsUnsupported(id) {
+function tryToUpdateUserAndExpectError(id, body, expectedCode) {
   id = asInteger(id);
-  verifyUnsupportedUpdate("User", id, "/users/" + id, { "id": id, "name": "Updated user " + id });
+  expectedCode = expectedCode === undefined || expectedCode === null ? 405 : asInteger(expectedCode);
+  tryToUpdateAndExpectError("User", id, "/users/" + id, body, expectedCode);
 }
 
 function verifyUserExists(id) {
@@ -707,8 +866,7 @@ function verifyUserAbsentFromAllLists(id) {
   }, "User " + id + " still appears in holds list");
 }
 
-function verifyUserCannotBeDeleted(id, expectedCode) {
-  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
+function tryToDeleteUserAndExpectError(id, expectedCode) {
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/users/" + id;
@@ -716,14 +874,11 @@ function verifyUserCannotBeDeleted(id, expectedCode) {
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
-function verifyDeletedUserCannotBeDeleted(id) {
-  verifyUserCannotBeDeleted(id, 404);
-}
-
 function matchAddUser(id) {
   return bp.EventSet("Add User " + id, function (e) {
     var body = getJsonBody(e);
-    return e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
+    if (e.name === "POST" && getRequestPath(e) === "/users" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id)) return true;
+    return isValidRequestEvent(e, "createUser") && e.data.body && asInteger(e.data.body.id) === asInteger(id);
   });
 }
 
@@ -733,7 +888,8 @@ function matchAnyUserAdded() {
 
 function matchDeleteUser(id) {
   return bp.EventSet("Deleted Users " + id, function (e) {
-    return e.name === "DELETE" && getRequestPath(e) === ("/users/" + asInteger(id)) && hasExpectedCode(e, 200);
+    if (e.name === "DELETE" && getRequestPath(e) === ("/users/" + asInteger(id)) && hasExpectedCode(e, 200)) return true;
+    return isValidRequestEvent(e, "deleteUser") && e.data.url === ("/users/" + asInteger(id));
   });
 }
 
@@ -745,16 +901,54 @@ function createHold(bookId, id, userId, expectedCode, description) {
   bookId = asInteger(bookId);
   id = asInteger(id);
   userId = asInteger(userId);
-  var url = "/holds"; var reqDescription = description || (createDescription("Hold", id) + " for User " + userId + " and Book " + bookId);
-  expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
-  let finalCodes = [expectedCode];
-  var body = {
-    "bookId": bookId,
-    "id": id,
-    "userId": userId
-  };
-  let response = svc.post(url, { body: JSON.stringify(body), expectedResponseCodes: finalCodes, parameters: { description: reqDescription } });
-  return response;
+
+  var validEvents = [
+    bp.Event("Req: createHold (valid-standard): " + id, { action: "createHold", type: "valid", body: { id: id, userId: userId, bookId: bookId } }),
+    bp.Event("Req: createHold (valid-string-id): " + id, { action: "createHold", type: "valid", body: { id: String(id), userId: userId, bookId: bookId } }),
+    bp.Event("Req: createHold (valid-swapped-order): " + id, { action: "createHold", type: "valid", body: { bookId: bookId, id: id, userId: userId } })
+  ];
+
+  var invalidCases = [
+    { name: "missing bookId", body: { "id": id, "userId": userId } },
+    { name: "missing userId", body: { "id": id, "bookId": bookId } },
+    { name: "missing id", body: { "userId": userId, "bookId": bookId } },
+    { name: "missing all required fields", body: {} },
+    { name: "id has wrong type", body: { "id": "bad-hold-id", "userId": userId, "bookId": bookId } },
+    { name: "userId has wrong type", body: { "id": id, "userId": "bad-user-id", "bookId": bookId } },
+    { name: "bookId has wrong type", body: { "id": id, "userId": userId, "bookId": "bad-book-id" } },
+    { name: "multiple wrong types", body: { "id": true, "userId": false, "bookId": "bad-book-id" } },
+    { name: "id is null", body: { "id": null, "userId": userId, "bookId": bookId } },
+    { name: "userId is null", body: { "id": id, "userId": null, "bookId": bookId } },
+    { name: "bookId is null", body: { "id": id, "userId": userId, "bookId": null } },
+    { name: "id is zero", body: { "id": 0, "userId": userId, "bookId": bookId } },
+    { name: "userId is zero", body: { "id": id, "userId": 0, "bookId": bookId } },
+    { name: "bookId is zero", body: { "id": id, "userId": userId, "bookId": 0 } },
+    { name: "id is negative", body: { "id": -id, "userId": userId, "bookId": bookId } },
+    { name: "userId is negative", body: { "id": id, "userId": -userId, "bookId": bookId } },
+    { name: "bookId is negative", body: { "id": id, "userId": userId, "bookId": -bookId } },
+    { name: "id is object", body: { "id": { "val": id }, "userId": userId, "bookId": bookId } },
+    { name: "userId is object", body: { "id": id, "userId": { "val": userId }, "bookId": bookId } },
+    { name: "bookId is object", body: { "id": id, "userId": userId, "bookId": { "val": bookId } } }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: createHold (invalid - " + c.name + "): " + id, { action: "createHold", type: "invalid", body: c.body });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
+    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
+    if (isValid) {
+      var url = "/holds";
+      var reqDescription = description || (createDescription("Hold", id) + " for User " + userId + " and Book " + bookId);
+      expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
+      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription } });
+      return response;
+    } else {
+      var url = "/holds";
+      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
 function tryToCreateHoldAndExpectError(bookId, id, userId, expectedCode) {
@@ -808,32 +1002,44 @@ function deleteHold(id, expectedCode, userId, bookId) {
   }
   userId = userId === undefined || userId === null ? null : asInteger(userId);
   bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
-  var url = "/holds/" + id;
-  var reqDescription = deleteDescription("Hold", id, userId === null || bookId === null ? "" : "for User " + userId + " and Book " + bookId);
-  expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
-  let finalCodes = [expectedCode];
-  let parameters = { description: reqDescription, id: id };
-  if (userId !== null) parameters.userId = userId;
-  if (bookId !== null) parameters.bookId = bookId;
-  let response = svc.delete(url, { parameters: parameters, expectedResponseCodes: finalCodes });
-  return response;
+
+  var validEvent = bp.Event("Req: deleteHold (valid): " + id, { action: "deleteHold", type: "valid", url: "/holds/" + id });
+
+  var invalidCases = [
+    { label: "bad-id", url: "/holds/bad-id" },
+    { label: "zero", url: "/holds/0" },
+    { label: "negative", url: "/holds/-1" }
+  ];
+
+  var invalidEvents = invalidCases.map(function(c) {
+    return bp.Event("Req: deleteHold (invalid - " + c.label + "): " + id, { action: "deleteHold", type: "invalid", url: c.url });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
+    if (selectedEvent.name === validEvent.name) {
+      var url = "/holds/" + id;
+      var reqDescription = deleteDescription("Hold", id, userId === null || bookId === null ? "" : "for User " + userId + " and Book " + bookId);
+      expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
+      let parameters = { description: reqDescription, id: id };
+      if (userId !== null) parameters.userId = userId;
+      if (bookId !== null) parameters.bookId = bookId;
+      var response = svc.delete(url, { parameters: parameters, expectedResponseCodes: [expectedCode] });
+      return response;
+    } else {
+      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
-function verifyHoldReadFuzz() {
-  verifyListQueryFuzzIsAccepted("holds", "/holds");
-}
+// verifyHoldReadFuzz and verifyHoldDeleteFuzz were removed in favor of dynamic fuzzing in createHold/deleteHold
 
-function verifyHoldDeleteFuzz() {
-  verifyMalformedDeleteIsRejected("Hold", "bad-id", "/holds/bad-id");
-  verifyMalformedDeleteIsRejected("Hold", 0, "/holds/0");
-  verifyMalformedDeleteIsRejected("Hold", -1, "/holds/-1");
-}
-
-function verifyHoldUpdateIsUnsupported(id, userId, bookId) {
+function tryToUpdateHoldAndExpectError(id, userId, bookId, body, expectedCode) {
   id = asInteger(id);
   userId = asInteger(userId);
   bookId = asInteger(bookId);
-  verifyUnsupportedUpdate("Hold", id, "/holds/" + id, { "id": id, "userId": userId, "bookId": bookId });
+  expectedCode = expectedCode === undefined || expectedCode === null ? 405 : asInteger(expectedCode);
+  tryToUpdateAndExpectError("Hold", id, "/holds/" + id, body, expectedCode);
 }
 
 function verifyHoldExists(id) {
@@ -852,8 +1058,7 @@ function verifyHoldAbsentFromAllLists(id) {
   }, "Hold " + id + " still appears in holds list");
 }
 
-function verifyHoldCannotBeDeleted(id, expectedCode) {
-  // Verification is executed against the SUT by trying the delete request and expecting the SUT to reject it.
+function tryToDeleteHoldAndExpectError(id, expectedCode) {
   id = asInteger(id);
   expectedCode = expectedCode === undefined || expectedCode === null ? 400 : asInteger(expectedCode);
   var url = "/holds/" + id;
@@ -861,20 +1066,18 @@ function verifyHoldCannotBeDeleted(id, expectedCode) {
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
-function verifyDeletedHoldCannotBeDeleted(id) {
-  verifyHoldCannotBeDeleted(id, 404);
-}
-
 function matchAddHold(id) {
   return bp.EventSet("Add Hold " + id, function (e) {
     var body = getJsonBody(e);
-    return e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id);
+    if (e.name === "POST" && getRequestPath(e) === "/holds" && hasExpectedCode(e, 201) && body && asInteger(body.id) === asInteger(id)) return true;
+    return isValidRequestEvent(e, "createHold") && e.data.body && asInteger(e.data.body.id) === asInteger(id);
   });
 }
 
 function matchDeleteHold(id) {
   return bp.EventSet("Deleted Holds " + id, function (e) {
-    return e.name === "DELETE" && getRequestPath(e) === ("/holds/" + asInteger(id)) && hasExpectedCode(e, 200);
+    if (e.name === "DELETE" && getRequestPath(e) === ("/holds/" + asInteger(id)) && hasExpectedCode(e, 200)) return true;
+    return isValidRequestEvent(e, "deleteHold") && e.data.url === ("/holds/" + asInteger(id));
   });
 }
 

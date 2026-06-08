@@ -39,6 +39,18 @@ def is_positive_int(value: Any) -> bool:
     return is_int(value) and value > 0
 
 
+def is_valid_id(value: Any) -> bool:
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value > 0
+    if isinstance(value, str):
+        try:
+            parsed = int(value)
+            return parsed > 0
+        except ValueError:
+            return False
+    return False
+
+
 def is_str(value: Any) -> bool:
     return isinstance(value, str)
 
@@ -126,13 +138,16 @@ def add_user() -> tuple[Response, int]:
         return jsonify({"error": "user id is required"}), 400
 
     # 2. Validate Types (Strict)
-    if not is_positive_int(user.get("id")):
-        return jsonify({"error": "id must be a positive integer"}), 400
+    if not is_valid_id(user.get("id")):
+        return jsonify({"error": "id must be a positive integer or a string representing one"}), 400
 
     if "name" not in user:
         return jsonify({"error": "name is required"}), 400
     if not is_non_empty_str(user.get("name")):
         return jsonify({"error": "name must be a non-empty string"}), 400
+
+    # Normalize id to integer
+    user["id"] = int(user.get("id"))
 
     # 3. Check for duplicates
     if user.get("id") in [u.get("id") for u in users]:
@@ -196,13 +211,16 @@ def add_book() -> tuple[Response, int]:
         return jsonify({"error": "book id is required"}), 400
     
     # 2. Validate Types (Strict)
-    if not is_positive_int(book.get("id")):
-        return jsonify({"error": "id must be a positive integer"}), 400
+    if not is_valid_id(book.get("id")):
+        return jsonify({"error": "id must be a positive integer or a string representing one"}), 400
 
     if "title" not in book:
         return jsonify({"error": "title is required"}), 400
     if not is_non_empty_str(book.get("title")):
         return jsonify({"error": "title must be a non-empty string"}), 400
+
+    # Normalize id to integer
+    book["id"] = int(book.get("id"))
 
     # 3. Check duplicates
     if book.get("id") in [b.get("id") for b in books]:
@@ -283,11 +301,17 @@ def add_loan() -> tuple[Response, int]:
 
     # 1. Validate Types (Strict)
     # We check type BEFORE checking existence/logic, so negative tests pass correctly.
-    if user_id is not None and not is_positive_int(user_id):
-        return jsonify({"error": "userId must be a positive integer"}), 400
+    if user_id is not None and not is_valid_id(user_id):
+        return jsonify({"error": "userId must be a positive integer or a string representing one"}), 400
     
-    if book_id is not None and not is_positive_int(book_id):
-        return jsonify({"error": "bookId must be a positive integer"}), 400
+    if book_id is not None and not is_valid_id(book_id):
+        return jsonify({"error": "bookId must be a positive integer or a string representing one"}), 400
+
+    # Normalize to int
+    if user_id is not None:
+        user_id = int(user_id)
+    if book_id is not None:
+        book_id = int(book_id)
 
     # 2. Validate User Logic
     if user_id is None:
@@ -383,18 +407,23 @@ def add_hold() -> tuple[Response, int]:
     # Note: 'id' is required by schema, check it too
     if "id" not in hold:
         return jsonify({"error": "id is required"}), 400
-    if not is_positive_int(hold.get("id")):
-        return jsonify({"error": "id must be a positive integer"}), 400
+    if not is_valid_id(hold.get("id")):
+        return jsonify({"error": "id must be a positive integer or a string representing one"}), 400
         
     if "userId" not in hold:
         return jsonify({"error": "userId is required"}), 400
-    if not is_positive_int(hold.get("userId")):
-        return jsonify({"error": "userId must be a positive integer"}), 400
+    if not is_valid_id(hold.get("userId")):
+        return jsonify({"error": "userId must be a positive integer or a string representing one"}), 400
         
     if "bookId" not in hold:
         return jsonify({"error": "bookId is required"}), 400
-    if not is_positive_int(hold.get("bookId")):
-        return jsonify({"error": "bookId must be a positive integer"}), 400
+    if not is_valid_id(hold.get("bookId")):
+        return jsonify({"error": "bookId must be a positive integer or a string representing one"}), 400
+
+    # Normalize to int
+    hold["id"] = int(hold.get("id"))
+    hold["userId"] = int(hold.get("userId"))
+    hold["bookId"] = int(hold.get("bookId"))
 
     if not user_exists(hold.get("userId")):
         return jsonify({"error": f"User {hold.get('userId')} does not exist"}), 400
