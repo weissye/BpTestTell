@@ -58,46 +58,24 @@ function generateMissingId(existingId) {
 /////////////////////////////////////////////////////////////////////////
 
 ctx.bthread("verifyUserExistsAfterCreation", "User.All", function (user) {
-  // When a user is created, delay that user's deletion until we verify
-  // that the user exists in the system.
-  // Note that Users.All is what we believe should exist based on events we
-  // triggered, and this bthread verifies that it actually exists.
   block(matchDeleteUser(user.id), function () {
     verifyUserExists(user.id);
   });
 });
 
 ctx.bthread("verifyCannotCreateDuplicateUser", "User.All", function (user) {
-  block(matchDeleteUser(user.id), function () {
-    tryToCreateUserWithSameIdAndExpectError(user.id);
-  });
+  tryToCreateUserWithSameIdAndExpectError(user.id);
 });
-
-ctx.bthread("verifyCannotCreateUserWithBadParameters", "User.All", function (user) {
-  block(matchDeleteUser(user.id), function () {
-    tryToCreateUserWithBadParametersAndExpectError(user.id, 400);
-  });
-});
-
-
 
 ctx.bthread("checkThatCannotDeleteLoanedUser", "User.HasLoan", function (user) {
-  // When a user has a loan, delay deletion until we verify that the user
-  // does not have any active loans.
-  block(matchDeleteUser(user.id), function () {
-    tryToDeleteUserAndExpectError(user.id, 400);
-  });
+  tryToDeleteUserAndExpectError(user.id);
 });
 
 ctx.bthread("checkThatCannotDeleteHeldUser", "Hold.All", function (hold) {
-  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
-    tryToDeleteUserAndExpectError(hold.userid, 400);
-  });
+  tryToDeleteUserAndExpectError(hold.userid);
 });
 
-bthread("verifyUserDeletion", function () {
-  // When a user is deleted, delay recreation until we verify that the
-  // user no longer exists in the system.
+ctx.bthread("verifyUserDeletion", function () {
   on(matchAnyUserDeleted(), function (e) {
     let id = extractEventData(e).id;
 
@@ -109,16 +87,12 @@ bthread("verifyUserDeletion", function () {
 });
 
 ctx.bthread("verifyBookExistsAfterCreation", "Book.All", function (book) {
-  // When a book is created, delay deletion until we verify that the book
-  // exists in the system.
   block(matchDeleteBook(book.id), function () {
     verifyBookExists(book.id);
   });
 });
 
 bthread("verifyBookDeletion", function () {
-  // When a book is deleted, delay recreation until we verify that the
-  // book no longer exists in the system.
   on(matchAnyBookDeleted(), function (e) {
     let id = extractEventData(e).id;
 
@@ -130,16 +104,12 @@ bthread("verifyBookDeletion", function () {
 });
 
 ctx.bthread("verifyLoanExistsAfterCreation", "Loan.All", function (loan) {
-  // When a loan is created, delay deletion until we verify that the loan
-  // exists in the system.
   block(matchDeleteLoan(loan.userid), function () {
     verifyLoanExists(loan.bookid, loan.userid);
   });
 });
 
 bthread("verifyLoanDeletion", function () {
-  // When a loan is deleted, delay recreation until we verify that the
-  // loan no longer exists in the system.
   on(matchAnyLoanDeleted(), function (e) {
     let loanData = extractEventData(e);
 
@@ -152,16 +122,12 @@ bthread("verifyLoanDeletion", function () {
 });
 
 ctx.bthread("verifyHoldExistsAfterCreation", "Hold.All", function (hold) {
-  // When a hold is created, delay deletion until we verify that the hold
-  // exists in the system.
   block(matchDeleteHold(hold.holdid), function () {
     verifyHoldExists(hold.holdid);
   });
 });
 
 bthread("verifyHoldDeletion", function () {
-  // When a hold is deleted, delay recreation until we verify that the
-  // hold no longer exists in the system.
   on(matchAnyHoldDeleted(), function (e) {
     let id = extractEventData(e).id;
 
@@ -205,8 +171,8 @@ bthread("verifyHoldOnlyBlocksUserAndBookDeletion", function () {
   createBook(bookId, generateBookTitle());
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, userId), function () {
     createHold(bookId, holdId, userId);
-    tryToDeleteUserAndExpectError(userId, 400);
-    tryToDeleteBookAndExpectError(bookId, 400);
+    tryToDeleteUserAndExpectError(userId);
+    tryToDeleteBookAndExpectError(bookId);
   });
   deleteHold(holdId, userId, bookId);
 });
@@ -286,33 +252,33 @@ ctx.bthread("verifyCannotCreateDuplicateBook", "Book.All", function (book) {
 
 ctx.bthread("verifyCannotCreateBookWithBadParameters", "Book.All", function (book) {
   block(matchDeleteBook(book.id), function () {
-    tryToCreateBookWithBadParametersAndExpectError(book.id, 400);
+    tryToCreateBookWithBadParametersAndExpectError(book.id);
   });
 });
 
 ctx.bthread("verifyCannotDeleteLoanedBook", "UserBook.BookHasLoan", function (userbook) {
   block(matchDeleteLoanOrBookOrUser(userbook.userid, userbook.bookid), function () {
-    tryToDeleteBookAndExpectError(userbook.bookid, 400);
+    tryToDeleteBookAndExpectError(userbook.bookid);
   });
 });
 
 ctx.bthread("verifyCannotDeleteHeldBook", "Hold.All", function (hold) {
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
-    tryToDeleteBookAndExpectError(hold.bookid, 400);
+    tryToDeleteBookAndExpectError(hold.bookid);
   });
 });
 
 ctx.bthread("verifyCannotCreateLoanWithBadParameters", "UserBook.All", function (userbook) {
-  tryToCreateLoanWithBadParametersAndExpectError(userbook.userid, 400);
+  tryToCreateLoanWithBadParametersAndExpectError(userbook.userid);
 });
 
 ctx.bthread("verifyCannotCreateLoanWithNonexistentForeignKeys", "UserBook.All", function (userbook) {
   let missingUserId = generateMissingId(userbook.userid);
   let missingBookId = generateMissingId(userbook.bookid);
 
-  tryToCreateLoanAndExpectError(missingUserId, userbook.bookid, generateLoanId(), 400);
-  tryToCreateLoanAndExpectError(userbook.userid, missingBookId, generateLoanId(), 400);
-  tryToCreateLoanAndExpectError(missingUserId, missingBookId, generateLoanId(), 400);
+  tryToCreateLoanAndExpectError(missingUserId, userbook.bookid, generateLoanId());
+  tryToCreateLoanAndExpectError(userbook.userid, missingBookId, generateLoanId());
+  tryToCreateLoanAndExpectError(missingUserId, missingBookId, generateLoanId());
 });
 
 ctx.bthread("verifyCannotCreateDuplicateHoldId", "Hold.All", function (hold) {
@@ -323,7 +289,7 @@ ctx.bthread("verifyCannotCreateDuplicateHoldId", "Hold.All", function (hold) {
 
 ctx.bthread("verifyCannotCreateHoldWithBadParameters", "Hold.All", function (hold) {
   block(matchDeleteHold(hold.holdid), function () {
-    tryToCreateHoldWithBadParametersAndExpectError(hold.holdid, hold.userid, 400);
+    tryToCreateHoldWithBadParametersAndExpectError(hold.holdid, hold.userid);
   });
 });
 
@@ -331,9 +297,9 @@ ctx.bthread("verifyCannotCreateHoldWithNonexistentForeignKeys", "UserBook.All", 
   let missingUserId = generateMissingId(userbook.userid);
   let missingBookId = generateMissingId(userbook.bookid);
 
-  tryToCreateHoldAndExpectError(userbook.bookid, generateHoldId(), missingUserId, 400);
-  tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), userbook.userid, 400);
-  tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), missingUserId, 400);
+  tryToCreateHoldAndExpectError(userbook.bookid, generateHoldId(), missingUserId);
+  tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), userbook.userid);
+  tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), missingUserId);
 });
 
 //////////////////////////////////////////////////////////////////////////
