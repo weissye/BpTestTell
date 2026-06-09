@@ -50,6 +50,26 @@ bugs = {
     "bug10": (
         '    # Check if book has active loans\n    if any(loan.get("bookId") == book_id for loan in loans):\n        logger.warning(f"Cannot delete book {book_id} - has active loans")\n        return jsonify({"error": "Cannot delete book with active loans"}), 400\n\n    # Check if book has active holds\n    if any(hold.get("bookId") == book_id for hold in holds):\n        logger.warning(f"Cannot delete book {book_id} - has active holds")\n        return jsonify({"error": "Cannot delete book with active holds"}), 400',
         '    # Bug 10 planted: allow delete book with active loans/holds\n    pass'
+    ),
+    "bug11": (
+        '    if not user_exists(hold.get("userId")):\n        return jsonify({"error": f"User {hold.get(\'userId\')} does not exist"}), 400',
+        '    # Bug 11 planted: allow hold for nonexistent user\n    pass'
+    ),
+    "bug12": (
+        '    if not book_exists(hold.get("bookId")):\n        return jsonify({"error": f"Book {hold.get(\'bookId\')} does not exist"}), 400',
+        '    # Bug 12 planted: allow hold for nonexistent book\n    pass'
+    ),
+    "bug13": (
+        '    if any(h.get("id") == hold.get("id") for h in holds):\n        return jsonify({"error": "Hold already exists"}), 400',
+        '    # Bug 13 planted: allow duplicate holds\n    pass'
+    ),
+    "bug14": (
+        '    # Check if book has active loans\n    if any(loan.get("bookId") == book_id for loan in loans):\n        logger.warning(f"Cannot delete book {book_id} - has active loans")\n        return jsonify({"error": "Cannot delete book with active loans"}), 400\n\n    # Check if book has active holds\n    if any(hold.get("bookId") == book_id for hold in holds):\n        logger.warning(f"Cannot delete book {book_id} - has active holds")\n        return jsonify({"error": "Cannot delete book with active holds"}), 400',
+        '    # Bug 14 planted: allow delete book with active loans/holds\n    pass'
+    ),
+    "bug15": (
+        '    # Check if user has active loans\n    if any(loan.get("userId") == user_id for loan in loans):\n        return jsonify({"error": "Cannot delete user with active loans"}), 400\n\n    # Check if user has active holds\n    if any(hold.get("userId") == user_id for hold in holds):\n        return jsonify({"error": "Cannot delete user with active holds"}), 400',
+        '    # Bug 15 planted: allow delete user with active loans/holds\n    pass'
     )
 }
 
