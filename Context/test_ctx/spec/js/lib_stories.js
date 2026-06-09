@@ -276,6 +276,8 @@ ctx.bthread("verifyCannotCreateLoanWithNonexistentForeignKeys", "UserBook.All", 
   let missingUserId = generateMissingId(userbook.userid);
   let missingBookId = generateMissingId(userbook.bookid);
 
+
+  // Gera: I think trying all three is too much, enough to try one of the three nondeterministically?
   tryToCreateLoanAndExpectError(missingUserId, userbook.bookid, generateLoanId());
   tryToCreateLoanAndExpectError(userbook.userid, missingBookId, generateLoanId());
   tryToCreateLoanAndExpectError(missingUserId, missingBookId, generateLoanId());
@@ -293,6 +295,7 @@ ctx.bthread("verifyCannotCreateHoldWithNonexistentForeignKeys", "UserBook.All", 
   let missingUserId = generateMissingId(userbook.userid);
   let missingBookId = generateMissingId(userbook.bookid);
 
+  // Gera: I think trying all three is too much, enough to try one of the three nondeterministically?
   tryToCreateHoldAndExpectError(userbook.bookid, generateHoldId(), missingUserId);
   tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), userbook.userid);
   tryToCreateHoldAndExpectError(missingBookId, generateHoldId(), missingUserId);
@@ -324,8 +327,8 @@ ctx.bthread("verifyCannotUpdateHold", "Hold.All", function (hold) {
   tryToUpdateHoldAndExpectError(hold.holdid, hold.userid, hold.bookid, { id: hold.holdid, userId: hold.userid, bookId: hold.bookid }, 405);
 });
 
-
-bthread("tryToDeletgeNonexistingUser", function () {
+// Gera: Why only users? Why not also books, loans and holds?
+bthread("tryToDeleteNonexistingUser", function () {
   tryToDeleteNonexistingUserAndExpectError(generateMissingId(generateUserId()));
 });
 
