@@ -170,13 +170,13 @@ def delete_user(id: str) -> tuple[Response, int]:
 
     logger.info(f"Attempting to delete user with ID: {user_id}")
 
-    # PLANTED BUG: Disable user active loans check
-    # if any(loan.get("userId") == user_id for loan in loans):
-    #     return jsonify({"error": "Cannot delete user with active loans"}), 400
+    # Check if user has active loans
+    if any(loan.get("userId") == user_id for loan in loans):
+        return jsonify({"error": "Cannot delete user with active loans"}), 400
 
-    # PLANTED BUG: Disable user active holds check
-    # if any(hold.get("userId") == user_id for hold in holds):
-    #     return jsonify({"error": "Cannot delete user with active holds"}), 400
+    # Check if user has active holds
+    if any(hold.get("userId") == user_id for hold in holds):
+        return jsonify({"error": "Cannot delete user with active holds"}), 400
 
     user = next((u for u in users if u.get("id") == user_id), None)
     if user:
@@ -247,15 +247,15 @@ def delete_book(id: str) -> tuple[Response, int]:
         logger.warning(f"Attempt to delete non-existent book {book_id}")
         return jsonify({"error": "Book not found"}), 404
 
-    # PLANTED BUG: Disable book active loans check
-    # if any(loan.get("bookId") == book_id for loan in loans):
-    #     logger.warning(f"Cannot delete book {book_id} - has active loans")
-    #     return jsonify({"error": "Cannot delete book with active loans"}), 400
+    # Check if book has active loans
+    if any(loan.get("bookId") == book_id for loan in loans):
+        logger.warning(f"Cannot delete book {book_id} - has active loans")
+        return jsonify({"error": "Cannot delete book with active loans"}), 400
 
-    # PLANTED BUG: Disable book active holds check
-    # if any(hold.get("bookId") == book_id for hold in holds):
-    #     logger.warning(f"Cannot delete book {book_id} - has active holds")
-    #     return jsonify({"error": "Cannot delete book with active holds"}), 400
+    # Check if book has active holds
+    if any(hold.get("bookId") == book_id for hold in holds):
+        logger.warning(f"Cannot delete book {book_id} - has active holds")
+        return jsonify({"error": "Cannot delete book with active holds"}), 400
 
     books = [book for book in books if book.get("id") != book_id]
 
