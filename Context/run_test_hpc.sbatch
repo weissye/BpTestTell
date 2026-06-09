@@ -9,6 +9,9 @@
 echo "SLURM_JOBID"=$SLURM_JOBID
 echo "SLURM_JOB_NODELIST"=$SLURM_JOB_NODELIST
 
+# Source module initialization script to define 'module' function
+source /etc/profile.d/modules.sh
+
 # Load required modules
 module load java/java11
 module load anaconda
