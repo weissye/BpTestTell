@@ -329,9 +329,31 @@ bthread("tryToDeletgeNonexistingUser", function () {
   tryToDeleteNonexistingUserAndExpectError(generateMissingId(generateUserId()));
 });
 
-// The fuzzing interface:
-// Whenever we add/delete/update an object, the interface may generate several events:
-//    1) It requests valid events (variants of, e.g., passing the parameters in different orders or formats)
-//    togther with some invalid events (e.g., with wrong parameters or missing parameters) to verify that the system rejects them.
-//    2) It repeats until the valid event is selected.
-///   3) When we wait-for or block a step, the event filter reffers to any of the valid events.
+// =========================================================================
+// The Fuzzing Interface Layer Contract
+// =========================================================================
+// Whenever a story requests an action (create, delete, or retrieve an object),
+// the interface layer executes a pre-flight fuzzing and verification sequence:
+//
+// 1. Event Generation & Fuzzing:
+//    The interface defines and requests a set of fuzzed request events:
+//    - Valid Variants: Requests with parameters passed in different orders, types
+//      (e.g., stringified integers), or padded values, which the SUT should accept.
+//    - Invalid Variants: Requests with missing fields, incorrect types, nulls,
+//      negatives, or empty values, designed to verify the SUT's rejection logic.
+//
+// 2. Fuzzing Loop execution:
+//    The system enters a synchronization block requesting the union of all valid
+//    and invalid events:
+//    - If an invalid event is selected: The interface immediately executes a REST
+//      request asserting that the SUT rejects it (expected code 400). It then loops
+//      to request the event set again.
+//    - If a valid event is selected: The interface executes the successful REST
+//      request (expecting 200 or 201) and exits the loop.
+//
+// 3. Synchronization & Match Compliance:
+//    Because b-threads may block or wait-for events during this process, the
+//    corresponding EventSets (e.g., matchAddBook, matchDeleteUser) MUST capture:
+//    - The actual successful SUT REST completion event (e.g. POST/DELETE with 200/201).
+//    - Any valid client-side fuzzing request event (where `type === "valid"` and the
+//      target entity IDs match), ensuring stories stay synchronized with fuzzed paths.
