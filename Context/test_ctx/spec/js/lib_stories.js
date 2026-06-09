@@ -334,3 +334,4 @@ bthread("tryToDeletgeNonexistingUser", function () {
 //    1) It requests valid events (variants of, e.g., passing the parameters in different orders or formats)
 //    togther with some invalid events (e.g., with wrong parameters or missing parameters) to verify that the system rejects them.
 //    2) It repeats until the valid event is selected.
+///   3) When we wait-for or block a step, the event filter reffers to any of the valid events.
