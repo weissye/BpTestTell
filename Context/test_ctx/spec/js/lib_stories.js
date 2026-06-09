@@ -282,15 +282,11 @@ ctx.bthread("verifyCannotCreateLoanWithNonexistentForeignKeys", "UserBook.All", 
 });
 
 ctx.bthread("verifyCannotCreateDuplicateHoldId", "Hold.All", function (hold) {
-  block(matchDeleteHold(hold.holdid), function () {
-    tryToCreateHoldWithSameIdAndExpectError(hold.bookid, hold.holdid, hold.userid);
-  });
+  tryToCreateHoldWithSameIdAndExpectError(hold.bookid, hold.holdid, hold.userid);
 });
 
 ctx.bthread("verifyCannotCreateHoldWithBadParameters", "Hold.All", function (hold) {
-  block(matchDeleteHold(hold.holdid), function () {
-    tryToCreateHoldWithBadParametersAndExpectError(hold.holdid, hold.userid);
-  });
+  tryToCreateHoldWithBadParametersAndExpectError(hold.holdid, hold.userid);
 });
 
 ctx.bthread("verifyCannotCreateHoldWithNonexistentForeignKeys", "UserBook.All", function (userbook) {
@@ -310,25 +306,22 @@ ctx.bthread("verifyCannotCreateHoldWithNonexistentForeignKeys", "UserBook.All", 
 // that PUT attempts are rejected with 405.
 //////////////////////////////////////////////////////////////////////////
 
-ctx.bthread("verifyUserReadDeleteAndUpdateApiSurface", "User.All", function (user) {
-  block(matchDeleteUser(user.id), function () {
-    tryToUpdateUserAndExpectError(user.id, { id: user.id, name: "Updated user " + user.id }, 405);
-  });
+
+// Gera: I think that trying nonexisting interfaces may be too much?
+ctx.bthread("verifyCannotUpdateUser", "User.All", function (user) {
+  tryToUpdateUserAndExpectError(user.id, { id: user.id, name: "Updated user " + user.id }, 405);
 });
 
-ctx.bthread("verifyBookReadDeleteAndUpdateApiSurface", "Book.All", function (book) {
-  verifyBookDetailExists(book.id);
+ctx.bthread("verifyCannotUpdateBook", "Book.All", function (book) {
   tryToUpdateBookAndExpectError(book.id, { id: book.id, title: "Updated book " + book.id }, 405);
 });
 
-ctx.bthread("verifyLoanReadDeleteAndUpdateApiSurface", "Loan.All", function (loan) {
+ctx.bthread("verifyCannotUpdateLoan", "Loan.All", function (loan) {
   tryToUpdateLoanAndExpectError(loan.userid, loan.bookid, { userId: loan.userid, bookId: loan.bookid }, 405);
 });
 
-ctx.bthread("verifyHoldReadDeleteAndUpdateApiSurface", "Hold.All", function (hold) {
-  block(matchDeleteHold(hold.holdid), function () {
-    tryToUpdateHoldAndExpectError(hold.holdid, hold.userid, hold.bookid, { id: hold.holdid, userId: hold.userid, bookId: hold.bookid }, 405);
-  });
+ctx.bthread("verifyCannotUpdateHold", "Hold.All", function (hold) {
+  tryToUpdateHoldAndExpectError(hold.holdid, hold.userid, hold.bookid, { id: hold.holdid, userId: hold.userid, bookId: hold.bookid }, 405);
 });
 
 
@@ -336,7 +329,7 @@ bthread("tryToDeletgeNonexistingUser", function () {
   tryToDeleteNonexistingUserAndExpectError(generateMissingId(generateUserId()));
 });
 
-// Suggestion for interface:
+// The fuzzing interface:
 // Whenever we add/delete/update an object, the interface may generate several events:
 //    1) It requests valid events (variants of, e.g., passing the parameters in different orders or formats)
 //    togther with some invalid events (e.g., with wrong parameters or missing parameters) to verify that the system rejects them.

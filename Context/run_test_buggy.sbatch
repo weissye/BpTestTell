@@ -45,7 +45,15 @@ python ../packs/suts/Library/sut_type.py > sut.log 2>&1 &
 SUT_PID=$!
 
 # Wait for SUT to start
-sleep 3
+for i in {1..30}; do
+    python -c "import urllib.request; urllib.request.urlopen('http://localhost:23242/users')" >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "SUT is up and running!"
+        break
+    fi
+    echo "Waiting for SUT to start..."
+    sleep 1
+done
 
 # Reset SUT database
 python reset_sut_db.py
