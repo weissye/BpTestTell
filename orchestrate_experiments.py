@@ -2,7 +2,7 @@ import subprocess
 import time
 import sys
 
-bugs = [f"bug{i}" for i in range(1, 11)]
+bugs = ["bug3", "bug5", "bug7", "bug8", "bug10"]
 
 def run_ssh_cmd(cmd):
     ssh_cmd = ["ssh", "slurm.bgu.ac.il", cmd]
