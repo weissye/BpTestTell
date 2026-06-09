@@ -450,6 +450,14 @@ function tryToDeleteBookAndExpectError(id, expectedCode) {
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
+function tryToDeleteDeletedBookAndExpectError(id) {
+  tryToDeleteBookAndExpectError(id, 404);
+}
+
+function tryToDeleteNonexistingBookAndExpectError(id) {
+  tryToDeleteBookAndExpectError(id, 404);
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Specific event matchers.
 //
@@ -684,6 +692,14 @@ function tryToDeleteLoanAndExpectError(userId, bookId, expectedCode) {
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
+function tryToDeleteDeletedLoanAndExpectError(userId, bookId) {
+  tryToDeleteLoanAndExpectError(userId, bookId, 404);
+}
+
+function tryToDeleteNonexistingLoanAndExpectError(userId, bookId) {
+  tryToDeleteLoanAndExpectError(userId, bookId, 404);
+}
+
 function matchAddLoan(userId) {
   return bp.EventSet("Add Loan " + userId, function (e) {
     var body = getJsonBody(e);
@@ -865,6 +881,14 @@ function tryToDeleteUserAndExpectError(id, expectedCode) {
   var url = "/users/" + id;
   var description = verifyRejectedDescription("User", id, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
+function tryToDeleteDeletedUserAndExpectError(id) {
+  tryToDeleteUserAndExpectError(id, 404);
+}
+
+function tryToDeleteNonexistingUserAndExpectError(id) {
+  tryToDeleteUserAndExpectError(id, 404);
 }
 
 function matchAddUser(id) {
@@ -1057,6 +1081,14 @@ function tryToDeleteHoldAndExpectError(id, expectedCode) {
   var url = "/holds/" + id;
   var description = verifyRejectedDescription("Hold", id, "delete", "the operation is not allowed in this state");
   svc.delete(url, { expectedResponseCodes: [expectedCode], parameters: { description: description } });
+}
+
+function tryToDeleteDeletedHoldAndExpectError(id) {
+  tryToDeleteHoldAndExpectError(id, 404);
+}
+
+function tryToDeleteNonexistingHoldAndExpectError(id) {
+  tryToDeleteHoldAndExpectError(id, 404);
 }
 
 function matchAddHold(id) {

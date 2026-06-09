@@ -103,7 +103,7 @@ bthread("verifyUserDeletion", function () {
 
     block(matchAddUser(id), function () {
       verifyUserAbsentFromAllLists(id);
-      tryToDeleteUserAndExpectError(id, 404);
+      tryToDeleteDeletedUserAndExpectError(id);
     });
   });
 });
@@ -124,7 +124,7 @@ bthread("verifyBookDeletion", function () {
 
     block(matchAddBook(id), function () {
       verifyBookAbsentFromAllLists(id);
-      tryToDeleteBookAndExpectError(id, 404);
+      tryToDeleteDeletedBookAndExpectError(id);
     });
   });
 });
@@ -146,7 +146,7 @@ bthread("verifyLoanDeletion", function () {
     block(matchAddLoan(loanData.userId), function () {
       verifyLoanAbsentFromAllLists(null, loanData.userId);
       if (loanData.bookId !== undefined && loanData.bookId !== null)
-        tryToDeleteLoanAndExpectError(loanData.userId, loanData.bookId, 404);
+        tryToDeleteDeletedLoanAndExpectError(loanData.userId, loanData.bookId);
     });
   });
 });
@@ -167,7 +167,7 @@ bthread("verifyHoldDeletion", function () {
 
     block(matchAddHold(id), function () {
       verifyHoldAbsentFromAllLists(id);
-      tryToDeleteHoldAndExpectError(id, 404);
+      tryToDeleteDeletedHoldAndExpectError(id);
     });
   });
 });
@@ -367,7 +367,7 @@ ctx.bthread("verifyHoldReadDeleteAndUpdateApiSurface", "Hold.All", function (hol
 
 
 bthread("tryToDeletgeNonexistingUser", function () {
-  // TODO
+  tryToDeleteNonexistingUserAndExpectError(generateMissingId(generateUserId()));
 });
 
 // Suggestion for interface:
