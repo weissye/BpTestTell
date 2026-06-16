@@ -162,6 +162,8 @@ bthread("createRandomBooks", function () {
   }
 });
 
+
+// TODO: Remove this bthred?
 bthread("verifyHoldOnlyBlocksUserAndBookDeletion", function () {
   let userId = generateUserId();
   let bookId = generateBookId();
