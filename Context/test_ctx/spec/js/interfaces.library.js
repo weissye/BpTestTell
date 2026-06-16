@@ -289,6 +289,7 @@ function verifyMissingEntityReadIsRejected(entityName, id, url) {
 // that extractEventData() can later expose to other layers.
 //////////////////////////////////////////////////////////////////////////
 
+/// TODO: Avoid using stub events for fuzzing. Instead, generate fuzzed requests directly in the action functions and verify the expected response codes. This will simplify the code and make it more maintainable.
 function createBook(id, title) {
   id = asInteger(id);
   title = asString(title);
