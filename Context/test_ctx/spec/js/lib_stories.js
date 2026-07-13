@@ -163,22 +163,6 @@ bthread("createRandomBooks", function () {
 });
 
 
-// TODO: Remove this bthread?
-bthread("verifyHoldOnlyBlocksUserAndBookDeletion", function () {
-  let userId = generateUserId();
-  let bookId = generateBookId();
-  let holdId = generateHoldId();
-
-  createUser(userId, generateUserName());
-  createBook(bookId, generateBookTitle());
-  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, userId), function () {
-    createHold(bookId, holdId, userId);
-    tryToDeleteUserAndExpectError(userId);
-    tryToDeleteBookAndExpectError(bookId);
-  });
-  deleteHold(holdId, userId, bookId);
-});
-
 //////////////////////////////////////////////////////////////////////////
 // Bthreads that create more complex objects, such as loans and holds,
 // based on the existence of simpler objects like users and books.
@@ -268,6 +252,14 @@ ctx.bthread("verifyCannotDeleteHeldBook", "Hold.All", function (hold) {
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
     tryToDeleteBookAndExpectError(hold.bookid);
   });
+});
+
+ctx.bthread("verifyHoldOnlyBlocksUserAndBookDeletion", "Hold.All", function (hold) {
+  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
+    tryToDeleteUserAndExpectError(hold.userid);
+    tryToDeleteBookAndExpectError(hold.bookid);
+  });
+  deleteHold(hold.holdid, hold.userid, hold.bookid);
 });
 
 ctx.bthread("verifyCannotCreateLoanWithBadParameters", "UserBook.All", function (userbook) {
