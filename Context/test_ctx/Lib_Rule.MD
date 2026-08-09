@@ -182,6 +182,28 @@ This prevents negative verification calls from corrupting the expected model.
 - Hold numbers are unique identifiers for hold deletion.
 - Loan numbers are used for trace descriptions, while the loan identity in the SUT is the `userId/bookId` pair.
 
+## Read Behavior
+
+Rules:
+
+- `GET /books/{id}`: a malformed, zero, or negative `id` is rejected with `400`. A well-formed
+  `id` for a book that does not exist returns `404`. A well-formed `id` for a book that exists
+  returns `200` with the book body.
+- `GET /loans` filters by the `userId`/`bookId` query parameters when present; a malformed, zero,
+  or negative value for either is rejected with `400`.
+- `GET /books`, `GET /users`, and `GET /holds` filter by the free-text `q` query parameter, which
+  is never validated: any value, including malformed or empty strings, returns `200`.
+
+Story behavior:
+
+- `verifyBookDetailExists` and `verifyLoanExists` fuzz their reads the same way create/delete
+  actions fuzz their requests (see the Fuzzing Interface Layer Contract in `lib_stories.js`),
+  because the SUT defines real rejection semantics for those parameters.
+- `verifyBookExists`, `verifyUserExists`, and `verifyHoldExists` read the SUT list directly
+  without a fuzzing loop, because there is no invalid `q` value for the SUT to reject.
+- After a successful book deletion, `GET /books/{id}` for the deleted id is expected to return
+  `404`.
+
 ## Parameter and Type Rules
 
 To support flexible integrations, SUT endpoints allow several valid options for entity IDs in request bodies:

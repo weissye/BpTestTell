@@ -263,22 +263,20 @@ function tryToUpdateAndExpectError(entityName, id, url, body, expectedCode) {
   svc.put(url, { body: JSON.stringify(body || {}), expectedResponseCodes: [expectedCode], parameters: { description: description } });
 }
 
-function verifyMalformedDeleteIsRejected(entityName, id, url) {
-  var description = verifyRejectedDescription(entityName, id, "delete", "the path parameters are malformed");
-  svc.delete(url, { expectedResponseCodes: [400], parameters: { description: description } });
-}
-
-function verifyMalformedReadIsRejected(entityName, id, url) {
-  var description = verifyRejectedDescription(entityName, id, "read", "the path parameters are malformed");
-  svc.get(url, { expectedResponseCodes: [400], parameters: { description: description } });
-}
+// Malformed-delete and malformed-read rejection cases are covered by the dynamic valid/invalid
+// loops inside deleteBook/deleteUser/deleteLoan/deleteHold and verifyBookDetailExists, so this
+// file has no separate verifyMalformedDeleteIsRejected/verifyMalformedReadIsRejected helpers.
 
 function verifyMissingEntityReadIsRejected(entityName, id, url) {
   var description = verifyRejectedDescription(entityName, id, "read", "the entity does not exist");
   svc.get(url, { expectedResponseCodes: [404], parameters: { description: description } });
 }
 
-// verifyListQueryFuzzIsAccepted and verifyLoanQueryFuzzIsRejected were removed in favor of dynamic fuzzing
+// The /books, /users, and /holds search endpoints accept any `q` value and always answer 200 (no
+// format validation), so verifyBookExists/verifyUserExists/verifyHoldExists below have no
+// rejectable invalid variant to fuzz - they read the SUT list directly. /loans search does
+// validate userId/bookId, so verifyLoanExists uses the same dynamic valid/invalid loop as the
+// create/delete actions (verifyListQueryFuzzIsAccepted/verifyLoanQueryFuzzIsRejected below).
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -401,19 +399,49 @@ function deleteBook(id) {
   }
 }
 
+// The book detail endpoint validates its id path parameter (malformed/zero/negative id -> 400)
+// before checking existence (valid-format-but-missing id -> 404), so it gets the same
+// dynamic valid/invalid fuzzing loop as the create/delete actions. See the Fuzzing
+// Interface Layer Contract at the bottom of lib_stories.js.
 function verifyBookDetailExists(id) {
   id = asInteger(id);
-  var description = verifyExistsDescription("Book", id, "book detail");
-  var response = svc.get("/books/" + id, { parameters: { description: description, id: id }, expectedResponseCodes: [200] });
-  if (response === undefined || response === null) return;
-  if (response.lib === "REST" || response.method !== undefined) return;
-  if (response.data && (response.data.lib === "REST" || response.data.method !== undefined)) return;
-  var bookData = (typeof response === "string") ? JSON.parse(response) : response;
-  if (bookData && typeof bookData.body === "string") bookData = JSON.parse(bookData.body);
-  if (!bookData || asInteger(bookData.id) !== id) pvg.fail("Book " + id + " detail response did not contain the requested id");
+
+  var validEvents = [
+    bp.Event("Req: readBookDetail (valid-standard): " + id, { action: "readBookDetail", type: "valid", url: "/books/" + id }),
+    bp.Event("Req: readBookDetail (valid-padded-id): " + id, { action: "readBookDetail", type: "valid", url: "/books/00" + id })
+  ];
+
+  var invalidCases = [
+    { label: "bad-id", url: "/books/bad-id" },
+    { label: "zero", url: "/books/0" },
+    { label: "negative", url: "/books/-1" }
+  ];
+
+  var invalidEvents = invalidCases.map(function (c) {
+    return bp.Event("Req: readBookDetail (invalid - " + c.label + "): " + id, { action: "readBookDetail", type: "invalid", url: c.url });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
+    var isValid = validEvents.some(function (ev) { return ev.name === selectedEvent.name; });
+    if (isValid) {
+      var description = verifyExistsDescription("Book", id, "book detail");
+      var response = svc.get(selectedEvent.data.url, { parameters: { description: description, id: id }, expectedResponseCodes: [200] });
+      if (response === undefined || response === null) return;
+      if (response.lib === "REST" || response.method !== undefined) return;
+      if (response.data && (response.data.lib === "REST" || response.data.method !== undefined)) return;
+      var bookData = (typeof response === "string") ? JSON.parse(response) : response;
+      if (bookData && typeof bookData.body === "string") bookData = JSON.parse(bookData.body);
+      if (!bookData || asInteger(bookData.id) !== id) pvg.fail("Book " + id + " detail response did not contain the requested id");
+      return;
+    } else {
+      svc.get(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
+    }
+  }
 }
 
-// verifyBookReadFuzz and verifyBookDeleteFuzz were removed in favor of dynamic fuzzing in createBook/deleteBook
+// verifyBookReadFuzz and verifyBookDeleteFuzz (static per-field fuzz cases) were replaced by
+// the dynamic valid/invalid loop inside createBook/deleteBook/verifyBookDetailExists above.
 
 function tryToUpdateBookAndExpectError(id, body, expectedCode) {
   id = asInteger(id);
@@ -567,7 +595,8 @@ function deleteLoan(userId, bookId, loanNumber) {
   }
 }
 
-// verifyLoanReadFuzz and verifyLoanDeleteFuzz were removed in favor of dynamic fuzzing in createLoan/deleteLoan
+// verifyLoanReadFuzz and verifyLoanDeleteFuzz (static per-field fuzz cases) were replaced by the
+// dynamic valid/invalid loop inside createLoan/deleteLoan/verifyLoanExists above.
 
 function tryToUpdateLoanAndExpectError(userId, bookId, body, expectedCode) {
   userId = asInteger(userId);
@@ -662,13 +691,41 @@ function tryToCreateLoanWithBadParametersAndExpectError(userId, expectedCode) {
   }
 }
 
+// The loans search endpoint validates userId/bookId (malformed/zero/negative -> 400) before
+// filtering, so it gets the same dynamic valid/invalid fuzzing loop as the create/delete actions.
 function verifyLoanExists(bookId, userId) {
-  // Verification is executed against the SUT dataset by reading the loans list and searching for this composite id.
   bookId = asInteger(bookId);
   userId = asInteger(userId);
-  verifySutListContains("loans", "/loans", { userId: asString(userId), bookId: asString(bookId), description: verifyExistsDescription("Loan", userId + "/" + bookId, "loans") }, function (item) {
-    return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId;
-  }, "Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
+
+  var validEvent = bp.Event("Req: readLoans (valid): " + userId + "/" + bookId, { action: "readLoans", type: "valid", parameters: { userId: asString(userId), bookId: asString(bookId) } });
+
+  var invalidCases = [
+    { label: "bad userId", parameters: { userId: "bad-user-id", bookId: asString(bookId) } },
+    { label: "bad bookId", parameters: { userId: asString(userId), bookId: "bad-book-id" } },
+    { label: "zero userId", parameters: { userId: "0", bookId: asString(bookId) } },
+    { label: "zero bookId", parameters: { userId: asString(userId), bookId: "0" } },
+    { label: "negative userId", parameters: { userId: "-1", bookId: asString(bookId) } },
+    { label: "negative bookId", parameters: { userId: asString(userId), bookId: "-1" } }
+  ];
+
+  var invalidEvents = invalidCases.map(function (c) {
+    var eventName = "Req: readLoans (invalid - " + c.label + "): " + userId + "/" + bookId;
+    var parameters = { userId: c.parameters.userId, bookId: c.parameters.bookId, description: eventName };
+    return bp.Event(eventName, { action: "readLoans", type: "invalid", parameters: parameters });
+  });
+
+  while (true) {
+    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
+    if (selectedEvent.name === validEvent.name) {
+      // Verification is executed against the SUT dataset by reading the loans list and searching for this composite id.
+      verifySutListContains("loans", "/loans", { userId: asString(userId), bookId: asString(bookId), description: verifyExistsDescription("Loan", userId + "/" + bookId, "loans") }, function (item) {
+        return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId;
+      }, "Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
+      return;
+    } else {
+      svc.get("/loans", { parameters: selectedEvent.data.parameters, expectedResponseCodes: [400] });
+    }
+  }
 }
 
 function verifyLoanAbsentFromAllLists(bookId, userId) {
@@ -846,7 +903,10 @@ function deleteUser(id) {
   }
 }
 
-// verifyUserReadFuzz and verifyUserDeleteFuzz were removed in favor of dynamic fuzzing in createUser/deleteUser
+// verifyUserDeleteFuzz (static per-field fuzz cases) was replaced by the dynamic valid/invalid
+// loop inside createUser/deleteUser above. verifyUserReadFuzz was removed and not replaced: the
+// /users search endpoint accepts any `q` value and always answers 200, so there is no rejectable
+// invalid variant to fuzz for user reads (see the note above verifyMissingEntityReadIsRejected).
 
 function tryToUpdateUserAndExpectError(id, body, expectedCode) {
   id = asInteger(id);
@@ -1050,7 +1110,10 @@ function deleteHold(id, expectedCode, userId, bookId) {
   }
 }
 
-// verifyHoldReadFuzz and verifyHoldDeleteFuzz were removed in favor of dynamic fuzzing in createHold/deleteHold
+// verifyHoldDeleteFuzz (static per-field fuzz cases) was replaced by the dynamic valid/invalid
+// loop inside createHold/deleteHold above. verifyHoldReadFuzz was removed and not replaced: the
+// /holds search endpoint accepts any `q` value and always answers 200, so there is no rejectable
+// invalid variant to fuzz for hold reads (see the note above verifyMissingEntityReadIsRejected).
 
 function tryToUpdateHoldAndExpectError(id, userId, bookId, body, expectedCode) {
   id = asInteger(id);
