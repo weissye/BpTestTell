@@ -89,6 +89,7 @@ ctx.bthread("verifyUserDeletion", function () {
 ctx.bthread("verifyBookExistsAfterCreation", "Book.All", function (book) {
   block(matchDeleteBook(book.id), function () {
     verifyBookExists(book.id);
+    verifyBookDetailExists(book.id);
   });
 });
 
@@ -98,6 +99,7 @@ bthread("verifyBookDeletion", function () {
 
     block(matchAddBook(id), function () {
       verifyBookAbsentFromAllLists(id);
+      verifyMissingEntityReadIsRejected("Book", id, "/books/" + id);
       tryToDeleteDeletedBookAndExpectError(id);
     });
   });
@@ -138,7 +140,7 @@ bthread("verifyHoldDeletion", function () {
   });
 });
 
-
+  
 ctx.bthread("verifyCannotCreateLoanForBusyUserOrBook", "UserBook.CannotCreateLoan", function (userbook) {
   tryToCreateLoanAndExpectError(userbook.userid, userbook.bookid, generateLoanId());
 });
@@ -163,22 +165,6 @@ bthread("createRandomBooks", function () {
 });
 
 
-// TODO: Remove this bthread?
-bthread("verifyHoldOnlyBlocksUserAndBookDeletion", function () {
-  let userId = generateUserId();
-  let bookId = generateBookId();
-  let holdId = generateHoldId();
-
-  createUser(userId, generateUserName());
-  createBook(bookId, generateBookTitle());
-  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(holdId, bookId, userId), function () {
-    createHold(bookId, holdId, userId);
-    tryToDeleteUserAndExpectError(userId);
-    tryToDeleteBookAndExpectError(bookId);
-  });
-  deleteHold(holdId, userId, bookId);
-});
-
 //////////////////////////////////////////////////////////////////////////
 // Bthreads that create more complex objects, such as loans and holds,
 // based on the existence of simpler objects like users and books.
@@ -190,23 +176,17 @@ ctx.bthread("createLoan", "UserBook.CanCreateLoan", function (userbook) {
   createLoan(userbook.userid, userbook.bookid, generateLoanId());
 });
 
-
-ctx.bthread("verifyCannotCreateLoanWithSwappedUserAndBook", "UserBook.CannotCreateLoan", function (userbook) {
+ctx.bthread("verifyCannotCreateLoan", "UserBook.CannotCreateLoan", function (userbook) {
   tryToCreateLoanAndExpectError(userbook.bookid, userbook.userid, generateLoanId());
 });
 
-
-
 ctx.bthread("createHold", "UserBook.CanCreateHold", function (userbook) {
+  // Gera: should this be in an infinite loop so that we can create multiple holds for the same user and book? Or is it enough to create one hold per user-book pair?
   createHold(userbook.bookid, generateHoldId(), userbook.userid);
 });
 
-ctx.bthread("verifyCanCreateMultipleHoldsForSameUserBook", "UserBook.CanCreateHold", function (userbook) {
-  createHold(userbook.bookid, generateHoldId(), userbook.userid);
-});
-
-ctx.bthread("verifyCanCreateHoldForLoanedBook", "UserBook.BookHasLoan", function (userbook) {
-  createHold(userbook.bookid, generateHoldId(), userbook.userid);
+ctx.bthread("verifyCannotCreateHold", "UserBook.CannotCreateHold", function (userbook) {
+  tryToCreateHoldWithSameIdAndExpectError(userbook.bookid, generateHoldId(), userbook.userid);
 });
 
 
@@ -268,6 +248,14 @@ ctx.bthread("verifyCannotDeleteHeldBook", "Hold.All", function (hold) {
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
     tryToDeleteBookAndExpectError(hold.bookid);
   });
+});
+
+ctx.bthread("verifyHoldOnlyBlocksUserAndBookDeletion", "Hold.All", function (hold) {
+  block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
+    tryToDeleteUserAndExpectError(hold.userid);
+    tryToDeleteBookAndExpectError(hold.bookid);
+  });
+  deleteHold(hold.holdid, hold.userid, hold.bookid);
 });
 
 ctx.bthread("verifyCannotCreateLoanWithBadParameters", "UserBook.All", function (userbook) {
@@ -338,7 +326,9 @@ bthread("tryToDeleteNonexistingUser", function () {
 // The Fuzzing Interface Layer Contract
 // =========================================================================
 // Whenever a story requests an action (create, delete, or retrieve an object),
-// the interface layer executes a pre-flight fuzzing and verification sequence:
+// the interface layer executes a pre-flight fuzzing and verification sequence
+// IF the SUT actually defines rejection semantics for that action. Some reads
+// (see point 4) have no invalid variant to fuzz and skip straight to the request.
 //
 // 1. Event Generation & Fuzzing:
 //    The interface defines and requests a set of fuzzed request events:
@@ -362,4 +352,17 @@ bthread("tryToDeleteNonexistingUser", function () {
 //    - The actual successful SUT REST completion event (e.g. POST/DELETE with 200/201).
 //    - Any valid client-side fuzzing request event (where `type === "valid"` and the
 //      target entity IDs match), ensuring stories stay synchronized with fuzzed paths.
+//
+// 4. Retrieve actions and the fuzzing loop:
+//    A read only gets the fuzzing loop (points 1-2) when the SUT itself validates
+//    the read's parameters and can reject it with 400:
+//    - Book detail reads (GET /books/{id}) validate the id path segment, so
+//      verifyBookDetailExists fuzzes it exactly like a delete action.
+//    - Loan list reads (GET /loans) validate userId/bookId query parameters, so
+//      verifyLoanExists fuzzes them the same way.
+//    - Book/user/hold list reads (GET /books|/users|/holds) accept any `q` value
+//      and always answer 200 - there is no invalid variant, so verifyBookExists,
+//      verifyUserExists, and verifyHoldExists read the SUT list directly instead
+//      of running the fuzzing loop. Point 3's synchronization rule does not apply
+//      to these EventSets either, since nothing blocks or waits on a plain read.
 //
