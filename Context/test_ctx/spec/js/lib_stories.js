@@ -181,7 +181,6 @@ ctx.bthread("verifyCannotCreateLoan", "UserBook.CannotCreateLoan", function (use
 });
 
 ctx.bthread("createHold", "UserBook.CanCreateHold", function (userbook) {
-  // Gera: should this be in an infinite loop so that we can create multiple holds for the same user and book? Or is it enough to create one hold per user-book pair?
   createHold(userbook.bookid, generateHoldId(), userbook.userid);
 });
 
