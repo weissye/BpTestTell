@@ -15,6 +15,8 @@
 // URLs, bodies, or transport parameters itself.
 //////////////////////////////////////////////////////////////////////////
 
+// TODO: Change the SUT and the open=api file so that the id's are generated not required as inputs.
+
 var host = (typeof host !== 'undefined') ? host : 'localhost';
 var port = (typeof port !== 'undefined') ? port : 23242;
 var protocol = (typeof protocol !== 'undefined') ? protocol : 'http';
