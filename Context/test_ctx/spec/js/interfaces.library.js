@@ -295,6 +295,7 @@ function createBook(id, title) {
   title = asString(title);
 
   var validEvents = [
+    // TODO: Don't us such events. See tryToCreateBookWithBadParametersAndExpectError (with the parallel vesion).
     bp.Event("Req: createBook (valid-standard): " + id, { action: "createBook", type: "valid", body: { id: id, title: title } }),
     bp.Event("Req: createBook (valid-spaced-title): " + id, { action: "createBook", type: "valid", body: { id: id, title: " " + title } }),
     bp.Event("Req: createBook (valid-string-id): " + id, { action: "createBook", type: "valid", body: { id: String(id), title: title } }),
@@ -368,6 +369,7 @@ function tryToCreateBookWithBadParametersAndExpectError(id, expectedCode) {
     { name: "title is empty", body: { "id": id, "title": "" } },
     { name: "unexpected field", body: { "id": id, "title": "Book title " + id, "unexpected": "value" } }
   ];
+  // TODO: Requests these in parallel such that the evennt selection chosses only one. Same for the other fuzzing functions.
   for (let i = 0; i < cases.length; i++) {
     svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
   }
