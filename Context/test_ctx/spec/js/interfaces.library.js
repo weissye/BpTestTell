@@ -378,6 +378,7 @@ function tryToCreateBookWithBadParametersAndExpectError(id, expectedCode) {
 function deleteBook(id) {
   id = asInteger(id);
 
+  // TODO: Avoid such events as explained in createBook. Instead, generate fuzzed requests directly in the action function and verify the expected response codes.
   var validEvent = bp.Event("Req: deleteBook (valid): " + id, { action: "deleteBook", type: "valid", url: "/books/" + id });
 
   var invalidCases = [
