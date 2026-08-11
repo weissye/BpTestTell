@@ -24,6 +24,32 @@ var path = '';
 
 const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "provengo-client", { headers: { "Content-Type": "application/json", "api_key": "special-key" } });
 
+// Sends one of several request variants (each with its own body/expectedResponseCodes/parameters)
+// by offering them all to bp.sync at once, so the event selection mechanism (not this code) picks
+// which single variant is actually sent - letting fuzzing/exploration choose the request shape
+// instead of a scripted for-loop that sends every case every time.
+function requestOneOf(method, url, variants) {
+  if (!variants || variants.length === 0) pvg.fail("requestOneOf requires at least one variant");
+  var events = variants.map(function (v, i) {
+    var eventName = v.name || v.description || (method.toUpperCase() + " " + (v.url || url) + " (variant " + i + ")");
+    return bp.Event(eventName, { variant: v });
+  });
+  var selectedEvent = bp.sync({ request: events });
+  var chosen = selectedEvent.data.variant;
+  var requestUrl = chosen.url || url;
+  var requestOptions = {
+    expectedResponseCodes: chosen.expectedResponseCodes,
+    parameters: chosen.parameters || { description: chosen.description || selectedEvent.name }
+  };
+  if (chosen.body !== undefined) requestOptions.body = JSON.stringify(chosen.body);
+  return svc[method](requestUrl, requestOptions);
+}
+
+svc.postOneOf = function (url, variants) { return requestOneOf("post", url, variants); };
+svc.getOneOf = function (url, variants) { return requestOneOf("get", url, variants); };
+svc.deleteOneOf = function (url, variants) { return requestOneOf("delete", url, variants); };
+svc.putOneOf = function (url, variants) { return requestOneOf("put", url, variants); };
+
 const pvg = { fail: function (msg) { bp.log.error(msg); throw new Error(msg); } };
 
 function asInteger(value) { return Number.parseInt(value, 10); }
@@ -369,10 +395,10 @@ function tryToCreateBookWithBadParametersAndExpectError(id, expectedCode) {
     { name: "title is empty", body: { "id": id, "title": "" } },
     { name: "unexpected field", body: { "id": id, "title": "Book title " + id, "unexpected": "value" } }
   ];
-  // TODO: Requests these in parallel such that the evennt selection chosses only one. Same for the other fuzzing functions.
-  for (let i = 0; i < cases.length; i++) {
-    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
-  }
+  var variants = cases.map(function (c) {
+    return { body: c.body, expectedResponseCodes: [expectedCode], description: reqDescription + " - " + c.name };
+  });
+  svc.postOneOf(url, variants);
 }
 
 function deleteBook(id) {
@@ -692,9 +718,10 @@ function tryToCreateLoanWithBadParametersAndExpectError(userId, expectedCode) {
     { name: "bookId is negative", body: { "userId": userId, "bookId": -userId } },
     { name: "unexpected field", body: { "userId": userId, "bookId": userId, "unexpected": "value" } }
   ];
-  for (let i = 0; i < cases.length; i++) {
-    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
-  }
+  var variants = cases.map(function (c) {
+    return { body: c.body, expectedResponseCodes: [expectedCode], description: reqDescription + " - " + c.name };
+  });
+  svc.postOneOf(url, variants);
 }
 
 // The loans search endpoint validates userId/bookId (malformed/zero/negative -> 400) before
@@ -876,9 +903,10 @@ function tryToCreateUserWithBadParametersAndExpectError(id, expectedCode) {
     { name: "name is empty", body: { "id": id, "name": "" } },
     { name: "unexpected field", body: { "id": id, "name": "User name " + id, "unexpected": "value" } }
   ];
-  for (let i = 0; i < cases.length; i++) {
-    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
-  }
+  var variants = cases.map(function (c) {
+    return { body: c.body, expectedResponseCodes: [expectedCode], description: reqDescription + " - " + c.name };
+  });
+  svc.postOneOf(url, variants);
 }
 
 function deleteUser(id) {
@@ -1072,9 +1100,10 @@ function tryToCreateHoldWithBadParametersAndExpectError(id, userId, expectedCode
     { name: "bookId is negative", body: { "id": id, "userId": userId, "bookId": -userId } },
     { name: "unexpected field", body: { "id": id, "userId": userId, "bookId": userId, "unexpected": "value" } }
   ];
-  for (let i = 0; i < cases.length; i++) {
-    svc.post(url, { body: JSON.stringify(cases[i].body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription + " - " + cases[i].name } });
-  }
+  var variants = cases.map(function (c) {
+    return { body: c.body, expectedResponseCodes: [expectedCode], description: reqDescription + " - " + c.name };
+  });
+  svc.postOneOf(url, variants);
 }
 
 function deleteHold(id, expectedCode, userId, bookId) {
