@@ -388,6 +388,7 @@ function deleteBook(id) {
   ];
 
   var invalidEvents = invalidCases.map(function(c) {
+    // TODO: Avoid such events as explained above.
     return bp.Event("Req: deleteBook (invalid - " + c.label + "): " + id, { action: "deleteBook", type: "invalid", url: c.url });
   });
 
