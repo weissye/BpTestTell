@@ -799,21 +799,6 @@ function matchAddLoan(userId) {
   });
 }
 
-function matchDeleteLoanOrBookOrUser(userId, bookId) {
-  return bp.EventSet("Deleted Loan/Book/User " + userId + "/" + bookId, function (e) {
-    if (e.name === "DELETE" && hasExpectedCode(e, 200)) {
-      var path = getRequestPath(e);
-      if (path === ("/loans/" + asInteger(userId) + "/" + asInteger(bookId))
-        || path === ("/books/" + asInteger(bookId))
-        || path === ("/users/" + asInteger(userId))) return true;
-    }
-    if (isValidRequestEvent(e, "deleteLoan") && e.data.url === ("/loans/" + asInteger(userId) + "/" + asInteger(bookId))) return true;
-    if (isValidRequestEvent(e, "deleteBook") && e.data.url === ("/books/" + asInteger(bookId))) return true;
-    if (isValidRequestEvent(e, "deleteUser") && e.data.url === ("/users/" + asInteger(userId))) return true;
-    return false;
-  });
-}
-
 function matchDeleteLoan(userId) {
   return bp.EventSet("Deleted Loans " + userId, function (e) {
     if (e.name === "DELETE" && getRequestPath(e).startsWith("/loans/" + asInteger(userId) + "/") && hasExpectedCode(e, 200)) return true;

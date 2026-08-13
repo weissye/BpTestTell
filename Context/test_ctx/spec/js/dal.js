@@ -205,6 +205,10 @@ ctx.registerQuery('Book.CanDelete', function (e) {
 	return e.type === 'book' && !hasLoanForBook(e.id) && !hasHoldForBook(e.id);
 });
 
+ctx.registerQuery('Book.CannotDelete', function (e) {
+	return e.type === 'book' && (hasLoanForBook(e.id) || hasHoldForBook(e.id));
+});
+
 ctx.registerQuery('User.All', function (e) {
 	return e.type === 'user';
 });
@@ -229,8 +233,8 @@ ctx.registerQuery('User.CanDelete', function (e) {
 	return e.type === 'user' && !hasLoanForUser(e.id) && !hasHoldForUser(e.id);
 });
 
-ctx.registerQuery('User.HasLoan', function (e) {
-	return e.type === 'user' && hasLoanForUser(e.id);
+ctx.registerQuery('User.CannotDelete', function (e) {
+	return e.type === 'user' && (hasLoanForUser(e.id) || hasHoldForUser(e.id));
 });
 
 ctx.registerQuery('UserBook.CanCreateHold', function (e) {
@@ -247,9 +251,5 @@ ctx.registerQuery('UserBook.CanCreateLoan', function (e) {
 
 ctx.registerQuery('UserBook.CannotCreateLoan', function (e) {
 	return e.type === 'user-book' && (hasLoanForUser(e.userid) || hasLoanForBook(e.bookid));
-});
-
-ctx.registerQuery('UserBook.BookHasLoan', function (e) {
-	return e.type === 'user-book' && hasLoanForBook(e.bookid);
 });
 

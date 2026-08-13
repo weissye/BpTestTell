@@ -22,7 +22,7 @@ Context queries:
 
 - `User.All`
 - `User.CanDelete`
-- `User.HasLoan`
+- `User.CannotDelete`
 
 ## Book
 
@@ -39,6 +39,7 @@ Context queries:
 
 - `Book.All`
 - `Book.CanDelete`
+- `Book.CannotDelete`
 
 ## UserBook
 
@@ -60,7 +61,6 @@ Context queries:
 - `UserBook.CannotCreateLoan`
 - `UserBook.CanCreateHold`
 - `UserBook.CannotCreateHold`
-- `UserBook.BookHasLoan`
 
 ## Loans
 
@@ -82,7 +82,6 @@ Context queries:
 - `Loan.All`
 - `UserBook.CanCreateLoan`
 - `UserBook.CannotCreateLoan`
-- `User.HasLoan`
 
 Story behavior:
 
@@ -125,7 +124,6 @@ Context queries:
 - `Hold.All`
 - `UserBook.CanCreateHold`
 - `UserBook.CannotCreateHold`
-- `UserBook.BookHasLoan`
 
 Story behavior:
 
