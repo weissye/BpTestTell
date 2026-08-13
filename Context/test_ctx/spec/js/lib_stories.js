@@ -247,6 +247,13 @@ ctx.bthread("verifyCannotDeleteLoanedBook", "UserBook.BookHasLoan", function (us
   });
 });
 
+
+// Gera: This how I think the above should look like.
+ctx.bthread("verifyCannotDeleteLoanedBook", "Book.CannotDeleteBook", function (userbook) {
+    tryToDeleteBookAndExpectError(book.id);
+});
+
+
 ctx.bthread("verifyCannotDeleteHeldBook", "Hold.All", function (hold) {
   block(matchAddLoanForHeldResourceOrDeleteHoldOrBookOrUser(hold.holdid, hold.bookid, hold.userid), function () {
     tryToDeleteBookAndExpectError(hold.bookid);
