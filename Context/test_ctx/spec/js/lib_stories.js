@@ -237,7 +237,11 @@ ctx.bthread("verifyCannotCreateBookWithBadParameters", "Book.All", function (boo
   });
 });
 
+// Gera: This is not consistent with the above because it is specific while above we use a generic query.
+// For example, "UserBook.CannotCreateHold" does not explain why while "UserBook.BookHasLoan" does explain why.
+// I think we should use the more generic query for all of them.
 ctx.bthread("verifyCannotDeleteLoanedBook", "UserBook.BookHasLoan", function (userbook) {
+  // Gera: This means that we must try this for every loan. I am not sure that this is wise.
   block(matchDeleteLoanOrBookOrUser(userbook.userid, userbook.bookid), function () {
     tryToDeleteBookAndExpectError(userbook.bookid);
   });
