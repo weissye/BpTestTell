@@ -28,7 +28,7 @@ const svc = new RESTSession(protocol + "://" + host + ":" + port + path, "proven
 // by offering them all to bp.sync at once, so the event selection mechanism (not this code) picks
 // which single variant is actually sent - letting fuzzing/exploration choose the request shape
 // instead of a scripted for-loop that sends every case every time.
-function requestOneOf(method, url, variants) {
+function requestOneOf(method, url, variants, onSelected) {
   if (!variants || variants.length === 0) pvg.fail("requestOneOf requires at least one variant");
   var events = variants.map(function (v, i) {
     var eventName = v.name || v.description || (method.toUpperCase() + " " + (v.url || url) + " (variant " + i + ")");
@@ -36,6 +36,7 @@ function requestOneOf(method, url, variants) {
   });
   var selectedEvent = bp.sync({ request: events });
   var chosen = selectedEvent.data.variant;
+  if (onSelected) onSelected(chosen);
   var requestUrl = chosen.url || url;
   var requestOptions = {
     expectedResponseCodes: chosen.expectedResponseCodes,
@@ -45,10 +46,10 @@ function requestOneOf(method, url, variants) {
   return svc[method](requestUrl, requestOptions);
 }
 
-svc.postOneOf = function (url, variants) { return requestOneOf("post", url, variants); };
-svc.getOneOf = function (url, variants) { return requestOneOf("get", url, variants); };
-svc.deleteOneOf = function (url, variants) { return requestOneOf("delete", url, variants); };
-svc.putOneOf = function (url, variants) { return requestOneOf("put", url, variants); };
+svc.postOneOf = function (url, variants, onSelected) { return requestOneOf("post", url, variants, onSelected); };
+svc.getOneOf = function (url, variants, onSelected) { return requestOneOf("get", url, variants, onSelected); };
+svc.deleteOneOf = function (url, variants, onSelected) { return requestOneOf("delete", url, variants, onSelected); };
+svc.putOneOf = function (url, variants, onSelected) { return requestOneOf("put", url, variants, onSelected); };
 
 const pvg = { fail: function (msg) { bp.log.error(msg); throw new Error(msg); } };
 
@@ -315,17 +316,16 @@ function verifyMissingEntityReadIsRejected(entityName, id, url) {
 // that extractEventData() can later expose to other layers.
 //////////////////////////////////////////////////////////////////////////
 
-/// TODO: Avoid using stub events for fuzzing. Instead, generate fuzzed requests directly in the action functions and verify the expected response codes. This will simplify the code and make it more maintainable.
 function createBook(id, title) {
   id = asInteger(id);
   title = asString(title);
 
-  var validEvents = [
-    // TODO: Don't us such events. See tryToCreateBookWithBadParametersAndExpectError (with the parallel vesion).
-    bp.Event("Req: createBook (valid-standard): " + id, { action: "createBook", type: "valid", body: { id: id, title: title } }),
-    bp.Event("Req: createBook (valid-spaced-title): " + id, { action: "createBook", type: "valid", body: { id: id, title: " " + title } }),
-    bp.Event("Req: createBook (valid-string-id): " + id, { action: "createBook", type: "valid", body: { id: String(id), title: title } }),
-    bp.Event("Req: createBook (valid-swapped-order): " + id, { action: "createBook", type: "valid", body: { title: title, id: id } })
+  var reqDescription = createDescription("Book", id);
+  var variants = [
+    { name: "createBook (valid-standard): " + id, body: { id: id, title: title }, expectedResponseCodes: [201], parameters: { description: reqDescription } },
+    { name: "createBook (valid-spaced-title): " + id, body: { id: id, title: " " + title }, expectedResponseCodes: [201], parameters: { description: reqDescription } },
+    { name: "createBook (valid-string-id): " + id, body: { id: String(id), title: title }, expectedResponseCodes: [201], parameters: { description: reqDescription } },
+    { name: "createBook (valid-swapped-order): " + id, body: { title: title, id: id }, expectedResponseCodes: [201], parameters: { description: reqDescription } }
   ];
 
   var invalidCases = [
@@ -343,22 +343,17 @@ function createBook(id, title) {
     { label: "id is object", body: { "id": { "val": id }, "title": title } }
   ];
 
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: createBook (invalid - " + c.label + "): " + id, { action: "createBook", type: "invalid", body: c.body });
-  });
+  variants = variants.concat(invalidCases.map(function(c) {
+    var description = "createBook (invalid - " + c.label + "): " + id;
+    return { name: description, body: c.body, expectedResponseCodes: [400], parameters: { description: description } };
+  }));
 
   while (true) {
-    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
-    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
-    if (isValid) {
-      var url = "/books";
-      var reqDescription = createDescription("Book", id);
-      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
-      return response;
-    } else {
-      var url = "/books";
-      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var selectedIsValid = false;
+    var response = svc.postOneOf("/books", variants, function(chosen) {
+      selectedIsValid = chosen.expectedResponseCodes.indexOf(201) !== -1;
+    });
+    if (selectedIsValid) return response;
   }
 }
 
@@ -403,31 +398,16 @@ function tryToCreateBookWithBadParametersAndExpectError(id, expectedCode) {
 
 function deleteBook(id) {
   id = asInteger(id);
-
-  // TODO: Avoid such events as explained in createBook. Instead, generate fuzzed requests directly in the action function and verify the expected response codes.
-  var validEvent = bp.Event("Req: deleteBook (valid): " + id, { action: "deleteBook", type: "valid", url: "/books/" + id });
-
-  var invalidCases = [
-    { label: "bad-id", url: "/books/bad-id" },
-    { label: "zero", url: "/books/0" },
-    { label: "negative", url: "/books/-1" }
+  var variants = [
+    { name: "deleteBook (valid): " + id, url: "/books/" + id, expectedResponseCodes: [200], parameters: { description: deleteDescription("Book", id), id: id }, valid: true },
+    { name: "deleteBook (invalid - bad-id): " + id, url: "/books/bad-id", expectedResponseCodes: [400] },
+    { name: "deleteBook (invalid - zero): " + id, url: "/books/0", expectedResponseCodes: [400] },
+    { name: "deleteBook (invalid - negative): " + id, url: "/books/-1", expectedResponseCodes: [400] }
   ];
-
-  var invalidEvents = invalidCases.map(function(c) {
-    // TODO: Avoid such events as explained above.
-    return bp.Event("Req: deleteBook (invalid - " + c.label + "): " + id, { action: "deleteBook", type: "invalid", url: c.url });
-  });
-
   while (true) {
-    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
-    if (selectedEvent.name === validEvent.name) {
-      var url = "/books/" + id;
-      var reqDescription = deleteDescription("Book", id);
-      var response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: [200] });
-      return response;
-    } else {
-      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.deleteOneOf("/books/" + id, variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
@@ -438,27 +418,18 @@ function deleteBook(id) {
 function verifyBookDetailExists(id) {
   id = asInteger(id);
 
-  var validEvents = [
-    bp.Event("Req: readBookDetail (valid-standard): " + id, { action: "readBookDetail", type: "valid", url: "/books/" + id }),
-    bp.Event("Req: readBookDetail (valid-padded-id): " + id, { action: "readBookDetail", type: "valid", url: "/books/00" + id })
+  var description = verifyExistsDescription("Book", id, "book detail");
+  var variants = [
+    { name: "readBookDetail (valid-standard): " + id, url: "/books/" + id, expectedResponseCodes: [200], parameters: { description: description, id: id }, valid: true },
+    { name: "readBookDetail (valid-padded-id): " + id, url: "/books/00" + id, expectedResponseCodes: [200], parameters: { description: description, id: id }, valid: true },
+    { name: "readBookDetail (invalid - bad-id): " + id, url: "/books/bad-id", expectedResponseCodes: [400] },
+    { name: "readBookDetail (invalid - zero): " + id, url: "/books/0", expectedResponseCodes: [400] },
+    { name: "readBookDetail (invalid - negative): " + id, url: "/books/-1", expectedResponseCodes: [400] }
   ];
-
-  var invalidCases = [
-    { label: "bad-id", url: "/books/bad-id" },
-    { label: "zero", url: "/books/0" },
-    { label: "negative", url: "/books/-1" }
-  ];
-
-  var invalidEvents = invalidCases.map(function (c) {
-    return bp.Event("Req: readBookDetail (invalid - " + c.label + "): " + id, { action: "readBookDetail", type: "invalid", url: c.url });
-  });
-
   while (true) {
-    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
-    var isValid = validEvents.some(function (ev) { return ev.name === selectedEvent.name; });
-    if (isValid) {
-      var description = verifyExistsDescription("Book", id, "book detail");
-      var response = svc.get(selectedEvent.data.url, { parameters: { description: description, id: id }, expectedResponseCodes: [200] });
+    var valid = false;
+    var response = svc.getOneOf("/books/" + id, variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) {
       if (response === undefined || response === null) return;
       if (response.lib === "REST" || response.method !== undefined) return;
       if (response.data && (response.data.lib === "REST" || response.data.method !== undefined)) return;
@@ -466,8 +437,6 @@ function verifyBookDetailExists(id) {
       if (bookData && typeof bookData.body === "string") bookData = JSON.parse(bookData.body);
       if (!bookData || asInteger(bookData.id) !== id) pvg.fail("Book " + id + " detail response did not contain the requested id");
       return;
-    } else {
-      svc.get(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
     }
   }
 }
@@ -597,8 +566,6 @@ function deleteLoan(userId, bookId, loanNumber) {
   bookId = asInteger(bookId);
   loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
 
-  var validEvent = bp.Event("Req: deleteLoan (valid): " + userId + "/" + bookId, { action: "deleteLoan", type: "valid", url: "/loans/" + userId + "/" + bookId });
-
   var invalidCases = [
     { label: "bad-user-id", url: "/loans/bad-user-id/" + bookId },
     { label: "bad-book-id", url: "/loans/" + userId + "/bad-book-id" },
@@ -608,22 +575,18 @@ function deleteLoan(userId, bookId, loanNumber) {
     { label: "negative bookId", url: "/loans/" + userId + "/-1" }
   ];
 
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: deleteLoan (invalid - " + c.label + "): " + userId + "/" + bookId, { action: "deleteLoan", type: "invalid", url: c.url });
-  });
+  var reqDescription = deleteDescription("Loan", userId + "/" + bookId, loanNumber === null ? "" : "number " + loanNumber);
+  var parameters = { description: reqDescription, userId: userId, bookId: bookId };
+  if (loanNumber !== null) parameters.loanNumber = loanNumber;
+  var variants = [{ name: "deleteLoan (valid): " + userId + "/" + bookId, url: "/loans/" + userId + "/" + bookId, expectedResponseCodes: [200], parameters: parameters, valid: true }];
+  variants = variants.concat(invalidCases.map(function(c) {
+    return { name: "deleteLoan (invalid - " + c.label + "): " + userId + "/" + bookId, url: c.url, expectedResponseCodes: [400] };
+  }));
 
   while (true) {
-    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
-    if (selectedEvent.name === validEvent.name) {
-      var url = "/loans/" + userId + "/" + bookId;
-      var reqDescription = deleteDescription("Loan", userId + "/" + bookId, loanNumber === null ? "" : "number " + loanNumber);
-      let parameters = { description: reqDescription, userId: userId, bookId: bookId };
-      if (loanNumber !== null) parameters.loanNumber = loanNumber;
-      var response = svc.delete(url, { parameters: parameters, expectedResponseCodes: [200] });
-      return response;
-    } else {
-      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.deleteOneOf("/loans/" + userId + "/" + bookId, variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
@@ -646,11 +609,15 @@ function createLoan(userId, bookId, loanNumber, expectedCode, description) {
   }
   loanNumber = loanNumber === undefined || loanNumber === null ? null : asInteger(loanNumber);
 
-  var validEvents = [
-    bp.Event("Req: createLoan (valid-standard): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { userId: userId, bookId: bookId } }),
-    bp.Event("Req: createLoan (valid-string-userId): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { userId: String(userId), bookId: bookId } }),
-    bp.Event("Req: createLoan (valid-string-bookId): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { userId: userId, bookId: String(bookId) } }),
-    bp.Event("Req: createLoan (valid-swapped-order): " + userId + "/" + bookId, { action: "createLoan", type: "valid", body: { bookId: bookId, userId: userId } })
+  var reqDescription = description || (createDescription("Loan", userId + "/" + bookId) + (loanNumber === null ? "" : " number " + loanNumber));
+  expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
+  var parameters = { description: reqDescription };
+  if (loanNumber !== null) parameters.loanNumber = loanNumber;
+  var variants = [
+    { name: "createLoan (valid-standard): " + userId + "/" + bookId, body: { userId: userId, bookId: bookId }, expectedResponseCodes: [expectedCode], parameters: parameters, valid: true },
+    { name: "createLoan (valid-string-userId): " + userId + "/" + bookId, body: { userId: String(userId), bookId: bookId }, expectedResponseCodes: [expectedCode], parameters: parameters, valid: true },
+    { name: "createLoan (valid-string-bookId): " + userId + "/" + bookId, body: { userId: userId, bookId: String(bookId) }, expectedResponseCodes: [expectedCode], parameters: parameters, valid: true },
+    { name: "createLoan (valid-swapped-order): " + userId + "/" + bookId, body: { bookId: bookId, userId: userId }, expectedResponseCodes: [expectedCode], parameters: parameters, valid: true }
   ];
 
   var invalidCases = [
@@ -670,25 +637,14 @@ function createLoan(userId, bookId, loanNumber, expectedCode, description) {
     { label: "bookId is object", body: { "userId": userId, "bookId": { "val": bookId } } }
   ];
 
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: createLoan (invalid - " + c.label + "): " + userId + "/" + bookId, { action: "createLoan", type: "invalid", body: c.body });
-  });
+  variants = variants.concat(invalidCases.map(function(c) {
+    return { name: "createLoan (invalid - " + c.label + "): " + userId + "/" + bookId, body: c.body, expectedResponseCodes: [400] };
+  }));
 
   while (true) {
-    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
-    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
-    if (isValid) {
-      var url = "/loans";
-      var reqDescription = description || (createDescription("Loan", userId + "/" + bookId) + (loanNumber === null ? "" : " number " + loanNumber));
-      expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
-      let parameters = { description: reqDescription };
-      if (loanNumber !== null) parameters.loanNumber = loanNumber;
-      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [expectedCode], parameters: parameters });
-      return response;
-    } else {
-      var url = "/loans";
-      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.postOneOf("/loans", variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
@@ -730,8 +686,6 @@ function verifyLoanExists(bookId, userId) {
   bookId = asInteger(bookId);
   userId = asInteger(userId);
 
-  var validEvent = bp.Event("Req: readLoans (valid): " + userId + "/" + bookId, { action: "readLoans", type: "valid", parameters: { userId: asString(userId), bookId: asString(bookId) } });
-
   var invalidCases = [
     { label: "bad userId", parameters: { userId: "bad-user-id", bookId: asString(bookId) } },
     { label: "bad bookId", parameters: { userId: asString(userId), bookId: "bad-book-id" } },
@@ -741,22 +695,27 @@ function verifyLoanExists(bookId, userId) {
     { label: "negative bookId", parameters: { userId: asString(userId), bookId: "-1" } }
   ];
 
-  var invalidEvents = invalidCases.map(function (c) {
+  var validParameters = { userId: asString(userId), bookId: asString(bookId), description: verifyExistsDescription("Loan", userId + "/" + bookId, "loans") };
+  var variants = [{ name: "readLoans (valid): " + userId + "/" + bookId, parameters: validParameters, expectedResponseCodes: [200], valid: true }];
+  variants = variants.concat(invalidCases.map(function (c) {
     var eventName = "Req: readLoans (invalid - " + c.label + "): " + userId + "/" + bookId;
     var parameters = { userId: c.parameters.userId, bookId: c.parameters.bookId, description: eventName };
-    return bp.Event(eventName, { action: "readLoans", type: "invalid", parameters: parameters });
-  });
+    return { name: eventName, parameters: parameters, expectedResponseCodes: [400] };
+  }));
 
   while (true) {
-    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
-    if (selectedEvent.name === validEvent.name) {
-      // Verification is executed against the SUT dataset by reading the loans list and searching for this composite id.
-      verifySutListContains("loans", "/loans", { userId: asString(userId), bookId: asString(bookId), description: verifyExistsDescription("Loan", userId + "/" + bookId, "loans") }, function (item) {
-        return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId;
-      }, "Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
+    var valid = false;
+    var response = svc.getOneOf("/loans", variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) {
+      if (response === undefined || response === null || response.lib === "REST" || response.method !== undefined) return;
+      if (response.data && (response.data.lib === "REST" || response.data.method !== undefined)) return;
+      var listData = typeof response === "string" ? JSON.parse(response) : response;
+      if (!Array.isArray(listData) && listData && typeof listData.body === "string") listData = JSON.parse(listData.body);
+      if (!Array.isArray(listData) && listData && Array.isArray(listData.data)) listData = listData.data;
+      if (!Array.isArray(listData) || !listData.some(function (item) { return item && asInteger(item.userId) === userId && asInteger(item.bookId) === bookId; })) {
+        pvg.fail("Loan " + userId + "/" + bookId + " was not found in the SUT loans list");
+      }
       return;
-    } else {
-      svc.get("/loans", { parameters: selectedEvent.data.parameters, expectedResponseCodes: [400] });
     }
   }
 }
@@ -814,11 +773,12 @@ function createUser(id, name) {
   id = asInteger(id);
   name = asString(name);
 
-  var validEvents = [
-    bp.Event("Req: createUser (valid-standard): " + id, { action: "createUser", type: "valid", body: { id: id, name: name } }),
-    bp.Event("Req: createUser (valid-spaced-name): " + id, { action: "createUser", type: "valid", body: { id: id, name: " " + name } }),
-    bp.Event("Req: createUser (valid-string-id): " + id, { action: "createUser", type: "valid", body: { id: String(id), name: name } }),
-    bp.Event("Req: createUser (valid-swapped-order): " + id, { action: "createUser", type: "valid", body: { name: name, id: id } })
+  var reqDescription = createDescription("User", id);
+  var variants = [
+    { name: "createUser (valid-standard): " + id, body: { id: id, name: name }, expectedResponseCodes: [201], parameters: { description: reqDescription }, valid: true },
+    { name: "createUser (valid-spaced-name): " + id, body: { id: id, name: " " + name }, expectedResponseCodes: [201], parameters: { description: reqDescription }, valid: true },
+    { name: "createUser (valid-string-id): " + id, body: { id: String(id), name: name }, expectedResponseCodes: [201], parameters: { description: reqDescription }, valid: true },
+    { name: "createUser (valid-swapped-order): " + id, body: { name: name, id: id }, expectedResponseCodes: [201], parameters: { description: reqDescription }, valid: true }
   ];
 
   var invalidCases = [
@@ -836,22 +796,14 @@ function createUser(id, name) {
     { label: "id is object", body: { "id": { "val": id }, "name": name } }
   ];
 
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: createUser (invalid - " + c.label + "): " + id, { action: "createUser", type: "invalid", body: c.body });
-  });
+  variants = variants.concat(invalidCases.map(function(c) {
+    return { name: "createUser (invalid - " + c.label + "): " + id, body: c.body, expectedResponseCodes: [400] };
+  }));
 
   while (true) {
-    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
-    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
-    if (isValid) {
-      var url = "/users";
-      var reqDescription = createDescription("User", id);
-      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [201], parameters: { description: reqDescription } });
-      return response;
-    } else {
-      var url = "/users";
-      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.postOneOf("/users", variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
@@ -897,28 +849,16 @@ function tryToCreateUserWithBadParametersAndExpectError(id, expectedCode) {
 function deleteUser(id) {
   id = asInteger(id);
 
-  var validEvent = bp.Event("Req: deleteUser (valid): " + id, { action: "deleteUser", type: "valid", url: "/users/" + id });
-
-  var invalidCases = [
-    { label: "bad-id", url: "/users/bad-id" },
-    { label: "zero", url: "/users/0" },
-    { label: "negative", url: "/users/-1" }
+  var variants = [
+    { name: "deleteUser (valid): " + id, url: "/users/" + id, expectedResponseCodes: [200], parameters: { description: deleteDescription("User", id), id: id }, valid: true },
+    { name: "deleteUser (invalid - bad-id): " + id, url: "/users/bad-id", expectedResponseCodes: [400] },
+    { name: "deleteUser (invalid - zero): " + id, url: "/users/0", expectedResponseCodes: [400] },
+    { name: "deleteUser (invalid - negative): " + id, url: "/users/-1", expectedResponseCodes: [400] }
   ];
-
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: deleteUser (invalid - " + c.label + "): " + id, { action: "deleteUser", type: "invalid", url: c.url });
-  });
-
   while (true) {
-    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
-    if (selectedEvent.name === validEvent.name) {
-      var url = "/users/" + id;
-      var reqDescription = deleteDescription("User", id);
-      var response = svc.delete(url, { parameters: { description: reqDescription, id: id }, expectedResponseCodes: [200] });
-      return response;
-    } else {
-      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.deleteOneOf("/users/" + id, variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
@@ -999,10 +939,12 @@ function createHold(bookId, id, userId, expectedCode, description) {
   id = asInteger(id);
   userId = asInteger(userId);
 
-  var validEvents = [
-    bp.Event("Req: createHold (valid-standard): " + id, { action: "createHold", type: "valid", body: { id: id, userId: userId, bookId: bookId } }),
-    bp.Event("Req: createHold (valid-string-id): " + id, { action: "createHold", type: "valid", body: { id: String(id), userId: userId, bookId: bookId } }),
-    bp.Event("Req: createHold (valid-swapped-order): " + id, { action: "createHold", type: "valid", body: { bookId: bookId, id: id, userId: userId } })
+  var reqDescription = description || (createDescription("Hold", id) + " for User " + userId + " and Book " + bookId);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
+  var variants = [
+    { name: "createHold (valid-standard): " + id, body: { id: id, userId: userId, bookId: bookId }, expectedResponseCodes: [expectedCode], parameters: { description: reqDescription }, valid: true },
+    { name: "createHold (valid-string-id): " + id, body: { id: String(id), userId: userId, bookId: bookId }, expectedResponseCodes: [expectedCode], parameters: { description: reqDescription }, valid: true },
+    { name: "createHold (valid-swapped-order): " + id, body: { bookId: bookId, id: id, userId: userId }, expectedResponseCodes: [expectedCode], parameters: { description: reqDescription }, valid: true }
   ];
 
   var invalidCases = [
@@ -1028,23 +970,14 @@ function createHold(bookId, id, userId, expectedCode, description) {
     { name: "bookId is object", body: { "id": id, "userId": userId, "bookId": { "val": bookId } } }
   ];
 
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: createHold (invalid - " + c.name + "): " + id, { action: "createHold", type: "invalid", body: c.body });
-  });
+  variants = variants.concat(invalidCases.map(function(c) {
+    return { name: "createHold (invalid - " + c.name + "): " + id, body: c.body, expectedResponseCodes: [400] };
+  }));
 
   while (true) {
-    var selectedEvent = bp.sync({ request: validEvents.concat(invalidEvents) });
-    var isValid = validEvents.some(function(ev) { return ev.name === selectedEvent.name; });
-    if (isValid) {
-      var url = "/holds";
-      var reqDescription = description || (createDescription("Hold", id) + " for User " + userId + " and Book " + bookId);
-      expectedCode = expectedCode === undefined || expectedCode === null ? 201 : asInteger(expectedCode);
-      var response = svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [expectedCode], parameters: { description: reqDescription } });
-      return response;
-    } else {
-      var url = "/holds";
-      svc.post(url, { body: JSON.stringify(selectedEvent.data.body), expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.postOneOf("/holds", variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
@@ -1101,32 +1034,22 @@ function deleteHold(id, expectedCode, userId, bookId) {
   userId = userId === undefined || userId === null ? null : asInteger(userId);
   bookId = bookId === undefined || bookId === null ? null : asInteger(bookId);
 
-  var validEvent = bp.Event("Req: deleteHold (valid): " + id, { action: "deleteHold", type: "valid", url: "/holds/" + id });
-
-  var invalidCases = [
-    { label: "bad-id", url: "/holds/bad-id" },
-    { label: "zero", url: "/holds/0" },
-    { label: "negative", url: "/holds/-1" }
+  var reqDescription = deleteDescription("Hold", id, userId === null || bookId === null ? "" : "for User " + userId + " and Book " + bookId);
+  expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
+  var parameters = { description: reqDescription, id: id };
+  if (userId !== null) parameters.userId = userId;
+  if (bookId !== null) parameters.bookId = bookId;
+  var variants = [
+    { name: "deleteHold (valid): " + id, url: "/holds/" + id, expectedResponseCodes: [expectedCode], parameters: parameters, valid: true },
+    { name: "deleteHold (invalid - bad-id): " + id, url: "/holds/bad-id", expectedResponseCodes: [400] },
+    { name: "deleteHold (invalid - zero): " + id, url: "/holds/0", expectedResponseCodes: [400] },
+    { name: "deleteHold (invalid - negative): " + id, url: "/holds/-1", expectedResponseCodes: [400] }
   ];
 
-  var invalidEvents = invalidCases.map(function(c) {
-    return bp.Event("Req: deleteHold (invalid - " + c.label + "): " + id, { action: "deleteHold", type: "invalid", url: c.url });
-  });
-
   while (true) {
-    var selectedEvent = bp.sync({ request: [validEvent].concat(invalidEvents) });
-    if (selectedEvent.name === validEvent.name) {
-      var url = "/holds/" + id;
-      var reqDescription = deleteDescription("Hold", id, userId === null || bookId === null ? "" : "for User " + userId + " and Book " + bookId);
-      expectedCode = expectedCode === undefined || expectedCode === null ? 200 : asInteger(expectedCode);
-      let parameters = { description: reqDescription, id: id };
-      if (userId !== null) parameters.userId = userId;
-      if (bookId !== null) parameters.bookId = bookId;
-      var response = svc.delete(url, { parameters: parameters, expectedResponseCodes: [expectedCode] });
-      return response;
-    } else {
-      svc.delete(selectedEvent.data.url, { expectedResponseCodes: [400], parameters: { description: selectedEvent.name } });
-    }
+    var valid = false;
+    var response = svc.deleteOneOf("/holds/" + id, variants, function (chosen) { valid = chosen.valid === true; });
+    if (valid) return response;
   }
 }
 
